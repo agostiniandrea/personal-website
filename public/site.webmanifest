@@ -1,0 +1,11 @@
+{
+  "name": "Il nostro blog",
+  "short_name": "ILB",
+  "description": "Il nostro blog is here.",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "icons": []
+}
