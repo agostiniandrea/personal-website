@@ -1,6 +1,6 @@
 {
   "name": "ilnostroblog",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,10 +14,10 @@
     "@types/react-dom": "18.2.14",
     "contentful": "^10.6.5",
     "dotenv": "16.3.1",
-    "next": "13.4.19",
+    "next": "^14.0.0",
     "next-seo": "^6.4.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-is": "18.2.0",
     "styled-components": "^6.0.7",
     "typescript": "5.2.2"
@@ -28,7 +28,7 @@
     "@testing-library/react": "^14.0.0",
     "cypress": "^13.3.3",
     "eslint": "^8.52.0",
-    "eslint-config-next": "^13.4.19"
+    "eslint-config-next": "^14.0.0"
   },
   "resolutions": {
     "styled-components": "^5"
