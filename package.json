@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.5.7",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "contentful": "^10.5.1",
+    "@types/node": "20.8.9",
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
+    "contentful": "^10.6.5",
     "dotenv": "16.3.1",
     "next": "13.4.19",
-    "next-seo": "^6.1.0",
+    "next-seo": "^6.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-is": "18.2.0",
@@ -23,11 +23,11 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@cypress/request": "^3.0.0",
-    "@testing-library/jest-dom": "^6.1.2",
+    "@cypress/request": "^3.0.1",
+    "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
-    "cypress": "^13.0.0",
-    "eslint": "^8.48.0",
+    "cypress": "^13.3.3",
+    "eslint": "^8.52.0",
     "eslint-config-next": "^13.4.19"
   },
   "resolutions": {
