@@ -9,7 +9,7 @@ export default function Document() {
         process.env.VERCEL_ENV === "preview") && (
         // eslint-disable-next-line @next/next/no-sync-scripts
         <Script
-          data-project-id="nQRPdOs7NUqDn1tx9wlwGak83ZWoKztKCLvqOuMj"
+          data-project-id={process.env.METICULOUS_ACCESS_TOKEN}
           data-is-production-environment="false"
           src="https://snippet.meticulous.ai/v1/meticulous.js"
         />
