@@ -1,18 +1,30 @@
-import React from "react";
 import { ThemeProvider } from "styled-components";
 
-const theme = {
-  colors: {
-    powderWhite: "#FFFDF9",
-    persianGreen: "#06B49A",
-    lightBlue: "#AFDBD2",
-    onyx: "#36313D",
-  },
-  fonts: ["sans-serif", "Roboto"],
-  fontSizes: {
-    small: "1em",
-    medium: "2em",
-    large: "3em",
+import { button, link } from "./componentThemes";
+
+import {
+  colors,
+  fontFamilies,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+  radii,
+  space,
+  typography,
+} from "./customizations";
+
+export const theme = {
+  colors,
+  fontFamilies,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+  radii,
+  space,
+  typography,
+  components: {
+    button,
+    link,
   },
 };
 
