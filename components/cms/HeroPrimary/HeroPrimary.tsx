@@ -1,5 +1,11 @@
 import { Container } from "@components/ions";
+import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  color: ${(props: any) => props.theme.colors.secondary};
+`;
 
 export interface HeroPrimaryProps {
   heading: string;
@@ -8,23 +14,29 @@ export interface HeroPrimaryProps {
 }
 
 const HeroPrimary: React.FC<HeroPrimaryProps> = ({
-  /* heading, */
+  heading,
   image,
-  /* description, */
+  description,
 }) => {
+  const { isMobile } = useMedia();
+
   return (
-    <Container>
-      <div
-        style={{
-          background: "red",
-          height: "600px",
-          position: "relative",
-          width: "100%",
-        }}
-      >
-        <Image alt={image.alt} src={image.url} fill />
+    <StyledDiv
+      style={{
+        background: "gray",
+        height: isMobile ? "400px" : "600px",
+        position: "relative",
+        width: "100%",
+      }}
+    >
+      <Image alt={image.alt} priority src={image.url} fill />
+      <div style={{ position: "absolute", bottom: 0 }}>
+        <Container>
+          <h1>{heading}</h1>
+          <p>{description}</p>
+        </Container>
       </div>
-    </Container>
+    </StyledDiv>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HeroPrimary } from "@components/cms";
+import { FeaturePrimary, HeroPrimary } from "@components/cms";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms/getPageContent";
 
@@ -79,6 +79,8 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
   const propsComponent = cleanProps(fields);
 
   switch (type) {
+    case MODULES.FEATURE_PRIMARY:
+      return <FeaturePrimary {...propsComponent} />;
     case MODULES.HERO_PRIMARY:
       return <HeroPrimary {...propsComponent} />;
     default:
