@@ -30,12 +30,12 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
       }}
     >
       <Image alt={image.alt} priority src={image.url} fill />
-      <div style={{ position: "absolute", bottom: 0 }}>
-        <Container>
-          <h1>{heading}</h1>
-          <p>{description}</p>
-        </Container>
-      </div>
+      {/* <div style={{ position: "absolute", bottom: 0 }}> */}
+      <Container>
+        <h1>{heading}</h1>
+        <p>{description}</p>
+      </Container>
+      {/* </div> */}
     </StyledDiv>
   );
 };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   background: ${(props: any) => props.theme.colors.background};
+  border-top: 3px solid ${(props: any) => props.theme.colors.secondary};
   color: ${(props: any) => props.theme.colors.secondary};
 `;
 
@@ -15,7 +16,7 @@ export interface FooterProps {
 const Footer: React.FC<FooterProps> = () => {
   return (
     <StyledFooter>
-      <Container>
+      <Container verticalPadding>
         <p>© Il nostro blog  2023</p>
       </Container>
     </StyledFooter>

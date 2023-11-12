@@ -1,7 +1,17 @@
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import styled from "styled-components";
+import { Interpolation } from "styled-components/dist/types";
 
-const StyledLink = styled.a`
+export interface LinkProps extends NextLinkProps {
+  children: React.ReactNode;
+  styles?: Interpolation<React.CSSProperties>;
+}
+
+interface StyledLinkProps {
+  styles?: LinkProps["styles"];
+}
+
+const StyledLink = styled.a<StyledLinkProps>`
   color: ${(props: any) => props.theme.colors.secondary};
   text-decoration: none;
 
@@ -9,11 +19,9 @@ const StyledLink = styled.a`
     color: ${(props: any) => props.theme.colors.secondary};
     text-decoration: none;
   }
-`;
 
-export interface LinkProps extends NextLinkProps {
-  children: React.ReactNode;
-}
+  ${({ styles }) => styles}
+`;
 
 const Link: React.FC<LinkProps> = ({ href, ...props }) => {
   return (

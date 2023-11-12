@@ -11,7 +11,7 @@ type THomepage = {
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<THomepage>
 > {
-  const page = await getPageContent("pageLanding");
+  const page = await getPageContent("pageLanding", "");
 
   return {
     props: {
