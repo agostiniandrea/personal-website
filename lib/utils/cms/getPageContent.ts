@@ -25,34 +25,36 @@ export type TPageModule = {
   fields: any[];
 };
 
-const getPageContent = async (content_type: string): Promise<any> => {
+const getPageContent = async (
+  content_type: string,
+  path: string
+): Promise<any> => {
   const content = (await client
     .getEntries({
       content_type,
+      ...(content_type !== "pageLanding" && { "fields.uid": path }),
       /* select: "fields", */
       limit: 1,
       include: 3, // update for more depth
     })
     .then((response) => {
-      return response.items;
-    })) as TPageContent[];
+      return response.items[0];
+    })) as TPageContent;
 
-  return getPageFields(content)[0];
+  return getPageFields(content);
 };
 
-const getPageFields = (entries: TPageContent[]) => {
-  return entries.map((entry) => {
-    const { modules, ...restProps } = entry.fields;
-    return {
-      ...restProps,
-      modules: modules.map((module) => {
-        return {
-          type: module.sys.contentType.sys.id,
-          fields: module.fields,
-        } as TPageModule;
-      }),
-    };
-  });
+const getPageFields = (entry: TPageContent) => {
+  const { modules = [], ...restProps } = entry.fields;
+  return {
+    ...restProps,
+    modules: modules.map((module) => {
+      return {
+        type: module.sys.contentType.sys.id,
+        fields: module.fields,
+      } as TPageModule;
+    }),
+  };
 };
 
 export default getPageContent;

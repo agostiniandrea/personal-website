@@ -1,4 +1,9 @@
 declare global {
+  type CtaProps = {
+    name: string;
+    label: string;
+    url: string;
+  }
   type ImageProps = {
     alt: string;
     height: number;

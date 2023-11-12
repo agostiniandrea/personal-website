@@ -1,18 +1,12 @@
 import { Container } from "@components/ions";
-import Link from "@components/ions/Link";
+import { HeadingBox } from "@components/molecules";
 import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
 import styled from "styled-components";
 
-const StyledDiv = styled.div`
-  color: ${(props: any) => props.theme.colors.secondary};
+const StyledSection = styled.section`
+  color: ${(props: any) => props.theme.colors.background};
 `;
-
-interface CtaProps {
-  name: string;
-  label: string;
-  url: string;
-}
 
 export interface FeaturePrimaryProps {
   cta?: CtaProps;
@@ -23,18 +17,15 @@ export interface FeaturePrimaryProps {
 }
 
 const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
-  cta,
-  heading,
   image,
-  description,
-  preHeading,
+  ...restProps
 }) => {
   const { isMobile } = useMedia();
 
   return (
-    <Container>
-      <StyledDiv style={{ position: "relative" }}>
-        <div
+    <Container verticalPadding>
+      <StyledSection style={{ position: "relative" }}>
+        <section
           style={{
             background: "gray",
             height: isMobile ? "400px" : "600px",
@@ -43,16 +34,11 @@ const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
           }}
         >
           <Image alt={image.alt} priority src={image.url} fill />
-        </div>
-        <div style={{ position: "absolute", bottom: "0" }}>
-          <Container>
-            <p>{preHeading}</p>
-            <h2>{heading}</h2>
-            <div>{description}</div>
-            {cta && <Link href={cta.url}>{cta.label}</Link>}
-          </Container>
-        </div>
-      </StyledDiv>
+        </section>
+        <section style={{ position: "absolute", bottom: "24px" }}>
+          <HeadingBox {...restProps} />
+        </section>
+      </StyledSection>
     </Container>
   );
 };

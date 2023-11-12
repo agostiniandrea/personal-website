@@ -38,6 +38,19 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     scroll-behavior: smooth;
   }
+
+  p, ul, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  ul {
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;
