@@ -2,7 +2,7 @@ import { Container, Link } from "@components/ions";
 import { useMedia } from "@lib/utils/useMedia";
 import styled from "styled-components";
 
-const StyledHeader = styled.footer`
+const StyledHeader = styled.header`
   background: ${(props: any) => props.theme.colors.background};
   color: ${(props: any) => props.theme.colors.secondary};
   font-size: ${(props: any) => props.theme.fontSizes.body};
@@ -13,7 +13,7 @@ export interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
   const { isMobile } = useMedia();
   return (
-    <StyledHeader style={{ height: isMobile ? "40px" : "60px" }}>
+    <StyledHeader style={{ height: isMobile ? "50px" : "100px" }}>
       <nav style={{ height: "100%", width: "100%" }}>
         <Container styles={{ height: "100%" }}>
           {isMobile ? (
@@ -22,6 +22,7 @@ const Header: React.FC<HeaderProps> = () => {
                 style={{
                   letterSpacing: "0.03em",
                   fontWeight: "bold",
+                  fontSize: "30px",
                   margin: 0,
                 }}
               >

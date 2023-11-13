@@ -13,6 +13,7 @@ interface StyledLinkProps {
 
 const StyledLink = styled.a<StyledLinkProps>`
   color: ${(props: any) => props.theme.colors.secondary};
+  font-size: ${(props: any) => props.theme.fontSizes.font2};
   text-decoration: none;
 
   &:visited {

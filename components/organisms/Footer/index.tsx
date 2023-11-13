@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = () => {
   return (
     <StyledFooter>
       <Container verticalPadding>
-        <p>© Il nostro blog  2023</p>
+        <p> 2023 © Il nostro blog </p>
       </Container>
     </StyledFooter>
   );

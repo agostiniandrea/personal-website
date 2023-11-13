@@ -1,7 +1,6 @@
 export const fontFamilies: any = {
-  default: "'Open Sans'",
-  heading: "'Montserrat'",
-  numbers: "'Lato'",
+  default: "'Rainier'",
+  heading: "'Rainier'",
 };
 
 export const fontSizes = {
