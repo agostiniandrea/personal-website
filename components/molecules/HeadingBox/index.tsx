@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
 const linearGradient =
-  "linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%)";
+  "linear-gradient(90deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.03) 100%)";
 
 export interface HeadingBoxProps {
   cta?: CtaProps;
@@ -65,7 +65,7 @@ const HeadingBox: React.FC<HeadingBoxProps> = ({
               background: themeContext?.colors.button,
               color: themeContext?.colors.button_text,
               fontWeight: themeContext?.fontWeights.bold,
-              padding: themeContext?.space.lg,
+              padding: themeContext?.space.md,
               textDecoration: "none",
               width: "fit-content",
             }}

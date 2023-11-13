@@ -1,4 +1,7 @@
 import { Container } from "@components/ions";
+import { useMedia } from "@lib/utils/useMedia";
+import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
@@ -14,10 +17,48 @@ export interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = () => {
+  const { isMobile } = useMedia();
   return (
     <StyledFooter>
       <Container verticalPadding>
-        <p> 2023 © Il nostro blog </p>
+        <section
+          style={{
+            height: "30px",
+            textAlign: "center",
+            display: "flex",
+            marginLeft: "auto",
+            marginRight: "auto",
+            gap: "15px",
+          }}
+        >
+          <Link
+            href="https://www.instagram.com/alice.diantonio/"
+            target="_blank"
+          >
+            <Image
+              alt="Instagram"
+              src="/assets/icons/instagram.svg"
+              height="30"
+              width="30"
+            />
+          </Link>
+          <Link href="https://www.tiktok.com/@alicediantonio" target="_blank">
+            <Image
+              alt="TikTok"
+              src="/assets/icons/tiktok.svg"
+              height="30"
+              width="30"
+            />
+          </Link>
+        </section>
+        <p
+          style={{
+            paddingTop: isMobile ? "60px" : "30px",
+            textAlign: "center",
+          }}
+        >
+          2023 © Il sito di Alice Di Antonio
+        </p>
       </Container>
     </StyledFooter>
   );

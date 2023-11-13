@@ -13,11 +13,11 @@ export interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
   const { isMobile } = useMedia();
   return (
-    <StyledHeader style={{ height: isMobile ? "50px" : "100px" }}>
+    <StyledHeader style={{ height: isMobile ? "60px" : "120px" }}>
       <nav style={{ height: "100%", width: "100%" }}>
         <Container styles={{ height: "100%" }}>
           {isMobile ? (
-            <div style={{ padding: "10px 0" }}>
+            <div style={{ padding: "18px 0" }}>
               <p
                 style={{
                   letterSpacing: "0.03em",
@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = () => {
                   margin: 0,
                 }}
               >
-                Il nostro blog
+                Alice Di Antonio
               </p>
             </div>
           ) : (
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = () => {
                   marginTop: "auto",
                 }}
               >
-                <Link href="/">Il nostro blog</Link>
+                <Link href="/">Alice Di Antonio</Link>
               </li>
               <li
                 style={{
@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = () => {
                   marginTop: "auto",
                 }}
               >
-                <Link href="/reykjavik">Reykjavík</Link>
+                <Link href="/portfolio">Portfolio</Link>
               </li>
               <li
                 style={{
@@ -61,7 +61,7 @@ const Header: React.FC<HeaderProps> = () => {
                   marginTop: "auto",
                 }}
               >
-                <Link href="/skogafoss">Skógafoss</Link>
+                <Link href="/viaggi">Viaggi</Link>
               </li>
               <li
                 style={{
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = () => {
                   marginTop: "auto",
                 }}
               >
-                <Link href="/thingvellir">Þingvellir</Link>
+                <Link href="/chi-sono">Chi sono</Link>
               </li>
             </ul>
           )}
