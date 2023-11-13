@@ -1,7 +1,7 @@
 import { Seo } from "@components/atoms";
 import { Footer, Header, ModuleRenderer } from "@components/organisms";
-import getPageContent, { TPageFields } from "@lib/utils/cms/getPageContent";
-import PAGES from "constants/pages";
+import { TPageFields, getPageContent } from "@lib/utils/cms";
+import PAGE_TYPES from "constants/pageTypes";
 import { GetStaticPropsResult } from "next";
 
 type THomepage = {
@@ -11,7 +11,7 @@ type THomepage = {
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<THomepage>
 > {
-  const page = await getPageContent("pageLanding", "");
+  const page = await getPageContent(PAGE_TYPES.HOME, "");
 
   return {
     props: {
@@ -26,7 +26,7 @@ export default function Home({ page }: THomepage) {
     <>
       <Seo seoDescription={page.seoDescription} seoTitle={page.seoTitle} />
       <Header />
-      <ModuleRenderer components={page.modules} pageOrigin={PAGES.HOME} />
+      <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
       <Footer />
     </>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 import { FeaturePrimary, HeroPrimary } from "@components/cms";
 import { MODULES } from "@constants";
-import { TPageModule } from "@lib/utils/cms/getPageContent";
+import { TPageModule } from "@lib/utils/cms";
 
 type DefaultModuleProps = {
   data: any;

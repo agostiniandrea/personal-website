@@ -1,3 +1,4 @@
+import { PAGE_TYPES } from "@constants";
 import { createClient } from "contentful";
 
 const space = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string;
@@ -25,14 +26,35 @@ export type TPageModule = {
   fields: any[];
 };
 
-const getPageContent = async (
+export type TPath = {
+  slug: string;
+};
+
+export const getPaths = async (content_type: string): Promise<TPath[]> => {
+  const content = (await client
+    .getEntries({
+      content_type,
+      include: 3,
+    })
+    .then((response) => {
+      return response.items;
+    })) as TPageContent[];
+
+  return getSlugs(content);
+};
+
+const getSlugs = (entries: TPageContent[]): TPath[] => {
+  return entries.map((x) => ({ slug: x.fields.uid }));
+};
+
+export const getPageContent = async (
   content_type: string,
   path: string
 ): Promise<any> => {
   const content = (await client
     .getEntries({
       content_type,
-      ...(content_type !== "pageLanding" && { "fields.uid": path }),
+      ...(content_type !== PAGE_TYPES.HOME && { "fields.uid": path }),
       /* select: "fields", */
       limit: 1,
       include: 3, // update for more depth
@@ -56,5 +78,3 @@ const getPageFields = (entry: TPageContent) => {
     }),
   };
 };
-
-export default getPageContent;
