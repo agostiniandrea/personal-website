@@ -1,9 +1,8 @@
 import { Seo } from "@components/atoms";
 import { Container } from "@components/ions";
 import { Footer, Header, ModuleRenderer } from "@components/organisms";
-import getPageContent, { TPageFields } from "@lib/utils/cms/getPageContent";
-import getPaths from "@lib/utils/cms/getPaths";
-import PAGES from "constants/pages";
+import { TPageFields, getPageContent, getPaths } from "@lib/utils/cms";
+import PAGE_TYPES from "constants/pageTypes";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 
 type TPage = {
@@ -17,7 +16,7 @@ export async function getStaticProps(
 
   const path = params?.slug || "";
 
-  const page = await getPageContent(PAGES.PAGE_DETAIL, path);
+  const page = await getPageContent(PAGE_TYPES.PAGE_DETAIL, path);
 
   return {
     props: {
@@ -28,7 +27,7 @@ export async function getStaticProps(
 }
 
 export const getStaticPaths = async () => {
-  const slugs = await getPaths(PAGES.PAGE_DETAIL);
+  const slugs = await getPaths(PAGE_TYPES.PAGE_DETAIL);
 
   const paths = slugs.map((x) => {
     return {

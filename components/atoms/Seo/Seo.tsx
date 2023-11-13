@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import { TPageFields } from "@lib/utils/cms/getPageContent";
+import { TPageFields } from "@lib/utils/cms";
 import { NextSeo } from "next-seo";
 
 type SeoProps = Omit<TPageFields, "modules" | "name" | "uid">;
