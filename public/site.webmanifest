@@ -1,7 +1,7 @@
 {
-  "name": "Il nostro blog",
-  "short_name": "ILB",
-  "description": "Il nostro blog is here.",
+  "name": "Alice Di Antonio",
+  "short_name": "ADA",
+  "description": "Il sito di Alice Di Antonio",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#ffffff",
