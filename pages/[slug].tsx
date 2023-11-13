@@ -18,6 +18,13 @@ export async function getStaticProps(
 
   const page = await getPageContent(PAGE_TYPES.PAGE_DETAIL, path);
 
+  if (!page) {
+    return {
+      // returns the default 404 page with a status code of 404
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       page,
@@ -47,7 +54,7 @@ export default function Pages({ page }: TPage) {
   return (
     <>
       <Seo seoDescription={page?.seoDescription} seoTitle={page?.seoTitle} />
-      <Header />
+      <Header/>
       <Container verticalPadding>
         <section>
           <h2>What is Lorem Ipsum?</h2>

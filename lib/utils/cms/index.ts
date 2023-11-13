@@ -63,7 +63,7 @@ export const getPageContent = async (
       return response.items[0];
     })) as TPageContent;
 
-  return getPageFields(content);
+  return content ? getPageFields(content) : null;
 };
 
 const getPageFields = (entry: TPageContent) => {

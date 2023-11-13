@@ -1,19 +1,27 @@
 import { Container, Link } from "@components/ions";
 import { useMedia } from "@lib/utils/useMedia";
 import styled from "styled-components";
+import { Interpolation } from "styled-components/dist/types";
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<HeaderProps>`
   background: ${(props: any) => props.theme.colors.background};
   color: ${(props: any) => props.theme.colors.secondary};
   font-size: ${(props: any) => props.theme.fontSizes.body};
+
+  ${({ styles }) => styles}
 `;
 
-export interface HeaderProps {}
+export interface HeaderProps {
+  styles?: Interpolation<React.CSSProperties>;
+}
 
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = ({ styles }) => {
   const { isMobile } = useMedia();
   return (
-    <StyledHeader style={{ height: isMobile ? "60px" : "120px" }}>
+    <StyledHeader
+      style={{ height: isMobile ? "60px" : "120px" }}
+      styles={styles}
+    >
       <nav style={{ height: "100%", width: "100%" }}>
         <Container styles={{ height: "100%" }}>
           {isMobile ? (

@@ -14,9 +14,9 @@ export interface HeroPrimaryProps {
 }
 
 const HeroPrimary: React.FC<HeroPrimaryProps> = ({
-  heading,
+  /* heading, */
   image,
-  description,
+  /* description, */
 }) => {
   const { isMobile } = useMedia();
 
@@ -32,8 +32,8 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
       <Image alt={image.alt} priority src={image.url} fill />
       {/* <div style={{ position: "absolute", bottom: 0 }}> */}
       <Container>
-        <h1>{heading}</h1>
-        <p>{description}</p>
+        {/* <h1>{heading}</h1> */}
+        {/* <p>{description}</p> */}
       </Container>
       {/* </div> */}
     </StyledDiv>

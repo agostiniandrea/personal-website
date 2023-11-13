@@ -6,7 +6,8 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   background: ${(props: any) => props.theme.colors.background};
-  border-top: 3px solid ${(props: any) => props.theme.colors.secondary};
+  box-shadow: 0px 3px 0px 0px ${(props: any) => props.theme.colors.secondary}
+    inset;
   color: ${(props: any) => props.theme.colors.secondary};
 `;
 
