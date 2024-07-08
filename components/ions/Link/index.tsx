@@ -1,5 +1,6 @@
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import styled, { Interpolation } from "styled-components";
+import styled from "styled-components";
+import { Interpolation } from "styled-components/dist/types";
 
 export interface LinkProps extends NextLinkProps {
   children: React.ReactNode;
