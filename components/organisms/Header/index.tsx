@@ -1,7 +1,6 @@
 import { Container, Link } from "@components/ions";
 import { useMedia } from "@lib/utils/useMedia";
-import styled from "styled-components";
-import { Interpolation } from "styled-components/dist/types";
+import styled, { Interpolation } from "styled-components";
 
 const StyledHeader = styled.header<HeaderProps>`
   background: ${(props: any) => props.theme.colors.background};
