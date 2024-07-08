@@ -1,8 +1,7 @@
 import { Container } from "@components/ions";
 import Link from "@components/ions/Link";
+import { theme } from "@config/theme";
 import { useMedia } from "@lib/utils/useMedia";
-import { useContext } from "react";
-import { ThemeContext } from "styled-components";
 
 const linearGradient =
   "linear-gradient(90deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.03) 100%)";
@@ -20,8 +19,6 @@ const HeadingBox: React.FC<HeadingBoxProps> = ({
   description,
   preHeading,
 }) => {
-  const themeContext = useContext(ThemeContext);
-
   const { isDesktop } = useMedia();
 
   return (
@@ -61,11 +58,11 @@ const HeadingBox: React.FC<HeadingBoxProps> = ({
           <Link
             href={cta.url}
             styles={{
-              borderRadius: themeContext?.radii.xs,
-              background: themeContext?.colors.button,
-              color: themeContext?.colors.button_text,
-              fontWeight: themeContext?.fontWeights.bold,
-              padding: themeContext?.space.md,
+              borderRadius: theme.radii.xs,
+              background: theme.colors.button,
+              color: theme.colors.button_text,
+              fontWeight: theme.fontWeights.bold,
+              padding: theme.space.md,
               textDecoration: "none",
               width: "fit-content",
             }}
