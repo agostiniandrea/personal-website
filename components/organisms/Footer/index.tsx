@@ -58,7 +58,7 @@ const Footer: React.FC<FooterProps> = () => {
             textAlign: "center",
           }}
         >
-          2023 © Il sito di Alice Di Antonio
+          {new Date().getFullYear()} © Il sito di Alice Di Antonio
         </p>
       </Container>
     </StyledFooter>
