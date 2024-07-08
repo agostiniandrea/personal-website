@@ -1,5 +1,4 @@
-import { styled } from "styled-components";
-import { Interpolation } from "styled-components/dist/types";
+import styled, { Interpolation } from "styled-components";
 
 interface ContainerProps {
   children: React.ReactNode;
