@@ -5,7 +5,6 @@ import { Interpolation } from "styled-components/dist/types";
 export interface LinkProps extends NextLinkProps {
   children: React.ReactNode;
   styles?: Interpolation<React.CSSProperties>;
-  target?: HTMLLinkElement["target"];
 }
 
 interface StyledLinkProps {
@@ -25,10 +24,10 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${({ styles }) => styles}
 `;
 
-const Link: React.FC<LinkProps> = ({ href, target , styles}) => {
+const Link: React.FC<LinkProps> = ({ href, ...props }) => {
   return (
     <NextLink href={href} passHref legacyBehavior>
-      <StyledLink styles={styles} href={typeof href === 'string' ? href : ''} target={target} />
+      <StyledLink {...props} />
     </NextLink>
   );
 };
