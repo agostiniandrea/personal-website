@@ -1,4 +1,5 @@
 import { Container, Link } from "@components/ions";
+import { theme } from "@config/theme";
 import { useMedia } from "@lib/utils/useMedia";
 import styled, { Interpolation } from "styled-components";
 
@@ -21,13 +22,12 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
   const { isMobile } = useMedia();
   return (
     <StyledHeader
-      style={{ height: isMobile ? "60px" : "120px" }}
       styles={styles}
     >
       <nav style={{ height: "100%", width: "100%" }}>
         <Container styles={{ height: "100%" }}>
           {isMobile ? (
-            <div style={{ padding: "18px 0" }}>
+            <div style={{ padding:`${theme.space.lg} 0` }}>
               <p
                 style={{
                   letterSpacing: "0.03em",
@@ -44,8 +44,8 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               style={{
                 display: "flex",
                 gap: "20px",
-                height: "100%",
                 listStyle: "none",
+                padding: `${theme.space.lg} 0`
               }}
             >
               <li

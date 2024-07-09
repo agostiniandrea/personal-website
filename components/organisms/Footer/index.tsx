@@ -1,4 +1,5 @@
 import { Container } from "@components/ions";
+import { theme } from "@config/theme";
 import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,7 +55,7 @@ const Footer: React.FC<FooterProps> = () => {
         </section>
         <p
           style={{
-            paddingTop: isMobile ? "60px" : "30px",
+            paddingTop: isMobile ? theme.space.lg: theme.space.xxl,
             textAlign: "center",
           }}
         >
