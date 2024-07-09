@@ -13,7 +13,7 @@ const StyledSection = styled.section<ContainerProps>`
   min-height: auto;
   ${(props: any) =>
     props.verticalPadding &&
-    "padding-top: calc(47px); padding-bottom: calc(47px);"};
+    "padding-top: calc(1.5rem); padding-bottom: calc(1.5rem);"};
 
   width: 100%;
 
@@ -27,7 +27,7 @@ const StyledSection = styled.section<ContainerProps>`
     column-gap: calc(81px);
     ${(props: any) =>
       props.verticalPadding &&
-      "padding-top: calc(54px); padding-bottom: calc(54px);"};
+      "padding-top: calc(3rem); padding-bottom: calc(3rem);"};
   }
 
   @media (min-width: 900px) {
