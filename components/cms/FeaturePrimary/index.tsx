@@ -8,11 +8,33 @@ const StyledSection = styled.section`
   color: ${(props: any) => props.theme.colors.background};
 `;
 
+/**
+ * Represents the props for the FeaturePrimary component.
+ */
 export interface FeaturePrimaryProps {
+  /**
+   * The call-to-action props.
+   */
   cta?: CtaProps;
+  
+  /**
+   * The heading of the feature.
+   */
   heading: string | null;
+  
+  /**
+   * The image props for the feature.
+   */
   image: ImageProps;
+  
+  /**
+   * The description of the feature.
+   */
   description: string | null;
+  
+  /**
+   * The pre-heading of the feature.
+   */
   preHeading: string | null;
 }
 
@@ -33,7 +55,7 @@ const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
             width: "100%",
           }}
         >
-          <Image alt={image.alt} priority src={image.url} fill />
+          <Image alt={image.alt} src={image.url} fill style={{ objectFit: 'cover' }} />
         </section>
         <section style={{ position: "absolute", bottom: "24px" }}>
           <HeadingBox {...restProps} />
