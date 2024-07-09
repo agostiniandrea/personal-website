@@ -39,3 +39,4 @@ build-storybook.log
 
 # temporary
 /tmp
+.env*.local

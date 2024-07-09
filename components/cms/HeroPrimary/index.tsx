@@ -7,16 +7,30 @@ const StyledDiv = styled.div`
   color: ${(props: any) => props.theme.colors.secondary};
 `;
 
+/**
+ * Props for the HeroPrimary component.
+ */
 export interface HeroPrimaryProps {
+  /**
+   * The heading text for the hero.
+   */
   heading: string;
+
+  /**
+   * The image props for the hero.
+   */
   image: ImageProps;
+
+  /**
+   * The description text for the hero.
+   */
   description: string;
 }
 
 const HeroPrimary: React.FC<HeroPrimaryProps> = ({
-  /* heading, */
+  heading,
   image,
-  /* description, */
+  description,
 }) => {
   const { isMobile } = useMedia();
 
@@ -29,11 +43,11 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
         width: "100%",
       }}
     >
-      <Image alt={image.alt} priority src={image.url} fill />
+      <Image alt={image.alt} priority src={image.url} fill style={{ objectFit:'cover' }} />
       {/* <div style={{ position: "absolute", bottom: 0 }}> */}
       <Container>
-        {/* <h1>{heading}</h1> */}
-        {/* <p>{description}</p> */}
+        <h1>{heading}</h1>
+        <p>{description}</p>
       </Container>
       {/* </div> */}
     </StyledDiv>

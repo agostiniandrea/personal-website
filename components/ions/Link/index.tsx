@@ -1,17 +1,29 @@
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import styled from "styled-components";
-import { Interpolation } from "styled-components/dist/types";
+import styled, { Interpolation } from "styled-components";
 
+/**
+ * Props for the Link component.
+ */
 export interface LinkProps extends NextLinkProps {
+  /**
+   * The content of the Link component.
+   */
   children: React.ReactNode;
+  
+  /**
+   * Additional styles for the Link component.
+   */
   styles?: Interpolation<React.CSSProperties>;
 }
 
+/**
+ * Props for the StyledLink component.
+ */
 interface StyledLinkProps {
   styles?: LinkProps["styles"];
 }
 
-const StyledLink = styled.a<StyledLinkProps>`
+const StyledLink = styled(NextLink)<StyledLinkProps>`
   color: ${(props: any) => props.theme.colors.secondary};
   font-size: ${(props: any) => props.theme.fontSizes.font2};
   text-decoration: none;
@@ -24,11 +36,9 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${({ styles }) => styles}
 `;
 
-const Link: React.FC<LinkProps> = ({ href, ...props }) => {
+const Link: React.FC<LinkProps> = ({ href, styles,children }) => {
   return (
-    <NextLink href={href} passHref legacyBehavior>
-      <StyledLink {...props} />
-    </NextLink>
+    <StyledLink href={href} passHref styles={styles}>{children}</StyledLink>
   );
 };
 
