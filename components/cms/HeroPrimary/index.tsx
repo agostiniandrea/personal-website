@@ -38,7 +38,7 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
     <StyledDiv
       style={{
         background: "gray",
-        height: isMobile ? "400px" : "600px",
+        height: isMobile ? 'calc(100vh - 180px)' : 'calc(100vh - 245px)',
         position: "relative",
         width: "100%",
       }}
