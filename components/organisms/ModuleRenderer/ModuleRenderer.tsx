@@ -34,6 +34,11 @@ const DefaultModule: React.FC<DefaultModuleProps> = ({
   );
 };
 
+/**
+ * Cleans the props of a page module by filtering out the "name" field and transforming image data.
+ * @param fields - The fields of the page module.
+ * @returns The cleaned props object.
+ */
 export const cleanProps = (fields: TPageModule["fields"]) => {
   const keys = Object.keys(fields).filter((key) => key !== "name");
 

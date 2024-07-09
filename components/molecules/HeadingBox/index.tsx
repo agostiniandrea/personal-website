@@ -6,10 +6,25 @@ import { useMedia } from "@lib/utils/useMedia";
 const linearGradient =
   "linear-gradient(90deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.03) 100%)";
 
+/**
+ * Props for the HeadingBox component.
+ */
 export interface HeadingBoxProps {
+  /**
+   * The call-to-action component.
+   */
   cta?: CtaProps;
+  /**
+   * The heading text.
+   */
   heading: string | null;
+  /**
+   * The description text.
+   */
   description: string | null;
+  /**
+   * The pre-heading text.
+   */
   preHeading: string | null;
 }
 
