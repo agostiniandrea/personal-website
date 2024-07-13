@@ -55,8 +55,9 @@ const Footer: React.FC<FooterProps> = () => {
         </section>
         <p
           style={{
-            paddingTop: isMobile ? theme.space.lg: theme.space.xxl,
+             paddingTop: isMobile ? theme.space.lg : theme.space.xl, 
             textAlign: "center",
+            fontSize: theme.fontSizes.body,
           }}
         >
           {new Date().getFullYear()} © Il sito di Alice Di Antonio

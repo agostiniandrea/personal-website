@@ -43,7 +43,7 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
         width: "100%",
       }}
     >
-      <Image alt={image.alt} priority src={image.url} fill style={{ objectFit:'cover' }} />
+      <Image alt={image.alt || 'hero primary image'} priority src={image.url} fill style={{ objectFit:'cover' }} />
       {/* <div style={{ position: "absolute", bottom: 0 }}> */}
       <Container>
         <h1>{heading}</h1>

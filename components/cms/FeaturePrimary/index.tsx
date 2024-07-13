@@ -55,7 +55,7 @@ const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
             width: "100%",
           }}
         >
-          <Image alt={image.alt} src={image.url} fill style={{ objectFit: 'cover' }} />
+          <Image alt={image.alt || 'feature primary image'} src={image.url} fill style={{ objectFit: 'cover' }} />
         </section>
         <section style={{ position: "absolute", bottom: "24px" }}>
           <HeadingBox {...restProps} />
