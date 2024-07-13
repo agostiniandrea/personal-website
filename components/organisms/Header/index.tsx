@@ -25,9 +25,9 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
       styles={styles}
     >
       <nav style={{ height: "100%", width: "100%" }}>
-        <Container styles={{ height: "100%" }}>
+        <Container verticalPadding>
           {isMobile ? (
-            <div style={{ padding:`${theme.space.lg} 0` }}>
+            <div >
               <p
                 style={{
                   letterSpacing: "0.03em",
@@ -45,7 +45,6 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
                 display: "flex",
                 gap: "20px",
                 listStyle: "none",
-                padding: `${theme.space.lg} 0`
               }}
             >
               <li
@@ -56,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               >
                 <Link href="/">Alice Di Antonio</Link>
               </li>
-              <li
+             {/*  <li
                 style={{
                   marginBottom: "auto",
                   marginLeft: "auto",
@@ -80,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
                 }}
               >
                 <Link href="/chi-sono">Chi sono</Link>
-              </li>
+              </li> */}
             </ul>
           )}
         </Container>

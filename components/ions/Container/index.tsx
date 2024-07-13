@@ -9,6 +9,7 @@ interface ContainerProps {
 const StyledSection = styled.section<ContainerProps>`
   column-gap: calc(24px);
   display: grid;
+  position: relative;
   grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   min-height: auto;
   ${(props: any) =>
@@ -27,7 +28,7 @@ const StyledSection = styled.section<ContainerProps>`
     column-gap: calc(81px);
     ${(props: any) =>
       props.verticalPadding &&
-      "padding-top: calc(3rem); padding-bottom: calc(3rem);"};
+      "padding-top: calc(2.5rem); padding-bottom: calc(2.5rem);"};
   }
 
   @media (min-width: 900px) {
