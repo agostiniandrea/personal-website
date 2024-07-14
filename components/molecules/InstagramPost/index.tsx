@@ -5,15 +5,24 @@ import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
-const StyledVideo = styled.video`
-    ::-webkit-media-controls-volume-slider {  
-      display: none;
-    }
+const StyledLink = styled(Link)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+`
 
-    ::-webkit-media-controls-mute-button { 
-      display: none;
-    }
-  `
+const StyledVideo = styled.video`
+  ::-webkit-media-controls-volume-slider {  
+    display: none;
+  }
+
+  ::-webkit-media-controls-mute-button { 
+    display: none;
+  }
+`
 
 type InstagramPostProps = {
   onMouseEnter: () => void;
@@ -24,6 +33,7 @@ type InstagramPostProps = {
 
 const InstagramPost: React.FC<InstagramPostProps> = ({
   media,
+  style,
   ...restProps
 }) => {
 
@@ -34,8 +44,7 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
   const height = isMobile ? 350 : isTablet ? 300 : 500
 
   return (
-    <Link {...restProps} /* onMouseEnter={()=> setIsHovered(true)} onMouseLeave={()=> setIsHovered(false)} */ href={media.permalink} target="_blank" key={media.id} >
-      <div style={{ display:'flex', height: `${height}px`, position:'relative', width: '100%'}}>
+      <div {...restProps} /* onMouseEnter={()=> setIsHovered(true)} onMouseLeave={()=> setIsHovered(false)} */ style={{ cursor:'pointer', display:'flex', height: `${height}px`, position:'relative', width: '100%', ...style}}>
         {
           media.media_type === 'VIDEO' && <StyledVideo 
           poster={media.media_url}
@@ -55,8 +64,8 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
         <div style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.03) 100%)",opacity: isHovered ? '0.75' : '0', transition: 'opacity 0.25s ease-in-out', position:'absolute', padding: '0.5rem', top: 0 }}>
           <p style={{ color: theme.colors.background, fontSize: isDesktop ? 'unset': '16px'}}>{media.caption}</p>
         </div>
+        <StyledLink href={media.permalink} target="_blank" key={media.id} />
       </div>
-    </Link>
   );
 }
 
