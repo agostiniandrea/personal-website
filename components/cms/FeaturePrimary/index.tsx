@@ -16,22 +16,22 @@ export interface FeaturePrimaryProps {
    * The call-to-action props.
    */
   cta?: CtaProps;
-  
+
   /**
    * The heading of the feature.
    */
   heading: string | null;
-  
+
   /**
    * The image props for the feature.
    */
   image: ImageProps;
-  
+
   /**
    * The description of the feature.
    */
   description: string | null;
-  
+
   /**
    * The pre-heading of the feature.
    */
@@ -55,7 +55,12 @@ const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
             width: "100%",
           }}
         >
-          <Image alt={image.alt || 'feature primary image'} src={image.url} fill style={{ objectFit: 'cover' }} />
+          <Image
+            alt={image.alt || "feature primary image"}
+            src={image.url}
+            fill
+            style={{ objectFit: "cover" }}
+          />
         </section>
         <section style={{ position: "absolute", bottom: "24px" }}>
           <HeadingBox {...restProps} />

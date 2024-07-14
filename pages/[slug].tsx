@@ -54,7 +54,7 @@ export default function Pages({ page }: TPage) {
   return (
     <>
       <Seo seoDescription={page?.seoDescription} seoTitle={page?.seoTitle} />
-      <Header/>
+      <Header />
       <Container verticalPadding>
         <section>
           <h2>What is Lorem Ipsum?</h2>

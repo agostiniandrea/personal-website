@@ -4,7 +4,7 @@ import {
   fontSizesMobile,
   fontWeights,
   lineHeights,
-} from './fonts'
+} from "./fonts";
 
 export const typography = {
   /**
@@ -33,7 +33,7 @@ export const typography = {
       fontFamily: fontFamilies.default,
       fontSize: fontSizes.body, // 18px
       fontWeight: fontWeights.regular, // 400
-      letterSpacing: '-0.02em',
+      letterSpacing: "-0.02em",
       lineHeight: lineHeights.control,
     },
   },
@@ -47,7 +47,7 @@ export const typography = {
       fontFamily: fontFamilies.default,
       fontSize: fontSizes.bodyL, // 21px
       fontWeight: fontWeights.regular, // 400
-      letterSpacing: '-0.02em',
+      letterSpacing: "-0.02em",
       lineHeight: lineHeights.heading,
     },
   },
@@ -61,7 +61,7 @@ export const typography = {
       fontFamily: fontFamilies.default,
       fontSize: fontSizes.font1, // 24px
       fontWeight: fontWeights.regular, // 400
-      letterSpacing: '-0.02em',
+      letterSpacing: "-0.02em",
       lineHeight: lineHeights.heading,
     },
   },
@@ -149,21 +149,21 @@ export const typography = {
       lineHeight: lineHeights.regular,
     },
   },
-}
+};
 
 export const typographyNames = {
   // Bodies
-  bodyS: 'Body S / bodyS',
-  body: 'Body M / body',
-  bodyL: 'Body L / bodyL',
-  font1: 'Body XL / font1',
+  bodyS: "Body S / bodyS",
+  body: "Body M / body",
+  bodyL: "Body L / bodyL",
+  font1: "Body XL / font1",
   // Subheads
-  font2: 'Subhead S / Title S / font2',
-  font3: 'Subhead L / font3',
+  font2: "Subhead S / Title S / font2",
+  font3: "Subhead L / font3",
 
   // Headlines
-  heading4: 'Title L / heading4',
-  heading3: 'H3 / heading3',
-  heading2: 'H2 / heading2',
-  heading1: 'H1 / heading1',
-}
+  heading4: "Title L / heading4",
+  heading3: "H3 / heading3",
+  heading2: "H2 / heading2",
+  heading1: "H1 / heading1",
+};
