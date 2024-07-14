@@ -115,7 +115,7 @@ export default function Home({ page }: THomepage) {
 
       <div style={{ height: '58.5px' , width:'100%'}}></div>
 
-      <StyledDiv style={{ background:'white', borderTop: '3px solid white', display: 'grid', gridTemplateColumns, gridRowGap: '3px', gridColumnGap:'3px' }}>
+      <StyledDiv style={{ background:'white', borderTop: '3px solid white', display: 'grid', gridTemplateColumns, gridRowGap: '3px', gridColumnGap:'3px', transition: 'all .25s' }}>
         {igData && igData.map((media: any, i: number) => {
           return (
             <InstagramPost style={{...(hovered !== -1 && { opacity: hovered == i+1 ? '1' : '0.75'})}} onMouseEnter={()=> setHovered(i+1)} onMouseLeave={()=> setHovered(-1)} key={media.id} media={media}  />
