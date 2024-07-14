@@ -12,13 +12,13 @@ const StyledFooter = styled.footer`
   color: ${(props: any) => props.theme.colors.secondary};
 `;
 
-export interface FooterProps {
-  /* heading: string;
+/* export interface FooterProps {
+  heading: string;
   image: ImageProps;
-  description: string; */
-}
+  description: string;
+} */
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC = () => {
   const { isMobile } = useMedia();
   return (
     <StyledFooter>
@@ -55,7 +55,7 @@ const Footer: React.FC<FooterProps> = () => {
         </section>
         <p
           style={{
-             paddingTop: isMobile ? theme.space.lg : theme.space.xl, 
+            paddingTop: isMobile ? theme.space.lg : theme.space.xl,
             textAlign: "center",
             fontSize: theme.fontSizes.body,
           }}

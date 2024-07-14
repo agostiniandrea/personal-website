@@ -1,13 +1,13 @@
-import { Footer, Header } from "@components/organisms";
-import { PAGE_TYPES } from "@constants";
-import type { GetStaticPropsResult } from "next";
+import { useContext } from "react";
 
 import { Seo } from "@components/atoms";
 import { Container } from "@components/ions";
+import { Footer, Header } from "@components/organisms";
+import { PAGE_TYPES } from "@constants";
 import { TPageFields, getPageContent } from "@lib/utils/cms";
 import { useMedia } from "@lib/utils/useMedia";
+import type { GetStaticPropsResult } from "next";
 import { ThemeContext } from "styled-components";
-import { useContext } from "react";
 
 type TErrorPage = {
   page: TPageFields;

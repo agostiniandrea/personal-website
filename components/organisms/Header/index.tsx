@@ -20,13 +20,11 @@ export interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ styles }) => {
   const { isMobile } = useMedia();
   return (
-    <StyledHeader
-      styles={styles}
-    >
+    <StyledHeader styles={styles}>
       <nav style={{ height: "100%", width: "100%" }}>
         <Container verticalPadding>
           {isMobile ? (
-            <div >
+            <div>
               <p
                 style={{
                   letterSpacing: "0.03em",
@@ -54,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
               >
                 <Link href="/">Alice Di Antonio</Link>
               </li>
-             {/*  <li
+              {/*  <li
                 style={{
                   marginBottom: "auto",
                   marginLeft: "auto",
