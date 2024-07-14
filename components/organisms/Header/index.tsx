@@ -1,5 +1,4 @@
 import { Container, Link } from "@components/ions";
-import { theme } from "@config/theme";
 import { useMedia } from "@lib/utils/useMedia";
 import styled, { Interpolation } from "styled-components";
 

@@ -5,7 +5,7 @@ import { TPageFields, getPageContent } from "@lib/utils/cms";
 import { useMedia } from "@lib/utils/useMedia";
 import PAGE_TYPES from "constants/pageTypes";
 import { GetStaticPropsResult } from "next";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -28,14 +28,14 @@ export async function getStaticProps(): Promise<
 
 export default function Home({ page }: THomepage) {
 
-  const { isMobile, isTablet, isDesktop}= useMedia()
+  const { isMobile, isTablet}= useMedia()
 
   const [ igData, setIgData ] = useState<any>(null)
-  const [ enabled, setEnabled ] = useState(false)
+  // const [ enabled, setEnabled ] = useState(false)
   const [ userState, setUserState ] = useState<any>(null)
-  const {push} = useRouter()
+  // const {push} = useRouter()
 
-  const setupInsta = () => {
+  /* const setupInsta = () => {
     const appId = '785220683818036';
     const redUri = 'https://www.google.com/'
     const url = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${redUri}&scope=user_profile,user_media&response_type=code`
@@ -45,7 +45,7 @@ export default function Home({ page }: THomepage) {
   const ACCESS_TOKEN_Andrea = "AQCL0c1UgsQeQ4cUhfTkfQoxUafwIHBA8UFDOXLSku9yKsPVhnEXDQYXPkEWKjWFiQalW0IZ0lTIZdaWH-KGvO5orGUtWnKuE6Z8ypPz2SYy5u4d--P8U54gOLLNpSfHy1FAlgtufOwIcQC1MFaNmZzVBdeUYyYbbukEYmvQdj8h1R_9W5M6axwPcmpR_zITFojDnMGT6Sp3mO5DYMvES0-S15stO6cC0U15tmomotocvQ#_"
 
   const accessToken_Alice = 'AQD83WoDO6d59P25KV2sZ3JW5yaYpYSs8esfME4KH8c7LfWIf6B-OWU2NnDqIqx6Oo_2O8ZbwI-By-zmagxCBwvucT2egzw8KvGcIjTXAF_dX-oHyymgouk0OvfvMzQv55E0nzPKuOCNyNohsBLcEKUjel2rN6MPBLrol3oMHy6OdmZEkCOtwW8uS6SdbKtHfckPWT3zZj_3hp5sQjXpgvB90mUVevk2ifL_Bhj8U9aG-Q#_'
-
+ */
   /* useEffect(()=> {
     if (!enabled)
     fetch(`api/get-ig-access-token?code=${accessToken_Alice}`)
@@ -93,7 +93,7 @@ export default function Home({ page }: THomepage) {
   const group4 = [4,9,14,19,24]
   const group5 = [5,10,15,20,25]
 
-  if (hovered === 1) {
+  if (group1.includes(hovered)) {
     gridTemplateColumns = `${100 / 4 }fr ${100 / 6}fr ${100 / 6}fr ${100 / 6}fr ${100 / 6}fr`
   } else if (group2.includes(hovered)) {
     gridTemplateColumns = `${100 / 6}fr ${100 / 4 }fr ${100 / 6}fr ${100 / 6}fr ${100 / 6}fr`
