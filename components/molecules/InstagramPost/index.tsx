@@ -37,7 +37,7 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
   ...restProps
 }) => {
 
-  const [isHovered, setIsHovered] = React.useState(false)
+  const [isHovered, ] = React.useState(false)
 
   const { isMobile, isTablet, isDesktop}= useMedia()
 
@@ -48,8 +48,8 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
         {
           media.media_type === 'VIDEO' && <StyledVideo 
           poster={media.media_url}
-          onMouseOver={event => event.target.play()}
-          onMouseOut={event => {event.target.pause(); event.target.currentTime = 0;}}
+          onMouseOver={event => (event.target as any).play()}
+          onMouseOut={event => {(event.target as any).pause(); (event.target as any).currentTime = 0;}}
           loop
           style={{ height: '100%', width: '100%', marginLeft: 'auto', marginRight: 'auto', objectFit: 'cover'}}  disablePictureInPicture controls controlsList="nodownload noplaybackrate nofullscreen">
             <source src={media.media_url} type="video/mp4" />
