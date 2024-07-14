@@ -1,8 +1,8 @@
 import { theme } from "@config/theme";
 import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
-import Link, { LinkProps } from "next/link";
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
 import styled from "styled-components";
 
 const StyledVideo = styled.video`

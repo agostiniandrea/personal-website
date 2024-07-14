@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+const INSTAGRAM_APP_ID = process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID as string
+const INSTAGRAM_APP_SECRET = process.env.NEXT_PUBLIC_INSTAGRAM_APP_SECRET as string
+const INSTAGRAM_REDIRECT_URI = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI as string
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -7,10 +11,6 @@ export default async function handler(
   const { code } = req.query;
 
   if (code) {
-      const INSTAGRAM_APP_ID = '785220683818036'
-      const INSTAGRAM_APP_SECRET = '576e9e4854aac73da7b404a97a4f42c7'
-      const INSTAGRAM_REDIRECT_URI = /* 'https://6c1e-92-110-156-217.ngrok-free.app/' */ 'https://www.google.com/'
-
       const options =  {
         method: 'POST',
         headers: {
