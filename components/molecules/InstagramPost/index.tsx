@@ -12,7 +12,6 @@ const StyledLink = styled(Link)`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
 `;
 
 const StyledVideo = styled.video`
@@ -55,14 +54,16 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
         ...style,
       }}
     >
+      <StyledLink href={media.permalink} target="_blank" key={media.id} />
       {media.media_type === "VIDEO" && (
         <StyledVideo
-          poster={media.media_url}
+          poster={media.thumbnail_url}
           onMouseOver={(event) => (event.target as any).play()}
           onMouseOut={(event) => {
             (event.target as any).pause();
             (event.target as any).currentTime = 0;
           }}
+          preload="false"
           loop
           style={{
             height: "100%",
@@ -122,7 +123,6 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
           {media.caption}
         </p>
       </div>
-      <StyledLink href={media.permalink} target="_blank" key={media.id} />
     </div>
   );
 };
