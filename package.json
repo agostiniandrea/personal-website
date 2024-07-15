@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "postbuild": "next-sitemap",
+    "build:only": "next build",
+    "build": "yarn build:only && yarn build:sitemap",
+    "build:sitemap": "next-sitemap",
     "start": "next start",
     "lint": "eslint --ext ts,tsx . --quiet",
     "lint:fix": "eslint --fix --ext ts,tsx .",
