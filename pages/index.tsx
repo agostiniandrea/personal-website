@@ -33,9 +33,7 @@ export default function Home({ page }: THomepage) {
 
   useEffect(() => {
     if (!igData) {
-      fetch(
-        `api/get-instagram-media`,
-      )
+      fetch(`api/get-instagram-media`)
         .then((response) => response.json())
         .then(({ data }) => {
           setIgData(data);
