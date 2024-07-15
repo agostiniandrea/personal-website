@@ -8,6 +8,7 @@ import { useMedia } from "@lib/utils/useMedia";
 import PAGE_TYPES from "constants/pageTypes";
 import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
+import { isTouchDevice } from "@lib/utils/isTouchDevice";
 
 type THomepage = {
   page: TPageFields;
@@ -27,7 +28,7 @@ export async function getStaticProps(): Promise<
 }
 
 export default function Home({ page }: THomepage) {
-  const { isMobile, isTablet } = useMedia();
+  const { isMobile, isTablet, isDesktop } = useMedia();
 
   const [igData, setIgData] = useState<any>(null);
 
@@ -95,7 +96,7 @@ export default function Home({ page }: THomepage) {
         }}
       >
         {igData &&
-          igData.map((media: any, i: number) => {
+          igData.slice(0, isDesktop ? 25 : 24).map((media: any, i: number) => {
             return (
               <InstagramPost
                 style={{
@@ -103,8 +104,8 @@ export default function Home({ page }: THomepage) {
                     opacity: hovered == i + 1 ? "1" : "0.75",
                   }),
                 }}
-                onMouseEnter={() => setHovered(i + 1)}
-                onMouseLeave={() => setHovered(-1)}
+                onMouseEnter={() => !isTouchDevice && setHovered(i + 1)}
+                onMouseLeave={() => !isTouchDevice && setHovered(-1)}
                 key={media.id}
                 media={media}
               />
