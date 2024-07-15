@@ -36,9 +36,6 @@ export default async function handler(
     const record = await base("Projects").find(fieldAccessTokenId);
     const value = record._rawJson.fields.Name;
     const data = await getInstagramMedia(value as string);
-
-    console.log("value", value);
-
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ err });
