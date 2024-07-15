@@ -14,7 +14,7 @@ const getInstagramMedia = async (accessToken: string) => {
 
   const data = await fetch(
     `https://graph.instagram.com/${INSTAGRAM_PROFILE_ID}/media?fields=media_type,caption,permalink,media_url,thumbnail_url&access_token=${accessToken}`,
-    options
+    options,
   ).then((response) => response.json());
 
   return data;
@@ -22,7 +22,7 @@ const getInstagramMedia = async (accessToken: string) => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
     const { longAccessToken } = req.query;

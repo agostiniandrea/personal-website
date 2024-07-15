@@ -49,7 +49,7 @@ const getSlugs = (entries: TPageContent[]): TPath[] => {
 
 export const getPageContent = async (
   content_type: string,
-  path: string
+  path: string,
 ): Promise<any> => {
   const content = (await client
     .getEntries({

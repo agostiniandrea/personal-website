@@ -64,7 +64,7 @@ export default function Home({ page }: THomepage) {
   useEffect(() => {
     if (userState && userState.longAccessToken !== "") {
       fetch(
-        `api/get-instagram-media?longAccessToken=${userState.longAccessToken}`
+        `api/get-instagram-media?longAccessToken=${userState.longAccessToken}`,
       )
         .then((response) => response.json())
         .then(({ data }) => {

@@ -5,12 +5,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: "https",
         hostname: "**.ctfassets.net",
       },
       {
-        protocol: 'https',
-        hostname: '**.cdninstagram.com',
+        protocol: "https",
+        hostname: "**.cdninstagram.com",
       },
     ],
   },
