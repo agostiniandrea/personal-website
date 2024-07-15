@@ -48,34 +48,6 @@ export default function Home({ page }: THomepage) {
 
   let gridTemplateColumns = `repeat(${column}, ${100 / column}fr)`;
 
-  const group1 = [1, 6, 11, 16, 21];
-  const group2 = [2, 7, 12, 17, 22];
-  const group3 = [3, 8, 13, 18, 23];
-  const group4 = [4, 9, 14, 19, 24];
-  const group5 = [5, 10, 15, 20, 25];
-
-  if (group1.includes(hovered)) {
-    gridTemplateColumns = `${100 / 4}fr ${100 / 6}fr ${100 / 6}fr ${
-      100 / 6
-    }fr ${100 / 6}fr`;
-  } else if (group2.includes(hovered)) {
-    gridTemplateColumns = `${100 / 6}fr ${100 / 4}fr ${100 / 6}fr ${
-      100 / 6
-    }fr ${100 / 6}fr`;
-  } else if (group3.includes(hovered)) {
-    gridTemplateColumns = `${100 / 6}fr ${100 / 6}fr ${100 / 4}fr ${
-      100 / 6
-    }fr ${100 / 6}fr`;
-  } else if (group4.includes(hovered)) {
-    gridTemplateColumns = `${100 / 6}fr ${100 / 6}fr ${100 / 6}fr ${
-      100 / 4
-    }fr ${100 / 6}fr`;
-  } else if (group5.includes(hovered)) {
-    gridTemplateColumns = `${100 / 6}fr ${100 / 6}fr ${100 / 6}fr ${
-      100 / 6
-    }fr ${100 / 4}fr`;
-  }
-
   return (
     <>
       <Seo seoDescription={page.seoDescription} seoTitle={page.seoTitle} />
@@ -101,11 +73,11 @@ export default function Home({ page }: THomepage) {
               <InstagramPost
                 style={{
                   ...(hovered !== -1 && {
-                    opacity: hovered == i + 1 ? "1" : "0.75",
+                    opacity: hovered == i + 1 ? "1" : "0.66",
                   }),
                 }}
-                onMouseEnter={() => !isTouchDevice && setHovered(i + 1)}
-                onMouseLeave={() => !isTouchDevice && setHovered(-1)}
+                onMouseEnter={() => !isTouchDevice() && setHovered(i + 1)}
+                onMouseLeave={() => !isTouchDevice() && setHovered(-1)}
                 key={media.id}
                 media={media}
               />
