@@ -1,5 +1,6 @@
 import React from "react";
 
+import { getImageSizes } from "@lib/utils/getImageSizes";
 import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,6 +54,7 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
         }}
         src={media.thumbnail_url || media.media_url}
         alt={media.caption}
+        sizes={getImageSizes(["50vw", "33vw", "33vw", "20vw", "20vw"])}
       />
     </StyledLink>
   );
