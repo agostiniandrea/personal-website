@@ -17,7 +17,7 @@ export const useMedia = (): IUseMedia => {
     if (typeof window == "undefined") return;
 
     const mobileListener = window.matchMedia(
-      "(min-width: 0px) and (max-width: 600px)"
+      "(min-width: 0px) and (max-width: 600px)",
     );
 
     if (isMobile !== mobileListener.matches) {
@@ -25,7 +25,7 @@ export const useMedia = (): IUseMedia => {
     }
 
     const tabletListener = window.matchMedia(
-      "(min-width: 600px) and (max-width: 1200px)"
+      "(min-width: 600px) and (max-width: 1200px)",
     );
 
     if (isTablet !== tabletListener.matches) {
@@ -33,7 +33,7 @@ export const useMedia = (): IUseMedia => {
     }
 
     const desktopListener = window.matchMedia(
-      "(min-width: 1200px) and (min-width: 1536px)"
+      "(min-width: 1200px) and (min-width: 1536px)",
     );
 
     if (isDesktop !== desktopListener.matches) {
@@ -72,7 +72,7 @@ export const useMedia = (): IUseMedia => {
       desktopListener.removeEventListener("change", handleDesktopListener);
       touchScreenListener.removeEventListener(
         "change",
-        handleTouchScreenListener
+        handleTouchScreenListener,
       );
     };
   }, []);

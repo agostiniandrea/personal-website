@@ -8,7 +8,7 @@ const INSTAGRAM_REDIRECT_URI = process.env
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const { code } = req.query;
 
@@ -29,15 +29,15 @@ export default async function handler(
 
     const { access_token: initialAccessToken } = await fetch(
       `https://api.instagram.com/oauth/access_token`,
-      options
+      options,
     ).then((response) => response.json());
 
     const { access_token: longAccessToken } = await fetch(
-      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${INSTAGRAM_APP_SECRET}&access_token=${initialAccessToken}`
+      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${INSTAGRAM_APP_SECRET}&access_token=${initialAccessToken}`,
     ).then((response) => response.json());
 
     const userData = await fetch(
-      `https://graph.instagram.com/me?fields=id,username&access_token=${longAccessToken}`
+      `https://graph.instagram.com/me?fields=id,username&access_token=${longAccessToken}`,
     ).then((response) => response.json());
 
     res.status(200).json({ ...userData, longAccessToken });
