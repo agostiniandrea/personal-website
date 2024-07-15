@@ -29,6 +29,7 @@ module.exports = {
     "no-empty-pattern": "warn",
     "react/display-name": "warn",
     "react/no-array-index-key": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
     // Right error rules
     "import/no-unresolved": "error",
     "@typescript-eslint/ban-types": ["warn"],
