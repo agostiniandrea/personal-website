@@ -81,7 +81,7 @@ export default function Home({ page }: THomepage) {
         setUserState(JSON.parse(igData));
       }
     }
-  });
+  }, [userState]);
 
   const column = isMobile ? 2 : isTablet ? 3 : 5;
 
