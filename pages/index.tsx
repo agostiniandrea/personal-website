@@ -46,7 +46,7 @@ export default function Home({ page }: THomepage) {
 
   const [hovered, setHovered] = useState(-1);
 
-  let gridTemplateColumns = `repeat(${column}, ${100 / column}fr)`;
+  const gridTemplateColumns = `repeat(${column}, ${100 / column}fr)`;
 
   return (
     <>
