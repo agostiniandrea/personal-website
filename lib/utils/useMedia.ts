@@ -32,9 +32,7 @@ export const useMedia = (): IUseMedia => {
       setTablet(tabletListener.matches);
     }
 
-    const desktopListener = window.matchMedia(
-      "(min-width: 1200px) and (min-width: 1536px)",
-    );
+    const desktopListener = window.matchMedia("(min-width: 1200px)");
 
     if (isDesktop !== desktopListener.matches) {
       setDesktop(desktopListener.matches);
