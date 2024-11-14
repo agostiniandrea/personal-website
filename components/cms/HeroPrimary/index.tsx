@@ -38,12 +38,18 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
     <StyledDiv
       style={{
         background: "gray",
-        height: isMobile ? 'calc(100vh - 180px)' : 'calc(100vh - 245px)',
+        height: isMobile ? "calc(100vh - 180px)" : "calc(100vh - 245px)",
         position: "relative",
         width: "100%",
       }}
     >
-      <Image alt={image.alt} priority src={image.url} fill style={{ objectFit:'cover' }} />
+      <Image
+        alt={image.alt || "hero primary image"}
+        priority
+        src={image.url}
+        fill
+        style={{ objectFit: "cover" }}
+      />
       {/* <div style={{ position: "absolute", bottom: 0 }}> */}
       <Container>
         <h1>{heading}</h1>

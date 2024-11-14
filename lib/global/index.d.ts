@@ -3,7 +3,7 @@ declare global {
     name: string;
     label: string;
     url: string;
-  }
+  };
   type ImageProps = {
     alt: string;
     height: number;
