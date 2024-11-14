@@ -1,7 +1,6 @@
 import { ThemeProvider } from "styled-components";
 
 import { button, link } from "./componentThemes";
-
 import {
   colors,
   fontFamilies,

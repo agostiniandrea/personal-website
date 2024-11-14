@@ -9,7 +9,7 @@ export interface LinkProps extends NextLinkProps {
    * The content of the Link component.
    */
   children: React.ReactNode;
-  
+
   /**
    * Additional styles for the Link component.
    */
@@ -36,9 +36,11 @@ const StyledLink = styled(NextLink)<StyledLinkProps>`
   ${({ styles }) => styles}
 `;
 
-const Link: React.FC<LinkProps> = ({ href, styles,children }) => {
+const Link: React.FC<LinkProps> = ({ href, styles, children }) => {
   return (
-    <StyledLink href={href} passHref styles={styles}>{children}</StyledLink>
+    <StyledLink href={href} passHref styles={styles}>
+      {children}
+    </StyledLink>
   );
 };
 
