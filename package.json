@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build:only": "next build",
     "build": "yarn build:only && yarn build:sitemap",
     "build:sitemap": "next-sitemap",
@@ -14,17 +14,17 @@
   },
   "dependencies": {
     "@types/node": "^20.14.10",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
     "airtable": "^0.12.2",
     "contentful": "^10.12.8",
     "dotenv": "^16.4.5",
-    "next": "^14.2.5",
+    "next": "15.0.3",
     "next-seo": "^6.5.0",
     "npm-check-updates": "^16.14.20",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-is": "^18.3.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-is": "18.3.1",
     "styled-components": "^6.1.11",
     "typescript": "^5.5.3"
   },
@@ -44,7 +44,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-jibe": "^1.0.6",
-    "eslint-config-next": "^14.2.5",
+    "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-html": "^8.1.1",
     "eslint-plugin-import": "^2.29.1",
@@ -75,7 +75,9 @@
     ]
   },
   "resolutions": {
-    "styled-components": "5"
+    "styled-components": "5",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1"
   },
   "engines": {
     "node": ">=18.17.0"
