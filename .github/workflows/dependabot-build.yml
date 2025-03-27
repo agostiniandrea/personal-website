@@ -10,7 +10,8 @@ permissions:
 
 jobs:
   build-and-deploy:
-    if: github.actor == 'dependabot[bot]'  # ✅ Esegue SOLO se il commit è di Dependabot
+    # Executes ONLY if the commit is from Dependabot
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,14 +1,15 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'daily'
+      interval: "daily"
     allow:
-      - dependency-name: 'next'
+      - dependency-name: "next"
     commit-message:
       prefix: "chore(deps)"
-    open-pull-requests-limit: 0  # ❗ Prevent PRs from being created
-    versioning-strategy: increase
-    rebase-strategy: auto  # Automatically rebase and commit changes
-    target-branch: "main"  # Push updates directly to main
+    open-pull-requests-limit: 0
+    rebase-strategy: auto
+    target-branch: "main"
+    commit-signature: true
+    token: "${{ secrets.DEPENDABOT_PAT }}"  # ✅ Allows Dependabot to commit directly
