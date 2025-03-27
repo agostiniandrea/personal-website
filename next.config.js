@@ -1,9 +1,10 @@
-/** @type {import('next').NextConfig} */
+// @ts-check
+ 
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    turbo: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -20,6 +21,6 @@ const nextConfig = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
-};
-
-module.exports = nextConfig;
+}
+ 
+export default nextConfig
