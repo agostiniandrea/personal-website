@@ -15,14 +15,14 @@
   "dependencies": {
     "@types/node": "^20.14.10",
     "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1",
+    "@types/react-dom": "19.0.4",
     "airtable": "^0.12.2",
     "contentful": "^10.12.8",
     "dotenv": "^16.4.5",
     "next": "15.2.4",
     "next-seo": "^6.5.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react-dom": "19.0.0",
     "react-is": "18.3.1",
     "styled-components": "^6.1.11",
     "typescript": "^5.8.2"
@@ -76,7 +76,7 @@
   "resolutions": {
     "styled-components": "5",
     "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1"
+    "@types/react-dom": "19.0.4"
   },
   "engines": {
     "node": ">=18.17.0"
