@@ -19,7 +19,7 @@
     "airtable": "^0.12.2",
     "contentful": "^10.12.8",
     "dotenv": "^16.4.5",
-    "next": "15.0.3",
+    "next": "15.2.4",
     "next-seo": "^6.5.0",
     "npm-check-updates": "^16.14.20",
     "react": "18.3.1",
