@@ -2,30 +2,21 @@ name: Dependabot Auto-Merge
 
 on:
   pull_request:
-    branches:
-      - main
-
-permissions:
-  contents: write
-  pull-requests: write
-  actions: write
+    branches: [ main ]
 
 jobs:
-  dependabot:
+  auto-merge-dependabot:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Approve Dependabot PR
-        run: gh pr review --approve "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    if: ${{ github.actor == 'dependabot[bot]' }}
 
-      - name: Auto-merge Dependabot PR
-        run: gh pr merge --squash --auto "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    permissions:
+      contents: write
+      pull-requests: write
+      
+    steps:
+      - name: Merge PR from dependabot
+        uses: fastify/github-action-merge-dependabot@v3.6.4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor
+          merge-method: rebase
