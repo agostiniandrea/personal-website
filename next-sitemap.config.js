@@ -1,13 +1,13 @@
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://alicediantonio.vercel.app",
   changefreq: "daily",
   priority: 0.7,
-  sitemapSize: 5000,
+  sitemapSize: 50000,
   generateRobotsTxt: true,
-  // Default transformation function
+  generateIndexSitemap: false,
   transform: async (config, path) => {
     return {
-      loc: path, // => this will be exported as http(s)://<config.siteUrl>/<path>
+      loc: path, // this will be exported as http(s)://<config.siteUrl>/<path>
       changefreq: config.changefreq,
       priority: config.priority,
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
