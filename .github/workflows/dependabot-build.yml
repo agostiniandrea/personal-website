@@ -20,7 +20,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Trigger Vercel Build
-        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_11XuKOCYJ67iB6zSYRV9Nm917Dus/5pDUIPbL1E
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_11XuKOCYJ67iB6zSYRV9Nm917Dus/gvBDb9TlMC
 
       - name: Send Slack Notification on Failure
         if: failure()
