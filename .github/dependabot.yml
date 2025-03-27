@@ -8,8 +8,5 @@ updates:
       - dependency-name: "next"
     commit-message:
       prefix: "chore(deps)"
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 1
     rebase-strategy: auto
-    target-branch: "main"
-    commit-signature: true
-    token: "${{ secrets.DEPENDABOT_PAT }}"  # ✅ Allows Dependabot to commit directly
