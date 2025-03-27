@@ -56,7 +56,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-jsx-a11y", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:6.9.0"],\
           ["eslint-plugin-prettier", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.1.3"],\
           ["eslint-plugin-react", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:7.34.4"],\
-          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:4.6.2"],\
+          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.2.0"],\
           ["eslint-plugin-storybook", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:0.12.0"],\
           ["lint-staged", "npm:15.2.7"],\
           ["next", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:15.2.4"],\
@@ -4470,7 +4470,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-import", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:2.29.1"],\
           ["eslint-plugin-jsx-a11y", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:6.9.0"],\
           ["eslint-plugin-react", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:7.34.4"],\
-          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:4.6.2"],\
+          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.2.0"],\
           ["object.assign", "npm:4.1.5"],\
           ["object.entries", "npm:1.1.8"]\
         ],\
@@ -4615,7 +4615,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-jsx-a11y", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:6.9.0"],\
           ["eslint-plugin-prettier", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.1.3"],\
           ["eslint-plugin-react", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:7.34.4"],\
-          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:4.6.2"],\
+          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.2.0"],\
           ["prettier", "npm:3.3.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"]\
         ],\
@@ -5171,13 +5171,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["eslint-plugin-react-hooks", [\
-      ["npm:4.6.2", {\
-        "packageLocation": "../../.yarn/berry/cache/eslint-plugin-react-hooks-npm-4.6.2-05bc129286-10c0.zip/node_modules/eslint-plugin-react-hooks/",\
-        "packageDependencies": [\
-          ["eslint-plugin-react-hooks", "npm:4.6.2"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
       ["npm:5.0.0", {\
         "packageLocation": "../../.yarn/berry/cache/eslint-plugin-react-hooks-npm-5.0.0-6230bba3d9-10c0.zip/node_modules/eslint-plugin-react-hooks/",\
         "packageDependencies": [\
@@ -5185,10 +5178,17 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:4.6.2", {\
-        "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-hooks-virtual-a21a5be05e/3/.yarn/berry/cache/eslint-plugin-react-hooks-npm-4.6.2-05bc129286-10c0.zip/node_modules/eslint-plugin-react-hooks/",\
+      ["npm:5.2.0", {\
+        "packageLocation": "../../.yarn/berry/cache/eslint-plugin-react-hooks-npm-5.2.0-1c4af50caf-10c0.zip/node_modules/eslint-plugin-react-hooks/",\
         "packageDependencies": [\
-          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:4.6.2"],\
+          ["eslint-plugin-react-hooks", "npm:5.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-hooks-virtual-7cc42e1cd9/3/.yarn/berry/cache/eslint-plugin-react-hooks-npm-5.2.0-1c4af50caf-10c0.zip/node_modules/eslint-plugin-react-hooks/",\
+        "packageDependencies": [\
+          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.2.0"],\
           ["@types/eslint", null],\
           ["eslint", "npm:8.57.0"]\
         ],\
@@ -6364,7 +6364,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-jsx-a11y", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:6.9.0"],\
           ["eslint-plugin-prettier", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.1.3"],\
           ["eslint-plugin-react", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:7.34.4"],\
-          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:4.6.2"],\
+          ["eslint-plugin-react-hooks", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:5.2.0"],\
           ["eslint-plugin-storybook", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:0.12.0"],\
           ["lint-staged", "npm:15.2.7"],\
           ["next", "virtual:1005a5ea9a42a098e70885685e007f023340b3118bdf228a606882b84e06d9b356f674f91ce636d2c0f45235764dbe4b3885bf2760e404f19514ba73d25158a4#npm:15.2.4"],\
