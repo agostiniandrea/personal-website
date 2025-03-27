@@ -1,51 +1,30 @@
-name: Dependabot Update Build
+name: Dependabot Auto-Build
 
 on:
   push:
     branches:
-      - main # Trigger only for pushes to main
+      - main
+
+permissions:
+  contents: write  # Required to allow Dependabot to write to the main branch
 
 jobs:
   build-and-deploy:
+    if: github.actor == 'dependabot[bot]'  # ✅ Esegue SOLO se il commit è di Dependabot
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Trigger Vercel Build
-        id: vercel_deploy
-        run: |
-          response=$(curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_oeZ7Q5Yn64SUC1EmTDfjB53wNI9R/aNlN8jvABq)
-          echo "Build response: $response"
-      - name: Get Updated Dependencies
-        id: deps_list
-        # Only for Dependabot pushes
-        if: github.event_name == 'push' && github.actor == 'dependabot[bot]'
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          echo "Updated Dependencies: $COMMIT_MSG"
-          echo "deps=$COMMIT_MSG" >> $GITHUB_ENV
-      - name: Check Build Status
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_11XuKOCYJ67iB6zSYRV9Nm917Dus/5pDUIPbL1E
+
+      - name: Send Slack Notification on Failure
         if: failure()
         run: |
-          BUILD_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          echo "Build failed. Sending Slack notification..."
-          if [[ "${{ github.event_name }}" == "push" && "${{ github.actor }}" == "dependabot[bot]" ]]; then
-            curl -X POST -H 'Content-type: application/json' --data '{
-              "text": "❌ *Build Failed!* Compass package updates failed.\n\n*Updated dependencies:*\n```'"${{ env.deps }}"'```\nCheck the logs: <'"$BUILD_URL"'|View Build>"
-            }' $SLACK_WEBHOOK_URL
-          fi
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ Vercel build failed after Dependabot update! Check logs: https://vercel.com/andrea-agostinis-projects/alicediantonio/deployments"}' $SLACK_WEBHOOK_URL
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

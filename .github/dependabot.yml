@@ -7,4 +7,8 @@ updates:
     allow:
       - dependency-name: 'next'
     commit-message:
-      prefix: 'chore(deps)'
+      prefix: "chore(deps)"
+    open-pull-requests-limit: 0  # ❗ Prevent PRs from being created
+    versioning-strategy: increase
+    rebase-strategy: auto  # Automatically rebase and commit changes
+    target-branch: "main"  # Push updates directly to main
