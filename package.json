@@ -21,7 +21,7 @@
     "dotenv": "^16.4.5",
     "next": "15.2.4",
     "next-seo": "^6.5.0",
-    "npm-check-updates": "^16.14.20",
+    "npm-check-updates": "^17.1.16",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-is": "18.3.1",
