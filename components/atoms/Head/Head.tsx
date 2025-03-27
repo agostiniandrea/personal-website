@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-sync-scripts */
 import configSEO from "@config/seo.json";
 import { DefaultSeo } from "next-seo";
 import NextHead from "next/head";
