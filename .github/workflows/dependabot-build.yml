@@ -12,6 +12,10 @@ jobs:
   build-and-deploy:
     if: github.actor == 'dependabot[bot]'  # ✅ Esegue SOLO se il commit è di Dependabot
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,11 +24,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Trigger Vercel Build
-        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_11XuKOCYJ67iB6zSYRV9Nm917Dus/gvBDb9TlMC
+        run: curl -X POST $VERCEL_DEPLOY_HOOK
 
       - name: Send Slack Notification on Failure
         if: failure()
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ Vercel build failed after Dependabot update! Check logs: https://vercel.com/andrea-agostinis-projects/alicediantonio/deployments"}' $SLACK_WEBHOOK_URL
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ Vercel build failed after Dependabot update!"}' $SLACK_WEBHOOK_URL
