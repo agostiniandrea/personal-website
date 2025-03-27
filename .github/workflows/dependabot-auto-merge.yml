@@ -14,9 +14,31 @@ jobs:
       pull-requests: write
       
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run tests/build
+        run: yarn build
+
       - name: Merge PR from dependabot
         uses: fastify/github-action-merge-dependabot@v3.11.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           target: minor
           merge-method: rebase
+
+      - name: Send Slack notification if build fails
+        if: failure() && github.actor == 'dependabot[bot]'
+        run: |
+          BUILD_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "❌ *Build Failed!* Dependabot package updates failed.\n\n*Updated dependencies:*\n```'"${{ github.head_ref }}"'```\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
