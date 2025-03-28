@@ -39,6 +39,8 @@ jobs:
         if: failure() && github.actor == 'dependabot[bot]'
         run: |
           BUILD_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          curl -X POST -H 'Content-type: application/json' --data '{
-            "text": "❌ *Build Failed!* Dependabot package updates failed.\n\n*Updated dependencies:*\n```'"${{ github.head_ref }}"'```\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
-          }' ${{ secrets.SLACK_WEBHOOK_URL }}
+          DEPENDENCIES="${{ github.head_ref }}"
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"❌ *Build Failed!* Dependabot package updates failed.\n\n*Updated dependencies:*\n\`\`\`${DEPENDENCIES}\`\`\`\nCheck the build logs: <${BUILD_URL}|View Build>\"
+          }" ${{ secrets.SLACK_WEBHOOK_URL }}
+        
