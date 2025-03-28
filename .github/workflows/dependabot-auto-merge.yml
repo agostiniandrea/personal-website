@@ -38,9 +38,10 @@ jobs:
       - name: Send Slack notification if build fails
         if: failure() && github.actor == 'dependabot[bot]'
         run: |
-          BUILD_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          DEPENDENCIES="${{ github.head_ref }}"
-          curl -X POST -H 'Content-type: application/json' --data "{
-            \"text\": \"❌ *Build Failed!* Dependabot package updates failed.\n\n*Updated dependencies:*\n\`\`\`${DEPENDENCIES}\`\`\`\nCheck the build logs: <${BUILD_URL}|View Build>\"
-          }" ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text": "❌ *Build Failed!* Dependabot package updates failed.\n\n*Updated dependencies:*\n```'"$DEPENDENCIES"'```\nCheck the build logs: <'"$BUILD_URL"'|View Build>"}' "$SLACK_WEBHOOK_URL"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          BUILD_URL: ${{ github.server_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      
         
