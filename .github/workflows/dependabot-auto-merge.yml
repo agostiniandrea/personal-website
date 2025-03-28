@@ -34,8 +34,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           target: minor
           merge-method: rebase
-          
+
       - name: Debug Variables
+        if: failure() && github.actor == 'dependabot[bot]'
         run: |
           echo "DEPENDENCIES: $DEPENDENCIES"
           echo "BUILD_URL: $BUILD_URL"
