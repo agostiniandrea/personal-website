@@ -34,6 +34,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           target: minor
           merge-method: rebase
+          
+      - name: Debug Variables
+        run: |
+          echo "DEPENDENCIES: $DEPENDENCIES"
+          echo "BUILD_URL: $BUILD_URL"
+        env:
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          BUILD_URL: ${{ github.server_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Send Slack notification if build fails
         if: failure() && github.actor == 'dependabot[bot]'
