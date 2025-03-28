@@ -73,9 +73,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/eslint-parser@npm:7.27.0":
-  version: 7.27.0
-  resolution: "@babel/eslint-parser@npm:7.27.0"
+"@babel/eslint-parser@npm:7.25.0":
+  version: 7.25.0
+  resolution: "@babel/eslint-parser@npm:7.25.0"
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
     eslint-visitor-keys: "npm:^2.1.0"
@@ -83,7 +83,7 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.11.0
     eslint: ^7.5.0 || ^8.0.0 || ^9.0.0
-  checksum: 10c0/bbecdc3f21413c4f0b21bc0ee93520ed47a61520a40d745f874097d01e6e22bf20a5f992d321656f4ef3ddbc04535a7da7ca6de2e87cecb82bbee0888f996480
+  checksum: 10c0/a8c6b78c26e0596ef53ceddb3d00cfe45b93c879adada3ee5203e3960110a528015e8b36769b299ce8fd640060b54e622faabc00424850978b4693e190482428
   languageName: node
   linkType: hard
 
@@ -4397,7 +4397,7 @@ __metadata:
   resolution: "ilnostroblog@workspace:."
   dependencies:
     "@babel/core": "npm:^7.26.10"
-    "@babel/eslint-parser": "npm:7.27.0"
+    "@babel/eslint-parser": "npm:7.25.0"
     "@babel/preset-react": "npm:^7.26.3"
     "@babel/preset-typescript": "npm:^7.27.0"
     "@cypress/request": "npm:3.0.8"
