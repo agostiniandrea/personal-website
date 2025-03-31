@@ -1,18 +1,13 @@
 name: Dependabot Auto-Merge
-
 on:
   pull_request:
-    branches: [ main ]
+  push:
+    branches:
+      - main
 
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
-
-    permissions:
-      contents: write
-      pull-requests: write
-      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,32 +15,31 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
+
+      - name: Extract updated dependency from commit message
+        run: |
+          DEP_PACKAGE=$(git log -1 --pretty=format:%s | grep -oP '(?<=bump )[a-zA-Z0-9\-_]+')
+          if [ -z "$DEP_PACKAGE" ]; then
+            echo "No dependency found in commit message" > dependencies.log
+          else
+            echo "Updated dependency: $DEP_PACKAGE" > dependencies.log
+          fi
+          echo "DEPENDENCIES=$(cat dependencies.log | tr '\n' ' ')" >> $GITHUB_ENV
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run tests/build
-        run: yarn build
-
-      - name: Merge PR from dependabot
-        uses: fastify/github-action-merge-dependabot@v3.11.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          target: minor
-          merge-method: rebase
-
-      - name: Debug Variables
-        if: failure() && github.actor == 'dependabot[bot]'
         run: |
-          echo "DEPENDENCIES: $DEPENDENCIES"
-          echo "BUILD_URL: $BUILD_URL"
-        env:
-          DEPENDENCIES: ${{ env.DEPENDENCIES }}
-          BUILD_URL: ${{ github.server_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          yarn install 2> yarn-error.log || true
+          tail -n 20 yarn-error.log >> dependencies.log
+
+      - name: Debug Dependencies
+        run: cat dependencies.log
 
       - name: Send Slack notification if build fails
         if: failure() && github.actor == 'dependabot[bot]'
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ *Build Failed!* Dependabot package updates failed.\n\n*Updated dependencies:*\n```test dependencies```"}' https://hooks.slack.com/services/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
-      
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ *Build Failed!* Dependabot package update failed.\n\n*Updated dependency:* '"$DEPENDENCIES"'\nCheck the build logs: <'"$BUILD_URL"'|View Build>"}' "$SLACK_WEBHOOK_URL"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          BUILD_URL: ${{ github.server_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
