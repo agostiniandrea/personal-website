@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@types/node": "^22.13.14",
-    "@types/react": "18.3.12",
+    "@types/react": "19.0.12",
     "@types/react-dom": "18.3.1",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
@@ -25,7 +25,7 @@
     "dotenv": "^16.4.7",
     "next": "15.0.4",
     "next-seo": "^6.6.0",
-    "react": "18.3.1",
+    "react": "19.1.0",
     "react-dom": "18.3.0",
     "react-is": "18.3.1",
     "styled-components": "^6.1.16",
@@ -84,7 +84,7 @@
   },
   "resolutions": {
     "styled-components": "5",
-    "@types/react": "18.3.12",
+    "@types/react": "19.0.12",
     "@types/react-dom": "18.3.1"
   },
   "engines": {
