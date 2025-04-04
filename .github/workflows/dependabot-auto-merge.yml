@@ -19,27 +19,42 @@ jobs:
 
       - name: Extract updated dependency from commit message
         id: extract
+        shell: bash
         run: |
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
-          echo "Commit message: $COMMIT_MSG"
+          echo "🔍 Commit message: $COMMIT_MSG"
       
-          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\-\/]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
+          # Regex matching
+          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
-            echo "Matched!"
-            echo "Dependency: $DEP_PACKAGE"
-            echo "From version: $FROM_VERSION"
-            echo "To version: $TO_VERSION"
+            echo "✅ Match!"
+            echo "📦 Package: $DEP_PACKAGE"
+            echo "⬅️  From: $FROM_VERSION"
+            echo "➡️  To: $TO_VERSION"
             echo "DEPENDENCY=$DEP_PACKAGE" >> $GITHUB_ENV
             echo "FROM_VERSION=$FROM_VERSION" >> $GITHUB_ENV
             echo "TO_VERSION=$TO_VERSION" >> $GITHUB_ENV
             echo "Updated dependency: $DEP_PACKAGE from $FROM_VERSION to $TO_VERSION" > dependencies.log
           else
-            echo "No match found in commit message"
+            echo "❌ No match found in commit message"
+            echo "DEPENDENCY=" >> $GITHUB_ENV
+            echo "FROM_VERSION=" >> $GITHUB_ENV
+            echo "TO_VERSION=" >> $GITHUB_ENV
             echo "No dependency found in commit message" > dependencies.log
           fi
- 
+
+      - name: Debug environment variables
+        run: |
+          echo "🔁 DEPENDENCY: $DEPENDENCY"
+          echo "⬅️  FROM_VERSION: $FROM_VERSION"
+          echo "➡️  TO_VERSION: $TO_VERSION"
+        env:
+          DEPENDENCY: ${{ env.DEPENDENCY }}
+          FROM_VERSION: ${{ env.FROM_VERSION }}
+          TO_VERSION: ${{ env.TO_VERSION }}
+
       - name: Install dependencies
         run: |
           yarn install 2> yarn-error.log || true
