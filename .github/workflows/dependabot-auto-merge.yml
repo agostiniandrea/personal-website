@@ -23,15 +23,20 @@ jobs:
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
           echo "Commit message: $COMMIT_MSG"
       
-          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9_\-@\/]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
+          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\-\/]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
+            echo "Matched!"
+            echo "Dependency: $DEP_PACKAGE"
+            echo "From version: $FROM_VERSION"
+            echo "To version: $TO_VERSION"
             echo "DEPENDENCY=$DEP_PACKAGE" >> $GITHUB_ENV
             echo "FROM_VERSION=$FROM_VERSION" >> $GITHUB_ENV
             echo "TO_VERSION=$TO_VERSION" >> $GITHUB_ENV
             echo "Updated dependency: $DEP_PACKAGE from $FROM_VERSION to $TO_VERSION" > dependencies.log
           else
+            echo "No match found in commit message"
             echo "No dependency found in commit message" > dependencies.log
           fi
 
