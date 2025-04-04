@@ -18,14 +18,22 @@ jobs:
           node-version: 18
 
       - name: Extract updated dependency from commit message
+        id: extract
         run: |
-          DEP_PACKAGE=$(git log -1 --pretty=format:%s | grep -oP '(?<=bump )[a-zA-Z0-9\-_]+')
-          if [ -z "$DEP_PACKAGE" ]; then
-            echo "No dependency found in commit message" > dependencies.log
+          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          echo "Commit message: $COMMIT_MSG"
+      
+          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9_\-@\/]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
+            DEP_PACKAGE="${BASH_REMATCH[1]}"
+            FROM_VERSION="${BASH_REMATCH[2]}"
+            TO_VERSION="${BASH_REMATCH[3]}"
+            echo "DEPENDENCY=$DEP_PACKAGE" >> $GITHUB_ENV
+            echo "FROM_VERSION=$FROM_VERSION" >> $GITHUB_ENV
+            echo "TO_VERSION=$TO_VERSION" >> $GITHUB_ENV
+            echo "Updated dependency: $DEP_PACKAGE from $FROM_VERSION to $TO_VERSION" > dependencies.log
           else
-            echo "Updated dependency: $DEP_PACKAGE" > dependencies.log
+            echo "No dependency found in commit message" > dependencies.log
           fi
-          echo "DEPENDENCIES=$(cat dependencies.log | tr '\n' ' ')" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
@@ -38,8 +46,13 @@ jobs:
       - name: Send Slack notification if build fails
         if: failure() && github.actor == 'dependabot[bot]'
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"❌ *Build Failed!* Dependabot package update failed.\n\n*Updated dependency:* '"$DEPENDENCIES"'\nCheck the build logs: <'"$BUILD_URL"'|View Build>"}' "$SLACK_WEBHOOK_URL"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "❌ *Build Failed!* Dependabot package update failed.\n\n*Error while trying to update:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
+          }' "$SLACK_WEBHOOK_URL"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          DEPENDENCY: ${{ env.DEPENDENCY }}
+          FROM_VERSION: ${{ env.FROM_VERSION }}
+          TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      
