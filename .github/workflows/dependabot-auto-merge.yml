@@ -53,5 +53,5 @@ jobs:
           DEPENDENCY: ${{ env.DEPENDENCY }}
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
-          BUILD_URL: ${{ github.server_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       
