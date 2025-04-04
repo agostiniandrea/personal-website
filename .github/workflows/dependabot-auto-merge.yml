@@ -44,7 +44,6 @@ jobs:
         run: cat dependencies.log
 
       - name: Send Slack notification if build fails
-        if: failure() && github.actor == 'dependabot[bot]'
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "❌ *Build Failed!* Dependabot package update failed.\n\n*Error while trying to update:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
