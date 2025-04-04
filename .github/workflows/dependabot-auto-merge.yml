@@ -39,7 +39,7 @@ jobs:
             echo "No match found in commit message"
             echo "No dependency found in commit message" > dependencies.log
           fi
-
+ 
       - name: Install dependencies
         run: |
           yarn install 2> yarn-error.log || true
