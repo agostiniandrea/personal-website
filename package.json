@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build:compile": "next build",
-    "build:sitemap": "next-sitemap --config next-sitemap.config.cjs",
+    "build:sitemap": "next-sitemap --config next-sitemap.config.js",
     "build": "yarn lint:fix && yarn build:compile && yarn build:sitemap",
     "postbuild": "next-sitemap",
     "start": "next start",
