@@ -2,7 +2,6 @@
   "name": "ilnostroblog",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build:compile": "next build",
@@ -15,6 +14,7 @@
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {
+    "@sentry/nextjs": "^9.11.0",
     "@types/node": "^22.13.14",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
