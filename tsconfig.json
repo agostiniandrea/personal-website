@@ -32,6 +32,6 @@
     "noUnusedParameters": true,
     "typeRoots": ["./lib/global"]
   },
-  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "next-sitemap.config.cjs"],
+  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "next-sitemap.config.js", "next.config.js"],
   "exclude": ["node_modules"]
 }
