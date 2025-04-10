@@ -82,5 +82,3 @@ jobs:
         uses: fastify/github-action-merge-dependabot@v3
         with:
           merge-method: rebase
-      
-      
