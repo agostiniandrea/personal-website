@@ -15,4 +15,3 @@ updates:
       - dependency-name: "next"
     ignore:
       - dependency-name: "*"
-        dependency-type: "all"
