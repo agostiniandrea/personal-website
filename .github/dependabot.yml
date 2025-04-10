@@ -4,8 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "16:05"
-      timezone: Europe/Berlin
+      time: "14:10"
+      timezone: "UTC"
     versioning-strategy: increase
     commit-message:
       prefix: "chore(deps)"
