@@ -77,4 +77,11 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Merge PR from dependabot
+        uses: fastify/github-action-merge-dependabot@v3
+        with:
+          target: minor
+          merge-method: rebase
+      
       
