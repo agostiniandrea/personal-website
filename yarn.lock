@@ -1086,12 +1086,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:15.2.4, @next/eslint-plugin-next@npm:^15.2.4":
+"@next/eslint-plugin-next@npm:15.2.4":
   version: 15.2.4
   resolution: "@next/eslint-plugin-next@npm:15.2.4"
   dependencies:
     fast-glob: "npm:3.3.1"
   checksum: 10c0/13fb1da543d1f930fca4b4b26b5e26bd173ffada4128bb8606f16f6466b8db145e1d5892bb69e337832784476ae33255dfc3a553a6036bbf75ec38717975749c
+  languageName: node
+  linkType: hard
+
+"@next/eslint-plugin-next@npm:^15.3.0":
+  version: 15.3.0
+  resolution: "@next/eslint-plugin-next@npm:15.3.0"
+  dependencies:
+    fast-glob: "npm:3.3.1"
+  checksum: 10c0/d4f4350461ed9aad3649b8be1dfb1bbe9fd55c4f80e94635fc2c4dbd664563bc426634eccb543d5fa14d788914ff1d34bcb36d1969506d58a2e8c05c567b9ab7
   languageName: node
   linkType: hard
 
@@ -5690,7 +5699,7 @@ __metadata:
     "@babel/preset-typescript": "npm:7.23.0"
     "@cypress/request": "npm:3.0.8"
     "@eslint/js": "npm:^9.23.0"
-    "@next/eslint-plugin-next": "npm:^15.2.4"
+    "@next/eslint-plugin-next": "npm:^15.3.0"
     "@sentry/nextjs": "npm:^9.12.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.2.0"
