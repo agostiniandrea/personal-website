@@ -4,14 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "15:05"
+      time: "15:20"
       timezone: Europe/Berlin
     versioning-strategy: increase
     commit-message:
       prefix: "chore(deps)"
-    allow:
-      - dependency-name: "@sentry/nextjs"
-      - dependency-name: "eslint"
-      - dependency-name: "next"
     ignore:
-      - dependency-name: "*"
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
+      - dependency-name: "react-is"
