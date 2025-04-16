@@ -4521,9 +4521,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contentful@npm:^11.5.1":
-  version: 11.5.11
-  resolution: "contentful@npm:11.5.11"
+"contentful@npm:^11.5.14":
+  version: 11.5.14
+  resolution: "contentful@npm:11.5.14"
   dependencies:
     "@contentful/content-source-maps": "npm:^0.11.8"
     "@contentful/rich-text-types": "npm:^16.6.1"
@@ -4532,7 +4532,7 @@ __metadata:
     contentful-sdk-core: "npm:^9.0.1"
     json-stringify-safe: "npm:^5.0.1"
     type-fest: "npm:^4.0.0"
-  checksum: 10c0/960dd90fda5d73e2c831ebe7effa45715e9fb80e7b6bfed2a5bf8b0d974d0b45091798ec178316dd53a9f132426a25ba1a91e7e208010f2f0023dc752a2f64e1
+  checksum: 10c0/89700b02261d13a81706592c69c1fa42ffc2120977bb6795e6987c7158abe11ac2aeaa850477cf08a8e0624ca1bcb5e42f970b0e6ef034d92c5f9e52ac3ad80d
   languageName: node
   linkType: hard
 
@@ -6921,7 +6921,7 @@ __metadata:
     "@vercel/analytics": "npm:^1.5.0"
     "@vercel/speed-insights": "npm:^1.2.0"
     airtable: "npm:^0.12.2"
-    contentful: "npm:^11.5.1"
+    contentful: "npm:^11.5.14"
     cypress: "npm:14.3.0"
     dotenv: "npm:^16.5.0"
     eslint: "npm:^9.23.0"
