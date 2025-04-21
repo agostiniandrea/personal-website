@@ -9,19 +9,34 @@ const meta: Meta<typeof Button> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'outline'],
-      description: 'Visual style of the button',
-    },
-    size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-      description: 'Size of the button',
-    },
     disabled: {
       control: 'boolean',
       description: 'Whether the button is disabled',
+    },
+    type: {
+      control: 'select',
+      options: ['button', 'submit', 'reset'],
+      description: 'Type of the button',
+    },
+    'aria-label': {
+      control: 'text',
+      description: 'Accessibility label for the button',
+    },
+    'aria-describedby': {
+      control: 'text',
+      description: 'ID of the element that describes the button',
+    },
+    'aria-expanded': {
+      control: 'boolean',
+      description: 'Whether the button controls an expanded element',
+    },
+    'aria-pressed': {
+      control: 'boolean',
+      description: 'Whether the button is pressed',
+    },
+    'aria-controls': {
+      control: 'text',
+      description: 'ID of the element controlled by the button',
     },
   },
 };
@@ -29,38 +44,9 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    children: 'Primary Button',
-    variant: 'primary',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    children: 'Secondary Button',
-    variant: 'secondary',
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    children: 'Outline Button',
-    variant: 'outline',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    children: 'Small Button',
-    size: 'small',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    children: 'Large Button',
-    size: 'large',
+    children: 'Default Button',
   },
 };
 
@@ -71,9 +57,31 @@ export const Disabled: Story = {
   },
 };
 
-export const WithIcon: Story = {
+export const Submit: Story = {
   args: {
-    children: 'Button with Icon',
-    icon: 'arrow-right',
+    children: 'Submit Button',
+    type: 'submit',
+  },
+};
+
+export const WithAriaLabel: Story = {
+  args: {
+    children: 'Button with aria-label',
+    'aria-label': 'Description of the button',
+  },
+};
+
+export const WithDescription: Story = {
+  args: {
+    children: 'Button with description',
+    description: 'This is a detailed description of the button',
+  },
+};
+
+export const WithAriaControls: Story = {
+  args: {
+    children: 'Button with aria-controls',
+    'aria-controls': 'controlled-element',
+    'aria-expanded': false,
   },
 }; 
