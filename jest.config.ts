@@ -1,19 +1,11 @@
-import type { Config } from 'jest';
+import type { Config } from '@jest/types';
 
-const config: Config = {
+const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-
-  transform: {
-    '^.+\\.(ts|tsx)$': [
-      'ts-jest',
-      {
-        tsconfig: 'tsconfig.jest.json',
-      },
-    ],
-  },
-
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.tsx'],
   moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
     '^@assets/(.*)$': '<rootDir>/assets/$1',
     '^@components/(.*)$': '<rootDir>/components/$1',
     '^@config/(.*)$': '<rootDir>/config/$1',
@@ -22,9 +14,23 @@ const config: Config = {
     '^@fonts/(.*)$': '<rootDir>/public/assets/fonts/$1',
     '^@images/(.*)$': '<rootDir>/assets/images/$1',
     '^@lib/(.*)$': '<rootDir>/lib/$1',
-    '^@mocks/(.*)$': '<rootDir>/testsConfig/__mocks__/$1',
-    '^@testing/(.*)$': '<rootDir>/testsConfig/$1',
+    '^@test-utils/(.*)$': '<rootDir>/test-utils/$1',
     '^@utils/(.*)$': '<rootDir>/lib/utils/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^styled-components$': '<rootDir>/node_modules/styled-components',
+  },
+  testMatch: ['**/components/**/*.test.tsx'],
+  transform: {
+    '^.+\\.(ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(styled-components|@babel/runtime)/)',
+  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
   },
 };
 

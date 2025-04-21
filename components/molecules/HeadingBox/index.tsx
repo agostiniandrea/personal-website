@@ -1,92 +1,116 @@
-import { Container } from "@components/ions";
-import Link from "@components/ions/Link";
-import { theme } from "@config/theme";
-import { useMedia } from "@lib/utils/useMedia";
+import React from 'react';
+import styled from 'styled-components';
+import Link from '../../ions/Link';
+import { useMedia } from '../../../lib/utils/useMedia';
 
-const linearGradient =
-  "linear-gradient(90deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.03) 100%)";
-
-/**
- * Props for the HeadingBox component.
- */
-export interface HeadingBoxProps {
-  /**
-   * The call-to-action component.
-   */
-  cta?: CtaProps;
-  /**
-   * The heading text.
-   */
+interface HeadingBoxProps {
   heading: string | null;
-  /**
-   * The description text.
-   */
   description: string | null;
-  /**
-   * The pre-heading text.
-   */
   preHeading: string | null;
+  cta?: {
+    label: string;
+    url: string;
+  };
 }
 
+const HeadingBoxContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background: ${({theme}) => theme.colors.background};
+  border-radius: ${({theme}) => theme.radii.xs};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+
+  @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
+    padding: 1rem;
+  }
+`;
+
+const Title = styled.h2`
+  color: ${({theme}) => theme.colors.text};
+  font-size: ${({theme}) => theme.fontSizes['2xl']};
+  font-family: ${({theme}) => theme.fontFamilies.heading};
+  line-height: ${({theme}) => theme.lineHeights.heading};
+  margin: 0;
+
+  @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
+    font-size: ${({theme}) => theme.fontSizes.xl};
+  }
+`;
+
+const Description = styled.p<{ $hideDescription?: boolean }>`
+  color: ${({theme}) => theme.colors.text};
+  font-size: ${({theme}) => theme.fontSizes.md};
+  font-family: ${({theme}) => theme.fontFamilies.body};
+  line-height: ${({theme}) => theme.lineHeights.regular};
+  margin: 0;
+  opacity: ${({ $hideDescription }) => ($hideDescription ? 0 : 1)};
+  transition: opacity 0.3s ease-in-out;
+
+  @media (max-width: ${({theme}) => theme.breakpoints.mobile}) {
+    font-size: ${({theme}) => theme.fontSizes.sm};
+  }
+`;
+
+const PreHeading = styled.span`
+  color: ${({theme}) => theme.colors.text};
+  font-size: ${({theme}) => theme.fontSizes.md};
+  font-family: ${({theme}) => theme.fontFamilies.body};
+  line-height: ${({theme}) => theme.lineHeights.regular};
+  margin: 0;
+`;
+
 const HeadingBox: React.FC<HeadingBoxProps> = ({
-  cta,
   heading,
   description,
   preHeading,
+  cta,
 }) => {
-  const { isDesktop } = useMedia();
+  const { isMobile } = useMedia();
 
   return (
-    <Container>
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          maxWidth: "480px",
-        }}
-      >
-        <p
-          style={{
-            background: linearGradient,
-          }}
-        >
+    <HeadingBoxContainer 
+      role="region"
+      aria-label="Heading Box"
+    >
+      {preHeading && (
+        <PreHeading id="pre-heading">
           {preHeading}
-        </p>
-        <h2
-          style={{
-            background: linearGradient,
+        </PreHeading>
+      )}
+      {heading && (
+        <Title id="heading-title">
+          {heading}
+        </Title>
+      )}
+      {description && (
+        <Description 
+          id="heading-description"
+          $hideDescription={isMobile}
+        >
+          {description}
+        </Description>
+      )}
+      {cta && (
+        <Link
+          href={cta.url}
+          aria-label={cta.label}
+          styles={{
+            display: 'inline-block',
+            padding: '0.5rem 1rem',
+            backgroundColor: 'var(--button)',
+            color: 'var(--button_text)',
+            borderRadius: 'var(--radii-xs)',
+            textDecoration: 'none',
           }}
         >
-          {heading}
-        </h2>
-        {isDesktop && (
-          <p
-            style={{
-              background: linearGradient,
-            }}
-          >
-            {description}
-          </p>
-        )}
-        {cta && (
-          <Link
-            href={cta.url}
-            styles={{
-              borderRadius: theme.radii.xs,
-              background: theme.colors.button,
-              color: theme.colors.button_text,
-              fontWeight: theme.fontWeights.bold,
-              padding: theme.space.md,
-              textDecoration: "none",
-              width: "fit-content",
-            }}
-          >
-            {cta.label}
-          </Link>
-        )}
-      </section>
-    </Container>
+          {cta.label}
+        </Link>
+      )}
+    </HeadingBoxContainer>
   );
 };
 

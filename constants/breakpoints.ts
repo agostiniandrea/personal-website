@@ -1,4 +1,4 @@
-type Breakpoints = {
+export type Breakpoints = {
   xMobile: string;
   mobile: string;
   xTablet: string;

@@ -4,7 +4,11 @@ import Image from "next/image";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  color: ${(props: any) => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: cover;
 `;
 
 /**
@@ -43,12 +47,11 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
         width: "100%",
       }}
     >
-      <Image
+      <StyledImage
         alt={image.alt || "hero primary image"}
         priority
         src={image.url}
         fill
-        style={{ objectFit: "cover" }}
       />
       {/* <div style={{ position: "absolute", bottom: 0 }}> */}
       <Container>
