@@ -1,6 +1,5 @@
 import { Container } from "@components/ions";
 import { HeadingBox } from "@components/molecules";
-import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -14,7 +13,7 @@ const StyledImage = styled(Image)`
 
 const StyledImageContainer = styled.section`
   background: gray;
-  height: ${props => props.theme.space.xxl};
+  height: 2rem;
   position: relative;
   width: 100%;
 `;
@@ -58,8 +57,6 @@ const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
   image,
   ...restProps
 }) => {
-  const { isMobile } = useMedia();
-
   return (
     <Container verticalPadding>
       <StyledSection style={{ position: "relative" }}>
