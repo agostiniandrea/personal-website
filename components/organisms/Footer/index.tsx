@@ -38,7 +38,7 @@ const StyledSocialLinks = styled.section`
 `;
 
 const StyledCopyright = styled.p`
-  padding-top: ${props => props.theme.space.xl};
+  padding-top: 1.5rem;
   text-align: center;
   font-size: ${props => props.theme.fontSizes.body};
 `;

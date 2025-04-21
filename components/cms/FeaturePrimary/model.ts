@@ -13,6 +13,7 @@ export const defaultFeature: FeaturePrimaryProps = {
   },
   cta: {
     label: 'Read More',
+    name: 'Read More',
     url: '/articles/web-development-future',
   },
 };
@@ -43,6 +44,7 @@ export const longContentFeature: FeaturePrimaryProps = {
   },
   cta: {
     label: 'Explore Architecture',
+    name: 'Explore Architecture',
     url: '/articles/web-architecture',
   },
 };
@@ -60,6 +62,7 @@ export const specialCharactersFeature: FeaturePrimaryProps = {
   },
   cta: {
     label: 'Learn More',
+    name: 'Learn More',
     url: '/articles/digital-transformation',
   },
 }; 
