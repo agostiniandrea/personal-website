@@ -4136,6 +4136,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-interactions@npm:^8.6.12":
+  version: 8.6.12
+  resolution: "@storybook/addon-interactions@npm:8.6.12"
+  dependencies:
+    "@storybook/global": "npm:^5.0.0"
+    "@storybook/instrumenter": "npm:8.6.12"
+    "@storybook/test": "npm:8.6.12"
+    polished: "npm:^4.2.2"
+    ts-dedent: "npm:^2.2.0"
+  peerDependencies:
+    storybook: ^8.6.12
+  checksum: 10c0/46b4fc1a6e4eef2cbe86055fc09202fea58d6fe264b6ad305c278e2101f7915231b0b9aa59b4b3bdb8a2fdf5e2219f2d37c33ba5e611f6ee6bff37bb2b06b487
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-links@npm:^8.6.12":
+  version: 8.6.12
+  resolution: "@storybook/addon-links@npm:8.6.12"
+  dependencies:
+    "@storybook/global": "npm:^5.0.0"
+    ts-dedent: "npm:^2.0.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    storybook: ^8.6.12
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 10c0/c90e6e81c486b94a172ebd9fa40d32c02cfe498bc1bb9536fe437842d513668ea015c328a49836de289c20801ee330457868793a7c70fd053dfc7441bf86df61
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-measure@npm:8.6.12":
   version: 8.6.12
   resolution: "@storybook/addon-measure@npm:8.6.12"
@@ -6809,7 +6840,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-styled-components@npm:>= 1.12.0":
+"babel-plugin-styled-components@npm:>= 1.12.0, babel-plugin-styled-components@npm:^2.1.4":
   version: 2.1.4
   resolution: "babel-plugin-styled-components@npm:2.1.4"
   dependencies:
@@ -10945,6 +10976,8 @@ __metadata:
     "@next/eslint-plugin-next": "npm:^15.2.4"
     "@sentry/nextjs": "npm:^9.13.0"
     "@storybook/addon-essentials": "npm:^8.6.12"
+    "@storybook/addon-interactions": "npm:^8.6.12"
+    "@storybook/addon-links": "npm:^8.6.12"
     "@storybook/addon-onboarding": "npm:^8.6.12"
     "@storybook/addons": "npm:7.6.17"
     "@storybook/blocks": "npm:^8.6.12"
@@ -10970,6 +11003,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^3.1.2"
     airtable: "npm:^0.12.2"
     babel-jest: "npm:^29.7.0"
+    babel-plugin-styled-components: "npm:^2.1.4"
     contentful: "npm:^11.5.14"
     cypress: "npm:14.3.0"
     dotenv: "npm:^16.5.0"
