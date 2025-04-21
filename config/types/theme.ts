@@ -9,6 +9,14 @@ declare module 'styled-components' {
       background: string;
       text: string;
       accent: string;
+      button: string;
+      button_text: string;
+      headline: string;
+      paragraph: string;
+      stroke: string;
+      main: string;
+      highlight: string;
+      tertiary: string;
     };
     fontFamilies: {
       body: string;

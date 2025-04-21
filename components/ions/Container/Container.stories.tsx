@@ -13,9 +13,9 @@ const meta: Meta<typeof Container> = {
       control: 'boolean',
       description: 'Adds vertical padding to the container',
     },
-    maxWidth: {
-      control: 'text',
-      description: 'Maximum width of the container',
+    styles: {
+      control: 'object',
+      description: 'Custom styles to apply to the container',
     },
   },
 };
@@ -36,17 +36,12 @@ export const WithVerticalPadding: Story = {
   },
 };
 
-export const WithCustomMaxWidth: Story = {
+export const WithCustomStyles: Story = {
   args: {
-    children: 'Container with custom max width',
-    maxWidth: '800px',
-  },
-};
-
-export const WithBoth: Story = {
-  args: {
-    children: 'Container with both vertical padding and custom max width',
-    verticalPadding: true,
-    maxWidth: '800px',
+    children: 'Container with custom styles',
+    styles: {
+      backgroundColor: '#f0f0f0',
+      padding: '2rem',
+    },
   },
 }; 
