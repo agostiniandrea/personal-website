@@ -23,8 +23,7 @@
       "@fonts/*": ["public/assets/fonts/*"],
       "@images/*": ["assets/images/*"],
       "@lib/*": ["lib/*"],
-      "@mocks/*": ["testsConfig/__mocks__/*"],
-      "@testing/*": ["testsConfig/*"],
+      "@test-utils/*": ["test-utils/*"],
       "@utils/*": ["lib/utils/*"]
     },
     "noEmit": true,

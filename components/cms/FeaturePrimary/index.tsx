@@ -5,7 +5,23 @@ import Image from "next/image";
 import styled from "styled-components";
 
 const StyledSection = styled.section`
-  color: ${(props: any) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.background};
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: cover;
+`;
+
+const StyledImageContainer = styled.section`
+  background: gray;
+  height: ${props => props.theme.space.xxl};
+  position: relative;
+  width: 100%;
+`;
+
+const StyledContentContainer = styled.section`
+  position: absolute;
+  bottom: 24px;
 `;
 
 /**
@@ -47,24 +63,16 @@ const FeaturePrimary: React.FC<FeaturePrimaryProps> = ({
   return (
     <Container verticalPadding>
       <StyledSection style={{ position: "relative" }}>
-        <section
-          style={{
-            background: "gray",
-            height: isMobile ? "400px" : "600px",
-            position: "relative",
-            width: "100%",
-          }}
-        >
-          <Image
+        <StyledImageContainer>
+          <StyledImage
             alt={image.alt || "feature primary image"}
             src={image.url}
             fill
-            style={{ objectFit: "cover" }}
           />
-        </section>
-        <section style={{ position: "absolute", bottom: "24px" }}>
+        </StyledImageContainer>
+        <StyledContentContainer>
           <HeadingBox {...restProps} />
-        </section>
+        </StyledContentContainer>
       </StyledSection>
     </Container>
   );

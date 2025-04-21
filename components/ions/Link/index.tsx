@@ -1,10 +1,10 @@
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import styled, { Interpolation } from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 /**
  * Props for the Link component.
  */
-export interface LinkProps extends NextLinkProps {
+interface LinkProps {
   /**
    * The content of the Link component.
    */
@@ -13,32 +13,65 @@ export interface LinkProps extends NextLinkProps {
   /**
    * Additional styles for the Link component.
    */
-  styles?: Interpolation<React.CSSProperties>;
+  styles?: React.CSSProperties;
+
+  /**
+   * The href attribute for the Link component.
+   */
+  href: string;
+
+  /**
+   * Indicates whether the link is external.
+   */
+  isExternal?: boolean;
+
+  /**
+   * The aria-label attribute for the Link component.
+   */
+  ariaLabel?: string;
 }
 
-/**
- * Props for the StyledLink component.
- */
-interface StyledLinkProps {
-  styles?: LinkProps["styles"];
-}
-
-const StyledLink = styled(NextLink)<StyledLinkProps>`
-  color: ${(props: any) => props.theme.colors.secondary};
-  font-size: ${(props: any) => props.theme.fontSizes.font2};
+const StyledLink = styled.a<LinkProps>`
+  color: ${({theme}) => theme.colors.primary};
   text-decoration: none;
+  font-size: ${({theme}) => theme.fontSizes.md};
+  font-family: ${({theme}) => theme.fontFamilies.body};
+  line-height: ${({theme}) => theme.lineHeights.regular};
+  transition: color 0.2s ease-in-out;
 
-  &:visited {
-    color: ${(props: any) => props.theme.colors.secondary};
-    text-decoration: none;
+  &:hover {
+    color: ${({theme}) => theme.colors.secondary};
+  }
+
+  &:focus {
+    outline: 2px solid ${({theme}) => theme.colors.primary};
+    outline-offset: 2px;
   }
 
   ${({ styles }) => styles}
 `;
 
-const Link: React.FC<LinkProps> = ({ href, styles, children }) => {
+const Link: React.FC<LinkProps> = ({ 
+  href, 
+  styles, 
+  children, 
+  isExternal = false,
+  ariaLabel 
+}) => {
+  const linkProps = {
+    href,
+    styles,
+    tabIndex: 0,
+    'aria-label': ariaLabel || (typeof children === 'string' ? children : undefined),
+    ...(isExternal && {
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      'aria-label': `${ariaLabel || (typeof children === 'string' ? children : 'Link')} (opens in new tab)`
+    })
+  };
+
   return (
-    <StyledLink href={href} passHref styles={styles}>
+    <StyledLink {...linkProps}>
       {children}
     </StyledLink>
   );

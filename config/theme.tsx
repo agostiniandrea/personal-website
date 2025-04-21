@@ -1,5 +1,3 @@
-import { ThemeProvider } from "styled-components";
-
 import { button, link } from "./componentThemes";
 import {
   colors,
@@ -11,8 +9,10 @@ import {
   space,
   typography,
 } from "./customizations";
+import { DefaultTheme } from 'styled-components';
+import breakpoints from '../constants/breakpoints';
 
-export const theme = {
+const theme: DefaultTheme = {
   colors,
   fontFamilies,
   fontSizes,
@@ -21,14 +21,11 @@ export const theme = {
   radii,
   space,
   typography,
+  breakpoints,
   components: {
     button,
     link,
   },
 };
 
-const Theme = ({ children }: any) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
-);
-
-export default Theme;
+export default theme;

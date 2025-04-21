@@ -2,12 +2,36 @@ import { Container, Link } from "@components/ions";
 import { useMedia } from "@lib/utils/useMedia";
 import styled, { Interpolation } from "styled-components";
 
-const StyledHeader = styled.header<HeaderProps>`
-  background: ${(props: any) => props.theme.colors.background};
-  color: ${(props: any) => props.theme.colors.secondary};
-  font-size: ${(props: any) => props.theme.fontSizes.body};
-
+const StyledHeader = styled.header<{ styles?: Interpolation<React.CSSProperties> }>`
+  background: ${({theme}) => theme.colors.background};
+  color: ${({theme}) => theme.colors.text};
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
   ${({ styles }) => styles}
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
+  gap: 1rem;
+`;
+
+const StyledList = styled.ul`
+  display: flex;
+  gap: 20px;
+  list-style: none;
+`;
+
+const StyledListItem = styled.li`
+  margin-bottom: auto;
+  margin-top: auto;
+`;
+
+const StyledLogo = styled.p`
+  letter-spacing: 0.03em;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 0;
 `;
 
 /**
@@ -21,66 +45,21 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
   const { isMobile } = useMedia();
   return (
     <StyledHeader styles={styles}>
-      <nav style={{ height: "100%", width: "100%" }}>
+      <StyledNav>
         <Container verticalPadding>
           {isMobile ? (
             <div>
-              <p
-                style={{
-                  letterSpacing: "0.03em",
-                  fontWeight: "bold",
-                  fontSize: "30px",
-                  margin: 0,
-                }}
-              >
-                Alice Di Antonio
-              </p>
+              <StyledLogo>Alice Di Antonio</StyledLogo>
             </div>
           ) : (
-            <ul
-              style={{
-                display: "flex",
-                gap: "20px",
-                listStyle: "none",
-              }}
-            >
-              <li
-                style={{
-                  marginBottom: "auto",
-                  marginTop: "auto",
-                }}
-              >
+            <StyledList>
+              <StyledListItem>
                 <Link href="/">Alice Di Antonio</Link>
-              </li>
-              {/*  <li
-                style={{
-                  marginBottom: "auto",
-                  marginLeft: "auto",
-                  marginTop: "auto",
-                }}
-              >
-                <Link href="/portfolio">Portfolio</Link>
-              </li>
-              <li
-                style={{
-                  marginBottom: "auto",
-                  marginTop: "auto",
-                }}
-              >
-                <Link href="/viaggi">Viaggi</Link>
-              </li>
-              <li
-                style={{
-                  marginBottom: "auto",
-                  marginTop: "auto",
-                }}
-              >
-                <Link href="/chi-sono">Chi sono</Link>
-              </li> */}
-            </ul>
+              </StyledListItem>
+            </StyledList>
           )}
         </Container>
-      </nav>
+      </StyledNav>
     </StyledHeader>
   );
 };
