@@ -69,7 +69,6 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
         <HeroDescription
           id={descriptionId}
           as="p"
-          variant="large"
           aria-label="Blog description"
         >
           Welcome to our blog, where we share our stories and experiences.

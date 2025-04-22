@@ -6,33 +6,35 @@ import styled from 'styled-components';
  */
 interface LinkProps {
   /**
-   * The content of the Link component.
-   */
-  children: React.ReactNode;
-
-  /**
-   * Additional styles for the Link component.
-   */
-  styles?: React.CSSProperties;
-
-  /**
-   * The href attribute for the Link component.
+   * The URL that the hyperlink points to.
    */
   href: string;
 
   /**
-   * Indicates whether the link is external.
+   * The content of the link.
+   */
+  children: React.ReactNode;
+
+  /**
+   * Whether the link should open in a new tab.
    */
   isExternal?: boolean;
 
   /**
-   * The aria-label attribute for the Link component.
+   * An accessible label for the link.
    */
   ariaLabel?: string;
+
+  /**
+   * Additional styles to apply to the link.
+   */
+  styles?: React.CSSProperties;
 }
 
-const StyledLink = styled.a<LinkProps>`
-  color: ${({theme}) => theme.colors.primary};
+const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
+  style: styles
+}))<LinkProps>`
+  color: ${({ theme }) => theme.colors.highlight};
   text-decoration: none;
   font-size: ${({theme}) => theme.fontSizes.md};
   font-family: ${({theme}) => theme.fontFamilies.body};
@@ -40,38 +42,34 @@ const StyledLink = styled.a<LinkProps>`
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: ${({theme}) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.tertiary};
   }
 
   &:focus {
-    outline: 2px solid ${({theme}) => theme.colors.primary};
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
   }
-
-  ${({ styles }) => styles}
 `;
 
 const Link: React.FC<LinkProps> = ({ 
   href, 
-  styles, 
   children, 
+  styles,
   isExternal = false,
   ariaLabel 
 }) => {
-  const linkProps = {
-    href,
-    styles,
-    tabIndex: 0,
-    'aria-label': ariaLabel || (typeof children === 'string' ? children : undefined),
-    ...(isExternal && {
-      target: '_blank',
-      rel: 'noopener noreferrer',
-      'aria-label': `${ariaLabel || (typeof children === 'string' ? children : 'Link')} (opens in new tab)`
-    })
-  };
+  const target = isExternal ? '_blank' : undefined;
+  const rel = isExternal ? 'noopener noreferrer' : undefined;
 
   return (
-    <StyledLink {...linkProps}>
+    <StyledLink
+      href={href}
+      target={target}
+      rel={rel}
+      aria-label={ariaLabel}
+      styles={styles}
+      tabIndex={0}
+    >
       {children}
     </StyledLink>
   );
