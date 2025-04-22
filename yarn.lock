@@ -7346,7 +7346,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:^11.15.0":
+"chromatic@npm:^11.15.0, chromatic@npm:^11.27.0":
   version: 11.28.2
   resolution: "chromatic@npm:11.28.2"
   peerDependencies:
@@ -10986,6 +10986,7 @@ __metadata:
     airtable: "npm:^0.12.2"
     babel-jest: "npm:^29.7.0"
     babel-plugin-styled-components: "npm:^2.1.4"
+    chromatic: "npm:^11.27.0"
     contentful: "npm:^11.5.14"
     cypress: "npm:^14.3.1"
     dotenv: "npm:^16.5.0"
