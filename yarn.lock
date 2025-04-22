@@ -10826,6 +10826,7 @@ __metadata:
     "@cypress/request": "npm:3.0.8"
     "@eslint/js": "npm:^9.25.1"
     "@jest/globals": "npm:^29.7.0"
+    "@jest/types": "npm:^29.6.3"
     "@next/eslint-plugin-next": "npm:^15.2.4"
     "@sentry/nextjs": "npm:^9.13.0"
     "@storybook/addon-essentials": "npm:^8.6.12"
