@@ -1,7 +1,7 @@
 import { Seo } from "@components/atoms";
 import { Container } from "@components/ions";
 import { Footer, Header } from "@components/organisms";
-import { theme } from "@config/theme";
+import theme from "@config/theme";
 import { PAGE_TYPES } from "@constants";
 import { TPageFields, getPageContent } from "@lib/utils/cms";
 import { useMedia } from "@lib/utils/useMedia";

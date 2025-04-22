@@ -1,7 +1,8 @@
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom';
 import 'jest-styled-components';
 
-// Estendere expect con i matchers di jest-dom
+// Extend expect with the matchers from jest-dom
 declare global {
   namespace jest {
     interface Matchers<R> {

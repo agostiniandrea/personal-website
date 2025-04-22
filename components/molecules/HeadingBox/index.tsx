@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from '../../ions/Link';
 import { useMedia } from '../../../lib/utils/useMedia';
 
-interface HeadingBoxProps {
+export interface HeadingBoxProps {
   heading: string | null;
   description: string | null;
   preHeading: string | null;
@@ -30,7 +30,7 @@ const HeadingBoxContainer = styled.section`
 `;
 
 const Title = styled.h2`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.headline};
   font-size: ${({theme}) => theme.fontSizes['2xl']};
   font-family: ${({theme}) => theme.fontFamilies.heading};
   line-height: ${({theme}) => theme.lineHeights.heading};
@@ -42,7 +42,7 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p<{ $hideDescription?: boolean }>`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.paragraph};
   font-size: ${({theme}) => theme.fontSizes.md};
   font-family: ${({theme}) => theme.fontFamilies.body};
   line-height: ${({theme}) => theme.lineHeights.regular};
@@ -56,7 +56,7 @@ const Description = styled.p<{ $hideDescription?: boolean }>`
 `;
 
 const PreHeading = styled.span`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.paragraph};
   font-size: ${({theme}) => theme.fontSizes.md};
   font-family: ${({theme}) => theme.fontFamilies.body};
   line-height: ${({theme}) => theme.lineHeights.regular};

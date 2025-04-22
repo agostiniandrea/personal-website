@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 /**
  * Creates a mock implementation for window.matchMedia
  * @param matches Optional boolean or function to determine if media query matches
@@ -6,7 +8,7 @@
 export const createMatchMediaMock = (
   matches: boolean | ((query: string) => boolean) = false
 ) => {
-  return jest.fn().mockImplementation((query: string) => ({
+  return jest.fn((query: string) => ({
     matches: typeof matches === 'function' ? matches(query) : matches,
     media: query,
     onchange: null,
@@ -14,26 +16,22 @@ export const createMatchMediaMock = (
     removeListener: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  }));
+    dispatchEvent: jest.fn().mockReturnValue(true),
+  })) as unknown as typeof window.matchMedia;
 };
 
 /**
  * Mock implementation for mobile viewport
- * Matches when query is "(min-width: 0px) and (max-width: 600px)"
+ * Matches when query is "(max-width: 768px)"
  */
 export const mockMobileViewport = () => {
-  window.matchMedia = createMatchMediaMock(
-    (query) => query === "(min-width: 0px) and (max-width: 600px)"
-  );
+  window.matchMedia = createMatchMediaMock((query) => query === '(max-width: 768px)');
 };
 
 /**
  * Mock implementation for desktop viewport
- * Does not match mobile media queries
+ * Matches when query is not "(max-width: 768px)"
  */
 export const mockDesktopViewport = () => {
-  window.matchMedia = createMatchMediaMock(
-    (query) => query !== "(min-width: 0px) and (max-width: 600px)"
-  );
+  window.matchMedia = createMatchMediaMock((query) => query !== '(max-width: 768px)');
 }; 

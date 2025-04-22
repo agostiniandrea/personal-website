@@ -13,14 +13,17 @@ const meta: Meta<typeof Link> = {
       control: 'text',
       description: 'URL the link points to',
     },
-    target: {
-      control: 'select',
-      options: ['_self', '_blank', '_parent', '_top'],
-      description: 'Where to open the linked URL',
+    isExternal: {
+      control: 'boolean',
+      description: 'Whether the link opens in a new tab',
     },
-    rel: {
+    ariaLabel: {
       control: 'text',
-      description: 'Relationship between the current document and the linked URL',
+      description: 'Accessibility label for the link',
+    },
+    styles: {
+      control: 'object',
+      description: 'Custom styles to apply to the link',
     },
   },
 };
@@ -38,9 +41,8 @@ export const Default: Story = {
 export const External: Story = {
   args: {
     href: 'https://example.com',
-    target: '_blank',
-    rel: 'noopener noreferrer',
     children: 'External Link',
+    isExternal: true,
   },
 };
 
@@ -48,7 +50,7 @@ export const WithCustomStyles: Story = {
   args: {
     href: '#',
     children: 'Styled Link',
-    style: {
+    styles: {
       color: 'red',
       textDecoration: 'underline',
     },
@@ -59,6 +61,6 @@ export const WithAriaLabel: Story = {
   args: {
     href: '#',
     children: 'Link with aria-label',
-    'aria-label': 'Description of the link',
+    ariaLabel: 'Description of the link',
   },
 }; 

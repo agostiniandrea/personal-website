@@ -19,6 +19,18 @@ const meta: Meta<typeof Text> = {
       options: ['p', 'span', 'div'],
       description: 'HTML element to render as',
     },
+    'aria-label': {
+      control: 'text',
+      description: 'Accessibility label for the text',
+    },
+    'aria-describedby': {
+      control: 'text',
+      description: 'ID of element that describes the text',
+    },
+    style: {
+      control: 'object',
+      description: 'Custom styles to apply to the text',
+    },
   },
 };
 
@@ -27,35 +39,44 @@ type Story = StoryObj<typeof Text>;
 
 export const Default: Story = {
   args: {
-    children: 'This is a regular text',
-    variant: 'regular',
+    children: 'Default text',
   },
 };
 
 export const Small: Story = {
   args: {
-    children: 'This is a small text',
     variant: 'small',
+    children: 'Small text',
   },
 };
 
 export const Large: Story = {
   args: {
-    children: 'This is a large text',
     variant: 'large',
+    children: 'Large text',
   },
 };
 
 export const AsSpan: Story = {
   args: {
-    children: 'This text is rendered as a span',
     as: 'span',
+    children: 'Text rendered as span',
   },
 };
 
 export const WithAriaLabel: Story = {
   args: {
-    children: 'This text has an aria-label',
+    children: 'Text with aria-label',
     'aria-label': 'Description of the text',
+  },
+};
+
+export const WithCustomStyles: Story = {
+  args: {
+    children: 'Text with custom styles',
+    style: {
+      color: 'red',
+      fontWeight: 'bold',
+    },
   },
 }; 

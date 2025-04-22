@@ -25,10 +25,26 @@ const meta: Meta<typeof Image> = {
       control: 'number',
       description: 'Height of the image',
     },
-    objectFit: {
+    loading: {
       control: 'select',
-      options: ['contain', 'cover', 'fill', 'none', 'scale-down'],
-      description: 'How the image should fit within its container',
+      options: ['lazy', 'eager'],
+      description: 'Loading strategy for the image',
+    },
+    'aria-hidden': {
+      control: 'boolean',
+      description: 'Whether the image is hidden from screen readers',
+    },
+    'aria-labelledby': {
+      control: 'text',
+      description: 'ID of the element that labels the image',
+    },
+    longDescription: {
+      control: 'text',
+      description: 'Long description of the image',
+    },
+    fallbackSrc: {
+      control: 'text',
+      description: 'Fallback image source in case of error',
     },
   },
 };
@@ -45,41 +61,42 @@ export const Default: Story = {
   },
 };
 
-export const Square: Story = {
+export const WithLongDescription: Story = {
   args: {
-    src: 'https://picsum.photos/200/200',
-    alt: 'Square image',
+    src: 'https://picsum.photos/200/300',
+    alt: 'Image with long description',
     width: 200,
-    height: 200,
+    height: 300,
+    longDescription: 'This is a detailed description of the image content',
   },
 };
 
-export const Cover: Story = {
+export const WithFallback: Story = {
   args: {
-    src: 'https://picsum.photos/200/300',
-    alt: 'Cover image',
+    src: 'https://invalid-url.com/image.jpg',
+    alt: 'Image with fallback',
     width: 200,
     height: 300,
-    objectFit: 'cover',
+    fallbackSrc: 'https://picsum.photos/200/300',
   },
 };
 
-export const Contain: Story = {
+export const Decorative: Story = {
   args: {
     src: 'https://picsum.photos/200/300',
-    alt: 'Contain image',
+    alt: '',
     width: 200,
     height: 300,
-    objectFit: 'contain',
+    'aria-hidden': true,
   },
 };
 
-export const WithAriaLabel: Story = {
+export const EagerLoading: Story = {
   args: {
     src: 'https://picsum.photos/200/300',
-    alt: 'Image with aria-label',
+    alt: 'Eager loaded image',
     width: 200,
     height: 300,
-    'aria-label': 'Description of the image',
+    loading: 'eager',
   },
 }; 

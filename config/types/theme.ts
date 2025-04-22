@@ -1,21 +1,17 @@
-import { DefaultTheme } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      primary: string;
-      secondary: string;
       background: string;
-      text: string;
-      accent: string;
-      button: string;
-      button_text: string;
       headline: string;
       paragraph: string;
+      button: string;
+      button_text: string;
       stroke: string;
       main: string;
       highlight: string;
+      secondary: string;
       tertiary: string;
     };
     fontFamilies: {
@@ -23,6 +19,7 @@ declare module 'styled-components' {
       heading: string;
     };
     fontSizes: {
+      body: string;
       xs: string;
       sm: string;
       md: string;

@@ -4,7 +4,7 @@ import styled, { Interpolation } from "styled-components";
 
 const StyledHeader = styled.header<{ styles?: Interpolation<React.CSSProperties> }>`
   background: ${({theme}) => theme.colors.background};
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.paragraph};
   padding: 1rem;
   position: relative;
   z-index: 1;
