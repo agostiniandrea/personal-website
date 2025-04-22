@@ -1,41 +1,42 @@
 import { Container } from "@components/ions";
-import { theme } from "@config/theme";
-import { useMedia } from "@lib/utils/useMedia";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-const StyledFooter = styled.footer`
-  background: ${(props: any) => props.theme.colors.background};
-  box-shadow: 0px 3px 0px 0px ${(props: any) => props.theme.colors.secondary}
-    inset;
-  color: ${(props: any) => props.theme.colors.secondary};
+const FooterContainer = styled.footer`
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.paragraph};
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 `;
 
-/* export interface FooterProps {
-  heading: string;
-  image: ImageProps;
-  description: string;
-} */
+const StyledSocialLinks = styled.section`
+  height: 30px;
+  text-align: center;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 15px;
+`;
+
+const StyledCopyright = styled.p`
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSizes.body};
+`;
 
 const Footer: React.FC = () => {
-  const { isMobile } = useMedia();
   return (
-    <StyledFooter>
+    <FooterContainer>
       <Container verticalPadding>
-        <section
-          style={{
-            height: "30px",
-            textAlign: "center",
-            display: "flex",
-            marginLeft: "auto",
-            marginRight: "auto",
-            gap: "15px",
-          }}
-        >
+        <StyledSocialLinks>
           <Link
             href="https://www.instagram.com/alice.diantonio/"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
           >
             <Image
               alt="Instagram"
@@ -44,7 +45,12 @@ const Footer: React.FC = () => {
               width="30"
             />
           </Link>
-          <Link href="https://www.tiktok.com/@alicediantonio" target="_blank">
+          <Link
+            href="https://www.tiktok.com/@alicediantonio"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
             <Image
               alt="TikTok"
               src="/assets/icons/tiktok.svg"
@@ -52,18 +58,12 @@ const Footer: React.FC = () => {
               width="30"
             />
           </Link>
-        </section>
-        <p
-          style={{
-            paddingTop: isMobile ? theme.space.lg : theme.space.xl,
-            textAlign: "center",
-            fontSize: theme.fontSizes.body,
-          }}
-        >
+        </StyledSocialLinks>
+        <StyledCopyright>
           {new Date().getFullYear()} © Il sito di Alice Di Antonio
-        </p>
+        </StyledCopyright>
       </Container>
-    </StyledFooter>
+    </FooterContainer>
   );
 };
 

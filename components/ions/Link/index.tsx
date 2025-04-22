@@ -1,44 +1,74 @@
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import styled, { Interpolation } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 
 /**
  * Props for the Link component.
  */
-export interface LinkProps extends NextLinkProps {
+interface LinkProps {
   /**
-   * The content of the Link component.
+   * The URL that the hyperlink points to.
+   */
+  href: string;
+
+  /**
+   * The content of the link.
    */
   children: React.ReactNode;
 
   /**
-   * Additional styles for the Link component.
+   * Whether the link should open in a new tab.
    */
-  styles?: Interpolation<React.CSSProperties>;
+  isExternal?: boolean;
+
+  /**
+   * An accessible label for the link.
+   */
+  ariaLabel?: string;
+
+  /**
+   * Additional styles to apply to the link.
+   */
+  styles?: React.CSSProperties;
 }
 
-/**
- * Props for the StyledLink component.
- */
-interface StyledLinkProps {
-  styles?: LinkProps["styles"];
-}
-
-const StyledLink = styled(NextLink)<StyledLinkProps>`
-  color: ${(props: any) => props.theme.colors.secondary};
-  font-size: ${(props: any) => props.theme.fontSizes.font2};
+const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
+  style: styles,
+}))<LinkProps>`
+  color: ${({ theme }) => theme.colors.highlight};
   text-decoration: none;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  line-height: ${({ theme }) => theme.lineHeights.regular};
+  transition: color 0.2s ease-in-out;
 
-  &:visited {
-    color: ${(props: any) => props.theme.colors.secondary};
-    text-decoration: none;
+  &:hover {
+    color: ${({ theme }) => theme.colors.tertiary};
   }
 
-  ${({ styles }) => styles}
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 2px;
+  }
 `;
 
-const Link: React.FC<LinkProps> = ({ href, styles, children }) => {
+const Link: React.FC<LinkProps> = ({
+  href,
+  children,
+  styles,
+  isExternal = false,
+  ariaLabel,
+}) => {
+  const target = isExternal ? "_blank" : undefined;
+  const rel = isExternal ? "noopener noreferrer" : undefined;
+
   return (
-    <StyledLink href={href} passHref styles={styles}>
+    <StyledLink
+      href={href}
+      target={target}
+      rel={rel}
+      aria-label={ariaLabel}
+      styles={styles}
+      tabIndex={0}
+    >
       {children}
     </StyledLink>
   );
