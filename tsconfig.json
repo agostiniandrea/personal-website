@@ -23,8 +23,7 @@
       "@fonts/*": ["public/assets/fonts/*"],
       "@images/*": ["assets/images/*"],
       "@lib/*": ["lib/*"],
-      "@mocks/*": ["testsConfig/__mocks__/*"],
-      "@testing/*": ["testsConfig/*"],
+      "@test-utils/*": ["test-utils/*"],
       "@utils/*": ["lib/utils/*"]
     },
     "noEmit": true,
@@ -32,6 +31,15 @@
     "noUnusedParameters": true,
     "typeRoots": ["./lib/global"]
   },
-  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "next-sitemap.config.js", "next.config.js", "components/molecules/HeadingBox/HeadingBox.test.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "next-sitemap.config.js",
+    "next.config.js",
+    "components/molecules/HeadingBox/HeadingBox.test.ts"
+  ],
   "exclude": ["node_modules"]
 }
