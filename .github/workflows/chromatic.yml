@@ -26,8 +26,8 @@ jobs:
           yarn install 2> yarn-error.log || true
           tail -n 20 yarn-error.log >> dependencies.log
 
-      - name: Build project
-        run: yarn build:compile
+      - name: Build tsconfig.json
+        run: yarn build:config
 
       - name: Publish to Chromatic
         env:
