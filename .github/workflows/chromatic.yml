@@ -29,13 +29,7 @@ jobs:
       - name: Build tsconfig.json
         run: yarn build:config
 
-      - name: Debug environment variables
-        run: |
-          echo "⬅️  CHROMATIC_PROJECT_TOKEN: $CHROMATIC_PROJECT_TOKEN"
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ env.CHROMATIC_PROJECT_TOKEN }}
-
       - name: Publish to Chromatic
         env:
-          CHROMATIC_PROJECT_TOKEN: ${{ env.CHROMATIC_PROJECT_TOKEN }}
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         run: yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --build-script-name build-storybook --exit-zero-on-changes
