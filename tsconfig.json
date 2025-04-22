@@ -29,7 +29,7 @@
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "typeRoots": ["./lib/global"]
+    "types": ["cypress", "@testing-library/cypress"],
   },
   "include": [
     "next-env.d.ts",

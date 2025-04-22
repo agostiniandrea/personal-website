@@ -131,6 +131,7 @@ describe("HeadingBox", () => {
     it("should maintain proper heading hierarchy without pre-heading", () => {
       renderWithTheme(
         <HeadingBox
+          preHeading=''
           heading={minimalHeadingBox.heading}
           description={minimalHeadingBox.description}
         />,
