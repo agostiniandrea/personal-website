@@ -1,26 +1,13 @@
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://alicediantonio.vercel.app",
-  changefreq: "daily",
-  priority: 0.7,
-  sitemapSize: 50000,
+export default {
+  siteUrl: process.env.SITE_URL || "https://ilnostroblog.it",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  transform: async (config, path) => {
-    return {
-      loc: path, // this will be exported as http(s)://<config.siteUrl>/<path>
-      changefreq: config.changefreq,
-      priority: config.priority,
-      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
-      alternateRefs: config.alternateRefs ?? [],
-    };
-  },
+  changefreq: "daily",
+  priority: 0.7,
+  sitemapSize: 7000,
+  exclude: ["/server-sitemap.xml"],
   robotsTxtOptions: {
-    policies: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-    ],
+    additionalSitemaps: ["https://ilnostroblog.it/server-sitemap.xml"],
   },
-}
+};

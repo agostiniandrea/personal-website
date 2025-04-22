@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
-import '@testing-library/jest-dom';
-import 'jest-styled-components';
+import { jest } from "@jest/globals";
+import "@testing-library/jest-dom";
+import "jest-styled-components";
 
 // Extend expect with the matchers from jest-dom
 declare global {
@@ -14,7 +14,7 @@ declare global {
 }
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
     matches: false,
@@ -29,23 +29,22 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock next/image
-jest.mock('next/image', () => ({
+jest.mock("next/image", () => ({
   __esModule: true,
   default: (props: any) => {
-    // eslint-disable-next-line jsx-a11y/alt-text
-    return <img {...props} />;
+    return <div data-testid="mock-image" {...props} />;
   },
 }));
 
 // Mock next/router
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn(),
     replace: jest.fn(),
     prefetch: jest.fn(),
     back: jest.fn(),
-    pathname: '/',
+    pathname: "/",
     query: {},
-    asPath: '/',
+    asPath: "/",
   }),
-})); 
+}));

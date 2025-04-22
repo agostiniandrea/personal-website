@@ -1,29 +1,29 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Link from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import Link from "./index";
 
 const meta: Meta<typeof Link> = {
-  title: 'Ions/Link',
+  title: "Ions/Link",
   component: Link,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     href: {
-      control: 'text',
-      description: 'URL the link points to',
+      control: "text",
+      description: "URL the link points to",
     },
     isExternal: {
-      control: 'boolean',
-      description: 'Whether the link opens in a new tab',
+      control: "boolean",
+      description: "Whether the link opens in a new tab",
     },
     ariaLabel: {
-      control: 'text',
-      description: 'Accessibility label for the link',
+      control: "text",
+      description: "Accessibility label for the link",
     },
     styles: {
-      control: 'object',
-      description: 'Custom styles to apply to the link',
+      control: "object",
+      description: "Custom styles to apply to the link",
     },
   },
 };
@@ -33,34 +33,34 @@ type Story = StoryObj<typeof Link>;
 
 export const Default: Story = {
   args: {
-    href: '#',
-    children: 'Default Link',
+    href: "#",
+    children: "Default Link",
   },
 };
 
 export const External: Story = {
   args: {
-    href: 'https://example.com',
-    children: 'External Link',
+    href: "https://example.com",
+    children: "External Link",
     isExternal: true,
   },
 };
 
 export const WithCustomStyles: Story = {
   args: {
-    href: '#',
-    children: 'Styled Link',
+    href: "#",
+    children: "Styled Link",
     styles: {
-      color: 'red',
-      textDecoration: 'underline',
+      color: "red",
+      textDecoration: "underline",
     },
   },
 };
 
 export const WithAriaLabel: Story = {
   args: {
-    href: '#',
-    children: 'Link with aria-label',
-    ariaLabel: 'Description of the link',
+    href: "#",
+    children: "Link with aria-label",
+    ariaLabel: "Description of the link",
   },
-}; 
+};

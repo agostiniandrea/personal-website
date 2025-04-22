@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 /**
  * Props for the Link component.
@@ -32,13 +32,12 @@ interface LinkProps {
 }
 
 const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
-  style: styles
+  style: styles,
 }))<LinkProps>`
   color: ${({ theme }) => theme.colors.highlight};
   text-decoration: none;
-  font-size: ${({theme}) => theme.fontSizes.md};
-  font-family: ${({theme}) => theme.fontFamilies.body};
-  line-height: ${({theme}) => theme.lineHeights.regular};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  line-height: ${({ theme }) => theme.lineHeights.regular};
   transition: color 0.2s ease-in-out;
 
   &:hover {
@@ -51,15 +50,15 @@ const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
   }
 `;
 
-const Link: React.FC<LinkProps> = ({ 
-  href, 
-  children, 
+const Link: React.FC<LinkProps> = ({
+  href,
+  children,
   styles,
   isExternal = false,
-  ariaLabel 
+  ariaLabel,
 }) => {
-  const target = isExternal ? '_blank' : undefined;
-  const rel = isExternal ? 'noopener noreferrer' : undefined;
+  const target = isExternal ? "_blank" : undefined;
+  const rel = isExternal ? "noopener noreferrer" : undefined;
 
   return (
     <StyledLink

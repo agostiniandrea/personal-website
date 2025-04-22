@@ -1,40 +1,50 @@
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
+import "@testing-library/jest-dom";
+import "jest-styled-components";
 
-// Only import testing libraries if we're in a test environment
-if (process.env.NODE_ENV === 'test') {
-  try {
-    require('@testing-library/jest-dom');
-    require('jest-styled-components');
-  } catch (error) {
-    console.warn('Testing libraries not found. Skipping test setup.');
+// Extend expect with the matchers from jest-dom
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeInTheDocument(): R;
+      toHaveStyle(style: Record<string, any>): R;
+      toHaveAttribute(attr: string, value?: string): R;
+    }
   }
 }
 
-// Suppress React 18 Strict Mode warnings and ReactDOMTestUtils.act warning
-const originalError = console.error;
-console.error = (...args) => {
-  if (
-    typeof args[0] === 'string' && (
-      args[0].includes('Warning: ReactDOM.render is no longer supported') ||
-      args[0].includes('Warning: `ReactDOMTestUtils.act` is deprecated')
-    )
-  ) {
-    return;
-  }
-  originalError.call(console, ...args);
-};
-
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation((...args: unknown[]) => ({
+  value: (query: string) => ({
     matches: false,
-    media: args[0] as string,
+    media: query,
     onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-}); 
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => true,
+  }),
+});
+
+// Mock next/image
+jest.mock("next/image", () => ({
+  __esModule: true,
+  default: (props: any) => {
+    return <div data-testid="mock-image" {...props} />;
+  },
+}));
+
+// Mock next/router
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+    back: jest.fn(),
+    pathname: "/",
+    query: {},
+    asPath: "/",
+  }),
+}));

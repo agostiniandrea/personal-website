@@ -9,8 +9,8 @@ import {
   space,
   typography,
 } from "./customizations";
-import breakpoints from '../constants/breakpoints';
-import { DefaultTheme } from 'styled-components';
+import breakpoints from "../constants/breakpoints";
+import { DefaultTheme } from "styled-components";
 
 const theme = {
   colors,
@@ -26,6 +26,6 @@ const theme = {
     button,
     link,
   },
-} as unknown as DefaultTheme
+} as unknown as DefaultTheme;
 
 export default theme;

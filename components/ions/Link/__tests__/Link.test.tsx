@@ -1,71 +1,71 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { renderWithTheme } from '@test-utils/renderWithTheme';
-import Link from '../index';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import { renderWithTheme } from "@test-utils/renderWithTheme";
+import Link from "../index";
 
-describe('Link', () => {
-  it('renders with default styles', () => {
+describe("Link", () => {
+  it("renders with default styles", () => {
     renderWithTheme(<Link href="https://example.com">Test Link</Link>);
-    
-    const link = screen.getByRole('link', { name: 'Test Link' });
+
+    const link = screen.getByRole("link", { name: "Test Link" });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', 'https://example.com');
+    expect(link).toHaveAttribute("href", "https://example.com");
     expect(link).toHaveStyle({
-      color: 'rgb(238, 187, 195)',
-      textDecoration: 'none',
+      color: "rgb(238, 187, 195)",
+      textDecoration: "none",
     });
   });
 
-  it('renders with custom styles', () => {
+  it("renders with custom styles", () => {
     const customStyles = {
-      color: 'rgb(255, 0, 0)',
-      fontSize: '20px',
+      color: "rgb(255, 0, 0)",
+      fontSize: "20px",
     };
-    
+
     renderWithTheme(
       <Link href="https://example.com" styles={customStyles}>
         Test Link
-      </Link>
+      </Link>,
     );
-    
-    const link = screen.getByRole('link', { name: 'Test Link' });
+
+    const link = screen.getByRole("link", { name: "Test Link" });
     expect(link).toHaveStyle(customStyles);
   });
 
-  it('renders children', () => {
+  it("renders children", () => {
     renderWithTheme(
       <Link href="https://example.com">
         <span>Nested Content</span>
-      </Link>
+      </Link>,
     );
-    
-    expect(screen.getByText('Nested Content')).toBeInTheDocument();
+
+    expect(screen.getByText("Nested Content")).toBeInTheDocument();
   });
 
-  describe('Accessibility', () => {
-    it('should have proper ARIA attributes', () => {
+  describe("Accessibility", () => {
+    it("should have proper ARIA attributes", () => {
       renderWithTheme(
         <Link href="https://example.com" ariaLabel="Test Link">
           Test Link
-        </Link>
+        </Link>,
       );
 
-      const link = screen.getByRole('link', { name: 'Test Link' });
+      const link = screen.getByRole("link", { name: "Test Link" });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', 'https://example.com');
-      expect(link).toHaveAttribute('aria-label', 'Test Link');
+      expect(link).toHaveAttribute("href", "https://example.com");
+      expect(link).toHaveAttribute("aria-label", "Test Link");
     });
 
-    it('should indicate external links', () => {
+    it("should indicate external links", () => {
       renderWithTheme(
         <Link href="https://example.com" isExternal>
           External Link
-        </Link>
+        </Link>,
       );
 
-      const link = screen.getByRole('link', { name: 'External Link' });
-      expect(link).toHaveAttribute('target', '_blank');
-      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+      const link = screen.getByRole("link", { name: "External Link" });
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
   });
-}); 
+});

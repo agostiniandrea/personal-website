@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 interface ImageProps {
   src: string;
@@ -9,11 +9,11 @@ interface ImageProps {
   longDescription?: string;
   role?: string;
   id?: string;
-  loading?: 'lazy' | 'eager';
+  loading?: "lazy" | "eager";
   width?: number | string;
   height?: number | string;
-  'aria-hidden'?: boolean;
-  'aria-labelledby'?: string;
+  "aria-hidden"?: boolean;
+  "aria-labelledby"?: string;
   fallbackSrc?: string;
 }
 
@@ -49,18 +49,18 @@ const Image: React.FC<ImageProps> = ({
   style,
   className,
   longDescription,
-  role = 'img',
+  role = "img",
   id,
-  loading = 'lazy',
+  loading = "lazy",
   width,
   height,
-  'aria-hidden': ariaHidden,
-  'aria-labelledby': ariaLabelledby,
+  "aria-hidden": ariaHidden,
+  "aria-labelledby": ariaLabelledby,
   fallbackSrc,
 }) => {
   const [imgSrc, setImgSrc] = React.useState(src);
   const [hasError, setHasError] = React.useState(false);
-  
+
   // Generate unique ID for the image if not provided
   const imageId = id || `img-${Math.random().toString(36).substr(2, 9)}`;
   const descriptionId = `${imageId}-description`;
@@ -73,7 +73,7 @@ const Image: React.FC<ImageProps> = ({
   };
 
   // If no alt text is provided, mark the image as decorative
-  const isDecorative = !alt || alt.trim() === '';
+  const isDecorative = !alt || alt.trim() === "";
 
   return (
     <ImageWrapper>
@@ -82,22 +82,22 @@ const Image: React.FC<ImageProps> = ({
         alt={alt}
         style={style}
         className={className}
-        role={isDecorative ? 'presentation' : role}
+        role={isDecorative ? "presentation" : role}
         id={imageId}
         loading={loading}
         width={width}
         height={height}
         onError={handleError}
         aria-hidden={ariaHidden || isDecorative}
-        aria-labelledby={ariaLabelledby || (longDescription ? descriptionId : undefined)}
+        aria-labelledby={
+          ariaLabelledby || (longDescription ? descriptionId : undefined)
+        }
       />
       {longDescription && (
-        <FigCaption id={descriptionId}>
-          {longDescription}
-        </FigCaption>
+        <FigCaption id={descriptionId}>{longDescription}</FigCaption>
       )}
     </ImageWrapper>
   );
 };
 
-export default Image; 
+export default Image;

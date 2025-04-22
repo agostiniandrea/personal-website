@@ -4,8 +4,8 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-  background: ${({theme}) => theme.colors.background};
-  color: ${({theme}) => theme.colors.paragraph};
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.paragraph};
   padding: 2rem;
   text-align: center;
   position: relative;
@@ -24,7 +24,7 @@ const StyledSocialLinks = styled.section`
 const StyledCopyright = styled.p`
   padding-top: 1.5rem;
   text-align: center;
-  font-size: ${({theme}) => theme.fontSizes.body};
+  font-size: ${({ theme }) => theme.fontSizes.body};
 `;
 
 const Footer: React.FC = () => {
@@ -36,6 +36,7 @@ const Footer: React.FC = () => {
             href="https://www.instagram.com/alice.diantonio/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Instagram"
           >
             <Image
               alt="Instagram"
@@ -48,6 +49,7 @@ const Footer: React.FC = () => {
             href="https://www.tiktok.com/@alicediantonio"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="TikTok"
           >
             <Image
               alt="TikTok"

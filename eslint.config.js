@@ -1,0 +1,91 @@
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import reactPlugin from "eslint-plugin-react";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
+import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
+import jestPlugin from "eslint-plugin-jest";
+import storybookPlugin from "eslint-plugin-storybook";
+import nextPlugin from "@next/eslint-plugin-next";
+
+export default tseslint.config(
+  {
+    ignores: [
+      ".next/**/*",
+      "storybook-static/**/*",
+      "node_modules/**/*",
+      "dist/**/*",
+      "build/**/*",
+      ".yarn/**/*",
+    ],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: "module",
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+        ...globals.node,
+        ...globals.jest,
+        React: "readonly",
+        JSX: "readonly",
+        ImageProps: "readonly",
+        CtaProps: "readonly",
+        __STORYBOOK_COMPONENTS__: "readonly",
+        __STORYBOOK_CORE_EVENTS__: "readonly",
+        __STORYBOOK_THEMING__: "readonly",
+        __STORYBOOK_API__: "readonly",
+        __STORYBOOK_CLIENT_LOGGER__: "readonly",
+        __STORYBOOK_CORE_EVENTS_MANAGER_ERRORS__: "readonly",
+        __STORYBOOK_TYPES__: "readonly",
+        __STORYBOOK_ROUTER__: "readonly",
+        __STORYBOOK_ICONS__: "readonly",
+        __REACT_DOM__: "readonly",
+        __REACT_DOM_CLIENT__: "readonly",
+        define: "readonly",
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tseslint.plugin,
+      react: reactPlugin,
+      "react-hooks": reactHooksPlugin,
+      "jsx-a11y": jsxA11yPlugin,
+      jest: jestPlugin,
+      storybook: storybookPlugin,
+      "@next/next": nextPlugin,
+    },
+    rules: {
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_" },
+      ],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "jsx-a11y/anchor-is-valid": "off",
+      "no-undef": "error",
+      "no-empty": "warn",
+      "@typescript-eslint/no-require-imports": "warn",
+      "@typescript-eslint/no-namespace": "warn",
+      "@next/next/no-html-link-for-pages": "error",
+      "@next/next/no-img-element": "error",
+      "@next/next/no-unwanted-polyfillio": "warn",
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+);

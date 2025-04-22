@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -7,12 +7,12 @@ interface ButtonProps {
   disabled?: boolean;
   style?: React.CSSProperties;
   className?: string;
-  type?: 'button' | 'submit' | 'reset';
-  'aria-label'?: string;
-  'aria-describedby'?: string;
-  'aria-expanded'?: boolean;
-  'aria-pressed'?: boolean;
-  'aria-controls'?: string;
+  type?: "button" | "submit" | "reset";
+  "aria-label"?: string;
+  "aria-describedby"?: string;
+  "aria-expanded"?: boolean;
+  "aria-pressed"?: boolean;
+  "aria-controls"?: string;
   role?: string;
   id?: string;
   tabIndex?: number;
@@ -20,24 +20,25 @@ interface ButtonProps {
 }
 
 const StyledButton = styled.button<ButtonProps>`
-  background: ${({theme}) => theme.colors.button};
-  color: ${({theme}) => theme.colors.button_text};
+  background: ${({ theme }) => theme.colors.button};
+  border-radius: ${({ theme }) => theme.radii.xs};
   border: none;
-  padding: 0.75rem 1.25rem;
-  border-radius: ${({theme}) => theme.radii.xs};
-  cursor: ${({disabled}) => (disabled ? 'not-allowed' : 'pointer')};
-  opacity: ${({disabled}) => (disabled ? 0.5 : 1)};
-  transition: all 0.2s ease-in-out;
+  color: ${({ theme }) => theme.colors.button_text};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: 1rem;
-  line-height: 1.5;
   font-weight: 500;
+  line-height: 1.5;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  padding: 0.75rem 1.25rem;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
-    opacity: ${({disabled}) => (disabled ? 0.5 : 0.8)};
+    opacity: ${({ disabled }) => (disabled ? 0.5 : 0.8)};
   }
 
   &:focus {
-    outline: 2px solid ${({theme}) => theme.colors.button};
+    outline: 2px solid ${({ theme }) => theme.colors.button};
     outline-offset: 2px;
   }
 
@@ -46,7 +47,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 
   &:focus-visible {
-    outline: 2px solid ${({theme}) => theme.colors.button};
+    outline: 2px solid ${({ theme }) => theme.colors.button};
     outline-offset: 2px;
   }
 `;
@@ -57,12 +58,12 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   style,
   className,
-  type = 'button',
-  'aria-label': ariaLabel,
-  'aria-describedby': ariaDescribedby,
-  'aria-expanded': ariaExpanded,
-  'aria-pressed': ariaPressed,
-  'aria-controls': ariaControls,
+  type = "button",
+  "aria-label": ariaLabel,
+  "aria-describedby": ariaDescribedby,
+  "aria-expanded": ariaExpanded,
+  "aria-pressed": ariaPressed,
+  "aria-controls": ariaControls,
   role,
   id,
   tabIndex,
@@ -74,14 +75,14 @@ const Button: React.FC<ButtonProps> = ({
   const descriptionId = `${buttonId}-description`;
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       onClick?.();
     }
   };
 
   // If content is just text, use it as fallback for aria-label
-  const defaultAriaLabel = typeof children === 'string' ? children : undefined;
+  const defaultAriaLabel = typeof children === "string" ? children : undefined;
   const computedAriaLabel = ariaLabel || defaultAriaLabel;
 
   return (
@@ -94,7 +95,9 @@ const Button: React.FC<ButtonProps> = ({
         className={className}
         type={type}
         aria-label={computedAriaLabel}
-        aria-describedby={ariaDescribedby || (description ? descriptionId : undefined)}
+        aria-describedby={
+          ariaDescribedby || (description ? descriptionId : undefined)
+        }
         aria-expanded={ariaExpanded}
         aria-pressed={ariaPressed}
         aria-controls={ariaControls}
@@ -106,7 +109,7 @@ const Button: React.FC<ButtonProps> = ({
         {children}
       </StyledButton>
       {description && (
-        <span id={descriptionId} style={{ display: 'none' }}>
+        <span id={descriptionId} className="sr-only">
           {description}
         </span>
       )}
@@ -114,4 +117,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button; 
+export default Button;

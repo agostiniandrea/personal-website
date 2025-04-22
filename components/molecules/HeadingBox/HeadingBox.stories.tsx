@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import HeadingBox from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import HeadingBox from "./index";
 import {
   defaultHeadingBox,
   aboutHeadingBox,
   minimalHeadingBox,
   withLongContent,
   withSpecialCharacters,
-} from './model';
+} from "./model";
 
 const meta: Meta<typeof HeadingBox> = {
-  title: 'Molecules/HeadingBox',
+  title: "Molecules/HeadingBox",
   component: HeadingBox,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -44,7 +44,7 @@ export const MobileView: Story = {
   args: defaultHeadingBox,
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
-}; 
+};
