@@ -2,9 +2,11 @@ import { Container, Link } from "@components/ions";
 import { useMedia } from "@lib/utils/useMedia";
 import styled, { Interpolation } from "styled-components";
 
-const StyledHeader = styled.header<{ styles?: Interpolation<React.CSSProperties> }>`
-  background: ${({theme}) => theme.colors.background};
-  color: ${({theme}) => theme.colors.paragraph};
+const StyledHeader = styled.header<{
+  styles?: Interpolation<React.CSSProperties>;
+}>`
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.paragraph};
   padding: 1rem;
   position: relative;
   z-index: 1;

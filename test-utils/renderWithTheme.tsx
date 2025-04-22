@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { render, RenderResult } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '../config/theme';
-import { act } from 'react';
+import * as React from "react";
+import { render, RenderResult } from "@testing-library/react";
+import { ThemeProvider } from "styled-components";
+import theme from "../config/theme";
+import { act } from "react";
 
 export type RenderWithThemeOptions = {
   theme?: typeof theme;
@@ -16,9 +16,7 @@ export const renderWithTheme = (
 
   act(() => {
     renderer = render(
-      <ThemeProvider theme={customTheme || theme}>
-        {ui}
-      </ThemeProvider>,
+      <ThemeProvider theme={customTheme || theme}>{ui}</ThemeProvider>,
     );
   });
 
@@ -29,9 +27,7 @@ export const renderWithTheme = (
 
       act(() => {
         newRenderer = render(
-          <ThemeProvider theme={customTheme || theme}>
-            {newUi}
-          </ThemeProvider>,
+          <ThemeProvider theme={customTheme || theme}>{newUi}</ThemeProvider>,
           {
             container: renderer!.container,
           },
@@ -41,4 +37,4 @@ export const renderWithTheme = (
       return newRenderer!;
     },
   };
-}; 
+};

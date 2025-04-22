@@ -31,6 +31,15 @@
     "noUnusedParameters": true,
     "typeRoots": ["./lib/global"]
   },
-  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "next-sitemap.config.js", "next.config.js", "components/molecules/HeadingBox/HeadingBox.test.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "next-sitemap.config.js",
+    "next.config.js",
+    "components/molecules/HeadingBox/HeadingBox.test.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import Text from '../../ions/Text';
-import Image from '../../ions/Image';
+import React from "react";
+import styled from "styled-components";
+import Text from "../../ions/Text";
+import Image from "../../ions/Image";
 
 interface HeroPrimaryProps {
   titleId?: string;
@@ -11,7 +11,7 @@ interface HeroPrimaryProps {
 }
 
 const HeroContainer = styled.section`
-  background: ${({theme}) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.background};
   padding: 4rem 2rem;
   text-align: center;
   position: relative;
@@ -27,7 +27,7 @@ const HeroContent = styled.div`
 `;
 
 const HeroTitle = styled.h1`
-  color: ${({theme}) => theme.colors.headline};
+  color: ${({ theme }) => theme.colors.headline};
   font-size: 2.5rem;
   margin: 0;
   font-weight: bold;
@@ -45,12 +45,12 @@ const HeroImage = styled(Image)`
   width: 100%;
   height: auto;
   margin: 0 auto;
-  border-radius: ${({theme}) => theme.radii.sm};
+  border-radius: ${({ theme }) => theme.radii.sm};
 `;
 
 const HeroPrimary: React.FC<HeroPrimaryProps> = ({
-  titleId = 'hero-title',
-  descriptionId = 'hero-description',
+  titleId = "hero-title",
+  descriptionId = "hero-description",
   className,
   style,
 }) => {
@@ -63,9 +63,7 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
       style={style}
     >
       <HeroContent>
-        <HeroTitle id={titleId}>
-          Our Blog
-        </HeroTitle>
+        <HeroTitle id={titleId}>Our Blog</HeroTitle>
         <HeroDescription
           id={descriptionId}
           as="p"
@@ -86,4 +84,4 @@ const HeroPrimary: React.FC<HeroPrimaryProps> = ({
   );
 };
 
-export default HeroPrimary; 
+export default HeroPrimary;

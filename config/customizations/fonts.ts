@@ -1,6 +1,6 @@
 export const fontFamilies: any = {
-  default: "'Rainier'",
-  heading: "'Rainier'",
+  default: '"Rainier", sans-serif',
+  heading: '"Rainier", sans-serif',
 };
 
 export const fontSizes = {

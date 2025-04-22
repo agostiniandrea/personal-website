@@ -1,6 +1,6 @@
-import { Breakpoints } from '../../constants/breakpoints';
+import { Breakpoints } from "../../constants/breakpoints";
 
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       background: string;
@@ -25,10 +25,10 @@ declare module 'styled-components' {
       md: string;
       lg: string;
       xl: string;
-      '2xl': string;
-      '3xl': string;
-      '4xl': string;
-      '5xl': string;
+      "2xl": string;
+      "3xl": string;
+      "4xl": string;
+      "5xl": string;
     };
     fontWeights: {
       normal: number;
@@ -48,8 +48,8 @@ declare module 'styled-components' {
       md: string;
       lg: string;
       xl: string;
-      '2xl': string;
-      '3xl': string;
+      "2xl": string;
+      "3xl": string;
       full: string;
     };
     space: {
@@ -124,7 +124,7 @@ declare module 'styled-components' {
           borderRadius: string;
           fontSize: string;
           fontWeight: number;
-          '&:hover': {
+          "&:hover": {
             backgroundColor: string;
           };
         };
@@ -135,7 +135,7 @@ declare module 'styled-components' {
           borderRadius: string;
           fontSize: string;
           fontWeight: number;
-          '&:hover': {
+          "&:hover": {
             backgroundColor: string;
           };
         };
@@ -143,10 +143,10 @@ declare module 'styled-components' {
       link: {
         color: string;
         textDecoration: string;
-        '&:hover': {
+        "&:hover": {
           color: string;
         };
       };
     };
   }
-} 
+}

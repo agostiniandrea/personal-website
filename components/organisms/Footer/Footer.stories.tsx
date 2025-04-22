@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Footer from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import Footer from "./index";
 
 const meta: Meta<typeof Footer> = {
-  title: 'Organisms/Footer',
+  title: "Organisms/Footer",
   component: Footer,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -21,7 +21,7 @@ export const MobileView: Story = {
   args: {},
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
-}; 
+};

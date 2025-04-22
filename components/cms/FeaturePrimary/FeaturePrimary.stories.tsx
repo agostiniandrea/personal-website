@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import FeaturePrimary from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import FeaturePrimary from "./index";
 import {
   defaultFeature,
   minimalFeature,
   longContentFeature,
   specialCharactersFeature,
-} from './model';
+} from "./model";
 
 const meta: Meta<typeof FeaturePrimary> = {
-  title: 'CMS/FeaturePrimary',
+  title: "CMS/FeaturePrimary",
   component: FeaturePrimary,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -39,7 +39,7 @@ export const MobileView: Story = {
   args: defaultFeature,
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
-}; 
+};

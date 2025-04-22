@@ -1,28 +1,28 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 interface TextProps {
   children: React.ReactNode;
-  variant?: 'small' | 'regular' | 'large';
+  variant?: "small" | "regular" | "large";
   style?: React.CSSProperties;
   className?: string;
   as?: keyof JSX.IntrinsicElements;
   id?: string;
   role?: string;
-  'aria-label'?: string;
-  'aria-describedby'?: string;
+  "aria-label"?: string;
+  "aria-describedby"?: string;
 }
 
 const StyledText = styled.p<TextProps>`
-  color: ${props => props.theme.colors.paragraph};
-  font-size: ${props => {
+  color: ${(props) => props.theme.colors.paragraph};
+  font-size: ${(props) => {
     switch (props.variant) {
-      case 'small':
-        return '0.875rem';
-      case 'large':
-        return '1.25rem';
+      case "small":
+        return "0.875rem";
+      case "large":
+        return "1.25rem";
       default:
-        return '1rem';
+        return "1rem";
     }
   }};
   line-height: 1.5;
@@ -30,16 +30,16 @@ const StyledText = styled.p<TextProps>`
   padding: 0;
 `;
 
-const Text: React.FC<TextProps> = ({ 
-  children, 
-  variant = 'regular', 
-  style, 
+const Text: React.FC<TextProps> = ({
+  children,
+  variant = "regular",
+  style,
   className,
-  as = 'p',
+  as = "p",
   id,
   role,
-  'aria-label': ariaLabel,
-  'aria-describedby': ariaDescribedby
+  "aria-label": ariaLabel,
+  "aria-describedby": ariaDescribedby,
 }) => {
   return (
     <StyledText
@@ -57,4 +57,4 @@ const Text: React.FC<TextProps> = ({
   );
 };
 
-export default Text; 
+export default Text;

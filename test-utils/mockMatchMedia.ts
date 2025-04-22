@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
 /**
  * Creates a mock implementation for window.matchMedia
@@ -6,10 +6,10 @@ import { jest } from '@jest/globals';
  * @returns Mock implementation for window.matchMedia
  */
 export const createMatchMediaMock = (
-  matches: boolean | ((query: string) => boolean) = false
+  matches: boolean | ((query: string) => boolean) = false,
 ) => {
   return jest.fn((query: string) => ({
-    matches: typeof matches === 'function' ? matches(query) : matches,
+    matches: typeof matches === "function" ? matches(query) : matches,
     media: query,
     onchange: null,
     addListener: jest.fn(),
@@ -25,7 +25,9 @@ export const createMatchMediaMock = (
  * Matches when query is "(max-width: 768px)"
  */
 export const mockMobileViewport = () => {
-  window.matchMedia = createMatchMediaMock((query) => query === '(max-width: 768px)');
+  window.matchMedia = createMatchMediaMock(
+    (query) => query === "(max-width: 768px)",
+  );
 };
 
 /**
@@ -33,5 +35,7 @@ export const mockMobileViewport = () => {
  * Matches when query is not "(max-width: 768px)"
  */
 export const mockDesktopViewport = () => {
-  window.matchMedia = createMatchMediaMock((query) => query !== '(max-width: 768px)');
-}; 
+  window.matchMedia = createMatchMediaMock(
+    (query) => query !== "(max-width: 768px)",
+  );
+};
