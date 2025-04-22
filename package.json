@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "yarn lint:fix && yarn build:compile && yarn build:sitemap",
+    "build:config": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "build:compile": "next build",
     "build:sitemap": "next-sitemap --config next-sitemap.config.js",
     "dev": "next dev --turbopack",
