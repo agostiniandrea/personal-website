@@ -1,6 +1,5 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+import { screen } from "@testing-library/react";
 import Link from "../index";
 
 describe("Link", () => {
