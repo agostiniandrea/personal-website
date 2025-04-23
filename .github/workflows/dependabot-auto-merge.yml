@@ -66,8 +66,13 @@ jobs:
           yarn install 2> yarn-error.log || true
           tail -n 20 yarn-error.log >> dependencies.log
 
+      - name: Run build
+        run: |
+          yarn build
+        continue-on-error: true
+
       - name: Send Slack notification if build fails
-        if: failure() && github.actor == 'dependabot[bot]'
+        if: failure() && startsWith(github.actor, 'dependabot')
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "❌ *Build Failed!* Dependabot package update failed.\n\n*Error while trying to update:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
@@ -78,6 +83,10 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Fail job if build failed
+        if: failure() && startsWith(github.actor, 'dependabot')
+        run: exit 1
 
       - name: Merge PR from dependabot
         uses: fastify/github-action-merge-dependabot@v3
