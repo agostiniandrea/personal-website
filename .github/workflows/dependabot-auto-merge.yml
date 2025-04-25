@@ -17,16 +17,16 @@ jobs:
         with:
           node-version: 18
 
-      - name: Extract updated dependency from commit message
+      - name: Extract updated dependency from pull request title
         id: extract
         shell: bash
         run: |
-          # Esegui il comando git log per ottenere il messaggio del commit specificato
-          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})  # Usa l'hash del commit attuale
-          echo "🔍 Commit message: $COMMIT_MSG"
-      
-          # Regex matching per estrarre i dettagli del bump della dipendenza
-          if [[ "$COMMIT_MSG" =~ chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+) ]]; then
+          # Ottieni il titolo della pull request
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "🔍 PR Title: $PR_TITLE"
+          
+          # Regex matching per il titolo della PR
+          if [[ "$PR_TITLE" =~ chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
@@ -39,11 +39,11 @@ jobs:
             echo "TO_VERSION=$TO_VERSION" >> $GITHUB_ENV
             echo "Updated dependency: $DEP_PACKAGE from $FROM_VERSION to $TO_VERSION" > dependencies.log
           else
-            echo "❌ No match found in commit message"
+            echo "❌ No match found in PR title"
             echo "DEPENDENCY=" >> $GITHUB_ENV
             echo "FROM_VERSION=" >> $GITHUB_ENV
             echo "TO_VERSION=" >> $GITHUB_ENV
-            echo "No dependency found in commit message" > dependencies.log
+            echo "No dependency found in PR title" > dependencies.log
           fi
 
       - name: Debug environment variables
