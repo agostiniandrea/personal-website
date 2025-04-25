@@ -21,11 +21,11 @@ jobs:
         id: extract
         shell: bash
         run: |
-          # Estrai il messaggio dell'ultimo commit che non è un merge
-          COMMIT_MSG=$(git log --no-merges -1 --pretty=format:%s)
+          # Esegui il comando git log per ottenere il messaggio del commit specificato
+          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})  # Usa l'hash del commit attuale
           echo "🔍 Commit message: $COMMIT_MSG"
-          
-          # Regex matching per il messaggio 'bump <package> from <old-version> to <new-version>'
+      
+          # Regex matching per estrarre i dettagli del bump della dipendenza
           if [[ "$COMMIT_MSG" =~ chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
