@@ -2,14 +2,13 @@ name: Dependabot Auto-Merge
 
 on:
   pull_request:
-    types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
+    types: [opened, synchronize]
     branches:
-      - main # Only for PRs targeting the `main` branch
+      - main
 
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
-    # Run the job only if the PR is from Dependabot
     if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
@@ -17,7 +16,7 @@ jobs:
       pull-requests: write
 
     steps:
-      # Step 1: Checkout the repository
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -27,7 +26,7 @@ jobs:
         with:
           node-version: '20'
 
-      # Step 3: Extract updated dependency from the commit message
+      # Step 3: Extract updated dependency from commit message
       - name: Extract updated dependency from commit message
         id: extract
         shell: bash
@@ -59,13 +58,9 @@ jobs:
       # Step 4: Debug the environment variables
       - name: Debug environment variables
         run: |
-          echo "🔁 DEPENDENCY: $DEPENDENCY"
-          echo "⬅️  FROM_VERSION: $FROM_VERSION"
-          echo "➡️  TO_VERSION: $TO_VERSION"
-        env:
-          DEPENDENCY: ${{ env.DEPENDENCY }}
-          FROM_VERSION: ${{ env.FROM_VERSION }}
-          TO_VERSION: ${{ env.TO_VERSION }}
+          echo "🔁 DEPENDENCY: ${{ env.DEPENDENCY }}"
+          echo "⬅️  FROM_VERSION: ${{ env.FROM_VERSION }}"
+          echo "➡️  TO_VERSION: ${{ env.TO_VERSION }}
 
       # Step 5: Install dependencies with yarn
       - name: Install dependencies
@@ -95,7 +90,7 @@ jobs:
       # Step 8: Fail the job if the build failed
       - name: Fail job if build failed
         if: failure()
-        run: exit 1 # Exit the workflow if build fails
+        run: exit 1
 
       # Step 9: Only attempt to merge the PR if the build was successful
       - name: Merge PR from dependabot
