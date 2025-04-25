@@ -2,15 +2,13 @@ name: Dependabot Auto-Merge
 
 on:
   pull_request:
-    types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
+  push:
     branches:
-      - main # Only for PRs targeting the `main` branch
+      - main
 
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
-    # Run the job only if the PR is from Dependabot
-    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
       contents: write
