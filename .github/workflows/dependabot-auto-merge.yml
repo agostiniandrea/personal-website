@@ -24,10 +24,17 @@ jobs:
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
           echo "🔍 Commit message: $COMMIT_MSG"
       
-          # Aggiungiamo il print per il commit per capire cosa c'è effettivamente
-          echo "Commit message for debugging: $COMMIT_MSG"
-      
-          # Regex matching
+          # Aggiungi un controllo per escludere i merge commit
+          if [[ "$COMMIT_MSG" =~ ^Merge ]]; then
+            echo "❌ This is a merge commit. Skipping..."
+            echo "DEPENDENCY=" >> $GITHUB_ENV
+            echo "FROM_VERSION=" >> $GITHUB_ENV
+            echo "TO_VERSION=" >> $GITHUB_ENV
+            echo "Merge commit, no dependency found." > dependencies.log
+            exit 0 # Esci senza fare nulla
+          fi
+
+          # Regex matching for 'bump <package> from <old-version> to <new-version>'
           if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
