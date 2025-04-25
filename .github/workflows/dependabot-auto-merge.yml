@@ -1,13 +1,15 @@
 name: Dependabot Auto-Merge
 on:
   pull_request:
-  push:
+    types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
     branches:
-      - main
+      - main # Only for PRs targeting the `main` branch
 
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
+    # Run the job only if the PR is from Dependabot
+    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
       contents: write
@@ -20,18 +22,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
 
-      - name: Extract updated dependency from pull request title
-        id: extract
-        shell: bash
+      - name: Extract updated dependency from PR title
+        id: extract_pr_title
         run: |
-          # Ottieni il titolo della pull request
           PR_TITLE="${{ github.event.pull_request.title }}"
-          echo "🔍 PR Title: $PR_TITLE"
-          
-          # Regex matching per il titolo della PR
-          if [[ "$PR_TITLE" =~ chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+) ]]; then
+          echo "🔍 PR title: $PR_TITLE"
+
+          # Regex matching for 'bump <package> from <old-version> to <new-version>'
+          if [[ "$PR_TITLE" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
@@ -81,4 +81,13 @@ jobs:
           TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       
+      - name: Fail job if build failed
+        if: failure()
+        run: exit 1 # Exit the workflow if build fails
+  
+      - name: Merge PR from dependabot
+        if: success()
+        uses: fastify/github-action-merge-dependabot@v3
+        with:
+          merge-method: rebase
 
