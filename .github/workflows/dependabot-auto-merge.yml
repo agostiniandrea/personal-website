@@ -32,9 +32,9 @@ jobs:
         run: |
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
           echo "🔍 Commit message: $COMMIT_MSG"
-
-          # Regex matching
-          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
+      
+          # Regex matching for 'chore(deps): bump <package> from <old-version> to <new-version>'
+          if [[ "$COMMIT_MSG" =~ ^chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+)$ ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
@@ -53,13 +53,13 @@ jobs:
             echo "TO_VERSION=" >> $GITHUB_ENV
             echo "No dependency found in commit message" > dependencies.log
           fi
-
+    
       # Step 4: Debug the environment variables
       - name: Debug environment variables
         run: |
           echo "🔁 DEPENDENCY: ${{ env.DEPENDENCY }}"
           echo "⬅️  FROM_VERSION: ${{ env.FROM_VERSION }}"
-          echo "➡️  TO_VERSION: ${{ env.TO_VERSION }}
+          echo "➡️  TO_VERSION: ${{ env.TO_VERSION }}"
 
       # Step 5: Install dependencies with yarn
       - name: Install dependencies
