@@ -1,0 +1,16 @@
+name: Vercel Scheduled Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 3 * * 1' # At 03:30 UTC every Monday
+
+jobs:
+  consumer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Execute Script
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_11XuKOCYJ67iB6zSYRV9Nm917Dus/cBpIVuglMX
