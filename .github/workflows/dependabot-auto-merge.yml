@@ -1,5 +1,4 @@
 name: Dependabot Auto-Merge
-
 on:
   pull_request:
     types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
@@ -17,17 +16,14 @@ jobs:
       pull-requests: write
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js environment with version 20
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Step 3: Extract updated dependency from PR title
       - name: Extract updated dependency from PR title
         id: extract_pr_title
         run: |
@@ -55,7 +51,6 @@ jobs:
             echo "No dependency found in PR title" > dependencies.log
           fi
 
-      # Step 4: Debug the environment variables
       - name: Debug environment variables
         run: |
           echo "🔁 DEPENDENCY: $DEPENDENCY"
@@ -66,18 +61,15 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
 
-      # Step 5: Install dependencies with yarn
       - name: Install dependencies
         run: |
           yarn install 2> yarn-error.log || true
           tail -n 20 yarn-error.log >> dependencies.log
 
-      # Step 6: Run the build process
       - name: Run build
         run: |
           yarn build
 
-      # Step 7: Send Slack notification if the build fails
       - name: Send Slack notification if build fails
         if: failure()
         run: |
@@ -90,15 +82,14 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-      # Step 8: Fail the job if the build failed
+      
       - name: Fail job if build failed
         if: failure()
         run: exit 1 # Exit the workflow if build fails
-
-      # Step 9: Only attempt to merge the PR if the build was successful
+  
       - name: Merge PR from dependabot
         if: success()
         uses: fastify/github-action-merge-dependabot@v3
         with:
           merge-method: rebase
+
