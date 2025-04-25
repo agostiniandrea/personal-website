@@ -2,13 +2,15 @@ name: Dependabot Auto-Merge
 
 on:
   pull_request:
-  push:
+    types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
     branches:
-      - main
+      - main # Only for PRs targeting the `main` branch
 
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
+    # Run the job only if the PR is from Dependabot
+    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
       contents: write
@@ -25,16 +27,15 @@ jobs:
         with:
           node-version: '20'
 
-      # Step 3: Extract updated dependency from the commit message
-      - name: Extract updated dependency from commit message
-        id: extract
-        shell: bash
+      # Step 3: Extract updated dependency from PR title
+      - name: Extract updated dependency from PR title
+        id: extract_pr_title
         run: |
-          COMMIT_MSG=$(git log -1 --pretty=format:%s)
-          echo "🔍 Commit message: $COMMIT_MSG"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "🔍 PR title: $PR_TITLE"
 
-          # Regex matching
-          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
+          # Regex matching for 'bump <package> from <old-version> to <new-version>'
+          if [[ "$PR_TITLE" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
@@ -47,11 +48,11 @@ jobs:
             echo "TO_VERSION=$TO_VERSION" >> $GITHUB_ENV
             echo "Updated dependency: $DEP_PACKAGE from $FROM_VERSION to $TO_VERSION" > dependencies.log
           else
-            echo "❌ No match found in commit message"
+            echo "❌ No match found in PR title"
             echo "DEPENDENCY=" >> $GITHUB_ENV
             echo "FROM_VERSION=" >> $GITHUB_ENV
             echo "TO_VERSION=" >> $GITHUB_ENV
-            echo "No dependency found in commit message" > dependencies.log
+            echo "No dependency found in PR title" > dependencies.log
           fi
 
       # Step 4: Debug the environment variables
