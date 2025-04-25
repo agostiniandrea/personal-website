@@ -25,7 +25,6 @@ jobs:
         with:
           node-version: '20'
 
-      # Step 3: Extract updated dependency from commit message
       - name: Extract updated dependency from commit message
         id: extract
         shell: bash
@@ -33,8 +32,8 @@ jobs:
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
           echo "🔍 Commit message: $COMMIT_MSG"
       
-          # Regex matching for 'chore(deps): bump <package> from <old-version> to <new-version>'
-          if [[ "$COMMIT_MSG" =~ ^chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+)$ ]]; then
+          # Regex matching
+          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
@@ -53,19 +52,25 @@ jobs:
             echo "TO_VERSION=" >> $GITHUB_ENV
             echo "No dependency found in commit message" > dependencies.log
           fi
-    
-      # Step 4: Debug the environment variables
+
       - name: Debug environment variables
         run: |
-          echo "🔁 DEPENDENCY: ${{ env.DEPENDENCY }}"
-          echo "⬅️  FROM_VERSION: ${{ env.FROM_VERSION }}"
-          echo "➡️  TO_VERSION: ${{ env.TO_VERSION }}"
+          echo "🔁 DEPENDENCY: $DEPENDENCY"
+          echo "⬅️  FROM_VERSION: $FROM_VERSION"
+          echo "➡️  TO_VERSION: $TO_VERSION"
+        env:
+          DEPENDENCY: ${{ env.DEPENDENCY }}
+          FROM_VERSION: ${{ env.FROM_VERSION }}
+          TO_VERSION: ${{ env.TO_VERSION }}
 
       # Step 5: Install dependencies with yarn
       - name: Install dependencies
         run: |
           yarn install 2> yarn-error.log || true
           tail -n 20 yarn-error.log >> dependencies.log
+
+      - name: Debug Dependencies
+        run: cat dependencies.log
 
       # Step 6: Run the build process
       - name: Run build
@@ -74,7 +79,6 @@ jobs:
 
       # Step 7: Send Slack notification if the build fails
       - name: Send Slack notification if build fails
-        if: failure()
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "❌ *Build Failed!* Dependabot package update failed.\n\n*Error while trying to update:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
