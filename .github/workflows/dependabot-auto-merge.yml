@@ -8,6 +8,8 @@ on:
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
+    # Run the job only if the PR is from Dependabot
+    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
       contents: write
@@ -64,10 +66,12 @@ jobs:
           yarn install 2> yarn-error.log || true
           tail -n 20 yarn-error.log >> dependencies.log
 
-      - name: Debug Dependencies
-        run: cat dependencies.log
+      - name: Run build
+        run: |
+          yarn build
 
       - name: Send Slack notification if build fails
+        if: failure()
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "❌ *Build Failed!* Dependabot package update failed.\n\n*Error while trying to update:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
