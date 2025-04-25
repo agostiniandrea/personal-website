@@ -1,29 +1,40 @@
 name: Dependabot Auto-Merge
+
 on:
   pull_request:
-  push:
+    types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
     branches:
-      - main
+      - main # Only for PRs targeting the `main` branch
 
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
+    # Run the job only if the PR is from Dependabot
+    if: ${{ startsWith(github.actor, 'dependabot') }}
+
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Step 2: Setup Node.js environment with version 20
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
 
+      # Step 3: Extract updated dependency from the commit message
       - name: Extract updated dependency from commit message
         id: extract
         shell: bash
         run: |
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
           echo "🔍 Commit message: $COMMIT_MSG"
-      
+
           # Regex matching
           if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
@@ -45,6 +56,7 @@ jobs:
             echo "No dependency found in commit message" > dependencies.log
           fi
 
+      # Step 4: Debug the environment variables
       - name: Debug environment variables
         run: |
           echo "🔁 DEPENDENCY: $DEPENDENCY"
@@ -55,15 +67,20 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
 
+      # Step 5: Install dependencies with yarn
       - name: Install dependencies
         run: |
           yarn install 2> yarn-error.log || true
           tail -n 20 yarn-error.log >> dependencies.log
 
-      - name: Debug Dependencies
-        run: cat dependencies.log
+      # Step 6: Run the build process
+      - name: Run build
+        run: |
+          yarn build
 
+      # Step 7: Send Slack notification if the build fails
       - name: Send Slack notification if build fails
+        if: failure()
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "❌ *Build Failed!* Dependabot package update failed.\n\n*Error while trying to update:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
@@ -74,5 +91,15 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      
 
+      # Step 8: Fail the job if the build failed
+      - name: Fail job if build failed
+        if: failure()
+        run: exit 1 # Exit the workflow if build fails
+
+      # Step 9: Only attempt to merge the PR if the build was successful
+      - name: Merge PR from dependabot
+        if: success()
+        uses: fastify/github-action-merge-dependabot@v3
+        with:
+          merge-method: rebase
