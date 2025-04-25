@@ -9,7 +9,6 @@ on:
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
       contents: write
