@@ -4,14 +4,13 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "10:30"
+      time: "10:50"
       timezone: "UTC"
     versioning-strategy: increase
     commit-message:
       prefix: "chore(deps)"
+    allow:
+      - dependency-name: "styled-components"
     ignore:
-      - dependency-name: "react"
-      - dependency-name: "react-dom"
-      - dependency-name: "react-is"
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
