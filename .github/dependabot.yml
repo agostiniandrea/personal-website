@@ -4,13 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "10:50"
+      time: "12:20"
       timezone: "UTC"
     versioning-strategy: increase
     commit-message:
       prefix: "chore(deps)"
-    allow:
-      - dependency-name: "styled-components"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
