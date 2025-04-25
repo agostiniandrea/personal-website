@@ -21,21 +21,12 @@ jobs:
         id: extract
         shell: bash
         run: |
-          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          # Estrai il messaggio dell'ultimo commit che non è un merge
+          COMMIT_MSG=$(git log --no-merges -1 --pretty=format:%s)
           echo "🔍 Commit message: $COMMIT_MSG"
-      
-          # Aggiungi un controllo per escludere i merge commit
-          if [[ "$COMMIT_MSG" =~ ^Merge ]]; then
-            echo "❌ This is a merge commit. Skipping..."
-            echo "DEPENDENCY=" >> $GITHUB_ENV
-            echo "FROM_VERSION=" >> $GITHUB_ENV
-            echo "TO_VERSION=" >> $GITHUB_ENV
-            echo "Merge commit, no dependency found." > dependencies.log
-            exit 0 # Esci senza fare nulla
-          fi
-
-          # Regex matching for 'bump <package> from <old-version> to <new-version>'
-          if [[ "$COMMIT_MSG" =~ bump[[:space:]]+([a-zA-Z0-9@_\./\-]+)[[:space:]]+from[[:space:]]+([0-9a-zA-Z\.\-]+)[[:space:]]+to[[:space:]]+([0-9a-zA-Z\.\-]+) ]]; then
+          
+          # Regex matching per il messaggio 'bump <package> from <old-version> to <new-version>'
+          if [[ "$COMMIT_MSG" =~ chore\([a-zA-Z0-9\-]+\):\ bump\ ([a-zA-Z0-9@_\./\-]+)\ from\ ([0-9a-zA-Z\.\-]+)\ to\ ([0-9a-zA-Z\.\-]+) ]]; then
             DEP_PACKAGE="${BASH_REMATCH[1]}"
             FROM_VERSION="${BASH_REMATCH[2]}"
             TO_VERSION="${BASH_REMATCH[3]}"
