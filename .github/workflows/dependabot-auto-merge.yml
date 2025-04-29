@@ -8,8 +8,6 @@ on:
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
-    # Run the job only if the PR is from Dependabot
-    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     permissions:
       contents: write
