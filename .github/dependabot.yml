@@ -4,7 +4,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "08:35"
+      time: "08:55"
       timezone: "UTC"
     versioning-strategy: increase
     commit-message:
