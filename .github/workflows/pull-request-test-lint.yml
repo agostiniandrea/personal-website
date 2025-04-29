@@ -1,0 +1,39 @@
+name: Test & Lint
+
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  lint:
+    name: Tests & Lint
+    runs-on: ubuntu-latest
+    # Run the job only if the PR is NOT from Dependabot
+    if: ${{ !startsWith(github.actor, 'dependabot') }}
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: unit tests
+        run: yarn test
+        
+      - name: lint
+        run: yarn lint
