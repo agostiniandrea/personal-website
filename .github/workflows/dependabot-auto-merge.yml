@@ -1,6 +1,6 @@
 name: Dependabot Auto-Merge
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize] # Trigger when a PR is opened or updated (synchronize)
     branches:
       - main # Only for PRs targeting the `main` branch
@@ -8,6 +8,8 @@ on:
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
+    # Run the job only if the PR is from Dependabot
+    if: ${{ startsWith(github.actor, 'dependabot') }}
 
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -18,8 +20,11 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout PR branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -69,17 +74,17 @@ jobs:
           yarn build:config
           npm i -g vercel@latest
 
-      - name: Build index
+      - name: Get Vercel .env file
+        run: |
+          vercel env pull .env --yes --environment=preview --token="${{ secrets.VERCEL_TOKEN }}"
+
+      - name: Build
         run: |
           yarn build
         env:
           NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
           NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN }}
           NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
-
-      - name: Build index
-        run: |
-          vercel env pull .env --yes --environment=preview --token="${{ secrets.VERCEL_TOKEN }}"
 
       - name: Send Slack notification if build fails
         if: failure()
