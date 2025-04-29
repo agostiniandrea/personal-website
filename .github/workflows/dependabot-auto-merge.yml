@@ -69,6 +69,10 @@ jobs:
       - name: Run build
         run: |
           yarn build
+        env:
+          NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
+          NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN }}
+          NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
 
       - name: Send Slack notification if build fails
         if: failure()
