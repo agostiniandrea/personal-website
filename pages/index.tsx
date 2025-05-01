@@ -9,7 +9,6 @@ import { useMedia } from "@lib/utils/useMedia";
 import PAGE_TYPES from "constants/pageTypes";
 import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
-import Button from "@components/ions/Button";
 
 type THomepage = {
   page: TPageFields;
@@ -56,8 +55,6 @@ export default function Home({ page }: THomepage) {
       <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
 
       <div style={{ height: "58.5px", width: "100%" }}></div>
-    
-      <Button>testa</Button>
 
       <StyledDiv
         style={{

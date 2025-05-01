@@ -51,12 +51,12 @@ const Header: React.FC<HeaderProps> = ({ styles }) => {
         <Container verticalPadding>
           {isMobile ? (
             <div>
-              <StyledLogo>Alice Di Antonio</StyledLogo>
+              <StyledLogo>Website Test</StyledLogo>
             </div>
           ) : (
             <StyledList>
               <StyledListItem>
-                <Link href="/">Alice Di Antonio</Link>
+                <Link href="/">Website Test</Link>
               </StyledListItem>
             </StyledList>
           )}
