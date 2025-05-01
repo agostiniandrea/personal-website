@@ -22,7 +22,7 @@
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --build-script-name build-storybook --exit-zero-on-changes"
   },
   "dependencies": {
-    "@babel/runtime": "^7.24.0",
+    "@babel/runtime": "^7.27.1",
     "@babel/runtime-corejs3": "^7.27.1",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/core": "^2.0.0",
