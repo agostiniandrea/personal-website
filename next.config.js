@@ -29,6 +29,10 @@ const sentryWebpackPluginOptions = {
   tunnelRoute: "/monitoring",
   disableLogger: true,
   automaticVercelMonitors: true,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  reactComponentAnnotation: {
+    enabled: true,
+  },
 };
 
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
