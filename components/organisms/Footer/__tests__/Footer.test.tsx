@@ -23,7 +23,7 @@ describe("Footer", () => {
     const instagramLink = screen.getByRole("link", { name: "Instagram" });
     expect(instagramLink).toHaveAttribute(
       "href",
-      "https://www.instagram.com/alice.diantonio/",
+      "https://www.instagram.com",
     );
     expect(instagramLink).toHaveAttribute("target", "_blank");
     expect(instagramLink).toHaveAttribute("rel", "noopener noreferrer");
@@ -31,7 +31,7 @@ describe("Footer", () => {
     const tiktokLink = screen.getByRole("link", { name: "TikTok" });
     expect(tiktokLink).toHaveAttribute(
       "href",
-      "https://www.tiktok.com/@alicediantonio",
+      "https://www.tiktok.com",
     );
     expect(tiktokLink).toHaveAttribute("target", "_blank");
     expect(tiktokLink).toHaveAttribute("rel", "noopener noreferrer");

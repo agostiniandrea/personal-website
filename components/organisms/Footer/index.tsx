@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
       <Container verticalPadding>
         <StyledSocialLinks>
           <Link
-            href="https://www.instagram.com/alice.diantonio/"
+            href="https://www.instagram.com"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
             />
           </Link>
           <Link
-            href="https://www.tiktok.com/@alicediantonio"
+            href="https://www.tiktok.com"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TikTok"
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
           </Link>
         </StyledSocialLinks>
         <StyledCopyright>
-          {new Date().getFullYear()} © Il sito di Alice Di Antonio
+          {new Date().getFullYear()} © Made by Andrea Agostini
         </StyledCopyright>
       </Container>
     </FooterContainer>

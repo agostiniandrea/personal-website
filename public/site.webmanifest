@@ -1,7 +1,7 @@
 {
-  "name": "Alice Di Antonio",
-  "short_name": "ADA",
-  "description": "Il sito di Alice Di Antonio",
+  "name": "Website Test",
+  "short_name": "WT",
+  "description": "Website Test",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#ffffff",
