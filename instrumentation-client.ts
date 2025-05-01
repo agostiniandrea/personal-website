@@ -1,11 +1,14 @@
 // This file configures the initialization of Sentry on the client.
-// The added config here will be used whenever a users loads a page in their browser.
-// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+// The added config here will be used whenever a user loads a page in their browser.
 
-import * as Sentry from "@sentry/nextjs";
+import { config } from 'dotenv';
+import * as Sentry from '@sentry/nextjs';
+
+// Load environment variables from .env.local file (for client-side usage)
+config();  // Loads the variables into process.env
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 
   // Add optional integrations for additional features
   integrations: [Sentry.replayIntegration()],
