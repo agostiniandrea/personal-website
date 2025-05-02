@@ -30,7 +30,7 @@
     "@sentry/nextjs": "^9.15.0",
     "@types/node": "^22.15.3",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react-dom": "^18.3.7",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "airtable": "^0.12.2",
@@ -134,7 +134,7 @@
   "resolutions": {
     "styled-components": "5",
     "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1"
+    "@types/react-dom": "18.3.7"
   },
   "engines": {
     "node": ">=20.0.0"
