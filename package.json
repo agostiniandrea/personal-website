@@ -29,7 +29,7 @@
     "@opentelemetry/sdk-trace-base": "^2.0.0",
     "@sentry/nextjs": "^9.15.0",
     "@types/node": "^22.15.3",
-    "@types/react": "^19.0.0",
+    "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.7",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
@@ -133,7 +133,7 @@
   },
   "resolutions": {
     "styled-components": "5",
-    "@types/react": "18.3.12",
+    "@types/react": "18.3.20",
     "@types/react-dom": "18.3.7"
   },
   "engines": {

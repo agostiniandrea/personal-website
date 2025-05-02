@@ -6316,13 +6316,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.3.12":
-  version: 18.3.12
-  resolution: "@types/react@npm:18.3.12"
+"@types/react@npm:18.3.20":
+  version: 18.3.20
+  resolution: "@types/react@npm:18.3.20"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/8bae8d9a41619804561574792e29112b413044eb0d53746dde2b9720c1f9a59f71c895bbd7987cd8ce9500b00786e53bc032dced38cddf42910458e145675290
+  checksum: 10c0/65fa867c91357e4c4c646945c8b99044360f8973cb7f928ec4de115fe3207827985d45be236e6fd6c092b09f631c2126ce835c137be30718419e143d73300d8f
   languageName: node
   linkType: hard
 
@@ -18781,7 +18781,7 @@ __metadata:
     "@types/identity-obj-proxy": "npm:^3"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.15.3"
-    "@types/react": "npm:^19.0.0"
+    "@types/react": "npm:^18.3.20"
     "@types/react-dom": "npm:^18.3.7"
     "@types/styled-components": "npm:5.1.34"
     "@typescript-eslint/eslint-plugin": "npm:^8.31.1"
