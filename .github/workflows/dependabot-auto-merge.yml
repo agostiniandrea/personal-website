@@ -58,16 +58,6 @@ jobs:
             echo "No dependency found in PR title" > dependencies.log
           fi
 
-      - name: Debug environment variables
-        run: |
-          echo "🔁 DEPENDENCY: $DEPENDENCY"
-          echo "⬅️  FROM_VERSION: $FROM_VERSION"
-          echo "➡️  TO_VERSION: $TO_VERSION"
-        env:
-          DEPENDENCY: ${{ env.DEPENDENCY }}
-          FROM_VERSION: ${{ env.FROM_VERSION }}
-          TO_VERSION: ${{ env.TO_VERSION }}
-
       - name: Install
         run: |
           yarn install --immutable
