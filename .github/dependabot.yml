@@ -3,8 +3,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
-      time: "11:55"
+      interval: "weekly"
+      day: "sunday"
+      time: "03:00"
       timezone: "UTC"
     versioning-strategy: increase
     commit-message:
