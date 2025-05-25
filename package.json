@@ -109,7 +109,7 @@
     "playwright": "^1.52.0",
     "prettier": "^3.5.3",
     "storybook": "^8.6.14",
-    "ts-jest": "^29.3.2",
+    "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.16",
     "typescript-eslint": "^8.32.1",
