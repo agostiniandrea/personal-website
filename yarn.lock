@@ -5539,15 +5539,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/components@npm:8.6.12":
-  version: 8.6.12
-  resolution: "@storybook/components@npm:8.6.12"
-  peerDependencies:
-    storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-  checksum: 10c0/f443f41354d382307734f0507989ffd78d9b3fb9413122487d5e01927057d34b9526bb9ee6b5343cee806a650d6eef2aecf5112af5b0817eeb3204b1ac4fdc3d
-  languageName: node
-  linkType: hard
-
 "@storybook/components@npm:8.6.14":
   version: 8.6.14
   resolution: "@storybook/components@npm:8.6.14"
@@ -5719,15 +5710,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/manager-api@npm:8.6.12":
-  version: 8.6.12
-  resolution: "@storybook/manager-api@npm:8.6.12"
-  peerDependencies:
-    storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-  checksum: 10c0/88a0d361c27c53f0f7cd32564d404a5e5a3fa129136449003e8ecaecd63fd8e38ddeeda30f189fffddf24a14b674e7d0400003b4dbbdafedfae7d37bbc32272f
-  languageName: node
-  linkType: hard
-
 "@storybook/manager-api@npm:8.6.14":
   version: 8.6.14
   resolution: "@storybook/manager-api@npm:8.6.14"
@@ -5823,15 +5805,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/preview-api@npm:8.6.12":
-  version: 8.6.12
-  resolution: "@storybook/preview-api@npm:8.6.12"
-  peerDependencies:
-    storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-  checksum: 10c0/38044f40a0ac060ab33ed84eff62da1a99cdb5a2f73e6786b58da4cf5c4295d4ef060373f1fdaa1bfe6cccea8e123768d046555adf98a4acf1abda40fa3e9781
-  languageName: node
-  linkType: hard
-
 "@storybook/preview-api@npm:8.6.14":
   version: 8.6.14
   resolution: "@storybook/preview-api@npm:8.6.14"
@@ -5907,7 +5880,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:8.6.14":
+"@storybook/react@npm:8.6.14, @storybook/react@npm:^8.6.14":
   version: 8.6.14
   resolution: "@storybook/react@npm:8.6.14"
   dependencies:
@@ -5929,31 +5902,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/e447892d523b32a52708e6eabc142a3dc0433c23fc28d59206e3b03fe070df77e80998839c3496c22ad11b712499b8e0fbec0dacf31a006ea99b171dba74c43b
-  languageName: node
-  linkType: hard
-
-"@storybook/react@npm:^8.6.12":
-  version: 8.6.12
-  resolution: "@storybook/react@npm:8.6.12"
-  dependencies:
-    "@storybook/components": "npm:8.6.12"
-    "@storybook/global": "npm:^5.0.0"
-    "@storybook/manager-api": "npm:8.6.12"
-    "@storybook/preview-api": "npm:8.6.12"
-    "@storybook/react-dom-shim": "npm:8.6.12"
-    "@storybook/theming": "npm:8.6.12"
-  peerDependencies:
-    "@storybook/test": 8.6.12
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    storybook: ^8.6.12
-    typescript: ">= 4.2.x"
-  peerDependenciesMeta:
-    "@storybook/test":
-      optional: true
-    typescript:
-      optional: true
-  checksum: 10c0/62d44f6c310577520d1c400cf80001c53d3db995dca6845e1b4e749422705e80825d337d1ba42c196453b2b5d66aa6d402127037546cf9f51afed5fce095e152
   languageName: node
   linkType: hard
 
@@ -19003,7 +18951,7 @@ __metadata:
     "@storybook/experimental-addon-test": "npm:^8.6.14"
     "@storybook/experimental-nextjs-vite": "npm:8.6.14"
     "@storybook/nextjs": "npm:^8.6.14"
-    "@storybook/react": "npm:^8.6.12"
+    "@storybook/react": "npm:^8.6.14"
     "@storybook/test": "npm:^8.6.14"
     "@testing-library/cypress": "npm:^10.0.3"
     "@testing-library/jest-dom": "npm:^6.6.3"
