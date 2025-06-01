@@ -2656,12 +2656,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs3@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/runtime-corejs3@npm:7.27.1"
+"@babel/runtime-corejs3@npm:^7.27.4":
+  version: 7.27.4
+  resolution: "@babel/runtime-corejs3@npm:7.27.4"
   dependencies:
     core-js-pure: "npm:^3.30.2"
-  checksum: 10c0/81b46b6c73b590842abca14024a6b7c8751eaf0b519794f129b7c971043e13967e4d370933dbd7d0fdc78872ae45971b36013e0fa13c6d5c0130bfe971be0ac1
+  checksum: 10c0/77c3f71e00d6c4caee76bdbc5063984c80353529ee638cab447e55140b97403bff9fb992e0d9de62982821db7f848bcd53ed1f386cfffee8be2e2316b4aef566
   languageName: node
   linkType: hard
 
@@ -18853,7 +18853,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.27.1"
     "@babel/preset-typescript": "npm:^7.27.1"
     "@babel/runtime": "npm:^7.27.1"
-    "@babel/runtime-corejs3": "npm:^7.27.1"
+    "@babel/runtime-corejs3": "npm:^7.27.4"
     "@chromatic-com/storybook": "npm:^3"
     "@cypress/request": "npm:3.0.8"
     "@eslint/js": "npm:^9.27.0"
