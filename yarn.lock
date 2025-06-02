@@ -9110,9 +9110,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contentful@npm:^11.5.23":
-  version: 11.5.23
-  resolution: "contentful@npm:11.5.23"
+"contentful@npm:^11.5.24":
+  version: 11.5.24
+  resolution: "contentful@npm:11.5.24"
   dependencies:
     "@contentful/content-source-maps": "npm:^0.11.8"
     "@contentful/rich-text-types": "npm:^16.6.1"
@@ -9121,7 +9121,7 @@ __metadata:
     contentful-sdk-core: "npm:^9.0.1"
     json-stringify-safe: "npm:^5.0.1"
     type-fest: "npm:^4.0.0"
-  checksum: 10c0/a4bc9bb633bc54fde064d994ea60c484315d90e474793cba57e10c3a1941d1ba53e68c9833ff2300f9b4b28555c73ba6962ddb24b84572c50cfb4bf52d45ed62
+  checksum: 10c0/ec68af9eec5aa356a584f01ff4d606e407be03b2ebd07ad3adc214242b5bbe146e4c93b475b3ef2df9c147e37dbd65e8a85e67cd26c1f5a956c8ec217edc323d
   languageName: node
   linkType: hard
 
@@ -19132,7 +19132,7 @@ __metadata:
     babel-jest: "npm:^29.7.0"
     babel-plugin-styled-components: "npm:^2.1.4"
     chromatic: "npm:^11.29.0"
-    contentful: "npm:^11.5.23"
+    contentful: "npm:^11.5.24"
     cypress: "npm:^14.4.0"
     dotenv: "npm:^16.5.0"
     eslint: "npm:^9.27.0"
