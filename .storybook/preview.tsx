@@ -1,5 +1,5 @@
 import React from "react";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/nextjs";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../config/customizations/globalStyles";
 import theme from "../config/theme";
