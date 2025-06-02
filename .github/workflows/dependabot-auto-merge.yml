@@ -69,13 +69,19 @@ jobs:
         run: |
           vercel env pull .env --yes --environment=preview --token="${{ secrets.VERCEL_TOKEN }}"
 
-      - name: Build
+      - name: Run build:compile
         run: |
-          yarn build:config && yarn build:compile
+          yarn build:compile
         env:
           NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
           NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN }}
           NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
+
+      - name: Run unit tests
+        run: yarn test
+
+      - name: Run lint
+        run: yarn lint
 
       - name: Send Slack notification if build fails
         if: failure()
@@ -89,13 +95,31 @@ jobs:
           FROM_VERSION: ${{ env.FROM_VERSION }}
           TO_VERSION: ${{ env.TO_VERSION }}
           BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      
+     
       - name: Fail job if build failed
         if: failure()
         run: exit 1
 
       - name: Merge PR from dependabot
+        id: merge
         if: success()
         uses: fastify/github-action-merge-dependabot@v3
         with:
-          merge-method: squash
+          merge-method: rebase
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fail if merge failed
+        if: steps.merge.outcome == 'failure'
+        run: |
+          echo "❌ Merge failed!"
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "❌ *Merge Failed!* Dependabot PR could not be merged.\n\n*Error while trying to merge update for:* \"'"$DEPENDENCY"'\" from version *'"$FROM_VERSION"'* to *'"$TO_VERSION"'*\nCheck the build logs: <'"$BUILD_URL"'|View Build>"
+          }' "$SLACK_WEBHOOK_URL"
+          exit 1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DEPENDENCY: ${{ env.DEPENDENCY }}
+          FROM_VERSION: ${{ env.FROM_VERSION }}
+          TO_VERSION: ${{ env.TO_VERSION }}
+          BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
