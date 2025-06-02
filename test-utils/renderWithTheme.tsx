@@ -22,7 +22,7 @@ export const renderWithTheme = (
 
   return {
     ...renderer!,
-    rerender: (newUi: React.ReactElement) => {
+    rerender: (newUi: React.ReactNode) => {
       let newRenderer: RenderResult;
 
       act(() => {
