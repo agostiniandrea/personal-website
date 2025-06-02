@@ -21,12 +21,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
-        run: |
-          yarn install 2> yarn-error.log || true
-          tail -n 20 yarn-error.log >> dependencies.log
+        run: yarn install --frozen-lockfile
 
       - name: Build tsconfig.json
         run: yarn build:config
