@@ -21,17 +21,15 @@ const config: Config.InitialOptions = {
   },
   testMatch: ["**/components/**/*.test.tsx"],
   transform: {
-    "^.+\\.(ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
+    "^.+\\.(ts|tsx)$": ["ts-jest", {
+      tsconfig: "tsconfig.jest.json",
+      useESM: true
+    }]
   },
   transformIgnorePatterns: [
-    "/node_modules/(?!(styled-components|@babel/runtime)/)",
+    "/node_modules/",
   ],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  globals: {
-    "ts-jest": {
-      tsconfig: "tsconfig.json",
-    },
-  },
 };
 
 export default config;
