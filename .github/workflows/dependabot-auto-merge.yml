@@ -6,6 +6,10 @@ on:
     branches:
       - main # Only for PRs targeting the `main` branch
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
@@ -31,6 +35,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set Yarn version
+        run: corepack prepare yarn@4.7.0 --activate
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: Setup yarn cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Extract updated dependency from PR title
         id: extract_pr_title
@@ -59,9 +81,9 @@ jobs:
             echo "No dependency found in PR title" > dependencies.log
           fi
 
-      - name: Install
+      - name: Install dependencies
         run: |
-          yarn install --immutable
+          yarn install
           yarn build:config
           npm i -g vercel@latest
 
@@ -69,19 +91,15 @@ jobs:
         run: |
           vercel env pull .env --yes --environment=preview --token="${{ secrets.VERCEL_TOKEN }}"
 
-      - name: Run build:compile
+      - name: Run build and tests
         run: |
           yarn build:compile
+          yarn test
+          yarn lint
         env:
           NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN }}
           NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN }}
           NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
-
-      - name: Run unit tests
-        run: yarn test
-
-      - name: Run lint
-        run: yarn lint
 
       - name: Send Slack notification if build fails
         if: failure()
