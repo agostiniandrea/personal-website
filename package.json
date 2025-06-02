@@ -29,8 +29,8 @@
     "@opentelemetry/sdk-trace-base": "^2.0.1",
     "@sentry/nextjs": "^9.22.0",
     "@types/node": "^22.15.29",
-    "@types/react": "^18.3.23",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "airtable": "^0.12.2",
@@ -38,9 +38,9 @@
     "dotenv": "^16.5.0",
     "next": "^15.3.1",
     "next-seo": "^6.8.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-is": "18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-is": "^19.1.0",
     "styled-components": "^6.1.16",
     "typescript": "^5.8.3"
   },
@@ -130,11 +130,6 @@
       ],
       "git add"
     ]
-  },
-  "resolutions": {
-    "styled-components": "5",
-    "@types/react": "18.3.23",
-    "@types/react-dom": "18.3.7"
   },
   "engines": {
     "node": ">=22.0.0"

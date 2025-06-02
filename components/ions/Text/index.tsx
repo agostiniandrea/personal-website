@@ -6,7 +6,7 @@ interface TextProps {
   variant?: "small" | "regular" | "large";
   style?: React.CSSProperties;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: 'span' | 'p' | 'div'
   id?: string;
   role?: string;
   "aria-label"?: string;
