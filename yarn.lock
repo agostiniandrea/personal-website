@@ -3754,12 +3754,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-onboarding@npm:^9.1.0-alpha.2":
-  version: 9.1.0-alpha.2
-  resolution: "@storybook/addon-onboarding@npm:9.1.0-alpha.2"
+"@storybook/addon-onboarding@npm:^9.1.0-alpha.3":
+  version: 9.1.0-alpha.3
+  resolution: "@storybook/addon-onboarding@npm:9.1.0-alpha.3"
   peerDependencies:
-    storybook: ^9.1.0-alpha.2
-  checksum: 10c0/e7a420e04189ea451abeadd958cc216c7679207f7bf10cdb4f89bbd0989a81086773d157da81c33bed81abbeec2dcf77880c877d850501a68756fa1cf2c36a35
+    storybook: ^9.1.0-alpha.3
+  checksum: 10c0/552cad6279bc4c46a09172c25589bc44e2b5d85408d66f29ad37ea97f2cce04e4797121a450ba411df6bde3e45afa330f8cd9d5a11ea0266fea93a8462e17361
   languageName: node
   linkType: hard
 
@@ -16803,7 +16803,7 @@ __metadata:
     "@sentry/nextjs": "npm:^9.24.0"
     "@storybook/addon-docs": "npm:^9.1.0-alpha.2"
     "@storybook/addon-links": "npm:^9.1.0-alpha.2"
-    "@storybook/addon-onboarding": "npm:^9.1.0-alpha.2"
+    "@storybook/addon-onboarding": "npm:^9.1.0-alpha.3"
     "@storybook/addon-vitest": "npm:9.1.0-alpha.2"
     "@storybook/nextjs": "npm:^9.1.0-alpha.2"
     "@storybook/nextjs-vite": "npm:^9.1.0-alpha.2"
