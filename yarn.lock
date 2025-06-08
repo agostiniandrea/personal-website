@@ -3739,18 +3739,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:^9.1.0-alpha.2":
-  version: 9.1.0-alpha.2
-  resolution: "@storybook/addon-links@npm:9.1.0-alpha.2"
+"@storybook/addon-links@npm:^9.1.0-alpha.3":
+  version: 9.1.0-alpha.3
+  resolution: "@storybook/addon-links@npm:9.1.0-alpha.3"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    storybook: ^9.1.0-alpha.2
+    storybook: ^9.1.0-alpha.3
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/41b0187d15454d33a331b4133bac219d0ef025e37d1fbc6e50187041381aed4117b0d5180ef409f5f4a9d33ab46cc7e98d04754017c6b035c6ab02cb57db2138
+  checksum: 10c0/9886c3f9c25e316005efd02e0c3e0930a337b9f7803d8fd34b54dc0e1d2cfd5d4b75cd61aa3e9f17d9349729b0c885ecb14f6e73a3ed566b4c45d63c552de46a
   languageName: node
   linkType: hard
 
@@ -16802,7 +16802,7 @@ __metadata:
     "@opentelemetry/sdk-trace-base": "npm:^2.0.1"
     "@sentry/nextjs": "npm:^9.24.0"
     "@storybook/addon-docs": "npm:^9.1.0-alpha.2"
-    "@storybook/addon-links": "npm:^9.1.0-alpha.2"
+    "@storybook/addon-links": "npm:^9.1.0-alpha.3"
     "@storybook/addon-onboarding": "npm:^9.1.0-alpha.2"
     "@storybook/addon-vitest": "npm:9.1.0-alpha.2"
     "@storybook/nextjs": "npm:^9.1.0-alpha.2"
