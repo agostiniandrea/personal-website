@@ -52,7 +52,7 @@
     "@storybook/addon-docs": "^9.0.10",
     "@storybook/addon-links": "^9.0.10",
     "@storybook/addon-onboarding": "^9.0.10",
-    "@storybook/addon-vitest": "9.0.10",
+    "@storybook/addon-vitest": "9.0.16",
     "@storybook/nextjs": "^9.0.10",
     "@storybook/nextjs-vite": "^9.0.10",
     "@testing-library/cypress": "^10.0.3",
