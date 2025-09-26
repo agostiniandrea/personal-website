@@ -17,6 +17,7 @@ export default tseslint.config(
       "dist/**/*",
       "build/**/*",
       ".yarn/**/*",
+      "next-env.d.ts",
     ],
   },
   js.configs.recommended,
