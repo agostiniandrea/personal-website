@@ -4451,12 +4451,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19.1.13":
+"@types/react@npm:*":
   version: 19.1.13
   resolution: "@types/react@npm:19.1.13"
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10c0/75e35b54883f5ed07d3b5cb16a4711b6dbb7ec6b74301bcb9bfa697c9d9fff022ec508e1719e7b2c69e2e8b042faac1125be7717b5e5e084f816a2c88e136920
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19.2.2":
+  version: 19.2.2
+  resolution: "@types/react@npm:19.2.2"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/f830b1204aca4634ce3c6cb3477b5d3d066b80a4dd832a4ee0069acb504b6debd2416548a43a11c1407c12bc60e2dc6cf362934a18fe75fe06a69c0a98cba8ab
   languageName: node
   linkType: hard
 
@@ -13181,10 +13190,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0, react@npm:^19.1.1":
+"react@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.1.1
   resolution: "react@npm:19.1.1"
   checksum: 10c0/8c9769a2dfd02e603af6445058325e6c8a24b47b185d0e461f66a6454765ddcaecb3f0a90184836c68bb509f3c38248359edbc42f0d07c23eb500a5c30c87b4e
+  languageName: node
+  linkType: hard
+
+"react@npm:^19.2.0":
+  version: 19.2.0
+  resolution: "react@npm:19.2.0"
+  checksum: 10c0/1b6d64eacb9324725bfe1e7860cb7a6b8a34bc89a482920765ebff5c10578eb487e6b46b2f0df263bd27a25edbdae2c45e5ea5d81ae61404301c1a7192c38330
   languageName: node
   linkType: hard
 
@@ -15935,7 +15951,7 @@ __metadata:
     "@types/identity-obj-proxy": "npm:^3"
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^22.18.6"
-    "@types/react": "npm:^19.1.13"
+    "@types/react": "npm:^19.2.2"
     "@types/react-dom": "npm:^19.1.9"
     "@types/styled-components": "npm:5.1.34"
     "@typescript-eslint/eslint-plugin": "npm:^8.44.1"
@@ -15975,7 +15991,7 @@ __metadata:
     next-sitemap: "npm:^4.2.3"
     playwright: "npm:^1.55.1"
     prettier: "npm:^3.6.2"
-    react: "npm:^19.1.1"
+    react: "npm:^19.2.0"
     react-dom: "npm:^19.1.1"
     react-is: "npm:^19.1.1"
     storybook: "npm:^9.1.8"
