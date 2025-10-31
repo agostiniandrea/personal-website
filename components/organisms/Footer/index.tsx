@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
           </Link>
         </StyledSocialLinks>
         <StyledCarbonBadge>
-          <CarbonBadge theme="dark" />
+          <CarbonBadge />
         </StyledCarbonBadge>
         <StyledCopyright>
           {CURRENT_YEAR} © Made by Andrea Agostini
