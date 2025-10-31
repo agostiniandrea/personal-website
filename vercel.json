@@ -2,10 +2,5 @@
   "buildCommand": "yarn build",
   "framework": "nextjs",
   "installCommand": "yarn install",
-  "ignoreCommand": "node ./scripts/ignore-vercel.js",
-  "functions": {
-    "pages/api/**/*.ts": {
-      "runtime": "nodejs22.x"
-    }
-  }
+  "ignoreCommand": "node ./scripts/ignore-vercel.js"
 }
