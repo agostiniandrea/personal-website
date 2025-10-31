@@ -4,13 +4,32 @@ const GlobalStyle = createGlobalStyle`
   ${({ theme }) => css`
     @font-face {
       font-family: "Rainier";
-      font-weight: normal;
+      font-weight: 500;
       font-style: normal;
       src:
-        url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff"),
-        /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-          url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"); /* Chrome 26+, Opera 23+, Firefox 39+ */
-      font-display: optional;
+        url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"),
+        url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff");
+      font-display: block;
+    }
+    
+    @font-face {
+      font-family: "Rainier";
+      font-weight: 400;
+      font-style: normal;
+      src:
+        url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"),
+        url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff");
+      font-display: block;
+    }
+    
+    @font-face {
+      font-family: "Rainier";
+      font-weight: 700;
+      font-style: normal;
+      src:
+        url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"),
+        url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff");
+      font-display: block;
     }
 
     html {
@@ -28,6 +47,10 @@ const GlobalStyle = createGlobalStyle`
       scroll-behavior: smooth;
       /* Prevent flash of unstyled content */
       visibility: visible;
+      /* Ensure font rendering is stable during resize */
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     p,
