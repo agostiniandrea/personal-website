@@ -6,14 +6,19 @@ interface ContainerProps {
   styles?: Interpolation<React.CSSProperties>;
 }
 
-const StyledSection = styled.section<ContainerProps>`
+interface StyledContainerProps {
+  $verticalPadding?: boolean;
+  $styles?: Interpolation<React.CSSProperties>;
+}
+
+const StyledSection = styled.section<StyledContainerProps>`
   column-gap: calc(24px);
   display: grid;
   position: relative;
   grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   min-height: auto;
-  ${(props: any) =>
-    props.verticalPadding &&
+  ${(props) =>
+    props.$verticalPadding &&
     "padding-top: calc(1.5rem); padding-bottom: calc(1.5rem);"};
 
   width: 100%;
@@ -26,8 +31,8 @@ const StyledSection = styled.section<ContainerProps>`
   @media (min-width: 1200px) {
     grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
-    ${(props: any) =>
-      props.verticalPadding &&
+    ${(props) =>
+      props.$verticalPadding &&
       "padding-top: calc(2.5rem); padding-bottom: calc(2.5rem);"};
   }
 
@@ -45,11 +50,17 @@ const StyledSection = styled.section<ContainerProps>`
     grid-column: 2 / auto;
   }
 
-  ${({ styles }) => styles}
+  ${({ $styles }) => $styles}
 `;
 
-const Container: React.FC<ContainerProps> = (props) => (
-  <StyledSection {...props} />
+const Container: React.FC<ContainerProps> = ({
+  children,
+  verticalPadding,
+  styles,
+}) => (
+  <StyledSection $verticalPadding={verticalPadding} $styles={styles}>
+    {children}
+  </StyledSection>
 );
 
 export default Container;

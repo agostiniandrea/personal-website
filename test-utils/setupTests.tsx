@@ -4,10 +4,11 @@ import "jest-styled-components";
 
 // Extend expect with the matchers from jest-dom
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toBeInTheDocument(): R;
-      toHaveStyle(style: Record<string, any>): R;
+      toHaveStyle(style: Record<string, string | number>): R;
       toHaveAttribute(attr: string, value?: string): R;
     }
   }
@@ -31,7 +32,7 @@ Object.defineProperty(window, "matchMedia", {
 // Mock next/image
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
     return <div data-testid="mock-image" {...props} />;
   },
 }));
