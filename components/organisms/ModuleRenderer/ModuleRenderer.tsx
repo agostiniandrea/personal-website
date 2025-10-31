@@ -1,11 +1,11 @@
 import React from "react";
 
-import { FeaturePrimary, HeroPrimary } from "@components/cms";
+import { FeaturePrimary, FeaturePrimaryProps, HeroPrimary, HeroPrimaryProps } from "@components/cms";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
 
 type DefaultModuleProps = {
-  data: any;
+  data: TPageModule;
   typename: string;
 };
 
@@ -39,33 +39,48 @@ const DefaultModule: React.FC<DefaultModuleProps> = ({
  * @param fields - The fields of the page module.
  * @returns The cleaned props object.
  */
+type ContentfulAssetFields = {
+  fields?: {
+    description?: string;
+    file?: {
+      url?: string;
+      contentType?: string;
+      details?: {
+        image?: {
+          height?: number;
+          width?: number;
+        };
+      };
+    };
+  };
+};
+
 export const cleanProps = (fields: TPageModule["fields"]) => {
   const keys = Object.keys(fields).filter((key) => key !== "name");
 
-  const newProps: any = {};
+  const newProps: Record<string, unknown> = {};
 
   for (const key of keys) {
-    const data = fields[key as any];
+    const data = fields[key as keyof typeof fields];
 
     if (typeof data === "string") {
       newProps[key] = data;
     }
 
-    if (typeof data === "object") {
-      const { fields } = data;
+    if (data !== null && typeof data === "object" && !Array.isArray(data)) {
+      const contentfulData = data as ContentfulAssetFields;
+      const nestedFields = contentfulData.fields;
 
-      const isImage = fields.file?.contentType?.includes("image");
-
-      if (isImage) {
+      if (nestedFields?.file?.contentType?.includes("image")) {
         newProps[key] = {
-          alt: fields.description,
-          height: fields.file.details.image.height,
-          type: fields.file.contentType,
-          url: fields.file.url.replace("//", "https://"),
-          width: fields.file.details.image.width,
+          alt: nestedFields.description,
+          height: nestedFields.file.details?.image?.height,
+          type: nestedFields.file.contentType,
+          url: nestedFields.file.url?.replace("//", "https://"),
+          width: nestedFields.file.details?.image?.width,
         } as ImageProps;
-      } else {
-        newProps[key] = fields;
+      } else if (nestedFields) {
+        newProps[key] = nestedFields;
       }
     }
   }
@@ -85,16 +100,16 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
 
   switch (type) {
     case MODULES.FEATURE_PRIMARY:
-      return <FeaturePrimary {...propsComponent} />;
+      return <FeaturePrimary {...propsComponent as unknown as  FeaturePrimaryProps} />;
     case MODULES.HERO_PRIMARY:
-      return <HeroPrimary {...propsComponent} />;
+      return <HeroPrimary {...propsComponent as unknown as HeroPrimaryProps} />;
     default:
       return <DefaultModule data={data} typename={type} />;
   }
 };
 
 type ModuleRendererProps = {
-  components: any[];
+  components: TPageModule[];
   pageOrigin?: string;
 };
 

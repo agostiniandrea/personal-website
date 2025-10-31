@@ -1,4 +1,5 @@
 import { Container } from "@components/ions";
+import { CarbonBadge } from "@components/molecules";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -19,6 +20,14 @@ const StyledSocialLinks = styled.section`
   margin-left: auto;
   margin-right: auto;
   gap: 15px;
+`;
+
+const StyledCarbonBadge = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  min-height: 60px;
 `;
 
 const StyledCopyright = styled.p`
@@ -61,6 +70,9 @@ const Footer: React.FC = () => {
             />
           </Link>
         </StyledSocialLinks>
+        <StyledCarbonBadge>
+          <CarbonBadge theme="dark" />
+        </StyledCarbonBadge>
         <StyledCopyright>
           {CURRENT_YEAR} © Made by Andrea Agostini
         </StyledCopyright>

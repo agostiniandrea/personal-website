@@ -7,7 +7,6 @@ const StyledHeader = styled.header<{
 }>`
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.paragraph};
-  padding: 1rem;
   position: relative;
   z-index: 1;
   ${({ styles }) => styles}

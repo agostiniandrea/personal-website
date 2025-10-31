@@ -9,8 +9,30 @@ const client = createClient({
   accessToken,
 });
 
+type ContentfulEntrySys = {
+  id: string;
+  contentType: {
+    sys: {
+      id: string;
+    };
+  };
+};
+
+type ContentfulModuleEntry = {
+  sys: ContentfulEntrySys;
+  fields: Record<string, unknown>;
+};
+
+type ContentfulPageFields = {
+  name: string;
+  uid: string;
+  seoTitle: string;
+  seoDescription?: string;
+  modules: ContentfulModuleEntry[];
+};
+
 export type TPageContent = {
-  fields: TPageFields;
+  fields: ContentfulPageFields;
 };
 
 export type TPageFields = {
@@ -18,12 +40,13 @@ export type TPageFields = {
   uid: string;
   seoTitle: string;
   seoDescription?: string;
-  modules: any[];
+  modules: TPageModule[];
 };
 
 export type TPageModule = {
+  id?: string;
   type: string;
-  fields: any[];
+  fields: Record<string, unknown>;
 };
 
 export type TPath = {
@@ -50,7 +73,7 @@ const getSlugs = (entries: TPageContent[]): TPath[] => {
 export const getPageContent = async (
   content_type: string,
   path: string,
-): Promise<any> => {
+): Promise<TPageFields | null> => {
   const content = (await client
     .getEntries({
       content_type,
@@ -66,12 +89,13 @@ export const getPageContent = async (
   return content ? getPageFields(content) : null;
 };
 
-const getPageFields = (entry: TPageContent) => {
+const getPageFields = (entry: TPageContent): TPageFields => {
   const { modules = [], ...restProps } = entry.fields;
   return {
     ...restProps,
     modules: modules.map((module) => {
       return {
+        id: module.sys.id,
         type: module.sys.contentType.sys.id,
         fields: module.fields,
       } as TPageModule;
