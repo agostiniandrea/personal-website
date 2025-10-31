@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export function middleware() {
+export function proxy() {
   const response = NextResponse.next();
 
   // Override x-robots-tag header to allow indexing
