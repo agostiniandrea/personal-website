@@ -13,13 +13,6 @@ export default function Document() {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/assets/fonts/Rainier/RainierNorth500.woff"
-          as="font"
-          type="font/woff"
-          crossOrigin="anonymous"
-        />
         {/* Prevent FOUC - Flash of Unstyled Content */}
         <style
           dangerouslySetInnerHTML={{
