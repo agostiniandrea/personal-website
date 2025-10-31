@@ -2,6 +2,7 @@ import React from "react";
 
 import { getImageSizes } from "@lib/utils/getImageSizes";
 import { useMedia } from "@lib/utils/useMedia";
+import { InstagramMedia } from "@lib/types/instagram";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -17,8 +18,8 @@ const StyledLink = styled(Link)`
 type InstagramPostProps = {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  media: any;
-  style: any;
+  media: InstagramMedia;
+  style?: React.CSSProperties;
 };
 
 const InstagramPost: React.FC<InstagramPostProps> = ({
@@ -55,7 +56,7 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
           marginRight: "auto",
           objectFit: "cover",
         }}
-        src={media.thumbnail_url || media.media_url}
+        src={media.thumbnail_url || media.media_url || ''}
         alt={media.caption || "Instagram post"}
         sizes={getImageSizes(["50vw", "33vw", "33vw", "20vw", "20vw"])}
       />

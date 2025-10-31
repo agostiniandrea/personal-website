@@ -1,3 +1,4 @@
+import { colors } from "@config/customizations/colors";
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -18,6 +19,22 @@ export default function Document() {
           as="font"
           type="font/woff"
           crossOrigin="anonymous"
+        />
+        {/* Prevent FOUC - Flash of Unstyled Content */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              html { 
+                background: ${colors.background}; 
+              }
+              body { 
+                background: ${colors.background}; 
+                font-family: "Rainier", sans-serif;
+                margin: 0;
+                padding: 0;
+              }
+            `,
+          }}
         />
       </Head>
       <body>
