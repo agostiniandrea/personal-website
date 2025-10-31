@@ -1,4 +1,4 @@
-export const fontFamilies: any = {
+export const fontFamilies: Record<"default" | "heading", string> = {
   default: '"Rainier", sans-serif',
   heading: '"Rainier", sans-serif',
 };

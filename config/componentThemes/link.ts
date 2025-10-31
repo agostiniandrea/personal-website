@@ -8,14 +8,14 @@ export const link = {
       fSize: "18px",
       fontWeight: "medium",
       letterSpacing: "0.04em",
-    } as any,
+    },
     md: {
       fontFamily: "heading",
       fSize: "21px",
       icon: {
         mt: "6px",
         width: "26px",
-      } as any,
+      },
     },
   },
   dark: {
@@ -56,7 +56,7 @@ export const link = {
       },
       disabled: {},
     },
-  } as any,
+  },
   light: {
     primary: {
       enabled: {
@@ -95,5 +95,5 @@ export const link = {
       },
       disabled: {},
     },
-  } as any,
+  },
 };
