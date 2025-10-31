@@ -39,6 +39,8 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
         height: `${height}px`,
         position: "relative",
         width: "100%",
+        /* Prevent layout shift */
+        minHeight: `${height}px`,
         ...style,
       }}
       target="_blank"
@@ -47,13 +49,14 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
     >
       <Image
         fill
+        loading="lazy"
         style={{
           marginLeft: "auto",
           marginRight: "auto",
           objectFit: "cover",
         }}
         src={media.thumbnail_url || media.media_url}
-        alt={media.caption}
+        alt={media.caption || "Instagram post"}
         sizes={getImageSizes(["50vw", "33vw", "33vw", "20vw", "20vw"])}
       />
     </StyledLink>

@@ -13,7 +13,9 @@ const StyledImage = styled(Image)`
 
 const StyledImageContainer = styled.section`
   background: gray;
-  height: 2rem;
+  /* Use aspect-ratio to prevent layout shift */
+  aspect-ratio: 16 / 9;
+  min-height: 400px;
   position: relative;
   width: 100%;
 `;
