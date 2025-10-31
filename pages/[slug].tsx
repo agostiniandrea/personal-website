@@ -51,9 +51,16 @@ export const getStaticPaths = async () => {
 };
 
 export default function Pages({ page }: TPage) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.vercel.app";
+  const canonicalUrl = page?.uid ? `${siteUrl}/${page.uid}` : undefined;
+
   return (
     <>
-      <Seo seoDescription={page?.seoDescription} seoTitle={page?.seoTitle} />
+      <Seo
+        canonicalUrl={canonicalUrl}
+        seoDescription={page?.seoDescription}
+        seoTitle={page?.seoTitle}
+      />
       <Header />
       <Container verticalPadding>
         <section>

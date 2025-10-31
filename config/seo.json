@@ -1,3 +1,10 @@
 {
-  "defaultTitle": "Website Test"
+  "defaultTitle": "Website Test",
+  "noindex": false,
+  "nofollow": false,
+  "description": "Andrea Agostini - Website Test",
+  "openGraph": {
+    "type": "website",
+    "siteName": "Website Test"
+  }
 }
