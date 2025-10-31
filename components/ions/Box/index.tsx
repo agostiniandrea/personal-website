@@ -46,9 +46,12 @@ interface StyledBoxProps {
   $gap?: SpacingValue;
   $rowGap?: SpacingValue;
   $columnGap?: SpacingValue;
+  $styles?: Interpolation<React.CSSProperties>;
 }
 
-const StyledBox = styled.div<StyledBoxProps>`
+const StyledBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => !prop.startsWith("$"),
+})<StyledBoxProps>`
   ${({ $m }) => $m !== undefined && `margin: ${toSpacing($m)};`}
   ${({ $mt }) => $mt !== undefined && `margin-top: ${toSpacing($mt)};`}
   ${({ $mr }) => $mr !== undefined && `margin-right: ${toSpacing($mr)};`}
@@ -77,18 +80,22 @@ const StyledBox = styled.div<StyledBoxProps>`
   ${({ $rowGap }) => $rowGap !== undefined && `row-gap: ${toSpacing($rowGap)};`}
   ${({ $columnGap }) =>
     $columnGap !== undefined && `column-gap: ${toSpacing($columnGap)};`}
+
+  ${({ $styles }) => $styles}
 `;
 
+type BoxElement = "div" | "section" | "header" | "footer" | "main" | "article" | "aside" | "nav" | "span" | "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
 interface BoxProps extends SpacingProps {
+  as?: BoxElement;
   children?: React.ReactNode;
-  as?: keyof React.JSX.IntrinsicElements;
   className?: string;
   styles?: Interpolation<React.CSSProperties>;
 }
 
 const Box: React.FC<BoxProps> = ({
+  as = "div",
   children,
-  as,
   className,
   styles,
   m,
@@ -130,7 +137,7 @@ const Box: React.FC<BoxProps> = ({
       $gap={gap}
       $rowGap={rowGap}
       $columnGap={columnGap}
-      style={styles as React.CSSProperties}
+      $styles={styles}
     >
       {children}
     </StyledBox>

@@ -2,8 +2,10 @@ import { BREAKPOINTS } from "@constants";
 import styled, { Interpolation } from "styled-components";
 
 type FullBleedValue = boolean | boolean[];
+type ContainerElement = "div" | "section" | "header" | "footer" | "main" | "article" | "aside" | "nav";
 
 interface ContainerProps {
+  as?: ContainerElement;
   children: React.ReactNode;
   verticalPadding?: boolean;
   fullBleed?: FullBleedValue;
@@ -53,7 +55,9 @@ const getFullBleed = (
   return false;
 };
 
-const StyledSection = styled.section<StyledContainerProps>`
+const StyledContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !prop.startsWith("$"),
+})<StyledContainerProps>`
   display: grid;
   position: relative;
   min-height: auto;
@@ -198,18 +202,20 @@ const StyledSection = styled.section<StyledContainerProps>`
 `;
 
 const Container: React.FC<ContainerProps> = ({
+  as = "section",
   children,
   verticalPadding,
   fullBleed,
   styles,
 }) => (
-  <StyledSection
+  <StyledContainer
+    as={as}
     $verticalPadding={verticalPadding}
     $fullBleed={fullBleed}
     $styles={styles}
   >
     {children}
-  </StyledSection>
+  </StyledContainer>
 );
 
 export default Container;

@@ -12,7 +12,7 @@ type TPage = {
 export async function getStaticProps(
   props: GetStaticPropsContext<{ slug: string }>,
 ): Promise<GetStaticPropsResult<TPage>> {
-  const { params } = props;
+  const params = await props.params;
 
   const path = params?.slug || "";
 
