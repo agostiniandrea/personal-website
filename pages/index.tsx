@@ -39,9 +39,15 @@ export default function Home({ page, igData }: THomepage) {
   const column = isMobile ? 2 : isTablet ? 3 : 5;
   const [hovered, setHovered] = useState(-1);
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.vercel.app";
+
   return (
     <>
-      <Seo seoDescription={page.seoDescription} seoTitle={page.seoTitle} />
+      <Seo
+        canonicalUrl={`${siteUrl}/`}
+        seoDescription={page.seoDescription}
+        seoTitle={page.seoTitle}
+      />
       <Header />
       <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
 
