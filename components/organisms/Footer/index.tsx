@@ -27,6 +27,8 @@ const StyledCopyright = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.body};
 `;
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 const Footer: React.FC = () => {
   return (
     <FooterContainer>
@@ -60,7 +62,7 @@ const Footer: React.FC = () => {
           </Link>
         </StyledSocialLinks>
         <StyledCopyright>
-          {new Date().getFullYear()} © Made by Andrea Agostini
+          {CURRENT_YEAR} © Made by Andrea Agostini
         </StyledCopyright>
       </Container>
     </FooterContainer>

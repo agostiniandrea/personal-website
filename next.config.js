@@ -18,10 +18,25 @@ const nextConfig = {
         hostname: "**.cdninstagram.com",
       },
     ],
+    // Optimize images for better performance
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 3600,
   },
   compiler: {
     // Enables the styled-components SWC transform
     styledComponents: true,
+  },
+  // Enable compression
+  compress: true,
+  // Optimize production builds
+  swcMinify: true,
+  // Reduce bundle size by excluding unnecessary polyfills
+  experimental: {
+    optimizePackageImports: [
+      "@vercel/analytics",
+      "@vercel/speed-insights",
+      "next-seo",
+    ],
   },
 };
 
