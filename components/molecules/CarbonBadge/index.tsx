@@ -32,7 +32,7 @@ const CarbonBadge: React.FC<CarbonBadgeProps> = ({ className }) => {
     }
   }, []);
 
-  return <div id="wcb" className={`carbonbadge ${className || ""}`} />;
+  return <div id="wcb" className={`carbonbadge  wcb-d ${className || ""}`} />;
 };
 
 export default CarbonBadge;
