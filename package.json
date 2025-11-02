@@ -46,7 +46,7 @@
     "typescript": "^5.9.2"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^4.1.1",
+    "@chromatic-com/storybook": "^4.1.2",
     "@cypress/request": "3.0.9",
     "@eslint/js": "^9.36.0",
     "@jest/globals": "^29.7.0",
