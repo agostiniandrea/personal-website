@@ -7201,12 +7201,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contentful-resolve-response@npm:^1.9.0":
-  version: 1.9.3
-  resolution: "contentful-resolve-response@npm:1.9.3"
+"contentful-resolve-response@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "contentful-resolve-response@npm:1.9.4"
   dependencies:
-    fast-copy: "npm:^2.1.7"
-  checksum: 10c0/faa3a78c733ac56cf6d62a9c693b9ba6982b4bb5083d95a6151bdd0b6d8177d504657e0c3e8af85f7c3369806f0b047d53b44c1b879cca52a9b2e1beb1ac2df0
+    fast-copy: "npm:^3.0.2"
+  checksum: 10c0/2b389d9e396a6d5cb62c8e4e87d334e2e0e3467e3f1c37f73dbfc19103daac4972da34b241a2ad33df7129ccc854b0ad2b3b821f55ec11e661452088366050b4
   languageName: node
   linkType: hard
 
@@ -7227,18 +7227,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contentful@npm:^11.8.1":
-  version: 11.8.1
-  resolution: "contentful@npm:11.8.1"
+"contentful@npm:^11.8.9":
+  version: 11.8.9
+  resolution: "contentful@npm:11.8.9"
   dependencies:
     "@contentful/content-source-maps": "npm:^0.11.33"
     "@contentful/rich-text-types": "npm:^16.6.1"
     axios: "npm:^1.12.2"
-    contentful-resolve-response: "npm:^1.9.0"
+    contentful-resolve-response: "npm:^1.9.4"
     contentful-sdk-core: "npm:^9.0.1"
     json-stringify-safe: "npm:^5.0.1"
     type-fest: "npm:^4.0.0"
-  checksum: 10c0/a21d9437676d7831f7a8c78743df7d22c477598e9bf58e13f45e4a55dd7d1359026312d7685ea0762a7727b87fa930ddb05a024c2333c5a23de0de2b9c0d5e8c
+  checksum: 10c0/4923a9d22ab12cb3c092b4ca9d54f68dbe58bd79b232bf96afc3ce1571cfca9e1d02cbeea6c234efc0c126df3fceed6c4f92faed7cd2aa3189be109548f42cb0
   languageName: node
   linkType: hard
 
@@ -9205,13 +9205,6 @@ __metadata:
   version: 1.4.1
   resolution: "extsprintf@npm:1.4.1"
   checksum: 10c0/e10e2769985d0e9b6c7199b053a9957589d02e84de42832c295798cb422a025e6d4a92e0259c1fb4d07090f5bfde6b55fd9f880ac5855bd61d775f8ab75a7ab0
-  languageName: node
-  linkType: hard
-
-"fast-copy@npm:^2.1.7":
-  version: 2.1.7
-  resolution: "fast-copy@npm:2.1.7"
-  checksum: 10c0/1fa3c6f21305fa49581d543812f0c96429c0748b97c074b1aca5d2d6d43520ff1452a8021b4051f5a894c0fdbcac463797b5660e0813399054914dd91e7f27f5
   languageName: node
   linkType: hard
 
@@ -16547,7 +16540,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^3.2.4"
     airtable: "npm:^0.12.2"
     chromatic: "npm:^11.29.0"
-    contentful: "npm:^11.8.1"
+    contentful: "npm:^11.8.9"
     cypress: "npm:^14.5.4"
     dotenv: "npm:^16.6.1"
     eslint: "npm:^9.37.0"
