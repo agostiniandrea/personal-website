@@ -28,7 +28,7 @@
     "@opentelemetry/core": "^2.1.0",
     "@opentelemetry/resources": "^2.2.0",
     "@opentelemetry/sdk-trace-base": "^2.1.0",
-    "@sentry/nextjs": "^10.22.0",
+    "@sentry/nextjs": "^10.27.0",
     "@types/node": "^22.18.6",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
