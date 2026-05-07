@@ -32,8 +32,13 @@ Object.defineProperty(window, "matchMedia", {
 // Mock next/image
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
-    return <div data-testid="mock-image" {...props} />;
+  default: ({ src, alt, width, height, fill, style, className, priority, sizes, ...rest }: {
+    src: string; alt: string; width?: number; height?: number; fill?: boolean;
+    style?: React.CSSProperties; className?: string; priority?: boolean; sizes?: string;
+    [key: string]: unknown;
+  }) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt={alt} width={width} height={height} style={style} className={className} {...rest} />;
   },
 }));
 

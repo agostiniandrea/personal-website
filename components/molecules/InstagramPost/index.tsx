@@ -1,19 +1,10 @@
 import React from "react";
 
 import { getImageSizes } from "@lib/utils/getImageSizes";
-import { useMedia } from "@lib/utils/useMedia";
 import { InstagramMedia } from "@lib/types/instagram";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-
-const StyledLink = styled(Link)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
 
 type InstagramPostProps = {
   onMouseEnter: () => void;
@@ -22,46 +13,44 @@ type InstagramPostProps = {
   style?: React.CSSProperties;
 };
 
+const StyledLink = styled(Link)`
+  cursor: pointer;
+  display: flex;
+  height: 350px;
+  position: relative;
+  transition: opacity 0.25s;
+  width: 100%;
+
+  @media (min-width: 600px) {
+    height: 300px;
+  }
+
+  @media (min-width: 1200px) {
+    height: 500px;
+  }
+`;
+
 const InstagramPost: React.FC<InstagramPostProps> = ({
   media,
   style,
   ...restProps
-}) => {
-  const { isMobile, isTablet } = useMedia();
-
-  const height = isMobile ? 350 : isTablet ? 300 : 500;
-
-  return (
-    <StyledLink
-      {...restProps}
-      style={{
-        cursor: "pointer",
-        display: "flex",
-        height: `${height}px`,
-        position: "relative",
-        width: "100%",
-        /* Prevent layout shift */
-        minHeight: `${height}px`,
-        ...style,
-      }}
-      target="_blank"
-      href={media.permalink}
-      passHref
-    >
-      <Image
-        fill
-        loading="lazy"
-        style={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          objectFit: "cover",
-        }}
-        src={media.thumbnail_url || media.media_url || ''}
-        alt={media.caption || "Instagram post"}
-        sizes={getImageSizes(["50vw", "33vw", "33vw", "20vw", "20vw"])}
-      />
-    </StyledLink>
-  );
-};
+}) => (
+  <StyledLink
+    {...restProps}
+    style={style}
+    target="_blank"
+    href={media.permalink}
+    passHref
+  >
+    <Image
+      fill
+      loading="lazy"
+      style={{ objectFit: "cover" }}
+      src={media.thumbnail_url || media.media_url || ""}
+      alt={media.caption || "Instagram post"}
+      sizes={getImageSizes(["50vw", "33vw", "33vw", "20vw", "20vw"])}
+    />
+  </StyledLink>
+);
 
 export default InstagramPost;
