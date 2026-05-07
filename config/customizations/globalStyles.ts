@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
       src:
         url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"),
         url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff");
-      font-display: block;
+      font-display: swap;
     }
     
     @font-face {
@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
       src:
         url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"),
         url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff");
-      font-display: block;
+      font-display: swap;
     }
     
     @font-face {
@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
       src:
         url("/assets/fonts/Rainier/RainierNorth500.woff2") format("woff2"),
         url("/assets/fonts/Rainier/RainierNorth500.woff") format("woff");
-      font-display: block;
+      font-display: swap;
     }
 
     html {

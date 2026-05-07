@@ -4,7 +4,6 @@ import { useState } from "react";
 import { InstagramPost } from "@components/molecules";
 import { InstagramMedia } from "@lib/types/instagram";
 import { isTouchDevice } from "@lib/utils/isTouchDevice";
-import { useMedia } from "@lib/utils/useMedia";
 import styled from "styled-components";
 
 type InstagramFeedProps = {
@@ -12,8 +11,6 @@ type InstagramFeedProps = {
 };
 
 const InstagramFeed: React.FC<InstagramFeedProps> = ({ igData }) => {
-  const { isMobile, isTablet, isDesktop } = useMedia();
-  const column = isMobile ? 2 : isTablet ? 3 : 5;
   const [hovered, setHovered] = useState(-1);
 
   if (!igData || igData.length === 0) {
@@ -21,36 +18,38 @@ const InstagramFeed: React.FC<InstagramFeedProps> = ({ igData }) => {
   }
 
   return (
-    <StyledInstagramGrid $columns={column}>
-      {igData.slice(0, isDesktop ? 25 : 24).map((media: InstagramMedia, i: number) => {
-        return (
-          <InstagramPost
-            key={media.id}
-            media={media}
-            style={{
-              ...(hovered !== -1 && {
-                opacity: hovered === i ? "1" : "0.66",
-              }),
-            }}
-            onMouseEnter={() => !isTouchDevice() && setHovered(i)}
-            onMouseLeave={() => !isTouchDevice() && setHovered(-1)}
-          />
-        );
-      })}
+    <StyledInstagramGrid>
+      {igData.slice(0, 24).map((media: InstagramMedia, i: number) => (
+        <InstagramPost
+          key={media.id}
+          media={media}
+          style={{
+            ...(hovered !== -1 && {
+              opacity: hovered === i ? "1" : "0.66",
+            }),
+          }}
+          onMouseEnter={() => !isTouchDevice() && setHovered(i)}
+          onMouseLeave={() => !isTouchDevice() && setHovered(-1)}
+        />
+      ))}
     </StyledInstagramGrid>
   );
 };
 
-const StyledInstagramGrid = styled.div<{ $columns: number }>`
+const StyledInstagramGrid = styled.div`
   background: white;
   border-top: 3px solid white;
   display: grid;
-  grid-template-columns: repeat(${({ $columns }) => $columns}, ${({ $columns }) =>
-    100 / $columns}fr);
-  grid-row-gap: 3px;
-  grid-column-gap: 3px;
-  transition: all 0.25s;
+  gap: 3px;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 export default InstagramFeed;
-
