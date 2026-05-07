@@ -1,4 +1,5 @@
 import React from "react";
+import NextImage from "next/image";
 import styled from "styled-components";
 
 interface ImageProps {
@@ -7,23 +8,12 @@ interface ImageProps {
   style?: React.CSSProperties;
   className?: string;
   longDescription?: string;
-  role?: string;
-  id?: string;
   loading?: "lazy" | "eager";
-  width?: number | string;
-  height?: number | string;
-  "aria-hidden"?: boolean;
-  "aria-labelledby"?: string;
-  fallbackSrc?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+  sizes?: string;
 }
-
-const StyledImage = styled.img<ImageProps>`
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-`;
 
 const ImageWrapper = styled.figure`
   margin: 0;
@@ -49,50 +39,43 @@ const Image: React.FC<ImageProps> = ({
   style,
   className,
   longDescription,
-  role = "img",
-  id,
   loading = "lazy",
   width,
   height,
-  "aria-hidden": ariaHidden,
-  "aria-labelledby": ariaLabelledby,
-  fallbackSrc,
+  priority = false,
+  sizes,
 }) => {
-  const [imgSrc, setImgSrc] = React.useState(src);
-  const [hasError, setHasError] = React.useState(false);
+  const hasDimensions = width !== undefined && height !== undefined;
+  const descriptionId = longDescription
+    ? `img-desc-${src.slice(-8).replace(/\W/g, "")}`
+    : undefined;
 
-  // Generate unique ID for the image if not provided
-  const imageId = id || `img-${Math.random().toString(36).substr(2, 9)}`;
-  const descriptionId = `${imageId}-description`;
-
-  const handleError = () => {
-    if (!hasError && fallbackSrc) {
-      setHasError(true);
-      setImgSrc(fallbackSrc);
-    }
+  const sharedProps = {
+    src,
+    alt,
+    className,
+    loading: priority ? (undefined as undefined) : loading,
+    priority,
+    sizes,
+    "aria-labelledby": descriptionId,
   };
-
-  // If no alt text is provided, mark the image as decorative
-  const isDecorative = !alt || alt.trim() === "";
 
   return (
     <ImageWrapper>
-      <StyledImage
-        src={imgSrc}
-        alt={alt}
-        style={style}
-        className={className}
-        role={isDecorative ? "presentation" : role}
-        id={imageId}
-        loading={loading}
-        width={width}
-        height={height}
-        onError={handleError}
-        aria-hidden={ariaHidden || isDecorative}
-        aria-labelledby={
-          ariaLabelledby || (longDescription ? descriptionId : undefined)
-        }
-      />
+      {hasDimensions ? (
+        <NextImage
+          {...sharedProps}
+          width={width}
+          height={height}
+          style={{ maxWidth: "100%", height: "auto", display: "block", objectFit: "cover", ...style }}
+        />
+      ) : (
+        <NextImage
+          {...sharedProps}
+          fill
+          style={{ objectFit: "cover", ...style }}
+        />
+      )}
       {longDescription && (
         <FigCaption id={descriptionId}>{longDescription}</FigCaption>
       )}

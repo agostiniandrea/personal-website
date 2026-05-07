@@ -19,32 +19,24 @@ const meta: Meta<typeof Image> = {
     },
     width: {
       control: "number",
-      description: "Width of the image",
+      description: "Width of the image in px. Required when not using fill.",
     },
     height: {
       control: "number",
-      description: "Height of the image",
+      description: "Height of the image in px. Required when not using fill.",
     },
     loading: {
       control: "select",
       options: ["lazy", "eager"],
       description: "Loading strategy for the image",
     },
-    "aria-hidden": {
+    priority: {
       control: "boolean",
-      description: "Whether the image is hidden from screen readers",
-    },
-    "aria-labelledby": {
-      control: "text",
-      description: "ID of the element that labels the image",
+      description: "Preloads the image. Use for above-the-fold images.",
     },
     longDescription: {
       control: "text",
-      description: "Long description of the image",
-    },
-    fallbackSrc: {
-      control: "text",
-      description: "Fallback image source in case of error",
+      description: "Long description — rendered as visually hidden figcaption and referenced via aria-labelledby",
     },
   },
 };
@@ -54,48 +46,28 @@ type Story = StoryObj<typeof Image>;
 
 export const Default: Story = {
   args: {
-    src: "https://picsum.photos/200/300",
+    src: "https://picsum.photos/400/300",
     alt: "Random image",
-    width: 200,
+    width: 400,
     height: 300,
   },
 };
 
 export const WithLongDescription: Story = {
   args: {
-    src: "https://picsum.photos/200/300",
+    src: "https://picsum.photos/400/300",
     alt: "Image with long description",
-    width: 200,
+    width: 400,
     height: 300,
-    longDescription: "This is a detailed description of the image content",
-  },
-};
-
-export const WithFallback: Story = {
-  args: {
-    src: "https://invalid-url.com/image.jpg",
-    alt: "Image with fallback",
-    width: 200,
-    height: 300,
-    fallbackSrc: "https://picsum.photos/200/300",
-  },
-};
-
-export const Decorative: Story = {
-  args: {
-    src: "https://picsum.photos/200/300",
-    alt: "",
-    width: 200,
-    height: 300,
-    "aria-hidden": true,
+    longDescription: "A detailed description of the image content for screen readers",
   },
 };
 
 export const EagerLoading: Story = {
   args: {
-    src: "https://picsum.photos/200/300",
+    src: "https://picsum.photos/400/300",
     alt: "Eager loaded image",
-    width: 200,
+    width: 400,
     height: 300,
     loading: "eager",
   },
