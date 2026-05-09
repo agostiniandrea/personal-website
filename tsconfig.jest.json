@@ -2,8 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
+    "rootDir": ".",
     "target": "es6",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "ignoreDeprecations": "6.0"
   }
 }
