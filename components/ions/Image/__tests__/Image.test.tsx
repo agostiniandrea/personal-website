@@ -1,4 +1,3 @@
-import React from "react";
 import { screen } from "@testing-library/react";
 import Image from "../index";
 import { renderWithTheme } from "@test-utils/renderWithTheme";

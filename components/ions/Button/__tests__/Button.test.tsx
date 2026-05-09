@@ -1,4 +1,3 @@
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import Button from "../index";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
