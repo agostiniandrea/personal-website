@@ -53,9 +53,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Type-check TypeScript
+        run: yarn build:config
+
       - name: Run tests
         run: yarn test
-        
+
       - name: Run lint
         run: yarn lint
 

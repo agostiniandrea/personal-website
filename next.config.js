@@ -73,14 +73,17 @@ const sentryWebpackPluginOptions = {
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers
   tunnelRoute: "/monitoring",
 
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
-
-  // Enables automatic instrumentation of Vercel Cron Monitors
-  automaticVercelMonitors: true,
   authToken: process.env.SENTRY_AUTH_TOKEN,
-  reactComponentAnnotation: {
-    enabled: true,
+  webpack: {
+    // Tree-shake Sentry logger statements to reduce bundle size
+    treeshake: {
+      removeDebugLogging: true,
+    },
+    // Automatically instrument Vercel Cron Monitors
+    automaticVercelMonitors: true,
+    reactComponentAnnotation: {
+      enabled: true,
+    },
   },
 };
 
