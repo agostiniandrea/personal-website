@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About renders correctly with all props 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c0 {
+  padding: 6rem 0;
+}
+
+.c2 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #eebbc3;
+  margin: 0 0 1.25rem;
+}
+
+.c3 {
+  font-family: "Rainier",sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fffffe;
+  line-height: 1.1;
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c4 {
+  font-size: 1.125rem;
+  color: #b8c1ec;
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 0 2.5rem;
+}
+
+.c5 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.c6 {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #b8c1ec;
+  color: #b8c1ec;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c3 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c6 {
+    font-size: 1rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2"
+      >
+        About
+      </p>
+      <h2
+        class="c3"
+      >
+        Senior Frontend Developer & Tech Lead
+      </h2>
+      <p
+        class="c4"
+      >
+        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
+      </p>
+      <div
+        class="c5"
+      >
+        <span
+          class="c6"
+        >
+          📍 Bangkok, Thailand
+        </span>
+        <span
+          class="c6"
+        >
+          💼 Open to remote roles
+        </span>
+      </div>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`About renders correctly without optional tags 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c0 {
+  padding: 6rem 0;
+}
+
+.c2 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #eebbc3;
+  margin: 0 0 1.25rem;
+}
+
+.c3 {
+  font-family: "Rainier",sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fffffe;
+  line-height: 1.1;
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c4 {
+  font-size: 1.125rem;
+  color: #b8c1ec;
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 0 2.5rem;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c3 {
+    font-size: 3.5rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2"
+      >
+        About
+      </p>
+      <h2
+        class="c3"
+      >
+        Senior Frontend Developer & Tech Lead
+      </h2>
+      <p
+        class="c4"
+      >
+        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify.
+      </p>
+    </section>
+  </section>
+</div>
+`;
