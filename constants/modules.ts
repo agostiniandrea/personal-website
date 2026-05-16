@@ -3,10 +3,10 @@
  */
 
 const MODULES = {
-  FEATURE_PRIMARY: "featurePrimary",
-  HERO_PRIMARY: "heroPrimary",
-  HERO_PORTFOLIO: "heroPortfolio",
   ABOUT: "about",
+  FEATURE_PRIMARY: "featurePrimary",
+  HERO_PORTFOLIO: "heroPortfolio",
+  HERO_PRIMARY: "heroPrimary",
   PROJECTS: "projects",
 };
 
