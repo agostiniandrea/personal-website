@@ -31,7 +31,7 @@ export const Default: Story = {
     ctaPrimaryLabel: "View Projects",
     ctaPrimaryUrl: "#projects",
     ctaSecondaryLabel: "Get in touch",
-    ctaSecondaryUrl: "mailto:test@gmail.com",
+    ctaSecondaryUrl: "mailto:test@test.com",
   },
 };
 
