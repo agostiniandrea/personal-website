@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { Container } from "@components/ions";
+import { Box, Container, Flex, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface HeroPortfolioProps {
@@ -36,7 +36,7 @@ const Grid = styled.div`
   }
 `;
 
-const TextBlock = styled.div`
+const TextBlock = styled(Box)`
   flex: 1;
   text-align: center;
 
@@ -79,26 +79,13 @@ const Role = styled.p`
   }
 `;
 
-const Tagline = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.colors.paragraph};
-  line-height: 1.6;
+const Tagline = styled(Text)`
   max-width: 500px;
   margin: 0 auto 2.5rem;
+  line-height: 1.6;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     margin: 0 0 2.5rem;
-  }
-`;
-
-const CtaRow = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    justify-content: flex-start;
   }
 `;
 
@@ -168,15 +155,19 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
           <Greeting>{greeting}</Greeting>
           <Name>{name}</Name>
           <Role>{role}</Role>
-          <Tagline>{tagline}</Tagline>
-          <CtaRow>
+          <Tagline variant="large">{tagline}</Tagline>
+          <Flex
+            gap="lg"
+            wrap="wrap"
+            justifyContent={["center", undefined, "flex-start"]}
+          >
             <PrimaryLink href={ctaPrimaryUrl}>{ctaPrimaryLabel}</PrimaryLink>
             {ctaSecondaryLabel && ctaSecondaryUrl && (
               <SecondaryLink href={ctaSecondaryUrl}>
                 {ctaSecondaryLabel}
               </SecondaryLink>
             )}
-          </CtaRow>
+          </Flex>
         </TextBlock>
         <PhotoWrapper>
           <Image

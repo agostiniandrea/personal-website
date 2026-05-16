@@ -10,9 +10,7 @@ describe("Projects", () => {
   });
 
   it("renders correctly with a single item", () => {
-    const { container } = renderWithTheme(
-      <Projects {...fewItemsProjects} />,
-    );
+    const { container } = renderWithTheme(<Projects {...fewItemsProjects} />);
     expect(container).toMatchSnapshot();
   });
 

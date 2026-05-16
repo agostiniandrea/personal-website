@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { Container } from "@components/ions";
+import { Box, Container, Flex, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface AboutProps {
@@ -10,10 +9,6 @@ export interface AboutProps {
   location?: string;
   availability?: string;
 }
-
-const Section = styled.section`
-  padding: 6rem 0;
-`;
 
 const SectionLabel = styled.p`
   font-size: 0.75rem;
@@ -37,18 +32,10 @@ const Heading = styled.h2`
   }
 `;
 
-const Bio = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.colors.paragraph};
-  line-height: 1.7;
+const Bio = styled(Text)`
   max-width: 680px;
-  margin: 0 0 2.5rem;
-`;
-
-const TagRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
 `;
 
 const Tag = styled.span`
@@ -74,20 +61,20 @@ const About: React.FC<AboutProps> = ({
   const tags = [location, availability].filter(Boolean) as string[];
 
   return (
-    <Section>
+    <Box as="section" py="6xl">
       <Container>
         <SectionLabel>{sectionLabel}</SectionLabel>
         <Heading>{heading}</Heading>
-        <Bio>{bio}</Bio>
+        <Bio variant="large">{bio}</Bio>
         {tags.length > 0 && (
-          <TagRow>
+          <Flex gap="md" wrap="wrap">
             {tags.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}
-          </TagRow>
+          </Flex>
         )}
       </Container>
-    </Section>
+    </Box>
   );
 };
 

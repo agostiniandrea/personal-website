@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { Container } from "@components/ions";
+import { Box, Container, Flex, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface ProjectItem {
@@ -16,10 +15,6 @@ export interface ProjectsProps {
   heading: string;
   items: ProjectItem[];
 }
-
-const Section = styled.section`
-  padding: 6rem 0;
-`;
 
 const SectionLabel = styled.p`
   font-size: 0.75rem;
@@ -78,19 +73,9 @@ const CardTitle = styled.h3`
   margin: 0 0 0.75rem;
 `;
 
-const CardDescription = styled.p`
-  font-size: 0.9375rem;
-  color: ${({ theme }) => theme.colors.paragraph};
-  line-height: 1.65;
-  margin: 0 0 1.5rem;
-  flex: 1;
-`;
-
-const TagRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+const CardDescription = styled(Text)`
   margin-bottom: 1.5rem;
+  flex: 1;
 `;
 
 const Tag = styled.span`
@@ -101,11 +86,9 @@ const Tag = styled.span`
   border-radius: ${({ theme }) => theme.radii.full};
 `;
 
-const CardLink = styled.a`
+const CardLink = styled(Link)`
   font-size: 0.875rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.highlight};
-  text-decoration: none;
   align-self: flex-start;
 
   &:hover {
@@ -114,7 +97,7 @@ const CardLink = styled.a`
 `;
 
 const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => (
-  <Section>
+  <Box as="section" py="6xl">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <Heading>{heading}</Heading>
@@ -122,16 +105,20 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
         {items.map((item) => (
           <Card key={item.title}>
             <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
+            <CardDescription variant="small">{item.description}</CardDescription>
             {item.tags && item.tags.length > 0 && (
-              <TagRow>
+              <Flex gap="sm" wrap="wrap" styles="margin-bottom: 1.5rem;">
                 {item.tags.map((tag) => (
                   <Tag key={tag}>{tag}</Tag>
                 ))}
-              </TagRow>
+              </Flex>
             )}
             {item.url && (
-              <CardLink href={item.url} target="_blank" rel="noopener noreferrer">
+              <CardLink
+                href={item.url}
+                isExternal
+                ariaLabel={item.urlLabel ?? "View project"}
+              >
                 {item.urlLabel ?? "View project →"}
               </CardLink>
             )}
@@ -139,7 +126,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
         ))}
       </Grid>
     </Container>
-  </Section>
+  </Box>
 );
 
 export default Projects;
