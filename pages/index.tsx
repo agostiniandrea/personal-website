@@ -3,7 +3,7 @@ import { Footer, Header, InstagramFeed, ModuleRenderer } from "@components/organ
 import { InstagramMedia } from "@lib/types/instagram";
 import { TPageFields, getPageContent } from "@lib/utils/cms";
 import { getInstagramData } from "@lib/utils/instagram";
-import PAGE_TYPES from "constants/pageTypes";
+import { PAGE_TYPES } from "@constants";
 import { GetStaticPropsResult } from "next";
 
 type THomepage = {
