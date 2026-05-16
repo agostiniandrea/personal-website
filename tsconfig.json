@@ -13,6 +13,7 @@
     ],
     "module": "esnext",
     "moduleResolution": "bundler",
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
