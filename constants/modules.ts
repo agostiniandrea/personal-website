@@ -7,6 +7,7 @@ const MODULES = {
   HERO_PRIMARY: "heroPrimary",
   HERO_PORTFOLIO: "heroPortfolio",
   ABOUT: "about",
+  CONTACT: "contact",
   PROJECTS: "projects",
 };
 
