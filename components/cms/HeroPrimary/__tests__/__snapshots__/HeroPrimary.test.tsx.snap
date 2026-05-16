@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeroPrimary renders correctly with custom sizes 1`] = `
+.c1 {
+  position: relative;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 75%;
+}
+
+.c1 >* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c0 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+}
+
+.c0 >* {
+  grid-column: 1/-1;
+}
+
+.c2 {
+  object-fit: cover;
+}
+
+@media (min-width: 600px) {
+  .c0 {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c0 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c0 >* {
+    grid-column: 1/-1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c0 >* {
+    grid-column: 2/auto;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <img
+        alt="Iceland landscape"
+        class="c2"
+        fetchpriority="high"
+        quality="85"
+        src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&h=1440"
+      />
+    </div>
+    <h1>
+      Iceland: Fire & Ice
+    </h1>
+    <p>
+      A journey through volcanoes, glaciers, and the midnight sun.
+    </p>
+  </section>
+</div>
+`;
+
+exports[`HeroPrimary renders correctly with default props 1`] = `
+.c1 {
+  position: relative;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 75%;
+}
+
+.c1 >* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c0 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+}
+
+.c0 >* {
+  grid-column: 1/-1;
+}
+
+.c2 {
+  object-fit: cover;
+}
+
+@media (min-width: 600px) {
+  .c0 {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c0 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c0 >* {
+    grid-column: 1/-1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c0 >* {
+    grid-column: 2/auto;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <img
+        alt="Iceland landscape"
+        class="c2"
+        fetchpriority="high"
+        quality="85"
+        src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&h=1440"
+      />
+    </div>
+    <h1>
+      Iceland: Fire & Ice
+    </h1>
+    <p>
+      A journey through volcanoes, glaciers, and the midnight sun.
+    </p>
+  </section>
+</div>
+`;
