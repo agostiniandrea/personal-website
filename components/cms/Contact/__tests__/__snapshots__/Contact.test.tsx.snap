@@ -331,7 +331,7 @@ exports[`Contact renders correctly with all links 1`] = `
         <a
           aria-label="LinkedIn"
           class="c7"
-          href="https://linkedin.com/in/andreaagostini"
+          href="https://linkedin.com/in/agostiniandrea"
           rel="noopener noreferrer"
           tabindex="0"
           target="_blank"
