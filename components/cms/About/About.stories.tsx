@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import About from "./index";
+import { defaultAbout, minimalAbout } from "./model";
 
 const meta: Meta<typeof About> = {
   title: "CMS/About",
@@ -13,19 +14,9 @@ export default meta;
 type Story = StoryObj<typeof About>;
 
 export const Default: Story = {
-  args: {
-    sectionLabel: "About",
-    heading: "Senior Frontend Developer & Tech Lead",
-    bio: "I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. I've spent the last decade working across agencies and in-house teams, from Milan to Amsterdam to Bangkok — always remote-first, always shipping.",
-    location: "📍 Bangkok, Thailand",
-    availability: "💼 Open to remote roles",
-  },
+  args: defaultAbout,
 };
 
 export const NoTags: Story = {
-  args: {
-    ...Default.args,
-    location: undefined,
-    availability: undefined,
-  },
+  args: minimalAbout,
 };

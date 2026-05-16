@@ -1,13 +1,18 @@
 import { screen } from "@testing-library/react";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import HeroPrimary from "../index";
-import { defaultHeroPrimary, withCustomSizes } from "../model";
+import { defaultHeroPrimary, longContent, withCustomSizes } from "../model";
 
 describe("HeroPrimary", () => {
   it("renders correctly with default props", () => {
     const { container } = renderWithTheme(
       <HeroPrimary {...defaultHeroPrimary} />,
     );
+    expect(container).toMatchSnapshot();
+  });
+
+  it("renders correctly with long content", () => {
+    const { container } = renderWithTheme(<HeroPrimary {...longContent} />);
     expect(container).toMatchSnapshot();
   });
 

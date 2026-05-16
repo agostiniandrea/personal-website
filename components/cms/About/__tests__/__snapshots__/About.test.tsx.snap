@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`About renders correctly with all props 1`] = `
+.c0 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
 .c1 {
   display: grid;
   position: relative;
@@ -14,8 +19,18 @@ exports[`About renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c0 {
-  padding: 6rem 0;
+.c6 {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.c4 {
+  color: #b8c1ec;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 
 .c2 {
@@ -36,21 +51,13 @@ exports[`About renders correctly with all props 1`] = `
   max-width: 600px;
 }
 
-.c4 {
-  font-size: 1.125rem;
-  color: #b8c1ec;
-  line-height: 1.7;
-  max-width: 680px;
-  margin: 0 0 2.5rem;
-}
-
 .c5 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
 }
 
-.c6 {
+.c7 {
   display: inline-block;
   padding: 0.5rem 1.25rem;
   border: 1px solid #b8c1ec;
@@ -111,7 +118,7 @@ exports[`About renders correctly with all props 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c6 {
+  .c7 {
     font-size: 1rem;
   }
 }
@@ -134,20 +141,21 @@ exports[`About renders correctly with all props 1`] = `
         Senior Frontend Developer & Tech Lead
       </h2>
       <p
-        class="c4"
+        class="c4 c5"
+        variant="large"
       >
         I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
       </p>
       <div
-        class="c5"
+        class="c6"
       >
         <span
-          class="c6"
+          class="c7"
         >
           📍 Bangkok, Thailand
         </span>
         <span
-          class="c6"
+          class="c7"
         >
           💼 Open to remote roles
         </span>
@@ -158,6 +166,11 @@ exports[`About renders correctly with all props 1`] = `
 `;
 
 exports[`About renders correctly without optional tags 1`] = `
+.c0 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
 .c1 {
   display: grid;
   position: relative;
@@ -171,8 +184,12 @@ exports[`About renders correctly without optional tags 1`] = `
   grid-column: 2/auto;
 }
 
-.c0 {
-  padding: 6rem 0;
+.c4 {
+  color: #b8c1ec;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 
 .c2 {
@@ -193,12 +210,10 @@ exports[`About renders correctly without optional tags 1`] = `
   max-width: 600px;
 }
 
-.c4 {
-  font-size: 1.125rem;
-  color: #b8c1ec;
-  line-height: 1.7;
+.c5 {
   max-width: 680px;
-  margin: 0 0 2.5rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
 }
 
 @media (min-width: 600px) {
@@ -271,7 +286,8 @@ exports[`About renders correctly without optional tags 1`] = `
         Senior Frontend Developer & Tech Lead
       </h2>
       <p
-        class="c4"
+        class="c4 c5"
+        variant="large"
       >
         I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify.
       </p>
