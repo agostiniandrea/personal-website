@@ -1,0 +1,612 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Experience renders correctly with a single item and no tags 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c0 {
+  padding: 6rem 0;
+}
+
+.c2 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #eebbc3;
+  margin: 0 0 1.25rem;
+}
+
+.c3 {
+  font-family: "Rainier",sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fffffe;
+  line-height: 1.1;
+  margin: 0 0 3rem;
+  max-width: 600px;
+}
+
+.c4 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.c5 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 0;
+  border-top: 1px solid #b8c1ec;
+}
+
+.c5:last-child {
+  border-bottom: 1px solid #b8c1ec;
+}
+
+.c6 {
+  font-size: 0.8125rem;
+  color: #b8c1ec;
+  margin: 0 0 0.25rem;
+  opacity: 0.7;
+}
+
+.c7 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #b8c1ec;
+  margin: 0;
+}
+
+.c8 {
+  font-family: "Rainier",sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fffffe;
+  margin: 0 0 0.625rem;
+}
+
+.c9 {
+  font-size: 0.9375rem;
+  color: #b8c1ec;
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c3 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c5 {
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2"
+      >
+        Experience
+      </p>
+      <h2
+        class="c3"
+      >
+        Where I've worked
+      </h2>
+      <ol
+        class="c4"
+      >
+        <li
+          class="c5"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c6"
+            >
+              2021 — Present
+            </p>
+            <p
+              class="c7"
+            >
+              JIBE eCommerce
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c8"
+            >
+              Senior Frontend Developer
+            </h3>
+            <p
+              class="c9"
+            >
+              Leading frontend development for headless Shopify storefronts.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`Experience renders correctly with all items 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c0 {
+  padding: 6rem 0;
+}
+
+.c2 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #eebbc3;
+  margin: 0 0 1.25rem;
+}
+
+.c3 {
+  font-family: "Rainier",sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fffffe;
+  line-height: 1.1;
+  margin: 0 0 3rem;
+  max-width: 600px;
+}
+
+.c4 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.c5 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 0;
+  border-top: 1px solid #b8c1ec;
+}
+
+.c5:last-child {
+  border-bottom: 1px solid #b8c1ec;
+}
+
+.c6 {
+  font-size: 0.8125rem;
+  color: #b8c1ec;
+  margin: 0 0 0.25rem;
+  opacity: 0.7;
+}
+
+.c7 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #b8c1ec;
+  margin: 0;
+}
+
+.c8 {
+  font-family: "Rainier",sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fffffe;
+  margin: 0 0 0.625rem;
+}
+
+.c9 {
+  font-size: 0.9375rem;
+  color: #b8c1ec;
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+
+.c10 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.c11 {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid #b8c1ec;
+  color: #b8c1ec;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c3 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c5 {
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2"
+      >
+        Experience
+      </p>
+      <h2
+        class="c3"
+      >
+        Where I've worked
+      </h2>
+      <ol
+        class="c4"
+      >
+        <li
+          class="c5"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c6"
+            >
+              2021 — Present
+            </p>
+            <p
+              class="c7"
+            >
+              JIBE eCommerce
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c8"
+            >
+              Senior Frontend Developer & Tech Lead
+            </h3>
+            <p
+              class="c9"
+            >
+              Leading frontend development for headless Shopify storefronts across multiple clients. Architecting shared component libraries, design systems, and CI/CD pipelines. Clients include Petite Revery, 7mesh Industries, and Nest Designs.
+            </p>
+            <div
+              class="c10"
+            >
+              <span
+                class="c11"
+              >
+                Next.js
+              </span>
+              <span
+                class="c11"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c11"
+              >
+                Shopify
+              </span>
+              <span
+                class="c11"
+              >
+                styled-components
+              </span>
+              <span
+                class="c11"
+              >
+                Storybook
+              </span>
+            </div>
+          </div>
+        </li>
+        <li
+          class="c5"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c6"
+            >
+              2019 — 2021
+            </p>
+            <p
+              class="c7"
+            >
+              RTL Nederland — Videoland
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c8"
+            >
+              Senior Frontend Developer
+            </h3>
+            <p
+              class="c9"
+            >
+              Led the React rewrite of the Videoland streaming platform, migrating from a legacy codebase. Delivered live sports, series, and film experiences to millions of users across web and smart TV.
+            </p>
+            <div
+              class="c10"
+            >
+              <span
+                class="c11"
+              >
+                React
+              </span>
+              <span
+                class="c11"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c11"
+              >
+                Redux
+              </span>
+              <span
+                class="c11"
+              >
+                Jest
+              </span>
+            </div>
+          </div>
+        </li>
+        <li
+          class="c5"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c6"
+            >
+              2017 — 2019
+            </p>
+            <p
+              class="c7"
+            >
+              Freelance
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c8"
+            >
+              Frontend Developer
+            </h3>
+            <p
+              class="c9"
+            >
+              Delivered frontend projects for clients across ecommerce, automotive, and media. Key work includes Sprintt Ceramica and MOPAR Europe.
+            </p>
+            <div
+              class="c10"
+            >
+              <span
+                class="c11"
+              >
+                React
+              </span>
+              <span
+                class="c11"
+              >
+                JavaScript
+              </span>
+              <span
+                class="c11"
+              >
+                WordPress
+              </span>
+            </div>
+          </div>
+        </li>
+        <li
+          class="c5"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c6"
+            >
+              2013 — 2017
+            </p>
+            <p
+              class="c7"
+            >
+              Various agencies
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c8"
+            >
+              Frontend Developer
+            </h3>
+            <p
+              class="c9"
+            >
+              Worked at several digital agencies in Milan, building interactive campaigns, brand sites, and online games. Clients included Fiat, Chrysler, and Arfer.
+            </p>
+            <div
+              class="c10"
+            >
+              <span
+                class="c11"
+              >
+                JavaScript
+              </span>
+              <span
+                class="c11"
+              >
+                HTML
+              </span>
+              <span
+                class="c11"
+              >
+                CSS
+              </span>
+              <span
+                class="c11"
+              >
+                jQuery
+              </span>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </section>
+</div>
+`;
