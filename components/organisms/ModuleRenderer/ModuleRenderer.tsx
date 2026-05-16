@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FeaturePrimary, FeaturePrimaryProps, HeroPrimary, HeroPrimaryProps, HeroPortfolio, HeroPortfolioProps, About, AboutProps, Projects, ProjectsProps } from "@components/cms";
+import { FeaturePrimary, FeaturePrimaryProps, HeroPrimary, HeroPrimaryProps, HeroPortfolio, HeroPortfolioProps, About, AboutProps, Projects, ProjectsProps, Skills, SkillsProps } from "@components/cms";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
 
@@ -119,6 +119,8 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
       return <About {...propsComponent as unknown as AboutProps} />;
     case MODULES.PROJECTS:
       return <Projects {...propsComponent as unknown as ProjectsProps} />;
+    case MODULES.SKILLS:
+      return <Skills {...propsComponent as unknown as SkillsProps} />;
     default:
       return <DefaultModule data={data} typename={type} />;
   }

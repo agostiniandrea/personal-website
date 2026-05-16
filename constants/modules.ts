@@ -8,6 +8,7 @@ const MODULES = {
   HERO_PORTFOLIO: "heroPortfolio",
   ABOUT: "about",
   PROJECTS: "projects",
+  SKILLS: "skills",
 };
 
 export default MODULES;
