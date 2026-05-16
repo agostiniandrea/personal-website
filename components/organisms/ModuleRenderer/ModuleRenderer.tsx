@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FeaturePrimary, FeaturePrimaryProps, HeroPrimary, HeroPrimaryProps, HeroPortfolio, HeroPortfolioProps, About, AboutProps } from "@components/cms";
+import { FeaturePrimary, FeaturePrimaryProps, HeroPrimary, HeroPrimaryProps, HeroPortfolio, HeroPortfolioProps, About, AboutProps, Projects, ProjectsProps } from "@components/cms";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
 
@@ -67,6 +67,16 @@ export const cleanProps = (fields: TPageModule["fields"]) => {
       newProps[key] = data;
     }
 
+    if (Array.isArray(data)) {
+      newProps[key] = (data as Array<unknown>).map((item) => {
+        if (typeof item === "string") return item;
+        if (item !== null && typeof item === "object" && "fields" in item) {
+          return cleanProps((item as { fields: TPageModule["fields"] }).fields);
+        }
+        return item;
+      });
+    }
+
     if (data !== null && typeof data === "object" && !Array.isArray(data)) {
       const contentfulData = data as ContentfulAssetFields;
       const nestedFields = contentfulData.fields;
@@ -107,6 +117,8 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
       return <HeroPortfolio {...propsComponent as unknown as HeroPortfolioProps} />;
     case MODULES.ABOUT:
       return <About {...propsComponent as unknown as AboutProps} />;
+    case MODULES.PROJECTS:
+      return <Projects {...propsComponent as unknown as ProjectsProps} />;
     default:
       return <DefaultModule data={data} typename={type} />;
   }
