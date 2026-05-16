@@ -23,6 +23,7 @@ out/
 
 # misc
 .DS_Store
+.claude/settings.local.json
 *.pem
 .idea
 

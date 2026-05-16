@@ -2,7 +2,7 @@ import { Seo } from "@components/atoms";
 import { Container } from "@components/ions";
 import { Footer, Header, ModuleRenderer } from "@components/organisms";
 import { TPageFields, getPageContent, getPaths } from "@lib/utils/cms";
-import PAGE_TYPES from "constants/pageTypes";
+import { PAGE_TYPES } from "@constants";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 
 type TPage = {

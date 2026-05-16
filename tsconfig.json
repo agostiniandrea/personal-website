@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -15,41 +13,40 @@
     ],
     "module": "esnext",
     "moduleResolution": "bundler",
-    "outDir": "./dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
     "paths": {
       "@assets/*": [
-        "assets/*"
+        "./assets/*"
       ],
       "@components/*": [
-        "components/*"
+        "./components/*"
       ],
       "@config/*": [
-        "config/*"
+        "./config/*"
       ],
       "@constants": [
-        "constants"
+        "./constants"
       ],
       "@contexts/*": [
-        "contexts/*"
+        "./contexts/*"
       ],
       "@fonts/*": [
-        "public/assets/fonts/*"
+        "./public/assets/fonts/*"
       ],
       "@images/*": [
-        "assets/images/*"
+        "./assets/images/*"
       ],
       "@lib/*": [
-        "lib/*"
+        "./lib/*"
       ],
       "@test-utils/*": [
-        "test-utils/*"
+        "./test-utils/*"
       ],
       "@utils/*": [
-        "lib/utils/*"
+        "./lib/utils/*"
       ]
     },
     "noEmit": true,
@@ -71,6 +68,7 @@
     "components/molecules/HeadingBox/HeadingBox.test.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "storybook-static"
   ]
 }
