@@ -1,4 +1,5 @@
 export { default as About, type AboutProps } from "./About";
+export { default as Contact, type ContactProps } from "./Contact";
 export { default as Experience, type ExperienceProps } from "./Experience";
 export { default as FeaturePrimary, type FeaturePrimaryProps } from "./FeaturePrimary";
 export { default as HeroPortfolio, type HeroPortfolioProps } from "./HeroPortfolio";
