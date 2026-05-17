@@ -20,8 +20,9 @@ export default function Document() {
               html { 
                 background: ${colors.background}; 
               }
-              body { 
-                background: ${colors.background}; 
+              body {
+                background: ${colors.background};
+                color: ${colors.main};
                 font-family: "Rainier", sans-serif;
                 margin: 0;
                 padding: 0;
