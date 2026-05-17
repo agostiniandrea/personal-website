@@ -4254,17 +4254,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-vitest@npm:10.3.6":
-  version: 10.3.6
-  resolution: "@storybook/addon-vitest@npm:10.3.6"
+"@storybook/addon-vitest@npm:10.4.0":
+  version: 10.4.0
+  resolution: "@storybook/addon-vitest@npm:10.4.0"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
-    "@storybook/icons": "npm:^2.0.1"
+    "@storybook/icons": "npm:^2.0.2"
   peerDependencies:
     "@vitest/browser": ^3.0.0 || ^4.0.0
     "@vitest/browser-playwright": ^4.0.0
     "@vitest/runner": ^3.0.0 || ^4.0.0
-    storybook: ^10.3.6
+    storybook: ^10.4.0
     vitest: ^3.0.0 || ^4.0.0
   peerDependenciesMeta:
     "@vitest/browser":
@@ -4275,7 +4275,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/ddcacaabb659afd7742aeb20ff3c62529d1a5ae07acf5853d8aff415b0e1e019438fe5cf6153bfc8b2555903151416b70f6b8dfe4a77b3905bad059982ea05eb
+  checksum: 10c0/01bd3fb79af3fa3cb026cf13a0df2b5f87dc2283ad95a176b243a62427a6fba7359d25daa78b922f834e4e4ebc7f839950e762a7d320b8f6eca698766f4ebdbd
   languageName: node
   linkType: hard
 
@@ -4362,7 +4362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/icons@npm:^2.0.1":
+"@storybook/icons@npm:^2.0.1, @storybook/icons@npm:^2.0.2":
   version: 2.0.2
   resolution: "@storybook/icons@npm:2.0.2"
   peerDependencies:
@@ -16974,7 +16974,7 @@ __metadata:
     "@storybook/addon-docs": "npm:10.3.6"
     "@storybook/addon-links": "npm:10.3.6"
     "@storybook/addon-onboarding": "npm:10.3.6"
-    "@storybook/addon-vitest": "npm:10.3.6"
+    "@storybook/addon-vitest": "npm:10.4.0"
     "@storybook/nextjs": "npm:10.3.6"
     "@storybook/nextjs-vite": "npm:10.3.6"
     "@testing-library/cypress": "npm:10.1.3"
