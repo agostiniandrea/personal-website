@@ -6,7 +6,7 @@ import { BREAKPOINTS } from "@constants";
 
 export interface HeroPortfolioProps {
   greeting: string;
-  name: string;
+  personName: string;
   role: string;
   tagline: string;
   image: ImageProps;
@@ -139,7 +139,7 @@ const PhotoWrapper = styled.div`
 
 const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   greeting,
-  name,
+  personName,
   role,
   tagline,
   image,
@@ -153,7 +153,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
       <Grid>
         <TextBlock>
           <Greeting>{greeting}</Greeting>
-          <Name>{name}</Name>
+          <Name>{personName}</Name>
           <Role>{role}</Role>
           <Tagline variant="large">{tagline}</Tagline>
           <Flex
@@ -172,7 +172,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
         <PhotoWrapper>
           <Image
             src={image.url}
-            alt={image.alt || name}
+            alt={image.alt || personName}
             fill
             style={{ objectFit: "cover" }}
             priority

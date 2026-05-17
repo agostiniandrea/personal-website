@@ -85,6 +85,7 @@ exports[`HeroPrimary renders correctly with custom sizes 1`] = `
         class="c2"
         fetchpriority="high"
         quality="85"
+        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 100vw, (max-width: 1536px) 800px, 1200px"
         src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&h=1440"
       />
     </div>
@@ -183,6 +184,7 @@ exports[`HeroPrimary renders correctly with default props 1`] = `
         class="c2"
         fetchpriority="high"
         quality="85"
+        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 100vw, (max-width: 1536px) 100vw, 922px"
         src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&h=1440"
       />
     </div>
@@ -281,6 +283,7 @@ exports[`HeroPrimary renders correctly with long content 1`] = `
         class="c2"
         fetchpriority="high"
         quality="85"
+        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 100vw, (max-width: 1536px) 100vw, 922px"
         src="https://images.unsplash.com/photo-1499750310107-5fef28a66643"
       />
     </div>

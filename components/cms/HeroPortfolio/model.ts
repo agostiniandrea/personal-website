@@ -2,7 +2,7 @@ import { HeroPortfolioProps } from "./index";
 
 export const defaultHeroPortfolio: HeroPortfolioProps = {
   greeting: "Hi, I'm",
-  name: "Andrea Agostini",
+  personName: "Andrea Agostini",
   role: "Senior Frontend Developer & Tech Lead",
   tagline:
     "Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.",

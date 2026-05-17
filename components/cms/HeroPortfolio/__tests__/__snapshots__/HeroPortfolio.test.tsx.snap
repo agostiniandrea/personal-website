@@ -281,6 +281,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
         >
           <img
             alt="Andrea Agostini"
+            sizes="(max-width: 1200px) 240px, 380px"
             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
             style="object-fit: cover;"
           />
@@ -549,6 +550,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
         >
           <img
             alt="Andrea Agostini"
+            sizes="(max-width: 1200px) 240px, 380px"
             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
             style="object-fit: cover;"
           />
