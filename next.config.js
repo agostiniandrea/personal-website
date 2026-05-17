@@ -26,8 +26,10 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   compiler: {
-    // Enables the styled-components SWC transform
-    styledComponents: true,
+    styledComponents: {
+      ssr: true,
+      displayName: process.env.NODE_ENV !== "production",
+    },
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === "production" ? {
       exclude: ["error", "warn"],

@@ -126,10 +126,11 @@ const PhotoWrapper = styled.div`
   position: relative;
   width: 240px;
   height: 240px;
+  flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
-  flex-shrink: 0;
   border: 3px solid ${({ theme }) => theme.colors.highlight};
+  background: ${({ theme }) => theme.colors.stroke};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     width: 380px;

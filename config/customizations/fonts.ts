@@ -1,6 +1,6 @@
 export const fontFamilies: Record<"default" | "heading", string> = {
-  default: '"Inter", sans-serif',
-  heading: '"Space Grotesk", sans-serif',
+  default: "var(--font-inter), sans-serif",
+  heading: "var(--font-space-grotesk), sans-serif",
 };
 
 export const fontSizes = {

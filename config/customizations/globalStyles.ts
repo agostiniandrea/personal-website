@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
       background: ${theme.colors.background};
       color: ${theme.colors.main};
       font-size: 18px;
-      font-family: "Inter", sans-serif;
+      font-family: var(--font-inter), sans-serif;
       margin: 0;
       overflow-x: hidden;
       padding: 0;
