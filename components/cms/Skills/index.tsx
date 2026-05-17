@@ -83,7 +83,7 @@ const Skill = styled.li`
 `;
 
 const Skills: React.FC<SkillsProps> = ({ sectionLabel, heading, categories }) => (
-  <Section>
+  <Section id="skills">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <Heading>{heading}</Heading>

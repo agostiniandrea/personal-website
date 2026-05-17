@@ -5,7 +5,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Preload critical fonts for better performance */}
         <link
           rel="preload"
           href="/assets/fonts/Rainier/RainierNorth500.woff2"
@@ -13,20 +12,11 @@ export default function Document() {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        {/* Prevent FOUC - Flash of Unstyled Content */}
         <style
           dangerouslySetInnerHTML={{
             __html: `
-              html { 
-                background: ${colors.background}; 
-              }
-              body {
-                background: ${colors.background};
-                color: ${colors.main};
-                font-family: "Rainier", sans-serif;
-                margin: 0;
-                padding: 0;
-              }
+              html { background: ${colors.background}; }
+              body { background: ${colors.background}; color: ${colors.main}; font-family: "Rainier", sans-serif; margin: 0; padding: 0; }
             `,
           }}
         />

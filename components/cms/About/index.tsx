@@ -61,7 +61,7 @@ const About: React.FC<AboutProps> = ({
   const tags = [location, availability].filter(Boolean) as string[];
 
   return (
-    <Box as="section" py="6xl">
+    <Box as="section" id="about" py="6xl">
       <Container>
         <SectionLabel>{sectionLabel}</SectionLabel>
         <Heading>{heading}</Heading>

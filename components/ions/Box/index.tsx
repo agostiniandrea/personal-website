@@ -90,6 +90,7 @@ interface BoxProps extends SpacingProps {
   as?: BoxElement;
   children?: React.ReactNode;
   className?: string;
+  id?: string;
   styles?: Interpolation<React.CSSProperties>;
 }
 
@@ -97,6 +98,7 @@ const Box: React.FC<BoxProps> = ({
   as = "div",
   children,
   className,
+  id,
   styles,
   m,
   mt,
@@ -120,6 +122,7 @@ const Box: React.FC<BoxProps> = ({
     <StyledBox
       as={as}
       className={className}
+      id={id}
       $m={m}
       $mt={mt}
       $mr={mr}

@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`About renders correctly with all props 1`] = `
-.c0 {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
+exports[`SiteFooter renders correctly with no social links 1`] = `
 .c1 {
   display: grid;
   position: relative;
@@ -19,50 +14,33 @@ exports[`About renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c6 {
+.c2 {
   display: flex;
-  gap: 0.75rem;
+  gap: 1.5rem;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
 .c4 {
   color: #b8c1ec;
-  font-size: 1.25rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
 }
 
-.c2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #eebbc3;
-  margin: 0 0 1.25rem;
+.c0 {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .c3 {
-  font-family: "Rainier",sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fffffe;
-  line-height: 1.1;
-  margin: 0 0 2rem;
-  max-width: 600px;
-}
-
-.c5 {
-  max-width: 680px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-}
-
-.c7 {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border: 1px solid #b8c1ec;
-  color: #b8c1ec;
-  font-size: 0.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 @media (min-width: 600px) {
@@ -111,67 +89,41 @@ exports[`About renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c3 {
-    font-size: 3.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c7 {
-    font-size: 1rem;
-  }
-}
-
 <div>
-  <section
+  <footer
     class="c0"
-    id="about"
+    role="contentinfo"
   >
     <section
       class="c1"
     >
-      <p
+      <div
         class="c2"
-      >
-        About
-      </p>
-      <h2
+      />
+      <div
         class="c3"
       >
-        Senior Frontend Developer & Tech Lead
-      </h2>
-      <p
-        class="c4 c5"
-        variant="large"
-      >
-        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
-      </p>
-      <div
-        class="c6"
-      >
-        <span
-          class="c7"
-        >
-          📍 Bangkok, Thailand
-        </span>
-        <span
-          class="c7"
-        >
-          💼 Open to remote roles
-        </span>
+        <div
+          class="carbonbadge  wcb-d "
+          id="wcb"
+        />
       </div>
+      <p
+        class="c4"
+        style="text-align: center;"
+        variant="small"
+      >
+        © 
+        2026
+         
+        Andrea Agostini
+      </p>
     </section>
-  </section>
+  </footer>
 </div>
 `;
 
-exports[`About renders correctly without optional tags 1`] = `
-.c0 {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
+exports[`SiteFooter renders correctly with social links 1`] = `
 .c1 {
   display: grid;
   position: relative;
@@ -185,36 +137,49 @@ exports[`About renders correctly without optional tags 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
+.c2 {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.c3 {
+  color: #eebbc3;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
+}
+
+.c3:hover {
+  color: #eebbc3;
+}
+
+.c3:focus {
+  outline: 2px solid #eebbc3;
+  outline-offset: 2px;
+}
+
+.c5 {
   color: #b8c1ec;
-  font-size: 1.25rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
 }
 
-.c2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #eebbc3;
-  margin: 0 0 1.25rem;
+.c0 {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-.c3 {
-  font-family: "Rainier",sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fffffe;
-  line-height: 1.1;
-  margin: 0 0 2rem;
-  max-width: 600px;
-}
-
-.c5 {
-  max-width: 680px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+.c4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 @media (min-width: 600px) {
@@ -263,37 +228,57 @@ exports[`About renders correctly without optional tags 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c3 {
-    font-size: 3.5rem;
-  }
-}
-
 <div>
-  <section
+  <footer
     class="c0"
-    id="about"
+    role="contentinfo"
   >
     <section
       class="c1"
     >
-      <p
+      <div
         class="c2"
       >
-        About
-      </p>
-      <h2
-        class="c3"
+        <a
+          aria-label="LinkedIn"
+          class="c3"
+          href="https://linkedin.com/in/agostiniandrea"
+          rel="noopener noreferrer"
+          tabindex="0"
+          target="_blank"
+        >
+          LinkedIn
+        </a>
+        <a
+          aria-label="GitHub"
+          class="c3"
+          href="https://github.com/agostiniandrea"
+          rel="noopener noreferrer"
+          tabindex="0"
+          target="_blank"
+        >
+          GitHub
+        </a>
+      </div>
+      <div
+        class="c4"
       >
-        Senior Frontend Developer & Tech Lead
-      </h2>
+        <div
+          class="carbonbadge  wcb-d "
+          id="wcb"
+        />
+      </div>
       <p
-        class="c4 c5"
-        variant="large"
+        class="c5"
+        style="text-align: center;"
+        variant="small"
       >
-        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify.
+        © 
+        2026
+         
+        Andrea Agostini
       </p>
     </section>
-  </section>
+  </footer>
 </div>
 `;

@@ -102,3 +102,45 @@ const getPageFields = (entry: TPageContent): TPageFields => {
     }),
   };
 };
+
+export type TSiteHeaderData = {
+  logoText: string;
+  navLinks: { label: string; url: string }[];
+};
+
+export type TSiteFooterData = {
+  socialLinks: { label: string; url: string }[];
+  copyrightName: string;
+};
+
+export const getSiteHeaderContent = async (): Promise<TSiteHeaderData | null> => {
+  const entry = await client
+    .getEntries({ content_type: "siteHeader", limit: 1, include: 2 })
+    .then((response) => response.items[0] as any);
+
+  if (!entry) return null;
+
+  return {
+    logoText: entry.fields.logoText as string,
+    navLinks: (entry.fields.navLinks as any[])?.map((link) => ({
+      label: link.fields.label,
+      url: link.fields.url,
+    })) ?? [],
+  };
+};
+
+export const getSiteFooterContent = async (): Promise<TSiteFooterData | null> => {
+  const entry = await client
+    .getEntries({ content_type: "siteFooter", limit: 1, include: 2 })
+    .then((response) => response.items[0] as any);
+
+  if (!entry) return null;
+
+  return {
+    copyrightName: entry.fields.copyrightName as string,
+    socialLinks: (entry.fields.socialLinks as any[])?.map((link) => ({
+      label: link.fields.label,
+      url: link.fields.url,
+    })) ?? [],
+  };
+};
