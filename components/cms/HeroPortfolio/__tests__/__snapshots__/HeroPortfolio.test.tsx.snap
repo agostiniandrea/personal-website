@@ -22,7 +22,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c7 {
-  color: #b8c1ec;
+  color: #a0a0b0;
   font-size: 1.25rem;
   line-height: 1.5;
   margin: 0;
@@ -52,23 +52,23 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #b8c1ec;
+  color: #a0a0b0;
   margin: 0 0 1rem;
 }
 
 .c5 {
-  font-family: "Rainier",sans-serif;
+  font-family: var(--font-space-grotesk),sans-serif;
   font-size: 3.25rem;
   font-weight: 700;
-  color: #fffffe;
+  color: #ffffff;
   line-height: 1;
   margin: 0 0 1rem;
 }
 
 .c6 {
-  font-family: "Rainier",sans-serif;
+  font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.5rem;
-  color: #eebbc3;
+  color: #3b82f6;
   line-height: 1.2;
   margin: 0 0 1.5rem;
 }
@@ -82,8 +82,8 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 .c10 {
   display: inline-block;
   padding: 0.875rem 2rem;
-  background: #eebbc3;
-  color: #232946;
+  background: #3b82f6;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   border-radius: 4px;
@@ -98,8 +98,8 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 .c11 {
   display: inline-block;
   padding: 0.875rem 2rem;
-  border: 2px solid #eebbc3;
-  color: #eebbc3;
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
   font-weight: 700;
   font-size: 1rem;
   border-radius: 4px;
@@ -108,18 +108,19 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c11:hover {
-  background: #eebbc3;
-  color: #232946;
+  background: #3b82f6;
+  color: #ffffff;
 }
 
 .c12 {
   position: relative;
   width: 240px;
   height: 240px;
+  flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
-  flex-shrink: 0;
-  border: 3px solid #eebbc3;
+  border: 3px solid #3b82f6;
+  background: #1a1a2e;
 }
 
 @media (min-width: 600px) {
@@ -314,7 +315,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 .c7 {
-  color: #b8c1ec;
+  color: #a0a0b0;
   font-size: 1.25rem;
   line-height: 1.5;
   margin: 0;
@@ -344,23 +345,23 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #b8c1ec;
+  color: #a0a0b0;
   margin: 0 0 1rem;
 }
 
 .c5 {
-  font-family: "Rainier",sans-serif;
+  font-family: var(--font-space-grotesk),sans-serif;
   font-size: 3.25rem;
   font-weight: 700;
-  color: #fffffe;
+  color: #ffffff;
   line-height: 1;
   margin: 0 0 1rem;
 }
 
 .c6 {
-  font-family: "Rainier",sans-serif;
+  font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.5rem;
-  color: #eebbc3;
+  color: #3b82f6;
   line-height: 1.2;
   margin: 0 0 1.5rem;
 }
@@ -374,8 +375,8 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 .c10 {
   display: inline-block;
   padding: 0.875rem 2rem;
-  background: #eebbc3;
-  color: #232946;
+  background: #3b82f6;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   border-radius: 4px;
@@ -391,10 +392,11 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   position: relative;
   width: 240px;
   height: 240px;
+  flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
-  flex-shrink: 0;
-  border: 3px solid #eebbc3;
+  border: 3px solid #3b82f6;
+  background: #1a1a2e;
 }
 
 @media (min-width: 600px) {

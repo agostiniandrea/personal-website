@@ -5,18 +5,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link
-          rel="preload"
-          href="/assets/fonts/Rainier/RainierNorth500.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <style
           dangerouslySetInnerHTML={{
             __html: `
               html { background: ${colors.background}; }
-              body { background: ${colors.background}; color: ${colors.main}; font-family: "Rainier", sans-serif; margin: 0; padding: 0; }
+              body { background: ${colors.background}; color: ${colors.main}; font-family: sans-serif; margin: 0; padding: 0; }
             `,
           }}
         />

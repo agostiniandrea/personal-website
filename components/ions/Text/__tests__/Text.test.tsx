@@ -9,7 +9,7 @@ describe("Text", () => {
     const text = screen.getByText("Hello World");
     expect(text).toBeInTheDocument();
     expect(text).toHaveStyle({
-      color: "#b8c1ec",
+      color: "#a0a0b0",
     });
   });
 
