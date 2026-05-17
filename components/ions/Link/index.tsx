@@ -29,6 +29,8 @@ interface LinkProps {
    * Additional styles to apply to the link.
    */
   styles?: React.CSSProperties;
+
+  onClick?: () => void;
 }
 
 const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
@@ -56,6 +58,7 @@ const Link: React.FC<LinkProps> = ({
   styles,
   isExternal = false,
   ariaLabel,
+  onClick,
 }) => {
   const target = isExternal ? "_blank" : undefined;
   const rel = isExternal ? "noopener noreferrer" : undefined;
@@ -67,6 +70,7 @@ const Link: React.FC<LinkProps> = ({
       rel={rel}
       aria-label={ariaLabel}
       styles={styles}
+      onClick={onClick}
       tabIndex={0}
     >
       {children}
