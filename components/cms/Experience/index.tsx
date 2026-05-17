@@ -116,7 +116,7 @@ const Tag = styled.span`
 `;
 
 const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items }) => (
-  <Section>
+  <Section id="experience">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <Heading>{heading}</Heading>

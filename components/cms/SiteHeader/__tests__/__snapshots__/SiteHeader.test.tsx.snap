@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`About renders correctly with all props 1`] = `
-.c0 {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
+exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c1 {
   display: grid;
   position: relative;
@@ -19,50 +14,49 @@ exports[`About renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c6 {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.c4 {
-  color: #b8c1ec;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-}
-
 .c2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c5 {
   color: #eebbc3;
-  margin: 0 0 1.25rem;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
+}
+
+.c5:hover {
+  color: #eebbc3;
+}
+
+.c5:focus {
+  outline: 2px solid #eebbc3;
+  outline-offset: 2px;
+}
+
+.c0 {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #232946;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0;
 }
 
 .c3 {
   font-family: "Rainier",sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: bold;
   color: #fffffe;
-  line-height: 1.1;
-  margin: 0 0 2rem;
-  max-width: 600px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.c5 {
-  max-width: 680px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-}
-
-.c7 {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border: 1px solid #b8c1ec;
-  color: #b8c1ec;
-  font-size: 0.875rem;
+.c4 {
+  display: none;
+  gap: 2rem;
 }
 
 @media (min-width: 600px) {
@@ -111,67 +105,67 @@ exports[`About renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c3 {
-    font-size: 3.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c7 {
-    font-size: 1rem;
+@media (min-width: 900px) {
+  .c4 {
+    display: flex;
   }
 }
 
 <div>
-  <section
+  <header
     class="c0"
-    id="about"
   >
     <section
       class="c1"
     >
-      <p
+      <div
         class="c2"
       >
-        About
-      </p>
-      <h2
-        class="c3"
-      >
-        Senior Frontend Developer & Tech Lead
-      </h2>
-      <p
-        class="c4 c5"
-        variant="large"
-      >
-        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
-      </p>
-      <div
-        class="c6"
-      >
-        <span
-          class="c7"
+        <a
+          class="c3"
+          href="/"
         >
-          📍 Bangkok, Thailand
-        </span>
-        <span
-          class="c7"
+          Andrea Agostini
+        </a>
+        <nav
+          class="c4"
         >
-          💼 Open to remote roles
-        </span>
+          <a
+            class="c5"
+            href="#projects"
+            tabindex="0"
+          >
+            Projects
+          </a>
+          <a
+            class="c5"
+            href="#skills"
+            tabindex="0"
+          >
+            Skills
+          </a>
+          <a
+            class="c5"
+            href="#experience"
+            tabindex="0"
+          >
+            Experience
+          </a>
+          <a
+            class="c5"
+            href="#contact"
+            tabindex="0"
+          >
+            Contact
+          </a>
+        </nav>
       </div>
     </section>
-  </section>
+  </header>
 </div>
 `;
 
-exports[`About renders correctly without optional tags 1`] = `
-.c0 {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
+exports[`SiteHeader renders correctly with no nav links 1`] = `
 .c1 {
   display: grid;
   position: relative;
@@ -185,36 +179,33 @@ exports[`About renders correctly without optional tags 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
-  color: #b8c1ec;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
+.c2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.c2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #eebbc3;
-  margin: 0 0 1.25rem;
+.c0 {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #232946;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0;
 }
 
 .c3 {
   font-family: "Rainier",sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: bold;
   color: #fffffe;
-  line-height: 1.1;
-  margin: 0 0 2rem;
-  max-width: 600px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.c5 {
-  max-width: 680px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+.c4 {
+  display: none;
+  gap: 2rem;
 }
 
 @media (min-width: 600px) {
@@ -263,37 +254,33 @@ exports[`About renders correctly without optional tags 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c3 {
-    font-size: 3.5rem;
+@media (min-width: 900px) {
+  .c4 {
+    display: flex;
   }
 }
 
 <div>
-  <section
+  <header
     class="c0"
-    id="about"
   >
     <section
       class="c1"
     >
-      <p
+      <div
         class="c2"
       >
-        About
-      </p>
-      <h2
-        class="c3"
-      >
-        Senior Frontend Developer & Tech Lead
-      </h2>
-      <p
-        class="c4 c5"
-        variant="large"
-      >
-        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify.
-      </p>
+        <a
+          class="c3"
+          href="/"
+        >
+          AA
+        </a>
+        <nav
+          class="c4"
+        />
+      </div>
     </section>
-  </section>
+  </header>
 </div>
 `;

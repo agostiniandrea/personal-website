@@ -135,6 +135,7 @@ exports[`Skills renders correctly with a single category 1`] = `
 <div>
   <section
     class="c0"
+    id="skills"
   >
     <section
       class="c1"
@@ -321,6 +322,7 @@ exports[`Skills renders correctly with all categories 1`] = `
 <div>
   <section
     class="c0"
+    id="skills"
   >
     <section
       class="c1"

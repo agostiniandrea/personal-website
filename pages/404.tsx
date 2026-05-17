@@ -1,18 +1,41 @@
 import { Container } from "@components/ions";
-import { Footer, Header } from "@components/organisms";
+import { SiteHeader, SiteFooter } from "@components/cms";
+import {
+  TSiteHeaderData,
+  TSiteFooterData,
+  getSiteHeaderContent,
+  getSiteFooterContent,
+} from "@lib/utils/cms";
 import theme from "@config/theme";
 import { useMedia } from "@lib/utils/useMedia";
+import { GetStaticPropsResult } from "next";
 
-export default function Error() {
+type T404 = {
+  header: TSiteHeaderData | null;
+  footer: TSiteFooterData | null;
+};
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<T404>> {
+  const [header, footer] = await Promise.all([
+    getSiteHeaderContent(),
+    getSiteFooterContent(),
+  ]);
+
+  return {
+    props: {
+      header,
+      footer,
+    },
+    revalidate: 3600,
+  };
+}
+
+export default function Error({ header, footer }: T404) {
   const { isMobile } = useMedia();
 
   return (
     <>
-      <Header
-        styles={{
-          boxShadow: `0px -3px 0px 0px ${theme?.colors.headline} inset`,
-        }}
-      />
+      {header && <SiteHeader {...header} />}
       <Container
         verticalPadding
         styles={{
@@ -33,7 +56,7 @@ export default function Error() {
           404 - Page not found
         </h1>
       </Container>
-      <Footer />
+      <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
     </>
   );
 }

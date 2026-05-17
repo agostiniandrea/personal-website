@@ -7,6 +7,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "styled-components";
 
 export default function App({ Component, pageProps }: AppProps) {
+
+  console.log("App component rendered with pageProps:", pageProps);
+  
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
