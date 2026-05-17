@@ -1,11 +1,7 @@
 // This file configures the initialization of Sentry on the client.
 // The added config here will be used whenever a user loads a page in their browser.
 
-import { config } from 'dotenv';
 import * as Sentry from '@sentry/nextjs';
-
-// Load environment variables from .env.local file (for client-side usage)
-config();  // Loads the variables into process.env
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
