@@ -26,7 +26,7 @@ describe("HeroPortfolio", () => {
   it("renders the name as h1", () => {
     renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      defaultHeroPortfolio.name,
+      defaultHeroPortfolio.personName,
     );
   });
 
