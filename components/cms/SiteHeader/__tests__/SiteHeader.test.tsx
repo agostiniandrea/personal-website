@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import SiteHeader from "../index";
 import { defaultSiteHeader, minimalSiteHeader } from "../model";
@@ -26,24 +26,45 @@ describe("SiteHeader", () => {
     expect(logo).toHaveAttribute("href", "/");
   });
 
-  it("renders all nav links with correct hrefs", () => {
+  it("renders nav links with correct hrefs (desktop + drawer)", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
     defaultSiteHeader.navLinks.forEach(({ label, url }) => {
-      const link = screen.getByRole("link", { name: label, hidden: true });
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute("href", url);
+      const links = screen.getAllByRole("link", { name: label, hidden: true });
+      expect(links.length).toBeGreaterThan(0);
+      links.forEach((link) => expect(link).toHaveAttribute("href", url));
     });
   });
 
   it("renders no nav links when navLinks is empty", () => {
     renderWithTheme(<SiteHeader {...minimalSiteHeader} />);
     defaultSiteHeader.navLinks.forEach(({ label }) => {
-      expect(screen.queryByRole("link", { name: label, hidden: true })).not.toBeInTheDocument();
+      expect(screen.queryAllByRole("link", { name: label, hidden: true })).toHaveLength(0);
     });
   });
 
   it("renders a header element", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
     expect(screen.getByRole("banner")).toBeInTheDocument();
+  });
+
+  it("renders a hamburger button", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    expect(screen.getByRole("button", { name: "Open menu" })).toBeInTheDocument();
+  });
+
+  it("sets aria-expanded=true on hamburger when clicked", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    const hamburger = screen.getByRole("button", { name: "Open menu" });
+    expect(hamburger).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(hamburger);
+    expect(hamburger).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("sets aria-expanded=false when drawer is closed", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    const hamburger = screen.getByRole("button", { name: "Open menu" });
+    fireEvent.click(hamburger);
+    fireEvent.click(screen.getByRole("button", { name: "Close menu" }));
+    expect(hamburger).toHaveAttribute("aria-expanded", "false");
   });
 });
