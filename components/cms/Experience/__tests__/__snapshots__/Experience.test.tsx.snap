@@ -148,6 +148,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 <div>
   <section
     class="c0"
+    id="experience"
   >
     <section
       class="c1"
@@ -364,6 +365,7 @@ exports[`Experience renders correctly with all items 1`] = `
 <div>
   <section
     class="c0"
+    id="experience"
   >
     <section
       class="c1"
