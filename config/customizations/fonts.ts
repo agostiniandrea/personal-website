@@ -1,6 +1,6 @@
 export const fontFamilies: Record<"default" | "heading", string> = {
-  default: '"Rainier", sans-serif',
-  heading: '"Rainier", sans-serif',
+  default: '"Inter", sans-serif',
+  heading: '"Space Grotesk", sans-serif',
 };
 
 export const fontSizes = {

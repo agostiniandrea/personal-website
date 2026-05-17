@@ -5,18 +5,17 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          rel="preload"
-          href="/assets/fonts/Rainier/RainierNorth500.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
         />
         <style
           dangerouslySetInnerHTML={{
             __html: `
               html { background: ${colors.background}; }
-              body { background: ${colors.background}; color: ${colors.main}; font-family: "Rainier", sans-serif; margin: 0; padding: 0; }
+              body { background: ${colors.background}; color: ${colors.main}; font-family: "Inter", sans-serif; margin: 0; padding: 0; }
             `,
           }}
         />
