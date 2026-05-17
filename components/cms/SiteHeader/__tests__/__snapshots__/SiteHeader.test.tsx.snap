@@ -42,6 +42,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   z-index: 100;
   background: #232946;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0;
 }
 
 .c3 {
@@ -190,6 +191,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   z-index: 100;
   background: #232946;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0;
 }
 
 .c3 {

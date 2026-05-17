@@ -18,6 +18,7 @@ const Header = styled.header`
   z-index: 100;
   background: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0;
 `;
 
 const Logo = styled.a`
@@ -41,7 +42,7 @@ const Nav = styled.nav`
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => (
   <Header>
     <Container>
-      <Flex justifyContent="space-between" alignItems="center" py="md">
+      <Flex justifyContent="space-between" alignItems="center">
         <Logo href="/">{logoText}</Logo>
         <Nav>
           {navLinks.map((link) => (
