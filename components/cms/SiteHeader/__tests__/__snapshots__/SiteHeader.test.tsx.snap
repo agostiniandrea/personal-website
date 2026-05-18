@@ -265,8 +265,8 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     class="c8"
     role="presentation"
   />
-  <nav
-    aria-label="Mobile navigation"
+  <div
+    aria-label="Navigation menu"
     aria-modal="true"
     class="c9"
     id="mobile-nav"
@@ -304,39 +304,43 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
         </svg>
       </button>
     </div>
-    <div
-      class="c11"
+    <nav
+      aria-label="Mobile navigation"
     >
-      <a
-        class="c5"
-        href="#projects"
-        tabindex="0"
+      <div
+        class="c11"
       >
-        Projects
-      </a>
-      <a
-        class="c5"
-        href="#skills"
-        tabindex="0"
-      >
-        Skills
-      </a>
-      <a
-        class="c5"
-        href="#experience"
-        tabindex="0"
-      >
-        Experience
-      </a>
-      <a
-        class="c5"
-        href="#contact"
-        tabindex="0"
-      >
-        Contact
-      </a>
-    </div>
-  </nav>
+        <a
+          class="c5"
+          href="#projects"
+          tabindex="0"
+        >
+          Projects
+        </a>
+        <a
+          class="c5"
+          href="#skills"
+          tabindex="0"
+        >
+          Skills
+        </a>
+        <a
+          class="c5"
+          href="#experience"
+          tabindex="0"
+        >
+          Experience
+        </a>
+        <a
+          class="c5"
+          href="#contact"
+          tabindex="0"
+        >
+          Contact
+        </a>
+      </div>
+    </nav>
+  </div>
 </div>
 `;
 
@@ -560,8 +564,8 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
     class="c7"
     role="presentation"
   />
-  <nav
-    aria-label="Mobile navigation"
+  <div
+    aria-label="Navigation menu"
     aria-modal="true"
     class="c8"
     id="mobile-nav"
@@ -599,9 +603,13 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
         </svg>
       </button>
     </div>
-    <div
-      class="c10"
-    />
-  </nav>
+    <nav
+      aria-label="Mobile navigation"
+    >
+      <div
+        class="c10"
+      />
+    </nav>
+  </div>
 </div>
 `;

@@ -74,7 +74,6 @@ const Period = styled.p`
   font-size: 0.8125rem;
   color: ${({ theme }) => theme.colors.paragraph};
   margin: 0 0 0.25rem;
-  opacity: 0.7;
 `;
 
 const Company = styled.p`

@@ -113,8 +113,8 @@ const PrimaryLink = styled.a`
 const SecondaryLink = styled.a`
   display: inline-block;
   padding: 0.875rem 2rem;
-  border: 2px solid ${({ theme }) => theme.colors.button};
-  color: ${({ theme }) => theme.colors.button};
+  border: 2px solid ${({ theme }) => theme.colors.highlight};
+  color: ${({ theme }) => theme.colors.highlight};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   font-size: 1rem;
   border-radius: ${({ theme }) => theme.radii.xs};
@@ -122,7 +122,7 @@ const SecondaryLink = styled.a`
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.button};
+    background: ${({ theme }) => theme.colors.highlight};
     color: ${({ theme }) => theme.colors.button_text};
   }
 

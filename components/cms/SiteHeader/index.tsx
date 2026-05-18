@@ -69,7 +69,7 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
   transition: opacity 0.3s ease;
 `;
 
-const Drawer = styled.nav<{ $isOpen: boolean }>`
+const Drawer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   right: 0;
@@ -106,7 +106,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const drawerRef = useRef<HTMLElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -190,10 +190,10 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
         <>
           <Overlay $isOpen={isOpen} onClick={closeDrawer} role="presentation" />
           <Drawer
-            ref={drawerRef as React.RefObject<HTMLElement>}
+            ref={drawerRef}
             id="mobile-nav"
             $isOpen={isOpen}
-            aria-label="Mobile navigation"
+            aria-label="Navigation menu"
             role="dialog"
             aria-modal="true"
           >
@@ -205,13 +205,15 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
                 </svg>
               </IconButton>
             </DrawerTopBar>
-            <DrawerLinks>
-              {navLinks.map((link) => (
-                <Link key={link.url} href={link.url} onClick={closeDrawer}>
-                  {link.label}
-                </Link>
-              ))}
-            </DrawerLinks>
+            <nav aria-label="Mobile navigation">
+              <DrawerLinks>
+                {navLinks.map((link) => (
+                  <Link key={link.url} href={link.url} onClick={closeDrawer}>
+                    {link.label}
+                  </Link>
+                ))}
+              </DrawerLinks>
+            </nav>
           </Drawer>
         </>
       )}
