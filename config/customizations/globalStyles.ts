@@ -1,6 +1,11 @@
 import { createGlobalStyle, css } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --font-inter: "Inter", sans-serif;
+    --font-space-grotesk: "Space Grotesk", sans-serif;
+  }
+
   ${({ theme }) => css`
     html {
       background: ${theme.colors.background};

@@ -97,7 +97,7 @@ const CardLink = styled(Link)`
 `;
 
 const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => (
-  <Box as="section" id="projects" py="6xl">
+  <Box as="section" id="projects" my="3xl">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <Heading>{heading}</Heading>

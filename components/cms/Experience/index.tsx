@@ -17,7 +17,7 @@ export interface ExperienceProps {
 }
 
 const Section = styled.section`
-  padding: 6rem 0;
+  margin: 3rem 0;
 `;
 
 const SectionLabel = styled.p`
