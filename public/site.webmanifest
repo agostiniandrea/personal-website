@@ -1,11 +1,11 @@
 {
-  "name": "Website Test",
-  "short_name": "WT",
-  "description": "Website Test",
+  "name": "Andrea Agostini",
+  "short_name": "AA",
+  "description": "Full-stack developer portfolio",
   "display": "standalone",
   "start_url": "/",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#0a0a0f",
+  "background_color": "#0a0a0f",
   "orientation": "portrait",
   "icons": []
 }
