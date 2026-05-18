@@ -2,8 +2,10 @@ import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, Next
 import { ServerStyleSheet } from "styled-components";
 import { colors } from "@config/customizations/colors";
 
-export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+type MyDocumentProps = DocumentInitialProps & { locale: string };
+
+export default class MyDocument extends Document<MyDocumentProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<MyDocumentProps> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -17,6 +19,7 @@ export default class MyDocument extends Document {
       return {
         ...initialProps,
         styles: [initialProps.styles, sheet.getStyleElement()],
+        locale: ctx.locale || "en",
       };
     } finally {
       sheet.seal();
@@ -25,7 +28,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang={this.props.locale}>
         <Head>
           <style
             dangerouslySetInnerHTML={{

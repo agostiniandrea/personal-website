@@ -21,13 +21,13 @@ type THomepage = {
   footer: TSiteFooterData | null;
 };
 
-export async function getStaticProps(): Promise<
+export async function getStaticProps({ locale = "en" }: { locale?: string }): Promise<
   GetStaticPropsResult<THomepage>
 > {
   const [page, header, footer] = await Promise.all([
-    getPageContent(PAGE_TYPES.HOME, ""),
-    getSiteHeaderContent(),
-    getSiteFooterContent(),
+    getPageContent(PAGE_TYPES.HOME, "", locale),
+    getSiteHeaderContent(locale),
+    getSiteFooterContent(locale),
   ]);
 
   if (!page) {
