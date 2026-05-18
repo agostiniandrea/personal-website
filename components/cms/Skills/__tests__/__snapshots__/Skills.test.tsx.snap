@@ -14,11 +14,19 @@ exports[`Skills renders correctly with a single category 1`] = `
   grid-column: 2/auto;
 }
 
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
 .c0 {
   margin: 3rem 0;
 }
 
-.c2 {
+.c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -26,7 +34,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -36,13 +44,13 @@ exports[`Skills renders correctly with a single category 1`] = `
   max-width: 600px;
 }
 
-.c4 {
+.c5 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
 }
 
-.c5 {
+.c6 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
@@ -52,7 +60,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   margin: 0 0 1rem;
 }
 
-.c6 {
+.c7 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -61,7 +69,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   gap: 0.5rem;
 }
 
-.c7 {
+.c8 {
   font-size: 0.875rem;
   padding: 0.375rem 0.875rem;
   border: 1px solid #a0a0b0;
@@ -115,19 +123,19 @@ exports[`Skills renders correctly with a single category 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c3 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -141,41 +149,42 @@ exports[`Skills renders correctly with a single category 1`] = `
       class="c1"
     >
       <p
-        class="c2"
+        class="c2 c3"
+        variant="regular"
       >
         Skills
       </p>
       <h2
-        class="c3"
+        class="c4"
       >
         What I work with
       </h2>
       <div
-        class="c4"
+        class="c5"
       >
         <div
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             Frontend
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               React
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Next.js
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               TypeScript
             </li>
@@ -201,11 +210,19 @@ exports[`Skills renders correctly with all categories 1`] = `
   grid-column: 2/auto;
 }
 
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
 .c0 {
   margin: 3rem 0;
 }
 
-.c2 {
+.c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -213,7 +230,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -223,13 +240,13 @@ exports[`Skills renders correctly with all categories 1`] = `
   max-width: 600px;
 }
 
-.c4 {
+.c5 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
 }
 
-.c5 {
+.c6 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
@@ -239,7 +256,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   margin: 0 0 1rem;
 }
 
-.c6 {
+.c7 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -248,7 +265,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   gap: 0.5rem;
 }
 
-.c7 {
+.c8 {
   font-size: 0.875rem;
   padding: 0.375rem 0.875rem;
   border: 1px solid #a0a0b0;
@@ -302,19 +319,19 @@ exports[`Skills renders correctly with all categories 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c3 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -328,51 +345,52 @@ exports[`Skills renders correctly with all categories 1`] = `
       class="c1"
     >
       <p
-        class="c2"
+        class="c2 c3"
+        variant="regular"
       >
         Skills
       </p>
       <h2
-        class="c3"
+        class="c4"
       >
         What I work with
       </h2>
       <div
-        class="c4"
+        class="c5"
       >
         <div
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             Frontend
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               React
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Next.js
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               TypeScript
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               styled-components
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Storybook
             </li>
@@ -382,35 +400,35 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             Ecommerce
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               Shopify
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Shopify Plus
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Storefront API
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Liquid
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Hydrogen
             </li>
@@ -420,35 +438,35 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             CMS & Data
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               Contentful
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Prismic
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Algolia
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               REST
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               GraphQL
             </li>
@@ -458,40 +476,40 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             Tooling
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               Vite
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Webpack
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               ESLint
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Jest
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Vitest
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Playwright
             </li>
@@ -501,35 +519,35 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             Cloud & DevOps
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               Vercel
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               AWS
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               GitHub Actions
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Sentry
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Chromatic
             </li>
@@ -539,30 +557,30 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c5"
+            class="c6"
           >
             Design
           </h3>
           <ul
-            class="c6"
+            class="c7"
           >
             <li
-              class="c7"
+              class="c8"
             >
               Figma
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Responsive Design
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Design Systems
             </li>
             <li
-              class="c7"
+              class="c8"
             >
               Core Web Vitals
             </li>

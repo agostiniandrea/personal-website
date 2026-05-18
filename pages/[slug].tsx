@@ -1,6 +1,6 @@
 import { Seo } from "@components/atoms";
 import { SiteHeader, SiteFooter } from "@components/cms";
-import { Skeleton } from "@components/ions";
+import { Flex, Skeleton } from "@components/ions";
 import { ModuleRenderer } from "@components/organisms";
 import {
   TPageFields,
@@ -22,13 +22,10 @@ type TPage = {
   footer: TSiteFooterData | null;
 };
 
-const SkeletonPage = styled.div`
+const SkeletonPage = styled(Flex).attrs({ direction: "column", gap: "xl" })`
   padding: 6rem 2rem;
   max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 `;
 
 export async function getStaticProps(
