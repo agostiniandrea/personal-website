@@ -72,324 +72,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   justify-content: center;
 }
 
-.c8 {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.c9 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
-  background: #0a0a0f;
-  z-index: 300;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-}
-
-.c10 {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.c11 {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-@media (min-width: 600px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-    column-gap: calc(24px);
-  }
-}
-
-@media (min-width: 900px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
-    column-gap: calc(36px);
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
-    column-gap: calc(81px);
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
-    column-gap: calc(121.5px);
-  }
-}
-
-@media (min-width: 600px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 900px) {
-  .c4 {
-    display: flex;
-  }
-}
-
-@media (min-width: 900px) {
-  .c7 {
-    display: none;
-  }
-}
-
-<div>
-  <header
-    class="c0"
-  >
-    <section
-      class="c1"
-    >
-      <div
-        class="c2"
-      >
-        <a
-          class="c3"
-          href="/"
-        >
-          Andrea Agostini
-        </a>
-        <nav
-          aria-label="Main navigation"
-          class="c4"
-        >
-          <a
-            class="c5"
-            href="#projects"
-            tabindex="0"
-          >
-            Projects
-          </a>
-          <a
-            class="c5"
-            href="#skills"
-            tabindex="0"
-          >
-            Skills
-          </a>
-          <a
-            class="c5"
-            href="#experience"
-            tabindex="0"
-          >
-            Experience
-          </a>
-          <a
-            class="c5"
-            href="#contact"
-            tabindex="0"
-          >
-            Contact
-          </a>
-        </nav>
-        <button
-          aria-controls="mobile-nav"
-          aria-expanded="false"
-          aria-label="Open menu"
-          class="c6 c7"
-        >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-          >
-            <line
-              x1="3"
-              x2="21"
-              y1="6"
-              y2="6"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="12"
-              y2="12"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="18"
-              y2="18"
-            />
-          </svg>
-        </button>
-      </div>
-    </section>
-  </header>
-  <div
-    class="c8"
-    role="presentation"
-  />
-  <nav
-    aria-label="Mobile navigation"
-    aria-modal="true"
-    class="c9"
-    id="mobile-nav"
-    role="dialog"
-  >
-    <div
-      class="c10"
-    >
-      <button
-        aria-label="Close menu"
-        class="c6"
-      >
-        <svg
-          aria-hidden="true"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-        >
-          <line
-            x1="18"
-            x2="6"
-            y1="6"
-            y2="18"
-          />
-          <line
-            x1="6"
-            x2="18"
-            y1="6"
-            y2="18"
-          />
-        </svg>
-      </button>
-    </div>
-    <div
-      class="c11"
-    >
-      <a
-        class="c5"
-        href="#projects"
-        tabindex="0"
-      >
-        Projects
-      </a>
-      <a
-        class="c5"
-        href="#skills"
-        tabindex="0"
-      >
-        Skills
-      </a>
-      <a
-        class="c5"
-        href="#experience"
-        tabindex="0"
-      >
-        Experience
-      </a>
-      <a
-        class="c5"
-        href="#contact"
-        tabindex="0"
-      >
-        Contact
-      </a>
-    </div>
-  </nav>
-</div>
-`;
-
-exports[`SiteHeader renders correctly with no nav links 1`] = `
-.c1 {
-  display: grid;
-  position: relative;
-  min-height: auto;
-  width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-  column-gap: calc(24px);
-}
-
-.c1 >* {
-  grid-column: 2/auto;
-}
-
-.c2 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.c0 {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #0a0a0f;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.75rem 0;
-}
-
-.c3 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.c4 {
-  display: none;
-  gap: 2rem;
-}
-
-.c5 {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  min-width: 44px;
-  min-height: 44px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .c7 {
   position: fixed;
   inset: 0;
@@ -408,23 +90,12 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   width: 280px;
   background: #0a0a0f;
   z-index: 300;
-  padding: 1.5rem;
+  padding: 5rem 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   transform: translateX(100%);
   transition: transform 0.3s ease;
-}
-
-.c9 {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.c10 {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 }
 
 @media (min-width: 600px) {
@@ -499,17 +170,46 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
           class="c3"
           href="/"
         >
-          AA
+          Andrea Agostini
         </a>
         <nav
           aria-label="Main navigation"
           class="c4"
-        />
+        >
+          <a
+            class="c5"
+            href="#projects"
+            tabindex="0"
+          >
+            Projects
+          </a>
+          <a
+            class="c5"
+            href="#skills"
+            tabindex="0"
+          >
+            Skills
+          </a>
+          <a
+            class="c5"
+            href="#experience"
+            tabindex="0"
+          >
+            Experience
+          </a>
+          <a
+            class="c5"
+            href="#contact"
+            tabindex="0"
+          >
+            Contact
+          </a>
+        </nav>
         <button
           aria-controls="mobile-nav"
           aria-expanded="false"
           aria-label="Open menu"
-          class="c5 c6"
+          class="c6"
         >
           <svg
             aria-hidden="true"
@@ -555,41 +255,247 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
     id="mobile-nav"
     role="dialog"
   >
-    <div
-      class="c9"
+    <a
+      class="c5"
+      href="#projects"
+      tabindex="0"
     >
-      <button
-        aria-label="Close menu"
-        class="c5"
-      >
-        <svg
-          aria-hidden="true"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-        >
-          <line
-            x1="18"
-            x2="6"
-            y1="6"
-            y2="18"
-          />
-          <line
-            x1="6"
-            x2="18"
-            y1="6"
-            y2="18"
-          />
-        </svg>
-      </button>
-    </div>
-    <div
-      class="c10"
-    />
+      Projects
+    </a>
+    <a
+      class="c5"
+      href="#skills"
+      tabindex="0"
+    >
+      Skills
+    </a>
+    <a
+      class="c5"
+      href="#experience"
+      tabindex="0"
+    >
+      Experience
+    </a>
+    <a
+      class="c5"
+      href="#contact"
+      tabindex="0"
+    >
+      Contact
+    </a>
   </nav>
+</div>
+`;
+
+exports[`SiteHeader renders correctly with no nav links 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c0 {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0a0a0f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 0;
+}
+
+.c3 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.c4 {
+  display: none;
+  gap: 2rem;
+}
+
+.c5 {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c6 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.c7 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 280px;
+  background: #0a0a0f;
+  z-index: 300;
+  padding: 5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .c4 {
+    display: flex;
+  }
+}
+
+@media (min-width: 900px) {
+  .c5 {
+    display: none;
+  }
+}
+
+<div>
+  <header
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <a
+          class="c3"
+          href="/"
+        >
+          AA
+        </a>
+        <nav
+          aria-label="Main navigation"
+          class="c4"
+        />
+        <button
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+          aria-label="Open menu"
+          class="c5"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <line
+              x1="3"
+              x2="21"
+              y1="6"
+              y2="6"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="12"
+              y2="12"
+            />
+            <line
+              x1="3"
+              x2="21"
+              y1="18"
+              y2="18"
+            />
+          </svg>
+        </button>
+      </div>
+    </section>
+  </header>
+  <div
+    class="c6"
+    role="presentation"
+  />
+  <nav
+    aria-label="Mobile navigation"
+    aria-modal="true"
+    class="c7"
+    id="mobile-nav"
+    role="dialog"
+  />
 </div>
 `;
