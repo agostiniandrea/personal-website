@@ -14,9 +14,7 @@ export interface ContactProps {
   links: ContactLink[];
 }
 
-// Custom styling on top of ions where the design requires specific tokens
-// not covered by the base components (highlight color, heading font, sizes)
-const SectionLabel = styled.p`
+const SectionLabel = styled(Text)`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;

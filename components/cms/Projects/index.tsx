@@ -16,7 +16,7 @@ export interface ProjectsProps {
   items: ProjectItem[];
 }
 
-const SectionLabel = styled.p`
+const SectionLabel = styled(Text)`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;

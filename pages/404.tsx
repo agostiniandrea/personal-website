@@ -6,6 +6,7 @@ import {
   getSiteHeaderContent,
   getSiteFooterContent,
 } from "@lib/utils/cms";
+import { Box } from "@components/ions";
 import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
 
@@ -14,7 +15,7 @@ type T404 = {
   footer: TSiteFooterData | null;
 };
 
-const Wrapper = styled.main`
+const Wrapper = styled(Box).attrs({ as: "main" })`
   display: flex;
   align-items: center;
   justify-content: center;

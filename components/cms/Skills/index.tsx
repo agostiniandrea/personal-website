@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container } from "@components/ions";
+import { Box, Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface SkillCategory {
@@ -17,7 +17,7 @@ const Section = styled.section`
   margin: 3rem 0;
 `;
 
-const SectionLabel = styled.p`
+const SectionLabel = styled(Text)`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -53,7 +53,6 @@ const Grid = styled.div`
   }
 `;
 
-const Category = styled.div``;
 
 const CategoryTitle = styled.h3`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -89,14 +88,14 @@ const Skills: React.FC<SkillsProps> = ({ sectionLabel, heading, categories }) =>
       <Heading>{heading}</Heading>
       <Grid>
         {categories.map((category) => (
-          <Category key={category.title}>
+          <Box key={category.title}>
             <CategoryTitle>{category.title}</CategoryTitle>
             <SkillList>
               {category.skills.map((skill) => (
                 <Skill key={skill}>{skill}</Skill>
               ))}
             </SkillList>
-          </Category>
+          </Box>
         ))}
       </Grid>
     </Container>

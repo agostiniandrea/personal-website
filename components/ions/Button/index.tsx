@@ -52,7 +52,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-const Button: React.FC<ButtonProps> = ({
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   onClick,
   disabled = false,
@@ -68,11 +68,8 @@ const Button: React.FC<ButtonProps> = ({
   id,
   tabIndex,
   description,
-}) => {
-  // Generate unique ID for the button if not provided
-  const buttonId = id || `button-${Math.random().toString(36).substr(2, 9)}`;
-  // Generate ID for the description
-  const descriptionId = `${buttonId}-description`;
+}, ref) => {
+  const descriptionId = id ? `${id}-description` : undefined;
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -88,6 +85,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <>
       <StyledButton
+        ref={ref}
         onClick={onClick}
         onKeyDown={handleKeyDown}
         disabled={disabled}
@@ -103,18 +101,20 @@ const Button: React.FC<ButtonProps> = ({
         aria-controls={ariaControls}
         aria-disabled={disabled}
         role={role}
-        id={buttonId}
+        id={id}
         tabIndex={tabIndex}
       >
         {children}
       </StyledButton>
-      {description && (
+      {description && descriptionId && (
         <span id={descriptionId} className="sr-only">
           {description}
         </span>
       )}
     </>
   );
-};
+});
+
+Button.displayName = "Button";
 
 export default Button;

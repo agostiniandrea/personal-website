@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Container, Flex, Link } from "@components/ions";
+import { Button, Container, Flex, Link } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface SiteHeaderLink {
@@ -42,7 +42,7 @@ const DesktopNav = styled.nav`
   }
 `;
 
-const IconButton = styled.button`
+const IconButton = styled(Button)`
   background: none;
   border: none;
   cursor: pointer;
@@ -61,7 +61,7 @@ const HamburgerButton = styled(IconButton)`
   }
 `;
 
-const LocaleButton = styled.button`
+const LocaleButton = styled(Button)`
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
