@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Container, Flex, Link } from "@components/ions";
@@ -24,7 +23,7 @@ const Header = styled.header`
   padding: 0.75rem 0;
 `;
 
-const Logo = styled(NextLink)`
+const Logo = styled(Link)`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: 1.25rem;
   font-weight: bold;
@@ -264,7 +263,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
                 ))}
               </DrawerLinks>
             </nav>
-            <DrawerLocaleButton onClick={switchLocale} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
+            <DrawerLocaleButton onClick={() => { closeDrawer(); switchLocale(); }} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
               {nextLocale.toUpperCase()}
             </DrawerLocaleButton>
           </Drawer>

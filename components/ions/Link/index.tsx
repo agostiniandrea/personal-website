@@ -9,6 +9,8 @@ interface LinkProps {
   ariaLabel?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
+  onMouseEnter?: React.MouseEventHandler<HTMLAnchorElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLAnchorElement>;
   className?: string;
 }
 
@@ -36,6 +38,8 @@ const Link: React.FC<LinkProps> = ({
   isExternal = false,
   ariaLabel,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   className,
 }) => (
   <StyledLink
@@ -45,6 +49,8 @@ const Link: React.FC<LinkProps> = ({
     aria-label={ariaLabel}
     style={style}
     onClick={onClick}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
     className={className}
   >
     {children}
