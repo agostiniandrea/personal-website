@@ -3,7 +3,7 @@ export const colors = {
   background: "#0a0a0f",
   headline: "#ffffff",
   paragraph: "#a0a0b0",
-  button: "#3b82f6",
+  button: "#1d4ed8",
   button_text: "#ffffff",
 
   // illustration

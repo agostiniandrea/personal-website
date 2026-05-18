@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Container, Flex, Link } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -40,16 +40,20 @@ const DesktopNav = styled.nav`
   }
 `;
 
-const HamburgerButton = styled.button`
+const IconButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.25rem;
+  padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
   color: ${({ theme }) => theme.colors.headline};
   display: flex;
   align-items: center;
   justify-content: center;
+`;
 
+const HamburgerButton = styled(IconButton)`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
   }
@@ -86,17 +90,6 @@ const DrawerHeader = styled.div`
   justify-content: flex-end;
 `;
 
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.25rem;
-  color: ${({ theme }) => theme.colors.headline};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const DrawerLinks = styled.div`
   display: flex;
   flex-direction: column;
@@ -106,6 +99,8 @@ const DrawerLinks = styled.div`
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -118,13 +113,51 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen || !drawerRef.current) return;
+
+    const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeDrawer();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  const closeDrawer = () => {
+    setIsOpen(false);
+    hamburgerRef.current?.focus();
+  };
+
   return (
     <>
       <Header>
         <Container>
           <Flex justifyContent="space-between" alignItems="center">
             <Logo href="/">{logoText}</Logo>
-            <DesktopNav>
+            <DesktopNav aria-label="Main navigation">
               {navLinks.map((link) => (
                 <Link key={link.url} href={link.url}>
                   {link.label}
@@ -132,11 +165,13 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
               ))}
             </DesktopNav>
             <HamburgerButton
+              ref={hamburgerRef}
               onClick={() => setIsOpen(true)}
               aria-label="Open menu"
               aria-expanded={isOpen}
+              aria-controls="mobile-nav"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="18" x2="21" y2="18" />
@@ -147,19 +182,26 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
       </Header>
       {mounted && (
         <>
-          <Overlay $isOpen={isOpen} onClick={() => setIsOpen(false)} aria-hidden="true" />
-          <Drawer $isOpen={isOpen} aria-label="Site navigation">
+          <Overlay $isOpen={isOpen} onClick={closeDrawer} role="presentation" />
+          <Drawer
+            ref={drawerRef as React.RefObject<HTMLElement>}
+            id="mobile-nav"
+            $isOpen={isOpen}
+            aria-label="Mobile navigation"
+            role="dialog"
+            aria-modal="true"
+          >
             <DrawerHeader>
-              <CloseButton onClick={() => setIsOpen(false)} aria-label="Close menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <IconButton onClick={closeDrawer} aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
-              </CloseButton>
+              </IconButton>
             </DrawerHeader>
             <DrawerLinks>
               {navLinks.map((link) => (
-                <Link key={link.url} href={link.url} onClick={() => setIsOpen(false)}>
+                <Link key={link.url} href={link.url} onClick={closeDrawer}>
                   {link.label}
                 </Link>
               ))}

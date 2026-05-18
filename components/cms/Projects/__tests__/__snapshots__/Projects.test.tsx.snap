@@ -231,7 +231,7 @@ exports[`Projects renders correctly with a single item 1`] = `
             </span>
           </div>
           <a
-            aria-label="View project →"
+            aria-label="View project: Petite Revery"
             class="c11"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
@@ -285,7 +285,7 @@ exports[`Projects renders correctly with a single item 1`] = `
             </span>
           </div>
           <a
-            aria-label="View project →"
+            aria-label="View project: 7mesh Industries"
             class="c11"
             href="https://7mesh.com"
             rel="noopener noreferrer"
@@ -532,7 +532,7 @@ exports[`Projects renders correctly with full project list 1`] = `
             </span>
           </div>
           <a
-            aria-label="View project →"
+            aria-label="View project: Petite Revery"
             class="c11"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
@@ -586,7 +586,7 @@ exports[`Projects renders correctly with full project list 1`] = `
             </span>
           </div>
           <a
-            aria-label="View project →"
+            aria-label="View project: 7mesh Industries"
             class="c11"
             href="https://7mesh.com"
             rel="noopener noreferrer"
@@ -635,7 +635,7 @@ exports[`Projects renders correctly with full project list 1`] = `
             </span>
           </div>
           <a
-            aria-label="View project →"
+            aria-label="View project: Nest Designs"
             class="c11"
             href="https://nestdesigns.com"
             rel="noopener noreferrer"

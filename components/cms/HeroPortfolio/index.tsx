@@ -103,6 +103,11 @@ const PrimaryLink = styled.a`
   &:hover {
     opacity: 0.85;
   }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.headline};
+    outline-offset: 3px;
+  }
 `;
 
 const SecondaryLink = styled.a`
@@ -119,6 +124,11 @@ const SecondaryLink = styled.a`
   &:hover {
     background: ${({ theme }) => theme.colors.button};
     color: ${({ theme }) => theme.colors.button_text};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
   }
 `;
 

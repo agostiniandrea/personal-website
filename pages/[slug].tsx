@@ -71,13 +71,15 @@ export default function Pages({ page, header, footer }: TPage) {
     return (
       <>
         {header && <SiteHeader {...header} />}
-        <SkeletonPage>
-          <Skeleton height="2.5rem" width="40%" />
-          <Skeleton height="1rem" />
-          <Skeleton height="1rem" width="90%" />
-          <Skeleton height="1rem" width="75%" />
-          <Skeleton height="1rem" width="85%" />
-        </SkeletonPage>
+        <main id="main-content">
+          <SkeletonPage>
+            <Skeleton height="2.5rem" width="40%" />
+            <Skeleton height="1rem" />
+            <Skeleton height="1rem" width="90%" />
+            <Skeleton height="1rem" width="75%" />
+            <Skeleton height="1rem" width="85%" />
+          </SkeletonPage>
+        </main>
         <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
       </>
     );
@@ -91,7 +93,9 @@ export default function Pages({ page, header, footer }: TPage) {
         seoTitle={page?.seoTitle}
       />
       {header && <SiteHeader {...header} />}
-      <ModuleRenderer components={page?.modules} />
+      <main id="main-content">
+        <ModuleRenderer components={page?.modules} />
+      </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
     </>
   );

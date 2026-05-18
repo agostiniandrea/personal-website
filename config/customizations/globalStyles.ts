@@ -43,6 +43,12 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
     }
 
+    :focus-visible {
+      outline: 2px solid ${theme.colors.highlight};
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
     ul {
       list-style: none;
     }
