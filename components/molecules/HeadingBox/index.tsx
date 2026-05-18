@@ -81,7 +81,7 @@ const HeadingBox: React.FC<HeadingBoxProps> = ({
         <Link
           href={cta.url}
           aria-label={cta.label}
-          styles={{
+          style={{
             display: "inline-block",
             padding: "0.5rem 1rem",
             backgroundColor: "var(--button)",

@@ -20,18 +20,18 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   justify-content: space-between;
 }
 
-.c5 {
+.c3 {
   color: #3b82f6;
   text-decoration: none;
   line-height: 1;
   transition: color 0.2s ease-in-out;
 }
 
-.c5:hover {
+.c3:hover {
   color: #3b82f6;
 }
 
-.c5:focus {
+.c3:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
@@ -45,7 +45,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   padding: 0.75rem 0;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: bold;
@@ -54,12 +54,13 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   text-decoration: none;
 }
 
-.c4 {
+.c5 {
   display: none;
   gap: 2rem;
+  align-items: center;
 }
 
-.c6 {
+.c7 {
   background: none;
   border: none;
   cursor: pointer;
@@ -72,7 +73,36 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   justify-content: center;
 }
 
-.c8 {
+.c6 {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0.25rem 0.625rem;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c6:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.c6:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+.c9 {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -82,7 +112,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: opacity 0.3s ease;
 }
 
-.c9 {
+.c10 {
   position: fixed;
   top: 0;
   right: 0;
@@ -98,7 +128,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
 }
 
-.c10 {
+.c11 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -107,12 +137,19 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   flex-shrink: 0;
 }
 
-.c11 {
+.c12 {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.5rem;
   overflow-y: auto;
+}
+
+.c13 {
+  margin-top: auto;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
 }
 
 @media (min-width: 600px) {
@@ -162,13 +199,13 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c5 {
     display: flex;
   }
 }
 
 @media (min-width: 900px) {
-  .c7 {
+  .c8 {
     display: none;
   }
 }
@@ -184,49 +221,51 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
         class="c2"
       >
         <a
-          class="c3"
+          class="c3 c4"
           href="/"
         >
           Andrea Agostini
         </a>
         <nav
           aria-label="Main navigation"
-          class="c4"
+          class="c5"
         >
           <a
-            class="c5"
+            class="c3"
             href="#projects"
-            tabindex="0"
           >
             Projects
           </a>
           <a
-            class="c5"
+            class="c3"
             href="#skills"
-            tabindex="0"
           >
             Skills
           </a>
           <a
-            class="c5"
+            class="c3"
             href="#experience"
-            tabindex="0"
           >
             Experience
           </a>
           <a
-            class="c5"
+            class="c3"
             href="#contact"
-            tabindex="0"
           >
             Contact
           </a>
+          <button
+            aria-label="Switch to English"
+            class="c6"
+          >
+            EN
+          </button>
         </nav>
         <button
           aria-controls="mobile-nav"
           aria-expanded="false"
           aria-label="Open menu"
-          class="c6 c7"
+          class="c7 c8"
         >
           <svg
             aria-hidden="true"
@@ -262,22 +301,22 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     </section>
   </header>
   <div
-    class="c8"
+    class="c9"
     role="presentation"
   />
   <div
     aria-label="Navigation menu"
     aria-modal="true"
-    class="c9"
+    class="c10"
     id="mobile-nav"
     role="dialog"
   >
     <div
-      class="c10"
+      class="c11"
     >
       <button
         aria-label="Close menu"
-        class="c6"
+        class="c7"
       >
         <svg
           aria-hidden="true"
@@ -308,38 +347,40 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
       aria-label="Mobile navigation"
     >
       <div
-        class="c11"
+        class="c12"
       >
         <a
-          class="c5"
+          class="c3"
           href="#projects"
-          tabindex="0"
         >
           Projects
         </a>
         <a
-          class="c5"
+          class="c3"
           href="#skills"
-          tabindex="0"
         >
           Skills
         </a>
         <a
-          class="c5"
+          class="c3"
           href="#experience"
-          tabindex="0"
         >
           Experience
         </a>
         <a
-          class="c5"
+          class="c3"
           href="#contact"
-          tabindex="0"
         >
           Contact
         </a>
       </div>
     </nav>
+    <button
+      aria-label="Switch to English"
+      class="c6 c13"
+    >
+      EN
+    </button>
   </div>
 </div>
 `;
@@ -364,6 +405,22 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   justify-content: space-between;
 }
 
+.c3 {
+  color: #3b82f6;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
+}
+
+.c3:hover {
+  color: #3b82f6;
+}
+
+.c3:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 .c0 {
   position: sticky;
   top: 0;
@@ -373,7 +430,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   padding: 0.75rem 0;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: bold;
@@ -382,12 +439,13 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   text-decoration: none;
 }
 
-.c4 {
+.c5 {
   display: none;
   gap: 2rem;
+  align-items: center;
 }
 
-.c5 {
+.c7 {
   background: none;
   border: none;
   cursor: pointer;
@@ -400,7 +458,36 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   justify-content: center;
 }
 
-.c7 {
+.c6 {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0.25rem 0.625rem;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c6:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.c6:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+.c9 {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -410,7 +497,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   transition: opacity 0.3s ease;
 }
 
-.c8 {
+.c10 {
   position: fixed;
   top: 0;
   right: 0;
@@ -426,7 +513,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
 }
 
-.c9 {
+.c11 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -435,12 +522,19 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   flex-shrink: 0;
 }
 
-.c10 {
+.c12 {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.5rem;
   overflow-y: auto;
+}
+
+.c13 {
+  margin-top: auto;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
 }
 
 @media (min-width: 600px) {
@@ -490,13 +584,13 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c5 {
     display: flex;
   }
 }
 
 @media (min-width: 900px) {
-  .c6 {
+  .c8 {
     display: none;
   }
 }
@@ -512,20 +606,27 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
         class="c2"
       >
         <a
-          class="c3"
+          class="c3 c4"
           href="/"
         >
           AA
         </a>
         <nav
           aria-label="Main navigation"
-          class="c4"
-        />
+          class="c5"
+        >
+          <button
+            aria-label="Switch to English"
+            class="c6"
+          >
+            EN
+          </button>
+        </nav>
         <button
           aria-controls="mobile-nav"
           aria-expanded="false"
           aria-label="Open menu"
-          class="c5 c6"
+          class="c7 c8"
         >
           <svg
             aria-hidden="true"
@@ -561,22 +662,22 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
     </section>
   </header>
   <div
-    class="c7"
+    class="c9"
     role="presentation"
   />
   <div
     aria-label="Navigation menu"
     aria-modal="true"
-    class="c8"
+    class="c10"
     id="mobile-nav"
     role="dialog"
   >
     <div
-      class="c9"
+      class="c11"
     >
       <button
         aria-label="Close menu"
-        class="c5"
+        class="c7"
       >
         <svg
           aria-hidden="true"
@@ -607,9 +708,15 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
       aria-label="Mobile navigation"
     >
       <div
-        class="c10"
+        class="c12"
       />
     </nav>
+    <button
+      aria-label="Switch to English"
+      class="c6 c13"
+    >
+      EN
+    </button>
   </div>
 </div>
 `;

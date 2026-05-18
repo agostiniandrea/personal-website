@@ -155,12 +155,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   color: #3b82f6;
 }
 
-.c3:focus {
+.c3:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 
-.c5 {
+.c6 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -175,6 +175,11 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 .c4 {
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.c5 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -241,27 +246,25 @@ exports[`SiteFooter renders correctly with social links 1`] = `
       >
         <a
           aria-label="LinkedIn"
-          class="c3"
+          class="c3 c4"
           href="https://linkedin.com/in/agostiniandrea"
           rel="noopener noreferrer"
-          tabindex="0"
           target="_blank"
         >
           LinkedIn
         </a>
         <a
           aria-label="GitHub"
-          class="c3"
+          class="c3 c4"
           href="https://github.com/agostiniandrea"
           rel="noopener noreferrer"
-          tabindex="0"
           target="_blank"
         >
           GitHub
         </a>
       </div>
       <div
-        class="c4"
+        class="c5"
       >
         <div
           class="carbonbadge  wcb-d "
@@ -269,7 +272,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         />
       </div>
       <p
-        class="c5"
+        class="c6"
         style="text-align: center;"
         variant="small"
       >

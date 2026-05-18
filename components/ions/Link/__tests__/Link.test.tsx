@@ -22,7 +22,7 @@ describe("Link", () => {
     };
 
     renderWithTheme(
-      <Link href="https://example.com" styles={customStyles}>
+      <Link href="https://example.com" style={customStyles}>
         Test Link
       </Link>,
     );

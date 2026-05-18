@@ -13,12 +13,14 @@ interface ImageProps {
   height?: number;
   priority?: boolean;
   sizes?: string;
+  onLoad?: () => void;
 }
 
-const ImageWrapper = styled.figure`
+const ImageWrapper = styled.figure<{ $fill?: boolean }>`
   margin: 0;
   padding: 0;
   position: relative;
+  ${({ $fill }) => $fill && "width: 100%; height: 100%;"}
 `;
 
 const FigCaption = styled.figcaption`
@@ -44,6 +46,7 @@ const Image: React.FC<ImageProps> = ({
   height,
   priority = false,
   sizes,
+  onLoad,
 }) => {
   const hasDimensions = width !== undefined && height !== undefined;
   const descriptionId = longDescription
@@ -61,19 +64,21 @@ const Image: React.FC<ImageProps> = ({
   };
 
   return (
-    <ImageWrapper>
+    <ImageWrapper className={className} $fill={!hasDimensions}>
       {hasDimensions ? (
         <NextImage
           {...sharedProps}
           width={width}
           height={height}
           style={{ maxWidth: "100%", height: "auto", display: "block", objectFit: "cover", ...style }}
+          onLoad={onLoad}
         />
       ) : (
         <NextImage
           {...sharedProps}
           fill
           style={{ objectFit: "cover", ...style }}
+          onLoad={onLoad}
         />
       )}
       {longDescription && (

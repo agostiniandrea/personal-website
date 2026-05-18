@@ -2,8 +2,7 @@ import React from "react";
 
 import { getImageSizes } from "@lib/utils/getImageSizes";
 import { InstagramMedia } from "@lib/types/instagram";
-import Image from "next/image";
-import Link from "next/link";
+import { Image, Link } from "@components/ions";
 import styled from "styled-components";
 
 type InstagramPostProps = {
@@ -38,14 +37,11 @@ const InstagramPost: React.FC<InstagramPostProps> = ({
   <StyledLink
     {...restProps}
     style={style}
-    target="_blank"
     href={media.permalink}
-    passHref
+    isExternal
   >
     <Image
-      fill
       loading="lazy"
-      style={{ objectFit: "cover" }}
       src={media.thumbnail_url || media.media_url || ""}
       alt={media.caption || "Instagram post"}
       sizes={getImageSizes(["50vw", "33vw", "33vw", "20vw", "20vw"])}
