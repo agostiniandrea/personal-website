@@ -89,7 +89,7 @@ const DrawerTopBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 `;
