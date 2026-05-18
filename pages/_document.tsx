@@ -10,6 +10,8 @@ export default function Document() {
             __html: `
               html { background: ${colors.background}; }
               body { background: ${colors.background}; color: ${colors.main}; font-family: sans-serif; margin: 0; padding: 0; }
+              a { color: inherit; text-decoration: none; }
+              button { background: none; border: none; }
             `,
           }}
         />
