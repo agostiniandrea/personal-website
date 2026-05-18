@@ -19,30 +19,38 @@ exports[`Projects renders correctly with a single item 1`] = `
   grid-column: 2/auto;
 }
 
-.c9 {
+.c10 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
 }
 
-.c11 {
+.c12 {
   color: #3b82f6;
   text-decoration: none;
   line-height: 1;
   transition: color 0.2s ease-in-out;
 }
 
-.c11:hover {
+.c12:hover {
   color: #3b82f6;
 }
 
-.c11:focus-visible {
+.c12:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 
-.c7 {
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c8 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -50,7 +58,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 0;
 }
 
-.c2 {
+.c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -58,7 +66,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -68,13 +76,13 @@ exports[`Projects renders correctly with a single item 1`] = `
   max-width: 600px;
 }
 
-.c4 {
+.c5 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
-.c5 {
+.c6 {
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -83,11 +91,11 @@ exports[`Projects renders correctly with a single item 1`] = `
   transition: border-color 0.2s ease;
 }
 
-.c5:hover {
+.c6:hover {
   border-color: #3b82f6;
 }
 
-.c6 {
+.c7 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
@@ -95,25 +103,25 @@ exports[`Projects renders correctly with a single item 1`] = `
   margin: 0 0 0.75rem;
 }
 
-.c8 {
+.c9 {
   margin-bottom: 1.5rem;
   flex: 1;
 }
 
-.c10 {
+.c11 {
   font-size: 0.75rem;
   padding: 0.25rem 0.625rem;
   border: 1px solid #a0a0b0;
   color: #a0a0b0;
 }
 
-.c12 {
+.c13 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c12:hover {
+.c13:hover {
   text-decoration: underline;
 }
 
@@ -164,19 +172,19 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c3 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -190,59 +198,60 @@ exports[`Projects renders correctly with a single item 1`] = `
       class="c1"
     >
       <p
-        class="c2"
+        class="c2 c3"
+        variant="regular"
       >
         Projects
       </p>
       <h2
-        class="c3"
+        class="c4"
       >
         What I've built
       </h2>
       <div
-        class="c4"
+        class="c5"
       >
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             Petite Revery
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               Next.js
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Shopify
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               styled-components
             </span>
           </div>
           <a
             aria-label="View project: Petite Revery"
-            class="c11 c12"
+            class="c12 c13"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -251,51 +260,51 @@ exports[`Projects renders correctly with a single item 1`] = `
           </a>
         </article>
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             7mesh Industries
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               Next.js
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Shopify
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Algolia
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Storybook
             </span>
           </div>
           <a
             aria-label="View project: 7mesh Industries"
-            class="c11 c12"
+            class="c12 c13"
             href="https://7mesh.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -328,30 +337,38 @@ exports[`Projects renders correctly with full project list 1`] = `
   grid-column: 2/auto;
 }
 
-.c9 {
+.c10 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
 }
 
-.c11 {
+.c12 {
   color: #3b82f6;
   text-decoration: none;
   line-height: 1;
   transition: color 0.2s ease-in-out;
 }
 
-.c11:hover {
+.c12:hover {
   color: #3b82f6;
 }
 
-.c11:focus-visible {
+.c12:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 
-.c7 {
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c8 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -359,7 +376,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 0;
 }
 
-.c2 {
+.c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -367,7 +384,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -377,13 +394,13 @@ exports[`Projects renders correctly with full project list 1`] = `
   max-width: 600px;
 }
 
-.c4 {
+.c5 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
-.c5 {
+.c6 {
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -392,11 +409,11 @@ exports[`Projects renders correctly with full project list 1`] = `
   transition: border-color 0.2s ease;
 }
 
-.c5:hover {
+.c6:hover {
   border-color: #3b82f6;
 }
 
-.c6 {
+.c7 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
@@ -404,25 +421,25 @@ exports[`Projects renders correctly with full project list 1`] = `
   margin: 0 0 0.75rem;
 }
 
-.c8 {
+.c9 {
   margin-bottom: 1.5rem;
   flex: 1;
 }
 
-.c10 {
+.c11 {
   font-size: 0.75rem;
   padding: 0.25rem 0.625rem;
   border: 1px solid #a0a0b0;
   color: #a0a0b0;
 }
 
-.c12 {
+.c13 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c12:hover {
+.c13:hover {
   text-decoration: underline;
 }
 
@@ -473,19 +490,19 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c3 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c4 {
+  .c5 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -499,59 +516,60 @@ exports[`Projects renders correctly with full project list 1`] = `
       class="c1"
     >
       <p
-        class="c2"
+        class="c2 c3"
+        variant="regular"
       >
         Projects
       </p>
       <h2
-        class="c3"
+        class="c4"
       >
         What I've built
       </h2>
       <div
-        class="c4"
+        class="c5"
       >
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             Petite Revery
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               Next.js
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Shopify
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               styled-components
             </span>
           </div>
           <a
             aria-label="View project: Petite Revery"
-            class="c11 c12"
+            class="c12 c13"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -560,51 +578,51 @@ exports[`Projects renders correctly with full project list 1`] = `
           </a>
         </article>
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             7mesh Industries
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               Next.js
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Shopify
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Algolia
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Storybook
             </span>
           </div>
           <a
             aria-label="View project: 7mesh Industries"
-            class="c11 c12"
+            class="c12 c13"
             href="https://7mesh.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -613,46 +631,46 @@ exports[`Projects renders correctly with full project list 1`] = `
           </a>
         </article>
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             Nest Designs
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             Baby and kids lifestyle brand. Shopify Plus storefront with subscription products, loyalty integration, and multi-currency support.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               Next.js
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Shopify Plus
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Klaviyo
             </span>
           </div>
           <a
             aria-label="View project: Nest Designs"
-            class="c11 c12"
+            class="c12 c13"
             href="https://nestdesigns.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -661,107 +679,107 @@ exports[`Projects renders correctly with full project list 1`] = `
           </a>
         </article>
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             Videoland
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             Dutch video streaming platform. Led frontend architecture for the React rewrite from a legacy codebase, delivering live sports, series, and films.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               React
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Redux
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Jest
             </span>
           </div>
         </article>
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             Arfer
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             B2B furniture configurator for architects and interior designers. Real-time 3D preview with a custom quote engine built on React and Three.js.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               React
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Three.js
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               TypeScript
             </span>
           </div>
         </article>
         <article
-          class="c5"
+          class="c6"
         >
           <h3
-            class="c6"
+            class="c7"
           >
             Sprintt Ceramica
           </h3>
           <p
-            class="c7 c8"
+            class="c8 c9"
             variant="small"
           >
             Ecommerce and product catalogue for an Italian ceramic tile manufacturer. Custom CMS integration and multi-language support.
           </p>
           <div
-            class="c9"
+            class="c10"
           >
             <span
-              class="c10"
+              class="c11"
             >
               React
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               Contentful
             </span>
             <span
-              class="c10"
+              class="c11"
             >
               i18n
             </span>

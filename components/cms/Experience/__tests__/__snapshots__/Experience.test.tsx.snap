@@ -14,11 +14,19 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   grid-column: 2/auto;
 }
 
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
 .c0 {
   margin: 3rem 0;
 }
 
-.c2 {
+.c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -26,7 +34,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -36,7 +44,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   max-width: 600px;
 }
 
-.c4 {
+.c5 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -45,7 +53,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   gap: 0;
 }
 
-.c5 {
+.c6 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -53,24 +61,22 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   border-top: 1px solid #a0a0b0;
 }
 
-.c5:last-child {
+.c6:last-child {
   border-bottom: 1px solid #a0a0b0;
 }
 
-.c6 {
+.c7 {
   font-size: 0.8125rem;
-  color: #a0a0b0;
   margin: 0 0 0.25rem;
 }
 
-.c7 {
+.c8 {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #a0a0b0;
   margin: 0;
 }
 
-.c8 {
+.c9 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
@@ -78,9 +84,8 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   margin: 0 0 0.625rem;
 }
 
-.c9 {
+.c10 {
   font-size: 0.9375rem;
-  color: #a0a0b0;
   line-height: 1.65;
   margin: 0 0 1rem;
 }
@@ -132,13 +137,13 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c3 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c5 {
+  .c6 {
     grid-template-columns: 200px 1fr;
     gap: 2rem;
   }
@@ -153,31 +158,34 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
       class="c1"
     >
       <p
-        class="c2"
+        class="c2 c3"
+        variant="regular"
       >
         Experience
       </p>
       <h2
-        class="c3"
+        class="c4"
       >
         Where I've worked
       </h2>
       <ol
-        class="c4"
+        class="c5"
       >
         <li
-          class="c5"
+          class="c6"
         >
           <div
             class=""
           >
             <p
-              class="c6"
+              class="c2 c7"
+              variant="regular"
             >
               2021 — Present
             </p>
             <p
-              class="c7"
+              class="c2 c8"
+              variant="regular"
             >
               JIBE eCommerce
             </p>
@@ -186,12 +194,13 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
             class=""
           >
             <h3
-              class="c8"
+              class="c9"
             >
               Senior Frontend Developer
             </h3>
             <p
-              class="c9"
+              class="c2 c10"
+              variant="regular"
             >
               Leading frontend development for headless Shopify storefronts.
             </p>
@@ -217,11 +226,25 @@ exports[`Experience renders correctly with all items 1`] = `
   grid-column: 2/auto;
 }
 
+.c11 {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
 .c0 {
   margin: 3rem 0;
 }
 
-.c2 {
+.c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -229,7 +252,7 @@ exports[`Experience renders correctly with all items 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c3 {
+.c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -239,7 +262,7 @@ exports[`Experience renders correctly with all items 1`] = `
   max-width: 600px;
 }
 
-.c4 {
+.c5 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -248,7 +271,7 @@ exports[`Experience renders correctly with all items 1`] = `
   gap: 0;
 }
 
-.c5 {
+.c6 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -256,24 +279,22 @@ exports[`Experience renders correctly with all items 1`] = `
   border-top: 1px solid #a0a0b0;
 }
 
-.c5:last-child {
+.c6:last-child {
   border-bottom: 1px solid #a0a0b0;
 }
 
-.c6 {
+.c7 {
   font-size: 0.8125rem;
-  color: #a0a0b0;
   margin: 0 0 0.25rem;
 }
 
-.c7 {
+.c8 {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #a0a0b0;
   margin: 0;
 }
 
-.c8 {
+.c9 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
@@ -281,20 +302,13 @@ exports[`Experience renders correctly with all items 1`] = `
   margin: 0 0 0.625rem;
 }
 
-.c9 {
+.c10 {
   font-size: 0.9375rem;
-  color: #a0a0b0;
   line-height: 1.65;
   margin: 0 0 1rem;
 }
 
-.c10 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.c11 {
+.c12 {
   font-size: 0.75rem;
   padding: 0.25rem 0.625rem;
   border: 1px solid #a0a0b0;
@@ -348,13 +362,13 @@ exports[`Experience renders correctly with all items 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c3 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c5 {
+  .c6 {
     grid-template-columns: 200px 1fr;
     gap: 2rem;
   }
@@ -369,31 +383,34 @@ exports[`Experience renders correctly with all items 1`] = `
       class="c1"
     >
       <p
-        class="c2"
+        class="c2 c3"
+        variant="regular"
       >
         Experience
       </p>
       <h2
-        class="c3"
+        class="c4"
       >
         Where I've worked
       </h2>
       <ol
-        class="c4"
+        class="c5"
       >
         <li
-          class="c5"
+          class="c6"
         >
           <div
             class=""
           >
             <p
-              class="c6"
+              class="c2 c7"
+              variant="regular"
             >
               2021 — Present
             </p>
             <p
-              class="c7"
+              class="c2 c8"
+              variant="regular"
             >
               JIBE eCommerce
             </p>
@@ -402,40 +419,41 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c8"
+              class="c9"
             >
               Senior Frontend Developer & Tech Lead
             </h3>
             <p
-              class="c9"
+              class="c2 c10"
+              variant="regular"
             >
               Leading frontend development for headless Shopify storefronts across multiple clients. Architecting shared component libraries, design systems, and CI/CD pipelines. Clients include Petite Revery, 7mesh Industries, and Nest Designs.
             </p>
             <div
-              class="c10"
+              class="c11"
             >
               <span
-                class="c11"
+                class="c12"
               >
                 Next.js
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 TypeScript
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 Shopify
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 styled-components
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 Storybook
               </span>
@@ -443,18 +461,20 @@ exports[`Experience renders correctly with all items 1`] = `
           </div>
         </li>
         <li
-          class="c5"
+          class="c6"
         >
           <div
             class=""
           >
             <p
-              class="c6"
+              class="c2 c7"
+              variant="regular"
             >
               2019 — 2021
             </p>
             <p
-              class="c7"
+              class="c2 c8"
+              variant="regular"
             >
               RTL Nederland — Videoland
             </p>
@@ -463,35 +483,36 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c8"
+              class="c9"
             >
               Senior Frontend Developer
             </h3>
             <p
-              class="c9"
+              class="c2 c10"
+              variant="regular"
             >
               Led the React rewrite of the Videoland streaming platform, migrating from a legacy codebase. Delivered live sports, series, and film experiences to millions of users across web and smart TV.
             </p>
             <div
-              class="c10"
+              class="c11"
             >
               <span
-                class="c11"
+                class="c12"
               >
                 React
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 TypeScript
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 Redux
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 Jest
               </span>
@@ -499,18 +520,20 @@ exports[`Experience renders correctly with all items 1`] = `
           </div>
         </li>
         <li
-          class="c5"
+          class="c6"
         >
           <div
             class=""
           >
             <p
-              class="c6"
+              class="c2 c7"
+              variant="regular"
             >
               2017 — 2019
             </p>
             <p
-              class="c7"
+              class="c2 c8"
+              variant="regular"
             >
               Freelance
             </p>
@@ -519,30 +542,31 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c8"
+              class="c9"
             >
               Frontend Developer
             </h3>
             <p
-              class="c9"
+              class="c2 c10"
+              variant="regular"
             >
               Delivered frontend projects for clients across ecommerce, automotive, and media. Key work includes Sprintt Ceramica and MOPAR Europe.
             </p>
             <div
-              class="c10"
+              class="c11"
             >
               <span
-                class="c11"
+                class="c12"
               >
                 React
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 JavaScript
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 WordPress
               </span>
@@ -550,18 +574,20 @@ exports[`Experience renders correctly with all items 1`] = `
           </div>
         </li>
         <li
-          class="c5"
+          class="c6"
         >
           <div
             class=""
           >
             <p
-              class="c6"
+              class="c2 c7"
+              variant="regular"
             >
               2013 — 2017
             </p>
             <p
-              class="c7"
+              class="c2 c8"
+              variant="regular"
             >
               Various agencies
             </p>
@@ -570,35 +596,36 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c8"
+              class="c9"
             >
               Frontend Developer
             </h3>
             <p
-              class="c9"
+              class="c2 c10"
+              variant="regular"
             >
               Worked at several digital agencies in Milan, building interactive campaigns, brand sites, and online games. Clients included Fiat, Chrysler, and Arfer.
             </p>
             <div
-              class="c10"
+              class="c11"
             >
               <span
-                class="c11"
+                class="c12"
               >
                 JavaScript
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 HTML
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 CSS
               </span>
               <span
-                class="c11"
+                class="c12"
               >
                 jQuery
               </span>

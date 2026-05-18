@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container } from "@components/ions";
+import { Box, Container, Flex, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface ExperienceItem {
@@ -20,7 +20,7 @@ const Section = styled.section`
   margin: 3rem 0;
 `;
 
-const SectionLabel = styled.p`
+const SectionLabel = styled(Text)`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -68,22 +68,16 @@ const Item = styled.li`
   }
 `;
 
-const Meta = styled.div``;
-
-const Period = styled.p`
+const Period = styled(Text)`
   font-size: 0.8125rem;
-  color: ${({ theme }) => theme.colors.paragraph};
   margin: 0 0 0.25rem;
 `;
 
-const Company = styled.p`
+const Company = styled(Text)`
   font-size: 0.9375rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.paragraph};
   margin: 0;
 `;
-
-const Body = styled.div``;
 
 const Role = styled.h3`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -93,17 +87,10 @@ const Role = styled.h3`
   margin: 0 0 0.625rem;
 `;
 
-const Description = styled.p`
+const Description = styled(Text)`
   font-size: 0.9375rem;
-  color: ${({ theme }) => theme.colors.paragraph};
   line-height: 1.65;
   margin: 0 0 1rem;
-`;
-
-const TagRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 `;
 
 const Tag = styled.span`
@@ -122,21 +109,21 @@ const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items })
       <List>
         {items.map((item) => (
           <Item key={`${item.company}-${item.role}`}>
-            <Meta>
+            <Box>
               <Period>{item.period}</Period>
               <Company>{item.company}</Company>
-            </Meta>
-            <Body>
+            </Box>
+            <Box>
               <Role>{item.role}</Role>
               <Description>{item.description}</Description>
               {item.tags && item.tags.length > 0 && (
-                <TagRow>
+                <Flex wrap="wrap" gap="sm">
                   {item.tags.map((tag) => (
                     <Tag key={tag}>{tag}</Tag>
                   ))}
-                </TagRow>
+                </Flex>
               )}
-            </Body>
+            </Box>
           </Item>
         ))}
       </List>
