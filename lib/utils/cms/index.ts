@@ -53,11 +53,12 @@ export type TPath = {
   slug: string;
 };
 
-export const getPaths = async (content_type: string): Promise<TPath[]> => {
+export const getPaths = async (content_type: string, locale = "en"): Promise<TPath[]> => {
   const content = (await client
     .getEntries({
       content_type,
       include: 3,
+      locale,
     })
     .then((response) => {
       return response.items;
@@ -73,14 +74,15 @@ const getSlugs = (entries: TPageContent[]): TPath[] => {
 export const getPageContent = async (
   content_type: string,
   path: string,
+  locale = "en",
 ): Promise<TPageFields | null> => {
   const content = (await client
     .getEntries({
       content_type,
       ...(content_type !== PAGE_TYPES.HOME && { "fields.uid": path }),
-      /* select: "fields", */
       limit: 1,
-      include: 3, // update for more depth
+      include: 3,
+      locale,
     })
     .then((response) => {
       return response.items[0];
@@ -113,9 +115,9 @@ export type TSiteFooterData = {
   copyrightName: string;
 };
 
-export const getSiteHeaderContent = async (): Promise<TSiteHeaderData | null> => {
+export const getSiteHeaderContent = async (locale = "en"): Promise<TSiteHeaderData | null> => {
   const entry = await client
-    .getEntries({ content_type: "siteHeader", limit: 1, include: 2 })
+    .getEntries({ content_type: "siteHeader", limit: 1, include: 2, locale })
     .then((response) => response.items[0] as any);
 
   if (!entry) return null;
@@ -129,9 +131,9 @@ export const getSiteHeaderContent = async (): Promise<TSiteHeaderData | null> =>
   };
 };
 
-export const getSiteFooterContent = async (): Promise<TSiteFooterData | null> => {
+export const getSiteFooterContent = async (locale = "en"): Promise<TSiteFooterData | null> => {
   const entry = await client
-    .getEntries({ content_type: "siteFooter", limit: 1, include: 2 })
+    .getEntries({ content_type: "siteFooter", limit: 1, include: 2, locale })
     .then((response) => response.items[0] as any);
 
   if (!entry) return null;

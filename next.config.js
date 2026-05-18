@@ -8,6 +8,10 @@ config(); // This loads variables into process.env
 const nextConfig = {
   reactStrictMode: true,
   devIndicators: false,
+  i18n: {
+    locales: ["en", "it"],
+    defaultLocale: "en",
+  },
   images: {
     remotePatterns: [
       {
