@@ -65,7 +65,7 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
   transition: opacity 0.3s ease;
 `;
 
-const Drawer = styled.nav<{ $isOpen: boolean }>`
+const Drawer = styled.nav<{ $isOpen: boolean; $mounted: boolean }>`
   position: fixed;
   top: 0;
   right: 0;
@@ -78,7 +78,7 @@ const Drawer = styled.nav<{ $isOpen: boolean }>`
   flex-direction: column;
   gap: 1.5rem;
   transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
-  transition: transform 0.3s ease;
+  transition: ${({ $mounted }) => ($mounted ? "transform 0.3s ease" : "none")};
 `;
 
 const DrawerHeader = styled.div`
@@ -105,6 +105,11 @@ const DrawerLinks = styled.div`
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -141,7 +146,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
         </Container>
       </Header>
       <Overlay $isOpen={isOpen} onClick={() => setIsOpen(false)} aria-hidden="true" />
-      <Drawer $isOpen={isOpen} aria-label="Site navigation">
+      <Drawer $isOpen={isOpen} $mounted={mounted} aria-label="Site navigation">
         <DrawerHeader>
           <CloseButton onClick={() => setIsOpen(false)} aria-label="Close menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
