@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Container, Flex, Link } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -22,7 +23,7 @@ const Header = styled.header`
   padding: 0.75rem 0;
 `;
 
-const Logo = styled.a`
+const Logo = styled(Link)`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: 1.25rem;
   font-weight: bold;
@@ -34,6 +35,7 @@ const Logo = styled.a`
 const DesktopNav = styled.nav`
   display: none;
   gap: 2rem;
+  align-items: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: flex;
@@ -56,6 +58,35 @@ const IconButton = styled.button`
 const HamburgerButton = styled(IconButton)`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
+  }
+`;
+
+const LocaleButton = styled.button`
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0.25rem 0.625rem;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.headline};
+  border-radius: ${({ theme }) => theme.radii.xs};
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
   }
 `;
 
@@ -102,11 +133,26 @@ const DrawerLinks = styled.div`
   overflow-y: auto;
 `;
 
+const DrawerLocaleButton = styled(LocaleButton)`
+  margin-top: auto;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
+`;
+
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const nextLocale = router.locale === "en" ? "it" : "en";
+
+  const switchLocale = () => {
+    router.push({ pathname: router.pathname, query: router.query }, router.asPath, {
+      locale: nextLocale,
+    });
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -169,6 +215,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
                   {link.label}
                 </Link>
               ))}
+              <LocaleButton onClick={switchLocale} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
+                {nextLocale.toUpperCase()}
+              </LocaleButton>
             </DesktopNav>
             <HamburgerButton
               ref={hamburgerRef}
@@ -214,6 +263,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
                 ))}
               </DrawerLinks>
             </nav>
+            <DrawerLocaleButton onClick={() => { closeDrawer(); switchLocale(); }} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
+              {nextLocale.toUpperCase()}
+            </DrawerLocaleButton>
           </Drawer>
         </>
       )}

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeroPortfolio renders correctly with all props 1`] = `
-.c13 {
+.c14 {
   width: 100%;
   height: 1rem;
   border-radius: 50%;
@@ -28,6 +28,30 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.c15 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.c10 {
+  color: #3b82f6;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
+}
+
+.c10:hover {
+  color: #3b82f6;
+}
+
+.c10:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
 .c7 {
@@ -88,7 +112,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   line-height: 1.6;
 }
 
-.c10 {
+.c11 {
   display: inline-block;
   padding: 0.875rem 2rem;
   background: #1d4ed8;
@@ -100,16 +124,16 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: opacity 0.2s ease;
 }
 
-.c10:hover {
+.c11:hover {
   opacity: 0.85;
 }
 
-.c10:focus-visible {
+.c11:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 3px;
 }
 
-.c11 {
+.c12 {
   display: inline-block;
   padding: 0.875rem 2rem;
   border: 2px solid #3b82f6;
@@ -121,13 +145,352 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c11:hover {
+.c12:hover {
   background: #3b82f6;
   color: #ffffff;
 }
 
-.c11:focus-visible {
+.c12:focus-visible {
   outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+.c13 {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #3b82f6;
+}
+
+.c16 {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 600px) {
+  .c9 {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c9 {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c9 {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c2 {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c3 {
+    text-align: left;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c5 {
+    font-size: 5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c6 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c8 {
+    margin: 0 0 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c13 {
+    width: 380px;
+    height: 380px;
+  }
+}
+
+@keyframes k0 {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c3"
+        >
+          <p
+            class="c4"
+          >
+            Hi, I'm
+          </p>
+          <h1
+            class="c5"
+          >
+            Andrea Agostini
+          </h1>
+          <p
+            class="c6"
+          >
+            Senior Frontend Developer & Tech Lead
+          </p>
+          <p
+            class="c7 c8"
+            variant="large"
+          >
+            Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.
+          </p>
+          <div
+            class="c9"
+          >
+            <a
+              class="c10 c11"
+              href="#projects"
+            >
+              View Projects
+            </a>
+            <a
+              class="c10 c12"
+              href="mailto:test@test.com"
+            >
+              Get in touch
+            </a>
+          </div>
+        </div>
+        <div
+          class="c13"
+          style="position: relative; width: 240px; height: 240px; flex-shrink: 0; border-radius: 50%; overflow: hidden;"
+        >
+          <div
+            aria-hidden="true"
+            class="c14"
+            style="position: absolute; inset: 0; width: 100%; height: 100%;"
+          />
+          <figure
+            class="c15 c16"
+          >
+            <img
+              alt="Andrea Agostini"
+              class="c16"
+              sizes="(max-width: 1200px) 240px, 380px"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
+              style="object-fit: cover;"
+            />
+          </figure>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
+.c13 {
+  width: 100%;
+  height: 1rem;
+  border-radius: 50%;
+  background: linear-gradient(     90deg,     #1a1a2e 25%,     #252540 50%,     #1a1a2e 75%   );
+  background-size: 200% 100%;
+  animation: k0 1.5s ease-in-out infinite;
+}
+
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c9 {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.c14 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.c10 {
+  color: #3b82f6;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
+}
+
+.c10:hover {
+  color: #3b82f6;
+}
+
+.c10:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.c7 {
+  color: #a0a0b0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c0 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  margin: 5rem 0;
+}
+
+.c2 {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3rem;
+  align-items: center;
+}
+
+.c3 {
+  flex: 1;
+  text-align: center;
+}
+
+.c4 {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a0a0b0;
+  margin: 0 0 1rem;
+}
+
+.c5 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 3.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0 0 1rem;
+}
+
+.c6 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.5rem;
+  color: #3b82f6;
+  line-height: 1.2;
+  margin: 0 0 1.5rem;
+}
+
+.c8 {
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.c11 {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.c11:hover {
+  opacity: 0.85;
+}
+
+.c11:focus-visible {
+  outline: 2px solid #ffffff;
   outline-offset: 3px;
 }
 
@@ -141,7 +504,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   border: 3px solid #3b82f6;
 }
 
-.c14 {
+.c15 {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -297,16 +660,10 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
             class="c9"
           >
             <a
-              class="c10"
+              class="c10 c11"
               href="#projects"
             >
               View Projects
-            </a>
-            <a
-              class="c11"
-              href="mailto:test@test.com"
-            >
-              Get in touch
             </a>
           </div>
         </div>
@@ -319,318 +676,17 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
             class="c13"
             style="position: absolute; inset: 0; width: 100%; height: 100%;"
           />
-          <img
-            alt="Andrea Agostini"
-            class="c14"
-            sizes="(max-width: 1200px) 240px, 380px"
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
-            style="object-fit: cover;"
-          />
-        </div>
-      </div>
-    </section>
-  </section>
-</div>
-`;
-
-exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
-.c12 {
-  width: 100%;
-  height: 1rem;
-  border-radius: 50%;
-  background: linear-gradient(     90deg,     #1a1a2e 25%,     #252540 50%,     #1a1a2e 75%   );
-  background-size: 200% 100%;
-  animation: k0 1.5s ease-in-out infinite;
-}
-
-.c1 {
-  display: grid;
-  position: relative;
-  min-height: auto;
-  width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-  column-gap: calc(24px);
-}
-
-.c1 >* {
-  grid-column: 2/auto;
-}
-
-.c9 {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.c7 {
-  color: #a0a0b0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-}
-
-.c0 {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  margin: 5rem 0;
-}
-
-.c2 {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 3rem;
-  align-items: center;
-}
-
-.c3 {
-  flex: 1;
-  text-align: center;
-}
-
-.c4 {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #a0a0b0;
-  margin: 0 0 1rem;
-}
-
-.c5 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 3.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1;
-  margin: 0 0 1rem;
-}
-
-.c6 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.5rem;
-  color: #3b82f6;
-  line-height: 1.2;
-  margin: 0 0 1.5rem;
-}
-
-.c8 {
-  max-width: 500px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.6;
-}
-
-.c10 {
-  display: inline-block;
-  padding: 0.875rem 2rem;
-  background: #1d4ed8;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.c10:hover {
-  opacity: 0.85;
-}
-
-.c10:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
-}
-
-.c11 {
-  position: relative;
-  width: 240px;
-  height: 240px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #3b82f6;
-}
-
-.c13 {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-@media (min-width: 600px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-    column-gap: calc(24px);
-  }
-}
-
-@media (min-width: 900px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
-    column-gap: calc(36px);
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
-    column-gap: calc(81px);
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
-    column-gap: calc(121.5px);
-  }
-}
-
-@media (min-width: 600px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 600px) {
-  .c9 {
-    justify-content: center;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c9 {
-    justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c9 {
-    justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c2 {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 4rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c3 {
-    text-align: left;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c5 {
-    font-size: 5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c6 {
-    font-size: 2rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c8 {
-    margin: 0 0 2.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c11 {
-    width: 380px;
-    height: 380px;
-  }
-}
-
-@keyframes k0 {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-<div>
-  <section
-    class="c0"
-  >
-    <section
-      class="c1"
-    >
-      <div
-        class="c2"
-      >
-        <div
-          class="c3"
-        >
-          <p
-            class="c4"
+          <figure
+            class="c14 c15"
           >
-            Hi, I'm
-          </p>
-          <h1
-            class="c5"
-          >
-            Andrea Agostini
-          </h1>
-          <p
-            class="c6"
-          >
-            Senior Frontend Developer & Tech Lead
-          </p>
-          <p
-            class="c7 c8"
-            variant="large"
-          >
-            Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.
-          </p>
-          <div
-            class="c9"
-          >
-            <a
-              class="c10"
-              href="#projects"
-            >
-              View Projects
-            </a>
-          </div>
-        </div>
-        <div
-          class="c11"
-          style="position: relative; width: 240px; height: 240px; flex-shrink: 0; border-radius: 50%; overflow: hidden;"
-        >
-          <div
-            aria-hidden="true"
-            class="c12"
-            style="position: absolute; inset: 0; width: 100%; height: 100%;"
-          />
-          <img
-            alt="Andrea Agostini"
-            class="c13"
-            sizes="(max-width: 1200px) 240px, 380px"
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
-            style="object-fit: cover;"
-          />
+            <img
+              alt="Andrea Agostini"
+              class="c15"
+              sizes="(max-width: 1200px) 240px, 380px"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
+              style="object-fit: cover;"
+            />
+          </figure>
         </div>
       </div>
     </section>

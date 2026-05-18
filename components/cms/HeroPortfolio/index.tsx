@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import styled from "styled-components";
-import { Box, Container, Flex, Skeleton, Text } from "@components/ions";
+import { Box, Container, Flex, Image, Link, Skeleton, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface HeroPortfolioProps {
@@ -89,7 +88,7 @@ const Tagline = styled(Text)`
   }
 `;
 
-const PrimaryLink = styled.a`
+const PrimaryLink = styled(Link)`
   display: inline-block;
   padding: 0.875rem 2rem;
   background: ${({ theme }) => theme.colors.button};
@@ -110,7 +109,7 @@ const PrimaryLink = styled.a`
   }
 `;
 
-const SecondaryLink = styled.a`
+const SecondaryLink = styled(Link)`
   display: inline-block;
   padding: 0.875rem 2rem;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
@@ -147,7 +146,7 @@ const PhotoWrapper = styled.div`
   }
 `;
 
-const StyledImage = styled(Image)<{ $loaded: boolean }>`
+const FadingImage = styled(Image)<{ $loaded: boolean }>`
   opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
   transition: opacity 0.4s ease;
 `;
@@ -203,12 +202,10 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
               />
             )}
-            <StyledImage
+            <FadingImage
               src={image.url}
               alt={image.alt || personName}
-              fill
               $loaded={imageLoaded}
-              style={{ objectFit: "cover" }}
               priority
               sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
               onLoad={() => setImageLoaded(true)}

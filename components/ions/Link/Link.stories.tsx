@@ -21,7 +21,7 @@ const meta: Meta<typeof Link> = {
       control: "text",
       description: "Accessibility label for the link",
     },
-    styles: {
+    style: {
       control: "object",
       description: "Custom styles to apply to the link",
     },
@@ -50,7 +50,7 @@ export const WithCustomStyles: Story = {
   args: {
     href: "#",
     children: "Styled Link",
-    styles: {
+    style: {
       color: "red",
       textDecoration: "underline",
     },
