@@ -13,10 +13,10 @@ export interface SiteHeaderProps {
   navLinks: SiteHeaderLink[];
 }
 
-const Header = styled.header<{ $drawerOpen: boolean }>`
+const Header = styled.header`
   position: sticky;
   top: 0;
-  z-index: ${({ $drawerOpen }) => ($drawerOpen ? 350 : 100)};
+  z-index: 100;
   background: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.75rem 0;
@@ -40,7 +40,7 @@ const DesktopNav = styled.nav`
   }
 `;
 
-const MenuButton = styled.button`
+const IconButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
@@ -51,7 +51,9 @@ const MenuButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
 
+const HamburgerButton = styled(IconButton)`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
   }
@@ -75,18 +77,35 @@ const Drawer = styled.nav<{ $isOpen: boolean }>`
   width: 280px;
   background: ${({ theme }) => theme.colors.background};
   z-index: 300;
-  padding: 5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
+  transition: transform 0.3s ease;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
+`;
+
+const DrawerTopBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+`;
+
+const DrawerLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
-  transition: transform 0.3s ease;
+  padding: 1.5rem;
+  overflow-y: auto;
 `;
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -135,12 +154,12 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
 
   const closeDrawer = () => {
     setIsOpen(false);
-    menuButtonRef.current?.focus();
+    hamburgerRef.current?.focus();
   };
 
   return (
     <>
-      <Header $drawerOpen={isOpen}>
+      <Header>
         <Container>
           <Flex justifyContent="space-between" alignItems="center">
             <Logo href="/">{logoText}</Logo>
@@ -151,26 +170,19 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
                 </Link>
               ))}
             </DesktopNav>
-            <MenuButton
-              ref={menuButtonRef}
-              onClick={() => (isOpen ? closeDrawer() : setIsOpen(true))}
-              aria-label={isOpen ? "Close menu" : "Open menu"}
+            <HamburgerButton
+              ref={hamburgerRef}
+              onClick={() => setIsOpen(true)}
+              aria-label="Open menu"
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
             >
-              {isOpen ? (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              ) : (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-              )}
-            </MenuButton>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </HamburgerButton>
           </Flex>
         </Container>
       </Header>
@@ -185,11 +197,21 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             role="dialog"
             aria-modal="true"
           >
-            {navLinks.map((link) => (
-              <Link key={link.url} href={link.url} onClick={closeDrawer}>
-                {link.label}
-              </Link>
-            ))}
+            <DrawerTopBar>
+              <IconButton onClick={closeDrawer} aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </IconButton>
+            </DrawerTopBar>
+            <DrawerLinks>
+              {navLinks.map((link) => (
+                <Link key={link.url} href={link.url} onClick={closeDrawer}>
+                  {link.label}
+                </Link>
+              ))}
+            </DrawerLinks>
           </Drawer>
         </>
       )}
