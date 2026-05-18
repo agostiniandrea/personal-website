@@ -8,6 +8,18 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
 const SkipLink = styled.a`
   position: absolute;
   top: -100%;
@@ -24,18 +36,6 @@ const SkipLink = styled.a`
     top: 0;
   }
 `;
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
