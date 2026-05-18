@@ -9,7 +9,7 @@ describe("Button", () => {
     const button = screen.getByRole("button", { name: "Click me" });
     expect(button).toBeInTheDocument();
     expect(button).toHaveStyle({
-      background: "#3b82f6",
+      background: "#1d4ed8",
       color: "#ffffff",
     });
   });
