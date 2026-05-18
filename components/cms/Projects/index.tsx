@@ -117,7 +117,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
               <CardLink
                 href={item.url}
                 isExternal
-                ariaLabel={item.urlLabel ?? "View project"}
+                ariaLabel={`View project: ${item.title}`}
               >
                 {item.urlLabel ?? "View project →"}
               </CardLink>

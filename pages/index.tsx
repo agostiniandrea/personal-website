@@ -60,8 +60,10 @@ export default function Home({ page, igData, header, footer }: THomepage) {
         seoTitle={page.seoTitle}
       />
       {header && <SiteHeader {...header} />}
-      <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
-      {igData && igData.length > 0 && <InstagramFeed igData={igData} />}
+      <main id="main-content">
+        <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
+        {igData && igData.length > 0 && <InstagramFeed igData={igData} />}
+      </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
     </>
   );

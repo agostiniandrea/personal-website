@@ -6,6 +6,24 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "styled-components";
+import styled from "styled-components";
+
+const SkipLink = styled.a`
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.75rem 1.25rem;
+  background: ${({ theme }) => theme.colors.button};
+  color: ${({ theme }) => theme.colors.button_text};
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 9999;
+  text-decoration: none;
+
+  &:focus {
+    top: 0;
+  }
+`;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,6 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${inter.variable} ${spaceGrotesk.variable}`} style={{ display: "contents" }}>
       <ThemeProvider theme={theme}>
+        <SkipLink href="#main-content">Skip to main content</SkipLink>
         <GlobalStyle />
         <Head />
         <Component {...pageProps} />

@@ -7,6 +7,7 @@ config(); // This loads variables into process.env
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  devIndicators: false,
   images: {
     remotePatterns: [
       {

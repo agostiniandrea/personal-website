@@ -44,8 +44,8 @@ describe("Projects", () => {
   it("renders a project link when url is provided", () => {
     renderWithTheme(<Projects {...defaultProjects} />);
     const firstItem = defaultProjects.items[0];
-    const links = screen.getAllByRole("link", { name: firstItem.urlLabel });
-    expect(links[0]).toHaveAttribute("href", firstItem.url);
+    const link = screen.getByRole("link", { name: `View project: ${firstItem.title}` });
+    expect(link).toHaveAttribute("href", firstItem.url);
   });
 
   it("does not render a link when url is absent", () => {
