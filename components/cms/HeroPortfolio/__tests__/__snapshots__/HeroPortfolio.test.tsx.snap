@@ -42,7 +42,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 5rem 0;
+  margin: 5rem 0;
 }
 
 .c2 {
@@ -365,7 +365,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 5rem 0;
+  margin: 5rem 0;
 }
 
 .c2 {

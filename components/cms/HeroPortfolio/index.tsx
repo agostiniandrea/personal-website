@@ -20,7 +20,7 @@ const Section = styled.section`
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 5rem 0;
+  margin: 5rem 0;
 `;
 
 const Grid = styled.div`

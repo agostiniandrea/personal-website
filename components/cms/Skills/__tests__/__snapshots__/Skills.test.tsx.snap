@@ -15,7 +15,7 @@ exports[`Skills renders correctly with a single category 1`] = `
 }
 
 .c0 {
-  padding: 6rem 0;
+  margin: 3rem 0;
 }
 
 .c2 {
@@ -202,7 +202,7 @@ exports[`Skills renders correctly with all categories 1`] = `
 }
 
 .c0 {
-  padding: 6rem 0;
+  margin: 3rem 0;
 }
 
 .c2 {
