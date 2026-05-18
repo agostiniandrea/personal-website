@@ -37,7 +37,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   color: #3b82f6;
 }
 
-.c11:focus {
+.c11:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
@@ -105,6 +105,16 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 0.25rem 0.625rem;
   border: 1px solid #a0a0b0;
   color: #a0a0b0;
+}
+
+.c12 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.c12:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 600px) {
@@ -232,10 +242,9 @@ exports[`Projects renders correctly with a single item 1`] = `
           </div>
           <a
             aria-label="View project: Petite Revery"
-            class="c11"
+            class="c11 c12"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
-            tabindex="0"
             target="_blank"
           >
             View project →
@@ -286,10 +295,9 @@ exports[`Projects renders correctly with a single item 1`] = `
           </div>
           <a
             aria-label="View project: 7mesh Industries"
-            class="c11"
+            class="c11 c12"
             href="https://7mesh.com"
             rel="noopener noreferrer"
-            tabindex="0"
             target="_blank"
           >
             View project →
@@ -338,7 +346,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   color: #3b82f6;
 }
 
-.c11:focus {
+.c11:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
@@ -406,6 +414,16 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 0.25rem 0.625rem;
   border: 1px solid #a0a0b0;
   color: #a0a0b0;
+}
+
+.c12 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.c12:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 600px) {
@@ -533,10 +551,9 @@ exports[`Projects renders correctly with full project list 1`] = `
           </div>
           <a
             aria-label="View project: Petite Revery"
-            class="c11"
+            class="c11 c12"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
-            tabindex="0"
             target="_blank"
           >
             View project →
@@ -587,10 +604,9 @@ exports[`Projects renders correctly with full project list 1`] = `
           </div>
           <a
             aria-label="View project: 7mesh Industries"
-            class="c11"
+            class="c11 c12"
             href="https://7mesh.com"
             rel="noopener noreferrer"
-            tabindex="0"
             target="_blank"
           >
             View project →
@@ -636,10 +652,9 @@ exports[`Projects renders correctly with full project list 1`] = `
           </div>
           <a
             aria-label="View project: Nest Designs"
-            class="c11"
+            class="c11 c12"
             href="https://nestdesigns.com"
             rel="noopener noreferrer"
-            tabindex="0"
             target="_blank"
           >
             View project →

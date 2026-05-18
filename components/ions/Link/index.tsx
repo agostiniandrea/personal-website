@@ -1,41 +1,18 @@
 import React from "react";
+import NextLink from "next/link";
 import styled from "styled-components";
 
-/**
- * Props for the Link component.
- */
 interface LinkProps {
-  /**
-   * The URL that the hyperlink points to.
-   */
   href: string;
-
-  /**
-   * The content of the link.
-   */
   children: React.ReactNode;
-
-  /**
-   * Whether the link should open in a new tab.
-   */
   isExternal?: boolean;
-
-  /**
-   * An accessible label for the link.
-   */
   ariaLabel?: string;
-
-  /**
-   * Additional styles to apply to the link.
-   */
-  styles?: React.CSSProperties;
-
+  style?: React.CSSProperties;
   onClick?: () => void;
+  className?: string;
 }
 
-const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
-  style: styles,
-}))<LinkProps>`
+const StyledLink = styled(NextLink)`
   color: ${({ theme }) => theme.colors.highlight};
   text-decoration: none;
   font-size: ${({ theme }) => theme.fontSizes.md};
@@ -46,7 +23,7 @@ const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
     color: ${({ theme }) => theme.colors.tertiary};
   }
 
-  &:focus {
+  &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
   }
@@ -55,27 +32,23 @@ const StyledLink = styled.a.attrs<LinkProps>(({ styles }) => ({
 const Link: React.FC<LinkProps> = ({
   href,
   children,
-  styles,
+  style,
   isExternal = false,
   ariaLabel,
   onClick,
-}) => {
-  const target = isExternal ? "_blank" : undefined;
-  const rel = isExternal ? "noopener noreferrer" : undefined;
-
-  return (
-    <StyledLink
-      href={href}
-      target={target}
-      rel={rel}
-      aria-label={ariaLabel}
-      styles={styles}
-      onClick={onClick}
-      tabIndex={0}
-    >
-      {children}
-    </StyledLink>
-  );
-};
+  className,
+}) => (
+  <StyledLink
+    href={href}
+    target={isExternal ? "_blank" : undefined}
+    rel={isExternal ? "noopener noreferrer" : undefined}
+    aria-label={ariaLabel}
+    style={style}
+    onClick={onClick}
+    className={className}
+  >
+    {children}
+  </StyledLink>
+);
 
 export default Link;

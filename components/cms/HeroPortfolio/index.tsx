@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import NextLink from "next/link";
 import styled from "styled-components";
 import { Box, Container, Flex, Skeleton, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -89,7 +90,7 @@ const Tagline = styled(Text)`
   }
 `;
 
-const PrimaryLink = styled.a`
+const PrimaryLink = styled(NextLink)`
   display: inline-block;
   padding: 0.875rem 2rem;
   background: ${({ theme }) => theme.colors.button};
@@ -110,7 +111,7 @@ const PrimaryLink = styled.a`
   }
 `;
 
-const SecondaryLink = styled.a`
+const SecondaryLink = styled(NextLink)`
   display: inline-block;
   padding: 0.875rem 2rem;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
