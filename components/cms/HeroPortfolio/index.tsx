@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { Box, Container, Flex, Text } from "@components/ions";
+import { Box, Container, Flex, Skeleton, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface HeroPortfolioProps {
@@ -130,12 +130,16 @@ const PhotoWrapper = styled.div`
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid ${({ theme }) => theme.colors.highlight};
-  background: ${({ theme }) => theme.colors.stroke};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     width: 380px;
     height: 380px;
   }
+`;
+
+const StyledImage = styled(Image)<{ $loaded: boolean }>`
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.4s ease;
 `;
 
 const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
@@ -148,41 +152,62 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   ctaPrimaryUrl,
   ctaSecondaryLabel,
   ctaSecondaryUrl,
-}) => (
-  <Section>
-    <Container>
-      <Grid>
-        <TextBlock>
-          <Greeting>{greeting}</Greeting>
-          <Name>{personName}</Name>
-          <Role>{role}</Role>
-          <Tagline variant="large">{tagline}</Tagline>
-          <Flex
-            gap="lg"
-            wrap="wrap"
-            justifyContent={["center", undefined, "flex-start"]}
+}) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  return (
+    <Section>
+      <Container>
+        <Grid>
+          <TextBlock>
+            <Greeting>{greeting}</Greeting>
+            <Name>{personName}</Name>
+            <Role>{role}</Role>
+            <Tagline variant="large">{tagline}</Tagline>
+            <Flex
+              gap="lg"
+              wrap="wrap"
+              justifyContent={["center", undefined, "flex-start"]}
+            >
+              <PrimaryLink href={ctaPrimaryUrl}>{ctaPrimaryLabel}</PrimaryLink>
+              {ctaSecondaryLabel && ctaSecondaryUrl && (
+                <SecondaryLink href={ctaSecondaryUrl}>
+                  {ctaSecondaryLabel}
+                </SecondaryLink>
+              )}
+            </Flex>
+          </TextBlock>
+          <PhotoWrapper
+            style={{
+              position: "relative",
+              width: "240px",
+              height: "240px",
+              flexShrink: 0,
+              borderRadius: "50%",
+              overflow: "hidden",
+            }}
           >
-            <PrimaryLink href={ctaPrimaryUrl}>{ctaPrimaryLabel}</PrimaryLink>
-            {ctaSecondaryLabel && ctaSecondaryUrl && (
-              <SecondaryLink href={ctaSecondaryUrl}>
-                {ctaSecondaryLabel}
-              </SecondaryLink>
+            {!imageLoaded && (
+              <Skeleton
+                borderRadius="50%"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+              />
             )}
-          </Flex>
-        </TextBlock>
-        <PhotoWrapper>
-          <Image
-            src={image.url}
-            alt={image.alt || personName}
-            fill
-            style={{ objectFit: "cover" }}
-            priority
-            sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
-          />
-        </PhotoWrapper>
-      </Grid>
-    </Container>
-  </Section>
-);
+            <StyledImage
+              src={image.url}
+              alt={image.alt || personName}
+              fill
+              $loaded={imageLoaded}
+              style={{ objectFit: "cover" }}
+              priority
+              sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
+              onLoad={() => setImageLoaded(true)}
+            />
+          </PhotoWrapper>
+        </Grid>
+      </Container>
+    </Section>
+  );
+};
 
 export default HeroPortfolio;
