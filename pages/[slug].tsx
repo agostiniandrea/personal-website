@@ -36,11 +36,12 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<TPage>> {
   const params = await props.params;
   const path = params?.slug || "";
+  const locale = props.locale || "en";
 
   const [page, header, footer] = await Promise.all([
-    getPageContent(PAGE_TYPES.PAGE_DETAIL, path),
-    getSiteHeaderContent(),
-    getSiteFooterContent(),
+    getPageContent(PAGE_TYPES.PAGE_DETAIL, path, locale),
+    getSiteHeaderContent(locale),
+    getSiteFooterContent(locale),
   ]);
 
   if (!page) {

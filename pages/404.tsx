@@ -30,10 +30,10 @@ const Heading = styled.h1`
   text-align: center;
 `;
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<T404>> {
+export async function getStaticProps({ locale = "en" }: { locale?: string }): Promise<GetStaticPropsResult<T404>> {
   const [header, footer] = await Promise.all([
-    getSiteHeaderContent(),
-    getSiteFooterContent(),
+    getSiteHeaderContent(locale),
+    getSiteFooterContent(locale),
   ]);
 
   return {
