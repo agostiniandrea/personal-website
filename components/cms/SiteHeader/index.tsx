@@ -77,23 +77,29 @@ const Drawer = styled.nav<{ $isOpen: boolean }>`
   width: 280px;
   background: ${({ theme }) => theme.colors.background};
   z-index: 300;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
   transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
   transition: transform 0.3s ease;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
 `;
 
-const DrawerHeader = styled.div`
+const DrawerTopBar = styled.div`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 `;
 
 const DrawerLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding: 1.5rem;
+  overflow-y: auto;
 `;
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
@@ -191,14 +197,14 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             role="dialog"
             aria-modal="true"
           >
-            <DrawerHeader>
+            <DrawerTopBar>
               <IconButton onClick={closeDrawer} aria-label="Close menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </IconButton>
-            </DrawerHeader>
+            </DrawerTopBar>
             <DrawerLinks>
               {navLinks.map((link) => (
                 <Link key={link.url} href={link.url} onClick={closeDrawer}>
