@@ -19,10 +19,19 @@ exports[`About renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c7 {
+.c8 {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
 }
 
 .c2 {
@@ -33,12 +42,20 @@ exports[`About renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c5 {
+.c6 {
   color: #a0a0b0;
   font-size: 1.25rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c9 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  display: inline-block;
+  font-size: 0.875rem;
+  padding: 0.375rem 0.875rem;
 }
 
 .c3 {
@@ -49,28 +66,15 @@ exports[`About renders correctly with all props 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c4 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+.c5 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c6 {
+.c7 {
   max-width: 680px;
   line-height: 1.7;
   margin-bottom: 2.5rem;
-}
-
-.c8 {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
-  font-size: 0.875rem;
 }
 
 @media (min-width: 600px) {
@@ -125,12 +129,6 @@ exports[`About renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c8 {
-    font-size: 1rem;
-  }
-}
-
 <div>
   <section
     class="c0"
@@ -146,26 +144,26 @@ exports[`About renders correctly with all props 1`] = `
         About
       </p>
       <h2
-        class="c4"
+        class="c4 c5"
       >
         Senior Frontend Developer & Tech Lead
       </h2>
       <p
-        class="c5 c6"
+        class="c6 c7"
         variant="large"
       >
         I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
       </p>
       <div
-        class="c7"
+        class="c8"
       >
         <span
-          class="c8"
+          class="c9"
         >
           📍 Bangkok, Thailand
         </span>
         <span
-          class="c8"
+          class="c9"
         >
           💼 Open to remote roles
         </span>
@@ -194,6 +192,15 @@ exports[`About renders correctly without optional tags 1`] = `
   grid-column: 2/auto;
 }
 
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
 .c2 {
   color: #a0a0b0;
   font-size: 1rem;
@@ -202,7 +209,7 @@ exports[`About renders correctly without optional tags 1`] = `
   padding: 0;
 }
 
-.c5 {
+.c6 {
   color: #a0a0b0;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -218,17 +225,12 @@ exports[`About renders correctly without optional tags 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c4 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+.c5 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c6 {
+.c7 {
   max-width: 680px;
   line-height: 1.7;
   margin-bottom: 2.5rem;
@@ -301,12 +303,12 @@ exports[`About renders correctly without optional tags 1`] = `
         About
       </p>
       <h2
-        class="c4"
+        class="c4 c5"
       >
         Senior Frontend Developer & Tech Lead
       </h2>
       <p
-        class="c5 c6"
+        class="c6 c7"
         variant="large"
       >
         I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify.

@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer renders closed drawer 1`] = `
+.c0 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 280px;
+  background: #0a0a0f;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
+}
+
+<div
+  aria-modal="true"
+  class="c0"
+  id="mobile-nav"
+  role="dialog"
+>
+  <p>
+    Content
+  </p>
+</div>
+`;
+
+exports[`DrawerTopBar matches snapshot 1`] = `
+.c0 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+<div
+  class="c0"
+>
+  <button>
+    X
+  </button>
+</div>
+`;
+
+exports[`Overlay renders overlay when closed 1`] = `
+.c0 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+<div
+  class="c0"
+/>
+`;
+
+exports[`Overlay renders overlay when open 1`] = `
+.c0 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.3s ease;
+}
+
+<div
+  class="c0"
+/>
+`;

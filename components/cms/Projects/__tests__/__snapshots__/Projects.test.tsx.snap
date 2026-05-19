@@ -19,25 +19,40 @@ exports[`Projects renders correctly with a single item 1`] = `
   grid-column: 2/auto;
 }
 
-.c10 {
+.c11 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
 }
 
-.c12 {
+.c6 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c13 {
   color: #3b82f6;
   text-decoration: none;
   line-height: 1;
   transition: color 0.2s ease-in-out;
 }
 
-.c12:hover {
+.c13:hover {
   color: #3b82f6;
 }
 
-.c12:focus-visible {
+.c13:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
@@ -50,12 +65,20 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 0;
 }
 
-.c8 {
+.c9 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c12 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
 }
 
 .c3 {
@@ -66,23 +89,12 @@ exports[`Projects renders correctly with a single item 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c4 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+.c5 {
   margin: 0 0 3rem;
   max-width: 600px;
 }
 
-.c5 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-.c6 {
+.c7 {
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -91,37 +103,26 @@ exports[`Projects renders correctly with a single item 1`] = `
   transition: border-color 0.2s ease;
 }
 
-.c6:hover {
+.c7:hover {
   border-color: #3b82f6;
 }
 
-.c7 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
+.c8 {
   margin: 0 0 0.75rem;
 }
 
-.c9 {
+.c10 {
   margin-bottom: 1.5rem;
   flex: 1;
 }
 
-.c11 {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.625rem;
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
-}
-
-.c13 {
+.c14 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c13:hover {
+.c14:hover {
   text-decoration: underline;
 }
 
@@ -171,21 +172,33 @@ exports[`Projects renders correctly with a single item 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c4 {
-    font-size: 3.5rem;
+@media (min-width: 600px) {
+  .c6 {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c5 {
+  .c6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c6 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c5 {
+  .c6 {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
   }
 }
 
@@ -204,54 +217,54 @@ exports[`Projects renders correctly with a single item 1`] = `
         Projects
       </p>
       <h2
-        class="c4"
+        class="c4 c5"
       >
         What I've built
       </h2>
       <div
-        class="c5"
+        class="c6 "
       >
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             Petite Revery
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               Next.js
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Shopify
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               styled-components
             </span>
           </div>
           <a
             aria-label="View project: Petite Revery"
-            class="c12 c13"
+            class="c13 c14"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -260,51 +273,51 @@ exports[`Projects renders correctly with a single item 1`] = `
           </a>
         </article>
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             7mesh Industries
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               Next.js
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Shopify
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Algolia
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Storybook
             </span>
           </div>
           <a
             aria-label="View project: 7mesh Industries"
-            class="c12 c13"
+            class="c13 c14"
             href="https://7mesh.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -337,25 +350,40 @@ exports[`Projects renders correctly with full project list 1`] = `
   grid-column: 2/auto;
 }
 
-.c10 {
+.c11 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
 }
 
-.c12 {
+.c6 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c13 {
   color: #3b82f6;
   text-decoration: none;
   line-height: 1;
   transition: color 0.2s ease-in-out;
 }
 
-.c12:hover {
+.c13:hover {
   color: #3b82f6;
 }
 
-.c12:focus-visible {
+.c13:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
@@ -368,12 +396,20 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 0;
 }
 
-.c8 {
+.c9 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c12 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
 }
 
 .c3 {
@@ -384,23 +420,12 @@ exports[`Projects renders correctly with full project list 1`] = `
   margin: 0 0 1.25rem;
 }
 
-.c4 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+.c5 {
   margin: 0 0 3rem;
   max-width: 600px;
 }
 
-.c5 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-.c6 {
+.c7 {
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -409,37 +434,26 @@ exports[`Projects renders correctly with full project list 1`] = `
   transition: border-color 0.2s ease;
 }
 
-.c6:hover {
+.c7:hover {
   border-color: #3b82f6;
 }
 
-.c7 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
+.c8 {
   margin: 0 0 0.75rem;
 }
 
-.c9 {
+.c10 {
   margin-bottom: 1.5rem;
   flex: 1;
 }
 
-.c11 {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.625rem;
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
-}
-
-.c13 {
+.c14 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c13:hover {
+.c14:hover {
   text-decoration: underline;
 }
 
@@ -489,21 +503,33 @@ exports[`Projects renders correctly with full project list 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c4 {
-    font-size: 3.5rem;
+@media (min-width: 600px) {
+  .c6 {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c5 {
+  .c6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c6 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c5 {
+  .c6 {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
   }
 }
 
@@ -522,54 +548,54 @@ exports[`Projects renders correctly with full project list 1`] = `
         Projects
       </p>
       <h2
-        class="c4"
+        class="c4 c5"
       >
         What I've built
       </h2>
       <div
-        class="c5"
+        class="c6 "
       >
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             Petite Revery
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               Next.js
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Shopify
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               styled-components
             </span>
           </div>
           <a
             aria-label="View project: Petite Revery"
-            class="c12 c13"
+            class="c13 c14"
             href="https://petiterevery.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -578,51 +604,51 @@ exports[`Projects renders correctly with full project list 1`] = `
           </a>
         </article>
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             7mesh Industries
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               Next.js
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Shopify
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Algolia
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Storybook
             </span>
           </div>
           <a
             aria-label="View project: 7mesh Industries"
-            class="c12 c13"
+            class="c13 c14"
             href="https://7mesh.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -631,46 +657,46 @@ exports[`Projects renders correctly with full project list 1`] = `
           </a>
         </article>
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             Nest Designs
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             Baby and kids lifestyle brand. Shopify Plus storefront with subscription products, loyalty integration, and multi-currency support.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               Next.js
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Shopify Plus
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Klaviyo
             </span>
           </div>
           <a
             aria-label="View project: Nest Designs"
-            class="c12 c13"
+            class="c13 c14"
             href="https://nestdesigns.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -679,107 +705,107 @@ exports[`Projects renders correctly with full project list 1`] = `
           </a>
         </article>
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             Videoland
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             Dutch video streaming platform. Led frontend architecture for the React rewrite from a legacy codebase, delivering live sports, series, and films.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               React
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Redux
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Jest
             </span>
           </div>
         </article>
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             Arfer
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             B2B furniture configurator for architects and interior designers. Real-time 3D preview with a custom quote engine built on React and Three.js.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               React
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Three.js
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               TypeScript
             </span>
           </div>
         </article>
         <article
-          class="c6"
+          class="c7"
         >
           <h3
-            class="c7"
+            class="c8"
           >
             Sprintt Ceramica
           </h3>
           <p
-            class="c8 c9"
+            class="c9 c10"
             variant="small"
           >
             Ecommerce and product catalogue for an Italian ceramic tile manufacturer. Custom CMS integration and multi-language support.
           </p>
           <div
-            class="c10"
+            class="c11"
           >
             <span
-              class="c11"
+              class="c12"
             >
               React
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               Contentful
             </span>
             <span
-              class="c11"
+              class="c12"
             >
               i18n
             </span>

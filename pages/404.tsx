@@ -6,7 +6,7 @@ import {
   getSiteHeaderContent,
   getSiteFooterContent,
 } from "@lib/utils/cms";
-import { Box } from "@components/ions";
+import { Box, Heading } from "@components/ions";
 import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
 
@@ -23,11 +23,8 @@ const Wrapper = styled(Box).attrs({ as: "main" })`
   padding: 4rem 2rem;
 `;
 
-const Heading = styled.h1`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
+const PageHeading = styled(Heading).attrs({ size: "display", as: "h1" })`
   font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
   text-align: center;
 `;
 
@@ -49,7 +46,7 @@ export default function Error({ header, footer }: T404) {
       <Seo seoTitle="404 — Page not found" seoDescription="The page you're looking for could not be found." />
       {header && <SiteHeader {...header} />}
       <Wrapper id="main-content">
-        <Heading>404 — Page not found</Heading>
+        <PageHeading>404 — Page not found</PageHeading>
       </Wrapper>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
     </>

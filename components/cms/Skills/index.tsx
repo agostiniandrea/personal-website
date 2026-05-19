@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Box, Container, Text } from "@components/ions";
+import { Box, Container, Heading, Text } from "@components/ions";
+import { Badge } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 
 export interface SkillCategory {
@@ -25,18 +26,9 @@ const SectionLabel = styled(Text)`
   margin: 0 0 1.25rem;
 `;
 
-const Heading = styled.h2`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  line-height: 1.1;
+const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
   max-width: 600px;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 3.5rem;
-  }
 `;
 
 const Grid = styled.div`
@@ -73,26 +65,19 @@ const SkillList = styled.ul`
   gap: 0.5rem;
 `;
 
-const Skill = styled.li`
-  font-size: 0.875rem;
-  padding: 0.375rem 0.875rem;
-  border: 1px solid ${({ theme }) => theme.colors.main};
-  color: ${({ theme }) => theme.colors.paragraph};
-  border-radius: ${({ theme }) => theme.radii.full};
-`;
 
 const Skills: React.FC<SkillsProps> = ({ sectionLabel, heading, categories }) => (
   <Section id="skills">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
-      <Heading>{heading}</Heading>
+      <SectionHeading>{heading}</SectionHeading>
       <Grid>
         {categories.map((category) => (
           <Box key={category.title}>
             <CategoryTitle>{category.title}</CategoryTitle>
             <SkillList>
               {category.skills.map((skill) => (
-                <Skill key={skill}>{skill}</Skill>
+                <Badge key={skill} as="li" size="md">{skill}</Badge>
               ))}
             </SkillList>
           </Box>
