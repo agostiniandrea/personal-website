@@ -35,7 +35,7 @@ const ProjectsGrid = styled(Grid)`
 const Card = styled.article`
   display: flex;
   flex-direction: column;
-  padding: ${({ theme }) => theme.space["2xl"]};
+  padding: ${({ theme }) => theme.space["3xl"]} ${({ theme }) => theme.space["2xl"]};
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-radius: ${({ theme }) => theme.radii.md};
   transition: border-color 0.2s ease;
@@ -70,7 +70,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
-      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="3xl">
+      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="4xl">
         {items.map((item) => (
           <Card key={item.title}>
             <CardTitle>{item.title}</CardTitle>
