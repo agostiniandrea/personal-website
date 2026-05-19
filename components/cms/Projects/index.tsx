@@ -70,7 +70,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
-      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="4xl">
+      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="xl">
         {items.map((item) => (
           <Card key={item.title}>
             <CardTitle>{item.title}</CardTitle>
