@@ -37,7 +37,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.875rem;
-  padding: 0.375rem 0.875rem;
+  padding: 0.5rem 1rem;
 }
 
 .c0 {
@@ -239,7 +239,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.875rem;
-  padding: 0.375rem 0.875rem;
+  padding: 0.5rem 1rem;
 }
 
 .c0 {

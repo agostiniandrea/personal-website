@@ -19,15 +19,15 @@ const StyledBadge = styled(Text)<StyledBadgeProps>`
   border-radius: ${({ theme }) => theme.radii.full};
   display: inline-block;
 
-  ${({ $size }) =>
+  ${({ $size, theme }) =>
     $size === "sm"
       ? `
-    font-size: 0.75rem;
-    padding: 0.25rem 0.625rem;
+    font-size: ${theme.fontSizes.xs};
+    padding: ${theme.space.xs} ${theme.space.sm};
   `
       : `
-    font-size: 0.875rem;
-    padding: 0.375rem 0.875rem;
+    font-size: ${theme.fontSizes.sm};
+    padding: ${theme.space.sm} ${theme.space.lg};
   `}
 `;
 
