@@ -17,8 +17,8 @@ export interface HeadingBoxProps {
 const HeadingBoxContainer = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
+  gap: ${({ theme }) => theme.space.lg};
+  padding: ${({ theme }) => theme.space["2xl"]};
   background: ${({ theme }) => theme.colors.background};
   border-radius: ${({ theme }) => theme.radii.xs};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -26,13 +26,13 @@ const HeadingBoxContainer = styled.section`
   margin: 0 auto;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 1rem;
+    padding: ${({ theme }) => theme.space.lg};
   }
 `;
 
 const Title = styled(Heading)`
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
-  line-height: ${({ theme }) => theme.lineHeights.heading};
+  line-height: ${({ theme }) => theme.lineHeights.relaxed};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: ${({ theme }) => theme.fontSizes.xl};
@@ -41,7 +41,7 @@ const Title = styled(Heading)`
 
 const Description = styled(Text)<{ $hideDescription?: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.md};
-  line-height: ${({ theme }) => theme.lineHeights.regular};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0;
   opacity: ${({ $hideDescription }) => ($hideDescription ? 0 : 1)};
   transition: opacity 0.3s ease-in-out;
@@ -53,7 +53,7 @@ const Description = styled(Text)<{ $hideDescription?: boolean }>`
 
 const PreHeading = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.md};
-  line-height: ${({ theme }) => theme.lineHeights.regular};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0;
 `;
 

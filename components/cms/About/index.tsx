@@ -11,7 +11,7 @@ export interface AboutProps {
 }
 
 const SectionLabel = styled(Text)`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
@@ -25,8 +25,8 @@ const SectionHeading = styled(Heading)`
 
 const Bio = styled(Text)`
   max-width: 680px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+  line-height: ${({ theme }) => theme.lineHeights.loose};
+  margin-bottom: ${({ theme }) => theme.space["2xl"]};
 `;
 
 
