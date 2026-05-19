@@ -7,4 +7,5 @@ export const radii = {
   md: "10px",
   lg: "15px",
   xl: "30px",
+  full: "9999px",
 };

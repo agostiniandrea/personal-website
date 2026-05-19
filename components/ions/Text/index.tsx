@@ -18,14 +18,14 @@ const StyledText = styled.p<TextProps>`
   font-size: ${(props) => {
     switch (props.variant) {
       case "small":
-        return "0.875rem";
+        return props.theme.fontSizes.sm;
       case "large":
-        return "1.25rem";
+        return props.theme.fontSizes.lg;
       default:
-        return "1rem";
+        return props.theme.fontSizes.md;
     }
   }};
-  line-height: 1.5;
+  line-height: ${(props) => props.theme.lineHeights.base};
   margin: 0;
   padding: 0;
 `;

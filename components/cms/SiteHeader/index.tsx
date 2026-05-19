@@ -26,8 +26,8 @@ const Header = styled.header`
 
 const Logo = styled(Link)`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
   cursor: pointer;
   text-decoration: none;
@@ -35,7 +35,7 @@ const Logo = styled(Link)`
 
 const DesktopNav = styled.nav`
   display: none;
-  gap: 2rem;
+  gap: ${({ theme }) => theme.space["2xl"]};
   align-items: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -69,8 +69,8 @@ const LocaleButton = styled(Button)`
   padding: 0.25rem 0.625rem;
   min-width: 44px;
   min-height: 44px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.headline};
@@ -94,8 +94,8 @@ const LocaleButton = styled(Button)`
 const DrawerLinks = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  gap: ${({ theme }) => theme.space.xl};
+  padding: ${({ theme }) => theme.space.xl};
   overflow-y: auto;
 `;
 

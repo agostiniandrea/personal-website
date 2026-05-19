@@ -14,7 +14,7 @@ export interface ContactProps {
 }
 
 const SectionLabel = styled(Text)`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
@@ -28,15 +28,15 @@ const SectionHeading = styled(Heading)`
 
 // Extend the Link ion with contact-specific typography
 const ContactLink = styled(Link)`
-  font-size: 1.125rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
 // Extend the Text ion with layout constraints for this section
 const Body = styled(Text)`
   max-width: 600px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+  line-height: ${({ theme }) => theme.lineHeights.loose};
+  margin-bottom: ${({ theme }) => theme.space["2xl"]};
 `;
 
 const Contact: React.FC<ContactProps> = ({ sectionLabel, heading, body, links }) => (

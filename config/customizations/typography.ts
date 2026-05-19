@@ -6,6 +6,7 @@ import {
   lineHeights,
 } from "./fonts";
 
+// Typography presets for Storybook / design reference only — do not use in components
 export const typography = {
   /**
    * Bodies
@@ -15,12 +16,12 @@ export const typography = {
     fontFamily: fontFamilies.default,
     fontSize: fontSizesMobile.body, // 14px
     fontWeight: fontWeights.medium, // 500
-    lineHeight: lineHeights.control,
+    lineHeight: lineHeights.base,
     xTablet: {
       fontFamily: fontFamilies.default,
-      fontSize: fontSizes.bodyS, // 14px
+      fontSize: fontSizes.sm, // 14px
       fontWeight: fontWeights.medium, // 500
-      lineHeight: lineHeights.control,
+      lineHeight: lineHeights.base,
     },
   },
   // Body
@@ -28,41 +29,41 @@ export const typography = {
     fontFamily: fontFamilies.default,
     fontSize: fontSizesMobile.body, // 14px
     fontWeight: fontWeights.regular, // 400
-    lineHeight: lineHeights.heading,
+    lineHeight: lineHeights.relaxed,
     xTablet: {
       fontFamily: fontFamilies.default,
-      fontSize: fontSizes.body, // 18px
+      fontSize: fontSizes.md, // 16px
       fontWeight: fontWeights.regular, // 400
       letterSpacing: "-0.02em",
-      lineHeight: lineHeights.control,
+      lineHeight: lineHeights.base,
     },
   },
   // Body L
   bodyL: {
     fontFamily: fontFamilies.default,
-    fontSize: fontSizesMobile.bodyL, // 18px
+    fontSize: fontSizesMobile.bodyL, // 18px (mobile)
     fontWeight: fontWeights.regular, // 400
-    lineHeight: lineHeights.heading,
+    lineHeight: lineHeights.relaxed,
     xTablet: {
       fontFamily: fontFamilies.default,
-      fontSize: fontSizes.bodyL, // 21px
+      fontSize: fontSizes.lg, // 20px
       fontWeight: fontWeights.regular, // 400
       letterSpacing: "-0.02em",
-      lineHeight: lineHeights.heading,
+      lineHeight: lineHeights.relaxed,
     },
   },
   // Body XL
   font1: {
     fontFamily: fontFamilies.default,
-    fontSize: fontSizesMobile.font1, // 18px
+    fontSize: fontSizesMobile.font1, // 24px (mobile)
     fontWeight: fontWeights.regular, // 400
-    lineHeight: lineHeights.heading,
+    lineHeight: lineHeights.relaxed,
     xTablet: {
       fontFamily: fontFamilies.default,
-      fontSize: fontSizes.font1, // 24px
+      fontSize: fontSizes.xl, // 24px
       fontWeight: fontWeights.regular, // 400
       letterSpacing: "-0.02em",
-      lineHeight: lineHeights.heading,
+      lineHeight: lineHeights.relaxed,
     },
   },
   /**
@@ -71,27 +72,27 @@ export const typography = {
   // SubHead S
   font2: {
     fontFamily: fontFamilies.heading,
-    fontSize: fontSizesMobile.font2, // 28px
+    fontSize: fontSizesMobile.font2, // 24px (mobile)
     fontWeight: fontWeights.regular, // 400
-    lineHeight: lineHeights.regular,
+    lineHeight: lineHeights.tight,
     xTablet: {
       fontFamily: fontFamilies.heading,
-      fontSize: fontSizes.font2, // 28px
+      fontSize: fontSizes["2xl"], // 32px
       fontWeight: fontWeights.regular, // 400
-      lineHeight: lineHeights.regular,
+      lineHeight: lineHeights.tight,
     },
   },
   // SubHead L
   font3: {
     fontFamily: fontFamilies.heading,
-    fontSize: fontSizesMobile.font3, // 28px
+    fontSize: fontSizesMobile.font3, // 32px (mobile)
     fontWeight: fontWeights.regular, // 400
-    lineHeight: lineHeights.regular,
+    lineHeight: lineHeights.tight,
     xTablet: {
       fontFamily: fontFamilies.heading,
-      fontSize: fontSizes.font3, // 36px
+      fontSize: fontSizes["3xl"], // 40px
       fontWeight: fontWeights.regular, // 400
-      lineHeight: lineHeights.regular,
+      lineHeight: lineHeights.tight,
     },
   },
   /**
@@ -100,53 +101,53 @@ export const typography = {
   // Title L
   heading4: {
     fontFamily: fontFamilies.heading,
-    fontSize: fontSizesMobile.heading4, // 28px
+    fontSize: fontSizesMobile.heading4, // 32px (mobile)
     fontWeight: fontWeights.semiBold, // 600
-    lineHeight: lineHeights.regular,
+    lineHeight: lineHeights.tight,
     xTablet: {
       fontFamily: fontFamilies.heading,
-      fontSize: fontSizes.heading4, // 30px
-      lineHeight: lineHeights.regular,
+      fontSize: fontSizes["3xl"], // 40px
+      lineHeight: lineHeights.tight,
       fontWeight: fontWeights.semiBold, // 600
     },
   },
   // H3
   heading3: {
     fontFamily: fontFamilies.heading,
-    fontSize: fontSizesMobile.heading3, // 36px
+    fontSize: fontSizesMobile.heading3, // 32px (mobile)
     fontWeight: fontWeights.bold, // 700
-    lineHeight: lineHeights.regular,
+    lineHeight: lineHeights.tight,
     xTablet: {
       fontFamily: fontFamilies.heading,
-      fontSize: fontSizes.heading3, // 60px
+      fontSize: fontSizes["5xl"], // 56px
       fontWeight: fontWeights.bold, // 700
-      lineHeight: lineHeights.small,
+      lineHeight: lineHeights.snug,
     },
   },
   // H2
   heading2: {
     fontFamily: fontFamilies.heading,
-    fontSize: fontSizesMobile.heading2, // 44px
+    fontSize: fontSizesMobile.heading2, // ~43px (mobile)
     fontWeight: fontWeights.bold, // 700
-    lineHeight: lineHeights.regular,
+    lineHeight: lineHeights.tight,
     xTablet: {
       fontFamily: fontFamilies.heading,
-      fontSize: fontSizes.heading2, // 70px
+      fontSize: fontSizes["6xl"], // 80px (approx)
       fontWeight: fontWeights.bold, // 700
-      lineHeight: lineHeights.regular,
+      lineHeight: lineHeights.tight,
     },
   },
-  // H2
+  // H1
   heading1: {
     fontFamily: fontFamilies.heading,
-    fontSize: fontSizesMobile.heading1, // 60px
+    fontSize: fontSizesMobile.heading1, // ~58px (mobile)
     fontWeight: fontWeights.bold, // 700
-    lineHeight: lineHeights.regular,
+    lineHeight: lineHeights.tight,
     xTablet: {
       fontFamily: fontFamilies.heading,
-      fontSize: fontSizes.heading1, // 80px
+      fontSize: fontSizes["6xl"], // 80px
       fontWeight: fontWeights.bold, // 700
-      lineHeight: lineHeights.regular,
+      lineHeight: lineHeights.tight,
     },
   },
 };
