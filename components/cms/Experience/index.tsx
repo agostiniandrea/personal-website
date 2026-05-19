@@ -18,11 +18,11 @@ export interface ExperienceProps {
 }
 
 const Section = styled.section`
-  margin: 3rem 0;
+  margin: ${({ theme }) => theme.space["3xl"]} 0;
 `;
 
 const SectionLabel = styled(Text)`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
@@ -30,7 +30,7 @@ const SectionLabel = styled(Text)`
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 3rem;
+  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
   max-width: 600px;
 `;
 
@@ -46,8 +46,8 @@ const List = styled.ol`
 const Item = styled.li`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
-  padding: 2rem 0;
+  gap: ${({ theme }) => theme.space.lg};
+  padding: ${({ theme }) => theme.space["2xl"]} 0;
   border-top: 1px solid ${({ theme }) => theme.colors.main};
 
   &:last-child {
@@ -56,17 +56,17 @@ const Item = styled.li`
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     grid-template-columns: 200px 1fr;
-    gap: 2rem;
+    gap: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 
 const Period = styled(Text)`
-  font-size: 0.8125rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin: 0 0 0.25rem;
 `;
 
 const Company = styled(Text)`
-  font-size: 0.9375rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   margin: 0;
 `;
@@ -76,9 +76,9 @@ const Role = styled(Heading).attrs({ size: "card", as: "h3" })`
 `;
 
 const Description = styled(Text)`
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  margin: 0 0 1rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  line-height: ${({ theme }) => theme.lineHeights.relaxed};
+  margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
 

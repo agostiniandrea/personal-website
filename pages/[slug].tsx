@@ -23,7 +23,7 @@ type TPage = {
 };
 
 const SkeletonPage = styled(Flex).attrs({ direction: "column", gap: "xl" })`
-  padding: 6rem 2rem;
+  padding: ${({ theme }) => theme.space["6xl"]} ${({ theme }) => theme.space["2xl"]};
   max-width: 800px;
   margin: 0 auto;
 `;

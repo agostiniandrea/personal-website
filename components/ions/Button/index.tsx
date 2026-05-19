@@ -26,9 +26,9 @@ const StyledButton = styled.button<ButtonProps>`
   color: ${({ theme }) => theme.colors.button_text};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  line-height: ${({ theme }) => theme.lineHeights.base};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   padding: 0.75rem 1.25rem;
   transition: all 0.2s ease-in-out;

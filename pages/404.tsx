@@ -20,7 +20,7 @@ const Wrapper = styled(Box).attrs({ as: "main" })`
   align-items: center;
   justify-content: center;
   min-height: 60vh;
-  padding: 4rem 2rem;
+  padding: ${({ theme }) => theme.space["4xl"]} ${({ theme }) => theme.space["2xl"]};
 `;
 
 const PageHeading = styled(Heading).attrs({ size: "display", as: "h1" })`

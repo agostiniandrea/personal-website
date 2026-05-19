@@ -17,7 +17,7 @@ export interface ProjectsProps {
 }
 
 const SectionLabel = styled(Text)`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
@@ -25,7 +25,7 @@ const SectionLabel = styled(Text)`
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 3rem;
+  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
   max-width: 600px;
 `;
 
@@ -35,7 +35,7 @@ const ProjectsGrid = styled(Grid)`
 const Card = styled.article`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: ${({ theme }) => theme.space["2xl"]};
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-radius: ${({ theme }) => theme.radii.md};
   transition: border-color 0.2s ease;
@@ -46,17 +46,17 @@ const Card = styled.article`
 `;
 
 const CardTitle = styled(Heading).attrs({ size: "card", as: "h3" })`
-  margin: 0 0 0.75rem;
+  margin: 0 0 ${({ theme }) => theme.space.md};
 `;
 
 const CardDescription = styled(Text)`
-  margin-bottom: 1.5rem;
+  margin-bottom: ${({ theme }) => theme.space.xl};
   flex: 1;
 `;
 
 
 const CardLink = styled(Link)`
-  font-size: 0.875rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   align-self: flex-start;
 
@@ -70,7 +70,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
-      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="1.5rem">
+      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="xl">
         {items.map((item) => (
           <Card key={item.title}>
             <CardTitle>{item.title}</CardTitle>

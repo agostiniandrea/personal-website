@@ -15,11 +15,10 @@ declare module "styled-components" {
       tertiary: string;
     };
     fontFamilies: {
-      body: string;
+      default: string;
       heading: string;
     };
     fontSizes: {
-      body: string;
       xs: string;
       sm: string;
       md: string;
@@ -29,20 +28,34 @@ declare module "styled-components" {
       "3xl": string;
       "4xl": string;
       "5xl": string;
+      "6xl": string;
     };
     fontWeights: {
-      normal: number;
+      regular: number;
       medium: number;
+      semiBold: number;
       bold: number;
     };
     lineHeights: {
-      small: string;
-      regular: string;
-      semiControl: string;
-      control: string;
-      heading: string;
+      tight: number;
+      snug: number;
+      normal: number;
+      base: number;
+      relaxed: number;
+      loose: number;
     };
     radii: {
+      none: string;
+      xs: string;
+      sm: string;
+      md: string;
+      lg: string;
+      xl: string;
+      rounded: string;
+      full: string;
+    };
+    space: {
+      0: string;
       xs: string;
       sm: string;
       md: string;
@@ -50,103 +63,16 @@ declare module "styled-components" {
       xl: string;
       "2xl": string;
       "3xl": string;
-      full: string;
-    };
-    space: {
-      0: string;
-      1: string;
-      2: string;
-      3: string;
-      4: string;
-      5: string;
-      6: string;
-      8: string;
-      10: string;
-      12: string;
-      16: string;
-      20: string;
-      24: string;
-      32: string;
-      40: string;
-      48: string;
-      56: string;
-      64: string;
+      "4xl": string;
+      "5xl": string;
+      "6xl": string;
+      "7xl": string;
+      "8xl": string;
     };
     breakpoints: Breakpoints;
-    typography: {
-      h1: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      h2: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      h3: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      h4: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      h5: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      h6: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      body: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-      small: {
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: string;
-      };
-    };
     components: {
-      button: {
-        primary: {
-          backgroundColor: string;
-          color: string;
-          padding: string;
-          borderRadius: string;
-          fontSize: string;
-          fontWeight: number;
-          "&:hover": {
-            backgroundColor: string;
-          };
-        };
-        secondary: {
-          backgroundColor: string;
-          color: string;
-          padding: string;
-          borderRadius: string;
-          fontSize: string;
-          fontWeight: number;
-          "&:hover": {
-            backgroundColor: string;
-          };
-        };
-      };
-      link: {
-        color: string;
-        textDecoration: string;
-        "&:hover": {
-          color: string;
-        };
-      };
+      button: Record<string, unknown>;
+      link: Record<string, unknown>;
     };
   }
 }

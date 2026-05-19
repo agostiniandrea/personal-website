@@ -7,7 +7,6 @@ import {
   lineHeights,
   radii,
   space,
-  typography,
 } from "./customizations";
 import breakpoints from "../constants/breakpoints";
 import { DefaultTheme } from "styled-components";
@@ -20,7 +19,6 @@ const theme = {
   lineHeights,
   radii,
   space,
-  typography,
   breakpoints,
   components: {
     button,

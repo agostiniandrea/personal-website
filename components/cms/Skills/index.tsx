@@ -15,11 +15,11 @@ export interface SkillsProps {
 }
 
 const Section = styled.section`
-  margin: 3rem 0;
+  margin: ${({ theme }) => theme.space["3xl"]} 0;
 `;
 
 const SectionLabel = styled(Text)`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
@@ -34,7 +34,7 @@ const SectionHeading = styled(Heading)`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
+  gap: ${({ theme }) => theme.space["2xl"]};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     grid-template-columns: repeat(2, 1fr);
@@ -48,12 +48,12 @@ const Grid = styled.div`
 
 const CategoryTitle = styled.h3`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 0.875rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
-  margin: 0 0 1rem;
+  margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
 const SkillList = styled.ul`
@@ -62,7 +62,7 @@ const SkillList = styled.ul`
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
 `;
 
 

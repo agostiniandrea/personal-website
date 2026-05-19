@@ -24,13 +24,13 @@ const Section = styled.section`
 
 const HeroGrid = styled(Flex)`
   flex-direction: column-reverse;
-  gap: 3rem;
+  gap: ${({ theme }) => theme.space["3xl"]};
   align-items: center;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     flex-direction: row;
     justify-content: space-between;
-    gap: 4rem;
+    gap: ${({ theme }) => theme.space["4xl"]};
   }
 `;
 
@@ -44,11 +44,11 @@ const TextBlock = styled(Box)`
 `;
 
 const Greeting = styled.p`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.paragraph};
-  margin: 0 0 1rem;
+  margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
 const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
@@ -57,24 +57,24 @@ const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
 
 const Role = styled.p`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 1.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.normal};
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
   color: ${({ theme }) => theme.colors.highlight};
-  line-height: 1.2;
-  margin: 0 0 1.5rem;
+  line-height: ${({ theme }) => theme.lineHeights.normal};
+  margin: 0 0 ${({ theme }) => theme.space.xl};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 2rem;
+    font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   }
 `;
 
 const Tagline = styled(Text)`
   max-width: 500px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.6;
+  margin: 0 auto ${({ theme }) => theme.space["2xl"]};
+  line-height: ${({ theme }) => theme.lineHeights.relaxed};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    margin: 0 0 2.5rem;
+    margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   }
 `;
 
@@ -84,7 +84,7 @@ const PrimaryLink = styled(Link)`
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   border-radius: ${({ theme }) => theme.radii.xs};
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -105,7 +105,7 @@ const SecondaryLink = styled(Link)`
   border: 2px solid ${({ theme }) => theme.colors.highlight};
   color: ${({ theme }) => theme.colors.highlight};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   border-radius: ${({ theme }) => theme.radii.xs};
   text-decoration: none;
   transition: all 0.2s ease;
