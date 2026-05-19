@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "../../ions/Link";
+import { Heading, Text } from "@components/ions";
 import { useMedia } from "../../../lib/utils/useMedia";
 
 export interface HeadingBoxProps {
@@ -29,19 +30,16 @@ const HeadingBoxContainer = styled.section`
   }
 `;
 
-const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.headline};
+const Title = styled(Heading)`
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   line-height: ${({ theme }) => theme.lineHeights.heading};
-  margin: 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: ${({ theme }) => theme.fontSizes.xl};
   }
 `;
 
-const Description = styled.p<{ $hideDescription?: boolean }>`
-  color: ${({ theme }) => theme.colors.paragraph};
+const Description = styled(Text)<{ $hideDescription?: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.regular};
   margin: 0;
@@ -53,8 +51,7 @@ const Description = styled.p<{ $hideDescription?: boolean }>`
   }
 `;
 
-const PreHeading = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
+const PreHeading = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.regular};
   margin: 0;
@@ -70,7 +67,7 @@ const HeadingBox: React.FC<HeadingBoxProps> = ({
 
   return (
     <HeadingBoxContainer role="region" aria-label="Heading Box">
-      {preHeading && <PreHeading id="pre-heading">{preHeading}</PreHeading>}
+      {preHeading && <PreHeading as="span" id="pre-heading">{preHeading}</PreHeading>}
       {heading && <Title id="heading-title">{heading}</Title>}
       {description && (
         <Description id="heading-description" $hideDescription={isMobile}>

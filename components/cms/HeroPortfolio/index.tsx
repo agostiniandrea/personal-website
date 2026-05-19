@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Box, Container, Flex, Image, Link, Skeleton, Text } from "@components/ions";
+import { Box, Container, Flex, Heading, Image, Link, Skeleton, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface HeroPortfolioProps {
@@ -22,8 +22,7 @@ const Section = styled.section`
   margin: 5rem 0;
 `;
 
-const Grid = styled.div`
-  display: flex;
+const HeroGrid = styled(Flex)`
   flex-direction: column-reverse;
   gap: 3rem;
   align-items: center;
@@ -52,17 +51,8 @@ const Greeting = styled.p`
   margin: 0 0 1rem;
 `;
 
-const Name = styled.h1`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 3.25rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  line-height: 1;
+const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
   margin: 0 0 1rem;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 5rem;
-  }
 `;
 
 const Role = styled.p`
@@ -167,7 +157,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   return (
     <Section>
       <Container>
-        <Grid>
+        <HeroGrid>
           <TextBlock>
             <Greeting>{greeting}</Greeting>
             <Name>{personName}</Name>
@@ -211,7 +201,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
               onLoad={() => setImageLoaded(true)}
             />
           </PhotoWrapper>
-        </Grid>
+        </HeroGrid>
       </Container>
     </Section>
   );

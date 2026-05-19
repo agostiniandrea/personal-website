@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Box, Container, Flex, Text } from "@components/ions";
-import { BREAKPOINTS } from "@constants";
+import { Box, Container, Flex, Heading, Text } from "@components/ions";
+import { Badge } from "@components/molecules";
 
 export interface AboutProps {
   sectionLabel: string;
@@ -18,18 +18,9 @@ const SectionLabel = styled(Text)`
   margin: 0 0 1.25rem;
 `;
 
-const Heading = styled.h2`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  line-height: 1.1;
+const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
   max-width: 600px;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 3.5rem;
-  }
 `;
 
 const Bio = styled(Text)`
@@ -38,18 +29,6 @@ const Bio = styled(Text)`
   margin-bottom: 2.5rem;
 `;
 
-const Tag = styled.span`
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  border: 1px solid ${({ theme }) => theme.colors.main};
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: 0.875rem;
-  border-radius: ${({ theme }) => theme.radii.full};
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 1rem;
-  }
-`;
 
 const About: React.FC<AboutProps> = ({
   sectionLabel,
@@ -64,12 +43,12 @@ const About: React.FC<AboutProps> = ({
     <Box as="section" id="about" my="3xl">
       <Container>
         <SectionLabel>{sectionLabel}</SectionLabel>
-        <Heading>{heading}</Heading>
+        <SectionHeading>{heading}</SectionHeading>
         <Bio variant="large">{bio}</Bio>
         {tags.length > 0 && (
           <Flex gap="md" wrap="wrap">
             {tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
+              <Badge key={tag} size="md">{tag}</Badge>
             ))}
           </Flex>
         )}
