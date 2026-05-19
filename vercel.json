@@ -1,6 +1,6 @@
 {
   "buildCommand": "yarn build",
   "framework": "nextjs",
-  "installCommand": "yarn install",
+  "installCommand": "corepack enable && yarn install",
   "ignoreCommand": "node ./scripts/ignore-vercel.js"
 }
