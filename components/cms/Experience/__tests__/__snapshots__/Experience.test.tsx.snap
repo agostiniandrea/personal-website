@@ -255,7 +255,7 @@ exports[`Experience renders correctly with all items 1`] = `
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.75rem;
-  padding: 0.25rem 0.625rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .c0 {

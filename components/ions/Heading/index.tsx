@@ -20,42 +20,32 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
   color: ${({ theme }) => theme.colors.headline};
   margin: 0;
 
-  ${({ $size }) => {
+  ${({ $size, theme }) => {
     switch ($size) {
       case "display":
         return `
-          font-size: 3.25rem;
-          line-height: 1;
+          font-size: ${theme.fontSizes["4xl"]};
+          line-height: ${theme.lineHeights.tight};
+          @media (min-width: ${BREAKPOINTS.tablet}) {
+            font-size: ${theme.fontSizes["6xl"]};
+          }
         `;
       case "card":
         return `
-          font-size: 1.25rem;
-          line-height: 1.2;
+          font-size: ${theme.fontSizes.lg};
+          line-height: ${theme.lineHeights.normal};
         `;
       case "section":
       default:
         return `
-          font-size: 2.5rem;
-          line-height: 1.1;
+          font-size: ${theme.fontSizes["3xl"]};
+          line-height: ${theme.lineHeights.snug};
+          @media (min-width: ${BREAKPOINTS.tablet}) {
+            font-size: ${theme.fontSizes["5xl"]};
+          }
         `;
     }
   }}
-
-  ${({ $size }) =>
-    $size === "display" &&
-    `
-    @media (min-width: ${BREAKPOINTS.tablet}) {
-      font-size: 5rem;
-    }
-  `}
-
-  ${({ $size }) =>
-    $size === "section" &&
-    `
-    @media (min-width: ${BREAKPOINTS.tablet}) {
-      font-size: 3.5rem;
-    }
-  `}
 `;
 
 const Heading: React.FC<HeadingProps> = ({

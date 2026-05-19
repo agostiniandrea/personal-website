@@ -9,6 +9,11 @@ const GlobalStyle = createGlobalStyle`
   ${({ theme }) => css`
     html {
       background: ${theme.colors.background};
+      overflow-y: scroll;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     body {
