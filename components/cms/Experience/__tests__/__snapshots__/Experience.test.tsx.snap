@@ -32,7 +32,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 }
 
 .c0 {
-  margin: 3rem 0;
+  margin: 4rem 0;
 }
 
 .c3 {
@@ -259,7 +259,7 @@ exports[`Experience renders correctly with all items 1`] = `
 }
 
 .c0 {
-  margin: 3rem 0;
+  margin: 4rem 0;
 }
 
 .c3 {
