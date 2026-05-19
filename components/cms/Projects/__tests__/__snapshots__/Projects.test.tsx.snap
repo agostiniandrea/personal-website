@@ -29,7 +29,7 @@ exports[`Projects renders correctly with a single item 1`] = `
 .c6 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
+  gap: 3rem;
 }
 
 .c4 {
@@ -362,7 +362,7 @@ exports[`Projects renders correctly with full project list 1`] = `
 .c6 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
+  gap: 3rem;
 }
 
 .c4 {
