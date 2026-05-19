@@ -2,8 +2,8 @@
 
 exports[`Contact renders correctly with a single link 1`] = `
 .c0 {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 
 .c1 {
@@ -188,8 +188,8 @@ exports[`Contact renders correctly with a single link 1`] = `
 
 exports[`Contact renders correctly with all links 1`] = `
 .c0 {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 
 .c1 {

@@ -15,7 +15,7 @@ export interface SkillsProps {
 }
 
 const Section = styled.section`
-  margin: ${({ theme }) => theme.space["3xl"]} 0;
+  margin: ${({ theme }) => theme.space["4xl"]} 0;
 `;
 
 const SectionLabel = styled(Text)`

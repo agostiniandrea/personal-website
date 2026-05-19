@@ -16,7 +16,9 @@ export interface HeroPortfolioProps {
 }
 
 const Section = styled.section`
-  padding: ${({ theme }) => theme.space["6xl"]} 0;
+  min-height: calc(100svh - ${({ theme }) => theme.space["4xl"]});
+  display: flex;
+  align-items: center;
 `;
 
 const HeroGrid = styled(Flex)`
