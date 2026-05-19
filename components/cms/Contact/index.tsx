@@ -40,7 +40,7 @@ const Body = styled(Text)`
 `;
 
 const Contact: React.FC<ContactProps> = ({ sectionLabel, heading, body, links }) => (
-  <Box as="section" id="contact" my="3xl">
+  <Box as="section" id="contact" my="4xl">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
