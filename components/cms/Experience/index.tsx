@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Box, Container, Flex, Text } from "@components/ions";
+import { Box, Container, Flex, Heading, Text } from "@components/ions";
+import { Badge } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 
 export interface ExperienceItem {
@@ -28,18 +29,9 @@ const SectionLabel = styled(Text)`
   margin: 0 0 1.25rem;
 `;
 
-const Heading = styled.h2`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  line-height: 1.1;
+const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
   max-width: 600px;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 3.5rem;
-  }
 `;
 
 const List = styled.ol`
@@ -79,11 +71,7 @@ const Company = styled(Text)`
   margin: 0;
 `;
 
-const Role = styled.h3`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 1.25rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
+const Role = styled(Heading).attrs({ size: "card", as: "h3" })`
   margin: 0 0 0.625rem;
 `;
 
@@ -93,19 +81,12 @@ const Description = styled(Text)`
   margin: 0 0 1rem;
 `;
 
-const Tag = styled.span`
-  font-size: 0.75rem;
-  padding: 0.25rem 0.625rem;
-  border: 1px solid ${({ theme }) => theme.colors.main};
-  color: ${({ theme }) => theme.colors.paragraph};
-  border-radius: ${({ theme }) => theme.radii.full};
-`;
 
 const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items }) => (
   <Section id="experience">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
-      <Heading>{heading}</Heading>
+      <SectionHeading>{heading}</SectionHeading>
       <List>
         {items.map((item) => (
           <Item key={`${item.company}-${item.role}`}>
@@ -119,7 +100,7 @@ const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items })
               {item.tags && item.tags.length > 0 && (
                 <Flex wrap="wrap" gap="sm">
                   {item.tags.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
+                    <Badge key={tag} size="sm">{tag}</Badge>
                   ))}
                 </Flex>
               )}

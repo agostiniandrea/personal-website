@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Button, Container, Flex, Link } from "@components/ions";
+import { Drawer, DrawerTopBar, Overlay } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 
 export interface SiteHeaderLink {
@@ -88,41 +89,6 @@ const LocaleButton = styled(Button)`
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
-`;
-
-const Overlay = styled.div<{ $isOpen: boolean }>`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
-  pointer-events: ${({ $isOpen }) => ($isOpen ? "all" : "none")};
-  transition: opacity 0.3s ease;
-`;
-
-const Drawer = styled.div<{ $isOpen: boolean }>`
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
-  background: ${({ theme }) => theme.colors.background};
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
-  transition: transform 0.3s ease;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
-`;
-
-const DrawerTopBar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;
 `;
 
 const DrawerLinks = styled.div`
@@ -237,14 +203,12 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
       </Header>
       {mounted && (
         <>
-          <Overlay $isOpen={isOpen} onClick={closeDrawer} role="presentation" />
+          <Overlay isOpen={isOpen} onClick={closeDrawer} />
           <Drawer
             ref={drawerRef}
             id="mobile-nav"
-            $isOpen={isOpen}
+            isOpen={isOpen}
             aria-label="Navigation menu"
-            role="dialog"
-            aria-modal="true"
           >
             <DrawerTopBar>
               <IconButton onClick={closeDrawer} aria-label="Close menu">

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Box, Container, Flex, Link, Text } from "@components/ions";
-import { BREAKPOINTS } from "@constants";
+import { Box, Container, Flex, Heading, Link, Text } from "@components/ions";
 
 export interface ContactLink {
   label: string;
@@ -22,18 +21,9 @@ const SectionLabel = styled(Text)`
   margin: 0 0 1.25rem;
 `;
 
-const Heading = styled.h2`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  line-height: 1.1;
+const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
   max-width: 600px;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 3.5rem;
-  }
 `;
 
 // Extend the Link ion with contact-specific typography
@@ -53,7 +43,7 @@ const Contact: React.FC<ContactProps> = ({ sectionLabel, heading, body, links })
   <Box as="section" id="contact" my="3xl">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
-      <Heading>{heading}</Heading>
+      <SectionHeading>{heading}</SectionHeading>
       <Body variant="large">{body}</Body>
       <Flex gap="xl" wrap="wrap">
         {links.map((link) => (

@@ -69,6 +69,41 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   outline-offset: 2px;
 }
 
+.c10 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.c12 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.c11 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 280px;
+  background: #0a0a0f;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
+}
+
 .c0 {
   position: sticky;
   top: 0;
@@ -133,41 +168,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c7:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 3px;
-}
-
-.c10 {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.c11 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
-  background: #0a0a0f;
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
-}
-
-.c12 {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;
 }
 
 .c13 {
@@ -339,7 +339,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   </header>
   <div
     class="c10"
-    role="presentation"
   />
   <div
     aria-label="Navigation menu"
@@ -495,6 +494,41 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   outline-offset: 2px;
 }
 
+.c10 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.c12 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.c11 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 280px;
+  background: #0a0a0f;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
+}
+
 .c0 {
   position: sticky;
   top: 0;
@@ -559,41 +593,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 .c7:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 3px;
-}
-
-.c10 {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.c11 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
-  background: #0a0a0f;
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
-}
-
-.c12 {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;
 }
 
 .c13 {
@@ -741,7 +740,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   </header>
   <div
     class="c10"
-    role="presentation"
   />
   <div
     aria-label="Navigation menu"
