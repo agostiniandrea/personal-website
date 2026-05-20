@@ -19,6 +19,11 @@ const Section = styled.section`
   min-height: calc(100svh - ${({ theme }) => theme.space["4xl"]});
   display: flex;
   align-items: center;
+  padding: ${({ theme }) => theme.space["5xl"]} 0;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding: 0;
+  }
 `;
 
 const HeroGrid = styled(Flex)`
