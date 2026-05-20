@@ -12,7 +12,7 @@
     "dev": "NODE_OPTIONS='--no-deprecation' TURBOPACK=0 next dev",
     "lint": "eslint --ext ts,tsx . --quiet",
     "lint:fix": "eslint --fix --ext ts,tsx .",
-    "postbuild": "NODE_OPTIONS='--no-deprecation' next-sitemap",
+    "postbuild": "NODE_OPTIONS='--no-deprecation' next-sitemap --config next-sitemap.config.mjs",
     "prettier:fix": "prettier --write .",
     "reset": "npx rimraf .yarn yarn.lock node_modules && touch yarn.lock && yarn install",
     "start": "next start",
