@@ -6,7 +6,8 @@ node_modules
 .pnp.js
 .pnp.cjs
 .pnp.loader.mjs
-.yarn
+.yarn/*
+!.yarn/releases
 
 # testing
 /coverage
