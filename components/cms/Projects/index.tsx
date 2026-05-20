@@ -33,6 +33,7 @@ const ProjectsGrid = styled(Grid)`
 `;
 
 const Card = styled.article`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: ${({ theme }) => theme.space["3xl"]} ${({ theme }) => theme.space["2xl"]};
@@ -62,6 +63,12 @@ const CardLink = styled(Link)`
 
   &:hover {
     text-decoration: underline;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
 `;
 

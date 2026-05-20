@@ -71,6 +71,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   min-height: calc(100svh - 4rem);
   display: flex;
   align-items: center;
+  padding: 5rem 0;
 }
 
 .c3 {
@@ -230,6 +231,12 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 @media (min-width: 1536px) {
   .c10 {
     justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 {
+    padding: 0;
   }
 }
 
@@ -425,6 +432,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   min-height: calc(100svh - 4rem);
   display: flex;
   align-items: center;
+  padding: 5rem 0;
 }
 
 .c3 {
@@ -562,6 +570,12 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 @media (min-width: 1536px) {
   .c10 {
     justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 {
+    padding: 0;
   }
 }
 
