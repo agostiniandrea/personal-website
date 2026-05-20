@@ -1,4 +1,5 @@
 import { Head } from "@components/atoms";
+import { ScrollToTop } from "@components/molecules";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
 import type { AppProps } from "next/app";
@@ -45,6 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <Head />
         <Component {...pageProps} />
+        <ScrollToTop />
         <SpeedInsights />
         <Analytics />
       </ThemeProvider>

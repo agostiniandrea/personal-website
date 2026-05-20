@@ -97,6 +97,7 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c7 {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
@@ -126,6 +127,12 @@ exports[`Projects renders correctly with a single item 1`] = `
 
 .c14:hover {
   text-decoration: underline;
+}
+
+.c14::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 
 @media (min-width: 600px) {
@@ -430,6 +437,7 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c7 {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
@@ -459,6 +467,12 @@ exports[`Projects renders correctly with full project list 1`] = `
 
 .c14:hover {
   text-decoration: underline;
+}
+
+.c14::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 
 @media (min-width: 600px) {
