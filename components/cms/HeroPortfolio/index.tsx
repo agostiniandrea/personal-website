@@ -16,7 +16,7 @@ export interface HeroPortfolioProps {
 }
 
 const Section = styled.section`
-  min-height: calc(100svh - ${({ theme }) => theme.space["4xl"]});
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.space["5xl"]} 0;

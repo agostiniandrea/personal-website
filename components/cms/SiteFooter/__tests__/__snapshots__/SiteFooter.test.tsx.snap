@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
+.c6 #wcb_2 {
+  display: none!important;
+}
+
 .c1 {
   display: grid;
   position: relative;
@@ -16,12 +20,16 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c2 {
   display: flex;
+}
+
+.c4 {
+  display: flex;
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.c4 {
+.c7 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -31,16 +39,19 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 2rem;
+  padding-top: 3rem;
   padding-bottom: 2rem;
 }
 
 .c3 {
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.c5 {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 @media (min-width: 600px) {
@@ -98,32 +109,43 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
       class="c1"
     >
       <div
-        class="c2"
-      />
-      <div
-        class="c3"
+        class="c2 c3"
       >
         <div
-          class="carbonbadge  wcb-d "
-          id="wcb"
+          class="c4"
         />
+        <div
+          class="c5"
+        >
+          <div
+            class="c6"
+          >
+            <div
+              class="carbonbadge wcb-d "
+              id="wcb"
+            />
+          </div>
+        </div>
+        <p
+          class="c7"
+          style="text-align: center;"
+        >
+          © 
+          2026
+           
+          Andrea Agostini
+        </p>
       </div>
-      <p
-        class="c4"
-        style="text-align: center;"
-        variant="small"
-      >
-        © 
-        2026
-         
-        Andrea Agostini
-      </p>
     </section>
   </footer>
 </div>
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
+.c10 #wcb_2 {
+  display: none!important;
+}
+
 .c1 {
   display: grid;
   position: relative;
@@ -139,12 +161,16 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c2 {
   display: flex;
+}
+
+.c4 {
+  display: flex;
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.c3 {
+.c5 {
   color: #3b82f6;
   text-decoration: none;
   font-size: 1rem;
@@ -152,16 +178,24 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c3:hover {
+.c5:hover {
   color: #3b82f6;
 }
 
-.c3:focus-visible {
+.c5:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 
-.c6 {
+.c7 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c11 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -171,21 +205,30 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 2rem;
+  padding-top: 3rem;
   padding-bottom: 2rem;
 }
 
-.c4 {
+.c3 {
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.c6 {
   font-weight: 700;
   color: #3b82f6;
 }
 
-.c5 {
+.c8 {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #a0a0b0;
+}
+
+.c9 {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 @media (min-width: 600px) {
@@ -243,45 +286,57 @@ exports[`SiteFooter renders correctly with social links 1`] = `
       class="c1"
     >
       <div
-        class="c2"
-      >
-        <a
-          aria-label="LinkedIn"
-          class="c3 c4"
-          href="https://linkedin.com/in/agostiniandrea"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          LinkedIn
-        </a>
-        <a
-          aria-label="GitHub"
-          class="c3 c4"
-          href="https://github.com/agostiniandrea"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          GitHub
-        </a>
-      </div>
-      <div
-        class="c5"
+        class="c2 c3"
       >
         <div
-          class="carbonbadge  wcb-d "
-          id="wcb"
-        />
+          class="c4"
+        >
+          <a
+            aria-label="LinkedIn"
+            class="c5 c6"
+            href="https://linkedin.com/in/agostiniandrea"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            LinkedIn
+          </a>
+          <a
+            aria-label="GitHub"
+            class="c5 c6"
+            href="https://github.com/agostiniandrea"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        </div>
+        <p
+          class="c7 c8"
+        >
+          Building for the web, one component at a time. Based in Bangkok.
+        </p>
+        <div
+          class="c9"
+        >
+          <div
+            class="c10"
+          >
+            <div
+              class="carbonbadge wcb-d "
+              id="wcb"
+            />
+          </div>
+        </div>
+        <p
+          class="c11"
+          style="text-align: center;"
+        >
+          © 
+          2026
+           
+          Andrea Agostini
+        </p>
       </div>
-      <p
-        class="c6"
-        style="text-align: center;"
-        variant="small"
-      >
-        © 
-        2026
-         
-        Andrea Agostini
-      </p>
     </section>
   </footer>
 </div>

@@ -1,0 +1,834 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BeyondCode renders correctly with all props 1`] = `
+.c0 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c8 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c6 {
+  color: #a0a0b0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c11 {
+  color: #a0a0b0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c14 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  border-radius: 9999px;
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.c3 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1.25rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c7 {
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.c9 {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  border: 1px solid #a0a0b0;
+  border-radius: 10px;
+}
+
+.c10 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1rem;
+}
+
+.c12 {
+  flex: 1;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.c13 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 600px) {
+  .c8 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .c8 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c8 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c8 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="beyond-code"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2 c3"
+      >
+        Life & Passions
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        Beyond the keyboard
+      </h2>
+      <p
+        class="c6 c7"
+      >
+        Work is a big part of who I am, but not the whole story. Here's the rest.
+      </p>
+      <div
+        class="c8"
+      >
+        <article
+          class="c9"
+        >
+          <h3
+            class="c10"
+          >
+            Sports
+          </h3>
+          <p
+            class="c11 c12"
+          >
+            Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.
+          </p>
+          <ul
+            aria-label="Sports tags"
+            class="c13"
+          >
+            <li
+              class="c14"
+            >
+              Bologna FC
+            </li>
+            <li
+              class="c14"
+            >
+              Virtus Bologna
+            </li>
+          </ul>
+        </article>
+        <article
+          class="c9"
+        >
+          <h3
+            class="c10"
+          >
+            Travel & Life
+          </h3>
+          <p
+            class="c11 c12"
+          >
+            Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.
+          </p>
+          <ul
+            aria-label="Travel & Life tags"
+            class="c13"
+          >
+            <li
+              class="c14"
+            >
+              Bangkok
+            </li>
+            <li
+              class="c14"
+            >
+              Amsterdam
+            </li>
+            <li
+              class="c14"
+            >
+              Remote-first
+            </li>
+          </ul>
+        </article>
+        <article
+          class="c9"
+        >
+          <h3
+            class="c10"
+          >
+            Languages
+          </h3>
+          <p
+            class="c11 c12"
+          >
+            Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.
+          </p>
+          <ul
+            aria-label="Languages tags"
+            class="c13"
+          >
+            <li
+              class="c14"
+            >
+              Italian
+            </li>
+            <li
+              class="c14"
+            >
+              English
+            </li>
+            <li
+              class="c14"
+            >
+              Thai
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`BeyondCode renders correctly without intro 1`] = `
+.c0 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c6 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c9 {
+  color: #a0a0b0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c12 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  border-radius: 9999px;
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.c3 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1.25rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c7 {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  border: 1px solid #a0a0b0;
+  border-radius: 10px;
+}
+
+.c8 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1rem;
+}
+
+.c10 {
+  flex: 1;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.c11 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 600px) {
+  .c6 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="beyond-code"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2 c3"
+      >
+        Life & Passions
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        Beyond the keyboard
+      </h2>
+      <div
+        class="c6"
+      >
+        <article
+          class="c7"
+        >
+          <h3
+            class="c8"
+          >
+            Sports
+          </h3>
+          <p
+            class="c9 c10"
+          >
+            Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.
+          </p>
+          <ul
+            aria-label="Sports tags"
+            class="c11"
+          >
+            <li
+              class="c12"
+            >
+              Bologna FC
+            </li>
+            <li
+              class="c12"
+            >
+              Virtus Bologna
+            </li>
+          </ul>
+        </article>
+        <article
+          class="c7"
+        >
+          <h3
+            class="c8"
+          >
+            Travel & Life
+          </h3>
+          <p
+            class="c9 c10"
+          >
+            Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.
+          </p>
+          <ul
+            aria-label="Travel & Life tags"
+            class="c11"
+          >
+            <li
+              class="c12"
+            >
+              Bangkok
+            </li>
+            <li
+              class="c12"
+            >
+              Amsterdam
+            </li>
+            <li
+              class="c12"
+            >
+              Remote-first
+            </li>
+          </ul>
+        </article>
+        <article
+          class="c7"
+        >
+          <h3
+            class="c8"
+          >
+            Languages
+          </h3>
+          <p
+            class="c9 c10"
+          >
+            Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.
+          </p>
+          <ul
+            aria-label="Languages tags"
+            class="c11"
+          >
+            <li
+              class="c12"
+            >
+              Italian
+            </li>
+            <li
+              class="c12"
+            >
+              English
+            </li>
+            <li
+              class="c12"
+            >
+              Thai
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`BeyondCode renders correctly without tags 1`] = `
+.c0 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c6 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c9 {
+  color: #a0a0b0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c3 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1.25rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c7 {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  border: 1px solid #a0a0b0;
+  border-radius: 10px;
+}
+
+.c8 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1rem;
+}
+
+.c10 {
+  flex: 1;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 600px) {
+  .c6 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="beyond-code"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2 c3"
+      >
+        Life & Passions
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        Beyond the keyboard
+      </h2>
+      <div
+        class="c6"
+      >
+        <article
+          class="c7"
+        >
+          <h3
+            class="c8"
+          >
+            Sports
+          </h3>
+          <p
+            class="c9 c10"
+          >
+            Bologna FC and Virtus Bologna — follow both faithfully.
+          </p>
+        </article>
+      </div>
+    </section>
+  </section>
+</div>
+`;

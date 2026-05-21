@@ -68,7 +68,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c0 {
-  min-height: calc(100svh - 4rem);
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding: 5rem 0;
@@ -313,7 +313,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
           </p>
           <p
             class="c8 c9"
-            variant="large"
           >
             Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.
           </p>
@@ -429,7 +428,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 .c0 {
-  min-height: calc(100svh - 4rem);
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding: 5rem 0;
@@ -652,7 +651,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
           </p>
           <p
             class="c8 c9"
-            variant="large"
           >
             Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.
           </p>

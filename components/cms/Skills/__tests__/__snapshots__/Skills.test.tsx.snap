@@ -156,7 +156,6 @@ exports[`Skills renders correctly with a single category 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Skills
       </p>
@@ -358,7 +357,6 @@ exports[`Skills renders correctly with all categories 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Skills
       </p>

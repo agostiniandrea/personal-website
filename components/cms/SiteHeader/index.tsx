@@ -15,13 +15,22 @@ export interface SiteHeaderProps {
   navLinks: SiteHeaderLink[];
 }
 
-const Header = styled.header`
-  position: sticky;
+const Header = styled.header<{ $scrolled: boolean }>`
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 100;
-  background: ${({ theme }) => theme.colors.background};
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.75rem 0;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  background: ${({ $scrolled, theme }) =>
+    $scrolled ? theme.colors.background : "transparent"};
+  border-bottom: 1px solid
+    ${({ $scrolled }) =>
+      $scrolled ? "rgba(255, 255, 255, 0.08)" : "transparent"};
+  box-shadow: ${({ $scrolled }) =>
+    $scrolled ? "0 4px 24px rgba(0, 0, 0, 0.4)" : "none"};
 `;
 
 const Logo = styled(Link)`
@@ -109,6 +118,7 @@ const DrawerLocaleButton = styled(LocaleButton)`
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -122,6 +132,12 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -171,7 +187,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
 
   return (
     <>
-      <Header>
+      <Header $scrolled={scrolled}>
         <Container>
           <Flex justifyContent="space-between" alignItems="center">
             <Logo href="/">{logoText}</Logo>

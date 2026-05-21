@@ -159,7 +159,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Experience
       </p>
@@ -179,13 +178,11 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
           >
             <p
               class="c2 c8"
-              variant="regular"
             >
               2021 — Present
             </p>
             <p
               class="c2 c9"
-              variant="regular"
             >
               JIBE eCommerce
             </p>
@@ -200,7 +197,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
             </h3>
             <p
               class="c2 c11"
-              variant="regular"
             >
               Leading frontend development for headless Shopify storefronts.
             </p>
@@ -386,7 +382,6 @@ exports[`Experience renders correctly with all items 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Experience
       </p>
@@ -406,13 +401,11 @@ exports[`Experience renders correctly with all items 1`] = `
           >
             <p
               class="c2 c8"
-              variant="regular"
             >
               2021 — Present
             </p>
             <p
               class="c2 c9"
-              variant="regular"
             >
               JIBE eCommerce
             </p>
@@ -427,7 +420,6 @@ exports[`Experience renders correctly with all items 1`] = `
             </h3>
             <p
               class="c2 c11"
-              variant="regular"
             >
               Leading frontend development for headless Shopify storefronts across multiple clients. Architecting shared component libraries, design systems, and CI/CD pipelines. Clients include Petite Revery, 7mesh Industries, and Nest Designs.
             </p>
@@ -470,13 +462,11 @@ exports[`Experience renders correctly with all items 1`] = `
           >
             <p
               class="c2 c8"
-              variant="regular"
             >
               2019 — 2021
             </p>
             <p
               class="c2 c9"
-              variant="regular"
             >
               RTL Nederland — Videoland
             </p>
@@ -491,7 +481,6 @@ exports[`Experience renders correctly with all items 1`] = `
             </h3>
             <p
               class="c2 c11"
-              variant="regular"
             >
               Led the React rewrite of the Videoland streaming platform, migrating from a legacy codebase. Delivered live sports, series, and film experiences to millions of users across web and smart TV.
             </p>
@@ -529,13 +518,11 @@ exports[`Experience renders correctly with all items 1`] = `
           >
             <p
               class="c2 c8"
-              variant="regular"
             >
               2017 — 2019
             </p>
             <p
               class="c2 c9"
-              variant="regular"
             >
               Freelance
             </p>
@@ -550,7 +537,6 @@ exports[`Experience renders correctly with all items 1`] = `
             </h3>
             <p
               class="c2 c11"
-              variant="regular"
             >
               Delivered frontend projects for clients across ecommerce, automotive, and media. Key work includes Sprintt Ceramica and MOPAR Europe.
             </p>
@@ -583,13 +569,11 @@ exports[`Experience renders correctly with all items 1`] = `
           >
             <p
               class="c2 c8"
-              variant="regular"
             >
               2013 — 2017
             </p>
             <p
               class="c2 c9"
-              variant="regular"
             >
               Various agencies
             </p>
@@ -604,7 +588,6 @@ exports[`Experience renders correctly with all items 1`] = `
             </h3>
             <p
               class="c2 c11"
-              variant="regular"
             >
               Worked at several digital agencies in Milan, building interactive campaigns, brand sites, and online games. Clients included Fiat, Chrysler, and Arfer.
             </p>

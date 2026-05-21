@@ -1,6 +1,6 @@
 import React from "react";
 
-import { About, AboutProps, Contact, ContactProps, Experience, ExperienceProps, HeroPortfolio, HeroPortfolioProps, Projects, ProjectsProps, Skills, SkillsProps } from "@components/cms";
+import { About, AboutProps, BeyondCode, BeyondCodeProps, Contact, ContactProps, Experience, ExperienceProps, HeroPortfolio, HeroPortfolioProps, Projects, ProjectsProps, Skills, SkillsProps, Sustainability, SustainabilityProps } from "@components/cms";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
 
@@ -111,6 +111,8 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
   switch (type) {
     case MODULES.ABOUT:
       return <About {...propsComponent as unknown as AboutProps} />;
+    case MODULES.BEYOND_CODE:
+      return <BeyondCode {...propsComponent as unknown as BeyondCodeProps} />;
     case MODULES.CONTACT:
       return <Contact {...propsComponent as unknown as ContactProps} />;
     case MODULES.EXPERIENCE:
@@ -121,6 +123,8 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
       return <Projects {...propsComponent as unknown as ProjectsProps} />;
     case MODULES.SKILLS:
       return <Skills {...propsComponent as unknown as SkillsProps} />;
+    case MODULES.SUSTAINABILITY:
+      return <Sustainability {...propsComponent as unknown as SustainabilityProps} />;
     default:
       return <DefaultModule data={data} typename={type} />;
   }

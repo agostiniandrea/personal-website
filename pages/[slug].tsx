@@ -28,6 +28,10 @@ const SkeletonPage = styled(Flex).attrs({ direction: "column", gap: "xl" })`
   margin: 0 auto;
 `;
 
+const PageMain = styled.main`
+  padding-top: 4.5rem;
+`;
+
 export async function getStaticProps(
   props: GetStaticPropsContext<{ slug: string }>,
 ): Promise<GetStaticPropsResult<TPage>> {
@@ -91,9 +95,9 @@ export default function Pages({ page, header, footer }: TPage) {
         seoTitle={page?.seoTitle}
       />
       {header && <SiteHeader {...header} />}
-      <main id="main-content">
+      <PageMain id="main-content">
         <ModuleRenderer components={page?.modules} />
-      </main>
+      </PageMain>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
     </>
   );

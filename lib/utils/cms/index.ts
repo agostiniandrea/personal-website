@@ -113,6 +113,7 @@ export type TSiteHeaderData = {
 export type TSiteFooterData = {
   socialLinks: { label: string; url: string }[];
   copyrightName: string;
+  tagline: string | null;
 };
 
 export const getSiteHeaderContent = async (locale = "en"): Promise<TSiteHeaderData | null> => {
@@ -140,6 +141,7 @@ export const getSiteFooterContent = async (locale = "en"): Promise<TSiteFooterDa
 
   return {
     copyrightName: entry.fields.copyrightName as string,
+    tagline: (entry.fields.tagline as string) ?? null,
     socialLinks: (entry.fields.socialLinks as any[])?.map((link) => ({
       label: link.fields.label,
       url: link.fields.url,
