@@ -221,7 +221,6 @@ exports[`Projects renders correctly with a single item 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Projects
       </p>
@@ -243,7 +242,6 @@ exports[`Projects renders correctly with a single item 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.
           </p>
@@ -291,7 +289,6 @@ exports[`Projects renders correctly with a single item 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.
           </p>
@@ -561,7 +558,6 @@ exports[`Projects renders correctly with full project list 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Projects
       </p>
@@ -583,7 +579,6 @@ exports[`Projects renders correctly with full project list 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.
           </p>
@@ -631,7 +626,6 @@ exports[`Projects renders correctly with full project list 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.
           </p>
@@ -684,7 +678,6 @@ exports[`Projects renders correctly with full project list 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Baby and kids lifestyle brand. Shopify Plus storefront with subscription products, loyalty integration, and multi-currency support.
           </p>
@@ -732,7 +725,6 @@ exports[`Projects renders correctly with full project list 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Dutch video streaming platform. Led frontend architecture for the React rewrite from a legacy codebase, delivering live sports, series, and films.
           </p>
@@ -771,7 +763,6 @@ exports[`Projects renders correctly with full project list 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             B2B furniture configurator for architects and interior designers. Real-time 3D preview with a custom quote engine built on React and Three.js.
           </p>
@@ -805,7 +796,6 @@ exports[`Projects renders correctly with full project list 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Ecommerce and product catalogue for an Italian ceramic tile manufacturer. Custom CMS integration and multi-language support.
           </p>

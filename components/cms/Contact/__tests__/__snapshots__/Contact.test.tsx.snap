@@ -153,7 +153,6 @@ exports[`Contact renders correctly with a single link 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Contact
       </p>
@@ -164,7 +163,6 @@ exports[`Contact renders correctly with a single link 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         Let's talk.
       </p>
@@ -339,7 +337,6 @@ exports[`Contact renders correctly with all links 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Contact
       </p>
@@ -350,7 +347,6 @@ exports[`Contact renders correctly with all links 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         I'm available for remote frontend and tech lead roles, freelance projects, and consulting. If you're building something with React, Next.js, or Shopify — let's talk.
       </p>

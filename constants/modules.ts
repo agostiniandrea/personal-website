@@ -4,11 +4,13 @@
 
 const MODULES = {
   ABOUT: "about",
+  BEYOND_CODE: "beyondCode",
   CONTACT: "contact",
   EXPERIENCE: "experience",
   HERO_PORTFOLIO: "heroPortfolio",
   PROJECTS: "projects",
   SKILLS: "skills",
+  SUSTAINABILITY: "sustainability",
 };
 
 export default MODULES;
