@@ -1,31 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 
+type TextVariant = "small" | "regular" | "large";
+
 interface TextProps {
   children: React.ReactNode;
-  variant?: "small" | "regular" | "large";
+  variant?: TextVariant;
   style?: React.CSSProperties;
   className?: string;
-  as?: 'span' | 'p' | 'div'
+  as?: "span" | "p" | "div";
   id?: string;
   role?: string;
   "aria-label"?: string;
   "aria-describedby"?: string;
 }
 
-const StyledText = styled.p<TextProps>`
-  color: ${(props) => props.theme.colors.paragraph};
-  font-size: ${(props) => {
-    switch (props.variant) {
+interface StyledTextProps {
+  $variant: TextVariant;
+}
+
+const StyledText = styled.p.withConfig({
+  shouldForwardProp: (prop) => !prop.startsWith("$"),
+})<StyledTextProps>`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ $variant, theme }) => {
+    switch ($variant) {
       case "small":
-        return props.theme.fontSizes.sm;
+        return theme.fontSizes.sm;
       case "large":
-        return props.theme.fontSizes.lg;
+        return theme.fontSizes.lg;
       default:
-        return props.theme.fontSizes.md;
+        return theme.fontSizes.md;
     }
   }};
-  line-height: ${(props) => props.theme.lineHeights.base};
+  line-height: ${({ theme }) => theme.lineHeights.base};
   margin: 0;
   padding: 0;
 `;
@@ -43,7 +51,7 @@ const Text: React.FC<TextProps> = ({
 }) => {
   return (
     <StyledText
-      variant={variant}
+      $variant={variant}
       style={style}
       className={className}
       as={as}

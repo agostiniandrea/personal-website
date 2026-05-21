@@ -1,0 +1,797 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sustainability renders correctly with all props 1`] = `
+.c0 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.c8 {
+  margin-bottom: 3rem;
+}
+
+.c16 {
+  margin-top: 0.5rem;
+}
+
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c6 {
+  color: #a0a0b0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c11 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  border-radius: 9999px;
+  display: inline-block;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+.c17 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  border-radius: 9999px;
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.c3 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1.25rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c7 {
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.c9 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1.5rem;
+}
+
+.c10 {
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.c12 {
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.c13 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 0;
+  border-top: 1px solid #a0a0b0;
+}
+
+.c13:last-child {
+  border-bottom: 1px solid #a0a0b0;
+}
+
+.c14 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: #ffffff;
+}
+
+.c15 {
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.c18 {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.c19 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid #a0a0b0;
+}
+
+.c20 {
+  font-size: 0.875rem;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c13 {
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="sustainability"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2 c3"
+        variant="regular"
+      >
+        Values & Action
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        Sustainability matters to me
+      </h2>
+      <p
+        class="c6 c7"
+        variant="large"
+      >
+        I believe the tech industry has a responsibility to build lighter, more mindful products. Outside of work, I act on that belief — from how I run this site to how I spend my weekends.
+      </p>
+      <div
+        class="c8"
+      >
+        <h3
+          class="c9"
+        >
+          What I care about
+        </h3>
+        <ul
+          aria-label="What I care about"
+          class="c10"
+        >
+          <li
+            class="c11"
+          >
+            Environment
+          </li>
+          <li
+            class="c11"
+          >
+            Animal Welfare
+          </li>
+          <li
+            class="c11"
+          >
+            Social Services
+          </li>
+          <li
+            class="c11"
+          >
+            Disaster & Humanitarian Relief
+          </li>
+          <li
+            class="c11"
+          >
+            Education
+          </li>
+          <li
+            class="c11"
+          >
+            Science & Technology
+          </li>
+        </ul>
+      </div>
+      <div
+        class="c8"
+      >
+        <h3
+          class="c9"
+        >
+          Where I've shown up
+        </h3>
+        <ol
+          aria-label="Where I've shown up"
+          class="c12"
+        >
+          <li
+            class="c13"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                Clean Up Your City
+              </p>
+              <p
+                class="c2 c15"
+                variant="regular"
+              >
+                May – Sep 2024
+              </p>
+              <div
+                class="c16"
+              >
+                <span
+                  class="c17"
+                >
+                  Environment
+                </span>
+              </div>
+            </div>
+            <p
+              class="c2 c18"
+              variant="regular"
+            >
+              Monthly clean-up initiatives in Amsterdam city center, working with residents and local entrepreneurs to maintain public spaces.
+            </p>
+          </li>
+          <li
+            class="c13"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                NDSM Cleans Up
+              </p>
+              <p
+                class="c2 c15"
+                variant="regular"
+              >
+                Jun – Sep 2024
+              </p>
+              <div
+                class="c16"
+              >
+                <span
+                  class="c17"
+                >
+                  Environment
+                </span>
+              </div>
+            </div>
+            <p
+              class="c2 c18"
+              variant="regular"
+            >
+              Monthly clean-up events at NDSM Wharf, Amsterdam's former industrial shipyard turned cultural hub.
+            </p>
+          </li>
+          <li
+            class="c13"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                About Waste
+              </p>
+              <p
+                class="c2 c15"
+                variant="regular"
+              >
+                Jun 2024
+              </p>
+              <div
+                class="c16"
+              >
+                <span
+                  class="c17"
+                >
+                  Environment
+                </span>
+              </div>
+            </div>
+            <p
+              class="c2 c18"
+              variant="regular"
+            >
+              Volunteered at the Silent Disco Party Cleanup at IJ-Hallen, Europe's largest flea market, combining environmental action with community fun.
+            </p>
+          </li>
+          <li
+            class="c13"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                Serve the City Amsterdam
+              </p>
+              <p
+                class="c2 c15"
+                variant="regular"
+              >
+                May – Sep 2024
+              </p>
+              <div
+                class="c16"
+              >
+                <span
+                  class="c17"
+                >
+                  Environment
+                </span>
+              </div>
+            </div>
+            <p
+              class="c2 c18"
+              variant="regular"
+            >
+              Community clean-up events at Vondelpark, supporting the park maintenance team in keeping one of Amsterdam's most visited public spaces clean.
+            </p>
+          </li>
+          <li
+            class="c13"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                Stichting Care4Good Foundation
+              </p>
+              <p
+                class="c2 c15"
+                variant="regular"
+              >
+                Mar 2024
+              </p>
+              <div
+                class="c16"
+              >
+                <span
+                  class="c17"
+                >
+                  Social Services
+                </span>
+              </div>
+            </div>
+            <p
+              class="c2 c18"
+              variant="regular"
+            >
+              Helped unload and organize donated furniture for people experiencing homelessness and Ukrainian refugees.
+            </p>
+          </li>
+          <li
+            class="c13"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                Comune di Casalecchio di Reno
+              </p>
+              <p
+                class="c2 c15"
+                variant="regular"
+              >
+                Jun – Jul 2009
+              </p>
+              <div
+                class="c16"
+              >
+                <span
+                  class="c17"
+                >
+                  Education
+                </span>
+              </div>
+            </div>
+            <p
+              class="c2 c18"
+              variant="regular"
+            >
+              Student volunteer at a summer youth program, supporting children's daily activities and ensuring their safety and wellbeing.
+            </p>
+          </li>
+        </ol>
+      </div>
+      <div
+        class="c19"
+      >
+        <p
+          class="c2 c20"
+          variant="regular"
+        >
+          This site is cleaner than most of the web. I care about digital footprint just as much as the physical one.
+        </p>
+        <div
+          data-testid="carbon-badge"
+        />
+      </div>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`Sustainability renders correctly with minimal props 1`] = `
+.c0 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.c8 {
+  margin-bottom: 3rem;
+}
+
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c4 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.c2 {
+  color: #a0a0b0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c6 {
+  color: #a0a0b0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c10 {
+  border: 1px solid #a0a0b0;
+  color: #a0a0b0;
+  border-radius: 9999px;
+  display: inline-block;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+.c3 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  margin: 0 0 1.25rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+.c7 {
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.c9 {
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.c11 {
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.c12 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 0;
+  border-top: 1px solid #a0a0b0;
+}
+
+.c12:last-child {
+  border-bottom: 1px solid #a0a0b0;
+}
+
+.c13 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: #ffffff;
+}
+
+.c14 {
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.c15 {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c12 {
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="sustainability"
+  >
+    <section
+      class="c1"
+    >
+      <p
+        class="c2 c3"
+        variant="regular"
+      >
+        Values & Action
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        Sustainability matters to me
+      </h2>
+      <p
+        class="c6 c7"
+        variant="large"
+      >
+        I believe the tech industry has a responsibility to build lighter, more mindful products.
+      </p>
+      <div
+        class="c8"
+      >
+        <ul
+          aria-label="Values"
+          class="c9"
+        >
+          <li
+            class="c10"
+          >
+            Environment
+          </li>
+          <li
+            class="c10"
+          >
+            Education
+          </li>
+        </ul>
+      </div>
+      <div
+        class="c8"
+      >
+        <ol
+          aria-label="Volunteering"
+          class="c11"
+        >
+          <li
+            class="c12"
+          >
+            <div
+              class=""
+            >
+              <p
+                class="c2 c13"
+                variant="regular"
+              >
+                Clean Up Your City
+              </p>
+              <p
+                class="c2 c14"
+                variant="regular"
+              >
+                May – Sep 2024
+              </p>
+            </div>
+            <p
+              class="c2 c15"
+              variant="regular"
+            >
+              Monthly clean-up initiatives in Amsterdam city center.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </section>
+</div>
+`;

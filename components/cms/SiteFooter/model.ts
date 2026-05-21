@@ -6,6 +6,7 @@ export const defaultSiteFooter: SiteFooterProps = {
     { label: "GitHub", url: "https://github.com/agostiniandrea" },
   ],
   copyrightName: "Andrea Agostini",
+  tagline: "Building for the web, one component at a time. Based in Bangkok.",
 };
 
 export const minimalSiteFooter: SiteFooterProps = {

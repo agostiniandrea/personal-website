@@ -9,7 +9,7 @@
     "build:config": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "build:sitemap": "NODE_OPTIONS='--no-deprecation' next-sitemap --config next-sitemap.config.mjs",
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --build-script-name build-storybook --exit-zero-on-changes",
-    "dev": "NODE_OPTIONS='--no-deprecation' TURBOPACK=0 next dev",
+    "dev": "NODE_OPTIONS='--no-deprecation' next dev --webpack",
     "lint": "eslint --ext ts,tsx . --quiet",
     "lint:fix": "eslint --fix --ext ts,tsx .",
     "postbuild": "NODE_OPTIONS='--no-deprecation' next-sitemap --config next-sitemap.config.mjs",
