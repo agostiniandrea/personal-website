@@ -140,7 +140,6 @@ exports[`About renders correctly with all props 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         About
       </p>
@@ -151,7 +150,6 @@ exports[`About renders correctly with all props 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
       </p>
@@ -299,7 +297,6 @@ exports[`About renders correctly without optional tags 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         About
       </p>
@@ -310,7 +307,6 @@ exports[`About renders correctly without optional tags 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify.
       </p>

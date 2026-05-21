@@ -205,7 +205,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Life & Passions
       </p>
@@ -216,7 +215,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         Work is a big part of who I am, but not the whole story. Here's the rest.
       </p>
@@ -233,7 +231,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
           </h3>
           <p
             class="c11 c12"
-            variant="small"
           >
             Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.
           </p>
@@ -263,7 +260,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
           </h3>
           <p
             class="c11 c12"
-            variant="small"
           >
             Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.
           </p>
@@ -298,7 +294,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
           </h3>
           <p
             class="c11 c12"
-            variant="small"
           >
             Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.
           </p>
@@ -520,7 +515,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Life & Passions
       </p>
@@ -542,7 +536,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.
           </p>
@@ -572,7 +565,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.
           </p>
@@ -607,7 +599,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.
           </p>
@@ -811,7 +802,6 @@ exports[`BeyondCode renders correctly without tags 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Life & Passions
       </p>
@@ -833,7 +823,6 @@ exports[`BeyondCode renders correctly without tags 1`] = `
           </h3>
           <p
             class="c9 c10"
-            variant="small"
           >
             Bologna FC and Virtus Bologna — follow both faithfully.
           </p>

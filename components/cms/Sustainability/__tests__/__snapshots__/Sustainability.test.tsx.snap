@@ -229,7 +229,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Values & Action
       </p>
@@ -240,7 +239,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         I believe the tech industry has a responsibility to build lighter, more mindful products. Outside of work, I act on that belief — from how I run this site to how I spend my weekends.
       </p>
@@ -308,13 +306,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
             >
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 Clean Up Your City
               </p>
               <p
                 class="c2 c15"
-                variant="regular"
               >
                 May – Sep 2024
               </p>
@@ -330,7 +326,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
             </div>
             <p
               class="c2 c18"
-              variant="regular"
             >
               Monthly clean-up initiatives in Amsterdam city center, working with residents and local entrepreneurs to maintain public spaces.
             </p>
@@ -343,13 +338,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
             >
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 NDSM Cleans Up
               </p>
               <p
                 class="c2 c15"
-                variant="regular"
               >
                 Jun – Sep 2024
               </p>
@@ -365,7 +358,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
             </div>
             <p
               class="c2 c18"
-              variant="regular"
             >
               Monthly clean-up events at NDSM Wharf, Amsterdam's former industrial shipyard turned cultural hub.
             </p>
@@ -378,13 +370,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
             >
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 About Waste
               </p>
               <p
                 class="c2 c15"
-                variant="regular"
               >
                 Jun 2024
               </p>
@@ -400,7 +390,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
             </div>
             <p
               class="c2 c18"
-              variant="regular"
             >
               Volunteered at the Silent Disco Party Cleanup at IJ-Hallen, Europe's largest flea market, combining environmental action with community fun.
             </p>
@@ -413,13 +402,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
             >
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 Serve the City Amsterdam
               </p>
               <p
                 class="c2 c15"
-                variant="regular"
               >
                 May – Sep 2024
               </p>
@@ -435,7 +422,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
             </div>
             <p
               class="c2 c18"
-              variant="regular"
             >
               Community clean-up events at Vondelpark, supporting the park maintenance team in keeping one of Amsterdam's most visited public spaces clean.
             </p>
@@ -448,13 +434,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
             >
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 Stichting Care4Good Foundation
               </p>
               <p
                 class="c2 c15"
-                variant="regular"
               >
                 Mar 2024
               </p>
@@ -470,7 +454,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
             </div>
             <p
               class="c2 c18"
-              variant="regular"
             >
               Helped unload and organize donated furniture for people experiencing homelessness and Ukrainian refugees.
             </p>
@@ -483,13 +466,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
             >
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 Comune di Casalecchio di Reno
               </p>
               <p
                 class="c2 c15"
-                variant="regular"
               >
                 Jun – Jul 2009
               </p>
@@ -505,7 +486,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
             </div>
             <p
               class="c2 c18"
-              variant="regular"
             >
               Student volunteer at a summer youth program, supporting children's daily activities and ensuring their safety and wellbeing.
             </p>
@@ -517,7 +497,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
       >
         <p
           class="c2 c20"
-          variant="regular"
         >
           This site is cleaner than most of the web. I care about digital footprint just as much as the physical one.
         </p>
@@ -722,7 +701,6 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
     >
       <p
         class="c2 c3"
-        variant="regular"
       >
         Values & Action
       </p>
@@ -733,7 +711,6 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
       </h2>
       <p
         class="c6 c7"
-        variant="large"
       >
         I believe the tech industry has a responsibility to build lighter, more mindful products.
       </p>
@@ -771,20 +748,17 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
             >
               <p
                 class="c2 c13"
-                variant="regular"
               >
                 Clean Up Your City
               </p>
               <p
                 class="c2 c14"
-                variant="regular"
               >
                 May – Sep 2024
               </p>
             </div>
             <p
               class="c2 c15"
-              variant="regular"
             >
               Monthly clean-up initiatives in Amsterdam city center.
             </p>

@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
+.c6 #wcb_2 {
+  display: none!important;
+}
+
 .c1 {
   display: grid;
   position: relative;
@@ -25,7 +29,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c6 {
+.c7 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -114,14 +118,17 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           class="c5"
         >
           <div
-            class="carbonbadge  wcb-d "
-            id="wcb"
-          />
+            class="c6"
+          >
+            <div
+              class="carbonbadge wcb-d "
+              id="wcb"
+            />
+          </div>
         </div>
         <p
-          class="c6"
+          class="c7"
           style="text-align: center;"
-          variant="small"
         >
           © 
           2026
@@ -135,6 +142,10 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
+.c10 #wcb_2 {
+  display: none!important;
+}
+
 .c1 {
   display: grid;
   position: relative;
@@ -184,7 +195,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c11 {
   color: #a0a0b0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -301,7 +312,6 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         </div>
         <p
           class="c7 c8"
-          variant="regular"
         >
           Building for the web, one component at a time. Based in Bangkok.
         </p>
@@ -309,14 +319,17 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           class="c9"
         >
           <div
-            class="carbonbadge  wcb-d "
-            id="wcb"
-          />
+            class="c10"
+          >
+            <div
+              class="carbonbadge wcb-d "
+              id="wcb"
+            />
+          </div>
         </div>
         <p
-          class="c10"
+          class="c11"
           style="text-align: center;"
-          variant="small"
         >
           © 
           2026
