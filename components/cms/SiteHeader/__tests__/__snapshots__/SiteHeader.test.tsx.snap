@@ -2,10 +2,10 @@
 
 exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c6 {
-  background: #1d4ed8;
+  background: var(--color-button);
   border-radius: 4px;
   border: none;
-  color: #ffffff;
+  color: var(--color-button-text);
   cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
@@ -21,7 +21,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c6:focus {
-  outline: 2px solid #1d4ed8;
+  outline: 2px solid var(--color-button);
   outline-offset: 2px;
 }
 
@@ -30,7 +30,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c6:focus-visible {
-  outline: 2px solid #1d4ed8;
+  outline: 2px solid var(--color-button);
   outline-offset: 2px;
 }
 
@@ -54,7 +54,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c3 {
-  color: #3b82f6;
+  color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
   line-height: 1;
@@ -62,11 +62,11 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c3:hover {
-  color: #3b82f6;
+  color: var(--color-tertiary);
 }
 
 .c3:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
 
@@ -95,7 +95,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   right: 0;
   height: 100%;
   width: 280px;
-  background: #0a0a0f;
+  background: var(--color-background);
   z-index: 300;
   display: flex;
   flex-direction: column;
@@ -123,7 +123,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   cursor: pointer;
   text-decoration: none;
 }
@@ -141,7 +141,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   padding: 0.5rem;
   min-width: 44px;
   min-height: 44px;
-  color: #ffffff;
+  color: var(--color-headline);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +158,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--color-headline);
   border-radius: 4px;
   transition: all 0.2s ease;
   display: flex;
@@ -172,7 +172,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c7:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
@@ -433,10 +433,10 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 
 exports[`SiteHeader renders correctly with no nav links 1`] = `
 .c6 {
-  background: #1d4ed8;
+  background: var(--color-button);
   border-radius: 4px;
   border: none;
-  color: #ffffff;
+  color: var(--color-button-text);
   cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
@@ -452,7 +452,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c6:focus {
-  outline: 2px solid #1d4ed8;
+  outline: 2px solid var(--color-button);
   outline-offset: 2px;
 }
 
@@ -461,7 +461,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c6:focus-visible {
-  outline: 2px solid #1d4ed8;
+  outline: 2px solid var(--color-button);
   outline-offset: 2px;
 }
 
@@ -485,7 +485,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c3 {
-  color: #3b82f6;
+  color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
   line-height: 1;
@@ -493,11 +493,11 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c3:hover {
-  color: #3b82f6;
+  color: var(--color-tertiary);
 }
 
 .c3:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
 
@@ -526,7 +526,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   right: 0;
   height: 100%;
   width: 280px;
-  background: #0a0a0f;
+  background: var(--color-background);
   z-index: 300;
   display: flex;
   flex-direction: column;
@@ -554,7 +554,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   cursor: pointer;
   text-decoration: none;
 }
@@ -572,7 +572,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   padding: 0.5rem;
   min-width: 44px;
   min-height: 44px;
-  color: #ffffff;
+  color: var(--color-headline);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -589,7 +589,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--color-headline);
   border-radius: 4px;
   transition: all 0.2s ease;
   display: flex;
@@ -603,7 +603,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c7:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 

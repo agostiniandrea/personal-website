@@ -2,8 +2,8 @@
 
 exports[`Badge renders badge with default props (md size, span) 1`] = `
 .c0 {
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
+  border: 1px solid var(--color-main);
+  color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.875rem;
