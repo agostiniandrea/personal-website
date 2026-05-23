@@ -4,7 +4,7 @@ exports[`Heading renders heading with default props (h2, section size) 1`] = `
 .c0 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   margin: 0;
   font-size: 2.5rem;
   line-height: 1.1;

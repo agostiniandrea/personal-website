@@ -4,6 +4,33 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --font-inter: "Inter", sans-serif;
     --font-space-grotesk: "Space Grotesk", sans-serif;
+
+    /* color tokens — dark (default) */
+    --color-background: #0a0a0f;
+    --color-headline: #ffffff;
+    --color-paragraph: #a0a0b0;
+    --color-button: #1d4ed8;
+    --color-button-text: #ffffff;
+    --color-stroke: #1a1a2e;
+    --color-main: #a0a0b0;
+    --color-highlight: #3b82f6;
+    --color-secondary: #ffffff;
+    --color-tertiary: #3b82f6;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --color-background: #f5f5fa;
+      --color-headline: #0a0a0f;
+      --color-paragraph: #6a6a80;
+      --color-button: #1d4ed8;
+      --color-button-text: #ffffff;
+      --color-stroke: #d0d0e4;
+      --color-main: #c0c0d4;
+      --color-highlight: #1d4ed8;
+      --color-secondary: #0a0a0f;
+      --color-tertiary: #1d4ed8;
+    }
   }
 
   ${({ theme }) => css`

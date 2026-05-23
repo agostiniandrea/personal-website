@@ -10,7 +10,6 @@ describe("Link", () => {
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute("href", "https://example.com");
     expect(link).toHaveStyle({
-      color: "rgb(59, 130, 246)",
       textDecoration: "none",
     });
   });

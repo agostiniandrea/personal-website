@@ -30,7 +30,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 .c7 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
@@ -171,7 +171,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 .c5 {
-  color: #3b82f6;
+  color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
   line-height: 1;
@@ -179,16 +179,16 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 .c5:hover {
-  color: #3b82f6;
+  color: var(--color-tertiary);
 }
 
 .c5:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
 
 .c7 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
@@ -196,7 +196,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 .c11 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
@@ -217,13 +217,13 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c6 {
   font-weight: 700;
-  color: #3b82f6;
+  color: var(--color-highlight);
 }
 
 .c8 {
   text-align: center;
   font-size: 0.875rem;
-  color: #a0a0b0;
+  color: var(--color-paragraph);
 }
 
 .c9 {

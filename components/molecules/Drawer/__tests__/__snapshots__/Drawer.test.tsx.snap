@@ -7,7 +7,7 @@ exports[`Drawer renders closed drawer 1`] = `
   right: 0;
   height: 100%;
   width: 280px;
-  background: #0a0a0f;
+  background: var(--color-background);
   z-index: 300;
   display: flex;
   flex-direction: column;

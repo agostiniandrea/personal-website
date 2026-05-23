@@ -35,14 +35,14 @@ exports[`Projects renders correctly with a single item 1`] = `
 .c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   margin: 0;
   font-size: 2.5rem;
   line-height: 1.1;
 }
 
 .c13 {
-  color: #3b82f6;
+  color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
   line-height: 1;
@@ -50,16 +50,16 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c13:hover {
-  color: #3b82f6;
+  color: var(--color-tertiary);
 }
 
 .c13:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
 
 .c2 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
@@ -67,7 +67,7 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c9 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
@@ -75,8 +75,8 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c12 {
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
+  border: 1px solid var(--color-main);
+  color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.75rem;
@@ -87,7 +87,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #3b82f6;
+  color: var(--color-highlight);
   margin: 0 0 1.25rem;
 }
 
@@ -101,13 +101,13 @@ exports[`Projects renders correctly with a single item 1`] = `
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
-  border: 1px solid #a0a0b0;
+  border: 1px solid var(--color-main);
   border-radius: 10px;
   transition: border-color 0.2s ease;
 }
 
 .c7:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-highlight);
 }
 
 .c8 {
@@ -372,14 +372,14 @@ exports[`Projects renders correctly with full project list 1`] = `
 .c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   margin: 0;
   font-size: 2.5rem;
   line-height: 1.1;
 }
 
 .c13 {
-  color: #3b82f6;
+  color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
   line-height: 1;
@@ -387,16 +387,16 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c13:hover {
-  color: #3b82f6;
+  color: var(--color-tertiary);
 }
 
 .c13:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
 
 .c2 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
@@ -404,7 +404,7 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c9 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
@@ -412,8 +412,8 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c12 {
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
+  border: 1px solid var(--color-main);
+  color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.75rem;
@@ -424,7 +424,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #3b82f6;
+  color: var(--color-highlight);
   margin: 0 0 1.25rem;
 }
 
@@ -438,13 +438,13 @@ exports[`Projects renders correctly with full project list 1`] = `
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
-  border: 1px solid #a0a0b0;
+  border: 1px solid var(--color-main);
   border-radius: 10px;
   transition: border-color 0.2s ease;
 }
 
 .c7:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-highlight);
 }
 
 .c8 {
