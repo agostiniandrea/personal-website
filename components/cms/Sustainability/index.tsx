@@ -44,7 +44,7 @@ const ValuesList = styled.ul`
 
 const VolunteeringList = styled.ol`
   list-style: none;
-  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -117,7 +117,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
       <Intro variant="large">{intro}</Intro>
 
       {values.length > 0 && (
-        <Box mb="3xl">
+        <Box>
           {valuesHeading && <SubHeading>{valuesHeading}</SubHeading>}
           <ValuesList aria-label={valuesHeading ?? "Values"}>
             {values.map((value) => (
@@ -128,7 +128,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
       )}
 
       {volunteeringItems.length > 0 && (
-        <Box mb="3xl">
+        <Box {...showCarbonBadge && { mb: "3xl" }}>
           {volunteeringHeading && (
             <SubHeading>{volunteeringHeading}</SubHeading>
           )}

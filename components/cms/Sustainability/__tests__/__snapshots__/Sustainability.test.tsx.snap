@@ -6,7 +6,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   margin-bottom: 4rem;
 }
 
-.c8 {
+.c11 {
   margin-bottom: 3rem;
 }
 
@@ -52,7 +52,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c11 {
+.c10 {
   border: 1px solid #a0a0b0;
   color: #a0a0b0;
   border-radius: 9999px;
@@ -89,7 +89,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   margin-bottom: 3rem;
 }
 
-.c9 {
+.c8 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
@@ -99,7 +99,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   margin: 0 0 1.5rem;
 }
 
-.c10 {
+.c9 {
   list-style: none;
   margin: 0 0 3rem;
   padding: 0;
@@ -110,7 +110,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
 
 .c12 {
   list-style: none;
-  margin: 0 0 3rem;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -243,54 +243,54 @@ exports[`Sustainability renders correctly with all props 1`] = `
         I believe the tech industry has a responsibility to build lighter, more mindful products. Outside of work, I act on that belief — from how I run this site to how I spend my weekends.
       </p>
       <div
-        class="c8"
+        class=""
       >
         <h3
-          class="c9"
+          class="c8"
         >
           What I care about
         </h3>
         <ul
           aria-label="What I care about"
-          class="c10"
+          class="c9"
         >
           <li
-            class="c11"
+            class="c10"
           >
             Environment
           </li>
           <li
-            class="c11"
+            class="c10"
           >
             Animal Welfare
           </li>
           <li
-            class="c11"
+            class="c10"
           >
             Social Services
           </li>
           <li
-            class="c11"
+            class="c10"
           >
             Disaster & Humanitarian Relief
           </li>
           <li
-            class="c11"
+            class="c10"
           >
             Education
           </li>
           <li
-            class="c11"
+            class="c10"
           >
             Science & Technology
           </li>
         </ul>
       </div>
       <div
-        class="c8"
+        class="c11"
       >
         <h3
-          class="c9"
+          class="c8"
         >
           Where I've shown up
         </h3>
@@ -515,10 +515,6 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   margin-bottom: 4rem;
 }
 
-.c8 {
-  margin-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   position: relative;
@@ -557,7 +553,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c9 {
   border: 1px solid #a0a0b0;
   color: #a0a0b0;
   border-radius: 9999px;
@@ -585,7 +581,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   margin-bottom: 3rem;
 }
 
-.c9 {
+.c8 {
   list-style: none;
   margin: 0 0 3rem;
   padding: 0;
@@ -594,15 +590,15 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   gap: 0.5rem;
 }
 
-.c11 {
+.c10 {
   list-style: none;
-  margin: 0 0 3rem;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
 }
 
-.c12 {
+.c11 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -610,23 +606,23 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   border-top: 1px solid #a0a0b0;
 }
 
-.c12:last-child {
+.c11:last-child {
   border-bottom: 1px solid #a0a0b0;
 }
 
-.c13 {
+.c12 {
   font-size: 0.875rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
   color: #ffffff;
 }
 
-.c14 {
+.c13 {
   font-size: 0.75rem;
   margin: 0;
 }
 
-.c15 {
+.c14 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0;
@@ -685,7 +681,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c12 {
+  .c11 {
     grid-template-columns: 200px 1fr;
     gap: 2rem;
   }
@@ -715,50 +711,50 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
         I believe the tech industry has a responsibility to build lighter, more mindful products.
       </p>
       <div
-        class="c8"
+        class=""
       >
         <ul
           aria-label="Values"
-          class="c9"
+          class="c8"
         >
           <li
-            class="c10"
+            class="c9"
           >
             Environment
           </li>
           <li
-            class="c10"
+            class="c9"
           >
             Education
           </li>
         </ul>
       </div>
       <div
-        class="c8"
+        class=""
       >
         <ol
           aria-label="Volunteering"
-          class="c11"
+          class="c10"
         >
           <li
-            class="c12"
+            class="c11"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c2 c12"
               >
                 Clean Up Your City
               </p>
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 May – Sep 2024
               </p>
             </div>
             <p
-              class="c2 c15"
+              class="c2 c14"
             >
               Monthly clean-up initiatives in Amsterdam city center.
             </p>
