@@ -17,14 +17,14 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 .c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   margin: 0;
   font-size: 2.5rem;
   line-height: 1.1;
 }
 
 .c2 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
@@ -39,7 +39,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #3b82f6;
+  color: var(--color-highlight);
   margin: 0 0 1.25rem;
 }
 
@@ -62,11 +62,11 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   grid-template-columns: 1fr;
   gap: 1rem;
   padding: 2rem 0;
-  border-top: 1px solid #a0a0b0;
+  border-top: 1px solid var(--color-main);
 }
 
 .c7:last-child {
-  border-bottom: 1px solid #a0a0b0;
+  border-bottom: 1px solid var(--color-main);
 }
 
 .c8 {
@@ -231,14 +231,14 @@ exports[`Experience renders correctly with all items 1`] = `
 .c4 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-headline);
   margin: 0;
   font-size: 2.5rem;
   line-height: 1.1;
 }
 
 .c2 {
-  color: #a0a0b0;
+  color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
@@ -246,8 +246,8 @@ exports[`Experience renders correctly with all items 1`] = `
 }
 
 .c13 {
-  border: 1px solid #a0a0b0;
-  color: #a0a0b0;
+  border: 1px solid var(--color-main);
+  color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
   font-size: 0.75rem;
@@ -262,7 +262,7 @@ exports[`Experience renders correctly with all items 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #3b82f6;
+  color: var(--color-highlight);
   margin: 0 0 1.25rem;
 }
 
@@ -285,11 +285,11 @@ exports[`Experience renders correctly with all items 1`] = `
   grid-template-columns: 1fr;
   gap: 1rem;
   padding: 2rem 0;
-  border-top: 1px solid #a0a0b0;
+  border-top: 1px solid var(--color-main);
 }
 
 .c7:last-child {
-  border-bottom: 1px solid #a0a0b0;
+  border-bottom: 1px solid var(--color-main);
 }
 
 .c8 {

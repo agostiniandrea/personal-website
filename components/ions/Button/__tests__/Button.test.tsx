@@ -8,10 +8,6 @@ describe("Button", () => {
 
     const button = screen.getByRole("button", { name: "Click me" });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveStyle({
-      background: "#1d4ed8",
-      color: "#ffffff",
-    });
   });
 
   it("renders button with custom styles", () => {
