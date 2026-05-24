@@ -7537,9 +7537,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contentful@npm:11.12.1":
-  version: 11.12.1
-  resolution: "contentful@npm:11.12.1"
+"contentful@npm:11.12.2":
+  version: 11.12.2
+  resolution: "contentful@npm:11.12.2"
   dependencies:
     "@contentful/content-source-maps": "npm:^0.11.33"
     "@contentful/rich-text-types": "npm:^16.6.1"
@@ -7549,7 +7549,7 @@ __metadata:
     json-stringify-safe: "npm:^5.0.1"
     tslib: "npm:^2.8.1"
     type-fest: "npm:^4.0.0"
-  checksum: 10c0/f7fecd33581d38b1167714dc21bce0c13982c809c0078385425690e19d1c227616bb2b6ad2bd9b9c0e4b1db4399de0e3d2bd041a54fbab75679c3fc49b76e8c9
+  checksum: 10c0/ff70c628e035451ae0d430477d547a5ed6e2611206ef3615462599e536eeddc7858a845ccacc6dd3cd5852459f3d390580c9bf21fae821a3995b1af0ccbe96ca
   languageName: node
   linkType: hard
 
@@ -16997,7 +16997,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^4.0.0"
     airtable: "npm:^0.12.2"
     chromatic: "npm:16.9.1"
-    contentful: "npm:11.12.1"
+    contentful: "npm:11.12.2"
     cypress: "npm:15.14.2"
     dotenv: "npm:17.4.2"
     eslint: "npm:10.3.0"
