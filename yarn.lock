@@ -4245,12 +4245,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-onboarding@npm:10.3.6":
-  version: 10.3.6
-  resolution: "@storybook/addon-onboarding@npm:10.3.6"
+"@storybook/addon-onboarding@npm:10.4.1":
+  version: 10.4.1
+  resolution: "@storybook/addon-onboarding@npm:10.4.1"
   peerDependencies:
-    storybook: ^10.3.6
-  checksum: 10c0/eccf7406f0b7d23cb74ef689c0278c2153b8739b9e14d74fb9b303cfd1b03eeb8bfbedd880fe497e43105aaea143d3d7a641cdf7c7adfb9dd3fea3958af5f1ce
+    storybook: ^10.4.1
+  checksum: 10c0/497f0992f400963a8f7d6994664f07bde7a06713dd33d6efa0170d9850ebf3ddc1be61a298e19fc26e678af13870561659d211b20b6ce7da16a5cec8fdadeaf7
   languageName: node
   linkType: hard
 
@@ -16973,7 +16973,7 @@ __metadata:
     "@sentry/nextjs": "npm:10.52.0"
     "@storybook/addon-docs": "npm:10.3.6"
     "@storybook/addon-links": "npm:10.3.6"
-    "@storybook/addon-onboarding": "npm:10.3.6"
+    "@storybook/addon-onboarding": "npm:10.4.1"
     "@storybook/addon-vitest": "npm:10.3.6"
     "@storybook/nextjs": "npm:10.3.6"
     "@storybook/nextjs-vite": "npm:10.3.6"
