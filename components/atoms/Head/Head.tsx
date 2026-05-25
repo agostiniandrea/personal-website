@@ -16,6 +16,7 @@ const Head = () => {
         <meta name="author" content="Andrea Agostini" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
         <meta name="msapplication-TileColor" content="#ffffff" />
