@@ -122,7 +122,7 @@ const Journey: React.FC<JourneyProps> = ({
     <Box py="5xl">
       {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
       {heading && (
-        <SectionHeading variant="section">{heading}</SectionHeading>
+        <SectionHeading size="section">{heading}</SectionHeading>
       )}
       {intro && <Intro variant="large">{intro}</Intro>}
 
@@ -135,7 +135,7 @@ const Journey: React.FC<JourneyProps> = ({
             <ItemContent>
               <CountryLabel>{chapter.country}</CountryLabel>
               <Box>
-                <CityHeading variant="card">{chapter.city}</CityHeading>
+                <CityHeading size="card">{chapter.city}</CityHeading>
               </Box>
               <DateLabel>
                 {chapter.age ? `${chapter.age} anni · ` : ""}
