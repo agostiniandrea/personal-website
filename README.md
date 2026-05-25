@@ -11,6 +11,7 @@ Live at **[andreaagostini.com](https://andreaagostini.com)**
 | Framework | Next.js 16 (Pages Router) |
 | CMS | Contentful |
 | Styling | styled-components + ThemeProvider |
+| Theming | Dark (default) + light via `prefers-color-scheme` — CSS custom properties, no JS |
 | Language | TypeScript |
 | Testing | Jest + Storybook / Vitest + Playwright |
 | Deployment | Vercel |
@@ -63,7 +64,8 @@ components/
   ions/        # Primitive UI building blocks (Button, Box, Flex, Text, Link…)
   molecules/   # Composed from ions (HeadingBox, CarbonBadge, InstagramPost…)
   organisms/   # Page-level sections (SiteHeader, SiteFooter, ModuleRenderer…)
-  cms/         # Contentful-driven page modules (HeroPortfolio, Experience, Sustainability…)
+  cms/         # Contentful-driven page modules (HeroPortfolio, Experience, Skills, Projects,
+               #   About, Sustainability, BeyondCode, Contact, Journey…)
 config/        # Theme tokens — colors, fonts, spacing, radii, breakpoints
 constants/     # Module type IDs, breakpoints
 lib/
@@ -84,6 +86,20 @@ Content is fetched from Contentful at build time via `getStaticProps` + ISR.
 
 Each page contains an ordered list of **modules**. `ModuleRenderer` maps each module's `type` to its matching component in `components/cms/`. To add a new module: add its content type ID to `constants/modules.ts`, create the component, and add a `case` in `ModuleRenderer`.
 
+### Available modules
+
+| Module | Contentful type | Notes |
+|---|---|---|
+| `HeroPortfolio` | `heroPortfolio` | Hero section with name, role, CTAs |
+| `About` | `about` | Bio and intro copy |
+| `Experience` | `experience` | Work history |
+| `Skills` | `skills` | Technical skills by category |
+| `Projects` | `projects` | Selected projects |
+| `Sustainability` | `sustainability` | Values, volunteering, carbon badge |
+| `BeyondCode` | `beyondCode` | Personal interests and hobbies |
+| `Contact` | `contact` | Contact section |
+| `Journey` | `journey` | Life timeline — static data, no Contentful fields required |
+
 ## Environment Variables
 
 | Variable | Required | Purpose |
@@ -95,6 +111,10 @@ Each page contains an ordered list of **modules**. `ModuleRenderer` maps each mo
 | `SENTRY_ORG` | Optional | Sentry organisation |
 | `SENTRY_PROJECT` | Optional | Sentry project |
 | `CHROMATIC_PROJECT_TOKEN` | Optional | Chromatic visual regression |
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for a full history of notable changes.
 
 ## License
 
