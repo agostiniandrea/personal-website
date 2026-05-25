@@ -5,11 +5,20 @@ export const config = {
   runtime: "edge",
 };
 
-export default function handler(req: NextRequest) {
+export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const title = searchParams.get("title") ?? "Andrea Agostini";
   const subtitle =
     searchParams.get("subtitle") ?? "Senior Frontend Developer & Tech Lead";
+
+  const [interBold, interRegular] = await Promise.all([
+    fetch(
+      "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiJ-Ek-_EeA.woff2",
+    ).then((r) => r.arrayBuffer()),
+    fetch(
+      "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2",
+    ).then((r) => r.arrayBuffer()),
+  ]);
 
   return new ImageResponse(
     (
@@ -22,7 +31,7 @@ export default function handler(req: NextRequest) {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px 96px",
-          fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "Inter, sans-serif",
           position: "relative",
         }}
       >
@@ -33,35 +42,37 @@ export default function handler(req: NextRequest) {
             top: 0,
             left: 0,
             right: 0,
-            height: "4px",
-            background:
-              "linear-gradient(90deg, #3b82f6 0%, #1d4ed8 60%, transparent 100%)",
+            height: "5px",
+            background: "#3b82f6",
+            display: "flex",
           }}
         />
 
         {/* label */}
         <div
           style={{
-            fontSize: "14px",
-            letterSpacing: "0.2em",
+            fontSize: "15px",
+            letterSpacing: "0.18em",
             textTransform: "uppercase",
             color: "#3b82f6",
-            marginBottom: "28px",
+            marginBottom: "32px",
             display: "flex",
+            fontWeight: 400,
           }}
         >
-          andreaagostini.com
+          andreaagostini.vercel.app
         </div>
 
         {/* name */}
         <div
           style={{
-            fontSize: "72px",
+            fontSize: "80px",
             fontWeight: 700,
             color: "#ffffff",
-            lineHeight: 1.1,
-            marginBottom: "24px",
+            lineHeight: 1.05,
+            marginBottom: "28px",
             display: "flex",
+            letterSpacing: "-0.02em",
           }}
         >
           {title}
@@ -70,10 +81,11 @@ export default function handler(req: NextRequest) {
         {/* role */}
         <div
           style={{
-            fontSize: "28px",
+            fontSize: "30px",
             color: "#a0a0b0",
             lineHeight: 1.4,
             display: "flex",
+            fontWeight: 400,
           }}
         >
           {subtitle}
@@ -85,10 +97,11 @@ export default function handler(req: NextRequest) {
             position: "absolute",
             bottom: "64px",
             left: "96px",
-            fontSize: "16px",
-            color: "#a0a0b0",
-            letterSpacing: "0.05em",
+            fontSize: "18px",
+            color: "#6a6a80",
+            letterSpacing: "0.04em",
             display: "flex",
+            fontWeight: 400,
           }}
         >
           Bangkok, Thailand
@@ -98,6 +111,10 @@ export default function handler(req: NextRequest) {
     {
       width: 1200,
       height: 630,
+      fonts: [
+        { name: "Inter", data: interRegular, weight: 400, style: "normal" },
+        { name: "Inter", data: interBold, weight: 700, style: "normal" },
+      ],
     },
   );
 }
