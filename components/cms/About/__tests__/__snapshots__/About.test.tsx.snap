@@ -151,7 +151,7 @@ exports[`About renders correctly with all props 1`] = `
       <p
         class="c6 c7"
       >
-        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Milan to Amsterdam to Bangkok — always remote-first, always shipping.
+        I build high-performance ecommerce experiences with React, Next.js, TypeScript and Shopify. Over a decade working across agencies and in-house teams — from Turin to Amsterdam to Bangkok — always remote-first, always shipping.
       </p>
       <div
         class="c8"
