@@ -1,10 +1,23 @@
 {
-  "defaultTitle": "Website Test",
+  "defaultTitle": "Andrea Agostini — Senior Frontend Developer & Tech Lead",
+  "titleTemplate": "%s · Andrea Agostini",
   "noindex": false,
   "nofollow": false,
-  "description": "Andrea Agostini - Website Test",
+  "description": "Senior Frontend Developer and Tech Lead based in Bangkok. Building high-performance ecommerce experiences with React, Next.js and TypeScript.",
   "openGraph": {
     "type": "website",
-    "siteName": "Website Test"
+    "siteName": "Andrea Agostini",
+    "url": "https://andreaagostini.com",
+    "images": [
+      {
+        "url": "https://andreaagostini.com/api/og",
+        "width": 1200,
+        "height": 630,
+        "alt": "Andrea Agostini — Senior Frontend Developer & Tech Lead"
+      }
+    ]
+  },
+  "twitter": {
+    "cardType": "summary_large_image"
   }
 }
