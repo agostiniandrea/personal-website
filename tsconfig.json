@@ -53,10 +53,7 @@
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "types": [
-      "cypress",
-      "@testing-library/cypress"
-    ]
+    "types": []
   },
   "include": [
     "next-env.d.ts",

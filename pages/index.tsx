@@ -1,7 +1,6 @@
 import { Seo } from "@components/atoms";
 import { SiteHeader, SiteFooter } from "@components/cms";
-import { InstagramFeed, ModuleRenderer } from "@components/organisms";
-import { InstagramMedia } from "@lib/types/instagram";
+import { ModuleRenderer } from "@components/organisms";
 import {
   TPageFields,
   TSiteHeaderData,
@@ -10,13 +9,11 @@ import {
   getSiteHeaderContent,
   getSiteFooterContent,
 } from "@lib/utils/cms";
-import { getInstagramData } from "@lib/utils/instagram";
 import { PAGE_TYPES } from "@constants";
 import { GetStaticPropsResult } from "next";
 
 type THomepage = {
   page: TPageFields;
-  igData?: InstagramMedia[] | null;
   header: TSiteHeaderData | null;
   footer: TSiteFooterData | null;
 };
@@ -36,12 +33,9 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
     };
   }
 
-  const igData = await getInstagramData();
-
   return {
     props: {
       page,
-      igData: igData || null,
       header,
       footer,
     },
@@ -49,7 +43,7 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
   };
 }
 
-export default function Home({ page, igData, header, footer }: THomepage) {
+export default function Home({ page, header, footer }: THomepage) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.vercel.app";
 
   return (
@@ -62,7 +56,6 @@ export default function Home({ page, igData, header, footer }: THomepage) {
       {header && <SiteHeader {...header} />}
       <main id="main-content">
         <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
-        {igData && igData.length > 0 && <InstagramFeed igData={igData} />}
       </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
     </>
