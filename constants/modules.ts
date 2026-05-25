@@ -8,6 +8,7 @@ const MODULES = {
   CONTACT: "contact",
   EXPERIENCE: "experience",
   HERO_PORTFOLIO: "heroPortfolio",
+  JOURNEY: "journey",
   PROJECTS: "projects",
   SKILLS: "skills",
   SUSTAINABILITY: "sustainability",
