@@ -12,6 +12,7 @@ const Head = () => {
       <DefaultSeo {...configSEO} />
       <NextHead>
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta property="og:type" content="website" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
         <link rel="icon" href="/favicon.ico" />
