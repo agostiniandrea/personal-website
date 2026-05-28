@@ -62,6 +62,19 @@ jobs:
       - name: Run lint
         run: yarn lint
 
+      - name: Build for Lighthouse
+        run: yarn build:compile
+        env:
+          NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+
+      - name: Run Lighthouse CI
+        run: |
+          yarn start &
+          sleep 5
+          yarn lhci
+
       - name: Auto-merge PR
         if: success()
         env:
