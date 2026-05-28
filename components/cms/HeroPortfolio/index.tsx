@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Box, Container, Flex, Heading, Image, Link, Skeleton, Text } from "@components/ions";
+import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
 export interface HeroPortfolioProps {
@@ -140,11 +140,6 @@ const PhotoWrapper = styled.div`
   }
 `;
 
-const FadingImage = styled(Image)<{ $loaded: boolean }>`
-  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
-  transition: opacity 0.4s ease;
-`;
-
 const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   greeting,
   personName,
@@ -156,8 +151,6 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   ctaSecondaryLabel,
   ctaSecondaryUrl,
 }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   return (
     <Section>
       <Container>
@@ -180,29 +173,12 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
               )}
             </Flex>
           </TextBlock>
-          <PhotoWrapper
-            style={{
-              position: "relative",
-              width: "240px",
-              height: "240px",
-              flexShrink: 0,
-              borderRadius: "50%",
-              overflow: "hidden",
-            }}
-          >
-            {!imageLoaded && (
-              <Skeleton
-                borderRadius="50%"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-              />
-            )}
-            <FadingImage
+          <PhotoWrapper>
+            <Image
               src={image.url}
               alt={image.alt || personName}
-              $loaded={imageLoaded}
               priority
               sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
-              onLoad={() => setImageLoaded(true)}
             />
           </PhotoWrapper>
         </HeroGrid>

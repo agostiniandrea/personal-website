@@ -1,15 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeroPortfolio renders correctly with all props 1`] = `
-.c15 {
-  width: 100%;
-  height: 1rem;
-  border-radius: 50%;
-  background: linear-gradient(     90deg,     var(--color-stroke) 25%,     #252540 50%,     var(--color-stroke) 75%   );
-  background-size: 200% 100%;
-  animation: k0 1.5s ease-in-out infinite;
-}
-
 .c1 {
   display: grid;
   position: relative;
@@ -34,7 +25,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   flex-wrap: wrap;
 }
 
-.c16 {
+.c15 {
   margin: 0;
   padding: 0;
   position: relative;
@@ -165,11 +156,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   border: 3px solid var(--color-highlight);
 }
 
-.c17 {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
 @media (min-width: 600px) {
   .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
@@ -273,16 +259,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
-@keyframes k0 {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 <div>
   <section
     class="c0"
@@ -335,19 +311,12 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
         </div>
         <div
           class="c14"
-          style="position: relative; width: 240px; height: 240px; flex-shrink: 0; border-radius: 50%; overflow: hidden;"
         >
-          <div
-            aria-hidden="true"
-            class="c15"
-            style="position: absolute; inset: 0; width: 100%; height: 100%;"
-          />
           <figure
-            class="c16 c17"
+            class="c15"
           >
             <img
               alt="Andrea Agostini"
-              class="c17"
               sizes="(max-width: 1200px) 240px, 380px"
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
               style="object-fit: cover;"
@@ -361,15 +330,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 `;
 
 exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
-.c14 {
-  width: 100%;
-  height: 1rem;
-  border-radius: 50%;
-  background: linear-gradient(     90deg,     var(--color-stroke) 25%,     #252540 50%,     var(--color-stroke) 75%   );
-  background-size: 200% 100%;
-  animation: k0 1.5s ease-in-out infinite;
-}
-
 .c1 {
   display: grid;
   position: relative;
@@ -394,7 +354,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   flex-wrap: wrap;
 }
 
-.c15 {
+.c14 {
   margin: 0;
   padding: 0;
   position: relative;
@@ -503,11 +463,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   border: 3px solid var(--color-highlight);
 }
 
-.c16 {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
 @media (min-width: 600px) {
   .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
@@ -611,16 +566,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   }
 }
 
-@keyframes k0 {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 <div>
   <section
     class="c0"
@@ -667,19 +612,12 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
         </div>
         <div
           class="c13"
-          style="position: relative; width: 240px; height: 240px; flex-shrink: 0; border-radius: 50%; overflow: hidden;"
         >
-          <div
-            aria-hidden="true"
-            class="c14"
-            style="position: absolute; inset: 0; width: 100%; height: 100%;"
-          />
           <figure
-            class="c15 c16"
+            class="c14"
           >
             <img
               alt="Andrea Agostini"
-              class="c16"
               sizes="(max-width: 1200px) 240px, 380px"
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
               style="object-fit: cover;"
