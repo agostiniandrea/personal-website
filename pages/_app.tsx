@@ -33,7 +33,7 @@ const SkipLink = styled.a`
   z-index: 9999;
   text-decoration: none;
 
-  &:focus {
+  &:focus-visible {
     top: 0;
   }
 `;
