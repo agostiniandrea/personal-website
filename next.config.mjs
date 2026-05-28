@@ -49,18 +49,7 @@ const nextConfig = {
       "next-seo",
     ],
   },
-  // Optimize webpack bundle
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      // Tree shake unused code
-      config.optimization = {
-        ...config.optimization,
-        usedExports: true,
-        sideEffects: false,
-      };
-    }
-    return config;
-  },
+  turbopack: {},
 };
 
 export default nextConfig;
