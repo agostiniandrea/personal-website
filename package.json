@@ -91,7 +91,8 @@
     "ts-jest": "29.4.9",
     "ts-node": "^10.9.2",
     "tsc-alias": "1.8.17",
-    "typescript-eslint": "8.59.4"
+    "typescript-eslint": "8.59.4",
+    "wait-on": "^9.0.10"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [

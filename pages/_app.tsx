@@ -47,8 +47,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <Head />
         <Component {...pageProps} />
         <ScrollToTop />
-        <SpeedInsights />
-        <Analytics />
+        {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
+        {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
       </ThemeProvider>
     </div>
   );

@@ -9,6 +9,8 @@ interface CarbonBadgeProps {
 
 const CarbonBadge: React.FC<CarbonBadgeProps> = ({ className }) => {
   useEffect(() => {
+    if (window.location.hostname === "localhost") return;
+
     const existingScript = document.querySelector(
       'script[src*="website-carbon-badges"]'
     );
