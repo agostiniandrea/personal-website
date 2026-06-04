@@ -116,16 +116,28 @@ export type TSiteFooterData = {
   tagline: string | null;
 };
 
+type ContentfulLinkEntry = {
+  fields: { label: string; url: string };
+};
+
+type ContentfulSiteHeaderEntry = {
+  fields: { logoText: string; navLinks: ContentfulLinkEntry[] };
+};
+
+type ContentfulSiteFooterEntry = {
+  fields: { copyrightName: string; tagline?: string; socialLinks: ContentfulLinkEntry[] };
+};
+
 export const getSiteHeaderContent = async (locale = "en"): Promise<TSiteHeaderData | null> => {
   const entry = await client
     .getEntries({ content_type: "siteHeader", limit: 1, include: 2, locale })
-    .then((response) => response.items[0] as any);
+    .then((response) => response.items[0] as unknown as ContentfulSiteHeaderEntry);
 
   if (!entry) return null;
 
   return {
-    logoText: entry.fields.logoText as string,
-    navLinks: (entry.fields.navLinks as any[])?.map((link) => ({
+    logoText: entry.fields.logoText,
+    navLinks: entry.fields.navLinks?.map((link) => ({
       label: link.fields.label,
       url: link.fields.url,
     })) ?? [],
@@ -135,14 +147,14 @@ export const getSiteHeaderContent = async (locale = "en"): Promise<TSiteHeaderDa
 export const getSiteFooterContent = async (locale = "en"): Promise<TSiteFooterData | null> => {
   const entry = await client
     .getEntries({ content_type: "siteFooter", limit: 1, include: 2, locale })
-    .then((response) => response.items[0] as any);
+    .then((response) => response.items[0] as unknown as ContentfulSiteFooterEntry);
 
   if (!entry) return null;
 
   return {
-    copyrightName: entry.fields.copyrightName as string,
-    tagline: (entry.fields.tagline as string) ?? null,
-    socialLinks: (entry.fields.socialLinks as any[])?.map((link) => ({
+    copyrightName: entry.fields.copyrightName,
+    tagline: entry.fields.tagline ?? null,
+    socialLinks: entry.fields.socialLinks?.map((link) => ({
       label: link.fields.label,
       url: link.fields.url,
     })) ?? [],
