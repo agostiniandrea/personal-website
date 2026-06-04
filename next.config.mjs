@@ -24,7 +24,7 @@ const nextConfig = {
     ],
     // Optimize images for better performance
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 3600,
+    minimumCacheTTL: 2592000, // 30 days — images from Contentful rarely change
     // Enable image optimization
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
