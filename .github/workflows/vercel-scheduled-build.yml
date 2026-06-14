@@ -8,11 +8,9 @@ on:
 jobs:
   consumer:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Trigger Vercel deploy hook
         run: curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
