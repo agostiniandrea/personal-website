@@ -77,7 +77,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 .c9 {
   font-size: 0.875rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 0.125rem;
 }
 
 .c10 {
@@ -179,7 +179,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
             <p
               class="c2 c8"
             >
-              2021 — Present
+              May 2022 — Present
             </p>
             <p
               class="c2 c9"
@@ -222,7 +222,7 @@ exports[`Experience renders correctly with all items 1`] = `
   grid-column: 2/auto;
 }
 
-.c12 {
+.c13 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -245,7 +245,7 @@ exports[`Experience renders correctly with all items 1`] = `
   padding: 0;
 }
 
-.c13 {
+.c14 {
   border: 1px solid var(--color-main);
   color: var(--color-paragraph);
   border-radius: 9999px;
@@ -300,14 +300,20 @@ exports[`Experience renders correctly with all items 1`] = `
 .c9 {
   font-size: 0.875rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 0.125rem;
 }
 
 .c10 {
-  margin: 0 0 0.625rem;
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+  margin: 0;
 }
 
 .c11 {
+  margin: 0 0 0.625rem;
+}
+
+.c12 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0 0 1rem;
@@ -402,110 +408,130 @@ exports[`Experience renders correctly with all items 1`] = `
             <p
               class="c2 c8"
             >
-              2021 — Present
+              May 2022 — Present
             </p>
             <p
               class="c2 c9"
             >
               JIBE eCommerce
             </p>
-          </div>
-          <div
-            class=""
-          >
-            <h3
-              class="c10"
-            >
-              Senior Frontend Developer & Tech Lead
-            </h3>
             <p
-              class="c2 c11"
+              class="c2 c10"
             >
-              Leading frontend development for headless Shopify storefronts across multiple clients. Architecting shared component libraries, design systems, and CI/CD pipelines. Clients include Petite Revery, 7mesh Industries, and Nest Designs.
-            </p>
-            <div
-              class="c12"
-            >
-              <span
-                class="c13"
-              >
-                Next.js
-              </span>
-              <span
-                class="c13"
-              >
-                TypeScript
-              </span>
-              <span
-                class="c13"
-              >
-                Shopify
-              </span>
-              <span
-                class="c13"
-              >
-                styled-components
-              </span>
-              <span
-                class="c13"
-              >
-                Storybook
-              </span>
-            </div>
-          </div>
-        </li>
-        <li
-          class="c7"
-        >
-          <div
-            class=""
-          >
-            <p
-              class="c2 c8"
-            >
-              2019 — 2021
-            </p>
-            <p
-              class="c2 c9"
-            >
-              RTL Nederland — Videoland
+              Remote · Vancouver, CA
             </p>
           </div>
           <div
             class=""
           >
             <h3
-              class="c10"
+              class="c11"
             >
               Senior Frontend Developer
             </h3>
             <p
-              class="c2 c11"
+              class="c2 c12"
             >
-              Led the React rewrite of the Videoland streaming platform, migrating from a legacy codebase. Delivered live sports, series, and film experiences to millions of users across web and smart TV.
+              Building and maintaining headless Shopify storefronts on Next.js/TypeScript for brands including 7mesh, Nest Designs and Saul Good. Core contributor and maintainer of Compass, the agency's internal design system powering all client storefronts. Tech lead on selected projects and epics — technical direction, code reviews, and mentoring.
             </p>
             <div
-              class="c12"
+              class="c13"
             >
               <span
-                class="c13"
+                class="c14"
               >
-                React
+                Next.js
               </span>
               <span
-                class="c13"
+                class="c14"
               >
                 TypeScript
               </span>
               <span
-                class="c13"
+                class="c14"
+              >
+                Shopify
+              </span>
+              <span
+                class="c14"
+              >
+                Storybook
+              </span>
+              <span
+                class="c14"
+              >
+                styled-components
+              </span>
+            </div>
+          </div>
+        </li>
+        <li
+          class="c7"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c2 c8"
+            >
+              Mar 2020 — Apr 2022
+            </p>
+            <p
+              class="c2 c9"
+            >
+              Overstappen.nl
+            </p>
+            <p
+              class="c2 c10"
+            >
+              Hybrid · Amsterdam, NL
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c11"
+            >
+              Senior Frontend Developer → Architect
+            </h3>
+            <p
+              class="c2 c12"
+            >
+              Frontend developer on the Netherlands' main price comparison platform — built the energy comparison product, led the health insurance tool, and architected Kizi.nl, a new consumer brand, alongside the CTO. Promoted to define tech stacks, coding standards, and CI/CD pipelines across the development team.
+            </p>
+            <div
+              class="c13"
+            >
+              <span
+                class="c14"
+              >
+                Next.js
+              </span>
+              <span
+                class="c14"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c14"
               >
                 Redux
               </span>
               <span
-                class="c13"
+                class="c14"
+              >
+                Storybook
+              </span>
+              <span
+                class="c14"
               >
                 Jest
+              </span>
+              <span
+                class="c14"
+              >
+                Azure DevOps
               </span>
             </div>
           </div>
@@ -519,100 +545,125 @@ exports[`Experience renders correctly with all items 1`] = `
             <p
               class="c2 c8"
             >
-              2017 — 2019
+              Jan 2019 — Feb 2020
             </p>
             <p
               class="c2 c9"
             >
-              Freelance
+              TWC / The Widget Company
+            </p>
+            <p
+              class="c2 c10"
+            >
+              On-site · Amsterdam, NL
             </p>
           </div>
           <div
             class=""
           >
             <h3
-              class="c10"
+              class="c11"
             >
               Frontend Developer
             </h3>
             <p
-              class="c2 c11"
+              class="c2 c12"
             >
-              Delivered frontend projects for clients across ecommerce, automotive, and media. Key work includes Sprintt Ceramica and MOPAR Europe.
+              Built Smart TV streaming applications for media companies — most notably Videoland, RTL Nederland's VOD service — deployed across Samsung, LG, Philips, Sony, Panasonic and PlayStation platforms.
             </p>
             <div
-              class="c12"
+              class="c13"
             >
               <span
-                class="c13"
+                class="c14"
+              >
+                Vue.js
+              </span>
+              <span
+                class="c14"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c14"
+              >
+                Vuex
+              </span>
+              <span
+                class="c14"
+              >
+                Jest
+              </span>
+              <span
+                class="c14"
+              >
+                Webpack
+              </span>
+            </div>
+          </div>
+        </li>
+        <li
+          class="c7"
+        >
+          <div
+            class=""
+          >
+            <p
+              class="c2 c8"
+            >
+              Mar 2015 — Dec 2018
+            </p>
+            <p
+              class="c2 c9"
+            >
+              Consoft Sistemi (now ALTEN Italia)
+            </p>
+            <p
+              class="c2 c10"
+            >
+              On-site · Turin, IT
+            </p>
+          </div>
+          <div
+            class=""
+          >
+            <h3
+              class="c11"
+            >
+              Frontend Developer
+            </h3>
+            <p
+              class="c2 c12"
+            >
+              Built and maintained FCA Group's Build & Price vehicle configurators for NAFTA and EMEA brand sites — Jeep, Ram, Dodge, Fiat, Alfa Romeo — and led frontend development of the Mopar accessories configurator. Nearly three years of ownership on high-traffic consumer tools.
+            </p>
+            <div
+              class="c13"
+            >
+              <span
+                class="c14"
               >
                 React
               </span>
               <span
-                class="c13"
+                class="c14"
+              >
+                Redux
+              </span>
+              <span
+                class="c14"
               >
                 JavaScript
               </span>
               <span
-                class="c13"
+                class="c14"
               >
-                WordPress
-              </span>
-            </div>
-          </div>
-        </li>
-        <li
-          class="c7"
-        >
-          <div
-            class=""
-          >
-            <p
-              class="c2 c8"
-            >
-              2013 — 2017
-            </p>
-            <p
-              class="c2 c9"
-            >
-              Various agencies
-            </p>
-          </div>
-          <div
-            class=""
-          >
-            <h3
-              class="c10"
-            >
-              Frontend Developer
-            </h3>
-            <p
-              class="c2 c11"
-            >
-              Worked at several digital agencies in Milan, building interactive campaigns, brand sites, and online games. Clients included Fiat, Chrysler, and Arfer.
-            </p>
-            <div
-              class="c12"
-            >
-              <span
-                class="c13"
-              >
-                JavaScript
+                Webpack
               </span>
               <span
-                class="c13"
+                class="c14"
               >
-                HTML
-              </span>
-              <span
-                class="c13"
-              >
-                CSS
-              </span>
-              <span
-                class="c13"
-              >
-                jQuery
+                Node.js
               </span>
             </div>
           </div>

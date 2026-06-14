@@ -5,46 +5,46 @@ export const defaultProjects: ProjectsProps = {
   heading: "What I've built",
   items: [
     {
-      title: "Petite Revery",
+      title: "7mesh",
       description:
-        "High-end fashion ecommerce built on Next.js and Shopify Storefront API. Custom product configurator, size guides, and a fully bespoke checkout experience.",
-      tags: ["Next.js", "TypeScript", "Shopify", "styled-components"],
-      url: "https://petiterevery.com",
+        "Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and WCAG 2.1 AA accessibility improvements ongoing since 2022.",
+      tags: ["Next.js", "TypeScript", "Shopify", "Prismic", "Algolia", "Storybook"],
+      url: "https://www.7mesh.com/",
       urlLabel: "View project →",
     },
     {
-      title: "7mesh Industries",
+      title: "Compass",
       description:
-        "Performance cycling apparel brand. Headless Shopify storefront with custom collection filtering, Algolia search, and Storybook component library.",
-      tags: ["Next.js", "TypeScript", "Shopify", "Algolia", "Storybook"],
-      url: "https://7mesh.com",
-      urlLabel: "View project →",
+        "Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.",
+      tags: ["React", "TypeScript", "Storybook", "styled-components", "Chromatic"],
     },
     {
       title: "Nest Designs",
       description:
-        "Baby and kids lifestyle brand. Shopify Plus storefront with subscription products, loyalty integration, and multi-currency support.",
-      tags: ["Next.js", "TypeScript", "Shopify Plus", "Klaviyo"],
-      url: "https://nestdesigns.com",
+        "Core developer on a headless Shopify storefront for a premium baby and kids sleepwear brand. Built an interactive size guide, faceted search with preserved scroll, BOPIS availability, and multi-currency support for AUD/GBP market launches.",
+      tags: ["Next.js", "TypeScript", "Shopify", "Prismic", "Algolia", "Klaviyo"],
+      url: "https://www.nestdesigns.com/",
       urlLabel: "View project →",
     },
     {
-      title: "Videoland",
+      title: "leggings.com",
       description:
-        "Dutch video streaming platform. Led frontend architecture for the React rewrite from a legacy codebase, delivering live sports, series, and films.",
-      tags: ["React", "TypeScript", "Redux", "Jest"],
+        "Frontend development of the multi-vendor marketplace apps for leggings.com, in partnership with Orium. Built the merchant app for brand and product management and the admin app for moderation, smart collections, and category management.",
+      tags: ["Shopify", "Remix", "Prisma", "Shopify Polaris", "TypeScript"],
     },
     {
-      title: "Arfer",
+      title: "Kizi.nl",
       description:
-        "B2B furniture configurator for architects and interior designers. Real-time 3D preview with a custom quote engine built on React and Three.js.",
-      tags: ["React", "Three.js", "TypeScript"],
+        "Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.",
+      tags: ["Next.js", "TypeScript", "Redux", "Storybook", "Jest", "Azure DevOps"],
     },
     {
-      title: "Sprintt Ceramica",
+      title: "FCA Build & Price",
       description:
-        "Ecommerce and product catalogue for an Italian ceramic tile manufacturer. Custom CMS integration and multi-language support.",
-      tags: ["React", "Contentful", "i18n"],
+        "Built and maintained the Build & Price vehicle configurator for FCA Group's North American brand sites — Chrysler, Dodge, Jeep, Ram, Fiat and Alfa Romeo. Nearly three years of feature development on a high-traffic consumer tool with real-time pricing and availability.",
+      tags: ["React", "Redux", "JavaScript", "Webpack", "Node.js"],
+      url: "https://www.ramtrucks.com/en/lineup/?app=bmo&",
+      urlLabel: "View project →",
     },
   ],
 };

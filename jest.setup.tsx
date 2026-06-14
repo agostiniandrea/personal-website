@@ -32,9 +32,9 @@ Object.defineProperty(window, "matchMedia", {
 // Mock next/image
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt, width, height, _fill, style, className, _priority, _sizes, ...rest }: {
-    src: string; alt: string; width?: number; height?: number; _fill?: boolean;
-    style?: React.CSSProperties; className?: string; _priority?: boolean; _sizes?: string;
+  default: ({ src, alt, width, height, fill, style, className, priority, sizes, ...rest }: {
+    src: string; alt: string; width?: number; height?: number; fill?: boolean;
+    style?: React.CSSProperties; className?: string; priority?: boolean; sizes?: string;
     [key: string]: unknown;
   }) => {
     // eslint-disable-next-line @next/next/no-img-element

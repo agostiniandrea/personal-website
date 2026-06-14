@@ -20,19 +20,19 @@ export const defaultBeyondCode: BeyondCodeProps = {
     {
       category: "Sports",
       description:
-        "Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.",
+        "Bologna FC and Virtus Bologna — followed from Bangkok, where every evening kick-off lands well past midnight.",
       tags: ["Bologna FC", "Virtus Bologna"],
     },
     {
       category: "Travel & Life",
       description:
-        "Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.",
+        "Based in Bangkok since late 2025, after six years in Amsterdam. Fully remote, used to working across time zones with North American and European teams.",
       tags: ["Bangkok", "Amsterdam", "Remote-first"],
     },
     {
       category: "Languages",
       description:
-        "Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.",
+        "Italian native, English professional, Thai in progress — slowly but stubbornly.",
       tags: ["Italian", "English", "Thai"],
     },
   ],

@@ -290,7 +290,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
           <p
             class="c8 c9"
           >
-            Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.
+            Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
           </p>
           <div
             class="c10"
@@ -303,7 +303,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
             </a>
             <a
               class="c11 c13"
-              href="mailto:test@test.com"
+              href="mailto:a.agostini92@gmail.com"
             >
               Get in touch
             </a>
@@ -317,7 +317,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
           >
             <img
               alt="Andrea Agostini"
-              sizes="(max-width: 1200px) 240px, 380px"
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
               style="object-fit: cover;"
             />
@@ -597,7 +596,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
           <p
             class="c8 c9"
           >
-            Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.
+            Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
           </p>
           <div
             class="c10"
@@ -618,7 +617,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
           >
             <img
               alt="Andrea Agostini"
-              sizes="(max-width: 1200px) 240px, 380px"
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop"
               style="object-fit: cover;"
             />

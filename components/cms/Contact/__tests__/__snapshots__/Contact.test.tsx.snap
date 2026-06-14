@@ -172,7 +172,7 @@ exports[`Contact renders correctly with a single link 1`] = `
         <a
           aria-label="Email me"
           class="c9 c10"
-          href="mailto:test@test.com"
+          href="mailto:a.agostini92@gmail.com"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -348,7 +348,7 @@ exports[`Contact renders correctly with all links 1`] = `
       <p
         class="c6 c7"
       >
-        I'm available for remote frontend and tech lead roles, freelance projects, and consulting. If you're building something with React, Next.js, or Shopify — let's talk.
+        Currently with capacity for new projects — remote frontend and tech lead roles, freelance, and consulting. If you're building something with React, Next.js, or Shopify — let's talk.
       </p>
       <div
         class="c8"
@@ -356,7 +356,7 @@ exports[`Contact renders correctly with all links 1`] = `
         <a
           aria-label="Email me"
           class="c9 c10"
-          href="mailto:test@test.com"
+          href="mailto:a.agostini92@gmail.com"
           rel="noopener noreferrer"
           target="_blank"
         >
