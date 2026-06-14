@@ -5,7 +5,7 @@ export const defaultHeroPortfolio: HeroPortfolioProps = {
   personName: "Andrea Agostini",
   role: "Senior Frontend Developer & Tech Lead",
   tagline:
-    "Building ecommerce experiences with React, Next.js, TypeScript and Shopify. Based in Bangkok 🇹🇭, working remotely.",
+    "Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok 🇹🇭, fully remote.",
   image: {
     url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop",
     alt: "Andrea Agostini",
@@ -16,7 +16,7 @@ export const defaultHeroPortfolio: HeroPortfolioProps = {
   ctaPrimaryLabel: "View Projects",
   ctaPrimaryUrl: "#projects",
   ctaSecondaryLabel: "Get in touch",
-  ctaSecondaryUrl: "mailto:test@test.com",
+  ctaSecondaryUrl: "mailto:a.agostini92@gmail.com",
 };
 
 export const noCta: HeroPortfolioProps = {
