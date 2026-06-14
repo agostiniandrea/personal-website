@@ -305,7 +305,7 @@ exports[`Experience renders correctly with all items 1`] = `
 
 .c10 {
   font-size: 0.75rem;
-  color: var(--color-main);
+  color: var(--color-secondary);
   margin: 0;
 }
 
