@@ -374,7 +374,7 @@ exports[`Skills renders correctly with all categories 1`] = `
           <h3
             class="c7"
           >
-            Frontend
+            Languages & Frameworks
           </h3>
           <ul
             class="c8"
@@ -397,12 +397,17 @@ exports[`Skills renders correctly with all categories 1`] = `
             <li
               class="c9"
             >
-              styled-components
+              JavaScript
             </li>
             <li
               class="c9"
             >
-              Storybook
+              Redux
+            </li>
+            <li
+              class="c9"
+            >
+              Vue.js
             </li>
           </ul>
         </div>
@@ -412,7 +417,7 @@ exports[`Skills renders correctly with all categories 1`] = `
           <h3
             class="c7"
           >
-            Ecommerce
+            Commerce & CMS
           </h3>
           <ul
             class="c8"
@@ -425,40 +430,7 @@ exports[`Skills renders correctly with all categories 1`] = `
             <li
               class="c9"
             >
-              Shopify Plus
-            </li>
-            <li
-              class="c9"
-            >
-              Storefront API
-            </li>
-            <li
-              class="c9"
-            >
-              Liquid
-            </li>
-            <li
-              class="c9"
-            >
-              Hydrogen
-            </li>
-          </ul>
-        </div>
-        <div
-          class=""
-        >
-          <h3
-            class="c7"
-          >
-            CMS & Data
-          </h3>
-          <ul
-            class="c8"
-          >
-            <li
-              class="c9"
-            >
-              Contentful
+              BigCommerce
             </li>
             <li
               class="c9"
@@ -468,17 +440,17 @@ exports[`Skills renders correctly with all categories 1`] = `
             <li
               class="c9"
             >
+              Contentful
+            </li>
+            <li
+              class="c9"
+            >
               Algolia
             </li>
             <li
               class="c9"
             >
-              REST
-            </li>
-            <li
-              class="c9"
-            >
-              GraphQL
+              headless WordPress
             </li>
           </ul>
         </div>
@@ -488,7 +460,7 @@ exports[`Skills renders correctly with all categories 1`] = `
           <h3
             class="c7"
           >
-            Tooling
+            Shopify App Stack
           </h3>
           <ul
             class="c8"
@@ -496,17 +468,45 @@ exports[`Skills renders correctly with all categories 1`] = `
             <li
               class="c9"
             >
-              Vite
+              Remix
             </li>
             <li
               class="c9"
             >
-              Webpack
+              Prisma
             </li>
             <li
               class="c9"
             >
-              ESLint
+              Shopify Polaris
+            </li>
+            <li
+              class="c9"
+            >
+              Liquid
+            </li>
+          </ul>
+        </div>
+        <div
+          class=""
+        >
+          <h3
+            class="c7"
+          >
+            Tooling & Testing
+          </h3>
+          <ul
+            class="c8"
+          >
+            <li
+              class="c9"
+            >
+              Storybook
+            </li>
+            <li
+              class="c9"
+            >
+              Chromatic
             </li>
             <li
               class="c9"
@@ -516,50 +516,22 @@ exports[`Skills renders correctly with all categories 1`] = `
             <li
               class="c9"
             >
-              Vitest
-            </li>
-            <li
-              class="c9"
-            >
-              Playwright
-            </li>
-          </ul>
-        </div>
-        <div
-          class=""
-        >
-          <h3
-            class="c7"
-          >
-            Cloud & DevOps
-          </h3>
-          <ul
-            class="c8"
-          >
-            <li
-              class="c9"
-            >
-              Vercel
-            </li>
-            <li
-              class="c9"
-            >
-              AWS
-            </li>
-            <li
-              class="c9"
-            >
-              GitHub Actions
-            </li>
-            <li
-              class="c9"
-            >
               Sentry
             </li>
             <li
               class="c9"
             >
-              Chromatic
+              Webpack
+            </li>
+            <li
+              class="c9"
+            >
+              Node.js
+            </li>
+            <li
+              class="c9"
+            >
+              Git
             </li>
           </ul>
         </div>
@@ -569,7 +541,7 @@ exports[`Skills renders correctly with all categories 1`] = `
           <h3
             class="c7"
           >
-            Design
+            Practices
           </h3>
           <ul
             class="c8"
@@ -577,12 +549,7 @@ exports[`Skills renders correctly with all categories 1`] = `
             <li
               class="c9"
             >
-              Figma
-            </li>
-            <li
-              class="c9"
-            >
-              Responsive Design
+              Frontend Architecture
             </li>
             <li
               class="c9"
@@ -593,6 +560,16 @@ exports[`Skills renders correctly with all categories 1`] = `
               class="c9"
             >
               Core Web Vitals
+            </li>
+            <li
+              class="c9"
+            >
+              WCAG 2.1 AA
+            </li>
+            <li
+              class="c9"
+            >
+              Tech Leadership
             </li>
           </ul>
         </div>

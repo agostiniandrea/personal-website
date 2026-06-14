@@ -74,7 +74,7 @@ const Company = styled(Text)`
 
 const Location = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.subtle ?? theme.colors.main};
+  color: ${({ theme }) => theme.colors.secondary};
   margin: 0;
 `;
 

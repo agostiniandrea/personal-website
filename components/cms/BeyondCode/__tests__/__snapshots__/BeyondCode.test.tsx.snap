@@ -232,7 +232,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
           <p
             class="c11 c12"
           >
-            Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.
+            Bologna FC and Virtus Bologna — followed from Bangkok, where every evening kick-off lands well past midnight.
           </p>
           <ul
             aria-label="Sports tags"
@@ -261,7 +261,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
           <p
             class="c11 c12"
           >
-            Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.
+            Based in Bangkok since late 2025, after six years in Amsterdam. Fully remote, used to working across time zones with North American and European teams.
           </p>
           <ul
             aria-label="Travel & Life tags"
@@ -295,7 +295,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
           <p
             class="c11 c12"
           >
-            Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.
+            Italian native, English professional, Thai in progress — slowly but stubbornly.
           </p>
           <ul
             aria-label="Languages tags"
@@ -537,7 +537,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
           <p
             class="c9 c10"
           >
-            Bologna FC and Virtus Bologna are my teams — I follow both with the kind of loyalty that survives bad seasons. Football and basketball, two cities, one identity.
+            Bologna FC and Virtus Bologna — followed from Bangkok, where every evening kick-off lands well past midnight.
           </p>
           <ul
             aria-label="Sports tags"
@@ -566,7 +566,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
           <p
             class="c9 c10"
           >
-            Based in Bangkok since October 2025, previously Amsterdam for 6+ years. Remote-first isn't just a work setup — it's how I choose to live. New city, new language, same curiosity.
+            Based in Bangkok since late 2025, after six years in Amsterdam. Fully remote, used to working across time zones with North American and European teams.
           </p>
           <ul
             aria-label="Travel & Life tags"
@@ -600,7 +600,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
           <p
             class="c9 c10"
           >
-            Italian native, English professional, Thai in progress. Learning Thai here in Bangkok has been one of the more humbling and rewarding things I've done recently.
+            Italian native, English professional, Thai in progress — slowly but stubbornly.
           </p>
           <ul
             aria-label="Languages tags"
