@@ -6,6 +6,7 @@ import { BREAKPOINTS } from "@constants";
 export interface ExperienceItem {
   role: string;
   company: string;
+  location?: string;
   period: string;
   description: string;
   tags?: string[];
@@ -68,6 +69,12 @@ const Period = styled(Text)`
 const Company = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  margin: 0 0 0.125rem;
+`;
+
+const Location = styled(Text)`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.subtle ?? theme.colors.main};
   margin: 0;
 `;
 
@@ -93,6 +100,7 @@ const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items })
             <Box>
               <Period>{item.period}</Period>
               <Company>{item.company}</Company>
+              {item.location && <Location>{item.location}</Location>}
             </Box>
             <Box>
               <Role>{item.role}</Role>
