@@ -5,36 +5,36 @@ export const defaultExperience: ExperienceProps = {
   heading: "Where I've worked",
   items: [
     {
-      role: "Senior Frontend Developer & Tech Lead",
-      company: "JIBE eCommerce",
-      period: "2021 — Present",
-      description:
-        "Leading frontend development for headless Shopify storefronts across multiple clients. Architecting shared component libraries, design systems, and CI/CD pipelines. Clients include Petite Revery, 7mesh Industries, and Nest Designs.",
-      tags: ["Next.js", "TypeScript", "Shopify", "styled-components", "Storybook"],
-    },
-    {
       role: "Senior Frontend Developer",
-      company: "RTL Nederland — Videoland",
-      period: "2019 — 2021",
+      company: "JIBE eCommerce",
+      period: "May 2022 — Present",
       description:
-        "Led the React rewrite of the Videoland streaming platform, migrating from a legacy codebase. Delivered live sports, series, and film experiences to millions of users across web and smart TV.",
-      tags: ["React", "TypeScript", "Redux", "Jest"],
+        "Building and maintaining headless Shopify storefronts on Next.js/TypeScript for brands including 7mesh, Nest Designs and Saul Good. Core contributor and maintainer of Compass, the agency's internal design system powering all client storefronts. Tech lead on selected projects and epics — technical direction, code reviews, and mentoring.",
+      tags: ["Next.js", "TypeScript", "Shopify", "Storybook", "styled-components"],
+    },
+    {
+      role: "Senior Frontend Developer → Architect",
+      company: "Overstappen.nl",
+      period: "Mar 2020 — Apr 2022",
+      description:
+        "Frontend developer on the Netherlands' main price comparison platform — built the energy comparison product, led the health insurance tool, and architected Kizi.nl, a new consumer brand, alongside the CTO. Promoted to define tech stacks, coding standards, and CI/CD pipelines across the development team.",
+      tags: ["Next.js", "TypeScript", "Redux", "Storybook", "Jest", "Azure DevOps"],
     },
     {
       role: "Frontend Developer",
-      company: "Freelance",
-      period: "2017 — 2019",
+      company: "TWC / The Widget Company",
+      period: "Jan 2019 — Feb 2020",
       description:
-        "Delivered frontend projects for clients across ecommerce, automotive, and media. Key work includes Sprintt Ceramica and MOPAR Europe.",
-      tags: ["React", "JavaScript", "WordPress"],
+        "Built Smart TV streaming applications for media companies — most notably Videoland, RTL Nederland's VOD service — deployed across Samsung, LG, Philips, Sony, Panasonic and PlayStation platforms.",
+      tags: ["Vue.js", "TypeScript", "Vuex", "Jest", "Webpack"],
     },
     {
       role: "Frontend Developer",
-      company: "Various agencies",
-      period: "2013 — 2017",
+      company: "Consoft Sistemi (now ALTEN Italia)",
+      period: "Mar 2015 — Dec 2018",
       description:
-        "Worked at several digital agencies in Milan, building interactive campaigns, brand sites, and online games. Clients included Fiat, Chrysler, and Arfer.",
-      tags: ["JavaScript", "HTML", "CSS", "jQuery"],
+        "Built and maintained FCA Group's Build & Price vehicle configurators for NAFTA and EMEA brand sites — Jeep, Ram, Dodge, Fiat, Alfa Romeo — and led frontend development of the Mopar accessories configurator. Nearly three years of ownership on high-traffic consumer tools.",
+      tags: ["React", "Redux", "JavaScript", "Webpack", "Node.js"],
     },
   ],
 };
@@ -46,7 +46,7 @@ export const minimalExperience: ExperienceProps = {
     {
       role: "Senior Frontend Developer",
       company: "JIBE eCommerce",
-      period: "2021 — Present",
+      period: "May 2022 — Present",
       description: "Leading frontend development for headless Shopify storefronts.",
     },
   ],
