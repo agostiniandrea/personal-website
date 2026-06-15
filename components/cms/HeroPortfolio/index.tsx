@@ -199,7 +199,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                 </SecondaryLink>
               )}
               {cvDownloadLabel && cvDownloadUrl && (
-                <CvLink href={cvDownloadUrl} download aria-label={cvDownloadLabel}>
+                <CvLink href={cvDownloadUrl} target="_blank" rel="noopener noreferrer" aria-label={cvDownloadLabel}>
                   ↓ {cvDownloadLabel}
                 </CvLink>
               )}

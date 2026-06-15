@@ -333,8 +333,9 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
             <a
               aria-label="Download CV"
               class="c14"
-              download=""
-              href="/Andrea_Agostini_CV.pdf"
+              href="https://assets.ctfassets.net/placeholder/Andrea_Agostini_CV.pdf"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               ↓ 
               Download CV
@@ -665,8 +666,9 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
             <a
               aria-label="Download CV"
               class="c13"
-              download=""
-              href="/Andrea_Agostini_CV.pdf"
+              href="https://assets.ctfassets.net/placeholder/Andrea_Agostini_CV.pdf"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               ↓ 
               Download CV
