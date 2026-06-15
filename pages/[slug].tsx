@@ -20,6 +20,7 @@ type TPage = {
   page: TPageFields;
   header: TSiteHeaderData | null;
   footer: TSiteFooterData | null;
+  locale: string;
 };
 
 const SkeletonPage = styled(Flex).attrs({ direction: "column", gap: "xl" })`
@@ -50,24 +51,28 @@ export async function getStaticProps(
   }
 
   return {
-    props: { page, header, footer },
+    props: { page, header, footer, locale },
     revalidate: 60,
   };
 }
 
 export const getStaticPaths = async () => {
-  const slugs = await getPaths(PAGE_TYPES.PAGE_DETAIL);
+  const locales = ["en", "it"];
+  const allPaths = await Promise.all(
+    locales.map(async (locale) => {
+      const slugs = await getPaths(PAGE_TYPES.PAGE_DETAIL, locale);
+      return slugs.map((x) => ({ params: { slug: x.slug }, locale }));
+    }),
+  );
 
   return {
-    paths: slugs.map((x) => ({ params: { slug: x.slug } })),
+    paths: allPaths.flat(),
     fallback: "blocking",
   };
 };
 
-export default function Pages({ page, header, footer }: TPage) {
+export default function Pages({ page, header, footer, locale }: TPage) {
   const router = useRouter();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.vercel.app";
-  const canonicalUrl = page?.uid ? `${siteUrl}/${page.uid}` : undefined;
 
   if (router.isFallback) {
     return (
@@ -90,7 +95,8 @@ export default function Pages({ page, header, footer }: TPage) {
   return (
     <>
       <Seo
-        canonicalUrl={canonicalUrl}
+        locale={locale}
+        path={page?.uid ? `/${page.uid}` : undefined}
         seoDescription={page?.seoDescription}
         seoTitle={page?.seoTitle}
       />
