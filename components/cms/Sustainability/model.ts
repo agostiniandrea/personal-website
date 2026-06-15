@@ -69,7 +69,7 @@ export const defaultSustainability: SustainabilityProps = {
         "Helped unload and organize donated furniture for people experiencing homelessness and Ukrainian refugees.",
     },
     {
-      organization: "Comune di Casalecchio di Reno",
+      organization: "Municipality of Casalecchio di Reno",
       period: "Jun – Jul 2009",
       cause: "Education",
       description:
