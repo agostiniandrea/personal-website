@@ -8,7 +8,7 @@
         "http://localhost:3000/projects",
         "http://localhost:3000/skills"
       ],
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
         "chromeFlags": "--no-sandbox --disable-dev-shm-usage"
