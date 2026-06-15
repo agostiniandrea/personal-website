@@ -8,6 +8,7 @@ export interface ProjectItem {
   tags?: string[];
   url?: string;
   urlLabel?: string;
+  status?: "internal" | "pre-launch";
 }
 
 export interface ProjectsProps {
@@ -56,6 +57,14 @@ const CardDescription = styled(Text)`
 `;
 
 
+const StatusTag = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.secondary};
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: flex-start;
+`;
+
 const CardLink = styled(Link)`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -89,7 +98,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
                 ))}
               </Flex>
             )}
-            {item.url && (
+            {item.url ? (
               <CardLink
                 href={item.url}
                 isExternal
@@ -97,7 +106,9 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
               >
                 {item.urlLabel ?? "View project →"}
               </CardLink>
-            )}
+            ) : item.status ? (
+              <StatusTag>— {item.status}</StatusTag>
+            ) : null}
           </Card>
         ))}
       </ProjectsGrid>

@@ -17,6 +17,7 @@ export const defaultProjects: ProjectsProps = {
       description:
         "Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.",
       tags: ["React", "TypeScript", "Storybook", "styled-components", "Chromatic"],
+      status: "internal",
     },
     {
       title: "Nest Designs",
@@ -31,12 +32,15 @@ export const defaultProjects: ProjectsProps = {
       description:
         "Frontend development of the multi-vendor marketplace apps for leggings.com, in partnership with Orium. Built the merchant app for brand and product management and the admin app for moderation, smart collections, and category management.",
       tags: ["Shopify", "Remix", "Prisma", "Shopify Polaris", "TypeScript"],
+      status: "pre-launch",
     },
     {
       title: "Kizi.nl",
       description:
         "Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.",
       tags: ["Next.js", "TypeScript", "Redux", "Storybook", "Jest", "Azure DevOps"],
+      url: "https://www.kizi.nl/",
+      urlLabel: "View project →",
     },
     {
       title: "FCA Build & Price",
