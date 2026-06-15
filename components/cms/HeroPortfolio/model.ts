@@ -17,6 +17,8 @@ export const defaultHeroPortfolio: HeroPortfolioProps = {
   ctaPrimaryUrl: "#projects",
   ctaSecondaryLabel: "Get in touch",
   ctaSecondaryUrl: "mailto:a.agostini92@gmail.com",
+  cvDownloadLabel: "Download CV",
+  cvDownloadUrl: "/Andrea_Agostini_CV.pdf",
 };
 
 export const noCta: HeroPortfolioProps = {
