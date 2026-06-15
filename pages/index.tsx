@@ -16,6 +16,7 @@ type THomepage = {
   page: TPageFields;
   header: TSiteHeaderData | null;
   footer: TSiteFooterData | null;
+  locale: string;
 };
 
 export async function getStaticProps({ locale = "en" }: { locale?: string }): Promise<
@@ -38,18 +39,18 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
       page,
       header,
       footer,
+      locale,
     },
     revalidate: 3600,
   };
 }
 
-export default function Home({ page, header, footer }: THomepage) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.vercel.app";
-
+export default function Home({ page, header, footer, locale }: THomepage) {
   return (
     <>
       <Seo
-        canonicalUrl={`${siteUrl}/`}
+        locale={locale}
+        path="/"
         seoDescription={page.seoDescription}
         seoTitle={page.seoTitle}
       />
