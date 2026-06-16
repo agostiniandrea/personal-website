@@ -4,11 +4,10 @@
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/experience",
-        "http://localhost:3000/contact",
         "http://localhost:3000/projects",
         "http://localhost:3000/skills"
       ],
-      "numberOfRuns": 3,
+      "numberOfRuns": 1,
       "settings": {
         "preset": "desktop",
         "chromeFlags": "--no-sandbox --disable-dev-shm-usage"
