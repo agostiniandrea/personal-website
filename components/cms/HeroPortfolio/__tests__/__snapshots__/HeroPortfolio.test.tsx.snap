@@ -110,13 +110,16 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   color: var(--color-button-text);
   font-weight: 700;
   font-size: 1rem;
+  border: 2px solid transparent;
   border-radius: 4px;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .c12:hover {
-  opacity: 0.85;
+  background: transparent;
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
 }
 
 .c12:focus-visible {
@@ -471,13 +474,16 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   color: var(--color-button-text);
   font-weight: 700;
   font-size: 1rem;
+  border: 2px solid transparent;
   border-radius: 4px;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .c12:hover {
-  opacity: 0.85;
+  background: transparent;
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
 }
 
 .c12:focus-visible {
