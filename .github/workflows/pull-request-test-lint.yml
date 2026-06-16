@@ -71,4 +71,4 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge --auto --squash --delete-branch "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}"
+        run: gh pr merge --squash --delete-branch --admin "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}"
