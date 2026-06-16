@@ -89,6 +89,8 @@ export const cleanProps = (fields: TPageModule["fields"]) => {
           url: nestedFields.file.url?.replace("//", "https://"),
           width: nestedFields.file.details?.image?.width,
         } as ImageProps;
+      } else if (nestedFields?.file?.url) {
+        newProps[key] = (nestedFields.file.url as string).replace("//", "https://");
       } else if (nestedFields) {
         newProps[key] = nestedFields;
       }
