@@ -52,27 +52,6 @@ const DesktopNav = styled.nav`
   }
 `;
 
-const NavLink = styled(Link)<{ $active: boolean }>`
-  position: relative;
-  padding-bottom: 2px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: ${({ theme }) => theme.colors.highlight};
-    transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
-    transform-origin: left;
-    transition: transform 0.2s ease;
-  }
-
-  &:hover::after {
-    transform: scaleX(1);
-  }
-`;
 
 const IconButton = styled(Button)`
   background: none;
@@ -146,11 +125,6 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const router = useRouter();
   const nextLocale = router.locale === "en" ? "it" : "en";
 
-  const isActive = (url: string) => {
-    const path = url.split("#")[0] || "/";
-    return router.pathname === path;
-  };
-
   const switchLocale = () => {
     router.push({ pathname: router.pathname, query: router.query }, router.asPath, {
       locale: nextLocale,
@@ -220,9 +194,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             <Logo href="/">{logoText}</Logo>
             <DesktopNav aria-label="Main navigation">
               {navLinks.map((link) => (
-                <NavLink key={link.url} href={link.url} $active={isActive(link.url)}>
+                <Link key={link.url} href={link.url}>
                   {link.label}
-                </NavLink>
+                </Link>
               ))}
               <LocaleButton onClick={switchLocale} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
                 {nextLocale.toUpperCase()}
