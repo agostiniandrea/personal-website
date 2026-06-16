@@ -119,6 +119,14 @@ exports[`Projects renders correctly with a single item 1`] = `
   flex: 1;
 }
 
+.c15 {
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
 .c14 {
   font-size: 0.875rem;
   font-weight: 700;
@@ -331,6 +339,12 @@ exports[`Projects renders correctly with a single item 1`] = `
               Chromatic
             </span>
           </div>
+          <span
+            class="c15"
+          >
+            — 
+            internal
+          </span>
         </article>
       </div>
     </section>
@@ -457,6 +471,14 @@ exports[`Projects renders correctly with full project list 1`] = `
   flex: 1;
 }
 
+.c15 {
+  font-size: 0.75rem;
+  color: var(--color-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
 .c14 {
   font-size: 0.875rem;
   font-weight: 700;
@@ -669,6 +691,12 @@ exports[`Projects renders correctly with full project list 1`] = `
               Chromatic
             </span>
           </div>
+          <span
+            class="c15"
+          >
+            — 
+            internal
+          </span>
         </article>
         <article
           class="c7"
@@ -769,6 +797,12 @@ exports[`Projects renders correctly with full project list 1`] = `
               TypeScript
             </span>
           </div>
+          <span
+            class="c15"
+          >
+            — 
+            pre-launch
+          </span>
         </article>
         <article
           class="c7"
@@ -817,6 +851,15 @@ exports[`Projects renders correctly with full project list 1`] = `
               Azure DevOps
             </span>
           </div>
+          <a
+            aria-label="View project: Kizi.nl"
+            class="c13 c14"
+            href="https://www.kizi.nl/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            View project →
+          </a>
         </article>
         <article
           class="c7"
