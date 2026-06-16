@@ -91,13 +91,15 @@ const PrimaryLink = styled(Link)`
   color: ${({ theme }) => theme.colors.button_text};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   font-size: ${({ theme }) => theme.fontSizes.md};
+  border: 2px solid transparent;
   border-radius: ${({ theme }) => theme.radii.xs};
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 
   &:hover {
-    opacity: 0.85;
-    color: ${({ theme }) => theme.colors.button_text};
+    background: transparent;
+    border-color: ${({ theme }) => theme.colors.highlight};
+    color: ${({ theme }) => theme.colors.highlight};
   }
 
   &:focus-visible {
