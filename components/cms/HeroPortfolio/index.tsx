@@ -14,7 +14,7 @@ export interface HeroPortfolioProps {
   ctaSecondaryLabel?: string;
   ctaSecondaryUrl?: string;
   cvDownloadLabel?: string;
-  cvDownloadUrl?: string;
+  cvDownloadFile?: string;
 }
 
 const Section = styled.section`
@@ -97,6 +97,7 @@ const PrimaryLink = styled(Link)`
 
   &:hover {
     opacity: 0.85;
+    color: ${({ theme }) => theme.colors.button_text};
   }
 
   &:focus-visible {
@@ -176,7 +177,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   ctaSecondaryLabel,
   ctaSecondaryUrl,
   cvDownloadLabel,
-  cvDownloadUrl,
+  cvDownloadFile,
 }) => {
   return (
     <Section>
@@ -198,8 +199,8 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                   {ctaSecondaryLabel}
                 </SecondaryLink>
               )}
-              {cvDownloadLabel && cvDownloadUrl && (
-                <CvLink href={cvDownloadUrl} target="_blank" rel="noopener noreferrer" aria-label={cvDownloadLabel}>
+              {cvDownloadLabel && cvDownloadFile && (
+                <CvLink href={cvDownloadFile} target="_blank" rel="noopener noreferrer" aria-label={cvDownloadLabel}>
                   ↓ {cvDownloadLabel}
                 </CvLink>
               )}
