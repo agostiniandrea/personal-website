@@ -1,11 +1,10 @@
 name: Test & Lint
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize]
 
 permissions:
-  contents: write
   pull-requests: write
   issues: read
 
@@ -13,15 +12,13 @@ jobs:
   test-and-lint:
     name: Tests & Lint
     runs-on: ubuntu-latest
-    # Run the job only if the PR is NOT from Dependabot
     if: ${{ !startsWith(github.actor, 'dependabot') }}
 
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -63,7 +60,7 @@ jobs:
       - name: Run Lighthouse CI (mobile)
         run: npx lhci autorun --config=.lighthouserc.mobile.json
 
-      - name: Auto-merge PR
+      - name: Enable auto-merge
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
