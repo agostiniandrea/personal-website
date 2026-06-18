@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteHeader renders correctly with all nav links 1`] = `
-.c6 {
+.c7 {
   background: var(--color-button);
   border-radius: 4px;
   border: none;
@@ -16,20 +16,20 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: all 0.2s ease-in-out;
 }
 
-.c6:hover {
+.c7:hover {
   opacity: 0.8;
 }
 
-.c6:focus {
+.c7:focus {
   outline: 2px solid var(--color-button);
   outline-offset: 2px;
 }
 
-.c6:focus:not(:focus-visible) {
+.c7:focus:not(:focus-visible) {
   outline: none;
 }
 
-.c6:focus-visible {
+.c7:focus-visible {
   outline: 2px solid var(--color-button);
   outline-offset: 2px;
 }
@@ -70,7 +70,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   outline-offset: 2px;
 }
 
-.c10 {
+.c11 {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -80,7 +80,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: opacity 0.3s ease;
 }
 
-.c12 {
+.c13 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -89,7 +89,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   flex-shrink: 0;
 }
 
-.c11 {
+.c12 {
   position: fixed;
   top: 0;
   right: 0;
@@ -134,7 +134,25 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   align-items: center;
 }
 
-.c8 {
+.c6 {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.c6::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-highlight);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.c9 {
   background: none;
   border: none;
   cursor: pointer;
@@ -147,7 +165,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   justify-content: center;
 }
 
-.c7 {
+.c8 {
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
@@ -166,17 +184,17 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   justify-content: center;
 }
 
-.c7:hover {
+.c8:hover {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-.c7:focus-visible {
+.c8:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c13 {
+.c14 {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -184,7 +202,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   overflow-y: auto;
 }
 
-.c14 {
+.c15 {
   margin-top: auto;
   margin-left: 1.5rem;
   margin-bottom: 1.5rem;
@@ -244,7 +262,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c9 {
+  .c10 {
     display: none;
   }
 }
@@ -270,25 +288,25 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
           class="c5"
         >
           <a
-            class="c3"
+            class="c3 c6"
             href="#projects"
           >
             Projects
           </a>
           <a
-            class="c3"
+            class="c3 c6"
             href="#skills"
           >
             Skills
           </a>
           <a
-            class="c3"
+            class="c3 c6"
             href="#experience"
           >
             Experience
           </a>
           <a
-            class="c3"
+            class="c3 c6"
             href="#contact"
           >
             Contact
@@ -296,7 +314,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
           <button
             aria-disabled="false"
             aria-label="Switch to English"
-            class="c6 c7"
+            class="c7 c8"
             type="button"
           >
             EN
@@ -307,7 +325,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
           aria-disabled="false"
           aria-expanded="false"
           aria-label="Open menu"
-          class="c6 c8 c9"
+          class="c7 c9 c10"
           type="button"
         >
           <svg
@@ -344,22 +362,22 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     </section>
   </header>
   <div
-    class="c10"
+    class="c11"
   />
   <div
     aria-label="Navigation menu"
     aria-modal="true"
-    class="c11"
+    class="c12"
     id="mobile-nav"
     role="dialog"
   >
     <div
-      class="c12"
+      class="c13"
     >
       <button
         aria-disabled="false"
         aria-label="Close menu"
-        class="c6 c8"
+        class="c7 c9"
         type="button"
       >
         <svg
@@ -391,7 +409,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
       aria-label="Mobile navigation"
     >
       <div
-        class="c13"
+        class="c14"
       >
         <a
           class="c3"
@@ -422,7 +440,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     <button
       aria-disabled="false"
       aria-label="Switch to English"
-      class="c6 c7 c14"
+      class="c7 c8 c15"
       type="button"
     >
       EN

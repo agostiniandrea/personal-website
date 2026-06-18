@@ -52,11 +52,10 @@ const nextConfig = {
   turbopack: {},
   async redirects() {
     return [
-      {
-        source: "/contact",
-        destination: "/#contact",
-        permanent: true,
-      },
+      { source: "/contact", destination: "/", permanent: true },
+      { source: "/projects", destination: "/", permanent: false },
+      { source: "/skills", destination: "/", permanent: false },
+      { source: "/experience", destination: "/", permanent: false },
     ];
   },
   async headers() {
