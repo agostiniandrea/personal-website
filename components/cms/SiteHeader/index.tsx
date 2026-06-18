@@ -16,9 +16,7 @@ export interface SiteHeaderProps {
 }
 
 // Sections not in the nav that still count toward a nav link's active state
-const SECTION_TO_NAV: Record<string, string> = {
-  journey: "#experience",
-};
+const SECTION_TO_NAV: Record<string, string> = {};
 
 const Header = styled.header<{ $scrolled: boolean }>`
   position: fixed;
