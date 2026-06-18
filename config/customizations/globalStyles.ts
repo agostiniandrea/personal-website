@@ -9,13 +9,13 @@ const GlobalStyle = createGlobalStyle`
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
-    --color-button: #1d4ed8;
+    --color-button: #0d9488;
     --color-button-text: #ffffff;
-    --color-stroke: #1a1a2e;
+    --color-stroke: #0f2a28;
     --color-main: #a0a0b0;
-    --color-highlight: #3b82f6;
+    --color-highlight: #2dd4bf;
     --color-secondary: #ffffff;
-    --color-tertiary: #3b82f6;
+    --color-tertiary: #2dd4bf;
   }
 
   @media (prefers-color-scheme: light) {
@@ -23,13 +23,13 @@ const GlobalStyle = createGlobalStyle`
       --color-background: #f5f5fa;
       --color-headline: #0a0a0f;
       --color-paragraph: #6a6a80;
-      --color-button: #1d4ed8;
+      --color-button: #0f766e;
       --color-button-text: #ffffff;
-      --color-stroke: #d0d0e4;
+      --color-stroke: #c8e6e4;
       --color-main: #c0c0d4;
-      --color-highlight: #1d4ed8;
+      --color-highlight: #0f766e;
       --color-secondary: #0a0a0f;
-      --color-tertiary: #1d4ed8;
+      --color-tertiary: #0f766e;
     }
   }
 
