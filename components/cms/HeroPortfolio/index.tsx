@@ -153,11 +153,28 @@ const SecondaryLink = styled(Link)`
   }
 `;
 
+const PhotoOuter = styled.div`
+  position: relative;
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -35%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at center,
+      ${({ theme }) => theme.colors.highlight}1a 0%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+`;
+
 const PhotoWrapper = styled.div`
   position: relative;
   width: 240px;
   height: 240px;
-  flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid ${({ theme }) => theme.colors.highlight};
@@ -208,14 +225,16 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
               )}
             </Flex>
           </TextBlock>
-          <PhotoWrapper>
-            <Image
-              src={image.url}
-              alt={image.alt || personName}
-              priority
-              sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
-            />
-          </PhotoWrapper>
+          <PhotoOuter>
+            <PhotoWrapper>
+              <Image
+                src={image.url}
+                alt={image.alt || personName}
+                priority
+                sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
+              />
+            </PhotoWrapper>
+          </PhotoOuter>
         </HeroGrid>
       </Container>
     </Section>

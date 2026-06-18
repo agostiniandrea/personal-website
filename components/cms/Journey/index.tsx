@@ -118,6 +118,7 @@ const Journey: React.FC<JourneyProps> = ({
   intro = journeyData.intro,
   chapters = journeyData.chapters,
 }) => (
+  <Box as="section" id="journey">
   <Container>
     <Box py="5xl">
       {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
@@ -149,6 +150,7 @@ const Journey: React.FC<JourneyProps> = ({
       </Timeline>
     </Box>
   </Container>
+  </Box>
 );
 
 export default Journey;

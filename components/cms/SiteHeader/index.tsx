@@ -15,6 +15,12 @@ export interface SiteHeaderProps {
   navLinks: SiteHeaderLink[];
 }
 
+// Sections not in the nav that still count toward a nav link's active state
+const SECTION_TO_NAV: Record<string, string> = {
+  skills: "#experience",
+  journey: "#experience",
+};
+
 const Header = styled.header<{ $scrolled: boolean }>`
   position: fixed;
   top: 0;
@@ -52,6 +58,23 @@ const DesktopNav = styled.nav`
   }
 `;
 
+const NavLink = styled(Link)<{ $active: boolean }>`
+  position: relative;
+  padding-bottom: 2px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: ${({ theme }) => theme.colors.highlight};
+    transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+`;
 
 const IconButton = styled(Button)`
   background: none;
@@ -120,6 +143,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -140,6 +164,32 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const anchorIds = [
+      ...navLinks
+        .filter((l) => l.url.startsWith("#"))
+        .map((l) => l.url.slice(1)),
+      ...Object.keys(SECTION_TO_NAV),
+    ];
+
+    const getActive = () => {
+      const threshold = window.innerHeight * 0.45;
+      let active = "";
+      for (const id of anchorIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= threshold) {
+          active = SECTION_TO_NAV[id] ?? `#${id}`;
+        }
+      }
+      return active;
+    };
+
+    const onScroll = () => setActiveSection(getActive());
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [navLinks]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -194,9 +244,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             <Logo href="/">{logoText}</Logo>
             <DesktopNav aria-label="Main navigation">
               {navLinks.map((link) => (
-                <Link key={link.url} href={link.url}>
+                <NavLink key={link.url} href={link.url} $active={activeSection === link.url}>
                   {link.label}
-                </Link>
+                </NavLink>
               ))}
               <LocaleButton onClick={switchLocale} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
                 {nextLocale.toUpperCase()}
