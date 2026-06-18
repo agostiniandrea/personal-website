@@ -50,7 +50,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({ socialLinks, copyrightName, tag
       <Inner>
         <Flex gap="xl" justifyContent="center" wrap="wrap">
           {socialLinks.map((link) => (
-            <SocialLink key={link.url} href={link.url} isExternal ariaLabel={link.label}>
+            <SocialLink key={link.url} href={link.url} isExternal={!link.url.startsWith("mailto:")} ariaLabel={link.label}>
               {link.label}
             </SocialLink>
           ))}

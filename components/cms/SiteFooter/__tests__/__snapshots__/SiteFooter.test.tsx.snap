@@ -309,6 +309,13 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           >
             GitHub
           </a>
+          <a
+            aria-label="Email"
+            class="c5 c6"
+            href="mailto:a.agostini92@gmail.com"
+          >
+            Email
+          </a>
         </div>
         <p
           class="c7 c8"
