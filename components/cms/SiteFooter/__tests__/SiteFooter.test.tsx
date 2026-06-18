@@ -28,13 +28,15 @@ describe("SiteFooter", () => {
     });
   });
 
-  it("sets target=_blank on social links", () => {
+  it("sets target=_blank on external links but not mailto links", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
-    defaultSiteFooter.socialLinks.forEach(({ label }) => {
-      expect(screen.getByRole("link", { name: label })).toHaveAttribute(
-        "target",
-        "_blank",
-      );
+    defaultSiteFooter.socialLinks.forEach(({ label, url }) => {
+      const link = screen.getByRole("link", { name: label });
+      if (url.startsWith("mailto:")) {
+        expect(link).not.toHaveAttribute("target", "_blank");
+      } else {
+        expect(link).toHaveAttribute("target", "_blank");
+      }
     });
   });
 
