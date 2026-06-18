@@ -59,9 +59,3 @@ jobs:
 
       - name: Run Lighthouse CI (mobile)
         run: npx lhci autorun --config=.lighthouserc.mobile.json
-
-      - name: Enable auto-merge
-        if: success()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge --auto --squash --delete-branch "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}"
