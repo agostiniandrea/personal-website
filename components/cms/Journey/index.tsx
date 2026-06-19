@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styled, { css, keyframes } from "styled-components";
 import { Box, Container, Heading, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -117,7 +118,10 @@ const Journey: React.FC<JourneyProps> = ({
   heading = journeyData.heading,
   intro = journeyData.intro,
   chapters = journeyData.chapters,
-}) => (
+}) => {
+  const { locale } = useRouter();
+  const yearsLabel = locale === "it" ? "anni" : "y.o.";
+  return (
   <Box as="section" id="journey">
   <Container>
     <Box py="5xl">
@@ -139,7 +143,7 @@ const Journey: React.FC<JourneyProps> = ({
                 <CityHeading size="card">{chapter.city}</CityHeading>
               </Box>
               <DateLabel>
-                {chapter.age ? `${chapter.age} anni · ` : ""}
+                {chapter.age ? `${chapter.age} ${yearsLabel} · ` : ""}
                 {chapter.years}
                 {chapter.isOngoing && " ?"}
               </DateLabel>
@@ -151,7 +155,8 @@ const Journey: React.FC<JourneyProps> = ({
     </Box>
   </Container>
   </Box>
-);
+  );
+};
 
 export default Journey;
 export type { JourneyProps };
