@@ -71,6 +71,10 @@ const NavLink = styled(Link)<{ $active: boolean }>`
     transform-origin: left;
     transition: transform 0.25s ease;
   }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
 `;
 
 const IconButton = styled(Button)`
