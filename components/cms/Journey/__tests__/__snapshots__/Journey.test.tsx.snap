@@ -107,7 +107,8 @@ exports[`Journey renders correctly with default data 1`] = `
   border-radius: 50%;
   border: 2px solid var(--color-highlight);
   flex-shrink: 0;
-  background: var(--color-highlight);
+  background: transparent;
+  animation: k0 2.4s ease-in-out infinite;
 }
 
 .c18 {
@@ -116,8 +117,7 @@ exports[`Journey renders correctly with default data 1`] = `
   border-radius: 50%;
   border: 2px solid var(--color-highlight);
   flex-shrink: 0;
-  background: transparent;
-  animation: k0 2.4s ease-in-out infinite;
+  background: var(--color-highlight);
 }
 
 .c12 {
@@ -270,7 +270,7 @@ li:last-child>.c12 {
               <p
                 class="c2 c13"
               >
-                Italy
+                Thailand
               </p>
               <div
                 class=""
@@ -278,18 +278,20 @@ li:last-child>.c12 {
                 <h2
                   class="c14 c15"
                 >
-                  Casalecchio di Reno
+                  Bangkok
                 </h2>
               </div>
               <p
                 class="c2 c16"
               >
-                1992 – 2013
+                33 y.o. · 
+                2025 –
+                 ?
               </p>
               <p
                 class="c2 c17"
               >
-                I grew up just outside Bologna, in a town small enough to know your neighbours and big enough to want more. Secondary school at ITIS Belluzzi in Bologna, where I got serious about code for the first time. Between shifts at the warehouse and the supermarket, I kept studying — and when an ITS ICT programme in Turin came up, with hands-on work in mobile app design, I said yes before I'd finished reading the application.
+                In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.
               </p>
             </div>
           </li>
@@ -300,47 +302,7 @@ li:last-child>.c12 {
               class="c10"
             >
               <div
-                class="c11"
-              />
-            </div>
-            <div
-              class="c12"
-            >
-              <p
-                class="c2 c13"
-              >
-                Italy
-              </p>
-              <div
-                class=""
-              >
-                <h2
-                  class="c14 c15"
-                >
-                  Torino
-                </h2>
-              </div>
-              <p
-                class="c2 c16"
-              >
-                21 anni · 
-                2013 – 2018
-              </p>
-              <p
-                class="c2 c17"
-              >
-                Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.
-              </p>
-            </div>
-          </li>
-          <li
-            class="c9"
-          >
-            <div
-              class="c10"
-            >
-              <div
-                class="c11"
+                class="c18"
               />
             </div>
             <div
@@ -363,13 +325,13 @@ li:last-child>.c12 {
               <p
                 class="c2 c16"
               >
-                26 anni · 
-                2018 – 2025
+                26 y.o. · 
+                2019 – 2025
               </p>
               <p
                 class="c2 c17"
               >
-                Moving to Amsterdam in December 2018 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.
+                Moving to Amsterdam in early 2019 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.
               </p>
             </div>
           </li>
@@ -389,7 +351,7 @@ li:last-child>.c12 {
               <p
                 class="c2 c13"
               >
-                Thailand
+                Italy
               </p>
               <div
                 class=""
@@ -397,20 +359,58 @@ li:last-child>.c12 {
                 <h2
                   class="c14 c15"
                 >
-                  Bangkok
+                  Torino
                 </h2>
               </div>
               <p
                 class="c2 c16"
               >
-                33 anni · 
-                2025 –
-                 ?
+                21 y.o. · 
+                2013 – 2018
               </p>
               <p
                 class="c2 c17"
               >
-                In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.
+                Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.
+              </p>
+            </div>
+          </li>
+          <li
+            class="c9"
+          >
+            <div
+              class="c10"
+            >
+              <div
+                class="c18"
+              />
+            </div>
+            <div
+              class="c12"
+            >
+              <p
+                class="c2 c13"
+              >
+                Italy
+              </p>
+              <div
+                class=""
+              >
+                <h2
+                  class="c14 c15"
+                >
+                  Casalecchio di Reno
+                </h2>
+              </div>
+              <p
+                class="c2 c16"
+              >
+                1992 – 2013
+              </p>
+              <p
+                class="c2 c17"
+              >
+                I grew up just outside Bologna, in a town small enough to know your neighbours and big enough to want more. Secondary school at ITIS Belluzzi in Bologna, where I got serious about code for the first time. Between shifts at the warehouse and the supermarket, I kept studying — and when an ITS ICT programme in Turin came up, with hands-on work in mobile app design, I said yes before I'd finished reading the application.
               </p>
             </div>
           </li>
