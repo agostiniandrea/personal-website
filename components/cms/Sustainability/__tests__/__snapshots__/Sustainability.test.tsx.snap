@@ -53,7 +53,8 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 .c10 {
-  border: 1px solid var(--color-main);
+  border: 1px solid var(--color-highlight);
+  background: var(--color-badge-bg);
   color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
@@ -62,7 +63,8 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 .c17 {
-  border: 1px solid var(--color-main);
+  border: 1px solid var(--color-highlight);
+  background: var(--color-badge-bg);
   color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
@@ -554,7 +556,8 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 .c9 {
-  border: 1px solid var(--color-main);
+  border: 1px solid var(--color-highlight);
+  background: var(--color-badge-bg);
   color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;

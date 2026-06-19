@@ -75,7 +75,8 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c12 {
-  border: 1px solid var(--color-main);
+  border: 1px solid var(--color-highlight);
+  background: var(--color-badge-bg);
   color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
@@ -103,11 +104,29 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 3rem 2rem;
   border: 1px solid var(--color-main);
   border-radius: 10px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease,box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.c7::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .c7:hover {
   border-color: var(--color-highlight);
+  box-shadow: 0 4px 24px var(--color-surface);
+}
+
+.c7:hover::before {
+  opacity: 1;
 }
 
 .c8 {
@@ -427,7 +446,8 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c12 {
-  border: 1px solid var(--color-main);
+  border: 1px solid var(--color-highlight);
+  background: var(--color-badge-bg);
   color: var(--color-paragraph);
   border-radius: 9999px;
   display: inline-block;
@@ -455,11 +475,29 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 3rem 2rem;
   border: 1px solid var(--color-main);
   border-radius: 10px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease,box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.c7::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .c7:hover {
   border-color: var(--color-highlight);
+  box-shadow: 0 4px 24px var(--color-surface);
+}
+
+.c7:hover::before {
+  opacity: 1;
 }
 
 .c8 {

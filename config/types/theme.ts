@@ -13,6 +13,10 @@ declare module "styled-components" {
       highlight: string;
       secondary: string;
       tertiary: string;
+      surface: string;
+      badgeBg: string;
+      ringStart: string;
+      ringEnd: string;
     };
     fontFamilies: {
       default: string;

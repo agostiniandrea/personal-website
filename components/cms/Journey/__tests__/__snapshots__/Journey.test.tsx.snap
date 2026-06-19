@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Journey renders correctly with default data 1`] = `
-.c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
 .c1 {
   display: grid;
   position: relative;
@@ -53,6 +48,10 @@ exports[`Journey renders correctly with default data 1`] = `
   padding: 0;
 }
 
+.c0 {
+  margin: 4rem 0;
+}
+
 .c3 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
@@ -88,8 +87,7 @@ exports[`Journey renders correctly with default data 1`] = `
   display: block;
   width: 2px;
   flex: 1;
-  background: var(--color-highlight);
-  opacity: 0.15;
+  background: linear-gradient(       to bottom,       var(--color-ring-start),       transparent     );
   margin-top: 0.75rem;
 }
 

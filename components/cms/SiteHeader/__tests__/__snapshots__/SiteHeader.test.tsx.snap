@@ -152,6 +152,10 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: transform 0.25s ease;
 }
 
+.c6:hover::after {
+  transform: scaleX(1);
+}
+
 .c9 {
   background: none;
   border: none;

@@ -12,4 +12,10 @@ export const colors = {
   highlight: "var(--color-highlight)",
   secondary: "var(--color-secondary)",
   tertiary: "var(--color-tertiary)",
+
+  // surface & accent tokens
+  surface: "var(--color-surface)",
+  badgeBg: "var(--color-badge-bg)",
+  ringStart: "var(--color-ring-start)",
+  ringEnd: "var(--color-ring-end)",
 };

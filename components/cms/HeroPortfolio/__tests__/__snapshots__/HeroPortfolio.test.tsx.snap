@@ -192,7 +192,8 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   height: 240px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--color-highlight);
+  border: 3px solid transparent;
+  background: var(--color-background) padding-box,linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
 }
 
 @media (min-width: 600px) {
@@ -551,7 +552,8 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   height: 240px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--color-highlight);
+  border: 3px solid transparent;
+  background: var(--color-background) padding-box,linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
 }
 
 @media (min-width: 600px) {

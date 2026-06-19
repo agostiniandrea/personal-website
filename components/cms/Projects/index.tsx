@@ -40,10 +40,28 @@ const Card = styled.article`
   padding: ${({ theme }) => theme.space["3xl"]} ${({ theme }) => theme.space["2xl"]};
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-radius: ${({ theme }) => theme.radii.md};
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.highlight};
+    box-shadow: 0 4px 24px ${({ theme }) => theme.colors.surface};
+
+    &::before {
+      opacity: 1;
+    }
   }
 `;
 
