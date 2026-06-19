@@ -35,7 +35,7 @@ export const journeyData: JourneyProps = {
       years: "2019 – 2025",
       age: "26",
       description:
-        "I arrived in Amsterdam on January 2, 2019 — straight from a few weeks in Rome after leaving Turin. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.",
+        "Moving to Amsterdam in early 2019 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.",
     },
     {
       city: "Torino",
@@ -43,7 +43,7 @@ export const journeyData: JourneyProps = {
       years: "2013 – 2018",
       age: "21",
       description:
-        "Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. I arrived in October 2013 and left in December 2018 — a few weeks in Rome, then a one-way ticket to Amsterdam.",
+        "Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.",
     },
     {
       city: "Casalecchio di Reno",
