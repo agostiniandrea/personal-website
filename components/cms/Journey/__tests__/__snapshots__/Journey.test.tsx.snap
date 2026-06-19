@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Journey renders correctly with default data 1`] = `
-.c1 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+.c0 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 
-.c0 {
+.c1 {
   display: grid;
   position: relative;
   min-height: auto;
@@ -15,7 +15,7 @@ exports[`Journey renders correctly with default data 1`] = `
   column-gap: calc(24px);
 }
 
-.c0 >* {
+.c1 >* {
   grid-column: 2/auto;
 }
 
@@ -154,47 +154,47 @@ li:last-child>.c12 {
 }
 
 @media (min-width: 600px) {
-  .c0 {
+  .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
   }
 }
 
 @media (min-width: 900px) {
-  .c0 {
+  .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
   }
 }
 
 @media (min-width: 1200px) {
-  .c0 {
+  .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
   }
 }
 
 @media (min-width: 1536px) {
-  .c0 {
+  .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
   }
 }
 
 @media (min-width: 600px) {
-  .c0 >* {
+  .c1 >* {
     grid-column: 2/auto;
   }
 }
 
 @media (min-width: 1200px) {
-  .c0 >* {
+  .c1 >* {
     grid-column: 2/auto;
   }
 }
 
 @media (min-width: 1536px) {
-  .c0 >* {
+  .c1 >* {
     grid-column: 2/auto;
   }
 }
@@ -226,196 +226,192 @@ li:last-child>.c12 {
 
 <div>
   <section
-    class=""
+    class="c0"
     id="journey"
   >
     <section
-      class="c0"
+      class="c1"
     >
-      <div
-        class="c1"
+      <p
+        class="c2 c3"
       >
-        <p
-          class="c2 c3"
+        The Journey
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        A Life in Motion
+      </h2>
+      <p
+        class="c6 c7"
+      >
+        From a small town outside Bologna to the streets of Bangkok — via Turin, Amsterdam, and 35 countries in between.
+      </p>
+      <ol
+        aria-label="Life journey timeline"
+        class="c8"
+      >
+        <li
+          class="c9"
         >
-          The Journey
-        </p>
-        <h2
-          class="c4 c5"
-        >
-          A Life in Motion
-        </h2>
-        <p
-          class="c6 c7"
-        >
-          From a small town outside Bologna to the streets of Bangkok — via Turin, Amsterdam, and 35 countries in between.
-        </p>
-        <ol
-          aria-label="Life journey timeline"
-          class="c8"
-        >
-          <li
-            class="c9"
+          <div
+            class="c10"
           >
             <div
-              class="c10"
+              class="c11"
+            />
+          </div>
+          <div
+            class="c12"
+          >
+            <p
+              class="c2 c13"
             >
-              <div
-                class="c11"
-              />
-            </div>
+              Thailand
+            </p>
             <div
-              class="c12"
+              class=""
             >
-              <p
-                class="c2 c13"
+              <h2
+                class="c14 c15"
               >
-                Thailand
-              </p>
-              <div
-                class=""
-              >
-                <h2
-                  class="c14 c15"
-                >
-                  Bangkok
-                </h2>
-              </div>
-              <p
-                class="c2 c16"
-              >
-                33 y.o. · 
-                2025 –
-                 ?
-              </p>
-              <p
-                class="c2 c17"
-              >
-                In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.
-              </p>
+                Bangkok
+              </h2>
             </div>
-          </li>
-          <li
-            class="c9"
+            <p
+              class="c2 c16"
+            >
+              33 y.o. · 
+              2025 –
+               ?
+            </p>
+            <p
+              class="c2 c17"
+            >
+              In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.
+            </p>
+          </div>
+        </li>
+        <li
+          class="c9"
+        >
+          <div
+            class="c10"
           >
             <div
-              class="c10"
+              class="c18"
+            />
+          </div>
+          <div
+            class="c12"
+          >
+            <p
+              class="c2 c13"
             >
-              <div
-                class="c18"
-              />
-            </div>
+              Netherlands
+            </p>
             <div
-              class="c12"
+              class=""
             >
-              <p
-                class="c2 c13"
+              <h2
+                class="c14 c15"
               >
-                Netherlands
-              </p>
-              <div
-                class=""
-              >
-                <h2
-                  class="c14 c15"
-                >
-                  Amsterdam
-                </h2>
-              </div>
-              <p
-                class="c2 c16"
-              >
-                26 y.o. · 
-                2019 – 2025
-              </p>
-              <p
-                class="c2 c17"
-              >
-                Moving to Amsterdam in early 2019 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.
-              </p>
+                Amsterdam
+              </h2>
             </div>
-          </li>
-          <li
-            class="c9"
+            <p
+              class="c2 c16"
+            >
+              26 y.o. · 
+              2019 – 2025
+            </p>
+            <p
+              class="c2 c17"
+            >
+              Moving to Amsterdam in early 2019 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.
+            </p>
+          </div>
+        </li>
+        <li
+          class="c9"
+        >
+          <div
+            class="c10"
           >
             <div
-              class="c10"
+              class="c18"
+            />
+          </div>
+          <div
+            class="c12"
+          >
+            <p
+              class="c2 c13"
             >
-              <div
-                class="c18"
-              />
-            </div>
+              Italy
+            </p>
             <div
-              class="c12"
+              class=""
             >
-              <p
-                class="c2 c13"
+              <h2
+                class="c14 c15"
               >
-                Italy
-              </p>
-              <div
-                class=""
-              >
-                <h2
-                  class="c14 c15"
-                >
-                  Torino
-                </h2>
-              </div>
-              <p
-                class="c2 c16"
-              >
-                21 y.o. · 
-                2013 – 2018
-              </p>
-              <p
-                class="c2 c17"
-              >
-                Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.
-              </p>
+                Torino
+              </h2>
             </div>
-          </li>
-          <li
-            class="c9"
+            <p
+              class="c2 c16"
+            >
+              21 y.o. · 
+              2013 – 2018
+            </p>
+            <p
+              class="c2 c17"
+            >
+              Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.
+            </p>
+          </div>
+        </li>
+        <li
+          class="c9"
+        >
+          <div
+            class="c10"
           >
             <div
-              class="c10"
+              class="c18"
+            />
+          </div>
+          <div
+            class="c12"
+          >
+            <p
+              class="c2 c13"
             >
-              <div
-                class="c18"
-              />
-            </div>
+              Italy
+            </p>
             <div
-              class="c12"
+              class=""
             >
-              <p
-                class="c2 c13"
+              <h2
+                class="c14 c15"
               >
-                Italy
-              </p>
-              <div
-                class=""
-              >
-                <h2
-                  class="c14 c15"
-                >
-                  Casalecchio di Reno
-                </h2>
-              </div>
-              <p
-                class="c2 c16"
-              >
-                1992 – 2013
-              </p>
-              <p
-                class="c2 c17"
-              >
-                I grew up just outside Bologna, in a town small enough to know your neighbours and big enough to want more. Secondary school at ITIS Belluzzi in Bologna, where I got serious about code for the first time. Between shifts at the warehouse and the supermarket, I kept studying — and when an ITS ICT programme in Turin came up, with hands-on work in mobile app design, I said yes before I'd finished reading the application.
-              </p>
+                Casalecchio di Reno
+              </h2>
             </div>
-          </li>
-        </ol>
-      </div>
+            <p
+              class="c2 c16"
+            >
+              1992 – 2013
+            </p>
+            <p
+              class="c2 c17"
+            >
+              I grew up just outside Bologna, in a town small enough to know your neighbours and big enough to want more. Secondary school at ITIS Belluzzi in Bologna, where I got serious about code for the first time. Between shifts at the warehouse and the supermarket, I kept studying — and when an ITS ICT programme in Turin came up, with hands-on work in mobile app design, I said yes before I'd finished reading the application.
+            </p>
+          </div>
+        </li>
+      </ol>
     </section>
   </section>
 </div>
