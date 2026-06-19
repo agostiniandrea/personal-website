@@ -122,9 +122,8 @@ const Journey: React.FC<JourneyProps> = ({
   const { locale } = useRouter();
   const yearsLabel = locale === "it" ? "anni" : "y.o.";
   return (
-  <Box as="section" id="journey">
+  <Box as="section" id="journey" my="4xl">
   <Container>
-    <Box py="5xl">
       {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
       {heading && (
         <SectionHeading size="section">{heading}</SectionHeading>
@@ -152,7 +151,6 @@ const Journey: React.FC<JourneyProps> = ({
           </TimelineItem>
         ))}
       </Timeline>
-    </Box>
   </Container>
   </Box>
   );

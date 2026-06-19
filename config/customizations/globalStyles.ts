@@ -106,6 +106,10 @@ const GlobalStyle = createGlobalStyle`
       border: 0;
     }
 
+    section[id] {
+      scroll-margin-top: 5rem;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
