@@ -177,7 +177,10 @@ const PhotoWrapper = styled.div`
   height: 240px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid ${({ theme }) => theme.colors.highlight};
+  border: 3px solid transparent;
+  background:
+    ${({ theme }) => theme.colors.background} padding-box,
+    linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     width: 380px;

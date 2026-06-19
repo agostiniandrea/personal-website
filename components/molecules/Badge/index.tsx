@@ -14,7 +14,8 @@ interface StyledBadgeProps {
 }
 
 const StyledBadge = styled(Text)<StyledBadgeProps>`
-  border: 1px solid ${({ theme }) => theme.colors.main};
+  border: 1px solid ${({ theme }) => theme.colors.highlight};
+  background: ${({ theme }) => theme.colors.badgeBg};
   color: ${({ theme }) => theme.colors.paragraph};
   border-radius: ${({ theme }) => theme.radii.full};
   display: inline-block;

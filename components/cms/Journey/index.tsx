@@ -4,6 +4,12 @@ import { Box, Container, Heading, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { journeyData, type JourneyProps } from "./model";
 
+const JourneySection = styled.section`
+  margin: ${({ theme }) => theme.space["4xl"]} 0;
+  background: ${({ theme }) => theme.colors.surface};
+  padding: ${({ theme }) => theme.space["4xl"]} 0;
+`;
+
 const SectionLabel = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
@@ -38,8 +44,11 @@ const TimelineItem = styled.li`
     display: block;
     width: 2px;
     flex: 1;
-    background: ${({ theme }) => theme.colors.highlight};
-    opacity: 0.15;
+    background: linear-gradient(
+      to bottom,
+      var(--color-ring-start),
+      transparent
+    );
     margin-top: ${({ theme }) => theme.space.md};
   }
 `;
@@ -122,7 +131,7 @@ const Journey: React.FC<JourneyProps> = ({
   const { locale } = useRouter();
   const yearsLabel = locale === "it" ? "anni" : "y.o.";
   return (
-  <Box as="section" id="journey" my="4xl">
+  <JourneySection id="journey">
   <Container>
       {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
       {heading && (
@@ -152,7 +161,7 @@ const Journey: React.FC<JourneyProps> = ({
         ))}
       </Timeline>
   </Container>
-  </Box>
+  </JourneySection>
   );
 };
 
