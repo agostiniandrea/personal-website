@@ -6,8 +6,6 @@ import { journeyData, type JourneyProps } from "./model";
 
 const JourneySection = styled.section`
   margin: ${({ theme }) => theme.space["4xl"]} 0;
-  background: ${({ theme }) => theme.colors.surface};
-  padding: ${({ theme }) => theme.space["4xl"]} 0;
 `;
 
 const SectionLabel = styled(Text)`
