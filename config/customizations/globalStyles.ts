@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     :root {
       --color-background: #f5f5fa;
       --color-headline: #0a0a0f;
-      --color-paragraph: #6a6a80;
+      --color-paragraph: #5e5e72;
       --color-button: #0f766e;
       --color-button-text: #ffffff;
       --color-stroke: #c8e6e4;
