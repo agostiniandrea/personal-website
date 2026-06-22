@@ -187,6 +187,8 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   transform: translateX(-50%);
   background: none;
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
   cursor: pointer;
   padding: 0.5rem;
   opacity: ${({ $visible }) => ($visible ? 0.5 : 0)};
@@ -196,6 +198,14 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   color: ${({ theme }) => theme.colors.highlight};
 
   &:hover { opacity: 0.9; }
+
+  &:focus:not(:focus-visible) { outline: none; }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+    border-radius: 50%;
+  }
 `;
 
 const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
@@ -220,7 +230,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   }, []);
 
   const scrollDown = () => {
-    document.querySelector<HTMLElement>("section[id]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (

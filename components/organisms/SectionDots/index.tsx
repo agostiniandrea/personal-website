@@ -30,9 +30,9 @@ const Nav = styled.nav`
 `;
 
 const DotRow = styled.li`
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   list-style: none;
 
   &:hover span {
@@ -42,6 +42,8 @@ const DotRow = styled.li`
 `;
 
 const Label = styled.span`
+  position: absolute;
+  right: calc(100% + 0.5rem);
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -55,21 +57,19 @@ const Label = styled.span`
 `;
 
 const Dot = styled.button<{ $active: boolean }>`
-  width: ${({ $active }) => ($active ? "10px" : "7px")};
-  height: ${({ $active }) => ($active ? "10px" : "7px")};
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
   background: ${({ $active, theme }) =>
     $active ? theme.colors.highlight : "transparent"};
   cursor: pointer;
   padding: 0;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
   flex-shrink: 0;
 
   &:hover {
     background: ${({ theme }) => theme.colors.highlight};
-    width: 10px;
-    height: 10px;
   }
 
   &:focus-visible {
@@ -77,6 +77,19 @@ const Dot = styled.button<{ $active: boolean }>`
     outline-offset: 3px;
   }
 `;
+
+const VisuallyHidden = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
 
 export default function SectionDots() {
   const [active, setActive] = useState("hero");
@@ -107,21 +120,28 @@ export default function SectionDots() {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const activeLabel = SECTIONS.find((s) => s.id === active)?.label ?? "";
+
   return (
-    <Nav aria-label="Section navigation">
-      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.875rem" }}>
-        {SECTIONS.map(({ id, label }) => (
-          <DotRow key={id}>
-            <Label>{label}</Label>
-            <Dot
-              $active={active === id}
-              onClick={() => scrollTo(id)}
-              aria-label={`Go to ${label}`}
-              aria-current={active === id ? "true" : undefined}
-            />
-          </DotRow>
-        ))}
-      </ul>
-    </Nav>
+    <>
+      <Nav aria-label="Section navigation">
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+          {SECTIONS.map(({ id, label }) => (
+            <DotRow key={id}>
+              <Label>{label}</Label>
+              <Dot
+                $active={active === id}
+                onClick={() => scrollTo(id)}
+                aria-label={`Go to ${label}`}
+                aria-current={active === id ? "true" : undefined}
+              />
+            </DotRow>
+          ))}
+        </ul>
+      </Nav>
+      <VisuallyHidden aria-live="polite" aria-atomic="true">
+        {activeLabel}
+      </VisuallyHidden>
+    </>
   );
 }
