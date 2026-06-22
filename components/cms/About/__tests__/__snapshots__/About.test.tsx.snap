@@ -2,8 +2,8 @@
 
 exports[`About renders correctly with all props 1`] = `
 .c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .c1 {
@@ -175,8 +175,8 @@ exports[`About renders correctly with all props 1`] = `
 
 exports[`About renders correctly without optional tags 1`] = `
 .c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .c1 {

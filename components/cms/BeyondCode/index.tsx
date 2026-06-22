@@ -61,7 +61,7 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
   intro,
   items,
 }) => (
-  <Box as="section" id="beyond-code" my="4xl">
+  <Box as="section" id="beyond-code" py="5xl">
     <Container>
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>

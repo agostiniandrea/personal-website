@@ -115,6 +115,10 @@ const GlobalStyle = createGlobalStyle`
     }
 
     section[id] {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       scroll-margin-top: 5rem;
     }
 

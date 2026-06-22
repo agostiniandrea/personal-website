@@ -110,7 +110,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
   showCarbonBadge,
   carbonBadgeLabel,
 }) => (
-  <Box as="section" id="sustainability" my="4xl">
+  <Box as="section" id="sustainability" py="5xl">
     <Container>
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
