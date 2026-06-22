@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
       height: 100%;
       overflow-x: hidden;
       overflow-y: scroll;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity;
       scroll-behavior: smooth;
       padding: 0;
       visibility: visible;

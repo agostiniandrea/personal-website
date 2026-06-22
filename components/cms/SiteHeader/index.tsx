@@ -161,9 +161,10 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const el = document.body;
+    const onScroll = () => setScrolled(el.scrollTop > 60);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -187,9 +188,10 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
       return active;
     };
 
+    const el = document.body;
     const onScroll = () => setActiveSection(getActive());
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
   }, [navLinks]);
 
   useEffect(() => {
