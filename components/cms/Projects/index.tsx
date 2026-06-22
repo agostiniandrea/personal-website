@@ -18,7 +18,7 @@ export interface ProjectsProps {
   items: ProjectItem[];
 }
 
-// Matches numeric metrics: 15+, 90%, 2.1, WCAG 2.1 AA, etc.
+// Matches numeric metrics: 15+, 90%, WCAG 2.1 AA, etc.
 const METRIC_REGEX = /(\bWCAG\s+\d+\.\d+\s+\w+\b|\b\d+(?:\.\d+)?[+%]?\b)/g;
 
 function highlightMetrics(text: string): React.ReactNode[] {
@@ -27,6 +27,7 @@ function highlightMetrics(text: string): React.ReactNode[] {
     i % 2 === 1 ? <Metric key={i}>{part}</Metric> : part
   );
 }
+
 
 const SectionLabel = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -118,6 +119,7 @@ const CardDescription = styled(Text)`
   margin-bottom: ${({ theme }) => theme.space.xl};
   flex: 1;
 `;
+
 
 const Metric = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
