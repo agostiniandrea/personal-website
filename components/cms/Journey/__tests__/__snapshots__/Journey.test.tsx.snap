@@ -49,7 +49,7 @@ exports[`Journey renders correctly with default data 1`] = `
 }
 
 .c0 {
-  margin: 4rem 0;
+  padding: 3rem 0;
 }
 
 .c3 {

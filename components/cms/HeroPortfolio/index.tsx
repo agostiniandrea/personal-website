@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 
@@ -18,11 +18,11 @@ export interface HeroPortfolioProps {
 }
 
 const Section = styled.section`
+  position: relative;
   min-height: 100svh;
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.space["5xl"]} 0;
-
   @media (min-width: ${BREAKPOINTS.tablet}) {
     padding: 0;
   }
@@ -154,37 +154,57 @@ const SecondaryLink = styled(Link)`
 `;
 
 const PhotoOuter = styled.div`
-  position: relative;
   flex-shrink: 0;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
+  width: 240px;
+  height: 240px;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -35%;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at center,
-      ${({ theme }) => theme.colors.highlight}1a 0%,
-      transparent 65%
-    );
-    pointer-events: none;
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    width: 380px;
+    height: 380px;
   }
 `;
 
 const PhotoWrapper = styled.div`
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid transparent;
-  background:
-    ${({ theme }) => theme.colors.background} padding-box,
-    linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
+`;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    width: 380px;
-    height: 380px;
+const bounce = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+`;
+
+const ScrollHint = styled.button<{ $visible: boolean }>`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  opacity: ${({ $visible }) => ($visible ? 0.5 : 0)};
+  transition: opacity 0.4s ease;
+  pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
+  animation: ${bounce} 1.8s ease-in-out infinite;
+  color: ${({ theme }) => theme.colors.highlight};
+
+  &:hover { opacity: 0.9; }
+
+  &:focus:not(:focus-visible) { outline: none; }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+    border-radius: 50%;
   }
 `;
 
@@ -201,8 +221,20 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   cvDownloadLabel,
   cvDownloadFile,
 }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollDown = () => {
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <Section>
+    <Section id="hero">
       <Container>
         <HeroGrid>
           <TextBlock>
@@ -240,6 +272,15 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
           </PhotoOuter>
         </HeroGrid>
       </Container>
+      <ScrollHint
+        $visible={!scrolled}
+        onClick={scrollDown}
+        aria-label="Scroll down"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </ScrollHint>
     </Section>
   );
 };

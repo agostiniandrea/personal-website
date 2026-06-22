@@ -5,7 +5,7 @@ import { BREAKPOINTS } from "@constants";
 import { journeyData, type JourneyProps } from "./model";
 
 const JourneySection = styled.section`
-  margin: ${({ theme }) => theme.space["4xl"]} 0;
+  padding: ${({ theme }) => theme.space["3xl"]} 0;
 `;
 
 const SectionLabel = styled(Text)`
