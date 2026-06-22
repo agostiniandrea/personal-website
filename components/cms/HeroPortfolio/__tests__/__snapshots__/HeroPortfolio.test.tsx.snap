@@ -173,18 +173,20 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c15 {
-  position: relative;
   flex-shrink: 0;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
+  width: 240px;
+  height: 240px;
 }
 
 .c16 {
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid transparent;
-  background: var(--color-background) padding-box,linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
 }
 
 @media (min-width: 600px) {
@@ -284,7 +286,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c16 {
+  .c15 {
     width: 380px;
     height: 380px;
   }
@@ -524,18 +526,20 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 .c14 {
-  position: relative;
   flex-shrink: 0;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
+  width: 240px;
+  height: 240px;
 }
 
 .c15 {
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid transparent;
-  background: var(--color-background) padding-box,linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
 }
 
 @media (min-width: 600px) {
@@ -635,7 +639,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c15 {
+  .c14 {
     width: 380px;
     height: 380px;
   }

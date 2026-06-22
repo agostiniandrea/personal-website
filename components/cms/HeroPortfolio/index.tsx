@@ -154,25 +154,25 @@ const SecondaryLink = styled(Link)`
 `;
 
 const PhotoOuter = styled.div`
-  position: relative;
   flex-shrink: 0;
-`;
-
-const PhotoWrapper = styled.div`
-  position: relative;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
   width: 240px;
   height: 240px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid transparent;
-  background:
-    ${({ theme }) => theme.colors.background} padding-box,
-    linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end)) border-box;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     width: 380px;
     height: 380px;
   }
+`;
+
+const PhotoWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
 `;
 
 const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
