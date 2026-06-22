@@ -114,6 +114,7 @@ export type TSiteFooterData = {
   socialLinks: { label: string; url: string }[];
   copyrightName: string;
   tagline: string | null;
+  ctaHeading: string | null;
 };
 
 type ContentfulLinkEntry = {
@@ -125,7 +126,7 @@ type ContentfulSiteHeaderEntry = {
 };
 
 type ContentfulSiteFooterEntry = {
-  fields: { copyrightName: string; tagline?: string; socialLinks: ContentfulLinkEntry[] };
+  fields: { copyrightName: string; tagline?: string; ctaHeading?: string; socialLinks: ContentfulLinkEntry[] };
 };
 
 export const getSiteHeaderContent = async (locale = "en"): Promise<TSiteHeaderData | null> => {
@@ -154,6 +155,7 @@ export const getSiteFooterContent = async (locale = "en"): Promise<TSiteFooterDa
   return {
     copyrightName: entry.fields.copyrightName,
     tagline: entry.fields.tagline ?? null,
+    ctaHeading: entry.fields.ctaHeading ?? null,
     socialLinks: entry.fields.socialLinks?.map((link) => ({
       label: link.fields.label,
       url: link.fields.url,
