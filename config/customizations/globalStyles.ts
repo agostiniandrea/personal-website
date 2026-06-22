@@ -44,12 +44,8 @@ const GlobalStyle = createGlobalStyle`
   ${({ theme }) => css`
     html {
       background: ${theme.colors.background};
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      height: 100%;
+      overflow: hidden;
     }
 
     body {
@@ -58,13 +54,20 @@ const GlobalStyle = createGlobalStyle`
       font-size: 18px;
       font-family: var(--font-inter), sans-serif;
       margin: 0;
+      height: 100%;
       overflow-x: hidden;
-      padding: 0;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
+      padding: 0;
       visibility: visible;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     p,

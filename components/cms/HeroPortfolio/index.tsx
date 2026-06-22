@@ -221,7 +221,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   }, []);
 
   const scrollDown = () => {
-    window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+    document.querySelector<HTMLElement>("section[id]")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
