@@ -1,5 +1,6 @@
 export { default as About, type AboutProps } from "./About";
 export { default as BeyondCode, type BeyondCodeProps } from "./BeyondCode";
+export { default as ClosingCta, type ClosingCtaProps } from "./ClosingCta";
 export { default as Contact, type ContactProps } from "./Contact";
 export { default as Experience, type ExperienceProps } from "./Experience";
 export { default as Journey, type JourneyProps } from "./Journey";

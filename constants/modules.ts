@@ -5,6 +5,7 @@
 const MODULES = {
   ABOUT: "about",
   BEYOND_CODE: "beyondCode",
+  CLOSING_CTA: "closingCta",
   CONTACT: "contact",
   EXPERIENCE: "experience",
   HERO_PORTFOLIO: "heroPortfolio",
