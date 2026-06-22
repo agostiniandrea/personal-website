@@ -177,15 +177,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   flex-shrink: 0;
 }
 
-.c15::before {
-  content: '';
-  position: absolute;
-  inset: -35%;
-  border-radius: 50%;
-  background: radial-gradient(       circle at center,       var(--color-highlight)1a 0%,       transparent 65%     );
-  pointer-events: none;
-}
-
 .c16 {
   position: relative;
   width: 240px;
@@ -535,15 +526,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 .c14 {
   position: relative;
   flex-shrink: 0;
-}
-
-.c14::before {
-  content: '';
-  position: absolute;
-  inset: -35%;
-  border-radius: 50%;
-  background: radial-gradient(       circle at center,       var(--color-highlight)1a 0%,       transparent 65%     );
-  pointer-events: none;
 }
 
 .c15 {

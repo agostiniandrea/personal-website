@@ -156,19 +156,6 @@ const SecondaryLink = styled(Link)`
 const PhotoOuter = styled.div`
   position: relative;
   flex-shrink: 0;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -35%;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at center,
-      ${({ theme }) => theme.colors.highlight}1a 0%,
-      transparent 65%
-    );
-    pointer-events: none;
-  }
 `;
 
 const PhotoWrapper = styled.div`
