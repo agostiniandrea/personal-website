@@ -45,6 +45,7 @@ const GlobalStyle = createGlobalStyle`
     html {
       background: ${theme.colors.background};
       overflow-y: scroll;
+      scroll-snap-type: y mandatory;
       scrollbar-width: none;
       &::-webkit-scrollbar {
         display: none;
@@ -115,10 +116,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     section[id] {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      scroll-snap-align: start;
       scroll-margin-top: 5rem;
     }
 

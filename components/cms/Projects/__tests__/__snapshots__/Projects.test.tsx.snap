@@ -2,8 +2,8 @@
 
 exports[`Projects renders correctly with a single item 1`] = `
 .c0 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .c1 {
@@ -373,8 +373,8 @@ exports[`Projects renders correctly with a single item 1`] = `
 
 exports[`Projects renders correctly with full project list 1`] = `
 .c0 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .c1 {

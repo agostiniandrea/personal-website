@@ -15,7 +15,7 @@ export interface SkillsProps {
 }
 
 const Section = styled.section`
-  padding: ${({ theme }) => theme.space["5xl"]} 0;
+  padding: ${({ theme }) => theme.space["3xl"]} 0;
 `;
 
 const SectionLabel = styled(Text)`
