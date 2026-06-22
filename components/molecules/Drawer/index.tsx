@@ -77,7 +77,7 @@ const StyledDrawer = styled.div<StyledDrawerProps>`
   transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
   transition: transform 0.3s ease;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
 `;
 
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
