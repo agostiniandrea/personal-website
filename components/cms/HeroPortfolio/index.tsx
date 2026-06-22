@@ -23,8 +23,6 @@ const Section = styled.section`
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.space["5xl"]} 0;
-  scroll-snap-align: start;
-
   @media (min-width: ${BREAKPOINTS.tablet}) {
     padding: 0;
   }
@@ -216,10 +214,9 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const el = document.body;
-    const onScroll = () => setScrolled(el.scrollTop > 80);
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const scrollDown = () => {

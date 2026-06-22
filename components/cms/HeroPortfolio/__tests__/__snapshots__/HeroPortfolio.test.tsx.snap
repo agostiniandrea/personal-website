@@ -64,7 +64,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   display: flex;
   align-items: center;
   padding: 5rem 0;
-  scroll-snap-align: start;
 }
 
 .c3 {
@@ -491,7 +490,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   display: flex;
   align-items: center;
   padding: 5rem 0;
-  scroll-snap-align: start;
 }
 
 .c3 {

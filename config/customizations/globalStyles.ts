@@ -44,8 +44,11 @@ const GlobalStyle = createGlobalStyle`
   ${({ theme }) => css`
     html {
       background: ${theme.colors.background};
-      height: 100%;
-      overflow: hidden;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     body {
@@ -54,20 +57,13 @@ const GlobalStyle = createGlobalStyle`
       font-size: 18px;
       font-family: var(--font-inter), sans-serif;
       margin: 0;
-      height: 100%;
       overflow-x: hidden;
-      overflow-y: scroll;
-      scroll-snap-type: y proximity;
-      scroll-behavior: smooth;
       padding: 0;
+      scroll-behavior: smooth;
       visibility: visible;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
     }
 
     p,
@@ -119,7 +115,6 @@ const GlobalStyle = createGlobalStyle`
     }
 
     section[id] {
-      scroll-snap-align: start;
       scroll-margin-top: 5rem;
     }
 
