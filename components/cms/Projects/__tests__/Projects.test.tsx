@@ -29,7 +29,7 @@ describe("Projects", () => {
   it("renders all project titles", () => {
     renderWithTheme(<Projects {...defaultProjects} />);
     defaultProjects.items.forEach(({ title }) => {
-      expect(screen.getByText(title)).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
     });
   });
 

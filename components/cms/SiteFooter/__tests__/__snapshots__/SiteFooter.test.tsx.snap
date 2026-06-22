@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
-.c6 #wcb_2 {
+.c8 #wcb_2 {
   display: none!important;
 }
 
@@ -18,10 +18,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   grid-column: 2/auto;
 }
 
-.c2 {
-  display: flex;
-}
-
 .c4 {
   display: flex;
   gap: 1.5rem;
@@ -29,7 +25,11 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c7 {
+.c5 {
+  display: flex;
+}
+
+.c9 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -39,17 +39,33 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 3rem;
+  padding-top: 4rem;
   padding-bottom: 2rem;
 }
 
+.c2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .c3 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 1.5rem;
+  line-height: 1;
+}
+
+.c6 {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
 }
 
-.c5 {
+.c7 {
   display: flex;
   justify-content: center;
 }
@@ -100,6 +116,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   }
 }
 
+@media (min-width: 1200px) {
+  .c3 {
+    font-size: 2.5rem;
+  }
+}
+
 <div>
   <footer
     class="c0"
@@ -109,16 +131,25 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
       class="c1"
     >
       <div
-        class="c2 c3"
+        class="c2"
       >
+        <h2
+          class="c3"
+        >
+          Let's work together.
+        </h2>
         <div
           class="c4"
         />
+      </div>
+      <div
+        class="c5 c6"
+      >
         <div
-          class="c5"
+          class="c7"
         >
           <div
-            class="c6"
+            class="c8"
           >
             <div
               class="carbonbadge wcb-d "
@@ -127,7 +158,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           </div>
         </div>
         <p
-          class="c7"
+          class="c9"
           style="text-align: center;"
         >
           © 
@@ -142,7 +173,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
-.c10 #wcb_2 {
+.c12 #wcb_2 {
   display: none!important;
 }
 
@@ -159,15 +190,15 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   grid-column: 2/auto;
 }
 
-.c2 {
-  display: flex;
-}
-
 .c4 {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.c7 {
+  display: flex;
 }
 
 .c5 {
@@ -187,15 +218,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c7 {
-  color: var(--color-paragraph);
-  font-size: 1rem;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-}
-
-.c11 {
+.c9 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -205,11 +228,32 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 3rem;
+  padding-top: 4rem;
   padding-bottom: 2rem;
 }
 
+.c2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .c3 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 1.5rem;
+  line-height: 1;
+}
+
+.c10 {
+  text-align: center;
+  color: var(--color-paragraph);
+}
+
+.c8 {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
@@ -220,13 +264,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   color: var(--color-highlight);
 }
 
-.c8 {
-  text-align: center;
-  font-size: 0.875rem;
-  color: var(--color-paragraph);
-}
-
-.c9 {
+.c11 {
   display: flex;
   justify-content: center;
 }
@@ -277,6 +315,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   }
 }
 
+@media (min-width: 1200px) {
+  .c3 {
+    font-size: 2.5rem;
+  }
+}
+
 <div>
   <footer
     class="c0"
@@ -286,8 +330,13 @@ exports[`SiteFooter renders correctly with social links 1`] = `
       class="c1"
     >
       <div
-        class="c2 c3"
+        class="c2"
       >
+        <h2
+          class="c3"
+        >
+          Let's work together.
+        </h2>
         <div
           class="c4"
         >
@@ -317,16 +366,20 @@ exports[`SiteFooter renders correctly with social links 1`] = `
             Email
           </a>
         </div>
+      </div>
+      <div
+        class="c7 c8"
+      >
         <p
-          class="c7 c8"
+          class="c9 c10"
         >
           Building for the web, one component at a time. Based in Bangkok.
         </p>
         <div
-          class="c9"
+          class="c11"
         >
           <div
-            class="c10"
+            class="c12"
           >
             <div
               class="carbonbadge wcb-d "
@@ -335,7 +388,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           </div>
         </div>
         <p
-          class="c11"
+          class="c9"
           style="text-align: center;"
         >
           © 

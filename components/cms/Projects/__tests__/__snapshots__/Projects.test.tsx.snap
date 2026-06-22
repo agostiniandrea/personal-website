@@ -19,7 +19,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   grid-column: 2/auto;
 }
 
-.c11 {
+.c16 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -41,7 +41,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   line-height: 1.1;
 }
 
-.c13 {
+.c18 {
   color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
@@ -49,11 +49,11 @@ exports[`Projects renders correctly with a single item 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c13:hover {
+.c18:hover {
   color: var(--color-tertiary);
 }
 
-.c13:focus-visible {
+.c18:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -66,7 +66,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -74,7 +74,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 0;
 }
 
-.c12 {
+.c17 {
   border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
   color: var(--color-paragraph);
@@ -101,7 +101,6 @@ exports[`Projects renders correctly with a single item 1`] = `
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 3rem 2rem;
   border: 1px solid var(--color-main);
   border-radius: 10px;
   transition: border-color 0.2s ease,box-shadow 0.2s ease;
@@ -118,6 +117,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
   opacity: 0;
   transition: opacity 0.2s ease;
+  z-index: 1;
 }
 
 .c7:hover {
@@ -130,15 +130,55 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c8 {
-  margin: 0 0 0.75rem;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.c9 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-badge-bg) 100%);
+  padding: 1rem;
 }
 
 .c10 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+  text-align: center;
+  opacity: 0.6;
+}
+
+.c11 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2rem;
+}
+
+.c12 {
+  margin: 0 0 0.75rem;
+}
+
+.c14 {
   margin-bottom: 1.5rem;
   flex: 1;
 }
 
 .c15 {
+  color: var(--color-highlight);
+  font-weight: 700;
+}
+
+.c20 {
   font-size: 0.75rem;
   color: var(--color-secondary);
   letter-spacing: 0.1em;
@@ -146,17 +186,17 @@ exports[`Projects renders correctly with a single item 1`] = `
   align-self: flex-start;
 }
 
-.c14 {
+.c19 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c14:hover {
+.c19:hover {
   text-decoration: underline;
 }
 
-.c14::after {
+.c19::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -262,108 +302,160 @@ exports[`Projects renders correctly with a single item 1`] = `
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            7mesh
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and WCAG 2.1 AA accessibility improvements ongoing since 2022.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                7mesh
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              Next.js
-            </span>
-            <span
-              class="c12"
+              7mesh
+            </h3>
+            <p
+              class="c13 c14"
             >
-              TypeScript
-            </span>
-            <span
-              class="c12"
+              Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and 
+              <span
+                class="c15"
+              >
+                WCAG 2.1 AA
+              </span>
+               accessibility improvements ongoing since 
+              <span
+                class="c15"
+              >
+                2022
+              </span>
+              .
+            </p>
+            <div
+              class="c16"
             >
-              Shopify
-            </span>
-            <span
-              class="c12"
+              <span
+                class="c17"
+              >
+                Next.js
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c17"
+              >
+                Shopify
+              </span>
+              <span
+                class="c17"
+              >
+                Prismic
+              </span>
+              <span
+                class="c17"
+              >
+                Algolia
+              </span>
+              <span
+                class="c17"
+              >
+                Storybook
+              </span>
+            </div>
+            <a
+              aria-label="View project: 7mesh"
+              class="c18 c19"
+              href="https://www.7mesh.com/"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Prismic
-            </span>
-            <span
-              class="c12"
-            >
-              Algolia
-            </span>
-            <span
-              class="c12"
-            >
-              Storybook
-            </span>
+              View project →
+            </a>
           </div>
-          <a
-            aria-label="View project: 7mesh"
-            class="c13 c14"
-            href="https://www.7mesh.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            View project →
-          </a>
         </article>
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            Compass
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                Compass
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              React
-            </span>
-            <span
-              class="c12"
+              Compass
+            </h3>
+            <p
+              class="c13 c14"
             >
-              TypeScript
-            </span>
-            <span
-              class="c12"
+              Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 
+              <span
+                class="c15"
+              >
+                19
+              </span>
+               and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
+            </p>
+            <div
+              class="c16"
             >
-              Storybook
-            </span>
+              <span
+                class="c17"
+              >
+                React
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c17"
+              >
+                Storybook
+              </span>
+              <span
+                class="c17"
+              >
+                styled-components
+              </span>
+              <span
+                class="c17"
+              >
+                Chromatic
+              </span>
+            </div>
             <span
-              class="c12"
+              class="c20"
             >
-              styled-components
-            </span>
-            <span
-              class="c12"
-            >
-              Chromatic
+              — 
+              internal
             </span>
           </div>
-          <span
-            class="c15"
-          >
-            — 
-            internal
-          </span>
         </article>
       </div>
     </section>
@@ -390,7 +482,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   grid-column: 2/auto;
 }
 
-.c11 {
+.c16 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -412,7 +504,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   line-height: 1.1;
 }
 
-.c13 {
+.c18 {
   color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
@@ -420,11 +512,11 @@ exports[`Projects renders correctly with full project list 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c13:hover {
+.c18:hover {
   color: var(--color-tertiary);
 }
 
-.c13:focus-visible {
+.c18:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -437,7 +529,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -445,7 +537,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 0;
 }
 
-.c12 {
+.c17 {
   border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
   color: var(--color-paragraph);
@@ -472,7 +564,6 @@ exports[`Projects renders correctly with full project list 1`] = `
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 3rem 2rem;
   border: 1px solid var(--color-main);
   border-radius: 10px;
   transition: border-color 0.2s ease,box-shadow 0.2s ease;
@@ -489,6 +580,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
   opacity: 0;
   transition: opacity 0.2s ease;
+  z-index: 1;
 }
 
 .c7:hover {
@@ -501,15 +593,55 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c8 {
-  margin: 0 0 0.75rem;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.c9 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-badge-bg) 100%);
+  padding: 1rem;
 }
 
 .c10 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+  text-align: center;
+  opacity: 0.6;
+}
+
+.c11 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2rem;
+}
+
+.c12 {
+  margin: 0 0 0.75rem;
+}
+
+.c14 {
   margin-bottom: 1.5rem;
   flex: 1;
 }
 
 .c15 {
+  color: var(--color-highlight);
+  font-weight: 700;
+}
+
+.c20 {
   font-size: 0.75rem;
   color: var(--color-secondary);
   letter-spacing: 0.1em;
@@ -517,17 +649,17 @@ exports[`Projects renders correctly with full project list 1`] = `
   align-self: flex-start;
 }
 
-.c14 {
+.c19 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c14:hover {
+.c19:hover {
   text-decoration: underline;
 }
 
-.c14::after {
+.c19::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -633,323 +765,443 @@ exports[`Projects renders correctly with full project list 1`] = `
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            7mesh
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and WCAG 2.1 AA accessibility improvements ongoing since 2022.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                7mesh
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              Next.js
-            </span>
-            <span
-              class="c12"
+              7mesh
+            </h3>
+            <p
+              class="c13 c14"
             >
-              TypeScript
-            </span>
-            <span
-              class="c12"
+              Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and 
+              <span
+                class="c15"
+              >
+                WCAG 2.1 AA
+              </span>
+               accessibility improvements ongoing since 
+              <span
+                class="c15"
+              >
+                2022
+              </span>
+              .
+            </p>
+            <div
+              class="c16"
             >
-              Shopify
-            </span>
-            <span
-              class="c12"
+              <span
+                class="c17"
+              >
+                Next.js
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c17"
+              >
+                Shopify
+              </span>
+              <span
+                class="c17"
+              >
+                Prismic
+              </span>
+              <span
+                class="c17"
+              >
+                Algolia
+              </span>
+              <span
+                class="c17"
+              >
+                Storybook
+              </span>
+            </div>
+            <a
+              aria-label="View project: 7mesh"
+              class="c18 c19"
+              href="https://www.7mesh.com/"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Prismic
-            </span>
-            <span
-              class="c12"
-            >
-              Algolia
-            </span>
-            <span
-              class="c12"
-            >
-              Storybook
-            </span>
+              View project →
+            </a>
           </div>
-          <a
-            aria-label="View project: 7mesh"
-            class="c13 c14"
-            href="https://www.7mesh.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            View project →
-          </a>
         </article>
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            Compass
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                Compass
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              React
-            </span>
-            <span
-              class="c12"
+              Compass
+            </h3>
+            <p
+              class="c13 c14"
             >
-              TypeScript
-            </span>
-            <span
-              class="c12"
+              Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 
+              <span
+                class="c15"
+              >
+                19
+              </span>
+               and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
+            </p>
+            <div
+              class="c16"
             >
-              Storybook
-            </span>
+              <span
+                class="c17"
+              >
+                React
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c17"
+              >
+                Storybook
+              </span>
+              <span
+                class="c17"
+              >
+                styled-components
+              </span>
+              <span
+                class="c17"
+              >
+                Chromatic
+              </span>
+            </div>
             <span
-              class="c12"
+              class="c20"
             >
-              styled-components
-            </span>
-            <span
-              class="c12"
-            >
-              Chromatic
+              — 
+              internal
             </span>
           </div>
-          <span
-            class="c15"
-          >
-            — 
-            internal
-          </span>
         </article>
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            Nest Designs
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Core developer on a headless Shopify storefront for a premium baby and kids sleepwear brand. Built an interactive size guide, faceted search with preserved scroll, BOPIS availability, and multi-currency support for AUD/GBP market launches.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                Nest Designs
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              Next.js
-            </span>
-            <span
-              class="c12"
+              Nest Designs
+            </h3>
+            <p
+              class="c13 c14"
             >
-              TypeScript
-            </span>
-            <span
-              class="c12"
+              Core developer on a headless Shopify storefront for a premium baby and kids sleepwear brand. Built an interactive size guide, faceted search with preserved scroll, BOPIS availability, and multi-currency support for AUD/GBP market launches.
+            </p>
+            <div
+              class="c16"
             >
-              Shopify
-            </span>
-            <span
-              class="c12"
+              <span
+                class="c17"
+              >
+                Next.js
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c17"
+              >
+                Shopify
+              </span>
+              <span
+                class="c17"
+              >
+                Prismic
+              </span>
+              <span
+                class="c17"
+              >
+                Algolia
+              </span>
+              <span
+                class="c17"
+              >
+                Klaviyo
+              </span>
+            </div>
+            <a
+              aria-label="View project: Nest Designs"
+              class="c18 c19"
+              href="https://www.nestdesigns.com/"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Prismic
-            </span>
-            <span
-              class="c12"
-            >
-              Algolia
-            </span>
-            <span
-              class="c12"
-            >
-              Klaviyo
-            </span>
+              View project →
+            </a>
           </div>
-          <a
-            aria-label="View project: Nest Designs"
-            class="c13 c14"
-            href="https://www.nestdesigns.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            View project →
-          </a>
         </article>
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            leggings.com
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Frontend development of the multi-vendor marketplace apps for leggings.com, in partnership with Orium. Built the merchant app for brand and product management and the admin app for moderation, smart collections, and category management.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                leggings.com
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              Shopify
-            </span>
-            <span
-              class="c12"
+              leggings.com
+            </h3>
+            <p
+              class="c13 c14"
             >
-              Remix
-            </span>
-            <span
-              class="c12"
+              Frontend development of the multi-vendor marketplace apps for leggings.com, in partnership with Orium. Built the merchant app for brand and product management and the admin app for moderation, smart collections, and category management.
+            </p>
+            <div
+              class="c16"
             >
-              Prisma
-            </span>
+              <span
+                class="c17"
+              >
+                Shopify
+              </span>
+              <span
+                class="c17"
+              >
+                Remix
+              </span>
+              <span
+                class="c17"
+              >
+                Prisma
+              </span>
+              <span
+                class="c17"
+              >
+                Shopify Polaris
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+            </div>
             <span
-              class="c12"
+              class="c20"
             >
-              Shopify Polaris
-            </span>
-            <span
-              class="c12"
-            >
-              TypeScript
+              — 
+              pre-launch
             </span>
           </div>
-          <span
-            class="c15"
-          >
-            — 
-            pre-launch
-          </span>
         </article>
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            Kizi.nl
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                Kizi.nl
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              Next.js
-            </span>
-            <span
-              class="c12"
+              Kizi.nl
+            </h3>
+            <p
+              class="c13 c14"
             >
-              TypeScript
-            </span>
-            <span
-              class="c12"
+              Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.
+            </p>
+            <div
+              class="c16"
             >
-              Redux
-            </span>
-            <span
-              class="c12"
+              <span
+                class="c17"
+              >
+                Next.js
+              </span>
+              <span
+                class="c17"
+              >
+                TypeScript
+              </span>
+              <span
+                class="c17"
+              >
+                Redux
+              </span>
+              <span
+                class="c17"
+              >
+                Storybook
+              </span>
+              <span
+                class="c17"
+              >
+                Jest
+              </span>
+              <span
+                class="c17"
+              >
+                Azure DevOps
+              </span>
+            </div>
+            <a
+              aria-label="View project: Kizi.nl"
+              class="c18 c19"
+              href="https://www.kizi.nl/"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Storybook
-            </span>
-            <span
-              class="c12"
-            >
-              Jest
-            </span>
-            <span
-              class="c12"
-            >
-              Azure DevOps
-            </span>
+              View project →
+            </a>
           </div>
-          <a
-            aria-label="View project: Kizi.nl"
-            class="c13 c14"
-            href="https://www.kizi.nl/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            View project →
-          </a>
         </article>
         <article
           class="c7"
         >
-          <h3
+          <div
             class="c8"
           >
-            FCA Build & Price
-          </h3>
-          <p
-            class="c9 c10"
-          >
-            Built and maintained the Build & Price vehicle configurator for FCA Group's North American brand sites — Chrysler, Dodge, Jeep, Ram, Fiat and Alfa Romeo. Nearly three years of feature development on a high-traffic consumer tool with real-time pricing and availability.
-          </p>
+            <div
+              class="c9"
+            >
+              <span
+                class="c10"
+              >
+                FCA Build & Price
+              </span>
+            </div>
+          </div>
           <div
             class="c11"
           >
-            <span
+            <h3
               class="c12"
             >
-              React
-            </span>
-            <span
-              class="c12"
+              FCA Build & Price
+            </h3>
+            <p
+              class="c13 c14"
             >
-              Redux
-            </span>
-            <span
-              class="c12"
+              Built and maintained the Build & Price vehicle configurator for FCA Group's North American brand sites — Chrysler, Dodge, Jeep, Ram, Fiat and Alfa Romeo. Nearly three years of feature development on a high-traffic consumer tool with real-time pricing and availability.
+            </p>
+            <div
+              class="c16"
             >
-              JavaScript
-            </span>
-            <span
-              class="c12"
+              <span
+                class="c17"
+              >
+                React
+              </span>
+              <span
+                class="c17"
+              >
+                Redux
+              </span>
+              <span
+                class="c17"
+              >
+                JavaScript
+              </span>
+              <span
+                class="c17"
+              >
+                Webpack
+              </span>
+              <span
+                class="c17"
+              >
+                Node.js
+              </span>
+            </div>
+            <a
+              aria-label="View project: FCA Build & Price"
+              class="c18 c19"
+              href="https://www.ramtrucks.com/en/lineup/?app=bmo&"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Webpack
-            </span>
-            <span
-              class="c12"
-            >
-              Node.js
-            </span>
+              View project →
+            </a>
           </div>
-          <a
-            aria-label="View project: FCA Build & Price"
-            class="c13 c14"
-            href="https://www.ramtrucks.com/en/lineup/?app=bmo&"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            View project →
-          </a>
         </article>
       </div>
     </section>
