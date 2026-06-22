@@ -224,7 +224,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   };
 
   return (
-    <Section>
+    <Section id="hero">
       <Container>
         <HeroGrid>
           <TextBlock>

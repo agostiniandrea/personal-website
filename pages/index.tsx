@@ -1,6 +1,6 @@
 import { Seo } from "@components/atoms";
 import { SiteHeader, SiteFooter } from "@components/cms";
-import { ModuleRenderer } from "@components/organisms";
+import { ModuleRenderer, SectionDots } from "@components/organisms";
 import {
   TPageFields,
   TSiteHeaderData,
@@ -55,6 +55,7 @@ export default function Home({ page, header, footer, locale }: THomepage) {
         seoTitle={page.seoTitle}
       />
       {header && <SiteHeader {...header} />}
+      <SectionDots />
       <main id="main-content">
         <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
       </main>

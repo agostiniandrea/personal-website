@@ -326,6 +326,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 <div>
   <section
     class="c0"
+    id="hero"
   >
     <section
       class="c1"
@@ -730,6 +731,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 <div>
   <section
     class="c0"
+    id="hero"
   >
     <section
       class="c1"
