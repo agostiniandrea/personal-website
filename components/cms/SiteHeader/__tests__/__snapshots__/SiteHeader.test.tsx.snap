@@ -257,6 +257,14 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   }
 }
 
+@media (min-width: 1200px) {
+  .c0 {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+}
+
 @media (min-width: 900px) {
   .c5 {
     display: flex;
@@ -683,6 +691,14 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 @media (min-width: 1536px) {
   .c1 >* {
     grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 {
+    position: fixed;
+    left: 0;
+    right: 0;
   }
 }
 

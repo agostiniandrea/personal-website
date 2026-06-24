@@ -23,6 +23,12 @@ const Header = styled.header<{ $scrolled: boolean }>`
   top: 0;
   width: 100%;
   z-index: 100;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
   padding: 0.75rem 0;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   background: ${({ $scrolled, theme }) =>
