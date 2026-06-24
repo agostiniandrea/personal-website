@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
-.c6 #wcb_2 {
+.c8 #wcb_2 {
   display: none!important;
 }
 
@@ -25,13 +25,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c5 {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.c8 {
+.c10 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -42,12 +36,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 .c2 {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -61,12 +55,58 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   line-height: 1;
 }
 
+.c5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.c6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .c7 {
+  opacity: 0.7;
+  transform: scale(0.9);
+  transform-origin: left center;
+}
+
+.c9 {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  text-align: center;
+  flex-shrink: 0;
+}
+
+.c11 {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.75rem;
+  color: var(--color-paragraph);
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: color 0.2s ease;
+}
+
+.c11:hover {
+  color: var(--color-highlight);
+}
+
+.c11:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 @media (min-width: 600px) {
@@ -121,11 +161,31 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c7 {
+@media (min-width: 900px) {
+  .c5 {
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-end;
     text-align: left;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .c7 {
+    transform-origin: center center;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    align-items: flex-end;
   }
 }
 
@@ -156,22 +216,36 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           class="c6"
         >
           <div
-            class="carbonbadge wcb-d "
-            id="wcb"
-          />
+            class="c7"
+          >
+            <div
+              class="c8"
+            >
+              <div
+                class="carbonbadge wcb-d "
+                id="wcb"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div
-        class="c7"
-      >
-        <p
-          class="c8"
+        <div
+          class="c9"
         >
-          © 
-          2026
-           
-          Andrea Agostini
-        </p>
+          <p
+            class="c10"
+          >
+            © 
+            2026
+             
+            Andrea Agostini
+          </p>
+          <button
+            aria-label="Back to top"
+            class="c11"
+          >
+            ↑ Back to top
+          </button>
+        </div>
       </div>
     </section>
   </footer>
@@ -179,7 +253,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
-.c8 #wcb_2 {
+.c12 #wcb_2 {
   display: none!important;
 }
 
@@ -203,12 +277,6 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c7 {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
 .c5 {
   color: var(--color-highlight);
   text-decoration: none;
@@ -226,7 +294,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c10 {
+.c9 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -237,12 +305,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 .c2 {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -256,22 +324,68 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   line-height: 1;
 }
 
-.c11 {
-  text-align: center;
-  color: var(--color-paragraph);
+.c6 {
+  font-weight: 700;
+  color: var(--color-highlight);
 }
 
-.c9 {
+.c7 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.c8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.c10 {
+  color: var(--color-paragraph);
+  max-width: 36ch;
+}
+
+.c11 {
+  opacity: 0.7;
+  transform: scale(0.9);
+  transform-origin: left center;
+}
+
+.c13 {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  text-align: center;
+  flex-shrink: 0;
 }
 
-.c6 {
-  font-weight: 700;
+.c14 {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.75rem;
+  color: var(--color-paragraph);
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: color 0.2s ease;
+}
+
+.c14:hover {
   color: var(--color-highlight);
+}
+
+.c14:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 @media (min-width: 600px) {
@@ -326,11 +440,31 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c9 {
+@media (min-width: 900px) {
+  .c7 {
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-end;
     text-align: left;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c8 {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .c11 {
+    transform-origin: center center;
+  }
+}
+
+@media (min-width: 900px) {
+  .c13 {
+    align-items: flex-end;
   }
 }
 
@@ -386,28 +520,42 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         <div
           class="c8"
         >
+          <p
+            class="c9 c10"
+          >
+            Building for the web, one component at a time. Based in Bangkok.
+          </p>
           <div
-            class="carbonbadge wcb-d "
-            id="wcb"
-          />
+            class="c11"
+          >
+            <div
+              class="c12"
+            >
+              <div
+                class="carbonbadge wcb-d "
+                id="wcb"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div
-        class="c9"
-      >
-        <p
-          class="c10 c11"
+        <div
+          class="c13"
         >
-          Building for the web, one component at a time. Based in Bangkok.
-        </p>
-        <p
-          class="c10"
-        >
-          © 
-          2026
-           
-          Andrea Agostini
-        </p>
+          <p
+            class="c9"
+          >
+            © 
+            2026
+             
+            Andrea Agostini
+          </p>
+          <button
+            aria-label="Back to top"
+            class="c14"
+          >
+            ↑ Back to top
+          </button>
+        </div>
       </div>
     </section>
   </footer>
