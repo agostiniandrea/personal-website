@@ -126,7 +126,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 .c13:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid var(--color-main);
 }
 
 .c14 {
@@ -633,7 +633,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 .c11:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid var(--color-main);
 }
 
 .c12 {
