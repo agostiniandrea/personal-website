@@ -126,7 +126,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 .c13:last-child {
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: none;
 }
 
 .c14 {
@@ -223,6 +223,12 @@ exports[`Sustainability renders correctly with all props 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -627,7 +633,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 .c11:last-child {
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: none;
 }
 
 .c12 {
@@ -710,6 +716,12 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
   }
 }
 

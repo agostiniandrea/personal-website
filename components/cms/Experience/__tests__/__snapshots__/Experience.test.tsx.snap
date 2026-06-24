@@ -64,8 +64,13 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   border-top: 1px solid var(--color-main);
 }
 
+.c7:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
 .c7:last-child {
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: none;
 }
 
 .c8 {
@@ -306,8 +311,13 @@ exports[`Experience renders correctly with all items 1`] = `
   border-top: 1px solid var(--color-main);
 }
 
+.c7:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
 .c7:last-child {
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: none;
 }
 
 .c8 {
