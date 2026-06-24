@@ -1,3 +1,4 @@
+import NextHead from "next/head";
 import { Seo } from "@components/atoms";
 import { SiteHeader, SiteFooter } from "@components/cms";
 import { ModuleRenderer, SectionDots } from "@components/organisms";
@@ -45,9 +46,33 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
   };
 }
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Andrea Agostini",
+  jobTitle: "Senior Frontend Developer & Tech Lead",
+  url: "https://agostiniandrea.vercel.app",
+  email: "a.agostini92@gmail.com",
+  sameAs: [
+    "https://linkedin.com/in/agostiniandrea",
+    "https://github.com/agostiniandrea",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bangkok",
+    addressCountry: "TH",
+  },
+};
+
 export default function Home({ page, header, footer, locale }: THomepage) {
   return (
     <>
+      <NextHead>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+      </NextHead>
       <Seo
         locale={locale}
         path="/"
