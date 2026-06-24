@@ -36,8 +36,8 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c0 {
   background: var(--color-badge-bg);
   border-top: 1px solid rgba(128, 128, 128, 0.12);
-  padding-top: 3rem;
-  padding-bottom: 1.5rem;
+  padding-top: 4rem;
+  padding-bottom: 0.75rem;
 }
 
 .c2 {
@@ -291,8 +291,8 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 .c0 {
   background: var(--color-badge-bg);
   border-top: 1px solid rgba(128, 128, 128, 0.12);
-  padding-top: 3rem;
-  padding-bottom: 1.5rem;
+  padding-top: 4rem;
+  padding-bottom: 0.75rem;
 }
 
 .c2 {

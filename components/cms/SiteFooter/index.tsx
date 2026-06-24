@@ -19,8 +19,8 @@ export interface SiteFooterProps {
 const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.badgeBg};
   border-top: 1px solid rgba(128, 128, 128, 0.12);
-  padding-top: ${toSpacing("3xl")};
-  padding-bottom: ${toSpacing("xl")};
+  padding-top: ${toSpacing("4xl")};
+  padding-bottom: ${toSpacing("md")};
 `;
 
 /* ── Primary CTA layer ── */
