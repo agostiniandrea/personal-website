@@ -15,6 +15,9 @@ const SectionLabel = styled(Text)`
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
   max-width: 600px;
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Intro = styled(Text)`
@@ -61,7 +64,7 @@ const VolunteeringItem = styled.li`
   border-top: 1px solid ${({ theme }) => theme.colors.main};
 
   &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+    border-bottom: none;
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {

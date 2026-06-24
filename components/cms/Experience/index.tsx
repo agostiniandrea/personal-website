@@ -64,7 +64,7 @@ const Item = styled.li`
   }
 
   &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+    border-bottom: none;
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
