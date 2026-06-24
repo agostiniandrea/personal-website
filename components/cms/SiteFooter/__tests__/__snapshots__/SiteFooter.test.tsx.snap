@@ -514,7 +514,9 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           <p
             class="c12 c13"
           >
-            Building for the web, one component at a time. Based in Bangkok.
+            <span>
+              Building for the web, one component at a time. Based in Bangkok.
+            </span>
           </p>
         </div>
         <div
