@@ -106,30 +106,6 @@ const MetaCol = styled.div`
   }
 `;
 
-const BackToTop = styled.button`
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fontFamilies.default};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.paragraph};
-  letter-spacing: 0.05em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3em;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.highlight};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.highlight};
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-`;
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -172,12 +148,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
             © {CURRENT_YEAR} {copyrightName}
           </Text>
-          <BackToTop
-            aria-label="Back to top"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            ↑ Back to top
-          </BackToTop>
         </MetaCol>
       </Subfooter>
 
