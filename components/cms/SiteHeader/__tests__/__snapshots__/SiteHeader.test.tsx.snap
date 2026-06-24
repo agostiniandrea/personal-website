@@ -106,10 +106,8 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c0 {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   width: 100%;
   z-index: 100;
   padding: 0.75rem 0;
@@ -559,10 +557,8 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c0 {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   width: 100%;
   z-index: 100;
   padding: 0.75rem 0;
