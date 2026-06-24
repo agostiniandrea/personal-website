@@ -64,7 +64,7 @@ const VolunteeringItem = styled.li`
   border-top: 1px solid ${({ theme }) => theme.colors.main};
 
   &:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
