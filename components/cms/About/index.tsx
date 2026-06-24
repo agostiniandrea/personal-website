@@ -21,6 +21,9 @@ const SectionLabel = styled(Text)`
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
   max-width: 600px;
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Bio = styled(Text)`
