@@ -22,7 +22,7 @@ const Section = styled.section`
   position: relative;
   display: flex;
   align-items: center;
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
+  padding: calc(${({ theme }) => theme.space["3xl"]} + 4.5rem) 0 ${({ theme }) => theme.space["3xl"]};
   @media (min-width: ${BREAKPOINTS.tablet}) {
     min-height: 100svh;
     padding: 0;
