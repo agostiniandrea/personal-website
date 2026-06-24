@@ -1,6 +1,13 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Box, Container, Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
 import { Badge } from "@components/molecules";
+import { contentfulImageUrl } from "@utils/contentfulImage";
+
+const STATUS_LABELS: Record<string, Record<string, string>> = {
+  "pre-launch": { en: "Pre-launch", it: "Pre lancio" },
+  "internal":   { en: "Internal",   it: "Interno" },
+};
 
 export interface ProjectItem {
   title: string;
@@ -19,7 +26,7 @@ export interface ProjectsProps {
 }
 
 // Matches numeric metrics: 15+, 90%, 2.1, WCAG 2.1 AA, etc.
-const METRIC_REGEX = /(\bWCAG\s+\d+\.\d+\s+\w+\b|\b\d+(?:\.\d+)?[+%]?\b)/g;
+const METRIC_REGEX = /(\bWCAG\s+\d+\.\d+\s+\w+\b|\b\d+\.\d+[+%]?\b|\b\d+[+%]\b)/g;
 
 function highlightMetrics(text: string): React.ReactNode[] {
   const parts = text.split(METRIC_REGEX);
@@ -65,12 +72,14 @@ const Card = styled.article`
     z-index: 1;
   }
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.highlight};
-    box-shadow: 0 4px 24px ${({ theme }) => theme.colors.surface};
+  @media (hover: hover) {
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.highlight};
+      box-shadow: 0 4px 24px ${({ theme }) => theme.colors.surface};
 
-    &::before {
-      opacity: 1;
+      &::before {
+        opacity: 1;
+      }
     }
   }
 `;
@@ -148,7 +157,9 @@ const CardLink = styled(Link)`
   }
 `;
 
-const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => (
+const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => {
+  const { locale = "en" } = useRouter();
+  return (
   <Box as="section" id="projects" py="3xl">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
@@ -159,8 +170,10 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
             <ImageSlot>
               {item.image ? (
                 <Image
-                  src={item.image.url}
+                  src={contentfulImageUrl(item.image.url, { width: 1200, height: 675 })}
                   alt={item.image.alt || item.title}
+                  width={1200}
+                  height={675}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               ) : (
@@ -190,7 +203,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
                   {item.urlLabel ?? "View project →"}
                 </CardLink>
               ) : item.status ? (
-                <StatusTag>— {item.status}</StatusTag>
+                <StatusTag>— {STATUS_LABELS[item.status]?.[locale] ?? item.status}</StatusTag>
               ) : null}
             </CardBody>
           </Card>
@@ -198,6 +211,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
       </ProjectsGrid>
     </Container>
   </Box>
-);
+  );
+};
 
 export default Projects;

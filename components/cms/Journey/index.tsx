@@ -146,7 +146,7 @@ const Journey: React.FC<JourneyProps> = ({
             <ItemContent>
               <CountryLabel>{chapter.country}</CountryLabel>
               <Box>
-                <CityHeading size="card">{chapter.city}</CityHeading>
+                <CityHeading size="card" as="h3">{chapter.city}</CityHeading>
               </Box>
               <DateLabel>
                 {chapter.age ? `${chapter.age} ${yearsLabel} · ` : ""}

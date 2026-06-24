@@ -8,6 +8,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
+import Script from "next/script";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,6 +52,17 @@ export default function App({ Component, pageProps }: AppProps) {
         <ScrollToTop />
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
+        {GA_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">{`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}');
+            `}</Script>
+          </>
+        )}
       </ThemeProvider>
     </div>
   );

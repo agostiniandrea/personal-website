@@ -23,15 +23,6 @@ exports[`Journey renders correctly with default data 1`] = `
   line-height: 1.1;
 }
 
-.c14 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-weight: 700;
-  color: var(--color-headline);
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.2;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -109,7 +100,7 @@ exports[`Journey renders correctly with default data 1`] = `
   animation: k0 2.4s ease-in-out infinite;
 }
 
-.c18 {
+.c17 {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -126,7 +117,7 @@ li:last-child>.c12 {
   padding-bottom: 0;
 }
 
-.c15 {
+.c14 {
   margin: 0 0 0.375rem;
 }
 
@@ -139,14 +130,14 @@ li:last-child>.c12 {
   margin-bottom: 0.375rem;
 }
 
-.c16 {
+.c15 {
   font-size: 0.875rem;
   color: var(--color-highlight);
   margin: 0 0 1.5rem;
   font-weight: 700;
 }
 
-.c17 {
+.c16 {
   max-width: 640px;
   line-height: 1.7;
 }
@@ -204,7 +195,7 @@ li:last-child>.c12 {
 }
 
 @media (min-width: 900px) {
-  .c15 {
+  .c14 {
     display: inline;
     margin-right: 1rem;
   }
@@ -270,21 +261,21 @@ li:last-child>.c12 {
             <div
               class=""
             >
-              <h2
-                class="c14 c15"
+              <h3
+                class="c14"
               >
                 Bangkok
-              </h2>
+              </h3>
             </div>
             <p
-              class="c2 c16"
+              class="c2 c15"
             >
               33 y.o. · 
               2025 –
                ?
             </p>
             <p
-              class="c2 c17"
+              class="c2 c16"
             >
               In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.
             </p>
@@ -297,7 +288,7 @@ li:last-child>.c12 {
             class="c10"
           >
             <div
-              class="c18"
+              class="c17"
             />
           </div>
           <div
@@ -311,20 +302,20 @@ li:last-child>.c12 {
             <div
               class=""
             >
-              <h2
-                class="c14 c15"
+              <h3
+                class="c14"
               >
                 Amsterdam
-              </h2>
+              </h3>
             </div>
             <p
-              class="c2 c16"
+              class="c2 c15"
             >
               26 y.o. · 
               2019 – 2025
             </p>
             <p
-              class="c2 c17"
+              class="c2 c16"
             >
               Moving to Amsterdam in early 2019 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.
             </p>
@@ -337,7 +328,7 @@ li:last-child>.c12 {
             class="c10"
           >
             <div
-              class="c18"
+              class="c17"
             />
           </div>
           <div
@@ -351,20 +342,20 @@ li:last-child>.c12 {
             <div
               class=""
             >
-              <h2
-                class="c14 c15"
+              <h3
+                class="c14"
               >
                 Torino
-              </h2>
+              </h3>
             </div>
             <p
-              class="c2 c16"
+              class="c2 c15"
             >
               21 y.o. · 
               2013 – 2018
             </p>
             <p
-              class="c2 c17"
+              class="c2 c16"
             >
               Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.
             </p>
@@ -377,7 +368,7 @@ li:last-child>.c12 {
             class="c10"
           >
             <div
-              class="c18"
+              class="c17"
             />
           </div>
           <div
@@ -391,19 +382,19 @@ li:last-child>.c12 {
             <div
               class=""
             >
-              <h2
-                class="c14 c15"
+              <h3
+                class="c14"
               >
                 Casalecchio di Reno
-              </h2>
+              </h3>
             </div>
             <p
-              class="c2 c16"
+              class="c2 c15"
             >
               1992 – 2013
             </p>
             <p
-              class="c2 c17"
+              class="c2 c16"
             >
               I grew up just outside Bologna, in a town small enough to know your neighbours and big enough to want more. Secondary school at ITIS Belluzzi in Bologna, where I got serious about code for the first time. Between shifts at the warehouse and the supermarket, I kept studying — and when an ITS ICT programme in Turin came up, with hands-on work in mobile app design, I said yes before I'd finished reading the application.
             </p>

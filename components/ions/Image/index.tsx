@@ -12,6 +12,7 @@ interface ImageProps {
   width?: number;
   height?: number;
   priority?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
   sizes?: string;
   onLoad?: () => void;
 }
@@ -45,6 +46,7 @@ const Image: React.FC<ImageProps> = ({
   width,
   height,
   priority = false,
+  fetchPriority,
   sizes,
   onLoad,
 }) => {
@@ -59,6 +61,7 @@ const Image: React.FC<ImageProps> = ({
     className,
     loading: priority ? (undefined as undefined) : loading,
     priority,
+    fetchPriority,
     sizes,
     "aria-labelledby": descriptionId,
   };

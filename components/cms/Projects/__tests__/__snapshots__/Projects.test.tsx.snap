@@ -120,15 +120,6 @@ exports[`Projects renders correctly with a single item 1`] = `
   z-index: 1;
 }
 
-.c7:hover {
-  border-color: var(--color-highlight);
-  box-shadow: 0 4px 24px var(--color-surface);
-}
-
-.c7:hover::before {
-  opacity: 1;
-}
-
 .c8 {
   position: relative;
   width: 100%;
@@ -278,6 +269,17 @@ exports[`Projects renders correctly with a single item 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c7:hover {
+    border-color: var(--color-highlight);
+    box-shadow: 0 4px 24px var(--color-surface);
+  }
+
+  .c7:hover::before {
+    opacity: 1;
+  }
+}
+
 <div>
   <section
     class="c0"
@@ -332,13 +334,7 @@ exports[`Projects renders correctly with a single item 1`] = `
               >
                 WCAG 2.1 AA
               </span>
-               accessibility improvements ongoing since 
-              <span
-                class="c15"
-              >
-                2022
-              </span>
-              .
+               accessibility improvements ongoing since 2022.
             </p>
             <div
               class="c16"
@@ -412,13 +408,7 @@ exports[`Projects renders correctly with a single item 1`] = `
             <p
               class="c13 c14"
             >
-              Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 
-              <span
-                class="c15"
-              >
-                19
-              </span>
-               and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
+              Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
             </p>
             <div
               class="c16"
@@ -453,7 +443,7 @@ exports[`Projects renders correctly with a single item 1`] = `
               class="c20"
             >
               — 
-              internal
+              Internal
             </span>
           </div>
         </article>
@@ -583,15 +573,6 @@ exports[`Projects renders correctly with full project list 1`] = `
   z-index: 1;
 }
 
-.c7:hover {
-  border-color: var(--color-highlight);
-  box-shadow: 0 4px 24px var(--color-surface);
-}
-
-.c7:hover::before {
-  opacity: 1;
-}
-
 .c8 {
   position: relative;
   width: 100%;
@@ -741,6 +722,17 @@ exports[`Projects renders correctly with full project list 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c7:hover {
+    border-color: var(--color-highlight);
+    box-shadow: 0 4px 24px var(--color-surface);
+  }
+
+  .c7:hover::before {
+    opacity: 1;
+  }
+}
+
 <div>
   <section
     class="c0"
@@ -795,13 +787,7 @@ exports[`Projects renders correctly with full project list 1`] = `
               >
                 WCAG 2.1 AA
               </span>
-               accessibility improvements ongoing since 
-              <span
-                class="c15"
-              >
-                2022
-              </span>
-              .
+               accessibility improvements ongoing since 2022.
             </p>
             <div
               class="c16"
@@ -875,13 +861,7 @@ exports[`Projects renders correctly with full project list 1`] = `
             <p
               class="c13 c14"
             >
-              Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 
-              <span
-                class="c15"
-              >
-                19
-              </span>
-               and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
+              Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
             </p>
             <div
               class="c16"
@@ -916,7 +896,7 @@ exports[`Projects renders correctly with full project list 1`] = `
               class="c20"
             >
               — 
-              internal
+              Internal
             </span>
           </div>
         </article>
@@ -1056,7 +1036,7 @@ exports[`Projects renders correctly with full project list 1`] = `
               class="c20"
             >
               — 
-              pre-launch
+              Pre-launch
             </span>
           </div>
         </article>

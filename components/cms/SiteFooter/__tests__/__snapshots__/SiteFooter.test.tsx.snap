@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
-.c8 #wcb_2 {
+.c6 #wcb_2 {
   display: none!important;
 }
 
@@ -27,9 +27,11 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c5 {
   display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
-.c9 {
+.c8 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -39,14 +41,14 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 4rem;
+  padding-top: 3rem;
   padding-bottom: 2rem;
 }
 
 .c2 {
   text-align: center;
   margin-bottom: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -59,15 +61,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   line-height: 1;
 }
 
-.c6 {
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
 .c7 {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 @media (min-width: 600px) {
@@ -119,6 +118,14 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 @media (min-width: 1200px) {
   .c3 {
     font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c7 {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
 
@@ -143,23 +150,22 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
         />
       </div>
       <div
-        class="c5 c6"
+        class="c5"
       >
         <div
-          class="c7"
+          class="c6"
         >
           <div
-            class="c8"
-          >
-            <div
-              class="carbonbadge wcb-d "
-              id="wcb"
-            />
-          </div>
+            class="carbonbadge wcb-d "
+            id="wcb"
+          />
         </div>
+      </div>
+      <div
+        class="c7"
+      >
         <p
-          class="c9"
-          style="text-align: center;"
+          class="c8"
         >
           © 
           2026
@@ -173,7 +179,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
-.c12 #wcb_2 {
+.c8 #wcb_2 {
   display: none!important;
 }
 
@@ -199,6 +205,8 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c7 {
   display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .c5 {
@@ -218,7 +226,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c9 {
+.c10 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -228,14 +236,14 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c0 {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 4rem;
+  padding-top: 3rem;
   padding-bottom: 2rem;
 }
 
 .c2 {
   text-align: center;
   margin-bottom: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -248,25 +256,22 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   line-height: 1;
 }
 
-.c10 {
+.c11 {
   text-align: center;
   color: var(--color-paragraph);
 }
 
-.c8 {
+.c9 {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 .c6 {
   font-weight: 700;
   color: var(--color-highlight);
-}
-
-.c11 {
-  display: flex;
-  justify-content: center;
 }
 
 @media (min-width: 600px) {
@@ -318,6 +323,14 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 @media (min-width: 1200px) {
   .c3 {
     font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c9 {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
 
@@ -368,28 +381,27 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         </div>
       </div>
       <div
-        class="c7 c8"
+        class="c7"
+      >
+        <div
+          class="c8"
+        >
+          <div
+            class="carbonbadge wcb-d "
+            id="wcb"
+          />
+        </div>
+      </div>
+      <div
+        class="c9"
       >
         <p
-          class="c9 c10"
+          class="c10 c11"
         >
           Building for the web, one component at a time. Based in Bangkok.
         </p>
-        <div
-          class="c11"
-        >
-          <div
-            class="c12"
-          >
-            <div
-              class="carbonbadge wcb-d "
-              id="wcb"
-            />
-          </div>
-        </div>
         <p
-          class="c9"
-          style="text-align: center;"
+          class="c10"
         >
           © 
           2026
