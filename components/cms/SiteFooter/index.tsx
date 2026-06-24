@@ -18,14 +18,14 @@ export interface SiteFooterProps {
 
 const FooterWrapper = styled.footer`
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: ${toSpacing("4xl")};
+  padding-top: ${toSpacing("3xl")};
   padding-bottom: ${toSpacing("2xl")};
 `;
 
 const CtaArea = styled.div`
   text-align: center;
   margin-bottom: ${toSpacing("3xl")};
-  padding-bottom: ${toSpacing("3xl")};
+  padding-bottom: ${toSpacing("2xl")};
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 `;
 
@@ -47,20 +47,23 @@ const Tagline = styled(Text)`
   color: ${({ theme }) => theme.colors.paragraph};
 `;
 
-const MetaArea = styled(Flex)`
+const BottomBar = styled.div`
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${toSpacing("xl")};
+  gap: ${toSpacing("sm")};
+  text-align: center;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
 `;
 
 const SocialLink = styled(Link)`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.highlight};
-`;
-
-const CarbonBadgeRow = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -74,7 +77,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
   <FooterWrapper role="contentinfo">
     <Container>
       <CtaArea>
-        <CtaHeading>{ctaHeading}</CtaHeading>
+        {ctaHeading && <CtaHeading>{ctaHeading}</CtaHeading>}
         <Flex gap="xl" justifyContent="center" wrap="wrap">
           {socialLinks.map((link) => (
             <SocialLink
@@ -88,15 +91,13 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           ))}
         </Flex>
       </CtaArea>
-      <MetaArea>
+      <Flex justifyContent="center" styles="margin-bottom: 1rem;">
+        <CarbonBadge />
+      </Flex>
+      <BottomBar>
         {tagline && <Tagline variant="small">{tagline}</Tagline>}
-        <CarbonBadgeRow>
-          <CarbonBadge />
-        </CarbonBadgeRow>
-        <Text variant="small" style={{ textAlign: "center" }}>
-          © {CURRENT_YEAR} {copyrightName}
-        </Text>
-      </MetaArea>
+        <Text variant="small">© {CURRENT_YEAR} {copyrightName}</Text>
+      </BottomBar>
     </Container>
   </FooterWrapper>
 );
