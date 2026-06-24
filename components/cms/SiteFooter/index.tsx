@@ -155,7 +155,13 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </BadgeCol>
 
         <TaglineCol>
-          {tagline && <Tagline variant="small">{tagline}</Tagline>}
+          {tagline && (
+            <Tagline variant="small">
+              {tagline.split("\n").map((line, i, arr) => (
+                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+              ))}
+            </Tagline>
+          )}
         </TaglineCol>
 
         <MetaCol>
