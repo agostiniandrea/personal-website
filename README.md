@@ -62,7 +62,7 @@ yarn chromatic        # Visual regression (requires CHROMATIC_PROJECT_TOKEN)
 components/
   atoms/       # Non-visual meta components (Head, Seo)
   ions/        # Primitive UI building blocks (Button, Box, Flex, Text, Link…)
-  molecules/   # Composed from ions (HeadingBox, CarbonBadge, InstagramPost…)
+  molecules/   # Composed from ions (HeadingBox, CarbonBadge…)
   organisms/   # Page-level sections (SiteHeader, SiteFooter, ModuleRenderer…)
   cms/         # Contentful-driven page modules (HeroPortfolio, Experience, Skills, Projects,
                #   About, Sustainability, BeyondCode, Contact, Journey…)
@@ -98,15 +98,17 @@ Each page contains an ordered list of **modules**. `ModuleRenderer` maps each mo
 | `Sustainability` | `sustainability` | Values, volunteering, carbon badge |
 | `BeyondCode` | `beyondCode` | Personal interests and hobbies |
 | `Contact` | `contact` | Contact section |
-| `Journey` | `journey` | Life timeline — static data, no Contentful fields required |
+| `Journey` | `journey` | Life timeline with chapters managed in Contentful |
 
 ## Environment Variables
 
 | Variable | Required | Purpose |
 |---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL |
 | `NEXT_PUBLIC_CONTENTFUL_SPACE_ID` | Yes | Contentful space |
 | `NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN` | Yes | Contentful delivery API |
-| `NEXT_PUBLIC_INSTAGRAM_*` | Optional | Instagram feed API |
+| `NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN` | Optional | Contentful preview API |
+| `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics measurement ID |
 | `SENTRY_AUTH_TOKEN` | Optional | Sentry source map upload |
 | `SENTRY_ORG` | Optional | Sentry organisation |
 | `SENTRY_PROJECT` | Optional | Sentry project |

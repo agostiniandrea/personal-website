@@ -38,7 +38,7 @@ Content is fetched from Contentful in `lib/utils/cms/index.ts`. Two content type
 
 | Contentful type | Route | Notes |
 |---|---|---|
-| `pageLanding` | `pages/index.tsx` | Home — also fetches Instagram data |
+| `pageLanding` | `pages/index.tsx` | Home |
 | `pageDetail` | `pages/[slug].tsx` | All other pages, keyed by `uid` field |
 
 Pages are built at static time via `getPaths` / `getStaticProps`, with `revalidate` for ISR.
@@ -62,9 +62,9 @@ Contentful modules within a page are rendered by `organisms/ModuleRenderer`. The
 ```
 atoms      — meta/non-visual (Head, Seo)
 ions       — primitive UI building blocks (Button, Box, Flex, Container, Image, Link, Text, AspectRatio)
-molecules  — composed from ions (HeadingBox, InstagramPost, CarbonBadge)
-organisms  — page-level sections (Header, Footer, ModuleRenderer, InstagramFeed, HeroPrimary)
-cms        — Contentful-driven page modules (HeroPrimary, FeaturePrimary)
+molecules  — composed from ions (HeadingBox, CarbonBadge)
+organisms  — page-level sections (SiteHeader, SiteFooter, ModuleRenderer)
+cms        — Contentful-driven page modules (HeroPortfolio, About, Experience, Skills, Projects, Journey, BeyondCode, Sustainability, Contact)
 ```
 
 Each tier barrel-exports via its `index.ts`.
@@ -112,4 +112,4 @@ NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
 NEXT_PUBLIC_CONTENTFUL_SPACE_ID
 ```
 
-Instagram API routes (`pages/api/get-instagram-media.ts`, `get-ig-access-token.ts`) require the `NEXT_PUBLIC_INSTAGRAM_*` variables. Sentry source map uploads require `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`.
+Sentry source map uploads require `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`. Google Analytics requires `NEXT_PUBLIC_GA_ID`.
