@@ -17,10 +17,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.ctfassets.net",
       },
-      {
-        protocol: "https",
-        hostname: "**.cdninstagram.com",
-      },
+
     ],
     // Optimize images for better performance
     formats: ["image/avif", "image/webp"],
