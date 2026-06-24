@@ -85,31 +85,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-shrink: 0;
 }
 
-.c11 {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: var(--font-inter),sans-serif;
-  font-size: 0.75rem;
-  color: var(--color-paragraph);
-  letter-spacing: 0.05em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3em;
-  transition: color 0.2s ease;
-}
-
-.c11:hover {
-  color: var(--color-highlight);
-}
-
-.c11:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
 @media (min-width: 600px) {
   .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
@@ -240,12 +215,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
              
             Andrea Agostini
           </p>
-          <button
-            aria-label="Back to top"
-            class="c11"
-          >
-            ↑ Back to top
-          </button>
         </div>
       </div>
     </section>
@@ -363,31 +332,6 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
-}
-
-.c14 {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: var(--font-inter),sans-serif;
-  font-size: 0.75rem;
-  color: var(--color-paragraph);
-  letter-spacing: 0.05em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3em;
-  transition: color 0.2s ease;
-}
-
-.c14:hover {
-  color: var(--color-highlight);
-}
-
-.c14:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-  border-radius: 2px;
 }
 
 @media (min-width: 600px) {
@@ -551,12 +495,6 @@ exports[`SiteFooter renders correctly with social links 1`] = `
              
             Andrea Agostini
           </p>
-          <button
-            aria-label="Back to top"
-            class="c14"
-          >
-            ↑ Back to top
-          </button>
         </div>
       </div>
     </section>
