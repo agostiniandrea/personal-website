@@ -21,6 +21,9 @@ const Intro = styled(Text)`
   max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["3xl"]};
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const SubHeading = styled.h3`

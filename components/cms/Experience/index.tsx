@@ -37,6 +37,9 @@ const SectionLabel = styled(Text)`
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["3xl"]};
   max-width: 600px;
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const List = styled.ol`

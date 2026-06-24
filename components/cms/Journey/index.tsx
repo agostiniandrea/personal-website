@@ -22,6 +22,9 @@ const SectionLabel = styled(Text)`
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
+  @media (max-width: 1199px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const Intro = styled(Text)`
@@ -29,7 +32,7 @@ const Intro = styled(Text)`
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
   @media (max-width: 1199px) {
-    margin-bottom: ${({ theme }) => theme.space["2xl"]};
+    margin-bottom: 1rem;
   }
 `;
 

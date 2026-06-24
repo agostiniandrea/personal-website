@@ -21,7 +21,7 @@ const Intro = styled(Text)`
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["3xl"]};
   @media (max-width: 1199px) {
-    margin-bottom: ${({ theme }) => theme.space.xl};
+    margin-bottom: 1rem;
   }
 `;
 
