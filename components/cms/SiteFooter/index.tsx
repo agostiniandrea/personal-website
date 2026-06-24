@@ -17,14 +17,17 @@ export interface SiteFooterProps {
 }
 
 const FooterWrapper = styled.footer`
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.colors.badgeBg};
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
   padding-top: ${toSpacing("3xl")};
-  padding-bottom: ${toSpacing("2xl")};
+  padding-bottom: ${toSpacing("xl")};
 `;
+
+/* ── Primary CTA layer ── */
 
 const CtaArea = styled.div`
   text-align: center;
-  margin-bottom: ${toSpacing("3xl")};
+  margin-bottom: ${toSpacing("2xl")};
   padding-bottom: ${toSpacing("2xl")};
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 `;
@@ -42,28 +45,90 @@ const CtaHeading = styled.h2`
   }
 `;
 
-const Tagline = styled(Text)`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.paragraph};
+const SocialLink = styled(Link)`
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  color: ${({ theme }) => theme.colors.highlight};
 `;
 
-const BottomBar = styled.div`
+/* ── Secondary subfooter layer ── */
+
+const Subfooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${toSpacing("lg")};
+  text-align: center;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    text-align: left;
+    gap: ${toSpacing("xl")};
+  }
+`;
+
+const TaglineCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${toSpacing("md")};
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    align-items: flex-start;
+  }
+`;
+
+const Tagline = styled(Text)`
+  color: ${({ theme }) => theme.colors.paragraph};
+  max-width: 36ch;
+`;
+
+const CarbonWrapper = styled.div`
+  opacity: 0.7;
+  transform: scale(0.9);
+  transform-origin: left center;
+
+  @media (max-width: ${BREAKPOINTS.xTablet}) {
+    transform-origin: center center;
+  }
+`;
+
+const MetaCol = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: ${toSpacing("sm")};
-  text-align: center;
+  flex-shrink: 0;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    align-items: flex-end;
   }
 `;
 
-const SocialLink = styled(Link)`
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.highlight};
+const BackToTop = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: ${({ theme }) => theme.fontFamilies.default};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.paragraph};
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.highlight};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 `;
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -76,6 +141,8 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
 }) => (
   <FooterWrapper role="contentinfo">
     <Container>
+
+      {/* Primary CTA */}
       <CtaArea>
         {ctaHeading && <CtaHeading>{ctaHeading}</CtaHeading>}
         <Flex gap="xl" justifyContent="center" wrap="wrap">
@@ -91,13 +158,29 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           ))}
         </Flex>
       </CtaArea>
-      <Flex justifyContent="center" styles="margin-bottom: 1rem;">
-        <CarbonBadge />
-      </Flex>
-      <BottomBar>
-        {tagline && <Tagline variant="small">{tagline}</Tagline>}
-        <Text variant="small">© {CURRENT_YEAR} {copyrightName}</Text>
-      </BottomBar>
+
+      {/* Subfooter */}
+      <Subfooter>
+        <TaglineCol>
+          {tagline && <Tagline variant="small">{tagline}</Tagline>}
+          <CarbonWrapper>
+            <CarbonBadge />
+          </CarbonWrapper>
+        </TaglineCol>
+
+        <MetaCol>
+          <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
+            © {CURRENT_YEAR} {copyrightName}
+          </Text>
+          <BackToTop
+            aria-label="Back to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            ↑ Back to top
+          </BackToTop>
+        </MetaCol>
+      </Subfooter>
+
     </Container>
   </FooterWrapper>
 );
