@@ -211,8 +211,14 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 }
 
 @media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
   .c7 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -541,6 +547,12 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   }
 }
 
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
+  }
+}
+
 <div>
   <section
     class="c0"
@@ -839,6 +851,12 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
   }
 }
 

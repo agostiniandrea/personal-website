@@ -58,8 +58,13 @@ const Item = styled.li`
   padding: ${({ theme }) => theme.space["2xl"]} 0;
   border-top: 1px solid ${({ theme }) => theme.colors.main};
 
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
   &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+    border-bottom: none;
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
