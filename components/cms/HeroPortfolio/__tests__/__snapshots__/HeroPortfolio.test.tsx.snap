@@ -60,6 +60,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   position: relative;
   display: flex;
   align-items: center;
+  padding-bottom: 2rem;
 }
 
 .c3 {
@@ -289,6 +290,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c0 {
+    padding-bottom: 0;
     min-height: 100svh;
   }
 }
@@ -510,6 +512,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   position: relative;
   display: flex;
   align-items: center;
+  padding-bottom: 2rem;
 }
 
 .c3 {
@@ -717,6 +720,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 @media (min-width: 1200px) {
   .c0 {
+    padding-bottom: 0;
     min-height: 100svh;
   }
 }

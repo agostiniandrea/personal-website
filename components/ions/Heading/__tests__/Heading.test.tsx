@@ -24,7 +24,7 @@ describe("Heading", () => {
     renderWithTheme(<Heading size="section">Section Heading</Heading>);
 
     const heading = screen.getByRole("heading");
-    expect(heading).toHaveStyle({ fontSize: "2.5rem", lineHeight: "1.1" });
+    expect(heading).toHaveStyle({ fontSize: "2rem", lineHeight: "1.1" });
   });
 
   it("renders card size heading", () => {
