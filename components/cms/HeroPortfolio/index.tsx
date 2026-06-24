@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
+import { contentfulImageUrl } from "@utils/contentfulImage";
 
 export interface HeroPortfolioProps {
   greeting: string;
@@ -19,11 +20,11 @@ export interface HeroPortfolioProps {
 
 const Section = styled.section`
   position: relative;
-  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: ${({ theme }) => theme.space["5xl"]} 0;
+  padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (min-width: ${BREAKPOINTS.tablet}) {
+    min-height: 100svh;
     padding: 0;
   }
 `;
@@ -49,16 +50,19 @@ const TextBlock = styled(Box)`
   }
 `;
 
-const Greeting = styled.p`
+const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
+  margin: 0 0 1rem;
+`;
+
+const GreetingSpan = styled.span`
+  display: block;
+  font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.paragraph};
-  margin: 0 0 ${({ theme }) => theme.space.lg};
-`;
-
-const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
-  margin: 0 0 1rem;
+  margin-bottom: ${({ theme }) => theme.space.lg};
 `;
 
 const Role = styled.p`
@@ -181,10 +185,15 @@ const bounce = keyframes`
 `;
 
 const ScrollHint = styled.button<{ $visible: boolean }>`
+  display: none;
   position: absolute;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    display: block;
+  }
   background: none;
   border: none;
   -webkit-appearance: none;
@@ -238,8 +247,10 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
       <Container>
         <HeroGrid>
           <TextBlock>
-            <Greeting>{greeting}</Greeting>
-            <Name>{personName}</Name>
+            <Name>
+              <GreetingSpan>{greeting}</GreetingSpan>
+              {personName}
+            </Name>
             <Role>{role}</Role>
             <Tagline variant="large">{tagline}</Tagline>
             <Flex
@@ -263,9 +274,11 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
           <PhotoOuter>
             <PhotoWrapper>
               <Image
-                src={image.url}
+                src={contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" })}
                 alt={image.alt || personName}
                 priority
+                width={800}
+                height={800}
                 sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
               />
             </PhotoWrapper>
