@@ -2,6 +2,7 @@
 
 exports[`BeyondCode renders correctly with all props 1`] = `
 .c0 {
+  margin-bottom: 3rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
@@ -327,6 +328,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 
 exports[`BeyondCode renders correctly without intro 1`] = `
 .c0 {
+  margin-bottom: 3rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
@@ -633,6 +635,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 
 exports[`BeyondCode renders correctly without tags 1`] = `
 .c0 {
+  margin-bottom: 3rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
