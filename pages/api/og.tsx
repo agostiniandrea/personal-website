@@ -60,7 +60,7 @@ export default async function handler(req: NextRequest) {
             fontWeight: 400,
           }}
         >
-          agostiniandrea.vercel.app
+          agostiniandrea.dev
         </div>
 
         {/* name */}

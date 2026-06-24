@@ -51,7 +51,7 @@ const personSchema = {
   "@type": "Person",
   name: "Andrea Agostini",
   jobTitle: "Senior Frontend Developer & Tech Lead",
-  url: "https://agostiniandrea.vercel.app",
+  url: "https://agostiniandrea.dev",
   email: "a.agostini92@gmail.com",
   sameAs: [
     "https://linkedin.com/in/agostiniandrea",

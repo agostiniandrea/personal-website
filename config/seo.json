@@ -7,10 +7,10 @@
   "openGraph": {
     "type": "website",
     "siteName": "Andrea Agostini",
-    "url": "https://agostiniandrea.vercel.app",
+    "url": "https://agostiniandrea.dev",
     "images": [
       {
-        "url": "https://agostiniandrea.vercel.app/api/og",
+        "url": "https://agostiniandrea.dev/api/og",
         "width": 1200,
         "height": 630,
         "alt": "Andrea Agostini — Senior Frontend Developer & Tech Lead"
