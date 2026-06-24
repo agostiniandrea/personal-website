@@ -18,7 +18,6 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
-  margin: 0;
 
   ${({ $size, theme }) => {
     switch ($size) {
