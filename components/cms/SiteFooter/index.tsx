@@ -60,11 +60,21 @@ const Subfooter = styled.div`
   text-align: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: flex-end;
     text-align: left;
     gap: ${toSpacing("xl")};
+  }
+`;
+
+const BadgeCol = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    justify-content: flex-start;
   }
 `;
 
@@ -75,7 +85,8 @@ const TaglineCol = styled.div`
   gap: ${toSpacing("md")};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 `;
 
@@ -87,10 +98,10 @@ const Tagline = styled(Text)`
 const CarbonWrapper = styled.div`
   opacity: 0.7;
   transform: scale(0.9);
-  transform-origin: left center;
+  transform-origin: center center;
 
-  @media (max-width: ${BREAKPOINTS.xTablet}) {
-    transform-origin: center center;
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    transform-origin: left center;
   }
 `;
 
@@ -137,11 +148,14 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
 
       {/* Subfooter */}
       <Subfooter>
-        <TaglineCol>
-          {tagline && <Tagline variant="small">{tagline}</Tagline>}
+        <BadgeCol>
           <CarbonWrapper>
             <CarbonBadge />
           </CarbonWrapper>
+        </BadgeCol>
+
+        <TaglineCol>
+          {tagline && <Tagline variant="small">{tagline}</Tagline>}
         </TaglineCol>
 
         <MetaCol>

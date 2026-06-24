@@ -25,7 +25,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c10 {
+.c11 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -66,6 +66,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c6 {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c9 {
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
@@ -74,10 +80,10 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c7 {
   opacity: 0.7;
   transform: scale(0.9);
-  transform-origin: left center;
+  transform-origin: center center;
 }
 
-.c9 {
+.c10 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,8 +145,8 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (min-width: 900px) {
   .c5 {
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: flex-end;
     text-align: left;
     gap: 1.5rem;
@@ -149,18 +155,25 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (min-width: 900px) {
   .c6 {
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 900px) {
-  .c7 {
-    transform-origin: center center;
+    justify-content: flex-start;
   }
 }
 
 @media (min-width: 900px) {
   .c9 {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .c7 {
+    transform-origin: left center;
+  }
+}
+
+@media (min-width: 900px) {
+  .c10 {
     align-items: flex-end;
   }
 }
@@ -206,9 +219,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
         </div>
         <div
           class="c9"
+        />
+        <div
+          class="c10"
         >
           <p
-            class="c10"
+            class="c11"
           >
             © 
             2026
@@ -223,7 +239,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
-.c12 #wcb_2 {
+.c10 #wcb_2 {
   display: none!important;
 }
 
@@ -264,7 +280,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c9 {
+.c12 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -310,23 +326,29 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c8 {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c11 {
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
 }
 
-.c10 {
+.c13 {
   color: var(--color-paragraph);
   max-width: 36ch;
 }
 
-.c11 {
+.c9 {
   opacity: 0.7;
   transform: scale(0.9);
-  transform-origin: left center;
+  transform-origin: center center;
 }
 
-.c13 {
+.c14 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -388,8 +410,8 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (min-width: 900px) {
   .c7 {
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: flex-end;
     text-align: left;
     gap: 1.5rem;
@@ -398,18 +420,25 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (min-width: 900px) {
   .c8 {
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 900px) {
-  .c11 {
-    transform-origin: center center;
+    justify-content: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c13 {
+  .c11 {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    transform-origin: left center;
+  }
+}
+
+@media (min-width: 900px) {
+  .c14 {
     align-items: flex-end;
   }
 }
@@ -466,16 +495,11 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         <div
           class="c8"
         >
-          <p
-            class="c9 c10"
-          >
-            Building for the web, one component at a time. Based in Bangkok.
-          </p>
           <div
-            class="c11"
+            class="c9"
           >
             <div
-              class="c12"
+              class="c10"
             >
               <div
                 class="carbonbadge wcb-d "
@@ -485,10 +509,19 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           </div>
         </div>
         <div
-          class="c13"
+          class="c11"
         >
           <p
-            class="c9"
+            class="c12 c13"
+          >
+            Building for the web, one component at a time. Based in Bangkok.
+          </p>
+        </div>
+        <div
+          class="c14"
+        >
+          <p
+            class="c12"
           >
             © 
             2026
