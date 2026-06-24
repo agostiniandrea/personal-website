@@ -28,6 +28,9 @@ const Intro = styled(Text)`
   max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
+  @media (max-width: 1199px) {
+    margin-bottom: ${({ theme }) => theme.space["2xl"]};
+  }
 `;
 
 const Timeline = styled.ol`
@@ -91,6 +94,10 @@ const ItemContent = styled.div`
 
   li:last-child > & {
     padding-bottom: 0;
+  }
+
+  @media (max-width: 1199px) {
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 

@@ -38,8 +38,11 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
       case "section":
       default:
         return `
-          font-size: ${theme.fontSizes["3xl"]};
+          font-size: ${theme.fontSizes["2xl"]};
           line-height: ${theme.lineHeights.snug};
+          @media (min-width: ${BREAKPOINTS.xTablet}) {
+            font-size: ${theme.fontSizes["3xl"]};
+          }
           @media (min-width: ${BREAKPOINTS.tablet}) {
             font-size: ${theme.fontSizes["5xl"]};
           }
