@@ -25,15 +25,6 @@ export interface ProjectsProps {
   items: ProjectItem[];
 }
 
-// Matches numeric metrics: 15+, 90%, 2.1, WCAG 2.1 AA, etc.
-const METRIC_REGEX = /(\bWCAG\s+\d+\.\d+\s+\w+\b|\b\d+\.\d+[+%]?\b|\b\d+[+%]\b)/g;
-
-function highlightMetrics(text: string): React.ReactNode[] {
-  const parts = text.split(METRIC_REGEX);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? <Metric key={i}>{part}</Metric> : part
-  );
-}
 
 const SectionLabel = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -128,10 +119,6 @@ const CardDescription = styled(Text)`
   flex: 1;
 `;
 
-const Metric = styled.span`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-`;
 
 const StatusTag = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -185,7 +172,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
             <CardBody>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription variant="small">
-                {highlightMetrics(item.description)}
+                {item.description}
               </CardDescription>
               {item.tags && item.tags.length > 0 && (
                 <Flex gap="sm" wrap="wrap" styles="margin-bottom: 1.5rem;">

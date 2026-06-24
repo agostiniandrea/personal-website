@@ -19,7 +19,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   grid-column: 2/auto;
 }
 
-.c16 {
+.c15 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -41,7 +41,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   line-height: 1.1;
 }
 
-.c18 {
+.c17 {
   color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
@@ -49,11 +49,11 @@ exports[`Projects renders correctly with a single item 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c18:hover {
+.c17:hover {
   color: var(--color-tertiary);
 }
 
-.c18:focus-visible {
+.c17:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -74,7 +74,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   padding: 0;
 }
 
-.c17 {
+.c16 {
   border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
   color: var(--color-paragraph);
@@ -164,12 +164,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   flex: 1;
 }
 
-.c15 {
-  color: var(--color-highlight);
-  font-weight: 700;
-}
-
-.c20 {
+.c19 {
   font-size: 0.75rem;
   color: var(--color-secondary);
   letter-spacing: 0.1em;
@@ -177,17 +172,17 @@ exports[`Projects renders correctly with a single item 1`] = `
   align-self: flex-start;
 }
 
-.c19 {
+.c18 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c19:hover {
+.c18:hover {
   text-decoration: underline;
 }
 
-.c19::after {
+.c18::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -328,51 +323,45 @@ exports[`Projects renders correctly with a single item 1`] = `
             <p
               class="c13 c14"
             >
-              Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and 
-              <span
-                class="c15"
-              >
-                WCAG 2.1 AA
-              </span>
-               accessibility improvements ongoing since 2022.
+              Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and WCAG 2.1 AA accessibility improvements ongoing since 2022.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 Next.js
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Shopify
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Prismic
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Algolia
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Storybook
               </span>
             </div>
             <a
               aria-label="View project: 7mesh"
-              class="c18 c19"
+              class="c17 c18"
               href="https://www.7mesh.com/"
               rel="noopener noreferrer"
               target="_blank"
@@ -411,36 +400,36 @@ exports[`Projects renders correctly with a single item 1`] = `
               Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 React
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Storybook
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 styled-components
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Chromatic
               </span>
             </div>
             <span
-              class="c20"
+              class="c19"
             >
               — 
               Internal
@@ -472,7 +461,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   grid-column: 2/auto;
 }
 
-.c16 {
+.c15 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
@@ -494,7 +483,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   line-height: 1.1;
 }
 
-.c18 {
+.c17 {
   color: var(--color-highlight);
   text-decoration: none;
   font-size: 1rem;
@@ -502,11 +491,11 @@ exports[`Projects renders correctly with full project list 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c18:hover {
+.c17:hover {
   color: var(--color-tertiary);
 }
 
-.c18:focus-visible {
+.c17:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -527,7 +516,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   padding: 0;
 }
 
-.c17 {
+.c16 {
   border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
   color: var(--color-paragraph);
@@ -617,12 +606,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   flex: 1;
 }
 
-.c15 {
-  color: var(--color-highlight);
-  font-weight: 700;
-}
-
-.c20 {
+.c19 {
   font-size: 0.75rem;
   color: var(--color-secondary);
   letter-spacing: 0.1em;
@@ -630,17 +614,17 @@ exports[`Projects renders correctly with full project list 1`] = `
   align-self: flex-start;
 }
 
-.c19 {
+.c18 {
   font-size: 0.875rem;
   font-weight: 700;
   align-self: flex-start;
 }
 
-.c19:hover {
+.c18:hover {
   text-decoration: underline;
 }
 
-.c19::after {
+.c18::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -781,51 +765,45 @@ exports[`Projects renders correctly with full project list 1`] = `
             <p
               class="c13 c14"
             >
-              Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and 
-              <span
-                class="c15"
-              >
-                WCAG 2.1 AA
-              </span>
-               accessibility improvements ongoing since 2022.
+              Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and WCAG 2.1 AA accessibility improvements ongoing since 2022.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 Next.js
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Shopify
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Prismic
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Algolia
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Storybook
               </span>
             </div>
             <a
               aria-label="View project: 7mesh"
-              class="c18 c19"
+              class="c17 c18"
               href="https://www.7mesh.com/"
               rel="noopener noreferrer"
               target="_blank"
@@ -864,36 +842,36 @@ exports[`Projects renders correctly with full project list 1`] = `
               Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 React
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Storybook
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 styled-components
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Chromatic
               </span>
             </div>
             <span
-              class="c20"
+              class="c19"
             >
               — 
               Internal
@@ -930,42 +908,42 @@ exports[`Projects renders correctly with full project list 1`] = `
               Core developer on a headless Shopify storefront for a premium baby and kids sleepwear brand. Built an interactive size guide, faceted search with preserved scroll, BOPIS availability, and multi-currency support for AUD/GBP market launches.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 Next.js
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Shopify
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Prismic
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Algolia
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Klaviyo
               </span>
             </div>
             <a
               aria-label="View project: Nest Designs"
-              class="c18 c19"
+              class="c17 c18"
               href="https://www.nestdesigns.com/"
               rel="noopener noreferrer"
               target="_blank"
@@ -1004,36 +982,36 @@ exports[`Projects renders correctly with full project list 1`] = `
               Frontend development of the multi-vendor marketplace apps for leggings.com, in partnership with Orium. Built the merchant app for brand and product management and the admin app for moderation, smart collections, and category management.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 Shopify
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Remix
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Prisma
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Shopify Polaris
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
             </div>
             <span
-              class="c20"
+              class="c19"
             >
               — 
               Pre-launch
@@ -1070,42 +1048,42 @@ exports[`Projects renders correctly with full project list 1`] = `
               Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 Next.js
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 TypeScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Redux
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Storybook
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Jest
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Azure DevOps
               </span>
             </div>
             <a
               aria-label="View project: Kizi.nl"
-              class="c18 c19"
+              class="c17 c18"
               href="https://www.kizi.nl/"
               rel="noopener noreferrer"
               target="_blank"
@@ -1144,37 +1122,37 @@ exports[`Projects renders correctly with full project list 1`] = `
               Built and maintained the Build & Price vehicle configurator for FCA Group's North American brand sites — Chrysler, Dodge, Jeep, Ram, Fiat and Alfa Romeo. Nearly three years of feature development on a high-traffic consumer tool with real-time pricing and availability.
             </p>
             <div
-              class="c16"
+              class="c15"
             >
               <span
-                class="c17"
+                class="c16"
               >
                 React
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Redux
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 JavaScript
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Webpack
               </span>
               <span
-                class="c17"
+                class="c16"
               >
                 Node.js
               </span>
             </div>
             <a
               aria-label="View project: FCA Build & Price"
-              class="c18 c19"
+              class="c17 c18"
               href="https://www.ramtrucks.com/en/lineup/?app=bmo&"
               rel="noopener noreferrer"
               target="_blank"
