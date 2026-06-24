@@ -16,6 +16,10 @@ export interface SkillsProps {
 
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
+  @media (max-width: 1199px) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 `;
 
 const SectionLabel = styled(Text)`
@@ -29,6 +33,9 @@ const SectionLabel = styled(Text)`
 const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
   max-width: 600px;
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Grid = styled.div`

@@ -18,7 +18,6 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
-  margin: 0;
 
   ${({ $size, theme }) => {
     switch ($size) {
@@ -38,8 +37,11 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
       case "section":
       default:
         return `
-          font-size: ${theme.fontSizes["3xl"]};
+          font-size: ${theme.fontSizes["2xl"]};
           line-height: ${theme.lineHeights.snug};
+          @media (min-width: ${BREAKPOINTS.xTablet}) {
+            font-size: ${theme.fontSizes["3xl"]};
+          }
           @media (min-width: ${BREAKPOINTS.tablet}) {
             font-size: ${theme.fontSizes["5xl"]};
           }

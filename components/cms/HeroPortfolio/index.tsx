@@ -22,7 +22,9 @@ const Section = styled.section`
   position: relative;
   display: flex;
   align-items: center;
+  padding-bottom: 2rem;
   @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding-bottom: 0;
     min-height: 100svh;
   }
 `;

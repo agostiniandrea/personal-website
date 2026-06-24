@@ -30,8 +30,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
   color: var(--color-headline);
-  margin: 0;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -121,6 +120,14 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   gap: 0.5rem;
 }
 
+@media (max-width: 1199px) {
+  .c0 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
 @media (min-width: 600px) {
   .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
@@ -191,9 +198,27 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   }
 }
 
+@media (min-width: 900px) {
+  .c4 {
+    font-size: 2.5rem;
+  }
+}
+
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c7 {
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -356,8 +381,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
   color: var(--color-headline);
-  margin: 0;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -433,6 +457,14 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   gap: 0.5rem;
 }
 
+@media (max-width: 1199px) {
+  .c0 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
 @media (min-width: 600px) {
   .c1 {
     grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
@@ -503,9 +535,21 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   }
 }
 
+@media (min-width: 900px) {
+  .c4 {
+    font-size: 2.5rem;
+  }
+}
+
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -663,8 +707,7 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
   color: var(--color-headline);
-  margin: 0;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -719,6 +762,14 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   flex: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1199px) {
+  .c0 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 @media (min-width: 600px) {
@@ -791,9 +842,21 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   }
 }
 
+@media (min-width: 900px) {
+  .c4 {
+    font-size: 2.5rem;
+  }
+}
+
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1.5rem;
   }
 }
 

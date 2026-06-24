@@ -37,6 +37,9 @@ const SectionLabel = styled(Text)`
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["3xl"]};
   max-width: 600px;
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const ProjectsGrid = styled(Grid)``;
@@ -147,7 +150,7 @@ const CardLink = styled(Link)`
 const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => {
   const { locale = "en" } = useRouter();
   return (
-  <Box as="section" id="projects" py="3xl">
+  <Box as="section" id="projects" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>

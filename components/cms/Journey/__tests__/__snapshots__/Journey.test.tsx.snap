@@ -18,8 +18,7 @@ exports[`Journey renders correctly with default data 1`] = `
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
   color: var(--color-headline);
-  margin: 0;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -188,9 +187,40 @@ li:last-child>.c12 {
   }
 }
 
+@media (min-width: 900px) {
+  .c4 {
+    font-size: 2.5rem;
+  }
+}
+
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c0 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c5 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c7 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c12 {
+    padding-bottom: 2rem;
   }
 }
 
