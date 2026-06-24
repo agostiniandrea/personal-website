@@ -2,7 +2,7 @@
 
 Personal portfolio website built with Next.js and Contentful. Covers professional experience, projects, skills, sustainability advocacy, and personal interests.
 
-Live at **[agostiniandrea.vercel.app](https://agostiniandrea.vercel.app)**
+Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 
 ## Tech Stack
 

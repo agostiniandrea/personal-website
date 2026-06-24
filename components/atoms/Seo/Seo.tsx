@@ -1,7 +1,7 @@
 import { NextSeo } from "next-seo";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.dev";
 
 const LOCALES = ["en", "it"] as const;
 

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 export default {
-  siteUrl: process.env.SITE_URL || "https://agostiniandrea.vercel.app/",
+  siteUrl: process.env.SITE_URL || "https://agostiniandrea.dev/",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   changefreq: "daily",
@@ -8,6 +8,6 @@ export default {
   sitemapSize: 7000,
   exclude: ["/server-sitemap.xml"],
   robotsTxtOptions: {
-    additionalSitemaps: ["https://agostiniandrea.vercel.app//server-sitemap.xml"],
+    additionalSitemaps: ["https://agostiniandrea.dev//server-sitemap.xml"],
   },
 };
