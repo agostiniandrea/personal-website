@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Git Workflow
 
-**Never commit directly to `main`.** All changes must go through a PR. Branch from `main`, following JIBE Gitflow conventions (see global CLAUDE.md).
+**Never commit directly to `main` or `dev`.** All changes must go through a PR.
+
+- Branch from `dev` for all feature/fix/chore work
+- PRs target `dev` — staging deploys automatically to Vercel preview
+- `dev` → `main` via PR for production releases to `agostiniandrea.dev`
+
+Follows JIBE Gitflow conventions (see global CLAUDE.md).
 
 ## Commands
 
