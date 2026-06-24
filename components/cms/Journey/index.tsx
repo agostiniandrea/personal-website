@@ -6,6 +6,10 @@ import { journeyData, type JourneyProps } from "./model";
 
 const JourneySection = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
+  @media (max-width: 1199px) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 `;
 
 const SectionLabel = styled(Text)`
@@ -18,12 +22,18 @@ const SectionLabel = styled(Text)`
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
+  @media (max-width: 1199px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const Intro = styled(Text)`
   max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
+  @media (max-width: 1199px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const Timeline = styled.ol`
@@ -87,6 +97,10 @@ const ItemContent = styled.div`
 
   li:last-child > & {
     padding-bottom: 0;
+  }
+
+  @media (max-width: 1199px) {
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 

@@ -21,6 +21,9 @@ const SectionLabel = styled(Text)`
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
   max-width: 600px;
+  @media (max-width: 1199px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Bio = styled(Text)`
@@ -40,7 +43,7 @@ const About: React.FC<AboutProps> = ({
   const tags = [location, availability].filter(Boolean) as string[];
 
   return (
-    <Box as="section" id="about" py="3xl">
+    <Box as="section" id="about" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
       <Container>
         <SectionLabel>{sectionLabel}</SectionLabel>
         <SectionHeading>{heading}</SectionHeading>

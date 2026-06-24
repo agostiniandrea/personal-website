@@ -20,6 +20,9 @@ const Intro = styled(Text)`
   max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["3xl"]};
+  @media (max-width: 1199px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const Card = styled.article`
@@ -61,7 +64,7 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
   intro,
   items,
 }) => (
-  <Box as="section" id="beyond-code" py="3xl" mb="3xl">
+  <Box as="section" id="beyond-code" py="3xl" mb="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; margin-bottom: 2rem; }">
     <Container>
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
