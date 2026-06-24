@@ -80,6 +80,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 .c6 {
   display: block;
+  font-family: var(--font-inter),sans-serif;
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.15em;
@@ -179,6 +180,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
   width: 240px;
   height: 240px;
+  margin-top: 2rem;
 }
 
 .c16 {
@@ -323,6 +325,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   .c15 {
     width: 380px;
     height: 380px;
+    margin-top: 0;
   }
 }
 
@@ -414,6 +417,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
             >
               <img
                 alt="Andrea Agostini"
+                fetchpriority="high"
                 height="800"
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&f=face"
                 style="max-width: 100%; height: auto; display: block; object-fit: cover;"
@@ -528,6 +532,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 .c6 {
   display: block;
+  font-family: var(--font-inter),sans-serif;
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.15em;
@@ -605,6 +610,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
   width: 240px;
   height: 240px;
+  margin-top: 2rem;
 }
 
 .c15 {
@@ -749,6 +755,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   .c14 {
     width: 380px;
     height: 380px;
+    margin-top: 0;
   }
 }
 
@@ -834,6 +841,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
             >
               <img
                 alt="Andrea Agostini"
+                fetchpriority="high"
                 height="800"
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&f=face"
                 style="max-width: 100%; height: auto; display: block; object-fit: cover;"

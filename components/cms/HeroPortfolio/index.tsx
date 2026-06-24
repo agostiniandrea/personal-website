@@ -164,10 +164,12 @@ const PhotoOuter = styled.div`
   background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
   width: 240px;
   height: 240px;
+  margin-top: ${({ theme }) => theme.space["2xl"]};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     width: 380px;
     height: 380px;
+    margin-top: 0;
   }
 `;
 
@@ -277,6 +279,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                 src={contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" })}
                 alt={image.alt || personName}
                 priority
+                fetchPriority="high"
                 width={800}
                 height={800}
                 sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
