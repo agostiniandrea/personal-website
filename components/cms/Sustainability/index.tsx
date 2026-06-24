@@ -110,7 +110,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
   showCarbonBadge,
   carbonBadgeLabel,
 }) => (
-  <Box as="section" id="sustainability" py="3xl">
+  <Box as="section" id="sustainability" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
     <Container>
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>

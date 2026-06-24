@@ -147,7 +147,7 @@ const CardLink = styled(Link)`
 const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => {
   const { locale = "en" } = useRouter();
   return (
-  <Box as="section" id="projects" py="3xl">
+  <Box as="section" id="projects" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>

@@ -6,6 +6,10 @@ import { journeyData, type JourneyProps } from "./model";
 
 const JourneySection = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
+  @media (max-width: 1199px) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 `;
 
 const SectionLabel = styled(Text)`
