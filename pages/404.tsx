@@ -17,14 +17,14 @@ type T404 = {
 };
 
 const Wrapper = styled(Box).attrs({ as: "main" })`
-  padding: calc(3.5rem + 6rem) 0 6rem;
+  padding: calc(3.5rem + 8rem) 0 8rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    padding: calc(3.5rem + 8.5rem) 0 8.5rem;
+    padding: calc(3.5rem + 11rem) 0 11rem;
   }
 
   @media (min-width: ${BREAKPOINTS.desktop}) {
-    padding: calc(3.5rem + 11rem) 0 11rem;
+    padding: calc(3.5rem + 14rem) 0 14rem;
   }
 `;
 
