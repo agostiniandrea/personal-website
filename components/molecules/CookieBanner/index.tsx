@@ -12,10 +12,10 @@ const Card = styled.div`
   width: calc(100% - 3rem);
   max-width: 440px;
   background: #ffffff;
-  border: 1px solid ${({ theme }) => theme.colors.main};
+  border: 1px solid #e0e0e8;
   border-top: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
   padding: 1.25rem 1.5rem 1.5rem;
 
   @media (max-width: 699px) {
@@ -42,13 +42,13 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
+  color: #0a0a0f;
   margin: 0 0 0.5rem;
 `;
 
 const Body = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: #5e5e72;
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0;
 `;
@@ -95,7 +95,7 @@ const SecondaryBtn = styled.button`
   flex: 1;
   padding: 0.5rem 1rem;
   background: transparent;
-  color: ${({ theme }) => theme.colors.secondary};
+  color: #0a0a0f;
   border: 1px solid ${({ theme }) => theme.colors.highlight}55;
   border-radius: ${({ theme }) => theme.radii.xs};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -134,7 +134,7 @@ const TextBtn = styled.button`
 
 const Divider = styled.hr`
   border: none;
-  border-top: 1px solid ${({ theme }) => theme.colors.main};
+  border-top: 1px solid #e0e0e8;
   margin: 1rem 0;
 `;
 
@@ -150,13 +150,13 @@ const PreferenceRow = styled.div`
 const PreferenceName = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
+  color: #0a0a0f;
   margin: 0 0 0.125rem;
 `;
 
 const PreferenceDesc = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: #5e5e72;
   margin: 0;
 `;
 
