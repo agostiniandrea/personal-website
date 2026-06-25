@@ -72,7 +72,7 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
       {intro && <Intro variant="large">{intro}</Intro>}
-      <Grid columns={[1, undefined, 2, undefined, 3]} gap="xl">
+      <Grid columns={[1, undefined, 2, 4]} gap="xl">
         {items.map((item) => (
           <Card key={item.category}>
             <CategoryLabel>{item.category}</CategoryLabel>
