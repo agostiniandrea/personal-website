@@ -13,7 +13,7 @@ const Card = styled.div`
   max-width: 500px;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.main};
-  border-left: 3px solid ${({ theme }) => theme.colors.highlight};
+  border-top: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
