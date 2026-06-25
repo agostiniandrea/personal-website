@@ -244,6 +244,13 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith("#")) return;
+    e.preventDefault();
+    const el = document.getElementById(href.slice(1));
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <Section id="hero">
       <Container>
@@ -260,9 +267,9 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
               wrap="wrap"
               justifyContent={["center", undefined, "flex-start"]}
             >
-              <PrimaryLink href={ctaPrimaryUrl}>{ctaPrimaryLabel}</PrimaryLink>
+              <PrimaryLink href={ctaPrimaryUrl} onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}>{ctaPrimaryLabel}</PrimaryLink>
               {ctaSecondaryLabel && ctaSecondaryUrl && (
-                <SecondaryLink href={ctaSecondaryUrl}>
+                <SecondaryLink href={ctaSecondaryUrl} onClick={(e) => handleAnchorClick(e, ctaSecondaryUrl)}>
                   {ctaSecondaryLabel}
                 </SecondaryLink>
               )}

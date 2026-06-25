@@ -16,11 +16,7 @@ type T404 = {
 };
 
 const Wrapper = styled(Box).attrs({ as: "main" })`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 70vh;
-  padding: ${({ theme }) => theme.space["5xl"]} ${({ theme }) => theme.space["2xl"]};
+  padding-top: 3.5rem;
 `;
 
 const Label = styled(Text)`
