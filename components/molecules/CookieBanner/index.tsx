@@ -10,21 +10,38 @@ const Card = styled.div`
   left: 1.5rem;
   z-index: 9000;
   width: calc(100% - 3rem);
-  max-width: 500px;
+  max-width: 760px;
   background: #ffffff;
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-top: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
 
-  @media (max-width: 599px) {
+  @media (max-width: 699px) {
     left: 1rem;
     right: 1rem;
     bottom: 1rem;
     width: auto;
     max-width: none;
   }
+`;
+
+const Layout = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 699px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+`;
+
+const TextBlock = styled.div`
+  flex: 1;
+  min-width: 0;
 `;
 
 const Eyebrow = styled.p`
@@ -34,7 +51,7 @@ const Eyebrow = styled.p`
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.25rem;
 `;
 
 const Title = styled.h2`
@@ -42,7 +59,7 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
-  margin: 0 0 0.625rem;
+  margin: 0 0 0.25rem;
 `;
 
 const Body = styled.p`
@@ -57,19 +74,15 @@ const Actions = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 1.25rem;
+  flex-shrink: 0;
 
-  @media (max-width: 599px) {
+  @media (max-width: 699px) {
     flex-wrap: wrap;
   }
 `;
 
 const PrimaryBtn = styled.button`
   padding: 0.5rem 1rem;
-
-  @media (max-width: 599px) {
-    flex: 1;
-  }
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
   border: none;
@@ -78,6 +91,7 @@ const PrimaryBtn = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: pointer;
+  white-space: nowrap;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.85; }
@@ -85,14 +99,12 @@ const PrimaryBtn = styled.button`
     outline: 2px solid ${({ theme }) => theme.colors.button};
     outline-offset: 2px;
   }
+
+  @media (max-width: 699px) { flex: 1; }
 `;
 
 const SecondaryBtn = styled.button`
   padding: 0.5rem 1rem;
-
-  @media (max-width: 599px) {
-    flex: 1;
-  }
   background: transparent;
   color: ${({ theme }) => theme.colors.secondary};
   border: 1px solid ${({ theme }) => theme.colors.main};
@@ -101,6 +113,7 @@ const SecondaryBtn = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: pointer;
+  white-space: nowrap;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.7; }
@@ -108,6 +121,8 @@ const SecondaryBtn = styled.button`
     outline: 2px solid ${({ theme }) => theme.colors.main};
     outline-offset: 2px;
   }
+
+  @media (max-width: 699px) { flex: 1; }
 `;
 
 const TextBtn = styled.button`
@@ -129,9 +144,7 @@ const TextBtn = styled.button`
     border-radius: 2px;
   }
 
-  @media (max-width: 599px) {
-    width: 100%;
-  }
+  @media (max-width: 699px) { width: 100%; }
 `;
 
 const Divider = styled.hr`
@@ -146,12 +159,8 @@ const PreferenceRow = styled.div`
   justify-content: space-between;
   gap: 1rem;
 
-  & + & {
-    margin-top: 0.75rem;
-  }
+  & + & { margin-top: 0.75rem; }
 `;
-
-const PreferenceMeta = styled.div``;
 
 const PreferenceName = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
@@ -177,13 +186,12 @@ const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
   position: relative;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   transition: background 0.2s ease;
-  margin-top: 2px;
 
   &::after {
     content: "";
     position: absolute;
-    top: 2px;
-    left: ${({ $on }) => ($on ? "calc(100% - 1.0625rem)" : "2px")};
+    top: 3px;
+    left: ${({ $on }) => ($on ? "1.125rem" : "3px")};
     width: 0.875rem;
     height: 0.875rem;
     border-radius: 50%;
@@ -216,27 +224,44 @@ const CookieBanner: React.FC = () => {
 
   return (
     <Card role="dialog" aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
-      <Eyebrow>Privacy</Eyebrow>
-      <Title id="cookie-title">This site uses cookies</Title>
-      <Body id="cookie-desc">
-        Essential cookies keep the site working. Optional analytics help me understand how visitors use this portfolio — no personal data sold, ever.
-      </Body>
+      <Layout>
+        <TextBlock>
+          <Eyebrow>Privacy</Eyebrow>
+          <Title id="cookie-title">This site uses cookies</Title>
+          <Body id="cookie-desc">
+            Essential cookies keep the site working. Optional analytics help me understand how visitors use this portfolio — no personal data sold, ever.
+          </Body>
+        </TextBlock>
+        <Actions>
+          {showPreferences ? (
+            <PrimaryBtn onClick={() => save("custom", analyticsOn)}>Save preferences</PrimaryBtn>
+          ) : (
+            <>
+              <PrimaryBtn onClick={() => save("accepted", true)}>Accept all</PrimaryBtn>
+              <SecondaryBtn onClick={() => save("rejected", false)}>Reject non-essential</SecondaryBtn>
+            </>
+          )}
+          <TextBtn onClick={() => setShowPreferences((v) => !v)}>
+            {showPreferences ? "Back" : "Manage preferences"}
+          </TextBtn>
+        </Actions>
+      </Layout>
 
       {showPreferences && (
         <>
           <Divider />
           <PreferenceRow>
-            <PreferenceMeta>
+            <div>
               <PreferenceName>Essential</PreferenceName>
               <PreferenceDesc>Required for the site to work</PreferenceDesc>
-            </PreferenceMeta>
+            </div>
             <Toggle $on={true} $disabled={true} aria-label="Essential cookies, always on" aria-pressed={true} />
           </PreferenceRow>
           <PreferenceRow>
-            <PreferenceMeta>
+            <div>
               <PreferenceName>Analytics</PreferenceName>
               <PreferenceDesc>Anonymous usage data via Google Analytics</PreferenceDesc>
-            </PreferenceMeta>
+            </div>
             <Toggle
               $on={analyticsOn}
               onClick={() => setAnalyticsOn((v) => !v)}
@@ -246,20 +271,6 @@ const CookieBanner: React.FC = () => {
           </PreferenceRow>
         </>
       )}
-
-      <Actions>
-        {showPreferences ? (
-          <PrimaryBtn onClick={() => save("custom", analyticsOn)}>Save preferences</PrimaryBtn>
-        ) : (
-          <>
-            <PrimaryBtn onClick={() => save("accepted", true)}>Accept all</PrimaryBtn>
-            <SecondaryBtn onClick={() => save("rejected", false)}>Reject non-essential</SecondaryBtn>
-          </>
-        )}
-        <TextBtn onClick={() => setShowPreferences((v) => !v)}>
-          {showPreferences ? "Back" : "Manage preferences"}
-        </TextBtn>
-      </Actions>
     </Card>
   );
 };
