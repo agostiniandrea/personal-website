@@ -17,19 +17,7 @@ type T404 = {
 };
 
 const Wrapper = styled(Box).attrs({ as: "main" })`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: calc(100vh - 3.5rem);
-  padding: calc(3.5rem + 2rem) 0 2rem;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    padding: calc(3.5rem + 4rem) 0 4rem;
-  }
-
-  @media (min-width: ${BREAKPOINTS.desktop}) {
-    padding: calc(3.5rem + 6rem) 0 6rem;
-  }
+  padding: calc(3.5rem + 6rem) 0 6rem;
 `;
 
 const Label = styled(Text)`
