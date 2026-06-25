@@ -10,10 +10,10 @@ const Card = styled.div`
   left: 1.5rem;
   z-index: 9000;
   width: calc(100% - 3rem);
-  max-width: 400px;
+  max-width: 500px;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.main};
-  border-top: 3px solid ${({ theme }) => theme.colors.highlight};
+  border-left: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
@@ -53,14 +53,20 @@ const Body = styled.p`
 
 const Actions = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: 1.25rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 const PrimaryBtn = styled.button`
-  width: 100%;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 1rem;
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
   border: none;
@@ -79,8 +85,7 @@ const PrimaryBtn = styled.button`
 `;
 
 const SecondaryBtn = styled.button`
-  width: 100%;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 1rem;
   background: transparent;
   color: ${({ theme }) => theme.colors.secondary};
   border: 1px solid ${({ theme }) => theme.colors.main};
@@ -101,19 +106,18 @@ const SecondaryBtn = styled.button`
 const TextBtn = styled.button`
   background: none;
   border: none;
-  padding: 0.25rem 0;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.secondary};
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  padding: 0.5rem 0;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
-  text-align: center;
-  width: 100%;
+  white-space: nowrap;
   transition: opacity 0.2s ease;
 
-  &:hover { opacity: 0.6; }
+  &:hover { opacity: 0.7; }
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.main};
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
     border-radius: 2px;
   }
