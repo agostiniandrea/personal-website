@@ -159,8 +159,11 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (!href.startsWith("#")) return;
     e.preventDefault();
-    const id = href.slice(1);
-    const el = document.getElementById(id);
+    if (router.pathname !== "/") {
+      router.push(`/${href}`);
+      return;
+    }
+    const el = document.getElementById(href.slice(1));
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
