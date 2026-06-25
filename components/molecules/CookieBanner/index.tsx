@@ -10,19 +10,21 @@ const Card = styled.div`
   left: 1.5rem;
   z-index: 9000;
   width: calc(100% - 3rem);
-  max-width: 400px;
-  background: ${({ theme }) => theme.colors.surface};
+  max-width: 440px;
+  background: #ffffff;
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-top: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 1.5rem 1.5rem;
 
-  @media (max-width: 599px) {
+  @media (max-width: 699px) {
     left: 1rem;
+    right: 1rem;
     bottom: 1rem;
-    width: calc(100% - 2rem);
+    width: auto;
     max-width: none;
+    padding: 1rem 1.25rem 1.25rem;
   }
 `;
 
@@ -33,7 +35,7 @@ const Eyebrow = styled.p`
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.highlight};
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.375rem;
 `;
 
 const Title = styled.h2`
@@ -41,7 +43,7 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
-  margin: 0 0 0.625rem;
+  margin: 0 0 0.5rem;
 `;
 
 const Body = styled.p`
@@ -52,15 +54,25 @@ const Body = styled.p`
 `;
 
 const Actions = styled.div`
+  margin-top: 1.125rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1.25rem;
+
+  @media (max-width: 699px) {
+    margin-top: 0.875rem;
+    gap: 0.5rem;
+  }
+`;
+
+const MainActions = styled.div`
+  display: flex;
+  gap: 0.625rem;
 `;
 
 const PrimaryBtn = styled.button`
-  width: 100%;
-  padding: 0.625rem 1rem;
+  flex: 1;
+  padding: 0.5rem 1rem;
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
   border: none;
@@ -69,6 +81,7 @@ const PrimaryBtn = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: pointer;
+  white-space: nowrap;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.85; }
@@ -79,21 +92,22 @@ const PrimaryBtn = styled.button`
 `;
 
 const SecondaryBtn = styled.button`
-  width: 100%;
-  padding: 0.625rem 1rem;
+  flex: 1;
+  padding: 0.5rem 1rem;
   background: transparent;
   color: ${({ theme }) => theme.colors.secondary};
-  border: 1px solid ${({ theme }) => theme.colors.main};
+  border: 1px solid ${({ theme }) => theme.colors.highlight}55;
   border-radius: ${({ theme }) => theme.radii.xs};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: pointer;
+  white-space: nowrap;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.7; }
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.main};
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
   }
 `;
@@ -102,18 +116,17 @@ const TextBtn = styled.button`
   background: none;
   border: none;
   padding: 0.25rem 0;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.secondary};
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
-  text-align: center;
-  width: 100%;
+  text-align: left;
   transition: opacity 0.2s ease;
 
-  &:hover { opacity: 0.6; }
+  &:hover { opacity: 0.7; }
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.main};
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -131,12 +144,8 @@ const PreferenceRow = styled.div`
   justify-content: space-between;
   gap: 1rem;
 
-  & + & {
-    margin-top: 0.75rem;
-  }
+  & + & { margin-top: 0.75rem; }
 `;
-
-const PreferenceMeta = styled.div``;
 
 const PreferenceName = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
@@ -162,13 +171,12 @@ const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
   position: relative;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   transition: background 0.2s ease;
-  margin-top: 2px;
 
   &::after {
     content: "";
     position: absolute;
-    top: 2px;
-    left: ${({ $on }) => ($on ? "calc(100% - 1.0625rem)" : "2px")};
+    top: 3px;
+    left: ${({ $on }) => ($on ? "1.125rem" : "3px")};
     width: 0.875rem;
     height: 0.875rem;
     border-radius: 50%;
@@ -204,24 +212,43 @@ const CookieBanner: React.FC = () => {
       <Eyebrow>Privacy</Eyebrow>
       <Title id="cookie-title">This site uses cookies</Title>
       <Body id="cookie-desc">
-        Essential cookies keep the site working. Optional analytics help me understand how visitors use this portfolio — no personal data sold, ever.
+        Essential cookies keep the site working. Optional analytics help me understand how the portfolio is used and improve the experience.
       </Body>
+
+      <Actions>
+        {showPreferences ? (
+          <>
+            <MainActions>
+              <PrimaryBtn onClick={() => save("custom", analyticsOn)}>Save preferences</PrimaryBtn>
+            </MainActions>
+            <TextBtn onClick={() => setShowPreferences(false)}>Back</TextBtn>
+          </>
+        ) : (
+          <>
+            <MainActions>
+              <PrimaryBtn onClick={() => save("accepted", true)}>Accept all</PrimaryBtn>
+              <SecondaryBtn onClick={() => save("rejected", false)}>Reject non-essential</SecondaryBtn>
+            </MainActions>
+            <TextBtn onClick={() => setShowPreferences(true)}>Manage preferences</TextBtn>
+          </>
+        )}
+      </Actions>
 
       {showPreferences && (
         <>
           <Divider />
           <PreferenceRow>
-            <PreferenceMeta>
+            <div>
               <PreferenceName>Essential</PreferenceName>
               <PreferenceDesc>Required for the site to work</PreferenceDesc>
-            </PreferenceMeta>
+            </div>
             <Toggle $on={true} $disabled={true} aria-label="Essential cookies, always on" aria-pressed={true} />
           </PreferenceRow>
           <PreferenceRow>
-            <PreferenceMeta>
+            <div>
               <PreferenceName>Analytics</PreferenceName>
               <PreferenceDesc>Anonymous usage data via Google Analytics</PreferenceDesc>
-            </PreferenceMeta>
+            </div>
             <Toggle
               $on={analyticsOn}
               onClick={() => setAnalyticsOn((v) => !v)}
@@ -231,20 +258,6 @@ const CookieBanner: React.FC = () => {
           </PreferenceRow>
         </>
       )}
-
-      <Actions>
-        {showPreferences ? (
-          <PrimaryBtn onClick={() => save("custom", analyticsOn)}>Save preferences</PrimaryBtn>
-        ) : (
-          <>
-            <PrimaryBtn onClick={() => save("accepted", true)}>Accept all</PrimaryBtn>
-            <SecondaryBtn onClick={() => save("rejected", false)}>Reject non-essential</SecondaryBtn>
-          </>
-        )}
-        <TextBtn onClick={() => setShowPreferences((v) => !v)}>
-          {showPreferences ? "Back" : "Manage preferences"}
-        </TextBtn>
-      </Actions>
     </Card>
   );
 };
