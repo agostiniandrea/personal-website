@@ -7,7 +7,6 @@ import {
   getSiteHeaderContent,
   getSiteFooterContent,
 } from "@lib/utils/cms";
-import { BREAKPOINTS } from "@constants";
 import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
 
@@ -16,16 +15,19 @@ type T404 = {
   footer: TSiteFooterData | null;
 };
 
+const PageLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+`;
+
 const Wrapper = styled(Box).attrs({ as: "main" })`
-  padding: calc(3.5rem + 8rem) 0 8rem;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    padding: calc(3.5rem + 11rem) 0 11rem;
-  }
-
-  @media (min-width: ${BREAKPOINTS.desktop}) {
-    padding: calc(3.5rem + 14rem) 0 14rem;
-  }
+  padding-top: 3.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Label = styled(Text)`
@@ -60,7 +62,7 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
 
 export default function NotFound({ header, footer }: T404) {
   return (
-    <>
+    <PageLayout>
       <Seo
         seoTitle="404 — Page not found"
         seoDescription="This page doesn't exist — but the rest of the site does."
@@ -80,6 +82,6 @@ export default function NotFound({ header, footer }: T404) {
         </Container>
       </Wrapper>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
-    </>
+    </PageLayout>
   );
 }
