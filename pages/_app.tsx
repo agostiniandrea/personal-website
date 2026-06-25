@@ -1,5 +1,6 @@
 import { Head } from "@components/atoms";
 import { ScrollToTop } from "@components/molecules";
+import { CookieBanner } from "@components/molecules";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
 import type { AppProps } from "next/app";
@@ -9,6 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import Script from "next/script";
+import { useEffect, useState } from "react";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -43,6 +45,17 @@ const SkipLink = styled.a`
 `;
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [gaConsent, setGaConsent] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("cookie-consent") === "accepted") {
+      setGaConsent(true);
+    }
+    const handler = () => setGaConsent(true);
+    window.addEventListener("cookie-consent-accepted", handler);
+    return () => window.removeEventListener("cookie-consent-accepted", handler);
+  }, []);
+
   return (
     <div className={`${inter.variable} ${spaceGrotesk.variable}`} style={{ display: "contents" }}>
       <ThemeProvider theme={theme}>
@@ -51,9 +64,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <Head />
         <Component {...pageProps} />
         <ScrollToTop />
+        <CookieBanner />
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
-        {GA_ID && (
+        {GA_ID && gaConsent && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
             <Script id="ga-init" strategy="afterInteractive">{`
