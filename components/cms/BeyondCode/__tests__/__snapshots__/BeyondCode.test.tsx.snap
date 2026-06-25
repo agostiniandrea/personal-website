@@ -188,13 +188,13 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c8 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
   .c8 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -525,13 +525,13 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 
 @media (min-width: 1200px) {
   .c6 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
   .c6 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -832,13 +832,13 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 
 @media (min-width: 1200px) {
   .c6 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
   .c6 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
