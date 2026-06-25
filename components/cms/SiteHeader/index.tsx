@@ -19,16 +19,12 @@ export interface SiteHeaderProps {
 const SECTION_TO_NAV: Record<string, string> = {};
 
 const Header = styled.header<{ $scrolled: boolean }>`
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   z-index: 100;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    position: fixed;
-    left: 0;
-    right: 0;
-  }
   padding: 0.75rem 0;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   background: ${({ $scrolled, theme }) =>
@@ -160,6 +156,14 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     });
   };
 
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith("#")) return;
+    e.preventDefault();
+    const id = href.slice(1);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -249,7 +253,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             <Logo href="/">{logoText}</Logo>
             <DesktopNav aria-label="Main navigation">
               {navLinks.map((link) => (
-                <NavLink key={link.url} href={link.url} $active={activeSection === link.url}>
+                <NavLink key={link.url} href={link.url} $active={activeSection === link.url} onClick={(e) => handleAnchorClick(e, link.url)}>
                   {link.label}
                 </NavLink>
               ))}
@@ -293,7 +297,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             <nav aria-label="Mobile navigation">
               <DrawerLinks>
                 {navLinks.map((link) => (
-                  <Link key={link.url} href={link.url} onClick={closeDrawer}>
+                  <Link key={link.url} href={link.url} onClick={(e) => { handleAnchorClick(e, link.url); closeDrawer(); }}>
                     {link.label}
                   </Link>
                 ))}
