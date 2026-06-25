@@ -58,12 +58,18 @@ const Actions = styled.div`
   align-items: center;
   gap: 0.75rem;
   margin-top: 1.25rem;
-  flex-wrap: wrap;
+
+  @media (max-width: 599px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const PrimaryBtn = styled.button`
-  flex: 1;
   padding: 0.5rem 1rem;
+
+  @media (max-width: 599px) {
+    flex: 1;
+  }
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
   border: none;
@@ -82,8 +88,11 @@ const PrimaryBtn = styled.button`
 `;
 
 const SecondaryBtn = styled.button`
-  flex: 1;
   padding: 0.5rem 1rem;
+
+  @media (max-width: 599px) {
+    flex: 1;
+  }
   background: transparent;
   color: ${({ theme }) => theme.colors.secondary};
   border: 1px solid ${({ theme }) => theme.colors.main};
@@ -111,7 +120,6 @@ const TextBtn = styled.button`
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
   white-space: nowrap;
-  width: 100%;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.7; }
@@ -119,6 +127,10 @@ const TextBtn = styled.button`
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  @media (max-width: 599px) {
+    width: 100%;
   }
 `;
 
