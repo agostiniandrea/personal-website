@@ -7,6 +7,7 @@ import {
   getSiteHeaderContent,
   getSiteFooterContent,
 } from "@lib/utils/cms";
+import { BREAKPOINTS } from "@constants";
 import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
 
@@ -23,11 +24,15 @@ const PageLayout = styled.div`
 `;
 
 const Wrapper = styled(Box).attrs({ as: "main" })`
-  padding-top: 3.5rem;
+  padding: calc(3.5rem + 2.5rem) 0 2.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding: 3.5rem 0 0;
+  }
 `;
 
 const Label = styled(Text)`
