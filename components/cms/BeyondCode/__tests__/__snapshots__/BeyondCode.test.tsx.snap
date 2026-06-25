@@ -204,12 +204,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 900px) {
-  .c4 {
-    font-size: 2.5rem;
-  }
-}
-
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
@@ -547,12 +541,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   }
 }
 
-@media (min-width: 900px) {
-  .c4 {
-    font-size: 2.5rem;
-  }
-}
-
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
@@ -851,12 +839,6 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 @media (min-width: 1536px) {
   .c6 {
     grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .c4 {
-    font-size: 2.5rem;
   }
 }
 
