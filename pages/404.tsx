@@ -18,6 +18,14 @@ type T404 = {
 
 const Wrapper = styled(Box).attrs({ as: "main" })`
   padding: calc(3.5rem + 6rem) 0 6rem;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding: calc(3.5rem + 8rem) 0 8rem;
+  }
+
+  @media (min-width: ${BREAKPOINTS.desktop}) {
+    padding: calc(3.5rem + 10rem) 0 10rem;
+  }
 `;
 
 const Label = styled(Text)`
