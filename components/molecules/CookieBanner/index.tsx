@@ -20,8 +20,9 @@ const Card = styled.div`
 
   @media (max-width: 599px) {
     left: 1rem;
+    right: 1rem;
     bottom: 1rem;
-    width: calc(100% - 2rem);
+    width: auto;
     max-width: none;
   }
 `;
