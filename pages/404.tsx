@@ -20,11 +20,11 @@ const Wrapper = styled(Box).attrs({ as: "main" })`
   padding: calc(3.5rem + 6rem) 0 6rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    padding: calc(3.5rem + 9rem) 0 9rem;
+    padding: calc(3.5rem + 8.5rem) 0 8.5rem;
   }
 
   @media (min-width: ${BREAKPOINTS.desktop}) {
-    padding: calc(3.5rem + 12rem) 0 12rem;
+    padding: calc(3.5rem + 11rem) 0 11rem;
   }
 `;
 
