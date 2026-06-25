@@ -59,14 +59,10 @@ const Actions = styled.div`
   gap: 0.75rem;
   margin-top: 1.25rem;
   flex-wrap: wrap;
-
-  @media (max-width: 599px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
 `;
 
 const PrimaryBtn = styled.button`
+  flex: 1;
   padding: 0.5rem 1rem;
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
@@ -86,6 +82,7 @@ const PrimaryBtn = styled.button`
 `;
 
 const SecondaryBtn = styled.button`
+  flex: 1;
   padding: 0.5rem 1rem;
   background: transparent;
   color: ${({ theme }) => theme.colors.secondary};
@@ -114,6 +111,7 @@ const TextBtn = styled.button`
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
   white-space: nowrap;
+  width: 100%;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.7; }
