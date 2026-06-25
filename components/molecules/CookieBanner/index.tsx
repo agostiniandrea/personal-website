@@ -10,12 +10,13 @@ const Card = styled.div`
   left: 1.5rem;
   z-index: 9000;
   width: calc(100% - 3rem);
-  max-width: 420px;
+  max-width: 400px;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.main};
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
+  border-top: 3px solid ${({ theme }) => theme.colors.highlight};
+  border-radius: ${({ theme }) => theme.radii.md};
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
 
   @media (max-width: 599px) {
     left: 1rem;
@@ -23,15 +24,6 @@ const Card = styled.div`
     width: calc(100% - 2rem);
     max-width: none;
   }
-`;
-
-const AccentBar = styled.div`
-  height: 3px;
-  background: ${({ theme }) => theme.colors.highlight};
-`;
-
-const Content = styled.div`
-  padding: 1.25rem 1.5rem 1.5rem;
 `;
 
 const Eyebrow = styled.p`
@@ -56,16 +48,17 @@ const Body = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.secondary};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 0 0 1.25rem;
+  margin: 0;
 `;
 
 const Actions = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1.25rem;
 `;
 
-const AcceptButton = styled.button`
+const PrimaryBtn = styled.button`
   width: 100%;
   padding: 0.625rem 1rem;
   background: ${({ theme }) => theme.colors.button};
@@ -85,7 +78,7 @@ const AcceptButton = styled.button`
   }
 `;
 
-const RejectButton = styled.button`
+const SecondaryBtn = styled.button`
   width: 100%;
   padding: 0.625rem 1rem;
   background: transparent;
@@ -105,20 +98,20 @@ const RejectButton = styled.button`
   }
 `;
 
-const ManageButton = styled.button`
-  width: 100%;
-  padding: 0.375rem 1rem;
-  background: transparent;
-  color: ${({ theme }) => theme.colors.secondary};
+const TextBtn = styled.button`
+  background: none;
   border: none;
-  font-family: ${({ theme }) => theme.fontFamilies.body};
+  padding: 0.25rem 0;
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  cursor: pointer;
+  color: ${({ theme }) => theme.colors.secondary};
   text-decoration: underline;
   text-underline-offset: 2px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
   transition: opacity 0.2s ease;
 
-  &:hover { opacity: 0.7; }
+  &:hover { opacity: 0.6; }
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.main};
     outline-offset: 2px;
@@ -126,23 +119,24 @@ const ManageButton = styled.button`
   }
 `;
 
-const PreferencesPanel = styled.div`
-  margin-top: 1rem;
-  padding-top: 1rem;
+const Divider = styled.hr`
+  border: none;
   border-top: 1px solid ${({ theme }) => theme.colors.main};
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  margin: 1rem 0;
 `;
 
 const PreferenceRow = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+
+  & + & {
+    margin-top: 0.75rem;
+  }
 `;
 
-const PreferenceLabel = styled.div``;
+const PreferenceMeta = styled.div``;
 
 const PreferenceName = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
@@ -159,8 +153,8 @@ const PreferenceDesc = styled.p`
 
 const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
   flex-shrink: 0;
-  width: 2.5rem;
-  height: 1.375rem;
+  width: 2.25rem;
+  height: 1.25rem;
   border-radius: 999px;
   border: none;
   background: ${({ $on, $disabled, theme }) =>
@@ -168,14 +162,15 @@ const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
   position: relative;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   transition: background 0.2s ease;
+  margin-top: 2px;
 
   &::after {
     content: "";
     position: absolute;
     top: 2px;
-    left: ${({ $on }) => ($on ? "calc(100% - 1.125rem)" : "2px")};
-    width: 1rem;
-    height: 1rem;
+    left: ${({ $on }) => ($on ? "calc(100% - 1.0625rem)" : "2px")};
+    width: 0.875rem;
+    height: 0.875rem;
     border-radius: 50%;
     background: white;
     transition: left 0.2s ease;
@@ -206,58 +201,50 @@ const CookieBanner: React.FC = () => {
 
   return (
     <Card role="dialog" aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
-      <AccentBar />
-      <Content>
-        <Eyebrow>Privacy</Eyebrow>
-        <Title id="cookie-title">This site uses cookies</Title>
-        <Body id="cookie-desc">
-          Essential cookies keep the site working. Optional analytics cookies help me understand how visitors use this portfolio — no personal data sold, ever.
-        </Body>
+      <Eyebrow>Privacy</Eyebrow>
+      <Title id="cookie-title">This site uses cookies</Title>
+      <Body id="cookie-desc">
+        Essential cookies keep the site working. Optional analytics help me understand how visitors use this portfolio — no personal data sold, ever.
+      </Body>
 
-        {showPreferences && (
-          <PreferencesPanel>
-            <PreferenceRow>
-              <PreferenceLabel>
-                <PreferenceName>Essential</PreferenceName>
-                <PreferenceDesc>Required for the site to function</PreferenceDesc>
-              </PreferenceLabel>
-              <Toggle $on={true} $disabled={true} aria-label="Essential cookies (always on)" aria-pressed={true} />
-            </PreferenceRow>
-            <PreferenceRow>
-              <PreferenceLabel>
-                <PreferenceName>Analytics</PreferenceName>
-                <PreferenceDesc>Google Analytics — anonymous usage data</PreferenceDesc>
-              </PreferenceLabel>
-              <Toggle
-                $on={analyticsOn}
-                onClick={() => setAnalyticsOn((v) => !v)}
-                aria-label={`Analytics cookies ${analyticsOn ? "on" : "off"}`}
-                aria-pressed={analyticsOn}
-              />
-            </PreferenceRow>
-          </PreferencesPanel>
+      {showPreferences && (
+        <>
+          <Divider />
+          <PreferenceRow>
+            <PreferenceMeta>
+              <PreferenceName>Essential</PreferenceName>
+              <PreferenceDesc>Required for the site to work</PreferenceDesc>
+            </PreferenceMeta>
+            <Toggle $on={true} $disabled={true} aria-label="Essential cookies, always on" aria-pressed={true} />
+          </PreferenceRow>
+          <PreferenceRow>
+            <PreferenceMeta>
+              <PreferenceName>Analytics</PreferenceName>
+              <PreferenceDesc>Anonymous usage data via Google Analytics</PreferenceDesc>
+            </PreferenceMeta>
+            <Toggle
+              $on={analyticsOn}
+              onClick={() => setAnalyticsOn((v) => !v)}
+              aria-label={`Analytics cookies ${analyticsOn ? "on" : "off"}`}
+              aria-pressed={analyticsOn}
+            />
+          </PreferenceRow>
+        </>
+      )}
+
+      <Actions>
+        {showPreferences ? (
+          <PrimaryBtn onClick={() => save("custom", analyticsOn)}>Save preferences</PrimaryBtn>
+        ) : (
+          <>
+            <PrimaryBtn onClick={() => save("accepted", true)}>Accept all</PrimaryBtn>
+            <SecondaryBtn onClick={() => save("rejected", false)}>Reject non-essential</SecondaryBtn>
+          </>
         )}
-
-        <Actions style={{ marginTop: showPreferences ? "1rem" : undefined }}>
-          {showPreferences ? (
-            <AcceptButton onClick={() => save("custom", analyticsOn)}>
-              Save preferences
-            </AcceptButton>
-          ) : (
-            <>
-              <AcceptButton onClick={() => save("accepted", true)}>
-                Accept all
-              </AcceptButton>
-              <RejectButton onClick={() => save("rejected", false)}>
-                Reject non-essential
-              </RejectButton>
-            </>
-          )}
-          <ManageButton onClick={() => setShowPreferences((v) => !v)}>
-            {showPreferences ? "Back" : "Manage preferences"}
-          </ManageButton>
-        </Actions>
-      </Content>
+        <TextBtn onClick={() => setShowPreferences((v) => !v)}>
+          {showPreferences ? "Back" : "Manage preferences"}
+        </TextBtn>
+      </Actions>
     </Card>
   );
 };
