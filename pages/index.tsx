@@ -81,7 +81,7 @@ export default function Home({ page, header, footer, locale }: THomepage) {
       />
       {header && <SiteHeader {...header} />}
       <SectionDots />
-      <main id="main-content">
+      <main id="main-content" style={{ paddingTop: "3.5rem" }}>
         <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
       </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
