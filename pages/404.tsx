@@ -16,7 +16,7 @@ type T404 = {
 };
 
 const Wrapper = styled(Box).attrs({ as: "main" })`
-  padding-top: 3.5rem;
+  padding: calc(3.5rem + 6rem) 0 6rem;
 `;
 
 const Label = styled(Text)`
