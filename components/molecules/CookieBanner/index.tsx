@@ -11,7 +11,7 @@ const Card = styled.div`
   z-index: 9000;
   width: calc(100% - 3rem);
   max-width: 500px;
-  background: ${({ theme }) => theme.colors.surface};
+  background: #ffffff;
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-top: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
