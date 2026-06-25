@@ -60,7 +60,7 @@ const VolunteeringItem = styled.li`
   display: grid;
   grid-template-columns: 1fr;
   gap: ${({ theme }) => theme.space.lg};
-  padding: ${({ theme }) => theme.space["2xl"]} 0;
+  padding: ${({ theme }) => theme.space.xl} 0;
   border-top: 1px solid ${({ theme }) => theme.colors.main};
 
   &:last-child {
