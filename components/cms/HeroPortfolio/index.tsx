@@ -22,8 +22,10 @@ const Section = styled.section`
   position: relative;
   display: flex;
   align-items: center;
+  padding-top: 3.5rem;
   padding-bottom: 2rem;
   @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding-top: 0;
     padding-bottom: 0;
     min-height: 100svh;
   }
@@ -188,27 +190,32 @@ const bounce = keyframes`
 
 const ScrollHint = styled.button<{ $visible: boolean }>`
   display: none;
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   background: none;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.highlight};
+  border-radius: 50%;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  padding: 0.5rem;
-  opacity: ${({ $visible }) => ($visible ? 0.5 : 0)};
+  padding: 0.625rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  opacity: ${({ $visible }) => ($visible ? 0.75 : 0)};
   transition: opacity 0.4s ease;
   pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
   animation: ${bounce} 1.8s ease-in-out infinite;
   color: ${({ theme }) => theme.colors.highlight};
 
-  &:hover { opacity: 0.9; }
+  &:hover { opacity: 1; }
 
   &:focus:not(:focus-visible) { outline: none; }
 
