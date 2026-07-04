@@ -60,6 +60,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   position: relative;
   display: flex;
   align-items: center;
+  padding-top: 3.5rem;
   padding-bottom: 2rem;
 }
 
@@ -193,17 +194,20 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 .c18 {
   display: none;
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   background: none;
-  border: none;
+  border: 1px solid var(--color-highlight);
+  border-radius: 50%;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  padding: 0.5rem;
-  opacity: 0.5;
+  padding: 0.625rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  opacity: 0.75;
   transition: opacity 0.4s ease;
   pointer-events: auto;
   animation: k0 1.8s ease-in-out infinite;
@@ -211,7 +215,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c18:hover {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .c18:focus:not(:focus-visible) {
@@ -290,6 +294,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c0 {
+    padding-top: 0;
     padding-bottom: 0;
     min-height: 100svh;
   }
@@ -331,7 +336,9 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c18 {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -513,6 +520,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   position: relative;
   display: flex;
   align-items: center;
+  padding-top: 3.5rem;
   padding-bottom: 2rem;
 }
 
@@ -624,17 +632,20 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 .c17 {
   display: none;
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   background: none;
-  border: none;
+  border: 1px solid var(--color-highlight);
+  border-radius: 50%;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  padding: 0.5rem;
-  opacity: 0.5;
+  padding: 0.625rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  opacity: 0.75;
   transition: opacity 0.4s ease;
   pointer-events: auto;
   animation: k0 1.8s ease-in-out infinite;
@@ -642,7 +653,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 .c17:hover {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .c17:focus:not(:focus-visible) {
@@ -721,6 +732,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 @media (min-width: 1200px) {
   .c0 {
+    padding-top: 0;
     padding-bottom: 0;
     min-height: 100svh;
   }
@@ -762,7 +774,9 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 @media (min-width: 1200px) {
   .c17 {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
