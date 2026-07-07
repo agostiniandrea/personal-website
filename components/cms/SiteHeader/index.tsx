@@ -26,14 +26,15 @@ const Header = styled.header<{ $scrolled: boolean }>`
   width: 100%;
   z-index: 100;
   padding: 0.75rem 0;
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
   background: ${({ $scrolled, theme }) =>
-    $scrolled ? theme.colors.background : "transparent"};
+    $scrolled ? `${theme.colors.background}e6` : "transparent"};
+  backdrop-filter: ${({ $scrolled }) => ($scrolled ? "blur(12px)" : "none")};
   border-bottom: 1px solid
-    ${({ $scrolled }) =>
-      $scrolled ? "rgba(255, 255, 255, 0.08)" : "transparent"};
+    ${({ $scrolled, theme }) =>
+      $scrolled ? `${theme.colors.main}22` : "transparent"};
   box-shadow: ${({ $scrolled }) =>
-    $scrolled ? "0 4px 24px rgba(0, 0, 0, 0.4)" : "none"};
+    $scrolled ? "0 1px 0 rgba(0,0,0,0.08)" : "none"};
 `;
 
 const Logo = styled(Link)`
