@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import Forest from "../index";
 import { defaultForest, minimalForest } from "../model";
@@ -46,5 +47,22 @@ describe("Forest", () => {
       "href",
       "https://tree-nation.com",
     );
+  });
+
+  it("opens the modal when Plant button is clicked", async () => {
+    const user = userEvent.setup();
+    renderWithTheme(<Forest {...defaultForest} />);
+    const btn = screen.getByRole("button", { name: defaultForest.ctaButtonLabel });
+    await user.click(btn);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("closes the modal when ✕ is clicked", async () => {
+    const user = userEvent.setup();
+    renderWithTheme(<Forest {...defaultForest} />);
+    await user.click(screen.getByRole("button", { name: defaultForest.ctaButtonLabel }));
+    const closeBtn = screen.getByRole("button", { name: "Close" });
+    await user.click(closeBtn);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

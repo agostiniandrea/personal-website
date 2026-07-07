@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
+import { ForestModal } from "./ForestModal";
 
 export interface ForestProps {
   sectionLabel?: string;
@@ -13,7 +14,6 @@ export interface ForestProps {
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
-  ctaEmail?: string;
   seasonName?: string;
   seasonCurrent?: number;
   seasonTarget?: number;
@@ -39,13 +39,6 @@ function useAnimatedCounter(target: number, inView: boolean) {
 
   return count;
 }
-
-const leafFloat = keyframes`
-  0%   { opacity: 1; transform: translateY(0) rotate(0deg) translateX(0); }
-  30%  { transform: translateY(18px) rotate(14deg) translateX(8px); opacity: 1; }
-  70%  { transform: translateY(50px) rotate(28deg) translateX(-4px); opacity: 0.5; }
-  100% { transform: translateY(80px) rotate(44deg) translateX(14px); opacity: 0; }
-`;
 
 const Section = styled.section`
   padding: 5rem 0;
@@ -120,8 +113,6 @@ const CtaCard = styled.div`
   padding: 2.5rem;
   margin-bottom: 2.5rem;
   background: ${({ theme }) => theme.colors.surface};
-  position: relative;
-  overflow: hidden;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     padding: 3rem;
@@ -170,16 +161,6 @@ const PlantButton = styled.button`
     outline: 2px solid ${({ theme }) => theme.colors.headline};
     outline-offset: 3px;
   }
-`;
-
-const LeafBurst = styled.span`
-  position: absolute;
-  top: -0.5rem;
-  left: 50%;
-  font-size: 1.5rem;
-  pointer-events: none;
-  animation: ${leafFloat} 0.9s ease-out forwards;
-  display: inline-block;
 `;
 
 const ProgressSection = styled.div`
@@ -243,14 +224,13 @@ const Forest: React.FC<ForestProps> = ({
   ctaHeading = "Help this portfolio grow.",
   ctaBody = "If you spot something off, find a broken link, or have a sharp suggestion — I want to hear it. The best feedback earns a tree in your name.",
   ctaButtonLabel = "🌱 Plant a leaf",
-  ctaEmail = "a.agostini92@gmail.com",
   seasonName = "Season One",
   seasonCurrent = 5,
   seasonTarget = 25,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-  const [leafVisible, setLeafVisible] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const reviews = useAnimatedCounter(reviewCount, inView);
   const trees = useAnimatedCounter(treeCount, inView);
@@ -269,66 +249,71 @@ const Forest: React.FC<ForestProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  const handlePlant = () => {
-    setLeafVisible(true);
-    setTimeout(() => setLeafVisible(false), 900);
-    setTimeout(() => {
-      window.location.href = `mailto:${ctaEmail}?subject=Portfolio%20feedback&body=Hi%20Andrea%2C%0A%0AHere%27s%20my%20feedback%3A`;
-    }, 700);
-  };
-
   return (
-    <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
-      <Container>
-        <SectionLabel>{sectionLabel}</SectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <Subheading variant="large">{subheading}</Subheading>
+    <>
+      <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
+        <Container>
+          <SectionLabel>{sectionLabel}</SectionLabel>
+          <SectionHeading>{heading}</SectionHeading>
+          <Subheading variant="large">{subheading}</Subheading>
 
-        <StatsGrid>
-          <StatItem>
-            <StatNumber>{reviews}</StatNumber>
-            <StatLabel variant="small">reviews</StatLabel>
-          </StatItem>
-          <StatItem>
-            <StatNumber>{trees}</StatNumber>
-            <StatLabel variant="small">trees dedicated</StatLabel>
-          </StatItem>
-          <StatItem>
-            <StatNumber>{improvements}</StatNumber>
-            <StatLabel variant="small">improvements shipped</StatLabel>
-          </StatItem>
-        </StatsGrid>
+          <StatsGrid>
+            <StatItem>
+              <StatNumber>{reviews}</StatNumber>
+              <StatLabel variant="small">reviews</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>{trees}</StatNumber>
+              <StatLabel variant="small">trees dedicated</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>{improvements}</StatNumber>
+              <StatLabel variant="small">improvements shipped</StatLabel>
+            </StatItem>
+          </StatsGrid>
 
-        <CtaCard>
-          <CtaHeading>{ctaHeading}</CtaHeading>
-          <CtaBody>{ctaBody}</CtaBody>
-          <div style={{ position: "relative", display: "inline-block" }}>
-            <PlantButton onClick={handlePlant} aria-label={ctaButtonLabel}>
+          <CtaCard>
+            <CtaHeading>{ctaHeading}</CtaHeading>
+            <CtaBody>{ctaBody}</CtaBody>
+            <PlantButton
+              onClick={() => setModalOpen(true)}
+              aria-haspopup="dialog"
+            >
               {ctaButtonLabel}
             </PlantButton>
-            {leafVisible && <LeafBurst aria-hidden="true">🍃</LeafBurst>}
-          </div>
-        </CtaCard>
+          </CtaCard>
 
-        <ProgressSection>
-          <ProgressHeader>
-            <ProgressLabel variant="small">{seasonName}</ProgressLabel>
-            <ProgressCount variant="small">{seasonCurrent} / {seasonTarget} trees</ProgressCount>
-          </ProgressHeader>
-          <ProgressTrack>
-            <ProgressFill $pct={pct} $animate={inView} />
-          </ProgressTrack>
-        </ProgressSection>
+          <ProgressSection>
+            <ProgressHeader>
+              <ProgressLabel variant="small">{seasonName}</ProgressLabel>
+              <ProgressCount variant="small">
+                {seasonCurrent} / {seasonTarget} trees
+              </ProgressCount>
+            </ProgressHeader>
+            <ProgressTrack>
+              <ProgressFill $pct={pct} $animate={inView} />
+            </ProgressTrack>
+          </ProgressSection>
 
-        <TreeNationNote variant="small">
-          Trees are dedicated through{" "}
-          <a href="https://tree-nation.com" target="_blank" rel="noopener noreferrer">
-            Tree-Nation
-          </a>
-          . Each tree supports verified biodiversity and reforestation projects.
-        </TreeNationNote>
-      </Container>
-    </Section>
+          <TreeNationNote variant="small">
+            Trees are dedicated through{" "}
+            <a
+              href="https://tree-nation.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tree-Nation
+            </a>
+            . Each tree supports verified biodiversity and reforestation projects.
+          </TreeNationNote>
+        </Container>
+      </Section>
+
+      <ForestModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
+    </>
   );
 };
 

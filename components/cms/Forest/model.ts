@@ -12,7 +12,6 @@ export const defaultForest: ForestProps = {
   ctaBody:
     "If you spot something off, find a broken link, or have a sharp suggestion — I want to hear it. The best feedback earns a tree in your name.",
   ctaButtonLabel: "🌱 Plant a leaf",
-  ctaEmail: "a.agostini92@gmail.com",
   seasonName: "Season One",
   seasonCurrent: 5,
   seasonTarget: 25,

@@ -98,8 +98,6 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 2.5rem;
   margin-bottom: 2.5rem;
   background: var(--color-surface);
-  position: relative;
-  overflow: hidden;
 }
 
 .c13 {
@@ -352,16 +350,12 @@ exports[`Forest renders correctly with all props 1`] = `
         >
           If you spot something off, find a broken link, or have a sharp suggestion — I want to hear it. The best feedback earns a tree in your name.
         </p>
-        <div
-          style="position: relative; display: inline-block;"
+        <button
+          aria-haspopup="dialog"
+          class="c15"
         >
-          <button
-            aria-label="🌱 Plant a leaf"
-            class="c15"
-          >
-            🌱 Plant a leaf
-          </button>
-        </div>
+          🌱 Plant a leaf
+        </button>
       </div>
       <div
         class="c16"
@@ -508,8 +502,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 2.5rem;
   margin-bottom: 2.5rem;
   background: var(--color-surface);
-  position: relative;
-  overflow: hidden;
 }
 
 .c13 {
@@ -762,16 +754,12 @@ exports[`Forest renders correctly with minimal props 1`] = `
         >
           If you spot something off, find a broken link, or have a sharp suggestion — I want to hear it. The best feedback earns a tree in your name.
         </p>
-        <div
-          style="position: relative; display: inline-block;"
+        <button
+          aria-haspopup="dialog"
+          class="c15"
         >
-          <button
-            aria-label="🌱 Plant a leaf"
-            class="c15"
-          >
-            🌱 Plant a leaf
-          </button>
-        </div>
+          🌱 Plant a leaf
+        </button>
       </div>
       <div
         class="c16"
