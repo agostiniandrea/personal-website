@@ -6,11 +6,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding-bottom: 3rem;
 }
 
-.c11 {
-  margin-bottom: 3rem;
-}
-
-.c16 {
+.c15 {
   margin-top: 0.5rem;
 }
 
@@ -61,7 +57,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0.5rem 1rem;
 }
 
-.c17 {
+.c16 {
   border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
   color: var(--color-paragraph);
@@ -109,7 +105,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   gap: 0.5rem;
 }
 
-.c12 {
+.c11 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -117,7 +113,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   flex-direction: column;
 }
 
-.c13 {
+.c12 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -125,40 +121,26 @@ exports[`Sustainability renders correctly with all props 1`] = `
   border-top: 1px solid var(--color-main);
 }
 
-.c13:last-child {
+.c12:last-child {
   border-bottom: 1px solid var(--color-main);
 }
 
-.c14 {
+.c13 {
   font-size: 0.875rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
   color: var(--color-headline);
 }
 
-.c15 {
+.c14 {
   font-size: 0.75rem;
   margin: 0;
 }
 
-.c18 {
+.c17 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0;
-}
-
-.c19 {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--color-main);
-}
-
-.c20 {
-  font-size: 0.875rem;
-  max-width: 480px;
-  line-height: 1.6;
 }
 
 @media (max-width: 1199px) {
@@ -239,7 +221,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c13 {
+  .c12 {
     grid-template-columns: 200px 1fr;
     gap: 2rem;
   }
@@ -313,7 +295,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
         </ul>
       </div>
       <div
-        class="c11"
+        class=""
       >
         <h3
           class="c8"
@@ -322,213 +304,201 @@ exports[`Sustainability renders correctly with all props 1`] = `
         </h3>
         <ol
           aria-label="Where I've shown up"
-          class="c12"
+          class="c11"
         >
           <li
-            class="c13"
+            class="c12"
           >
             <div
               class=""
             >
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 Clean Up Your City
               </p>
               <p
-                class="c2 c15"
+                class="c2 c14"
               >
                 May – Sep 2024
               </p>
               <div
-                class="c16"
+                class="c15"
               >
                 <span
-                  class="c17"
+                  class="c16"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c18"
+              class="c2 c17"
             >
               Monthly clean-up initiatives in Amsterdam city center, working with residents and local entrepreneurs to maintain public spaces.
             </p>
           </li>
           <li
-            class="c13"
+            class="c12"
           >
             <div
               class=""
             >
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 NDSM Cleans Up
               </p>
               <p
-                class="c2 c15"
+                class="c2 c14"
               >
                 Jun – Sep 2024
               </p>
               <div
-                class="c16"
+                class="c15"
               >
                 <span
-                  class="c17"
+                  class="c16"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c18"
+              class="c2 c17"
             >
               Monthly clean-up events at NDSM Wharf, Amsterdam's former industrial shipyard turned cultural hub.
             </p>
           </li>
           <li
-            class="c13"
+            class="c12"
           >
             <div
               class=""
             >
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 About Waste
               </p>
               <p
-                class="c2 c15"
+                class="c2 c14"
               >
                 Jun 2024
               </p>
               <div
-                class="c16"
+                class="c15"
               >
                 <span
-                  class="c17"
+                  class="c16"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c18"
+              class="c2 c17"
             >
               Volunteered at the Silent Disco Party Cleanup at IJ-Hallen, Europe's largest flea market, combining environmental action with community fun.
             </p>
           </li>
           <li
-            class="c13"
+            class="c12"
           >
             <div
               class=""
             >
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 Serve the City Amsterdam
               </p>
               <p
-                class="c2 c15"
+                class="c2 c14"
               >
                 May – Sep 2024
               </p>
               <div
-                class="c16"
+                class="c15"
               >
                 <span
-                  class="c17"
+                  class="c16"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c18"
+              class="c2 c17"
             >
               Community clean-up events at Vondelpark, supporting the park maintenance team in keeping one of Amsterdam's most visited public spaces clean.
             </p>
           </li>
           <li
-            class="c13"
+            class="c12"
           >
             <div
               class=""
             >
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 Stichting Care4Good Foundation
               </p>
               <p
-                class="c2 c15"
+                class="c2 c14"
               >
                 Mar 2024
               </p>
               <div
-                class="c16"
+                class="c15"
               >
                 <span
-                  class="c17"
+                  class="c16"
                 >
                   Social Services
                 </span>
               </div>
             </div>
             <p
-              class="c2 c18"
+              class="c2 c17"
             >
               Helped unload and organize donated furniture for people experiencing homelessness and Ukrainian refugees.
             </p>
           </li>
           <li
-            class="c13"
+            class="c12"
           >
             <div
               class=""
             >
               <p
-                class="c2 c14"
+                class="c2 c13"
               >
                 Municipality of Casalecchio di Reno
               </p>
               <p
-                class="c2 c15"
+                class="c2 c14"
               >
                 Jun – Jul 2009
               </p>
               <div
-                class="c16"
+                class="c15"
               >
                 <span
-                  class="c17"
+                  class="c16"
                 >
                   Education
                 </span>
               </div>
             </div>
             <p
-              class="c2 c18"
+              class="c2 c17"
             >
               Student volunteer at a summer youth program, supporting children's daily activities and ensuring their safety and wellbeing.
             </p>
           </li>
         </ol>
-      </div>
-      <div
-        class="c19"
-      >
-        <p
-          class="c2 c20"
-        >
-          This site is cleaner than most of the web. I care about digital footprint just as much as the physical one.
-        </p>
-        <div
-          data-testid="carbon-badge"
-        />
       </div>
     </section>
   </section>

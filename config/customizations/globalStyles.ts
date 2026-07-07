@@ -41,6 +41,41 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  /* Storybook theme toggle — mirrors prefers-color-scheme via data-theme attribute */
+  :root[data-theme="light"] {
+    --color-background: #f5f5fa;
+    --color-headline: #0a0a0f;
+    --color-paragraph: #5e5e72;
+    --color-button: #0f766e;
+    --color-button-text: #ffffff;
+    --color-stroke: #c8e6e4;
+    --color-main: #c0c0d4;
+    --color-highlight: #0f766e;
+    --color-secondary: #0a0a0f;
+    --color-tertiary: #0f766e;
+    --color-surface: rgba(15, 118, 110, 0.04);
+    --color-badge-bg: rgba(15, 118, 110, 0.07);
+    --color-ring-start: #0f766e;
+    --color-ring-end: #059669;
+  }
+
+  :root[data-theme="dark"] {
+    --color-background: #0a0a0f;
+    --color-headline: #ffffff;
+    --color-paragraph: #a0a0b0;
+    --color-button: #0d9488;
+    --color-button-text: #ffffff;
+    --color-stroke: #0f2a28;
+    --color-main: #a0a0b0;
+    --color-highlight: #2dd4bf;
+    --color-secondary: #ffffff;
+    --color-tertiary: #2dd4bf;
+    --color-surface: rgba(45, 212, 191, 0.04);
+    --color-badge-bg: rgba(45, 212, 191, 0.08);
+    --color-ring-start: #2dd4bf;
+    --color-ring-end: #34d399;
+  }
+
   ${({ theme }) => css`
     html {
       background: ${theme.colors.background};

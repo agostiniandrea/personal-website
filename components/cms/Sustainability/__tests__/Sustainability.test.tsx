@@ -4,13 +4,7 @@ import Sustainability from "../index";
 import {
   defaultSustainability,
   minimalSustainability,
-  noCarbonBadgeSustainability,
 } from "../model";
-
-jest.mock("@components/molecules/CarbonBadge", () => ({
-  __esModule: true,
-  default: () => <div data-testid="carbon-badge" />,
-}));
 
 describe("Sustainability", () => {
   it("renders correctly with all props", () => {
@@ -89,23 +83,6 @@ describe("Sustainability", () => {
     itemsWithCause.forEach(({ cause }) => {
       expect(screen.getAllByText(cause!).length).toBeGreaterThan(0);
     });
-  });
-
-  it("renders the carbon badge when showCarbonBadge is true", () => {
-    renderWithTheme(<Sustainability {...defaultSustainability} />);
-    expect(screen.getByTestId("carbon-badge")).toBeInTheDocument();
-  });
-
-  it("renders the carbon badge label when provided", () => {
-    renderWithTheme(<Sustainability {...defaultSustainability} />);
-    expect(
-      screen.getByText(defaultSustainability.carbonBadgeLabel!),
-    ).toBeInTheDocument();
-  });
-
-  it("does not render the carbon badge when showCarbonBadge is false", () => {
-    renderWithTheme(<Sustainability {...noCarbonBadgeSustainability} />);
-    expect(screen.queryByTestId("carbon-badge")).not.toBeInTheDocument();
   });
 
   it("does not render optional headings when absent", () => {

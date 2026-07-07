@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { Preview } from "@storybook/nextjs";
 import { ThemeProvider } from "styled-components";
+import { useDarkMode } from "storybook-dark-mode";
+import { createGlobalStyle } from "styled-components";
 import GlobalStyle from "../config/customizations/globalStyles";
 import theme from "../config/theme";
-import { createGlobalStyle } from "styled-components";
 
 const StorybookGlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Rainier', sans-serif;
+    background: var(--color-background);
+    transition: background 0.2s ease, color 0.2s ease;
   }
 `;
 
@@ -37,6 +39,21 @@ Object.defineProperty(window, "matchMedia", {
   },
 });
 
+// Syncs the storybook-dark-mode toggle → data-theme on <html>
+// All CSS custom properties in globalStyles.ts react to [data-theme]
+const ThemeSync: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const isDark = useDarkMode();
+
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDark ? "dark" : "light",
+    );
+  }, [isDark]);
+
+  return <>{children}</>;
+};
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -45,13 +62,20 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    darkMode: {
+      dark: { appBg: "#0a0a0f", appContentBg: "#0a0a0f", barBg: "#111118" },
+      light: { appBg: "#f5f5fa", appContentBg: "#f5f5fa", barBg: "#ffffff" },
+      stylePreview: true,
+    },
   },
   decorators: [
     (Story) => (
       <ThemeProvider theme={theme}>
-        <StorybookGlobalStyle />
-        <GlobalStyle />
-        <Story />
+        <ThemeSync>
+          <StorybookGlobalStyle />
+          <GlobalStyle />
+          <Story />
+        </ThemeSync>
       </ThemeProvider>
     ),
   ],
