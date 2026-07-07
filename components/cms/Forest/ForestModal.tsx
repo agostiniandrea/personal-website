@@ -104,9 +104,6 @@ const Card = styled.div`
 `;
 
 const CloseBtn = styled.button`
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -115,6 +112,8 @@ const CloseBtn = styled.button`
   line-height: 1;
   font-size: 1.125rem;
   transition: color 0.15s ease;
+  flex-shrink: 0;
+  align-self: center;
 
   &:hover { color: ${({ theme }) => theme.colors.headline}; }
 
@@ -127,10 +126,17 @@ const CloseBtn = styled.button`
 
 /* ── Step indicator ── */
 
+const ModalHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+`;
+
 const Dots = styled.div`
   display: flex;
   gap: 0.375rem;
-  margin-bottom: 2rem;
+  flex: 1;
 `;
 
 const Dot = styled.span<{ $on: boolean }>`
@@ -483,15 +489,18 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
       aria-label="Share feedback"
     >
       <Card>
-        <CloseBtn onClick={onClose} aria-label="Close">✕</CloseBtn>
-
-        {step < 5 && (
-          <Dots aria-hidden="true">
-            {([1, 2, 3, 4] as const).map((s) => (
-              <Dot key={s} $on={s <= step} />
-            ))}
-          </Dots>
-        )}
+        <ModalHeader>
+          {step < 5 ? (
+            <Dots aria-hidden="true">
+              {([1, 2, 3, 4] as const).map((s) => (
+                <Dot key={s} $on={s <= step} />
+              ))}
+            </Dots>
+          ) : (
+            <div style={{ flex: 1 }} />
+          )}
+          <CloseBtn onClick={onClose} aria-label="Close">✕</CloseBtn>
+        </ModalHeader>
 
         {step === 1 && (
           <StepWrap key="s1">

@@ -26,15 +26,12 @@ const Header = styled.header<{ $scrolled: boolean }>`
   width: 100%;
   z-index: 100;
   padding: 0.75rem 0;
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
   background: ${({ $scrolled, theme }) =>
-    $scrolled ? `${theme.colors.background}e6` : "transparent"};
-  backdrop-filter: ${({ $scrolled }) => ($scrolled ? "blur(12px)" : "none")};
+    $scrolled ? theme.colors.background : "transparent"};
   border-bottom: 1px solid
     ${({ $scrolled, theme }) =>
-      $scrolled ? `${theme.colors.main}22` : "transparent"};
-  box-shadow: ${({ $scrolled }) =>
-    $scrolled ? "0 1px 0 rgba(0,0,0,0.08)" : "none"};
+      $scrolled ? `${theme.colors.main}33` : "transparent"};
 `;
 
 const Logo = styled(Link)`
@@ -152,9 +149,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const nextLocale = router.locale === "en" ? "it" : "en";
 
   const switchLocale = () => {
-    router.push({ pathname: router.pathname, query: router.query }, router.asPath, {
-      locale: nextLocale,
-    });
+    router.push(router.asPath, router.asPath, { locale: nextLocale, scroll: false });
   };
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
