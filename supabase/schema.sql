@@ -12,6 +12,7 @@ create table if not exists public.feedback (
   website              text,
   public_acknowledgment boolean    not null default false,
   status               text        not null default 'new',
+  ip                   text,
   created_at           timestamptz not null default now(),
 
   constraint feedback_category_check check (

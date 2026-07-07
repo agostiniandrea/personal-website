@@ -63,7 +63,7 @@ export const cleanProps = (fields: TPageModule["fields"]) => {
   for (const key of keys) {
     const data = fields[key as keyof typeof fields];
 
-    if (typeof data === "string") {
+    if (typeof data === "string" || typeof data === "number" || typeof data === "boolean") {
       newProps[key] = data;
     }
 

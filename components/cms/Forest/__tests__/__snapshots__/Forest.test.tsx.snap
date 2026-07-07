@@ -14,7 +14,7 @@ exports[`Forest renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c2 {
+.c5 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -22,7 +22,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c5 {
+.c8 {
   color: var(--color-paragraph);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -30,7 +30,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c31 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -38,12 +38,40 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c0 {
-  padding: 5rem 0;
-  position: relative;
+.c2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.625rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+  width: fit-content;
 }
 
 .c3 {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  animation: k0 2.4s ease-in-out infinite;
+}
+
+.c4 {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  font-weight: 700;
+}
+
+.c0 {
+  padding: 3rem 0;
+  position: relative;
+}
+
+.c6 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -51,7 +79,7 @@ exports[`Forest renders correctly with all props 1`] = `
   margin-bottom: 1.25rem;
 }
 
-.c4 {
+.c7 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2rem;
   font-weight: 700;
@@ -61,64 +89,99 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1;
 }
 
-.c6 {
+.c9 {
   max-width: 580px;
   line-height: 1.6;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.c7 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.625rem;
-  margin-bottom: 3.5rem;
-}
-
-.c8 {
+.c10 {
+  margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  border: 1px solid rgba(128, 128, 128, 0.15);
-  border-radius: 0.75rem;
-  padding: 1rem 0.875rem;
-}
-
-.c9 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-headline);
-  line-height: 1;
+  gap: 0.875rem;
 }
 
 .c11 {
-  color: var(--color-paragraph);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
 }
 
 .c12 {
-  border-radius: 1rem;
-  padding: 2rem 2rem;
-  margin-bottom: 2.5rem;
-  background: #0a0a0f;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  white-space: nowrap;
+  min-width: 88px;
+  flex-shrink: 0;
 }
 
 .c13 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 0.625rem;
+  font-size: 0.875rem;
+  color: var(--color-headline);
+  line-height: 1.2;
 }
 
 .c14 {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
-  margin: 0 0 1.75rem;
-  max-width: 480px;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  background: var(--color-highlight)0d;
+  border: 2px solid var(--color-highlight);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .c15 {
+  flex: 1;
+}
+
+.c19 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-highlight)25;
+}
+
+.c20 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+  line-height: 1;
+}
+
+.c21 {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.c16 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 0.625rem;
+}
+
+.c17 {
+  font-size: 1rem;
+  color: var(--color-paragraph);
+  line-height: 1.6;
+  margin: 0 0 1.75rem;
+  max-width: 420px;
+}
+
+.c18 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -134,117 +197,90 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c15:hover {
+.c18:hover {
   background: transparent;
   border-color: var(--color-highlight);
   color: var(--color-highlight);
 }
 
-.c15:focus-visible {
-  outline: 2px solid #ffffff;
+.c18:focus-visible {
+  outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c16 {
-  margin-bottom: 0.75rem;
+.c22 {
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
 }
 
-.c17 {
+.c23 {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.c18 {
+.c24 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-headline);
 }
 
-.c19 {
+.c25 {
+  font-size: 0.875rem;
   color: var(--color-paragraph);
 }
 
-.c20 {
-  height: 4px;
+.c26 {
+  height: 8px;
   border-radius: 999px;
-  background: rgba(128, 128, 128, 0.15);
+  background: var(--color-highlight)1a;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.875rem;
 }
 
-.c21 {
+.c27 {
   height: 100%;
   border-radius: 999px;
-  background: var(--color-highlight);
-  width: 0%;
+  background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
+  width: 2%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 }
 
-.c22 {
-  color: var(--color-paragraph);
+.c28 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.c24 {
+.c29 {
+  font-size: 0.75rem;
   color: var(--color-paragraph);
-  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
 }
 
-.c24 a {
+.c30 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+}
+
+.c32 {
+  color: var(--color-paragraph);
+  margin-bottom: 0;
+}
+
+.c32 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
-.c24 a:hover {
+.c32 a:hover {
   opacity: 0.75;
-}
-
-.c25 {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-paragraph);
-  margin: 0 0 1.25rem;
-  font-weight: 700;
-}
-
-.c26 {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.c27 {
-  display: flex;
-  align-items: baseline;
-  gap: 1.25rem;
-  padding: 0.875rem 0;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
-}
-
-.c27:first-child {
-  border-top: 1px solid rgba(128, 128, 128, 0.1);
-}
-
-.c28 {
-  font-size: 0.75rem;
-  color: var(--color-paragraph);
-  white-space: nowrap;
-  min-width: 88px;
-  flex-shrink: 0;
-}
-
-.c29 {
-  font-size: 0.875rem;
-  color: var(--color-headline);
-  line-height: 1.2;
-}
-
-.c23 {
-  height: 1px;
-  background: rgba(128, 128, 128, 0.1);
-  margin: 2.5rem 0;
 }
 
 @media (min-width: 600px) {
@@ -293,42 +329,59 @@ exports[`Forest renders correctly with all props 1`] = `
   }
 }
 
+@media (max-width: 1199px) {
+  .c0 {
+    padding: 2rem 0;
+  }
+}
+
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
-@media (min-width: 900px) {
-  .c7 {
-    gap: 1.5rem;
-  }
-}
-
-@media (min-width: 900px) {
-  .c8 {
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    gap: 0.375rem;
-  }
-}
-
-@media (min-width: 900px) {
-  .c9 {
-    font-size: 3.25rem;
-  }
-}
-
 @media (min-width: 1200px) {
-  .c12 {
+  .c14 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding: 2.5rem 3rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c13 {
+  .c19 {
+    border-top: none;
+    border-left: 1px solid var(--color-highlight)25;
+    padding-top: 0;
+    padding-left: 3rem;
+    align-items: flex-start;
+    min-width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c20 {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c16 {
     font-size: 2rem;
+  }
+}
+
+@keyframes k0 {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
   }
 }
 
@@ -340,134 +393,170 @@ exports[`Forest renders correctly with all props 1`] = `
     <section
       class="c1"
     >
+      <div
+        class="c2"
+      >
+        <span
+          aria-hidden="true"
+          class="c3"
+        />
+        <span
+          class="c4"
+        >
+          Growing in public
+        </span>
+      </div>
       <p
-        class="c2 c3"
+        class="c5 c6"
       >
         🌳 Forest
       </p>
       <h2
-        class="c4"
+        class="c7"
       >
         This portfolio grows with your feedback.
       </h2>
       <p
-        class="c5 c6"
+        class="c8 c9"
       >
-        Every meaningful suggestion helps shape the next version. As a thank you, I dedicate a real tree.
+        Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.
       </p>
       <div
-        class="c7"
+        class="c10"
       >
         <div
-          class="c8"
+          class="c11"
         >
           <span
-            class="c9"
+            class="c12"
           >
-            0
+            May 2026
           </span>
-          <p
-            class="c10 c11"
+          <span
+            class="c13"
           >
-            reviews
-          </p>
+            🌱  Started planting trees every month — a personal commitment, before any portfolio.
+          </span>
         </div>
         <div
-          class="c8"
+          class="c11"
         >
           <span
-            class="c9"
+            class="c12"
           >
-            0
+            July 2026
           </span>
-          <p
-            class="c10 c11"
+          <span
+            class="c13"
           >
-            trees dedicated
-          </p>
+            🌳  Forest was born. The portfolio invites others to become part of that journey.
+          </span>
         </div>
         <div
-          class="c8"
+          class="c11"
         >
           <span
-            class="c9"
+            class="c12"
           >
-            0
+            Today
           </span>
-          <p
-            class="c10 c11"
+          <span
+            class="c13"
           >
-            improvements shipped
-          </p>
+            →  Every meaningful suggestion earns a dedicated tree from my forest.
+          </span>
         </div>
       </div>
       <div
-        class="c12"
+        class="c14"
       >
-        <h3
-          class="c13"
-        >
-          Help this portfolio grow.
-        </h3>
-        <p
-          class="c14"
-        >
-          If you spot something, leave a leaf.
-        </p>
-        <button
-          aria-haspopup="dialog"
+        <div
           class="c15"
         >
-          🌱 Plant a leaf
-        </button>
+          <h3
+            class="c16"
+          >
+            Help this portfolio grow.
+          </h3>
+          <p
+            class="c17"
+          >
+            Every meaningful suggestion becomes part of Forest. As a thank you, I dedicate one of the trees I plant.
+          </p>
+          <button
+            aria-haspopup="dialog"
+            class="c18"
+          >
+            🌱 Plant a leaf
+          </button>
+        </div>
+        <div
+          class="c19"
+        >
+          <span
+            class="c20"
+          >
+            30
+          </span>
+          <span
+            class="c21"
+          >
+            planted since May 2026
+          </span>
+        </div>
       </div>
       <div
-        class="c16"
+        class="c22"
       >
         <div
-          class="c17"
+          class="c23"
         >
-          <p
-            class="c10 c18"
+          <span
+            class="c24"
           >
             Season One
-          </p>
-          <p
-            class="c10 c19"
+          </span>
+          <span
+            class="c25"
           >
-            5
+            0
              / 
             25
              trees
-          </p>
+          </span>
         </div>
         <div
-          class="c20"
+          class="c26"
         >
           <div
-            class="c21"
+            class="c27"
           />
         </div>
-        <p
-          class="c10 c22"
+        <div
+          class="c28"
         >
-          Current season
-        </p>
+          <span
+            class="c29"
+          >
+            Current season
+          </span>
+          <span
+            class="c30"
+          >
+            0
+            %
+          </span>
+        </div>
       </div>
-      <div
-        class="c23"
-      />
       <p
-        class="c10 c24"
+        class="c31 c32"
       >
-        Verified through
-         
         <a
-          href="https://tree-nation.com"
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Tree-Nation
+          View the living forest
           <svg
             aria-hidden="true"
             fill="none"
@@ -486,89 +575,6 @@ exports[`Forest renders correctly with all props 1`] = `
           </svg>
         </a>
       </p>
-      <div
-        class=""
-      >
-        <p
-          class="c25"
-        >
-          🌱 Latest leaves
-        </p>
-        <ul
-          class="c26"
-        >
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              Today
-            </span>
-            <span
-              class="c29"
-            >
-              Forest section launched
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              Today
-            </span>
-            <span
-              class="c29"
-            >
-              Storybook dark/light theme toggle
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              2 days ago
-            </span>
-            <span
-              class="c29"
-            >
-              Hero image load time optimized
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              3 days ago
-            </span>
-            <span
-              class="c29"
-            >
-              Footer divider visibility fixed
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              1 week ago
-            </span>
-            <span
-              class="c29"
-            >
-              Scroll hint arrow repositioned
-            </span>
-          </li>
-        </ul>
-      </div>
     </section>
   </section>
 </div>
@@ -588,7 +594,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   grid-column: 2/auto;
 }
 
-.c2 {
+.c5 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -596,7 +602,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c5 {
+.c8 {
   color: var(--color-paragraph);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -604,7 +610,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c31 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -612,12 +618,40 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c0 {
-  padding: 5rem 0;
-  position: relative;
+.c2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.625rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+  width: fit-content;
 }
 
 .c3 {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  animation: k0 2.4s ease-in-out infinite;
+}
+
+.c4 {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  font-weight: 700;
+}
+
+.c0 {
+  padding: 3rem 0;
+  position: relative;
+}
+
+.c6 {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -625,7 +659,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   margin-bottom: 1.25rem;
 }
 
-.c4 {
+.c7 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 2rem;
   font-weight: 700;
@@ -635,64 +669,99 @@ exports[`Forest renders correctly with minimal props 1`] = `
   line-height: 1;
 }
 
-.c6 {
+.c9 {
   max-width: 580px;
   line-height: 1.6;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.c7 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.625rem;
-  margin-bottom: 3.5rem;
-}
-
-.c8 {
+.c10 {
+  margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  border: 1px solid rgba(128, 128, 128, 0.15);
-  border-radius: 0.75rem;
-  padding: 1rem 0.875rem;
-}
-
-.c9 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-headline);
-  line-height: 1;
+  gap: 0.875rem;
 }
 
 .c11 {
-  color: var(--color-paragraph);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
 }
 
 .c12 {
-  border-radius: 1rem;
-  padding: 2rem 2rem;
-  margin-bottom: 2.5rem;
-  background: #0a0a0f;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  white-space: nowrap;
+  min-width: 88px;
+  flex-shrink: 0;
 }
 
 .c13 {
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 0.625rem;
+  font-size: 0.875rem;
+  color: var(--color-headline);
+  line-height: 1.2;
 }
 
 .c14 {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
-  margin: 0 0 1.75rem;
-  max-width: 480px;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  background: var(--color-highlight)0d;
+  border: 2px solid var(--color-highlight);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .c15 {
+  flex: 1;
+}
+
+.c19 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-highlight)25;
+}
+
+.c20 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+  line-height: 1;
+}
+
+.c21 {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.c16 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 0.625rem;
+}
+
+.c17 {
+  font-size: 1rem;
+  color: var(--color-paragraph);
+  line-height: 1.6;
+  margin: 0 0 1.75rem;
+  max-width: 420px;
+}
+
+.c18 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -708,117 +777,90 @@ exports[`Forest renders correctly with minimal props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c15:hover {
+.c18:hover {
   background: transparent;
   border-color: var(--color-highlight);
   color: var(--color-highlight);
 }
 
-.c15:focus-visible {
-  outline: 2px solid #ffffff;
+.c18:focus-visible {
+  outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c16 {
-  margin-bottom: 0.75rem;
+.c22 {
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
 }
 
-.c17 {
+.c23 {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.c18 {
+.c24 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-headline);
 }
 
-.c19 {
+.c25 {
+  font-size: 0.875rem;
   color: var(--color-paragraph);
 }
 
-.c20 {
-  height: 4px;
+.c26 {
+  height: 8px;
   border-radius: 999px;
-  background: rgba(128, 128, 128, 0.15);
+  background: var(--color-highlight)1a;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.875rem;
 }
 
-.c21 {
+.c27 {
   height: 100%;
   border-radius: 999px;
-  background: var(--color-highlight);
-  width: 0%;
+  background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
+  width: 2%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 }
 
-.c22 {
-  color: var(--color-paragraph);
+.c28 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.c24 {
+.c29 {
+  font-size: 0.75rem;
   color: var(--color-paragraph);
-  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
 }
 
-.c24 a {
+.c30 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+}
+
+.c32 {
+  color: var(--color-paragraph);
+  margin-bottom: 0;
+}
+
+.c32 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
-.c24 a:hover {
+.c32 a:hover {
   opacity: 0.75;
-}
-
-.c25 {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-paragraph);
-  margin: 0 0 1.25rem;
-  font-weight: 700;
-}
-
-.c26 {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.c27 {
-  display: flex;
-  align-items: baseline;
-  gap: 1.25rem;
-  padding: 0.875rem 0;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
-}
-
-.c27:first-child {
-  border-top: 1px solid rgba(128, 128, 128, 0.1);
-}
-
-.c28 {
-  font-size: 0.75rem;
-  color: var(--color-paragraph);
-  white-space: nowrap;
-  min-width: 88px;
-  flex-shrink: 0;
-}
-
-.c29 {
-  font-size: 0.875rem;
-  color: var(--color-headline);
-  line-height: 1.2;
-}
-
-.c23 {
-  height: 1px;
-  background: rgba(128, 128, 128, 0.1);
-  margin: 2.5rem 0;
 }
 
 @media (min-width: 600px) {
@@ -867,42 +909,59 @@ exports[`Forest renders correctly with minimal props 1`] = `
   }
 }
 
+@media (max-width: 1199px) {
+  .c0 {
+    padding: 2rem 0;
+  }
+}
+
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
-@media (min-width: 900px) {
-  .c7 {
-    gap: 1.5rem;
-  }
-}
-
-@media (min-width: 900px) {
-  .c8 {
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    gap: 0.375rem;
-  }
-}
-
-@media (min-width: 900px) {
-  .c9 {
-    font-size: 3.25rem;
-  }
-}
-
 @media (min-width: 1200px) {
-  .c12 {
+  .c14 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding: 2.5rem 3rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c13 {
+  .c19 {
+    border-top: none;
+    border-left: 1px solid var(--color-highlight)25;
+    padding-top: 0;
+    padding-left: 3rem;
+    align-items: flex-start;
+    min-width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c20 {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c16 {
     font-size: 2rem;
+  }
+}
+
+@keyframes k0 {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
   }
 }
 
@@ -914,134 +973,170 @@ exports[`Forest renders correctly with minimal props 1`] = `
     <section
       class="c1"
     >
+      <div
+        class="c2"
+      >
+        <span
+          aria-hidden="true"
+          class="c3"
+        />
+        <span
+          class="c4"
+        >
+          Growing in public
+        </span>
+      </div>
       <p
-        class="c2 c3"
+        class="c5 c6"
       >
         🌳 Forest
       </p>
       <h2
-        class="c4"
+        class="c7"
       >
         This portfolio grows with your feedback.
       </h2>
       <p
-        class="c5 c6"
+        class="c8 c9"
       >
-        Every meaningful suggestion helps shape the next version. As a thank you, I dedicate a real tree.
+        Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.
       </p>
       <div
-        class="c7"
+        class="c10"
       >
         <div
-          class="c8"
+          class="c11"
         >
           <span
-            class="c9"
+            class="c12"
           >
-            0
+            May 2026
           </span>
-          <p
-            class="c10 c11"
+          <span
+            class="c13"
           >
-            reviews
-          </p>
+            🌱  Started planting trees every month — a personal commitment, before any portfolio.
+          </span>
         </div>
         <div
-          class="c8"
+          class="c11"
         >
           <span
-            class="c9"
+            class="c12"
           >
-            0
+            July 2026
           </span>
-          <p
-            class="c10 c11"
+          <span
+            class="c13"
           >
-            trees dedicated
-          </p>
+            🌳  Forest was born. The portfolio invites others to become part of that journey.
+          </span>
         </div>
         <div
-          class="c8"
+          class="c11"
         >
           <span
-            class="c9"
+            class="c12"
           >
-            0
+            Today
           </span>
-          <p
-            class="c10 c11"
+          <span
+            class="c13"
           >
-            improvements shipped
-          </p>
+            →  Every meaningful suggestion earns a dedicated tree from my forest.
+          </span>
         </div>
       </div>
       <div
-        class="c12"
+        class="c14"
       >
-        <h3
-          class="c13"
-        >
-          Help this portfolio grow.
-        </h3>
-        <p
-          class="c14"
-        >
-          If you spot something, leave a leaf.
-        </p>
-        <button
-          aria-haspopup="dialog"
+        <div
           class="c15"
         >
-          🌱 Plant a leaf
-        </button>
+          <h3
+            class="c16"
+          >
+            Help this portfolio grow.
+          </h3>
+          <p
+            class="c17"
+          >
+            Every meaningful suggestion becomes part of Forest. As a thank you, I dedicate one of the trees I plant.
+          </p>
+          <button
+            aria-haspopup="dialog"
+            class="c18"
+          >
+            🌱 Plant a leaf
+          </button>
+        </div>
+        <div
+          class="c19"
+        >
+          <span
+            class="c20"
+          >
+            30
+          </span>
+          <span
+            class="c21"
+          >
+            planted since May 2026
+          </span>
+        </div>
       </div>
       <div
-        class="c16"
+        class="c22"
       >
         <div
-          class="c17"
+          class="c23"
         >
-          <p
-            class="c10 c18"
+          <span
+            class="c24"
           >
             Season One
-          </p>
-          <p
-            class="c10 c19"
+          </span>
+          <span
+            class="c25"
           >
-            5
+            0
              / 
             25
              trees
-          </p>
+          </span>
         </div>
         <div
-          class="c20"
+          class="c26"
         >
           <div
-            class="c21"
+            class="c27"
           />
         </div>
-        <p
-          class="c10 c22"
+        <div
+          class="c28"
         >
-          Current season
-        </p>
+          <span
+            class="c29"
+          >
+            Current season
+          </span>
+          <span
+            class="c30"
+          >
+            0
+            %
+          </span>
+        </div>
       </div>
-      <div
-        class="c23"
-      />
       <p
-        class="c10 c24"
+        class="c31 c32"
       >
-        Verified through
-         
         <a
-          href="https://tree-nation.com"
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Tree-Nation
+          View the living forest
           <svg
             aria-hidden="true"
             fill="none"
@@ -1060,89 +1155,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
           </svg>
         </a>
       </p>
-      <div
-        class=""
-      >
-        <p
-          class="c25"
-        >
-          🌱 Latest leaves
-        </p>
-        <ul
-          class="c26"
-        >
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              Today
-            </span>
-            <span
-              class="c29"
-            >
-              Forest section launched
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              Today
-            </span>
-            <span
-              class="c29"
-            >
-              Storybook dark/light theme toggle
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              2 days ago
-            </span>
-            <span
-              class="c29"
-            >
-              Hero image load time optimized
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              3 days ago
-            </span>
-            <span
-              class="c29"
-            >
-              Footer divider visibility fixed
-            </span>
-          </li>
-          <li
-            class="c27"
-          >
-            <span
-              class="c28"
-            >
-              1 week ago
-            </span>
-            <span
-              class="c29"
-            >
-              Scroll hint arrow repositioned
-            </span>
-          </li>
-        </ul>
-      </div>
     </section>
   </section>
 </div>

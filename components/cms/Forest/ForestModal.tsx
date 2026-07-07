@@ -23,6 +23,7 @@ interface FeedbackData {
   github: string;
   website: string;
   publicAcknowledgment: boolean;
+  _hp: string; // honeypot — must stay empty
 }
 
 export interface ForestModalProps {
@@ -49,6 +50,7 @@ const EMPTY: FeedbackData = {
   github: "",
   website: "",
   publicAcknowledgment: false,
+  _hp: "",
 };
 
 /* ── Animations ── */
@@ -596,6 +598,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                 aria-label="Website URL"
               />
             </InputList>
+            {/* Honeypot — hidden from real users, bots fill it */}
+            <input
+              type="text"
+              name="_hp"
+              value={data._hp}
+              onChange={(e) => setData((d) => ({ ...d, _hp: e.target.value }))}
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+            />
             <CheckboxRow>
               <input
                 type="checkbox"

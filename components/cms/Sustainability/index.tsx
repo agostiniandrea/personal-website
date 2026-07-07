@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Box, Container, Heading, Text } from "@components/ions";
-import { Badge, CarbonBadge } from "@components/molecules";
+import { Badge } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import type { SustainabilityProps } from "./model";
 
@@ -91,19 +91,6 @@ const Description = styled(Text)`
   margin: 0;
 `;
 
-const CarbonBadgeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.space.lg};
-  padding-top: ${({ theme }) => theme.space["2xl"]};
-  border-top: 1px solid ${({ theme }) => theme.colors.main};
-`;
-
-const CarbonBadgeLabel = styled(Text)`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  max-width: 480px;
-  line-height: ${({ theme }) => theme.lineHeights.relaxed};
-`;
 
 const Sustainability: React.FC<SustainabilityProps> = ({
   sectionLabel,
@@ -113,8 +100,6 @@ const Sustainability: React.FC<SustainabilityProps> = ({
   values,
   volunteeringHeading,
   volunteeringItems,
-  showCarbonBadge,
-  carbonBadgeLabel,
 }) => (
   <Box as="section" id="sustainability" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
     <Container>
@@ -134,7 +119,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
       )}
 
       {volunteeringItems.length > 0 && (
-        <Box {...showCarbonBadge && { mb: "3xl" }}>
+        <Box>
           {volunteeringHeading && (
             <SubHeading>{volunteeringHeading}</SubHeading>
           )}
@@ -155,15 +140,6 @@ const Sustainability: React.FC<SustainabilityProps> = ({
             ))}
           </VolunteeringList>
         </Box>
-      )}
-
-      {showCarbonBadge && (
-        <CarbonBadgeWrapper>
-          {carbonBadgeLabel && (
-            <CarbonBadgeLabel>{carbonBadgeLabel}</CarbonBadgeLabel>
-          )}
-          <CarbonBadge />
-        </CarbonBadgeWrapper>
       )}
     </Container>
   </Box>

@@ -1,26 +1,28 @@
-import { ForestProps } from "./index";
+import { ForestProps, OriginItem } from "./index";
+
+export const defaultOriginItems: OriginItem[] = [
+  { date: "May 2026",  text: "🌱  Started planting trees every month — a personal commitment, before any portfolio." },
+  { date: "July 2026", text: "🌳  Forest was born. The portfolio invites others to become part of that journey." },
+  { date: "Today",     text: "→  Every meaningful suggestion earns a dedicated tree from my forest." },
+];
 
 export const defaultForest: ForestProps = {
+  originItems: defaultOriginItems,
+  badge: "Growing in public",
   sectionLabel: "🌳 Forest",
   heading: "This portfolio grows with your feedback.",
   subheading:
-    "Every meaningful suggestion helps shape the next version. As a thank you, I dedicate a real tree.",
-  reviewCount: 47,
-  treeCount: 47,
-  improvementsCount: 12,
+    "Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.",
+  reviewCount: 0,
+  treeCount: 30,
+  improvementsCount: 0,
   ctaHeading: "Help this portfolio grow.",
-  ctaBody: "If you spot something, leave a leaf.",
+  ctaBody: "Every meaningful suggestion becomes part of Forest. As a thank you, I dedicate one of the trees I plant.",
   ctaButtonLabel: "🌱 Plant a leaf",
   seasonName: "Season One",
-  seasonCurrent: 5,
+  seasonCurrent: 0,
   seasonTarget: 25,
-  changelogItems: [
-    { date: "2026-07-07", description: "Forest section launched" },
-    { date: "2026-07-07", description: "Storybook dark/light theme toggle" },
-    { date: "2026-07-05", description: "Hero image load time optimized" },
-    { date: "2026-07-04", description: "Footer divider visibility fixed" },
-    { date: "2026-06-30", description: "Scroll hint arrow repositioned" },
-  ],
+  changelogItems: [],
 };
 
 export const minimalForest: ForestProps = {};
