@@ -415,7 +415,17 @@ const Forest: React.FC<ForestProps> = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              Tree-Nation ↗
+              Tree-Nation
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 11 11"
+                fill="none"
+                aria-hidden="true"
+                style={{ display: "inline-block", marginLeft: "0.25rem", verticalAlign: "middle", position: "relative", top: "-1px" }}
+              >
+                <path d="M2 9L9 2M9 2H4M9 2V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </a>
           </TreeNationNote>
 

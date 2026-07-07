@@ -467,7 +467,23 @@ exports[`Forest renders correctly with all props 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Tree-Nation ↗
+          Tree-Nation
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="11"
+            style="display: inline-block; margin-left: 0.25rem; vertical-align: middle; position: relative; top: -1px;"
+            viewBox="0 0 11 11"
+            width="11"
+          >
+            <path
+              d="M2 9L9 2M9 2H4M9 2V7"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
         </a>
       </p>
       <div
@@ -1025,7 +1041,23 @@ exports[`Forest renders correctly with minimal props 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Tree-Nation ↗
+          Tree-Nation
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="11"
+            style="display: inline-block; margin-left: 0.25rem; vertical-align: middle; position: relative; top: -1px;"
+            viewBox="0 0 11 11"
+            width="11"
+          >
+            <path
+              d="M2 9L9 2M9 2H4M9 2V7"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
         </a>
       </p>
       <div
