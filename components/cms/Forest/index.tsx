@@ -97,12 +97,11 @@ const Subheading = styled(Text)`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.625rem;
   margin-bottom: 3.5rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
 `;
@@ -110,26 +109,27 @@ const StatsGrid = styled.div`
 const StatItem = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.375rem;
+  gap: 0.25rem;
   border: 1px solid rgba(128, 128, 128, 0.15);
-  border-radius: 0.875rem;
-  padding: 1.25rem 1.5rem;
+  border-radius: 0.75rem;
+  padding: 1rem 0.875rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border: none;
     border-radius: 0;
     padding: 0;
+    gap: 0.375rem;
   }
 `;
 
 const StatNumber = styled.span`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2.75rem;
+  font-size: 2rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
   line-height: 1;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: 3.25rem;
   }
 `;
