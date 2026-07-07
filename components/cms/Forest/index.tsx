@@ -264,7 +264,7 @@ const TimelineHeading = styled.p`
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.paragraph};
-  margin: 0 0 0;
+  margin: 0 0 1.25rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
