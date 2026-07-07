@@ -10,7 +10,6 @@ const StorybookGlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Rainier', sans-serif;
     background: var(--color-background);
     transition: background 0.2s ease, color 0.2s ease;
   }
