@@ -27,6 +27,9 @@ export interface ForestProps {
   ctaBody?: string;
   ctaButtonLabel?: string;
   seasonName?: string;
+  seasonCurrentLabel?: string;
+  treeCountLabel?: string;
+  viewForestLabel?: string;
   seasonCurrent?: number;
   seasonTarget?: number;
   changelogItems?: ChangelogItem[];
@@ -482,6 +485,9 @@ const Forest: React.FC<ForestProps> = ({
   ctaBody = "Every meaningful suggestion becomes part of Forest. As a thank you, I dedicate one of the trees I plant.",
   ctaButtonLabel = "🌱 Plant a leaf",
   seasonName = "Season One",
+  seasonCurrentLabel = "Current season",
+  treeCountLabel = "planted since May 2026",
+  viewForestLabel = "View the living forest",
   seasonCurrent = 0,
   seasonTarget = 25,
   changelogItems = [],
@@ -562,7 +568,7 @@ const Forest: React.FC<ForestProps> = ({
             </CtaContent>
             <CtaDecor>
               <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-              <CtaDecorLabel>planted since May 2026</CtaDecorLabel>
+              <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
             </CtaDecor>
           </CtaCard>
 
@@ -575,7 +581,7 @@ const Forest: React.FC<ForestProps> = ({
               <ProgressFill $pct={pct} $animate={inView} />
             </ProgressTrack>
             <SeasonMeta>
-              <SeasonSublabel>Current season</SeasonSublabel>
+              <SeasonSublabel>{seasonCurrentLabel}</SeasonSublabel>
               <SeasonPct>{Math.round(pct)}%</SeasonPct>
             </SeasonMeta>
           </SeasonCard>
@@ -586,7 +592,7 @@ const Forest: React.FC<ForestProps> = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              View the living forest
+              {viewForestLabel}
               <svg
                 width="11"
                 height="11"
