@@ -481,7 +481,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <p
             class="c17"
           >
-            Every meaningful suggestion earns a new tree. My goal: 25 trees planted through feedback this season.
+            Every meaningful suggestion plants a real tree. Your feedback grows the forest.
           </p>
           <button
             aria-haspopup="dialog"
@@ -1061,7 +1061,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <p
             class="c17"
           >
-            Every meaningful suggestion earns a new tree. My goal: 25 trees planted through feedback this season.
+            Every meaningful suggestion plants a real tree. Your feedback grows the forest.
           </p>
           <button
             aria-haspopup="dialog"

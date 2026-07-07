@@ -17,7 +17,7 @@ export const defaultForest: ForestProps = {
   treeCount: 30,
   improvementsCount: 0,
   ctaHeading: "Help this portfolio grow.",
-  ctaBody: "Every meaningful suggestion earns a new tree. My goal: 25 trees planted through feedback this season.",
+  ctaBody: "Every meaningful suggestion plants a real tree. Your feedback grows the forest.",
   ctaButtonLabel: "🌱 Plant a leaf",
   seasonName: "Season One",
   seasonCurrentLabel: "Current season",
