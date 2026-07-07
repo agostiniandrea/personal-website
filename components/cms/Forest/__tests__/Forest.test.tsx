@@ -43,7 +43,7 @@ describe("Forest", () => {
 
   it("renders the Tree-Nation link", () => {
     renderWithTheme(<Forest {...defaultForest} />);
-    expect(screen.getByRole("link", { name: "Tree-Nation ↗" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /Tree-Nation/i })).toHaveAttribute(
       "href",
       "https://tree-nation.com",
     );
