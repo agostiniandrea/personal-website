@@ -29,7 +29,7 @@ const CtaArea = styled.div`
   text-align: center;
   margin-bottom: ${toSpacing("2xl")};
   padding-bottom: ${toSpacing("2xl")};
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
 `;
 
 const CtaHeading = styled.h2`
