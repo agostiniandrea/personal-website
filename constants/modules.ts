@@ -7,6 +7,7 @@ const MODULES = {
   BEYOND_CODE: "beyondCode",
   CONTACT: "contact",
   EXPERIENCE: "experience",
+  FOREST: "forest",
   HERO_PORTFOLIO: "heroPortfolio",
   JOURNEY: "journey",
   PROJECTS: "projects",
