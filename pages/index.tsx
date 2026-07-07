@@ -42,7 +42,7 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
       footer,
       locale,
     },
-    revalidate: 3600,
+    revalidate: 86400,
   };
 }
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import NextHead from "next/head";
 import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -201,15 +202,12 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
     justify-content: center;
   }
   background: none;
-  border: 1px solid ${({ theme }) => theme.colors.highlight};
-  border-radius: 50%;
+  border: none;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  padding: 0.625rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  opacity: ${({ $visible }) => ($visible ? 0.75 : 0)};
+  padding: 0.5rem;
+  opacity: ${({ $visible }) => ($visible ? 0.6 : 0)};
   transition: opacity 0.4s ease;
   pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
   animation: ${bounce} 1.8s ease-in-out infinite;
@@ -258,7 +256,19 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  const preloadSrc = contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" });
+
   return (
+    <>
+      <NextHead>
+        <link
+          rel="preload"
+          as="image"
+          href={preloadSrc}
+          imageSrcSet={`${preloadSrc} 800w`}
+          imageSizes="(max-width: 1200px) 240px, 380px"
+        />
+      </NextHead>
     <Section id="hero">
       <Container>
         <HeroGrid>
@@ -312,6 +322,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
         </svg>
       </ScrollHint>
     </Section>
+    </>
   );
 };
 
