@@ -521,7 +521,7 @@ const Forest: React.FC<ForestProps> = ({
           {badge && (
             <BadgeWrap>
               <BadgeDot aria-hidden="true" />
-              <BadgeLabel>{badge}</BadgeLabel>
+              <BadgeLabel>Growing in public</BadgeLabel>
             </BadgeWrap>
           )}
 
