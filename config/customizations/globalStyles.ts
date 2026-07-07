@@ -114,6 +114,11 @@ const GlobalStyle = createGlobalStyle`
       border: 0;
     }
 
+    main {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
     section[id] {
       scroll-margin-top: 5rem;
     }
