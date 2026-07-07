@@ -497,7 +497,6 @@ const Forest: React.FC<ForestProps> = ({
   const [modalOpen, setModalOpen] = useState(false);
 
   const reviews = useAnimatedCounter(reviewCount, inView);
-  const trees = useAnimatedCounter(treeCount, inView);
   const improvements = useAnimatedCounter(improvementsCount, inView);
 
   const pct = Math.min(seasonTarget > 0 ? (seasonCurrent / seasonTarget) * 100 : 0, 100);
