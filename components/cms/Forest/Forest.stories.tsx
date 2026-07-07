@@ -36,6 +36,16 @@ export const EarlySeason: Story = {
     treeCount: 1,
     reviewCount: 3,
     improvementsCount: 1,
+    changelogItems: [
+      { date: "2026-07-07", description: "Forest section launched" },
+    ],
+  },
+};
+
+export const NoChangelog: Story = {
+  args: {
+    ...defaultForest,
+    changelogItems: [],
   },
 };
 

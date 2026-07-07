@@ -4,6 +4,11 @@ import { Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { ForestModal } from "./ForestModal";
 
+export interface ChangelogItem {
+  date: string;
+  description: string;
+}
+
 export interface ForestProps {
   sectionLabel?: string;
   heading?: string;
@@ -17,6 +22,7 @@ export interface ForestProps {
   seasonName?: string;
   seasonCurrent?: number;
   seasonTarget?: number;
+  changelogItems?: ChangelogItem[];
 }
 
 function useAnimatedCounter(target: number, inView: boolean) {
@@ -39,6 +45,20 @@ function useAnimatedCounter(target: number, inView: boolean) {
 
   return count;
 }
+
+function relativeTime(dateStr: string): string {
+  const days = Math.floor(
+    (Date.now() - new Date(dateStr).getTime()) / 86_400_000
+  );
+  if (days === 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 7) return `${days} days ago`;
+  if (days < 14) return "1 week ago";
+  if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
+  return `${Math.floor(days / 30)} months ago`;
+}
+
+/* ── Layout ── */
 
 const Section = styled.section`
   padding: 5rem 0;
@@ -73,10 +93,12 @@ const Subheading = styled(Text)`
   margin-bottom: 3.5rem;
 `;
 
+/* ── Stats ── */
+
 const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 0.75rem;
   margin-bottom: 3.5rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -89,6 +111,15 @@ const StatItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 0.875rem;
+  padding: 1.25rem 1.5rem;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
 `;
 
 const StatNumber = styled.span`
@@ -107,15 +138,16 @@ const StatLabel = styled(Text)`
   color: ${({ theme }) => theme.colors.paragraph};
 `;
 
+/* ── CTA card — forced dark ── */
+
 const CtaCard = styled.div`
-  border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
-  padding: 2.5rem;
+  padding: 2rem 2rem;
   margin-bottom: 2.5rem;
-  background: ${({ theme }) => theme.colors.surface};
+  background: #0a0a0f;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    padding: 3rem;
+    padding: 2.5rem 3rem;
   }
 `;
 
@@ -123,17 +155,20 @@ const CtaHeading = styled.h3`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  margin: 0 0 0.75rem;
+  color: #ffffff;
+  margin: 0 0 0.625rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   }
 `;
 
-const CtaBody = styled(Text)`
-  margin-bottom: 1.75rem;
-  max-width: 520px;
+const CtaBody = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  color: rgba(255, 255, 255, 0.6);
+  line-height: ${({ theme }) => theme.lineHeights.relaxed};
+  margin: 0 0 1.75rem;
+  max-width: 480px;
 `;
 
 const PlantButton = styled.button`
@@ -142,7 +177,7 @@ const PlantButton = styled.button`
   gap: 0.5rem;
   padding: 0.875rem 2rem;
   background: ${({ theme }) => theme.colors.button};
-  color: ${({ theme }) => theme.colors.button_text};
+  color: #ffffff;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -158,13 +193,15 @@ const PlantButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.headline};
+    outline: 2px solid #ffffff;
     outline-offset: 3px;
   }
 `;
 
+/* ── Progress ── */
+
 const ProgressSection = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
 `;
 
 const ProgressHeader = styled.div`
@@ -188,6 +225,7 @@ const ProgressTrack = styled.div`
   border-radius: 999px;
   background: rgba(128, 128, 128, 0.15);
   overflow: hidden;
+  margin-bottom: 0.5rem;
 `;
 
 const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
@@ -198,21 +236,87 @@ const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 `;
 
+const ProgressSublabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.paragraph};
+`;
+
+/* ── Tree-Nation note ── */
+
 const TreeNationNote = styled(Text)`
   color: ${({ theme }) => theme.colors.paragraph};
+  margin-bottom: 3rem;
 
   a {
     color: ${({ theme }) => theme.colors.highlight};
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 3px;
-    transition: text-decoration-color 0.2s ease;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
 
-    &:hover {
-      text-decoration-color: ${({ theme }) => theme.colors.highlight};
-    }
+    &:hover { opacity: 0.75; }
   }
 `;
+
+/* ── Timeline ── */
+
+const TimelineSection = styled.div``;
+
+const TimelineHeading = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.paragraph};
+  margin: 0 0 0;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+`;
+
+const TimelineList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
+
+const TimelineItem = styled.li`
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+
+  &:first-child {
+    border-top: 1px solid rgba(128, 128, 128, 0.1);
+  }
+`;
+
+const TimelineDate = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.paragraph};
+  white-space: nowrap;
+  min-width: 88px;
+  flex-shrink: 0;
+`;
+
+const TimelineText = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.headline};
+  line-height: ${({ theme }) => theme.lineHeights.normal};
+`;
+
+/* ── Divider between progress and timeline ── */
+
+const Divider = styled.div`
+  height: 1px;
+  background: rgba(128, 128, 128, 0.1);
+  margin: 2.5rem 0;
+`;
+
+/* ── Component ── */
+
+const DEFAULT_CHANGELOG: ChangelogItem[] = [
+  { date: "2026-07-07", description: "Forest section launched" },
+  { date: "2026-07-07", description: "Storybook dark/light theme toggle" },
+  { date: "2026-07-05", description: "Hero image load time optimized" },
+  { date: "2026-07-04", description: "Footer divider visibility fixed" },
+  { date: "2026-06-30", description: "Scroll hint arrow repositioned" },
+];
 
 const Forest: React.FC<ForestProps> = ({
   sectionLabel = "🌳 Forest",
@@ -222,11 +326,12 @@ const Forest: React.FC<ForestProps> = ({
   treeCount = 47,
   improvementsCount = 12,
   ctaHeading = "Help this portfolio grow.",
-  ctaBody = "If you spot something off, find a broken link, or have a sharp suggestion — I want to hear it. The best feedback earns a tree in your name.",
+  ctaBody = "If you spot something, leave a leaf.",
   ctaButtonLabel = "🌱 Plant a leaf",
   seasonName = "Season One",
   seasonCurrent = 5,
   seasonTarget = 25,
+  changelogItems = DEFAULT_CHANGELOG,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
@@ -253,10 +358,12 @@ const Forest: React.FC<ForestProps> = ({
     <>
       <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
         <Container>
+
           <SectionLabel>{sectionLabel}</SectionLabel>
           <SectionHeading>{heading}</SectionHeading>
           <Subheading variant="large">{subheading}</Subheading>
 
+          {/* Stats */}
           <StatsGrid>
             <StatItem>
               <StatNumber>{reviews}</StatNumber>
@@ -272,6 +379,7 @@ const Forest: React.FC<ForestProps> = ({
             </StatItem>
           </StatsGrid>
 
+          {/* CTA card */}
           <CtaCard>
             <CtaHeading>{ctaHeading}</CtaHeading>
             <CtaBody>{ctaBody}</CtaBody>
@@ -283,6 +391,7 @@ const Forest: React.FC<ForestProps> = ({
             </PlantButton>
           </CtaCard>
 
+          {/* Season progress */}
           <ProgressSection>
             <ProgressHeader>
               <ProgressLabel variant="small">{seasonName}</ProgressLabel>
@@ -293,19 +402,38 @@ const Forest: React.FC<ForestProps> = ({
             <ProgressTrack>
               <ProgressFill $pct={pct} $animate={inView} />
             </ProgressTrack>
+            <ProgressSublabel variant="small">Current season</ProgressSublabel>
           </ProgressSection>
 
+          <Divider />
+
+          {/* Tree-Nation */}
           <TreeNationNote variant="small">
-            Trees are dedicated through{" "}
+            Verified through{" "}
             <a
               href="https://tree-nation.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Tree-Nation
+              Tree-Nation ↗
             </a>
-            . Each tree supports verified biodiversity and reforestation projects.
           </TreeNationNote>
+
+          {/* Timeline */}
+          {changelogItems.length > 0 && (
+            <TimelineSection>
+              <TimelineHeading>🌱 Latest leaves</TimelineHeading>
+              <TimelineList>
+                {changelogItems.map((item, i) => (
+                  <TimelineItem key={i}>
+                    <TimelineDate>{relativeTime(item.date)}</TimelineDate>
+                    <TimelineText>{item.description}</TimelineText>
+                  </TimelineItem>
+                ))}
+              </TimelineList>
+            </TimelineSection>
+          )}
+
         </Container>
       </Section>
 
