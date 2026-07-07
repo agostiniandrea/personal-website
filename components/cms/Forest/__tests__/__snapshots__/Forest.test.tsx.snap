@@ -1,0 +1,1161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Forest renders correctly with all props 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c5 {
+  color: var(--color-paragraph);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c8 {
+  color: var(--color-paragraph);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c31 {
+  color: var(--color-paragraph);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.625rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+  width: fit-content;
+}
+
+.c3 {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  animation: k0 2.4s ease-in-out infinite;
+}
+
+.c4 {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  font-weight: 700;
+}
+
+.c0 {
+  padding: 3rem 0;
+  position: relative;
+}
+
+.c6 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  margin-bottom: 1.25rem;
+}
+
+.c7 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 1rem;
+  max-width: 640px;
+  line-height: 1;
+}
+
+.c9 {
+  max-width: 580px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.c10 {
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.c11 {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.c12 {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  white-space: nowrap;
+  min-width: 88px;
+  flex-shrink: 0;
+}
+
+.c13 {
+  font-size: 0.875rem;
+  color: var(--color-headline);
+  line-height: 1.2;
+}
+
+.c14 {
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  background: var(--color-highlight)0d;
+  border: 2px solid var(--color-highlight);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.c15 {
+  flex: 1;
+}
+
+.c19 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-highlight)25;
+}
+
+.c20 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+  line-height: 1;
+}
+
+.c21 {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.c16 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 0.625rem;
+}
+
+.c17 {
+  font-size: 1rem;
+  color: var(--color-paragraph);
+  line-height: 1.6;
+  margin: 0 0 1.75rem;
+  max-width: 420px;
+}
+
+.c18 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--color-button);
+  color: #ffffff;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.c18:hover {
+  background: transparent;
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
+}
+
+.c18:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c22 {
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.c23 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.c24 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-headline);
+}
+
+.c25 {
+  font-size: 0.875rem;
+  color: var(--color-paragraph);
+}
+
+.c26 {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-highlight)1a;
+  overflow: hidden;
+  margin-bottom: 0.875rem;
+}
+
+.c27 {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
+  width: 2%;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.c28 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.c29 {
+  font-size: 0.75rem;
+  color: var(--color-paragraph);
+  letter-spacing: 0.05em;
+}
+
+.c30 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+}
+
+.c32 {
+  color: var(--color-paragraph);
+  margin-bottom: 0;
+}
+
+.c32 a {
+  color: var(--color-highlight);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.c32 a:hover {
+  opacity: 0.75;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c0 {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c7 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c14 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c19 {
+    border-top: none;
+    border-left: 1px solid var(--color-highlight)25;
+    padding-top: 0;
+    padding-left: 3rem;
+    align-items: flex-start;
+    min-width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c20 {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c16 {
+    font-size: 2rem;
+  }
+}
+
+@keyframes k0 {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="forest"
+  >
+    <section
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <span
+          aria-hidden="true"
+          class="c3"
+        />
+        <span
+          class="c4"
+        >
+          Growing in public
+        </span>
+      </div>
+      <p
+        class="c5 c6"
+      >
+        🌳 Forest
+      </p>
+      <h2
+        class="c7"
+      >
+        This portfolio grows with your feedback.
+      </h2>
+      <p
+        class="c8 c9"
+      >
+        Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.
+      </p>
+      <div
+        class="c10"
+      >
+        <div
+          class="c11"
+        >
+          <span
+            class="c12"
+          >
+            May 2026
+          </span>
+          <span
+            class="c13"
+          >
+            🌱  Started planting trees every month — a personal commitment, before any portfolio.
+          </span>
+        </div>
+        <div
+          class="c11"
+        >
+          <span
+            class="c12"
+          >
+            July 2026
+          </span>
+          <span
+            class="c13"
+          >
+            🌳  Forest was born. The portfolio invites others to become part of that journey.
+          </span>
+        </div>
+        <div
+          class="c11"
+        >
+          <span
+            class="c12"
+          >
+            Today
+          </span>
+          <span
+            class="c13"
+          >
+            →  Every meaningful suggestion earns a dedicated tree from my forest.
+          </span>
+        </div>
+      </div>
+      <div
+        class="c14"
+      >
+        <div
+          class="c15"
+        >
+          <h3
+            class="c16"
+          >
+            Help this portfolio grow.
+          </h3>
+          <p
+            class="c17"
+          >
+            Every meaningful suggestion becomes part of Forest. As a thank you, I dedicate one of the trees I plant.
+          </p>
+          <button
+            aria-haspopup="dialog"
+            class="c18"
+          >
+            🌱 Plant a leaf
+          </button>
+        </div>
+        <div
+          class="c19"
+        >
+          <span
+            class="c20"
+          >
+            30
+          </span>
+          <span
+            class="c21"
+          >
+            planted since May 2026
+          </span>
+        </div>
+      </div>
+      <div
+        class="c22"
+      >
+        <div
+          class="c23"
+        >
+          <span
+            class="c24"
+          >
+            Season One
+          </span>
+          <span
+            class="c25"
+          >
+            0
+             / 
+            25
+             trees
+          </span>
+        </div>
+        <div
+          class="c26"
+        >
+          <div
+            class="c27"
+          />
+        </div>
+        <div
+          class="c28"
+        >
+          <span
+            class="c29"
+          >
+            Current season
+          </span>
+          <span
+            class="c30"
+          >
+            0
+            %
+          </span>
+        </div>
+      </div>
+      <p
+        class="c31 c32"
+      >
+        <a
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          View the living forest
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="11"
+            style="display: inline-block; margin-left: 0.25rem; vertical-align: middle; position: relative; top: -1px;"
+            viewBox="0 0 11 11"
+            width="11"
+          >
+            <path
+              d="M2 9L9 2M9 2H4M9 2V7"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+        </a>
+      </p>
+    </section>
+  </section>
+</div>
+`;
+
+exports[`Forest renders correctly with minimal props 1`] = `
+.c1 {
+  display: grid;
+  position: relative;
+  min-height: auto;
+  width: 100%;
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: calc(24px);
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c5 {
+  color: var(--color-paragraph);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c8 {
+  color: var(--color-paragraph);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c31 {
+  color: var(--color-paragraph);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.625rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+  width: fit-content;
+}
+
+.c3 {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  animation: k0 2.4s ease-in-out infinite;
+}
+
+.c4 {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  font-weight: 700;
+}
+
+.c0 {
+  padding: 3rem 0;
+  position: relative;
+}
+
+.c6 {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  margin-bottom: 1.25rem;
+}
+
+.c7 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 1rem;
+  max-width: 640px;
+  line-height: 1;
+}
+
+.c9 {
+  max-width: 580px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.c10 {
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.c11 {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.c12 {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-paragraph);
+  white-space: nowrap;
+  min-width: 88px;
+  flex-shrink: 0;
+}
+
+.c13 {
+  font-size: 0.875rem;
+  color: var(--color-headline);
+  line-height: 1.2;
+}
+
+.c14 {
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  background: var(--color-highlight)0d;
+  border: 2px solid var(--color-highlight);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.c15 {
+  flex: 1;
+}
+
+.c19 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-highlight)25;
+}
+
+.c20 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+  line-height: 1;
+}
+
+.c21 {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.c16 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin: 0 0 0.625rem;
+}
+
+.c17 {
+  font-size: 1rem;
+  color: var(--color-paragraph);
+  line-height: 1.6;
+  margin: 0 0 1.75rem;
+  max-width: 420px;
+}
+
+.c18 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--color-button);
+  color: #ffffff;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.c18:hover {
+  background: transparent;
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
+}
+
+.c18:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c22 {
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.c23 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.c24 {
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-headline);
+}
+
+.c25 {
+  font-size: 0.875rem;
+  color: var(--color-paragraph);
+}
+
+.c26 {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-highlight)1a;
+  overflow: hidden;
+  margin-bottom: 0.875rem;
+}
+
+.c27 {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
+  width: 2%;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.c28 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.c29 {
+  font-size: 0.75rem;
+  color: var(--color-paragraph);
+  letter-spacing: 0.05em;
+}
+
+.c30 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-highlight);
+}
+
+.c32 {
+  color: var(--color-paragraph);
+  margin-bottom: 0;
+}
+
+.c32 a {
+  color: var(--color-highlight);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.c32 a:hover {
+  opacity: 0.75;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+    column-gap: calc(24px);
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+    column-gap: calc(36px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+    column-gap: calc(81px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+    column-gap: calc(121.5px);
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (max-width: 1199px) {
+  .c0 {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c7 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c14 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c19 {
+    border-top: none;
+    border-left: 1px solid var(--color-highlight)25;
+    padding-top: 0;
+    padding-left: 3rem;
+    align-items: flex-start;
+    min-width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c20 {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c16 {
+    font-size: 2rem;
+  }
+}
+
+@keyframes k0 {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="forest"
+  >
+    <section
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <span
+          aria-hidden="true"
+          class="c3"
+        />
+        <span
+          class="c4"
+        >
+          Growing in public
+        </span>
+      </div>
+      <p
+        class="c5 c6"
+      >
+        🌳 Forest
+      </p>
+      <h2
+        class="c7"
+      >
+        This portfolio grows with your feedback.
+      </h2>
+      <p
+        class="c8 c9"
+      >
+        Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.
+      </p>
+      <div
+        class="c10"
+      >
+        <div
+          class="c11"
+        >
+          <span
+            class="c12"
+          >
+            May 2026
+          </span>
+          <span
+            class="c13"
+          >
+            🌱  Started planting trees every month — a personal commitment, before any portfolio.
+          </span>
+        </div>
+        <div
+          class="c11"
+        >
+          <span
+            class="c12"
+          >
+            July 2026
+          </span>
+          <span
+            class="c13"
+          >
+            🌳  Forest was born. The portfolio invites others to become part of that journey.
+          </span>
+        </div>
+        <div
+          class="c11"
+        >
+          <span
+            class="c12"
+          >
+            Today
+          </span>
+          <span
+            class="c13"
+          >
+            →  Every meaningful suggestion earns a dedicated tree from my forest.
+          </span>
+        </div>
+      </div>
+      <div
+        class="c14"
+      >
+        <div
+          class="c15"
+        >
+          <h3
+            class="c16"
+          >
+            Help this portfolio grow.
+          </h3>
+          <p
+            class="c17"
+          >
+            Every meaningful suggestion becomes part of Forest. As a thank you, I dedicate one of the trees I plant.
+          </p>
+          <button
+            aria-haspopup="dialog"
+            class="c18"
+          >
+            🌱 Plant a leaf
+          </button>
+        </div>
+        <div
+          class="c19"
+        >
+          <span
+            class="c20"
+          >
+            30
+          </span>
+          <span
+            class="c21"
+          >
+            planted since May 2026
+          </span>
+        </div>
+      </div>
+      <div
+        class="c22"
+      >
+        <div
+          class="c23"
+        >
+          <span
+            class="c24"
+          >
+            Season One
+          </span>
+          <span
+            class="c25"
+          >
+            0
+             / 
+            25
+             trees
+          </span>
+        </div>
+        <div
+          class="c26"
+        >
+          <div
+            class="c27"
+          />
+        </div>
+        <div
+          class="c28"
+        >
+          <span
+            class="c29"
+          >
+            Current season
+          </span>
+          <span
+            class="c30"
+          >
+            0
+            %
+          </span>
+        </div>
+      </div>
+      <p
+        class="c31 c32"
+      >
+        <a
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          View the living forest
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="11"
+            style="display: inline-block; margin-left: 0.25rem; vertical-align: middle; position: relative; top: -1px;"
+            viewBox="0 0 11 11"
+            width="11"
+          >
+            <path
+              d="M2 9L9 2M9 2H4M9 2V7"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+        </a>
+      </p>
+    </section>
+  </section>
+</div>
+`;

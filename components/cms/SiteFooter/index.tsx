@@ -30,6 +30,10 @@ const CtaArea = styled.div`
   margin-bottom: ${toSpacing("2xl")};
   padding-bottom: ${toSpacing("2xl")};
   border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    border-bottom: none;
+  }
 `;
 
 const CtaHeading = styled.h2`

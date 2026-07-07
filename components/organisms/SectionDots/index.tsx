@@ -11,6 +11,7 @@ const SECTIONS = [
   { id: "experience", label: "Experience" },
   { id: "sustainability", label: "Sustainability" },
   { id: "beyond-code", label: "Beyond Code" },
+  { id: "forest", label: "Forest" },
 ];
 
 const Nav = styled.nav`

@@ -54,3 +54,10 @@ jest.mock("next/router", () => ({
     asPath: "/",
   }),
 }));
+
+// Mock IntersectionObserver (not available in jsdom)
+global.IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+})) as unknown as typeof IntersectionObserver;
