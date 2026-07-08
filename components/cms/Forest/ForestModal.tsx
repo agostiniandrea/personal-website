@@ -10,7 +10,7 @@ const copy = {
     close: "✕",
     closeAriaLabel: "Close",
     s1Title: "Help this portfolio grow.",
-    s1Body: "I’d genuinely love to hear your thoughts. Every meaningful suggestion helps improve this project — and as a thank you, I dedicate a real tree.",
+    s1Body: "I'd genuinely love to hear your thoughts. Every meaningful suggestion helps improve this project — and as a thank you, I dedicate a real tree.",
     s2Title: "What type of feedback?",
     s2CatAriaLabel: "Feedback category",
     s3Title: "What would you improve?",
@@ -28,22 +28,27 @@ const copy = {
     githubAriaLabel: "GitHub URL",
     websitePlaceholder: "Website",
     websiteAriaLabel: "Website URL",
-    publicAck: "I’m happy for my feedback to be publicly acknowledged.",
+    publicAck: "I'm happy for my feedback to be publicly acknowledged.",
     errorMsg: "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
     sending: "Sending…",
     send: "🌱 Send",
     continue: "Continue →",
     back: "← Back",
     s5Title: "Thank you.",
-    s5Body: "Your leaf has been received. I’ll personally read every submission.",
+    s5Body: "Your leaf has been received. I'll personally read every submission.",
     s5Close: "Close",
+    errName: "Name must be under 100 characters.",
+    errEmail: "Please enter a valid email address.",
+    errLinkedin: "Must be a valid LinkedIn profile URL.",
+    errGithub: "Must be a valid GitHub profile URL.",
+    errWebsite: "Must be a valid URL (e.g. https://example.com).",
   },
   it: {
     ariaLabel: "Invia feedback",
     close: "✕",
     closeAriaLabel: "Chiudi",
     s1Title: "Aiuta questo portfolio a crescere.",
-    s1Body: "Mi farebbe davvero piacere conoscere il tuo punto di vista. Ogni suggerimento significativo migliora il progetto — e come ringraziamento, dedico un albero vero.",
+    s1Body: "Mi farebbe davvero piacere conoscere il tuo punto di vista. Ogni suggerimento significativo migliora il progetto — e come ringraziamento, dedico un albero vero.",
     s2Title: "Che tipo di feedback?",
     s2CatAriaLabel: "Categoria del feedback",
     s3Title: "Cosa miglioreresti?",
@@ -70,8 +75,68 @@ const copy = {
     s5Title: "Grazie.",
     s5Body: "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
     s5Close: "Chiudi",
+    errName: "Il nome non può superare i 100 caratteri.",
+    errEmail: "Inserisci un indirizzo email valido.",
+    errLinkedin: "Inserisci un URL di profilo LinkedIn valido.",
+    errGithub: "Inserisci un URL di profilo GitHub valido.",
+    errWebsite: "Inserisci un URL valido (es. https://example.com).",
   },
 };
+
+/* ── Validation ── */
+
+function validateName(v: string): string | null {
+  if (!v) return null;
+  if (v.length > 100) return "errName";
+  return null;
+}
+
+function validateEmail(v: string): string | null {
+  if (!v) return null;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "errEmail";
+}
+
+function validateLinkedin(v: string): string | null {
+  if (!v) return null;
+  return /^https?:\/\/(www\.)?linkedin\.com\//.test(v) ? null : "errLinkedin";
+}
+
+function validateGithub(v: string): string | null {
+  if (!v) return null;
+  return /^https?:\/\/(www\.)?github\.com\//.test(v) ? null : "errGithub";
+}
+
+function validateWebsite(v: string): string | null {
+  if (!v) return null;
+  try {
+    const url = new URL(v);
+    return url.protocol === "http:" || url.protocol === "https:" ? null : "errWebsite";
+  } catch {
+    return "errWebsite";
+  }
+}
+
+interface FieldErrors {
+  name: string | null;
+  email: string | null;
+  linkedin: string | null;
+  github: string | null;
+  website: string | null;
+}
+
+function getFieldErrors(data: FeedbackData): FieldErrors {
+  return {
+    name: validateName(data.name),
+    email: validateEmail(data.email),
+    linkedin: validateLinkedin(data.linkedin),
+    github: validateGithub(data.github),
+    website: validateWebsite(data.website),
+  };
+}
+
+function hasFieldErrors(errors: FieldErrors): boolean {
+  return Object.values(errors).some(Boolean);
+}
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -334,9 +399,15 @@ const InputList = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const Input = styled.input`
+const InputWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
+
+const Input = styled.input<{ $invalid?: boolean }>`
   background: transparent;
-  border: 1.5px solid rgba(128, 128, 128, 0.2);
+  border: 1.5px solid ${({ $invalid }) => ($invalid ? "#ef4444" : "rgba(128, 128, 128, 0.2)")};
   border-radius: 0.625rem;
   box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
@@ -352,9 +423,15 @@ const Input = styled.input`
   }
 
   &:focus {
-    border-color: ${({ theme }) => theme.colors.highlight};
+    border-color: ${({ $invalid }) => ($invalid ? "#ef4444" : "var(--highlight)")};
     outline: none;
   }
+`;
+
+const FieldError = styled.span`
+  color: #ef4444;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  padding-left: 0.25rem;
 `;
 
 const CheckboxRow = styled.label`
@@ -497,6 +574,7 @@ const LEAVES = [
 export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<FeedbackData>(EMPTY);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -504,12 +582,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
   const { locale } = useRouter();
   const t = locale === "it" ? copy.it : copy.en;
 
+  const fieldErrors = getFieldErrors(data);
+  const canSubmit = !hasFieldErrors(fieldErrors) && !submitting;
+
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (isOpen) {
       setStep(1);
       setData(EMPTY);
+      setTouched({});
       setError(null);
     }
   }, [isOpen]);
@@ -525,7 +607,6 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
     };
   }, [isOpen, onClose]);
 
-  // Auto-focus first interactive element when step changes
   useEffect(() => {
     if (isOpen) firstFocusRef.current?.focus();
   }, [step, isOpen]);
@@ -533,7 +614,11 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
   const next = useCallback(() => setStep((s) => (Math.min(s + 1, 5) as Step)), []);
   const back = useCallback(() => { setError(null); setStep((s) => (Math.max(s - 1, 1) as Step)); }, []);
 
+  const touch = (field: string) => setTouched((prev) => ({ ...prev, [field]: true }));
+
   const submit = async () => {
+    setTouched({ name: true, email: true, linkedin: true, github: true, website: true });
+    if (!canSubmit) return;
     setSubmitting(true);
     setError(null);
     try {
@@ -545,7 +630,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
       if (!res.ok) throw new Error();
       setStep(5);
     } catch {
-      setError("Something went wrong. Try again or email me directly at a.agostini92@gmail.com");
+      setError(t.errorMsg);
     } finally {
       setSubmitting(false);
     }
@@ -643,37 +728,72 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
             <Title>{t.s4Title}</Title>
             <OptionalLabel>{t.optional}</OptionalLabel>
             <InputList>
-              <Input
-                placeholder={t.namePlaceholder}
-                value={data.name}
-                onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
-                aria-label={t.nameAriaLabel}
-              />
-              <Input
-                placeholder={t.emailPlaceholder}
-                type="email"
-                value={data.email}
-                onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
-                aria-label={t.emailAriaLabel}
-              />
-              <Input
-                placeholder={t.linkedinPlaceholder}
-                value={data.linkedin}
-                onChange={(e) => setData((d) => ({ ...d, linkedin: e.target.value }))}
-                aria-label={t.linkedinAriaLabel}
-              />
-              <Input
-                placeholder={t.githubPlaceholder}
-                value={data.github}
-                onChange={(e) => setData((d) => ({ ...d, github: e.target.value }))}
-                aria-label={t.githubAriaLabel}
-              />
-              <Input
-                placeholder={t.websitePlaceholder}
-                value={data.website}
-                onChange={(e) => setData((d) => ({ ...d, website: e.target.value }))}
-                aria-label={t.websiteAriaLabel}
-              />
+              <InputWrap>
+                <Input
+                  placeholder={t.namePlaceholder}
+                  value={data.name}
+                  $invalid={!!(touched.name && fieldErrors.name)}
+                  onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
+                  onBlur={() => touch("name")}
+                  aria-label={t.nameAriaLabel}
+                />
+                {touched.name && fieldErrors.name && (
+                  <FieldError role="alert">{t[fieldErrors.name as keyof typeof t]}</FieldError>
+                )}
+              </InputWrap>
+              <InputWrap>
+                <Input
+                  placeholder={t.emailPlaceholder}
+                  type="email"
+                  value={data.email}
+                  $invalid={!!(touched.email && fieldErrors.email)}
+                  onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
+                  onBlur={() => touch("email")}
+                  aria-label={t.emailAriaLabel}
+                />
+                {touched.email && fieldErrors.email && (
+                  <FieldError role="alert">{t[fieldErrors.email as keyof typeof t]}</FieldError>
+                )}
+              </InputWrap>
+              <InputWrap>
+                <Input
+                  placeholder={t.linkedinPlaceholder}
+                  value={data.linkedin}
+                  $invalid={!!(touched.linkedin && fieldErrors.linkedin)}
+                  onChange={(e) => setData((d) => ({ ...d, linkedin: e.target.value }))}
+                  onBlur={() => touch("linkedin")}
+                  aria-label={t.linkedinAriaLabel}
+                />
+                {touched.linkedin && fieldErrors.linkedin && (
+                  <FieldError role="alert">{t[fieldErrors.linkedin as keyof typeof t]}</FieldError>
+                )}
+              </InputWrap>
+              <InputWrap>
+                <Input
+                  placeholder={t.githubPlaceholder}
+                  value={data.github}
+                  $invalid={!!(touched.github && fieldErrors.github)}
+                  onChange={(e) => setData((d) => ({ ...d, github: e.target.value }))}
+                  onBlur={() => touch("github")}
+                  aria-label={t.githubAriaLabel}
+                />
+                {touched.github && fieldErrors.github && (
+                  <FieldError role="alert">{t[fieldErrors.github as keyof typeof t]}</FieldError>
+                )}
+              </InputWrap>
+              <InputWrap>
+                <Input
+                  placeholder={t.websitePlaceholder}
+                  value={data.website}
+                  $invalid={!!(touched.website && fieldErrors.website)}
+                  onChange={(e) => setData((d) => ({ ...d, website: e.target.value }))}
+                  onBlur={() => touch("website")}
+                  aria-label={t.websiteAriaLabel}
+                />
+                {touched.website && fieldErrors.website && (
+                  <FieldError role="alert">{t[fieldErrors.website as keyof typeof t]}</FieldError>
+                )}
+              </InputWrap>
             </InputList>
             {/* Honeypot — hidden from real users, bots fill it */}
             <input
@@ -701,7 +821,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 onClick={submit}
-                disabled={submitting}
+                disabled={!canSubmit}
                 type="button"
               >
                 {submitting ? t.sending : t.send}
