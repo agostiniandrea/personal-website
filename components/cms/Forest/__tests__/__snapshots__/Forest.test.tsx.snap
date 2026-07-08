@@ -30,7 +30,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c31 {
+.c32 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -149,6 +149,16 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 .c20 {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  opacity: 0.5;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.c21 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
@@ -156,7 +166,7 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1;
 }
 
-.c21 {
+.c22 {
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -208,33 +218,33 @@ exports[`Forest renders correctly with all props 1`] = `
   outline-offset: 3px;
 }
 
-.c22 {
+.c23 {
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   padding: 1.5rem 1.75rem;
   margin-bottom: 2rem;
 }
 
-.c23 {
+.c24 {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 1rem;
 }
 
-.c24 {
+.c25 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: var(--color-headline);
 }
 
-.c25 {
+.c26 {
   font-size: 0.875rem;
   color: var(--color-paragraph);
 }
 
-.c26 {
+.c27 {
   height: 8px;
   border-radius: 999px;
   background: var(--color-highlight)1a;
@@ -242,7 +252,7 @@ exports[`Forest renders correctly with all props 1`] = `
   margin-bottom: 0.875rem;
 }
 
-.c27 {
+.c28 {
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
@@ -250,36 +260,36 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 }
 
-.c28 {
+.c29 {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.c29 {
+.c30 {
   font-size: 0.75rem;
   color: var(--color-paragraph);
   letter-spacing: 0.05em;
 }
 
-.c30 {
+.c31 {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--color-highlight);
 }
 
-.c32 {
+.c33 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c32 a {
+.c33 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
-.c32 a:hover {
+.c33 a:hover {
   opacity: 0.75;
 }
 
@@ -362,7 +372,7 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c20 {
+  .c21 {
     font-size: 4.5rem;
   }
 }
@@ -481,7 +491,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <p
             class="c17"
           >
-            Every meaningful suggestion plants a real tree. Your feedback grows the forest.
+            Every meaningful suggestion becomes a real tree. Together we're growing this forest.
           </p>
           <button
             aria-haspopup="dialog"
@@ -496,28 +506,33 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c20"
           >
-            30
+            My Forest
           </span>
           <span
             class="c21"
+          >
+            30
+          </span>
+          <span
+            class="c22"
           >
             Personally planted since May 2026
           </span>
         </div>
       </div>
       <div
-        class="c22"
+        class="c23"
       >
         <div
-          class="c23"
+          class="c24"
         >
           <span
-            class="c24"
+            class="c25"
           >
             Season One
           </span>
           <span
-            class="c25"
+            class="c26"
           >
             0
              / 
@@ -526,22 +541,22 @@ exports[`Forest renders correctly with all props 1`] = `
           </span>
         </div>
         <div
-          class="c26"
+          class="c27"
         >
           <div
-            class="c27"
+            class="c28"
           />
         </div>
         <div
-          class="c28"
+          class="c29"
         >
           <span
-            class="c29"
+            class="c30"
           >
             Current season
           </span>
           <span
-            class="c30"
+            class="c31"
           >
             0
             %
@@ -549,7 +564,7 @@ exports[`Forest renders correctly with all props 1`] = `
         </div>
       </div>
       <p
-        class="c31 c32"
+        class="c32 c33"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
@@ -610,7 +625,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c31 {
+.c32 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -729,6 +744,16 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 .c20 {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+  opacity: 0.5;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.c21 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
@@ -736,7 +761,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   line-height: 1;
 }
 
-.c21 {
+.c22 {
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -788,33 +813,33 @@ exports[`Forest renders correctly with minimal props 1`] = `
   outline-offset: 3px;
 }
 
-.c22 {
+.c23 {
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   padding: 1.5rem 1.75rem;
   margin-bottom: 2rem;
 }
 
-.c23 {
+.c24 {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 1rem;
 }
 
-.c24 {
+.c25 {
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: var(--color-headline);
 }
 
-.c25 {
+.c26 {
   font-size: 0.875rem;
   color: var(--color-paragraph);
 }
 
-.c26 {
+.c27 {
   height: 8px;
   border-radius: 999px;
   background: var(--color-highlight)1a;
@@ -822,7 +847,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   margin-bottom: 0.875rem;
 }
 
-.c27 {
+.c28 {
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
@@ -830,36 +855,36 @@ exports[`Forest renders correctly with minimal props 1`] = `
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 }
 
-.c28 {
+.c29 {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.c29 {
+.c30 {
   font-size: 0.75rem;
   color: var(--color-paragraph);
   letter-spacing: 0.05em;
 }
 
-.c30 {
+.c31 {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--color-highlight);
 }
 
-.c32 {
+.c33 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c32 a {
+.c33 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
-.c32 a:hover {
+.c33 a:hover {
   opacity: 0.75;
 }
 
@@ -942,7 +967,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c20 {
+  .c21 {
     font-size: 4.5rem;
   }
 }
@@ -1076,28 +1101,33 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c20"
           >
-            30
+            My Forest
           </span>
           <span
             class="c21"
+          >
+            30
+          </span>
+          <span
+            class="c22"
           >
             Personally planted since May 2026
           </span>
         </div>
       </div>
       <div
-        class="c22"
+        class="c23"
       >
         <div
-          class="c23"
+          class="c24"
         >
           <span
-            class="c24"
+            class="c25"
           >
             Season One
           </span>
           <span
-            class="c25"
+            class="c26"
           >
             0
              / 
@@ -1106,22 +1136,22 @@ exports[`Forest renders correctly with minimal props 1`] = `
           </span>
         </div>
         <div
-          class="c26"
+          class="c27"
         >
           <div
-            class="c27"
+            class="c28"
           />
         </div>
         <div
-          class="c28"
+          class="c29"
         >
           <span
-            class="c29"
+            class="c30"
           >
             Current season
           </span>
           <span
-            class="c30"
+            class="c31"
           >
             0
             %
@@ -1129,7 +1159,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
         </div>
       </div>
       <p
-        class="c31 c32"
+        class="c32 c33"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
