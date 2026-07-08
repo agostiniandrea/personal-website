@@ -161,7 +161,7 @@ const SecondaryLink = styled(Link)`
 
 const PhotoOuter = styled.div`
   background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
   height: 240px;
   margin-top: ${({ theme }) => theme.space["2xl"]};
@@ -176,7 +176,7 @@ const PhotoOuter = styled.div`
 `;
 
 const PhotoWrapper = styled.div`
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.radii.rounded};
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -208,7 +208,7 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
   opacity: ${({ $visible }) => ($visible ? 0.6 : 0)};
-  padding: 0.5rem;
+  padding: ${({ theme }) => theme.space.sm};
   pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
   transition: opacity 0.4s ease;
 
@@ -217,7 +217,7 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   &:focus:not(:focus-visible) { outline: none; }
 
   &:focus-visible {
-    border-radius: 50%;
+    border-radius: ${({ theme }) => theme.radii.rounded};
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }

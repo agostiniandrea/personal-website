@@ -24,7 +24,7 @@ const Header = styled.header<{ $scrolled: boolean }>`
     ${({ $scrolled, theme }) => ($scrolled ? `${theme.colors.highlight}30` : "transparent")};
   box-shadow: ${({ $scrolled }) => ($scrolled ? "0 2px 12px rgba(0, 0, 0, 0.06)" : "none")};
   left: 0;
-  padding: 0.75rem 0;
+  padding: ${({ theme }) => theme.space.md} 0;
   position: fixed;
   right: 0;
   top: 0;
@@ -84,7 +84,7 @@ const IconButton = styled(Button)`
   justify-content: center;
   min-height: 44px;
   min-width: 44px;
-  padding: 0.5rem;
+  padding: ${({ theme }) => theme.space.sm};
 `;
 
 const HamburgerButton = styled(IconButton)`

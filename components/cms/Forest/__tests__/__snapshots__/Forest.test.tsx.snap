@@ -52,7 +52,7 @@ exports[`Forest renders correctly with all props 1`] = `
 .c3 {
   animation: k0 2.4s ease-in-out infinite;
   background: var(--color-highlight);
-  border-radius: 50%;
+  border-radius: 100%;
   flex-shrink: 0;
   height: 6px;
   width: 6px;
@@ -646,7 +646,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c3 {
   animation: k0 2.4s ease-in-out infinite;
   background: var(--color-highlight);
-  border-radius: 50%;
+  border-radius: 100%;
   flex-shrink: 0;
   height: 6px;
   width: 6px;

@@ -45,7 +45,7 @@ const DotRow = styled.li`
 const Label = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   letter-spacing: 0.08em;
   opacity: 0;
   pointer-events: none;
@@ -61,7 +61,7 @@ const Dot = styled.button<{ $active: boolean }>`
   background: ${({ $active, theme }) =>
     $active ? theme.colors.highlight : "transparent"};
   border: 2px solid ${({ theme }) => theme.colors.highlight};
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.radii.rounded};
   cursor: pointer;
   flex-shrink: 0;
   height: 10px;

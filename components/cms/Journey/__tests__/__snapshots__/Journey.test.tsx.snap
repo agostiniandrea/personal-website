@@ -91,7 +91,7 @@ exports[`Journey renders correctly with default data 1`] = `
 
 .c11 {
   border: 2px solid var(--color-highlight);
-  border-radius: 50%;
+  border-radius: 100%;
   flex-shrink: 0;
   height: 12px;
   width: 12px;
@@ -101,7 +101,7 @@ exports[`Journey renders correctly with default data 1`] = `
 
 .c17 {
   border: 2px solid var(--color-highlight);
-  border-radius: 50%;
+  border-radius: 100%;
   flex-shrink: 0;
   height: 12px;
   width: 12px;

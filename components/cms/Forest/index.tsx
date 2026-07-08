@@ -102,7 +102,7 @@ const BadgeWrap = styled.div`
   border: 1px solid rgba(128, 128, 128, 0.2);
   border-radius: 999px;
   display: inline-flex;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   margin-bottom: 1.25rem;
   padding: 0.3rem 0.75rem 0.3rem 0.625rem;
   width: fit-content;
@@ -111,7 +111,7 @@ const BadgeWrap = styled.div`
 const BadgeDot = styled.span`
   animation: ${pulse} 2.4s ease-in-out infinite;
   background: ${({ theme }) => theme.colors.highlight};
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
   height: 6px;
   width: 6px;
@@ -128,11 +128,11 @@ const BadgeLabel = styled.span`
 /* ── Layout ── */
 
 const Section = styled.section`
-  padding: 3rem 0;
+  padding: ${({ theme }) => theme.space["3xl"]} 0;
   position: relative;
 
   @media (max-width: 1199px) {
-    padding: 2rem 0;
+    padding: ${({ theme }) => theme.space["2xl"]} 0;
   }
 `;
 
@@ -176,7 +176,7 @@ const OriginBlock = styled.div`
 const OriginItem = styled.div`
   align-items: baseline;
   display: flex;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.space.lg};
 `;
 
 const OriginDate = styled.span`
@@ -204,7 +204,7 @@ const StatsGrid = styled.div<{ $count: number }>`
   margin-bottom: 3.5rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    gap: 1.5rem;
+    gap: ${({ theme }) => theme.space.xl};
   }
 `;
 
@@ -213,7 +213,7 @@ const StatItem = styled.div`
   border-radius: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: ${({ theme }) => theme.space.xs};
   padding: 1rem 0.875rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -227,9 +227,9 @@ const StatItem = styled.div`
 const StatNumber = styled.span`
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  line-height: 1;
+  line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: 3.25rem;
@@ -248,9 +248,9 @@ const CtaCard = styled.div`
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: ${({ theme }) => theme.space["2xl"]};
   margin-bottom: 2.5rem;
-  padding: 2rem;
+  padding: ${({ theme }) => theme.space["2xl"]};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     align-items: center;
@@ -269,7 +269,7 @@ const CtaDecor = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.highlight}25;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: ${({ theme }) => theme.space.xs};
   padding-top: 0.25rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
@@ -296,7 +296,7 @@ const CtaDecorNumber = styled.span`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: 3.5rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  line-height: 1;
+  line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: 4.5rem;
@@ -342,7 +342,7 @@ const PlantButton = styled.button`
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   padding: 0.875rem 2rem;
   transition: all 0.2s ease;
 
@@ -364,7 +364,7 @@ const SeasonCard = styled.div`
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   margin-bottom: 2rem;
-  padding: 1.5rem 1.75rem;
+  padding: ${({ theme }) => theme.space.xl} 1.75rem;
 `;
 
 const SeasonHeader = styled.div`

@@ -51,7 +51,7 @@ const Card = styled.div`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
   left: 1.5rem;
   max-width: 440px;
-  padding: 1.25rem 1.5rem 1.5rem;
+  padding: 1.25rem ${({ theme }) => theme.space.xl} ${({ theme }) => theme.space.xl};
   position: fixed;
   width: calc(100% - 3rem);
   z-index: 9000;
@@ -60,7 +60,7 @@ const Card = styled.div`
     bottom: 1rem;
     left: 1rem;
     max-width: none;
-    padding: 1rem 1.25rem 1.25rem;
+    padding: ${({ theme }) => theme.space.lg} 1.25rem 1.25rem;
     right: 1rem;
     width: auto;
   }
@@ -94,11 +94,11 @@ const Body = styled.p`
 const Actions = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   margin-top: 1.125rem;
 
   @media (max-width: 699px) {
-    gap: 0.5rem;
+    gap: ${({ theme }) => theme.space.sm};
     margin-top: 0.875rem;
   }
 `;
@@ -118,7 +118,7 @@ const PrimaryBtn = styled.button`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  padding: 0.5rem 1rem;
+  padding: ${({ theme }) => theme.space.sm} ${({ theme }) => theme.space.lg};
   transition: opacity 0.2s ease;
   white-space: nowrap;
 
@@ -139,7 +139,7 @@ const SecondaryBtn = styled.button`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  padding: 0.5rem 1rem;
+  padding: ${({ theme }) => theme.space.sm} ${({ theme }) => theme.space.lg};
   transition: opacity 0.2s ease;
   white-space: nowrap;
 
@@ -158,7 +158,7 @@ const TextBtn = styled.button`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  padding: 0.25rem 0;
+  padding: ${({ theme }) => theme.space.xs} 0;
   text-align: left;
   transition: opacity 0.2s ease;
 
@@ -179,7 +179,7 @@ const Divider = styled.hr`
 const PreferenceRow = styled.div`
   align-items: flex-start;
   display: flex;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.space.lg};
   justify-content: space-between;
 
   & + & { margin-top: 0.75rem; }
@@ -212,7 +212,7 @@ const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
 
   &::after {
     background: white;
-    border-radius: 50%;
+    border-radius: ${({ theme }) => theme.radii.rounded};
     content: "";
     height: 0.875rem;
     left: ${({ $on }) => ($on ? "1.125rem" : "3px")};

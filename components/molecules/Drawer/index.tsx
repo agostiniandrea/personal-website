@@ -48,7 +48,7 @@ const StyledDrawerTopBar = styled.div`
   display: flex;
   flex-shrink: 0;
   justify-content: flex-end;
-  padding: 0.75rem 1.5rem;
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl};
 `;
 
 // --- Drawer ---
