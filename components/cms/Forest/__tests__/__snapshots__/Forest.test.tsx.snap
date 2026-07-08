@@ -152,8 +152,7 @@ exports[`Forest renders correctly with all props 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-highlight);
-  opacity: 0.5;
+  color: var(--color-paragraph);
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
@@ -170,8 +169,7 @@ exports[`Forest renders correctly with all props 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-highlight);
-  opacity: 0.7;
+  color: var(--color-paragraph);
   font-weight: 700;
 }
 
@@ -747,8 +745,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-highlight);
-  opacity: 0.5;
+  color: var(--color-paragraph);
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
@@ -765,8 +762,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-highlight);
-  opacity: 0.7;
+  color: var(--color-paragraph);
   font-weight: 700;
 }
 

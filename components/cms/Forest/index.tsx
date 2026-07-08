@@ -271,8 +271,7 @@ const CtaDecorTitle = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
-  opacity: 0.5;
+  color: ${({ theme }) => theme.colors.paragraph};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   margin-bottom: 0.25rem;
 `;
@@ -293,8 +292,7 @@ const CtaDecorLabel = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
-  opacity: 0.7;
+  color: ${({ theme }) => theme.colors.paragraph};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
