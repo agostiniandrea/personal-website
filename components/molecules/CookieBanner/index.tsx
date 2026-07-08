@@ -1,5 +1,43 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+
+const copy = {
+  en: {
+    eyebrow: "Privacy",
+    title: "This site uses cookies",
+    body: "Essential cookies keep the site working. Optional analytics help me understand how the portfolio is used and improve the experience.",
+    acceptAll: "Accept all",
+    rejectNonEssential: "Reject non-essential",
+    managePreferences: "Manage preferences",
+    savePreferences: "Save preferences",
+    back: "Back",
+    essential: "Essential",
+    essentialDesc: "Required for the site to work",
+    essentialAriaLabel: "Essential cookies, always on",
+    analytics: "Analytics",
+    analyticsDesc: "Anonymous usage data via Google Analytics",
+    analyticsAriaOn: "Analytics cookies on",
+    analyticsAriaOff: "Analytics cookies off",
+  },
+  it: {
+    eyebrow: "Privacy",
+    title: "Questo sito usa i cookie",
+    body: "I cookie essenziali mantengono il sito funzionante. I cookie analitici facoltativi mi aiutano a capire come viene usato il portfolio e a migliorarlo.",
+    acceptAll: "Accetta tutti",
+    rejectNonEssential: "Rifiuta non essenziali",
+    managePreferences: "Gestisci preferenze",
+    savePreferences: "Salva preferenze",
+    back: "Indietro",
+    essential: "Essenziali",
+    essentialDesc: "Necessari per il funzionamento del sito",
+    essentialAriaLabel: "Cookie essenziali, sempre attivi",
+    analytics: "Analitici",
+    analyticsDesc: "Dati anonimi sull'utilizzo tramite Google Analytics",
+    analyticsAriaOn: "Cookie analitici attivi",
+    analyticsAriaOff: "Cookie analitici disattivi",
+  },
+};
 
 const CONSENT_KEY = "cookie-consent";
 type ConsentValue = "accepted" | "rejected" | "custom";
@@ -194,6 +232,8 @@ const CookieBanner: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [analyticsOn, setAnalyticsOn] = useState(true);
+  const { locale } = useRouter();
+  const t = locale === "it" ? copy.it : copy.en;
 
   useEffect(() => {
     if (!localStorage.getItem(CONSENT_KEY)) setVisible(true);
@@ -209,27 +249,25 @@ const CookieBanner: React.FC = () => {
 
   return (
     <Card role="dialog" aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
-      <Eyebrow>Privacy</Eyebrow>
-      <Title id="cookie-title">This site uses cookies</Title>
-      <Body id="cookie-desc">
-        Essential cookies keep the site working. Optional analytics help me understand how the portfolio is used and improve the experience.
-      </Body>
+      <Eyebrow>{t.eyebrow}</Eyebrow>
+      <Title id="cookie-title">{t.title}</Title>
+      <Body id="cookie-desc">{t.body}</Body>
 
       <Actions>
         {showPreferences ? (
           <>
             <MainActions>
-              <PrimaryBtn onClick={() => save("custom", analyticsOn)}>Save preferences</PrimaryBtn>
+              <PrimaryBtn onClick={() => save("custom", analyticsOn)}>{t.savePreferences}</PrimaryBtn>
             </MainActions>
-            <TextBtn onClick={() => setShowPreferences(false)}>Back</TextBtn>
+            <TextBtn onClick={() => setShowPreferences(false)}>{t.back}</TextBtn>
           </>
         ) : (
           <>
             <MainActions>
-              <PrimaryBtn onClick={() => save("accepted", true)}>Accept all</PrimaryBtn>
-              <SecondaryBtn onClick={() => save("rejected", false)}>Reject non-essential</SecondaryBtn>
+              <PrimaryBtn onClick={() => save("accepted", true)}>{t.acceptAll}</PrimaryBtn>
+              <SecondaryBtn onClick={() => save("rejected", false)}>{t.rejectNonEssential}</SecondaryBtn>
             </MainActions>
-            <TextBtn onClick={() => setShowPreferences(true)}>Manage preferences</TextBtn>
+            <TextBtn onClick={() => setShowPreferences(true)}>{t.managePreferences}</TextBtn>
           </>
         )}
       </Actions>
@@ -239,20 +277,20 @@ const CookieBanner: React.FC = () => {
           <Divider />
           <PreferenceRow>
             <div>
-              <PreferenceName>Essential</PreferenceName>
-              <PreferenceDesc>Required for the site to work</PreferenceDesc>
+              <PreferenceName>{t.essential}</PreferenceName>
+              <PreferenceDesc>{t.essentialDesc}</PreferenceDesc>
             </div>
-            <Toggle $on={true} $disabled={true} aria-label="Essential cookies, always on" aria-pressed={true} />
+            <Toggle $on={true} $disabled={true} aria-label={t.essentialAriaLabel} aria-pressed={true} />
           </PreferenceRow>
           <PreferenceRow>
             <div>
-              <PreferenceName>Analytics</PreferenceName>
-              <PreferenceDesc>Anonymous usage data via Google Analytics</PreferenceDesc>
+              <PreferenceName>{t.analytics}</PreferenceName>
+              <PreferenceDesc>{t.analyticsDesc}</PreferenceDesc>
             </div>
             <Toggle
               $on={analyticsOn}
               onClick={() => setAnalyticsOn((v) => !v)}
-              aria-label={`Analytics cookies ${analyticsOn ? "on" : "off"}`}
+              aria-label={analyticsOn ? t.analyticsAriaOn : t.analyticsAriaOff}
               aria-pressed={analyticsOn}
             />
           </PreferenceRow>
