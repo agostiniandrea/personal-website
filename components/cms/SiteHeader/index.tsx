@@ -26,10 +26,8 @@ const Header = styled.header<{ $scrolled: boolean }>`
   width: 100%;
   z-index: 100;
   padding: 0.75rem 0;
-  transition: border-color 0.3s ease;
   background: ${({ theme }) => theme.colors.background};
-  border-bottom: 1px solid
-    ${({ $scrolled }) => ($scrolled ? "rgba(128, 128, 160, 0.18)" : "transparent")};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.highlight}30;
 `;
 
 const Logo = styled(Link)`
