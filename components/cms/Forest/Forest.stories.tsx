@@ -20,21 +20,19 @@ export const Default: Story = {
 export const SeasonComplete: Story = {
   args: {
     ...defaultForest,
-    seasonCurrent: 25,
-    seasonTarget: 25,
-    treeCount: 25,
-    reviewCount: 68,
+    feedbackCount: 68,
+    treesDedicatedCount: 25,
     improvementsCount: 25,
+    seasonTarget: 25,
   },
 };
 
 export const EarlySeason: Story = {
   args: {
     ...defaultForest,
-    seasonCurrent: 1,
+    treesDedicatedCount: 1,
     seasonTarget: 25,
-    treeCount: 1,
-    reviewCount: 3,
+    feedbackCount: 3,
     improvementsCount: 1,
     changelogItems: [
       { date: "2026-07-07", description: "Forest section launched" },

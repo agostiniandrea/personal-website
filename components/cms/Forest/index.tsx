@@ -20,9 +20,10 @@ export interface ForestProps {
   heading?: string;
   subheading?: string;
   originItems?: OriginItem[];
-  reviewCount?: number;
-  treeCount?: number;
+  feedbackCount?: number;
+  treesDedicatedCount?: number;
   improvementsCount?: number;
+  treeCount?: number;
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
@@ -30,6 +31,9 @@ export interface ForestProps {
   seasonCurrentLabel?: string;
   treeCountLabel?: string;
   viewForestLabel?: string;
+  feedbackCountLabel?: string;
+  treesDedicatedCountLabel?: string;
+  improvementsCountLabel?: string;
   seasonCurrent?: number;
   seasonTarget?: number;
   changelogItems?: ChangelogItem[];
@@ -478,17 +482,20 @@ const Forest: React.FC<ForestProps> = ({
   heading = "This portfolio grows with your feedback.",
   subheading = "Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.",
   originItems,
-  reviewCount = 0,
-  treeCount = 30,
+  feedbackCount = 0,
+  treesDedicatedCount = 0,
   improvementsCount = 0,
+  treeCount = 30,
   ctaHeading = "Help this portfolio grow.",
   ctaBody = "Every meaningful suggestion plants a real tree. Your feedback grows the forest.",
   ctaButtonLabel = "🌱 Plant a leaf",
   seasonName = "Season One",
   seasonCurrentLabel = "Current season",
-  treeCountLabel = "planted since May 2026",
+  treeCountLabel = "Personally planted since May 2026",
   viewForestLabel = "View the living forest",
-  seasonCurrent = 0,
+  feedbackCountLabel = "feedback received",
+  treesDedicatedCountLabel = "trees dedicated",
+  improvementsCountLabel = "improvements shipped",
   seasonTarget = 25,
   changelogItems = [],
 }) => {
@@ -496,13 +503,15 @@ const Forest: React.FC<ForestProps> = ({
   const [inView, setInView] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const reviews = useAnimatedCounter(reviewCount, inView);
-  const improvements = useAnimatedCounter(improvementsCount, inView);
+  const animFeedback = useAnimatedCounter(feedbackCount, inView);
+  const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
+  const animImprovements = useAnimatedCounter(improvementsCount, inView);
 
-  const pct = Math.min(seasonTarget > 0 ? (seasonCurrent / seasonTarget) * 100 : 0, 100);
+  const pct = Math.min(seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0, 100);
   const visibleStats = [
-    { value: reviews, label: "reviews", active: reviewCount > 0 },
-    { value: improvements, label: "improvements shipped", active: improvementsCount > 0 },
+    { value: animFeedback, label: feedbackCountLabel, active: feedbackCount > 0 },
+    { value: animTrees, label: treesDedicatedCountLabel, active: treesDedicatedCount > 0 },
+    { value: animImprovements, label: improvementsCountLabel, active: improvementsCount > 0 },
   ].filter((s) => s.active);
   const hasStats = visibleStats.length > 0;
   const resolvedOriginItems = originItems?.length ? originItems : DEFAULT_ORIGIN_ITEMS;
@@ -574,7 +583,7 @@ const Forest: React.FC<ForestProps> = ({
           <SeasonCard>
             <SeasonHeader>
               <SeasonLabel>{seasonName}</SeasonLabel>
-              <SeasonCount>{seasonCurrent} / {seasonTarget} trees</SeasonCount>
+              <SeasonCount>{treesDedicatedCount} / {seasonTarget} trees</SeasonCount>
             </SeasonHeader>
             <ProgressTrack>
               <ProgressFill $pct={pct} $animate={inView} />
