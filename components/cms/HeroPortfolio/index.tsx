@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NextHead from "next/head";
 import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -256,19 +255,8 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const preloadSrc = contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" });
-
   return (
     <>
-      <NextHead>
-        <link
-          rel="preload"
-          as="image"
-          href={preloadSrc}
-          imageSrcSet={`${preloadSrc} 800w`}
-          imageSizes="(max-width: 1200px) 240px, 380px"
-        />
-      </NextHead>
     <Section id="hero">
       <Container>
         <HeroGrid>
