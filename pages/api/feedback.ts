@@ -54,6 +54,37 @@ export default async function handler(
     return res.status(400).json({ error: "Message is too short" });
   }
 
+  if (name !== undefined && name !== null && name !== "" && (typeof name !== "string" || name.length > 100)) {
+    return res.status(400).json({ error: "Invalid name" });
+  }
+
+  if (email !== undefined && email !== null && email !== "") {
+    if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: "Invalid email" });
+    }
+  }
+
+  if (linkedin !== undefined && linkedin !== null && linkedin !== "") {
+    if (typeof linkedin !== "string" || !/^https?:\/\/(www\.)?linkedin\.com\//.test(linkedin)) {
+      return res.status(400).json({ error: "Invalid LinkedIn URL" });
+    }
+  }
+
+  if (github !== undefined && github !== null && github !== "") {
+    if (typeof github !== "string" || !/^https?:\/\/(www\.)?github\.com\//.test(github)) {
+      return res.status(400).json({ error: "Invalid GitHub URL" });
+    }
+  }
+
+  if (website !== undefined && website !== null && website !== "") {
+    try {
+      const url = new URL(website);
+      if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error();
+    } catch {
+      return res.status(400).json({ error: "Invalid website URL" });
+    }
+  }
+
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
