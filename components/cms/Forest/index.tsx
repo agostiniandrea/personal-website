@@ -24,6 +24,7 @@ export interface ForestProps {
   treesDedicatedCount?: number;
   improvementsCount?: number;
   treeCount?: number;
+  treeCountTitle?: string;
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
@@ -266,6 +267,15 @@ const CtaDecor = styled.div`
   }
 `;
 
+const CtaDecorTitle = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  margin-bottom: 0.25rem;
+`;
+
 const CtaDecorNumber = styled.span`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: 3.5rem;
@@ -282,8 +292,7 @@ const CtaDecorLabel = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
-  opacity: 0.7;
+  color: ${({ theme }) => theme.colors.paragraph};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
@@ -486,6 +495,7 @@ const Forest: React.FC<ForestProps> = ({
   treesDedicatedCount = 0,
   improvementsCount = 0,
   treeCount = 30,
+  treeCountTitle = "My Forest",
   ctaHeading = "Help this portfolio grow.",
   ctaBody = "Every meaningful suggestion plants a real tree. Your feedback grows the forest.",
   ctaButtonLabel = "🌱 Plant a leaf",
@@ -575,6 +585,7 @@ const Forest: React.FC<ForestProps> = ({
               </PlantButton>
             </CtaContent>
             <CtaDecor>
+              {treeCountTitle && <CtaDecorTitle>{treeCountTitle}</CtaDecorTitle>}
               <CtaDecorNumber>{treeCount}</CtaDecorNumber>
               <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
             </CtaDecor>
