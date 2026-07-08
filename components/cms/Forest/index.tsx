@@ -1,8 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { ForestModal } from "./ForestModal";
+
+const LABEL_DEFAULTS = {
+  en: {
+    feedbackCountLabel: "feedback received",
+    treesDedicatedCountLabel: "trees dedicated",
+    improvementsCountLabel: "improvements shipped",
+  },
+  it: {
+    feedbackCountLabel: "feedback ricevuti",
+    treesDedicatedCountLabel: "alberi dedicati",
+    improvementsCountLabel: "miglioramenti realizzati",
+  },
+};
 
 export interface ChangelogItem {
   date: string;
@@ -31,6 +45,7 @@ export interface ForestProps {
   seasonName?: string;
   seasonCurrentLabel?: string;
   treeCountLabel?: string;
+  treesLabel?: string;
   viewForestLabel?: string;
   feedbackCountLabel?: string;
   treesDedicatedCountLabel?: string;
@@ -502,16 +517,22 @@ const Forest: React.FC<ForestProps> = ({
   seasonName = "Season One",
   seasonCurrentLabel = "Current season",
   treeCountLabel = "Personally planted since May 2026",
+  treesLabel = "trees",
   viewForestLabel = "View the living forest",
-  feedbackCountLabel = "feedback received",
-  treesDedicatedCountLabel = "trees dedicated",
-  improvementsCountLabel = "improvements shipped",
+  feedbackCountLabel,
+  treesDedicatedCountLabel,
+  improvementsCountLabel,
   seasonTarget = 25,
   changelogItems = [],
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { locale } = useRouter();
+  const labelDefaults = locale === "it" ? LABEL_DEFAULTS.it : LABEL_DEFAULTS.en;
+  const resolvedFeedbackCountLabel = feedbackCountLabel ?? labelDefaults.feedbackCountLabel;
+  const resolvedTreesDedicatedCountLabel = treesDedicatedCountLabel ?? labelDefaults.treesDedicatedCountLabel;
+  const resolvedImprovementsCountLabel = improvementsCountLabel ?? labelDefaults.improvementsCountLabel;
 
   const animFeedback = useAnimatedCounter(feedbackCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -519,9 +540,9 @@ const Forest: React.FC<ForestProps> = ({
 
   const pct = Math.min(seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0, 100);
   const visibleStats = [
-    { value: animFeedback, label: feedbackCountLabel, active: feedbackCount > 0 },
-    { value: animTrees, label: treesDedicatedCountLabel, active: treesDedicatedCount > 0 },
-    { value: animImprovements, label: improvementsCountLabel, active: improvementsCount > 0 },
+    { value: animFeedback, label: resolvedFeedbackCountLabel, active: feedbackCount > 0 },
+    { value: animTrees, label: resolvedTreesDedicatedCountLabel, active: treesDedicatedCount > 0 },
+    { value: animImprovements, label: resolvedImprovementsCountLabel, active: improvementsCount > 0 },
   ].filter((s) => s.active);
   const hasStats = visibleStats.length > 0;
   const resolvedOriginItems = originItems?.length ? originItems : DEFAULT_ORIGIN_ITEMS;
@@ -545,7 +566,7 @@ const Forest: React.FC<ForestProps> = ({
           {badge && (
             <BadgeWrap>
               <BadgeDot aria-hidden="true" />
-              <BadgeLabel>Growing in public</BadgeLabel>
+              <BadgeLabel>{badge}</BadgeLabel>
             </BadgeWrap>
           )}
 
@@ -594,7 +615,7 @@ const Forest: React.FC<ForestProps> = ({
           <SeasonCard>
             <SeasonHeader>
               <SeasonLabel>{seasonName}</SeasonLabel>
-              <SeasonCount>{treesDedicatedCount} / {seasonTarget} trees</SeasonCount>
+              <SeasonCount>{treesDedicatedCount} / {seasonTarget} {treesLabel}</SeasonCount>
             </SeasonHeader>
             <ProgressTrack>
               <ProgressFill $pct={pct} $animate={inView} />
