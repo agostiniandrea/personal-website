@@ -13,13 +13,13 @@ interface StyledOverlayProps {
 }
 
 const StyledOverlay = styled.div<StyledOverlayProps>`
-  position: fixed;
-  inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
+  inset: 0;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   pointer-events: ${({ $isOpen }) => ($isOpen ? "all" : "none")};
+  position: fixed;
   transition: opacity 0.3s ease;
+  z-index: 200;
 `;
 
 export const Overlay: React.FC<OverlayProps> = ({ isOpen, onClick }) => {
@@ -43,12 +43,12 @@ export const DrawerTopBar: React.FC<DrawerTopBarProps> = ({
 };
 
 const StyledDrawerTopBar = styled.div`
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0.75rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
   flex-shrink: 0;
+  justify-content: flex-end;
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl};
 `;
 
 // --- Drawer ---
@@ -65,19 +65,19 @@ interface StyledDrawerProps {
 }
 
 const StyledDrawer = styled.div<StyledDrawerProps>`
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
   background: ${({ theme }) => theme.colors.background};
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
-  transition: transform 0.3s ease;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
+  transition: transform 0.3s ease;
+  width: 280px;
+  z-index: 300;
 `;
 
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(

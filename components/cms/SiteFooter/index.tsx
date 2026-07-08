@@ -19,17 +19,17 @@ export interface SiteFooterProps {
 const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.badgeBg};
   border-top: 1px solid rgba(128, 128, 128, 0.12);
-  padding-top: ${toSpacing("3xl")};
   padding-bottom: ${toSpacing("xl")};
+  padding-top: ${toSpacing("3xl")};
 `;
 
 /* ── Primary CTA layer ── */
 
 const CtaArea = styled.div`
-  text-align: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
   margin-bottom: ${toSpacing("2xl")};
   padding-bottom: ${toSpacing("2xl")};
-  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  text-align: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border-bottom: none;
@@ -37,12 +37,12 @@ const CtaArea = styled.div`
 `;
 
 const CtaHeading = styled.h2`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  margin: 0 0 ${toSpacing("xl")};
   line-height: ${({ theme }) => theme.lineHeights.tight};
+  margin: 0 0 ${toSpacing("xl")};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["3xl"]};
@@ -50,31 +50,31 @@ const CtaHeading = styled.h2`
 `;
 
 const SocialLink = styled(Link)`
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.highlight};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
 /* ── Secondary subfooter layer ── */
 
 const Subfooter = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: ${toSpacing("lg")};
   text-align: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     align-items: flex-end;
-    text-align: left;
+    display: grid;
     gap: ${toSpacing("xl")};
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: left;
   }
 `;
 
 const BadgeCol = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -83,9 +83,9 @@ const BadgeCol = styled.div`
 `;
 
 const TaglineCol = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: ${toSpacing("md")};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -110,11 +110,11 @@ const CarbonWrapper = styled.div`
 `;
 
 const MetaCol = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: ${toSpacing("sm")};
   flex-shrink: 0;
+  gap: ${toSpacing("sm")};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;

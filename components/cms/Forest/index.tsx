@@ -1,8 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { ForestModal } from "./ForestModal";
+
+const LABEL_DEFAULTS = {
+  en: {
+    feedbackCountLabel: "feedback received",
+    treesDedicatedCountLabel: "trees dedicated",
+    improvementsCountLabel: "improvements shipped",
+  },
+  it: {
+    feedbackCountLabel: "feedback ricevuti",
+    treesDedicatedCountLabel: "alberi dedicati",
+    improvementsCountLabel: "miglioramenti realizzati",
+  },
+};
 
 export interface ChangelogItem {
   date: string;
@@ -31,6 +45,7 @@ export interface ForestProps {
   seasonName?: string;
   seasonCurrentLabel?: string;
   treeCountLabel?: string;
+  treesLabel?: string;
   viewForestLabel?: string;
   feedbackCountLabel?: string;
   treesDedicatedCountLabel?: string;
@@ -83,60 +98,60 @@ const pulse = keyframes`
 /* ── Badge ── */
 
 const BadgeWrap = styled.div`
-  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.75rem 0.3rem 0.625rem;
   border: 1px solid rgba(128, 128, 128, 0.2);
   border-radius: 999px;
+  display: inline-flex;
+  gap: ${({ theme }) => theme.space.sm};
   margin-bottom: 1.25rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.625rem;
   width: fit-content;
 `;
 
 const BadgeDot = styled.span`
-  width: 6px;
-  height: 6px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.highlight};
   animation: ${pulse} 2.4s ease-in-out infinite;
+  background: ${({ theme }) => theme.colors.highlight};
+  border-radius: ${({ theme }) => theme.radii.rounded};
+  flex-shrink: 0;
+  height: 6px;
+  width: 6px;
 `;
 
 const BadgeLabel = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: 0.65rem;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
 /* ── Layout ── */
 
 const Section = styled.section`
-  padding: 3rem 0;
+  padding: ${({ theme }) => theme.space["3xl"]} 0;
   position: relative;
 
   @media (max-width: 1199px) {
-    padding: 2rem 0;
+    padding: ${({ theme }) => theme.space["2xl"]} 0;
   }
 `;
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin-bottom: 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled.h2`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0 0 1rem;
   max-width: 640px;
-  line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["3xl"]};
@@ -144,39 +159,39 @@ const SectionHeading = styled.h2`
 `;
 
 const Subheading = styled(Text)`
-  max-width: 580px;
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin-bottom: 2.5rem;
+  max-width: 580px;
 `;
 
 /* ── Origin story ── */
 
 const OriginBlock = styled.div`
-  margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
+  margin-bottom: 2.5rem;
 `;
 
 const OriginItem = styled.div`
-  display: flex;
   align-items: baseline;
-  gap: 1rem;
+  display: flex;
+  gap: ${({ theme }) => theme.space.lg};
 `;
 
 const OriginDate = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  flex-shrink: 0;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
-  white-space: nowrap;
   min-width: 88px;
-  flex-shrink: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
 `;
 
 const OriginText = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.normal};
 `;
 
@@ -184,37 +199,37 @@ const OriginText = styled.span`
 
 const StatsGrid = styled.div<{ $count: number }>`
   display: grid;
-  grid-template-columns: repeat(${({ $count }) => $count}, 1fr);
   gap: 0.625rem;
+  grid-template-columns: repeat(${({ $count }) => $count}, 1fr);
   margin-bottom: 3.5rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    gap: 1.5rem;
+    gap: ${({ theme }) => theme.space.xl};
   }
 `;
 
 const StatItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.xs};
   padding: 1rem 0.875rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border: none;
     border-radius: 0;
-    padding: 0;
     gap: 0.375rem;
+    padding: 0;
   }
 `;
 
 const StatNumber = styled.span`
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 2rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.headline};
-  line-height: 1;
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: ${({ theme }) => theme.fontSizes["2xl"]};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: 3.25rem;
@@ -228,18 +243,18 @@ const StatLabel = styled(Text)`
 /* ── CTA card ── */
 
 const CtaCard = styled.div`
-  border-radius: 1rem;
-  padding: 2rem;
-  margin-bottom: 2.5rem;
   background: ${({ theme }) => theme.colors.highlight}0d;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: ${({ theme }) => theme.space["2xl"]};
+  margin-bottom: 2.5rem;
+  padding: ${({ theme }) => theme.space["2xl"]};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    flex-direction: row;
     align-items: center;
+    flex-direction: row;
     justify-content: space-between;
     padding: 2.5rem 3rem;
   }
@@ -250,38 +265,38 @@ const CtaContent = styled.div`
 `;
 
 const CtaDecor = styled.div`
+  align-items: flex-start;
+  border-top: 1px solid ${({ theme }) => theme.colors.highlight}25;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
+  gap: ${({ theme }) => theme.space.xs};
   padding-top: 0.25rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.highlight}25;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    border-top: none;
-    border-left: 1px solid ${({ theme }) => theme.colors.highlight}25;
-    padding-top: 0;
-    padding-left: 3rem;
     align-items: flex-start;
+    border-left: 1px solid ${({ theme }) => theme.colors.highlight}25;
+    border-top: none;
     min-width: 180px;
+    padding-left: 3rem;
+    padding-top: 0;
   }
 `;
 
 const CtaDecorTitle = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  letter-spacing: 0.15em;
   margin-bottom: 0.25rem;
+  text-transform: uppercase;
 `;
 
 const CtaDecorNumber = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: 3.5rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.highlight};
-  line-height: 1;
+  line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: 4.5rem;
@@ -289,18 +304,18 @@ const CtaDecorNumber = styled.span`
 `;
 
 const CtaDecorLabel = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
 const CtaHeading = styled.h3`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
   margin: 0 0 0.625rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
@@ -309,26 +324,26 @@ const CtaHeading = styled.h3`
 `;
 
 const CtaBody = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0 0 1.75rem;
   max-width: 420px;
 `;
 
 const PlantButton = styled.button`
-  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
   background: ${({ theme }) => theme.colors.button};
+  border: 2px solid transparent;
+  border-radius: ${({ theme }) => theme.radii.xs};
   color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  border: 2px solid transparent;
-  border-radius: ${({ theme }) => theme.radii.xs};
-  cursor: pointer;
+  gap: ${({ theme }) => theme.space.sm};
+  padding: 0.875rem 2rem;
   transition: all 0.2s ease;
 
   &:hover {
@@ -348,65 +363,65 @@ const PlantButton = styled.button`
 const SeasonCard = styled.div`
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
-  padding: 1.5rem 1.75rem;
   margin-bottom: 2rem;
+  padding: ${({ theme }) => theme.space.xl} 1.75rem;
 `;
 
 const SeasonHeader = styled.div`
+  align-items: baseline;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
   margin-bottom: 1rem;
 `;
 
 const SeasonLabel = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
 `;
 
 const SeasonCount = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const ProgressTrack = styled.div`
-  height: 8px;
-  border-radius: 999px;
   background: ${({ theme }) => theme.colors.highlight}1a;
-  overflow: hidden;
+  border-radius: 999px;
+  height: 8px;
   margin-bottom: 0.875rem;
+  overflow: hidden;
 `;
 
 const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
-  height: 100%;
-  border-radius: 999px;
   background: linear-gradient(
     90deg,
     ${({ theme }) => theme.colors.highlight},
     ${({ theme }) => theme.colors.highlight}cc
   );
-  width: ${({ $animate, $pct }) => ($animate ? `${Math.max($pct, 2)}%` : "2%")};
+  border-radius: 999px;
+  height: 100%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  width: ${({ $animate, $pct }) => ($animate ? `${Math.max($pct, 2)}%` : "2%")};
 `;
 
 const SeasonMeta = styled.div`
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 `;
 
 const SeasonSublabel = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.05em;
 `;
 
 const SeasonPct = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.highlight};
 `;
 
 /* ── View forest link ── */
@@ -429,26 +444,26 @@ const TreeNationNote = styled(Text)`
 const TimelineSection = styled.div``;
 
 const TimelineHeading = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
   color: ${({ theme }) => theme.colors.paragraph};
-  margin: 0 0 1.25rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  letter-spacing: 0.15em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const TimelineList = styled.ul`
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 `;
 
 const TimelineItem = styled.li`
-  display: flex;
   align-items: baseline;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+  display: flex;
   gap: 1.25rem;
   padding: 0.875rem 0;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
 
   &:first-child {
     border-top: 1px solid rgba(128, 128, 128, 0.1);
@@ -456,22 +471,22 @@ const TimelineItem = styled.li`
 `;
 
 const TimelineDate = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: ${({ theme }) => theme.colors.paragraph};
-  white-space: nowrap;
-  min-width: 88px;
   flex-shrink: 0;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  min-width: 88px;
+  white-space: nowrap;
 `;
 
 const TimelineText = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.normal};
 `;
 
 const Divider = styled.div`
-  height: 1px;
   background: rgba(128, 128, 128, 0.1);
+  height: 1px;
   margin: 2.5rem 0;
 `;
 
@@ -502,16 +517,22 @@ const Forest: React.FC<ForestProps> = ({
   seasonName = "Season One",
   seasonCurrentLabel = "Current season",
   treeCountLabel = "Personally planted since May 2026",
+  treesLabel = "trees",
   viewForestLabel = "View the living forest",
-  feedbackCountLabel = "feedback received",
-  treesDedicatedCountLabel = "trees dedicated",
-  improvementsCountLabel = "improvements shipped",
+  feedbackCountLabel,
+  treesDedicatedCountLabel,
+  improvementsCountLabel,
   seasonTarget = 25,
   changelogItems = [],
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { locale } = useRouter();
+  const labelDefaults = locale === "it" ? LABEL_DEFAULTS.it : LABEL_DEFAULTS.en;
+  const resolvedFeedbackCountLabel = feedbackCountLabel ?? labelDefaults.feedbackCountLabel;
+  const resolvedTreesDedicatedCountLabel = treesDedicatedCountLabel ?? labelDefaults.treesDedicatedCountLabel;
+  const resolvedImprovementsCountLabel = improvementsCountLabel ?? labelDefaults.improvementsCountLabel;
 
   const animFeedback = useAnimatedCounter(feedbackCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -519,9 +540,9 @@ const Forest: React.FC<ForestProps> = ({
 
   const pct = Math.min(seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0, 100);
   const visibleStats = [
-    { value: animFeedback, label: feedbackCountLabel, active: feedbackCount > 0 },
-    { value: animTrees, label: treesDedicatedCountLabel, active: treesDedicatedCount > 0 },
-    { value: animImprovements, label: improvementsCountLabel, active: improvementsCount > 0 },
+    { value: animFeedback, label: resolvedFeedbackCountLabel, active: feedbackCount > 0 },
+    { value: animTrees, label: resolvedTreesDedicatedCountLabel, active: treesDedicatedCount > 0 },
+    { value: animImprovements, label: resolvedImprovementsCountLabel, active: improvementsCount > 0 },
   ].filter((s) => s.active);
   const hasStats = visibleStats.length > 0;
   const resolvedOriginItems = originItems?.length ? originItems : DEFAULT_ORIGIN_ITEMS;
@@ -545,7 +566,7 @@ const Forest: React.FC<ForestProps> = ({
           {badge && (
             <BadgeWrap>
               <BadgeDot aria-hidden="true" />
-              <BadgeLabel>Growing in public</BadgeLabel>
+              <BadgeLabel>{badge}</BadgeLabel>
             </BadgeWrap>
           )}
 
@@ -594,7 +615,7 @@ const Forest: React.FC<ForestProps> = ({
           <SeasonCard>
             <SeasonHeader>
               <SeasonLabel>{seasonName}</SeasonLabel>
-              <SeasonCount>{treesDedicatedCount} / {seasonTarget} trees</SeasonCount>
+              <SeasonCount>{treesDedicatedCount} / {seasonTarget} {treesLabel}</SeasonCount>
             </SeasonHeader>
             <ProgressTrack>
               <ProgressFill $pct={pct} $animate={inView} />

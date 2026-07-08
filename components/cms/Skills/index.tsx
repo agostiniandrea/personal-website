@@ -17,17 +17,17 @@ export interface SkillsProps {
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (max-width: 1199px) {
-    padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-top: 2rem;
   }
 `;
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -40,8 +40,8 @@ const SectionHeading = styled(Heading)`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
   gap: ${({ theme }) => theme.space["2xl"]};
+  grid-template-columns: 1fr;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     grid-template-columns: repeat(2, 1fr);
@@ -54,22 +54,22 @@ const Grid = styled.div`
 
 
 const CategoryTitle = styled.h3`
+  color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 ${({ theme }) => theme.space.lg};
+  text-transform: uppercase;
 `;
 
 const SkillList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.space.sm};
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
 
 

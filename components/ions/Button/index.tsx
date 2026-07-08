@@ -21,8 +21,8 @@ interface ButtonProps {
 
 const StyledButton = styled.button<ButtonProps>`
   background: ${({ theme }) => theme.colors.button};
-  border-radius: ${({ theme }) => theme.radii.xs};
   border: none;
+  border-radius: ${({ theme }) => theme.radii.xs};
   color: ${({ theme }) => theme.colors.button_text};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -30,7 +30,7 @@ const StyledButton = styled.button<ButtonProps>`
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   line-height: ${({ theme }) => theme.lineHeights.base};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  padding: 0.75rem 1.25rem;
+  padding: ${({ theme }) => theme.space.md} 1.25rem;
   transition: all 0.2s ease-in-out;
 
   &:hover {

@@ -15,6 +15,8 @@ const Head = () => {
         <meta property="og:type" content="website" />
         <meta name="author" content="Andrea Agostini" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://images.ctfassets.net" />
+        <link rel="dns-prefetch" href="https://images.ctfassets.net" />
         <link rel="manifest" href="/site.webmanifest" key="site-manifest" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />

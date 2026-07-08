@@ -7,17 +7,17 @@ import { journeyData, type JourneyProps } from "./model";
 const JourneySection = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (max-width: 1199px) {
-    padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-top: 2rem;
   }
 `;
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -28,9 +28,9 @@ const SectionHeading = styled(Heading)`
 `;
 
 const Intro = styled(Text)`
-  max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
+  max-width: 680px;
   @media (max-width: 1199px) {
     margin-bottom: 1rem;
   }
@@ -43,29 +43,29 @@ const Timeline = styled.ol`
 `;
 
 const TimelineItem = styled.li`
+  align-items: start;
   display: grid;
   grid-template-columns: 2.5rem 1fr;
-  align-items: start;
 
   &:not(:last-child) > div:first-child::after {
-    content: "";
-    display: block;
-    width: 2px;
-    flex: 1;
     background: linear-gradient(
       to bottom,
       var(--color-ring-start),
       transparent
     );
+    content: "";
+    display: block;
+    flex: 1;
     margin-top: ${({ theme }) => theme.space.md};
+    width: 2px;
   }
 `;
 
 const DotColumn = styled.div`
-  display: flex;
-  flex-direction: column;
   align-items: center;
   align-self: stretch;
+  display: flex;
+  flex-direction: column;
   padding-top: 4px;
 `;
 
@@ -75,17 +75,17 @@ const pulse = keyframes`
 `;
 
 const Dot = styled.div<{ $ongoing?: boolean }>`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
+  border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
+  height: 12px;
+  width: 12px;
 
   ${({ $ongoing, theme }) =>
     $ongoing
       ? css`
-          background: transparent;
           animation: ${pulse} 2.4s ease-in-out infinite;
+          background: transparent;
         `
       : css`
           background: ${theme.colors.highlight};
@@ -114,24 +114,24 @@ const CityHeading = styled(Heading)`
 `;
 
 const CountryLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.paragraph};
   display: inline-block;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
   margin-bottom: 0.375rem;
+  text-transform: uppercase;
 `;
 
 const DateLabel = styled(Text)`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.highlight};
-  margin: 0 0 ${({ theme }) => theme.space.xl};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  margin: 0 0 ${({ theme }) => theme.space.xl};
 `;
 
 const Description = styled(Text)`
-  max-width: 640px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
+  max-width: 640px;
 `;
 
 const Journey: React.FC<JourneyProps> = ({

@@ -1,7 +1,77 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { BREAKPOINTS } from "@constants";
+
+const copy = {
+  en: {
+    ariaLabel: "Share feedback",
+    close: "✕",
+    closeAriaLabel: "Close",
+    s1Title: "Help this portfolio grow.",
+    s1Body: "I’d genuinely love to hear your thoughts. Every meaningful suggestion helps improve this project — and as a thank you, I dedicate a real tree.",
+    s2Title: "What type of feedback?",
+    s2CatAriaLabel: "Feedback category",
+    s3Title: "What would you improve?",
+    s3Placeholder: "Tell me anything.\n\nBe honest.",
+    s3FieldAriaLabel: "Your feedback",
+    s4Title: "Almost there.",
+    optional: "Optional",
+    namePlaceholder: "Name",
+    nameAriaLabel: "Your name",
+    emailPlaceholder: "Email",
+    emailAriaLabel: "Your email",
+    linkedinPlaceholder: "LinkedIn",
+    linkedinAriaLabel: "LinkedIn URL",
+    githubPlaceholder: "GitHub",
+    githubAriaLabel: "GitHub URL",
+    websitePlaceholder: "Website",
+    websiteAriaLabel: "Website URL",
+    publicAck: "I’m happy for my feedback to be publicly acknowledged.",
+    errorMsg: "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
+    sending: "Sending…",
+    send: "🌱 Send",
+    continue: "Continue →",
+    back: "← Back",
+    s5Title: "Thank you.",
+    s5Body: "Your leaf has been received. I’ll personally read every submission.",
+    s5Close: "Close",
+  },
+  it: {
+    ariaLabel: "Invia feedback",
+    close: "✕",
+    closeAriaLabel: "Chiudi",
+    s1Title: "Aiuta questo portfolio a crescere.",
+    s1Body: "Mi farebbe davvero piacere conoscere il tuo punto di vista. Ogni suggerimento significativo migliora il progetto — e come ringraziamento, dedico un albero vero.",
+    s2Title: "Che tipo di feedback?",
+    s2CatAriaLabel: "Categoria del feedback",
+    s3Title: "Cosa miglioreresti?",
+    s3Placeholder: "Dimmi tutto.\n\nSii onesto.",
+    s3FieldAriaLabel: "Il tuo feedback",
+    s4Title: "Quasi fatto.",
+    optional: "Facoltativo",
+    namePlaceholder: "Nome",
+    nameAriaLabel: "Il tuo nome",
+    emailPlaceholder: "Email",
+    emailAriaLabel: "La tua email",
+    linkedinPlaceholder: "LinkedIn",
+    linkedinAriaLabel: "URL LinkedIn",
+    githubPlaceholder: "GitHub",
+    githubAriaLabel: "URL GitHub",
+    websitePlaceholder: "Sito web",
+    websiteAriaLabel: "URL sito web",
+    publicAck: "Accetto che il mio feedback venga riconosciuto pubblicamente.",
+    errorMsg: "Qualcosa è andato storto. Riprova oppure scrivimi a a.agostini92@gmail.com",
+    sending: "Invio in corso…",
+    send: "🌱 Invia",
+    continue: "Continua →",
+    back: "← Indietro",
+    s5Title: "Grazie.",
+    s5Body: "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
+    s5Close: "Chiudi",
+  },
+};
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -73,77 +143,77 @@ const leafFall = keyframes`
 /* ── Layout ── */
 
 const Backdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  z-index: 1000;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 1rem;
   animation: ${fadeIn} 0.2s ease;
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: ${({ theme }) => theme.space.lg};
+  position: fixed;
+  z-index: 1000;
 `;
 
 const Card = styled.div`
+  animation: ${slideUp} 0.25s ease;
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1.25rem;
-  padding: 2.5rem 2rem;
-  width: 100%;
-  max-width: 520px;
   max-height: 92vh;
+  max-width: 520px;
   overflow-y: auto;
+  padding: 2.5rem 2rem;
   position: relative;
-  animation: ${slideUp} 0.25s ease;
+  width: 100%;
 
   @media (min-width: ${BREAKPOINTS.mobile}) {
-    padding: 3rem;
+    padding: ${({ theme }) => theme.space["3xl"]};
   }
 `;
 
 const CloseBtn = styled.button`
+  align-self: center;
   background: none;
   border: none;
-  cursor: pointer;
   color: ${({ theme }) => theme.colors.paragraph};
-  padding: 0.25rem;
-  line-height: 1;
-  font-size: 1.125rem;
-  transition: color 0.15s ease;
+  cursor: pointer;
   flex-shrink: 0;
-  align-self: center;
+  font-size: 1.125rem;
+  line-height: ${({ theme }) => theme.lineHeights.tight};
+  padding: ${({ theme }) => theme.space.xs};
+  transition: color 0.15s ease;
 
   &:hover { color: ${({ theme }) => theme.colors.headline}; }
 
   &:focus-visible {
+    border-radius: ${({ theme }) => theme.radii.xs};
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
-    border-radius: 4px;
   }
 `;
 
 /* ── Step indicator ── */
 
 const ModalHeader = styled.div`
-  display: flex;
   align-items: center;
-  gap: 0.75rem;
+  display: flex;
+  gap: ${({ theme }) => theme.space.md};
   margin-bottom: 2rem;
 `;
 
 const Dots = styled.div`
   display: flex;
-  gap: 0.375rem;
   flex: 1;
+  gap: 0.375rem;
 `;
 
 const Dot = styled.span<{ $on: boolean }>`
-  height: 3px;
+  background: ${({ theme, $on }) => ($on ? theme.colors.highlight : "rgba(128,128,128,0.18)")};
   border-radius: 999px;
   flex: 1;
-  background: ${({ theme, $on }) => ($on ? theme.colors.highlight : "rgba(128,128,128,0.18)")};
+  height: 3px;
   transition: background 0.3s ease;
 `;
 
@@ -156,16 +226,16 @@ const StepWrap = styled.div`
 /* ── Typography ── */
 
 const Icon = styled.div`
-  font-size: 2.5rem;
-  line-height: 1;
+  font-size: ${({ theme }) => theme.fontSizes["3xl"]};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
   margin-bottom: 1.25rem;
 `;
 
 const Title = styled.h2`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
   line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0 0 0.75rem;
 
@@ -175,8 +245,8 @@ const Title = styled.h2`
 `;
 
 const Body = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0 0 2rem;
 `;
@@ -185,25 +255,25 @@ const Body = styled.p`
 
 const CatGrid = styled.div`
   display: grid;
+  gap: ${({ theme }) => theme.space.sm};
   grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
   margin-bottom: 2rem;
 `;
 
 const CatBtn = styled.button<{ $selected: boolean }>`
-  padding: 0.625rem 0.875rem;
-  border-radius: 0.625rem;
+  background: ${({ theme, $selected }) =>
+    $selected ? theme.colors.surface : "transparent"};
   border: 1.5px solid
     ${({ theme, $selected }) =>
       $selected ? theme.colors.highlight : "rgba(128,128,128,0.2)"};
-  background: ${({ theme, $selected }) =>
-    $selected ? theme.colors.surface : "transparent"};
+  border-radius: 0.625rem;
   color: ${({ theme, $selected }) =>
     $selected ? theme.colors.highlight : theme.colors.paragraph};
+  cursor: pointer;
+  font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-family: ${({ theme }) => theme.fontFamilies.default};
-  cursor: pointer;
+  padding: 0.625rem 0.875rem;
   text-align: left;
   transition: all 0.15s ease;
 
@@ -221,20 +291,20 @@ const CatBtn = styled.button<{ $selected: boolean }>`
 /* ── Step 3: Textarea ── */
 
 const Textarea = styled.textarea`
-  width: 100%;
-  min-height: 160px;
-  padding: 1rem;
   background: transparent;
   border: 1.5px solid rgba(128, 128, 128, 0.2);
   border-radius: 0.75rem;
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  resize: vertical;
   margin-bottom: 2rem;
+  min-height: 160px;
+  padding: ${({ theme }) => theme.space.lg};
+  resize: vertical;
   transition: border-color 0.15s ease;
-  box-sizing: border-box;
+  width: 100%;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.paragraph};
@@ -242,39 +312,39 @@ const Textarea = styled.textarea`
   }
 
   &:focus {
-    outline: none;
     border-color: ${({ theme }) => theme.colors.highlight};
+    outline: none;
   }
 `;
 
 /* ── Step 4: Optional fields ── */
 
 const OptionalLabel = styled.p`
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
   margin: 0 0 0.875rem;
+  text-transform: uppercase;
 `;
 
 const InputList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   margin-bottom: 1.5rem;
 `;
 
 const Input = styled.input`
-  width: 100%;
-  padding: 0.75rem 1rem;
   background: transparent;
   border: 1.5px solid rgba(128, 128, 128, 0.2);
   border-radius: 0.625rem;
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.lg};
   transition: border-color 0.15s ease;
-  box-sizing: border-box;
+  width: 100%;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.paragraph};
@@ -282,53 +352,53 @@ const Input = styled.input`
   }
 
   &:focus {
-    outline: none;
     border-color: ${({ theme }) => theme.colors.highlight};
+    outline: none;
   }
 `;
 
 const CheckboxRow = styled.label`
-  display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
   cursor: pointer;
+  display: flex;
+  gap: ${({ theme }) => theme.space.md};
   margin-bottom: 2rem;
 
   input[type="checkbox"] {
-    flex-shrink: 0;
-    margin-top: 0.1875rem;
-    width: 1rem;
-    height: 1rem;
     accent-color: ${({ theme }) => theme.colors.highlight};
     cursor: pointer;
+    flex-shrink: 0;
+    height: 1rem;
+    margin-top: 0.1875rem;
+    width: 1rem;
   }
 `;
 
 const CheckboxText = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
 `;
 
 const ErrorMsg = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #ef4444;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin: 0 0 1rem;
 `;
 
 /* ── Buttons ── */
 
 const BtnRow = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 1.25rem;
 `;
 
 const BackBtn = styled.button`
   background: none;
   border: none;
-  cursor: pointer;
   color: ${({ theme }) => theme.colors.paragraph};
+  cursor: pointer;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   padding: 0;
@@ -343,18 +413,18 @@ const BackBtn = styled.button`
 `;
 
 const PrimaryBtn = styled.button`
-  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 1.75rem;
   background: ${({ theme }) => theme.colors.button};
+  border: 2px solid transparent;
+  border-radius: ${({ theme }) => theme.radii.xs};
   color: ${({ theme }) => theme.colors.button_text};
+  cursor: pointer;
+  display: inline-flex;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  border: 2px solid transparent;
-  border-radius: ${({ theme }) => theme.radii.xs};
-  cursor: pointer;
+  gap: ${({ theme }) => theme.space.sm};
+  padding: 0.875rem 1.75rem;
   transition: all 0.2s ease;
 
   &:hover {
@@ -364,8 +434,8 @@ const PrimaryBtn = styled.button`
   }
 
   &:disabled {
-    opacity: 0.4;
     cursor: not-allowed;
+    opacity: 0.4;
     pointer-events: none;
   }
 
@@ -378,40 +448,40 @@ const PrimaryBtn = styled.button`
 /* ── Step 5: Success ── */
 
 const SuccessWrap = styled.div`
-  text-align: center;
-  padding: 1rem 0;
   animation: ${slideUp} 0.3s ease;
+  padding: ${({ theme }) => theme.space.lg} 0;
+  text-align: center;
 `;
 
 const Leaves = styled.div`
-  position: relative;
   height: 90px;
   margin-bottom: 1.5rem;
+  position: relative;
 `;
 
 const Leaf = styled.span<{ $delay: number; $drift: string }>`
-  position: absolute;
-  font-size: 1.5rem;
-  top: 0;
+  font-size: ${({ theme }) => theme.fontSizes.xl};
   left: 50%;
+  position: absolute;
+  top: 0;
   --drift: ${({ $drift }) => $drift};
   animation: ${leafFall} 1.3s ease-out ${({ $delay }) => $delay}s both;
 `;
 
 const SuccessTitle = styled.h2`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
   margin: 0 0 0.75rem;
 `;
 
 const SuccessBody = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  max-width: 34ch;
   margin: 0 auto 2rem;
+  max-width: 34ch;
 `;
 
 /* ── Component ── */
@@ -431,6 +501,8 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const firstFocusRef = useRef<HTMLButtonElement>(null);
+  const { locale } = useRouter();
+  const t = locale === "it" ? copy.it : copy.en;
 
   useEffect(() => setMounted(true), []);
 
@@ -486,7 +558,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
-      aria-label="Share feedback"
+      aria-label={t.ariaLabel}
     >
       <Card>
         <ModalHeader>
@@ -499,28 +571,24 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
           ) : (
             <div style={{ flex: 1 }} />
           )}
-          <CloseBtn onClick={onClose} aria-label="Close">✕</CloseBtn>
+          <CloseBtn onClick={onClose} aria-label={t.closeAriaLabel}>{t.close}</CloseBtn>
         </ModalHeader>
 
         {step === 1 && (
           <StepWrap key="s1">
             <Icon aria-hidden="true">🌳</Icon>
-            <Title>Help this portfolio grow.</Title>
-            <Body>
-              I&rsquo;d genuinely love to hear your thoughts. Every meaningful
-              suggestion helps improve this project — and as a thank you, I
-              dedicate a real tree.
-            </Body>
+            <Title>{t.s1Title}</Title>
+            <Body>{t.s1Body}</Body>
             <PrimaryBtn ref={firstFocusRef} onClick={next} type="button">
-              Continue →
+              {t.continue}
             </PrimaryBtn>
           </StepWrap>
         )}
 
         {step === 2 && (
           <StepWrap key="s2">
-            <Title>What type of feedback?</Title>
-            <CatGrid role="group" aria-label="Feedback category">
+            <Title>{t.s2Title}</Title>
+            <CatGrid role="group" aria-label={t.s2CatAriaLabel}>
               {CATEGORIES.map((cat) => (
                 <CatBtn
                   key={cat}
@@ -534,14 +602,14 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               ))}
             </CatGrid>
             <BtnRow>
-              <BackBtn onClick={back} type="button">← Back</BackBtn>
+              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 ref={firstFocusRef}
                 onClick={next}
                 disabled={!data.category}
                 type="button"
               >
-                Continue →
+                {t.continue}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -549,22 +617,22 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
 
         {step === 3 && (
           <StepWrap key="s3">
-            <Title>What would you improve?</Title>
+            <Title>{t.s3Title}</Title>
             <Textarea
-              placeholder={"Tell me anything.\n\nBe honest."}
+              placeholder={t.s3Placeholder}
               value={data.message}
               onChange={(e) => setData((d) => ({ ...d, message: e.target.value }))}
-              aria-label="Your feedback"
+              aria-label={t.s3FieldAriaLabel}
               autoFocus
             />
             <BtnRow>
-              <BackBtn onClick={back} type="button">← Back</BackBtn>
+              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 onClick={next}
                 disabled={data.message.trim().length < 10}
                 type="button"
               >
-                Continue →
+                {t.continue}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -572,39 +640,39 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
 
         {step === 4 && (
           <StepWrap key="s4">
-            <Title>Almost there.</Title>
-            <OptionalLabel>Optional</OptionalLabel>
+            <Title>{t.s4Title}</Title>
+            <OptionalLabel>{t.optional}</OptionalLabel>
             <InputList>
               <Input
-                placeholder="Name"
+                placeholder={t.namePlaceholder}
                 value={data.name}
                 onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
-                aria-label="Your name"
+                aria-label={t.nameAriaLabel}
               />
               <Input
-                placeholder="Email"
+                placeholder={t.emailPlaceholder}
                 type="email"
                 value={data.email}
                 onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
-                aria-label="Your email"
+                aria-label={t.emailAriaLabel}
               />
               <Input
-                placeholder="LinkedIn"
+                placeholder={t.linkedinPlaceholder}
                 value={data.linkedin}
                 onChange={(e) => setData((d) => ({ ...d, linkedin: e.target.value }))}
-                aria-label="LinkedIn URL"
+                aria-label={t.linkedinAriaLabel}
               />
               <Input
-                placeholder="GitHub"
+                placeholder={t.githubPlaceholder}
                 value={data.github}
                 onChange={(e) => setData((d) => ({ ...d, github: e.target.value }))}
-                aria-label="GitHub URL"
+                aria-label={t.githubAriaLabel}
               />
               <Input
-                placeholder="Website"
+                placeholder={t.websitePlaceholder}
                 value={data.website}
                 onChange={(e) => setData((d) => ({ ...d, website: e.target.value }))}
-                aria-label="Website URL"
+                aria-label={t.websiteAriaLabel}
               />
             </InputList>
             {/* Honeypot — hidden from real users, bots fill it */}
@@ -626,19 +694,17 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                 }
                 id="public-ack"
               />
-              <CheckboxText>
-                I&rsquo;m happy for my feedback to be publicly acknowledged.
-              </CheckboxText>
+              <CheckboxText>{t.publicAck}</CheckboxText>
             </CheckboxRow>
-            {error && <ErrorMsg role="alert">{error}</ErrorMsg>}
+            {error && <ErrorMsg role="alert">{t.errorMsg}</ErrorMsg>}
             <BtnRow>
-              <BackBtn onClick={back} type="button">← Back</BackBtn>
+              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 onClick={submit}
                 disabled={submitting}
                 type="button"
               >
-                {submitting ? "Sending…" : "🌱 Send"}
+                {submitting ? t.sending : t.send}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -651,12 +717,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                 <Leaf key={i} $delay={delay} $drift={drift}>🍃</Leaf>
               ))}
             </Leaves>
-            <SuccessTitle>Thank you.</SuccessTitle>
-            <SuccessBody>
-              Your leaf has been received. I&rsquo;ll personally read every submission.
-            </SuccessBody>
+            <SuccessTitle>{t.s5Title}</SuccessTitle>
+            <SuccessBody>{t.s5Body}</SuccessBody>
             <PrimaryBtn onClick={onClose} type="button">
-              Close
+              {t.s5Close}
             </PrimaryBtn>
           </SuccessWrap>
         )}

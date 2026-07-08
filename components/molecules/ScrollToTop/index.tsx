@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Button = styled.button<{ $visible: boolean }>`
-  position: fixed;
-  bottom: ${({ theme }) => theme.space["2xl"]};
-  right: ${({ theme }) => theme.space["2xl"]};
-  width: 2.75rem;
-  height: 2.75rem;
-  display: flex;
   align-items: center;
-  justify-content: center;
   background: ${({ theme }) => theme.colors.button};
-  color: ${({ theme }) => theme.colors.button_text};
   border: none;
   border-radius: ${({ theme }) => theme.radii.full};
+  bottom: ${({ theme }) => theme.space["2xl"]};
+  color: ${({ theme }) => theme.colors.button_text};
   cursor: pointer;
-  z-index: 100;
+  display: flex;
+  height: 2.75rem;
+  justify-content: center;
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
+  position: fixed;
+  right: ${({ theme }) => theme.space["2xl"]};
   transform: translateY(${({ $visible }) => ($visible ? "0" : "0.5rem")});
   transition: opacity 0.25s ease, transform 0.25s ease;
+  width: 2.75rem;
+  z-index: 100;
 
   &:hover {
     opacity: 0.85;

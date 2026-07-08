@@ -15,9 +15,9 @@ interface StyledHeadingProps {
 }
 
 const StyledHeading = styled.h2<StyledHeadingProps>`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
 
   ${({ $size, theme }) => {
     switch ($size) {

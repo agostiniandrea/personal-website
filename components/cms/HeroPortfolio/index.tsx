@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NextHead from "next/head";
 import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
@@ -20,27 +19,27 @@ export interface HeroPortfolioProps {
 }
 
 const Section = styled.section`
-  position: relative;
-  display: flex;
   align-items: center;
-  padding-top: 3.5rem;
+  display: flex;
   padding-bottom: 2rem;
+  padding-top: 3.5rem;
+  position: relative;
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    padding-top: 0;
-    padding-bottom: 0;
     min-height: 100svh;
+    padding-bottom: 0;
+    padding-top: 0;
   }
 `;
 
 const HeroGrid = styled(Flex)`
+  align-items: center;
   flex-direction: column-reverse;
   gap: ${({ theme }) => theme.space["3xl"]};
-  align-items: center;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     flex-direction: row;
-    justify-content: space-between;
     gap: ${({ theme }) => theme.space["4xl"]};
+    justify-content: space-between;
   }
 `;
 
@@ -58,21 +57,21 @@ const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
 `;
 
 const GreetingSpan = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
   display: block;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.regular};
   letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
   margin-bottom: ${({ theme }) => theme.space.lg};
+  text-transform: uppercase;
 `;
 
 const Role = styled.p`
+  color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: ${({ theme }) => theme.fontWeights.regular};
-  color: ${({ theme }) => theme.colors.highlight};
   line-height: ${({ theme }) => theme.lineHeights.normal};
   margin: 0 0 ${({ theme }) => theme.space.xl};
 
@@ -82,9 +81,9 @@ const Role = styled.p`
 `;
 
 const Tagline = styled(Text)`
-  max-width: 500px;
-  margin: 0 auto ${({ theme }) => theme.space["2xl"]};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
+  margin: 0 auto ${({ theme }) => theme.space["2xl"]};
+  max-width: 500px;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     margin: 0 0 ${({ theme }) => theme.space["2xl"]};
@@ -92,14 +91,14 @@ const Tagline = styled(Text)`
 `;
 
 const PrimaryLink = styled(Link)`
-  display: inline-block;
-  padding: 0.875rem 2rem;
   background: ${({ theme }) => theme.colors.button};
-  color: ${({ theme }) => theme.colors.button_text};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: ${({ theme }) => theme.fontSizes.md};
   border: 2px solid transparent;
   border-radius: ${({ theme }) => theme.radii.xs};
+  color: ${({ theme }) => theme.colors.button_text};
+  display: inline-block;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  padding: 0.875rem 2rem;
   text-decoration: none;
   transition: all 0.2s ease;
 
@@ -116,20 +115,20 @@ const PrimaryLink = styled(Link)`
 `;
 
 const CvLink = styled.a`
-  display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.875rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.paragraph};
   color: ${({ theme }) => theme.colors.paragraph};
+  display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  gap: 0.375rem;
+  padding: 0.875rem 0;
   text-decoration: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.paragraph};
   transition: color 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.headline};
     border-color: ${({ theme }) => theme.colors.headline};
+    color: ${({ theme }) => theme.colors.headline};
   }
 
   &:focus-visible {
@@ -139,13 +138,13 @@ const CvLink = styled.a`
 `;
 
 const SecondaryLink = styled(Link)`
-  display: inline-block;
-  padding: 0.875rem 2rem;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
-  color: ${({ theme }) => theme.colors.highlight};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: ${({ theme }) => theme.fontSizes.md};
   border-radius: ${({ theme }) => theme.radii.xs};
+  color: ${({ theme }) => theme.colors.highlight};
+  display: inline-block;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  padding: 0.875rem 2rem;
   text-decoration: none;
   transition: all 0.2s ease;
 
@@ -161,27 +160,27 @@ const SecondaryLink = styled(Link)`
 `;
 
 const PhotoOuter = styled.div`
-  flex-shrink: 0;
-  border-radius: 50%;
-  padding: 3px;
   background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
-  width: 240px;
+  border-radius: ${({ theme }) => theme.radii.rounded};
+  flex-shrink: 0;
   height: 240px;
   margin-top: ${({ theme }) => theme.space["2xl"]};
+  padding: 3px;
+  width: 240px;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    width: 380px;
     height: 380px;
     margin-top: 0;
+    width: 380px;
   }
 `;
 
 const PhotoWrapper = styled.div`
+  border-radius: ${({ theme }) => theme.radii.rounded};
+  height: 100%;
+  overflow: hidden;
   position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
 `;
 
 const bounce = keyframes`
@@ -190,37 +189,37 @@ const bounce = keyframes`
 `;
 
 const ScrollHint = styled.button<{ $visible: boolean }>`
-  display: none;
-  position: fixed;
   bottom: 2rem;
+  display: none;
   left: 50%;
+  position: fixed;
   transform: translateX(-50%);
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
   }
+  -webkit-appearance: none;
+  animation: ${bounce} 1.8s ease-in-out infinite;
+  appearance: none;
   background: none;
   border: none;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  opacity: ${({ $visible }) => ($visible ? 0.6 : 0)};
-  transition: opacity 0.4s ease;
-  pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
-  animation: ${bounce} 1.8s ease-in-out infinite;
   color: ${({ theme }) => theme.colors.highlight};
+  cursor: pointer;
+  opacity: ${({ $visible }) => ($visible ? 0.6 : 0)};
+  padding: ${({ theme }) => theme.space.sm};
+  pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
+  transition: opacity 0.4s ease;
 
   &:hover { opacity: 1; }
 
   &:focus:not(:focus-visible) { outline: none; }
 
   &:focus-visible {
+    border-radius: ${({ theme }) => theme.radii.rounded};
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
-    border-radius: 50%;
   }
 `;
 
@@ -256,19 +255,8 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const preloadSrc = contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" });
-
   return (
     <>
-      <NextHead>
-        <link
-          rel="preload"
-          as="image"
-          href={preloadSrc}
-          imageSrcSet={`${preloadSrc} 800w`}
-          imageSizes="(max-width: 1200px) 240px, 380px"
-        />
-      </NextHead>
     <Section id="hero">
       <Container>
         <HeroGrid>
