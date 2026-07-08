@@ -535,7 +535,8 @@ exports[`Forest renders correctly with all props 1`] = `
             0
              / 
             25
-             trees
+             
+            trees
           </span>
         </div>
         <div
@@ -1128,7 +1129,8 @@ exports[`Forest renders correctly with minimal props 1`] = `
             0
              / 
             25
-             trees
+             
+            trees
           </span>
         </div>
         <div
