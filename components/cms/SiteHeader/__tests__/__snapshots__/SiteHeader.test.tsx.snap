@@ -115,6 +115,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   padding: 0.75rem 0;
   background: var(--color-background);
   border-bottom: 1px solid var(--color-highlight)30;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .c4 {
@@ -566,6 +567,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   padding: 0.75rem 0;
   background: var(--color-background);
   border-bottom: 1px solid var(--color-highlight)30;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .c4 {
