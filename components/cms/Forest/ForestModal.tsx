@@ -1,7 +1,77 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { BREAKPOINTS } from "@constants";
+
+const copy = {
+  en: {
+    ariaLabel: "Share feedback",
+    close: "✕",
+    closeAriaLabel: "Close",
+    s1Title: "Help this portfolio grow.",
+    s1Body: "I’d genuinely love to hear your thoughts. Every meaningful suggestion helps improve this project — and as a thank you, I dedicate a real tree.",
+    s2Title: "What type of feedback?",
+    s2CatAriaLabel: "Feedback category",
+    s3Title: "What would you improve?",
+    s3Placeholder: "Tell me anything.\n\nBe honest.",
+    s3FieldAriaLabel: "Your feedback",
+    s4Title: "Almost there.",
+    optional: "Optional",
+    namePlaceholder: "Name",
+    nameAriaLabel: "Your name",
+    emailPlaceholder: "Email",
+    emailAriaLabel: "Your email",
+    linkedinPlaceholder: "LinkedIn",
+    linkedinAriaLabel: "LinkedIn URL",
+    githubPlaceholder: "GitHub",
+    githubAriaLabel: "GitHub URL",
+    websitePlaceholder: "Website",
+    websiteAriaLabel: "Website URL",
+    publicAck: "I’m happy for my feedback to be publicly acknowledged.",
+    errorMsg: "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
+    sending: "Sending…",
+    send: "🌱 Send",
+    continue: "Continue →",
+    back: "← Back",
+    s5Title: "Thank you.",
+    s5Body: "Your leaf has been received. I’ll personally read every submission.",
+    s5Close: "Close",
+  },
+  it: {
+    ariaLabel: "Invia feedback",
+    close: "✕",
+    closeAriaLabel: "Chiudi",
+    s1Title: "Aiuta questo portfolio a crescere.",
+    s1Body: "Mi farebbe davvero piacere conoscere il tuo punto di vista. Ogni suggerimento significativo migliora il progetto — e come ringraziamento, dedico un albero vero.",
+    s2Title: "Che tipo di feedback?",
+    s2CatAriaLabel: "Categoria del feedback",
+    s3Title: "Cosa miglioreresti?",
+    s3Placeholder: "Dimmi tutto.\n\nSii onesto.",
+    s3FieldAriaLabel: "Il tuo feedback",
+    s4Title: "Quasi fatto.",
+    optional: "Facoltativo",
+    namePlaceholder: "Nome",
+    nameAriaLabel: "Il tuo nome",
+    emailPlaceholder: "Email",
+    emailAriaLabel: "La tua email",
+    linkedinPlaceholder: "LinkedIn",
+    linkedinAriaLabel: "URL LinkedIn",
+    githubPlaceholder: "GitHub",
+    githubAriaLabel: "URL GitHub",
+    websitePlaceholder: "Sito web",
+    websiteAriaLabel: "URL sito web",
+    publicAck: "Accetto che il mio feedback venga riconosciuto pubblicamente.",
+    errorMsg: "Qualcosa è andato storto. Riprova oppure scrivimi a a.agostini92@gmail.com",
+    sending: "Invio in corso…",
+    send: "🌱 Invia",
+    continue: "Continua →",
+    back: "← Indietro",
+    s5Title: "Grazie.",
+    s5Body: "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
+    s5Close: "Chiudi",
+  },
+};
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -431,6 +501,8 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const firstFocusRef = useRef<HTMLButtonElement>(null);
+  const { locale } = useRouter();
+  const t = locale === "it" ? copy.it : copy.en;
 
   useEffect(() => setMounted(true), []);
 
@@ -486,7 +558,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
-      aria-label="Share feedback"
+      aria-label={t.ariaLabel}
     >
       <Card>
         <ModalHeader>
@@ -499,28 +571,24 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
           ) : (
             <div style={{ flex: 1 }} />
           )}
-          <CloseBtn onClick={onClose} aria-label="Close">✕</CloseBtn>
+          <CloseBtn onClick={onClose} aria-label={t.closeAriaLabel}>{t.close}</CloseBtn>
         </ModalHeader>
 
         {step === 1 && (
           <StepWrap key="s1">
             <Icon aria-hidden="true">🌳</Icon>
-            <Title>Help this portfolio grow.</Title>
-            <Body>
-              I&rsquo;d genuinely love to hear your thoughts. Every meaningful
-              suggestion helps improve this project — and as a thank you, I
-              dedicate a real tree.
-            </Body>
+            <Title>{t.s1Title}</Title>
+            <Body>{t.s1Body}</Body>
             <PrimaryBtn ref={firstFocusRef} onClick={next} type="button">
-              Continue →
+              {t.continue}
             </PrimaryBtn>
           </StepWrap>
         )}
 
         {step === 2 && (
           <StepWrap key="s2">
-            <Title>What type of feedback?</Title>
-            <CatGrid role="group" aria-label="Feedback category">
+            <Title>{t.s2Title}</Title>
+            <CatGrid role="group" aria-label={t.s2CatAriaLabel}>
               {CATEGORIES.map((cat) => (
                 <CatBtn
                   key={cat}
@@ -534,14 +602,14 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               ))}
             </CatGrid>
             <BtnRow>
-              <BackBtn onClick={back} type="button">← Back</BackBtn>
+              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 ref={firstFocusRef}
                 onClick={next}
                 disabled={!data.category}
                 type="button"
               >
-                Continue →
+                {t.continue}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -549,22 +617,22 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
 
         {step === 3 && (
           <StepWrap key="s3">
-            <Title>What would you improve?</Title>
+            <Title>{t.s3Title}</Title>
             <Textarea
-              placeholder={"Tell me anything.\n\nBe honest."}
+              placeholder={t.s3Placeholder}
               value={data.message}
               onChange={(e) => setData((d) => ({ ...d, message: e.target.value }))}
-              aria-label="Your feedback"
+              aria-label={t.s3FieldAriaLabel}
               autoFocus
             />
             <BtnRow>
-              <BackBtn onClick={back} type="button">← Back</BackBtn>
+              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 onClick={next}
                 disabled={data.message.trim().length < 10}
                 type="button"
               >
-                Continue →
+                {t.continue}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -572,39 +640,39 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
 
         {step === 4 && (
           <StepWrap key="s4">
-            <Title>Almost there.</Title>
-            <OptionalLabel>Optional</OptionalLabel>
+            <Title>{t.s4Title}</Title>
+            <OptionalLabel>{t.optional}</OptionalLabel>
             <InputList>
               <Input
-                placeholder="Name"
+                placeholder={t.namePlaceholder}
                 value={data.name}
                 onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
-                aria-label="Your name"
+                aria-label={t.nameAriaLabel}
               />
               <Input
-                placeholder="Email"
+                placeholder={t.emailPlaceholder}
                 type="email"
                 value={data.email}
                 onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
-                aria-label="Your email"
+                aria-label={t.emailAriaLabel}
               />
               <Input
-                placeholder="LinkedIn"
+                placeholder={t.linkedinPlaceholder}
                 value={data.linkedin}
                 onChange={(e) => setData((d) => ({ ...d, linkedin: e.target.value }))}
-                aria-label="LinkedIn URL"
+                aria-label={t.linkedinAriaLabel}
               />
               <Input
-                placeholder="GitHub"
+                placeholder={t.githubPlaceholder}
                 value={data.github}
                 onChange={(e) => setData((d) => ({ ...d, github: e.target.value }))}
-                aria-label="GitHub URL"
+                aria-label={t.githubAriaLabel}
               />
               <Input
-                placeholder="Website"
+                placeholder={t.websitePlaceholder}
                 value={data.website}
                 onChange={(e) => setData((d) => ({ ...d, website: e.target.value }))}
-                aria-label="Website URL"
+                aria-label={t.websiteAriaLabel}
               />
             </InputList>
             {/* Honeypot — hidden from real users, bots fill it */}
@@ -626,19 +694,17 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                 }
                 id="public-ack"
               />
-              <CheckboxText>
-                I&rsquo;m happy for my feedback to be publicly acknowledged.
-              </CheckboxText>
+              <CheckboxText>{t.publicAck}</CheckboxText>
             </CheckboxRow>
-            {error && <ErrorMsg role="alert">{error}</ErrorMsg>}
+            {error && <ErrorMsg role="alert">{t.errorMsg}</ErrorMsg>}
             <BtnRow>
-              <BackBtn onClick={back} type="button">← Back</BackBtn>
+              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
               <PrimaryBtn
                 onClick={submit}
                 disabled={submitting}
                 type="button"
               >
-                {submitting ? "Sending…" : "🌱 Send"}
+                {submitting ? t.sending : t.send}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -651,12 +717,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                 <Leaf key={i} $delay={delay} $drift={drift}>🍃</Leaf>
               ))}
             </Leaves>
-            <SuccessTitle>Thank you.</SuccessTitle>
-            <SuccessBody>
-              Your leaf has been received. I&rsquo;ll personally read every submission.
-            </SuccessBody>
+            <SuccessTitle>{t.s5Title}</SuccessTitle>
+            <SuccessBody>{t.s5Body}</SuccessBody>
             <PrimaryBtn onClick={onClose} type="button">
-              Close
+              {t.s5Close}
             </PrimaryBtn>
           </SuccessWrap>
         )}
