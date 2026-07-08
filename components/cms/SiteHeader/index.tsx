@@ -19,33 +19,33 @@ export interface SiteHeaderProps {
 const SECTION_TO_NAV: Record<string, string> = {};
 
 const Header = styled.header<{ $scrolled: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 100;
-  padding: 0.75rem 0;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid
     ${({ $scrolled, theme }) => ($scrolled ? `${theme.colors.highlight}30` : "transparent")};
   box-shadow: ${({ $scrolled }) => ($scrolled ? "0 2px 12px rgba(0, 0, 0, 0.06)" : "none")};
+  left: 0;
+  padding: 0.75rem 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  z-index: 100;
 `;
 
 const Logo = styled(Link)`
+  color: ${({ theme }) => theme.colors.headline};
+  cursor: pointer;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
-  cursor: pointer;
   text-decoration: none;
 `;
 
 const DesktopNav = styled.nav`
+  align-items: center;
   display: none;
   gap: ${({ theme }) => theme.space["2xl"]};
-  align-items: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: flex;
@@ -53,17 +53,17 @@ const DesktopNav = styled.nav`
 `;
 
 const NavLink = styled(Link)<{ $active: boolean }>`
-  position: relative;
   padding-bottom: 2px;
+  position: relative;
 
   &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    right: 0;
-    height: 2px;
     background: ${({ theme }) => theme.colors.highlight};
+    bottom: -4px;
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
+    right: 0;
     transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
     transform-origin: left;
     transition: transform 0.25s ease;
@@ -75,16 +75,16 @@ const NavLink = styled(Link)<{ $active: boolean }>`
 `;
 
 const IconButton = styled(Button)`
+  align-items: center;
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  min-width: 44px;
-  min-height: 44px;
   color: ${({ theme }) => theme.colors.headline};
+  cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
 `;
 
 const HamburgerButton = styled(IconButton)`
@@ -94,22 +94,22 @@ const HamburgerButton = styled(IconButton)`
 `;
 
 const LocaleButton = styled(Button)`
+  align-items: center;
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: ${({ theme }) => theme.radii.xs};
+  color: ${({ theme }) => theme.colors.headline};
   cursor: pointer;
-  padding: 0.25rem 0.625rem;
-  min-width: 44px;
-  min-height: 44px;
+  display: flex;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.headline};
-  border-radius: ${({ theme }) => theme.radii.xs};
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  letter-spacing: 0.08em;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem 0.625rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
@@ -126,15 +126,15 @@ const DrawerLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xl};
-  padding: ${({ theme }) => theme.space.xl};
   overflow-y: auto;
+  padding: ${({ theme }) => theme.space.xl};
 `;
 
 const DrawerLocaleButton = styled(LocaleButton)`
-  margin-top: auto;
-  margin-left: 1.5rem;
-  margin-bottom: 1.5rem;
   align-self: flex-start;
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+  margin-top: auto;
 `;
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {

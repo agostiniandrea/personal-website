@@ -59,8 +59,8 @@ const StyledContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => !prop.startsWith("$"),
 })<StyledContainerProps>`
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
 
   /* Default values (index 0) */
@@ -69,14 +69,14 @@ const StyledContainer = styled.div.withConfig({
 
     if (isFullBleed) {
       return `
-        grid-template-columns: 1fr;
         column-gap: 0;
+        grid-template-columns: 1fr;
       `;
     }
 
     return `
-      grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
       column-gap: calc(24px);
+      grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     `;
   }}
 
@@ -91,14 +91,14 @@ const StyledContainer = styled.div.withConfig({
 
       if (isFullBleed) {
         return `
-          grid-template-columns: 1fr;
           column-gap: 0;
+          grid-template-columns: 1fr;
         `;
       }
 
       return `
-        grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
         column-gap: calc(24px);
+        grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
       `;
     }}
   }
@@ -110,8 +110,8 @@ const StyledContainer = styled.div.withConfig({
 
       if (!isFullBleed) {
         return `
-          grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
           column-gap: calc(36px);
+          grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
         `;
       }
       return "";
@@ -125,14 +125,14 @@ const StyledContainer = styled.div.withConfig({
 
       if (isFullBleed) {
         return `
-          grid-template-columns: 1fr;
           column-gap: 0;
+          grid-template-columns: 1fr;
         `;
       }
 
       return `
-        grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
         column-gap: calc(81px);
+        grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
         ${$verticalPadding &&
         "padding-top: calc(2.5rem); padding-bottom: calc(2.5rem);"}
       `;
@@ -146,14 +146,14 @@ const StyledContainer = styled.div.withConfig({
 
       if (isFullBleed) {
         return `
-          grid-template-columns: 1fr;
           column-gap: 0;
+          grid-template-columns: 1fr;
         `;
       }
 
       return `
-        grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
         column-gap: calc(121.5px);
+        grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
       `;
     }}
   }

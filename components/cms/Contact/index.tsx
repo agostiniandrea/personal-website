@@ -14,11 +14,11 @@ export interface ContactProps {
 }
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -34,9 +34,9 @@ const ContactLink = styled(Link)`
 
 // Extend the Text ion with layout constraints for this section
 const Body = styled(Text)`
-  max-width: 600px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["2xl"]};
+  max-width: 600px;
 `;
 
 const Contact: React.FC<ContactProps> = ({ sectionLabel, heading, body, links }) => (

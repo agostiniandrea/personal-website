@@ -27,11 +27,11 @@ export interface ProjectsProps {
 
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -45,23 +45,23 @@ const SectionHeading = styled(Heading)`
 const ProjectsGrid = styled(Grid)``;
 
 const Card = styled.article`
-  position: relative;
-  display: flex;
-  flex-direction: column;
   border: 1px solid ${({ theme }) => theme.colors.main};
   border-radius: ${({ theme }) => theme.radii.md};
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
     background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
+    content: '';
+    height: 3px;
+    left: 0;
     opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
     transition: opacity 0.2s ease;
     z-index: 1;
   }
@@ -79,37 +79,37 @@ const Card = styled.article`
 `;
 
 const ImageSlot = styled.div`
-  position: relative;
-  width: 100%;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
   background: ${({ theme }) => theme.colors.surface};
   flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 `;
 
 const Placeholder = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
   align-items: center;
-  justify-content: center;
   background: linear-gradient(135deg, ${({ theme }) => theme.colors.surface} 0%, ${({ theme }) => theme.colors.badgeBg} 100%);
+  display: flex;
+  height: 100%;
+  justify-content: center;
   padding: 1rem;
+  width: 100%;
 `;
 
 const PlaceholderText = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.highlight};
-  text-align: center;
   opacity: 0.6;
+  text-align: center;
 `;
 
 const CardBody = styled.div`
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
   padding: ${({ theme }) => theme.space["2xl"]};
 `;
 
@@ -118,23 +118,23 @@ const CardTitle = styled(Heading).attrs({ size: "card", as: "h3" })`
 `;
 
 const CardDescription = styled(Text)`
-  margin-bottom: ${({ theme }) => theme.space.xl};
   flex: 1;
+  margin-bottom: ${({ theme }) => theme.space.xl};
 `;
 
 
 const StatusTag = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  align-self: flex-start;
   color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  align-self: flex-start;
 `;
 
 const CardLink = styled(Link)`
+  align-self: flex-start;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  align-self: flex-start;
 
   &:hover {
     text-decoration: underline;
@@ -142,8 +142,8 @@ const CardLink = styled(Link)`
 
   &::after {
     content: "";
-    position: absolute;
     inset: 0;
+    position: absolute;
   }
 `;
 

@@ -21,17 +21,17 @@ export interface ExperienceProps {
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (max-width: 1199px) {
-    padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-top: 2rem;
   }
 `;
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -43,28 +43,28 @@ const SectionHeading = styled(Heading)`
 `;
 
 const List = styled.ol`
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
 
 const Item = styled.li`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.space.lg};
-  padding: ${({ theme }) => theme.space["2xl"]} 0;
   border-top: 1px solid ${({ theme }) => theme.colors.main};
+  display: grid;
+  gap: ${({ theme }) => theme.space.lg};
+  grid-template-columns: 1fr;
+  padding: ${({ theme }) => theme.space["2xl"]} 0;
 
   &:last-child {
     border-bottom: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    grid-template-columns: 200px 1fr;
     gap: ${({ theme }) => theme.space["2xl"]};
+    grid-template-columns: 200px 1fr;
   }
 `;
 
@@ -80,8 +80,8 @@ const Company = styled(Text)`
 `;
 
 const Location = styled(Text)`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin: 0;
 `;
 

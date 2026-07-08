@@ -83,10 +83,10 @@ const getBoxSizeValue = (
 };
 
 const StyledAspectRatio = styled.div<StyledAspectRatioProps>`
-  position: relative;
-  width: 100%;
   display: block;
   overflow: hidden;
+  position: relative;
+  width: 100%;
 
   /* Default box size (index 0) */
   ${({ $boxSize }) => {
@@ -139,11 +139,11 @@ const StyledAspectRatio = styled.div<StyledAspectRatioProps>`
   }
 
   > * {
+    height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
   }
 `;
 

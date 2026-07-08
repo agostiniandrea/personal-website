@@ -8,11 +8,11 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -26,9 +26,9 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 }
 
 .c4 {
+  color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: var(--color-headline);
   font-size: 2rem;
   line-height: 1.1;
 }
@@ -58,21 +58,21 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 }
 
 .c14 {
-  border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
-  color: var(--color-paragraph);
+  border: 1px solid var(--color-highlight);
   border-radius: 9999px;
+  color: var(--color-paragraph);
   display: inline-block;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
 
 .c3 {
+  color: var(--color-highlight);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 }
 
 .c5 {
@@ -81,27 +81,27 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 }
 
 .c7 {
-  max-width: 680px;
   line-height: 1.7;
   margin-bottom: 3rem;
+  max-width: 680px;
 }
 
 .c9 {
+  border: 1px solid var(--color-main);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
-  border: 1px solid var(--color-main);
-  border-radius: 10px;
 }
 
 .c10 {
+  color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1rem;
+  text-transform: uppercase;
 }
 
 .c12 {
@@ -111,12 +111,12 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 }
 
 .c13 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 1199px) {
@@ -128,29 +128,29 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 
@@ -357,11 +357,11 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -375,9 +375,9 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 }
 
 .c4 {
+  color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: var(--color-headline);
   font-size: 2rem;
   line-height: 1.1;
 }
@@ -399,21 +399,21 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 }
 
 .c12 {
-  border: 1px solid var(--color-highlight);
   background: var(--color-badge-bg);
-  color: var(--color-paragraph);
+  border: 1px solid var(--color-highlight);
   border-radius: 9999px;
+  color: var(--color-paragraph);
   display: inline-block;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
 
 .c3 {
+  color: var(--color-highlight);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 }
 
 .c5 {
@@ -422,21 +422,21 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 }
 
 .c7 {
+  border: 1px solid var(--color-main);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
-  border: 1px solid var(--color-main);
-  border-radius: 10px;
 }
 
 .c8 {
+  color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1rem;
+  text-transform: uppercase;
 }
 
 .c10 {
@@ -446,12 +446,12 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 }
 
 .c11 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 1199px) {
@@ -463,29 +463,29 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 
@@ -681,11 +681,11 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -699,9 +699,9 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 }
 
 .c4 {
+  color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: var(--color-headline);
   font-size: 2rem;
   line-height: 1.1;
 }
@@ -723,11 +723,11 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 }
 
 .c3 {
+  color: var(--color-highlight);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 }
 
 .c5 {
@@ -736,21 +736,21 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 }
 
 .c7 {
+  border: 1px solid var(--color-main);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
-  border: 1px solid var(--color-main);
-  border-radius: 10px;
 }
 
 .c8 {
+  color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1rem;
+  text-transform: uppercase;
 }
 
 .c10 {
@@ -768,29 +768,29 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 
