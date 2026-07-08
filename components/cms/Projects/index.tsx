@@ -93,7 +93,7 @@ const Placeholder = styled.div`
   display: flex;
   height: 100%;
   justify-content: center;
-  padding: 1rem;
+  padding: ${({ theme }) => theme.space.lg};
   width: 100%;
 `;
 

@@ -76,7 +76,7 @@ const pulse = keyframes`
 
 const Dot = styled.div<{ $ongoing?: boolean }>`
   border: 2px solid ${({ theme }) => theme.colors.highlight};
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
   height: 12px;
   width: 12px;

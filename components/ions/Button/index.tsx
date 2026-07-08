@@ -30,7 +30,7 @@ const StyledButton = styled.button<ButtonProps>`
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   line-height: ${({ theme }) => theme.lineHeights.base};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  padding: 0.75rem 1.25rem;
+  padding: ${({ theme }) => theme.space.md} 1.25rem;
   transition: all 0.2s ease-in-out;
 
   &:hover {

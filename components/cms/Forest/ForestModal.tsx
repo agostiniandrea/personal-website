@@ -151,7 +151,7 @@ const Backdrop = styled.div`
   display: flex;
   inset: 0;
   justify-content: center;
-  padding: 1rem;
+  padding: ${({ theme }) => theme.space.lg};
   position: fixed;
   z-index: 1000;
 `;
@@ -169,7 +169,7 @@ const Card = styled.div`
   width: 100%;
 
   @media (min-width: ${BREAKPOINTS.mobile}) {
-    padding: 3rem;
+    padding: ${({ theme }) => theme.space["3xl"]};
   }
 `;
 
@@ -181,14 +181,14 @@ const CloseBtn = styled.button`
   cursor: pointer;
   flex-shrink: 0;
   font-size: 1.125rem;
-  line-height: 1;
-  padding: 0.25rem;
+  line-height: ${({ theme }) => theme.lineHeights.tight};
+  padding: ${({ theme }) => theme.space.xs};
   transition: color 0.15s ease;
 
   &:hover { color: ${({ theme }) => theme.colors.headline}; }
 
   &:focus-visible {
-    border-radius: 4px;
+    border-radius: ${({ theme }) => theme.radii.xs};
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
@@ -199,7 +199,7 @@ const CloseBtn = styled.button`
 const ModalHeader = styled.div`
   align-items: center;
   display: flex;
-  gap: 0.75rem;
+  gap: ${({ theme }) => theme.space.md};
   margin-bottom: 2rem;
 `;
 
@@ -226,8 +226,8 @@ const StepWrap = styled.div`
 /* ── Typography ── */
 
 const Icon = styled.div`
-  font-size: 2.5rem;
-  line-height: 1;
+  font-size: ${({ theme }) => theme.fontSizes["3xl"]};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
   margin-bottom: 1.25rem;
 `;
 
@@ -255,7 +255,7 @@ const Body = styled.p`
 
 const CatGrid = styled.div`
   display: grid;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   grid-template-columns: 1fr 1fr;
   margin-bottom: 2rem;
 `;
@@ -301,7 +301,7 @@ const Textarea = styled.textarea`
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin-bottom: 2rem;
   min-height: 160px;
-  padding: 1rem;
+  padding: ${({ theme }) => theme.space.lg};
   resize: vertical;
   transition: border-color 0.15s ease;
   width: 100%;
@@ -330,7 +330,7 @@ const OptionalLabel = styled.p`
 const InputList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   margin-bottom: 1.5rem;
 `;
 
@@ -342,7 +342,7 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  padding: 0.75rem 1rem;
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.lg};
   transition: border-color 0.15s ease;
   width: 100%;
 
@@ -361,7 +361,7 @@ const CheckboxRow = styled.label`
   align-items: flex-start;
   cursor: pointer;
   display: flex;
-  gap: 0.75rem;
+  gap: ${({ theme }) => theme.space.md};
   margin-bottom: 2rem;
 
   input[type="checkbox"] {
@@ -423,7 +423,7 @@ const PrimaryBtn = styled.button`
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.space.sm};
   padding: 0.875rem 1.75rem;
   transition: all 0.2s ease;
 
@@ -449,7 +449,7 @@ const PrimaryBtn = styled.button`
 
 const SuccessWrap = styled.div`
   animation: ${slideUp} 0.3s ease;
-  padding: 1rem 0;
+  padding: ${({ theme }) => theme.space.lg} 0;
   text-align: center;
 `;
 
@@ -460,7 +460,7 @@ const Leaves = styled.div`
 `;
 
 const Leaf = styled.span<{ $delay: number; $drift: string }>`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.fontSizes.xl};
   left: 50%;
   position: absolute;
   top: 0;
