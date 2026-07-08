@@ -11,7 +11,7 @@ create table if not exists public.feedback (
   github               text,
   website              text,
   public_acknowledgment boolean    not null default false,
-  status               text        not null default 'new',
+  status               text        not null default 'pending',
   ip                   text,
   created_at           timestamptz not null default now(),
 
@@ -19,7 +19,7 @@ create table if not exists public.feedback (
     category in ('UX', 'Accessibility', 'Performance', 'Design', 'Content', 'Bug', 'General thoughts')
   ),
   constraint feedback_status_check check (
-    status in ('new', 'under_review', 'implemented', 'tree_dedicated')
+    status in ('pending', 'accepted', 'rejected', 'implemented')
   )
 );
 
