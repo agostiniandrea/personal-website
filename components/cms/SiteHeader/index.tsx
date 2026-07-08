@@ -26,9 +26,8 @@ const Header = styled.header<{ $scrolled: boolean }>`
   width: 100%;
   z-index: 100;
   padding: 0.75rem 0;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  background: ${({ $scrolled, theme }) =>
-    $scrolled ? theme.colors.background : "transparent"};
+  transition: border-color 0.3s ease;
+  background: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid
     ${({ $scrolled }) => ($scrolled ? "rgba(128, 128, 160, 0.18)" : "transparent")};
 `;
