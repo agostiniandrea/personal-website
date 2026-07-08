@@ -18,9 +18,7 @@ const SkeletonEl = styled.div<{
   $height?: string;
   $borderRadius?: string;
 }>`
-  width: ${({ $width }) => $width ?? "100%"};
-  height: ${({ $height }) => $height ?? "1rem"};
-  border-radius: ${({ $borderRadius }) => $borderRadius ?? "4px"};
+  animation: ${shimmer} 1.5s ease-in-out infinite;
   background: linear-gradient(
     90deg,
     ${({ theme }) => theme.colors.stroke} 25%,
@@ -28,7 +26,9 @@ const SkeletonEl = styled.div<{
     ${({ theme }) => theme.colors.stroke} 75%
   );
   background-size: 200% 100%;
-  animation: ${shimmer} 1.5s ease-in-out infinite;
+  border-radius: ${({ $borderRadius }) => $borderRadius ?? "4px"};
+  height: ${({ $height }) => $height ?? "1rem"};
+  width: ${({ $width }) => $width ?? "100%"};
 `;
 
 const Skeleton: React.FC<SkeletonProps> = ({

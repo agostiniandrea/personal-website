@@ -21,8 +21,8 @@ interface ButtonProps {
 
 const StyledButton = styled.button<ButtonProps>`
   background: ${({ theme }) => theme.colors.button};
-  border-radius: ${({ theme }) => theme.radii.xs};
   border: none;
+  border-radius: ${({ theme }) => theme.radii.xs};
   color: ${({ theme }) => theme.colors.button_text};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   font-family: ${({ theme }) => theme.fontFamilies.heading};

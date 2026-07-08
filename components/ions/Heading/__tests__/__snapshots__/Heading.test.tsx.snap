@@ -2,9 +2,9 @@
 
 exports[`Heading renders heading with default props (h2, section size) 1`] = `
 .c0 {
+  color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: var(--color-headline);
   font-size: 2rem;
   line-height: 1.1;
 }

@@ -14,10 +14,10 @@ interface StyledBadgeProps {
 }
 
 const StyledBadge = styled(Text)<StyledBadgeProps>`
-  border: 1px solid ${({ theme }) => theme.colors.highlight};
   background: ${({ theme }) => theme.colors.badgeBg};
-  color: ${({ theme }) => theme.colors.paragraph};
+  border: 1px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.full};
+  color: ${({ theme }) => theme.colors.paragraph};
   display: inline-block;
 
   ${({ $size, theme }) =>

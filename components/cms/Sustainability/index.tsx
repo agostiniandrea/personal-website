@@ -5,11 +5,11 @@ import { BREAKPOINTS } from "@constants";
 import type { SustainabilityProps } from "./model";
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -21,63 +21,63 @@ const SectionHeading = styled(Heading)`
 `;
 
 const Intro = styled(Text)`
-  max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["3xl"]};
+  max-width: 680px;
   @media (max-width: 1199px) {
     margin-bottom: 1.5rem;
   }
 `;
 
 const SubHeading = styled.h3`
+  color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 ${({ theme }) => theme.space.xl};
+  text-transform: uppercase;
 `;
 
 const ValuesList = styled.ul`
-  list-style: none;
-  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.space.sm};
+  list-style: none;
+  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
+  padding: 0;
 `;
 
 const VolunteeringList = styled.ol`
+  display: flex;
+  flex-direction: column;
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
 `;
 
 const VolunteeringItem = styled.li`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.space.lg};
-  padding: ${({ theme }) => theme.space.xl} 0;
   border-top: 1px solid ${({ theme }) => theme.colors.main};
+  display: grid;
+  gap: ${({ theme }) => theme.space.lg};
+  grid-template-columns: 1fr;
+  padding: ${({ theme }) => theme.space.xl} 0;
 
   &:last-child {
     border-bottom: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    grid-template-columns: 200px 1fr;
     gap: ${({ theme }) => theme.space["2xl"]};
+    grid-template-columns: 200px 1fr;
   }
 `;
 
 const OrgName = styled(Text)`
+  color: ${({ theme }) => theme.colors.headline};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   margin: 0 0 0.25rem;
-  color: ${({ theme }) => theme.colors.headline};
 `;
 
 const Period = styled(Text)`

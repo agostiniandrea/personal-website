@@ -15,15 +15,15 @@ export interface HeadingBoxProps {
 }
 
 const HeadingBoxContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.space.lg};
-  padding: ${({ theme }) => theme.space["2xl"]};
   background: ${({ theme }) => theme.colors.background};
   border-radius: ${({ theme }) => theme.radii.xs};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.lg};
   margin: 0 auto;
+  max-width: 800px;
+  padding: ${({ theme }) => theme.space["2xl"]};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.space.lg};

@@ -11,11 +11,11 @@ export interface AboutProps {
 }
 
 const SectionLabel = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const SectionHeading = styled(Heading)`
@@ -27,9 +27,9 @@ const SectionHeading = styled(Heading)`
 `;
 
 const Bio = styled(Text)`
-  max-width: 680px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["2xl"]};
+  max-width: 680px;
 `;
 
 

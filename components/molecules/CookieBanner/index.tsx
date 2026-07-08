@@ -43,63 +43,63 @@ const CONSENT_KEY = "cookie-consent";
 type ConsentValue = "accepted" | "rejected" | "custom";
 
 const Card = styled.div`
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  z-index: 9000;
-  width: calc(100% - 3rem);
-  max-width: 440px;
   background: #ffffff;
   border: 1px solid #e0e0e8;
-  border-top: 3px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.md};
+  border-top: 3px solid ${({ theme }) => theme.colors.highlight};
+  bottom: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  left: 1.5rem;
+  max-width: 440px;
   padding: 1.25rem 1.5rem 1.5rem;
+  position: fixed;
+  width: calc(100% - 3rem);
+  z-index: 9000;
 
   @media (max-width: 699px) {
-    left: 1rem;
-    right: 1rem;
     bottom: 1rem;
-    width: auto;
+    left: 1rem;
     max-width: none;
     padding: 1rem 1.25rem 1.25rem;
+    right: 1rem;
+    width: auto;
   }
 `;
 
 const Eyebrow = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 0.375rem;
+  text-transform: uppercase;
 `;
 
 const Title = styled.h2`
+  color: #0a0a0f;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: #0a0a0f;
   margin: 0 0 0.5rem;
 `;
 
 const Body = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #5e5e72;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0;
 `;
 
 const Actions = styled.div`
-  margin-top: 1.125rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1.125rem;
 
   @media (max-width: 699px) {
-    margin-top: 0.875rem;
     gap: 0.5rem;
+    margin-top: 0.875rem;
   }
 `;
 
@@ -109,18 +109,18 @@ const MainActions = styled.div`
 `;
 
 const PrimaryBtn = styled.button`
-  flex: 1;
-  padding: 0.5rem 1rem;
   background: ${({ theme }) => theme.colors.button};
-  color: ${({ theme }) => theme.colors.button_text};
   border: none;
   border-radius: ${({ theme }) => theme.radii.xs};
+  color: ${({ theme }) => theme.colors.button_text};
+  cursor: pointer;
+  flex: 1;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  cursor: pointer;
-  white-space: nowrap;
+  padding: 0.5rem 1rem;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 
   &:hover { opacity: 0.85; }
   &:focus-visible {
@@ -130,18 +130,18 @@ const PrimaryBtn = styled.button`
 `;
 
 const SecondaryBtn = styled.button`
-  flex: 1;
-  padding: 0.5rem 1rem;
   background: transparent;
-  color: #0a0a0f;
   border: 1px solid ${({ theme }) => theme.colors.highlight}55;
   border-radius: ${({ theme }) => theme.radii.xs};
+  color: #0a0a0f;
+  cursor: pointer;
+  flex: 1;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  cursor: pointer;
-  white-space: nowrap;
+  padding: 0.5rem 1rem;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 
   &:hover { opacity: 0.7; }
   &:focus-visible {
@@ -153,20 +153,20 @@ const SecondaryBtn = styled.button`
 const TextBtn = styled.button`
   background: none;
   border: none;
-  padding: 0.25rem 0;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-weight: ${({ theme }) => theme.fontWeights.medium};
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  padding: 0.25rem 0;
   text-align: left;
   transition: opacity 0.2s ease;
 
   &:hover { opacity: 0.7; }
   &:focus-visible {
+    border-radius: 2px;
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
-    border-radius: 2px;
   }
 `;
 
@@ -177,49 +177,49 @@ const Divider = styled.hr`
 `;
 
 const PreferenceRow = styled.div`
-  display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  display: flex;
   gap: 1rem;
+  justify-content: space-between;
 
   & + & { margin-top: 0.75rem; }
 `;
 
 const PreferenceName = styled.p`
+  color: #0a0a0f;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: #0a0a0f;
   margin: 0 0 0.125rem;
 `;
 
 const PreferenceDesc = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #5e5e72;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin: 0;
 `;
 
 const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
-  flex-shrink: 0;
-  width: 2.25rem;
-  height: 1.25rem;
-  border-radius: 999px;
-  border: none;
   background: ${({ $on, $disabled, theme }) =>
     $disabled ? theme.colors.main : $on ? theme.colors.highlight : theme.colors.main};
-  position: relative;
+  border: none;
+  border-radius: 999px;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
+  flex-shrink: 0;
+  height: 1.25rem;
+  position: relative;
   transition: background 0.2s ease;
+  width: 2.25rem;
 
   &::after {
+    background: white;
+    border-radius: 50%;
     content: "";
+    height: 0.875rem;
+    left: ${({ $on }) => ($on ? "1.125rem" : "3px")};
     position: absolute;
     top: 3px;
-    left: ${({ $on }) => ($on ? "1.125rem" : "3px")};
-    width: 0.875rem;
-    height: 0.875rem;
-    border-radius: 50%;
-    background: white;
     transition: left 0.2s ease;
+    width: 0.875rem;
   }
 
   &:focus-visible {

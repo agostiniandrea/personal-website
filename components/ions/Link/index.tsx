@@ -16,9 +16,9 @@ interface LinkProps {
 
 const StyledLink = styled(NextLink)`
   color: ${({ theme }) => theme.colors.highlight};
-  text-decoration: none;
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.tight};
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 
   &:hover {

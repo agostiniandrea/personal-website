@@ -3,8 +3,8 @@
 exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c7 {
   background: var(--color-button);
-  border-radius: 4px;
   border: none;
+  border-radius: 4px;
   color: var(--color-button-text);
   cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
@@ -36,11 +36,11 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -55,9 +55,9 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 
 .c3 {
   color: var(--color-highlight);
-  text-decoration: none;
   font-size: 1rem;
   line-height: 1;
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
@@ -71,82 +71,82 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c11 {
-  position: fixed;
-  inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
+  inset: 0;
   opacity: 0;
   pointer-events: none;
+  position: fixed;
   transition: opacity 0.3s ease;
+  z-index: 200;
 }
 
 .c13 {
-  display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-shrink: 0;
   justify-content: flex-end;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;
 }
 
 .c12 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
   background: var(--color-background);
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  width: 280px;
+  z-index: 300;
 }
 
 .c0 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 100;
-  padding: 0.75rem 0;
-  transition: border-color 0.3s ease,box-shadow 0.3s ease;
   background: var(--color-background);
   border-bottom: 1px solid transparent;
   box-shadow: none;
+  left: 0;
+  padding: 0.75rem 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: border-color 0.3s ease,box-shadow 0.3s ease;
+  width: 100%;
+  z-index: 100;
 }
 
 .c4 {
+  color: var(--color-headline);
+  cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-headline);
-  cursor: pointer;
   text-decoration: none;
 }
 
 .c5 {
+  align-items: center;
   display: none;
   gap: 2rem;
-  align-items: center;
 }
 
 .c6 {
-  position: relative;
   padding-bottom: 2px;
+  position: relative;
 }
 
 .c6::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
   background: var(--color-highlight);
+  bottom: -4px;
+  content: '';
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
@@ -157,35 +157,35 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 .c9 {
+  align-items: center;
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  min-width: 44px;
-  min-height: 44px;
   color: var(--color-headline);
+  cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
 }
 
 .c8 {
+  align-items: center;
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--color-headline);
   cursor: pointer;
-  padding: 0.25rem 0.625rem;
-  min-width: 44px;
-  min-height: 44px;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-headline);
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  letter-spacing: 0.08em;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem 0.625rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
 }
 
 .c8:hover {
@@ -202,42 +202,42 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1.5rem;
   overflow-y: auto;
+  padding: 1.5rem;
 }
 
 .c15 {
-  margin-top: auto;
-  margin-left: 1.5rem;
-  margin-bottom: 1.5rem;
   align-self: flex-start;
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+  margin-top: auto;
 }
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 
@@ -456,8 +456,8 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 exports[`SiteHeader renders correctly with no nav links 1`] = `
 .c6 {
   background: var(--color-button);
-  border-radius: 4px;
   border: none;
+  border-radius: 4px;
   color: var(--color-button-text);
   cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
@@ -489,11 +489,11 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -508,9 +508,9 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 
 .c3 {
   color: var(--color-highlight);
-  text-decoration: none;
   font-size: 1rem;
   line-height: 1;
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
@@ -524,99 +524,99 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 .c10 {
-  position: fixed;
-  inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 200;
+  inset: 0;
   opacity: 0;
   pointer-events: none;
+  position: fixed;
   transition: opacity 0.3s ease;
+  z-index: 200;
 }
 
 .c12 {
-  display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-shrink: 0;
   justify-content: flex-end;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;
 }
 
 .c11 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 280px;
   background: var(--color-background);
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  width: 280px;
+  z-index: 300;
 }
 
 .c0 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 100;
-  padding: 0.75rem 0;
-  transition: border-color 0.3s ease,box-shadow 0.3s ease;
   background: var(--color-background);
   border-bottom: 1px solid transparent;
   box-shadow: none;
+  left: 0;
+  padding: 0.75rem 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: border-color 0.3s ease,box-shadow 0.3s ease;
+  width: 100%;
+  z-index: 100;
 }
 
 .c4 {
+  color: var(--color-headline);
+  cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-headline);
-  cursor: pointer;
   text-decoration: none;
 }
 
 .c5 {
+  align-items: center;
   display: none;
   gap: 2rem;
-  align-items: center;
 }
 
 .c8 {
+  align-items: center;
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  min-width: 44px;
-  min-height: 44px;
   color: var(--color-headline);
+  cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
 }
 
 .c7 {
+  align-items: center;
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--color-headline);
   cursor: pointer;
-  padding: 0.25rem 0.625rem;
-  min-width: 44px;
-  min-height: 44px;
+  display: flex;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-headline);
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  letter-spacing: 0.08em;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem 0.625rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
 }
 
 .c7:hover {
@@ -633,42 +633,42 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1.5rem;
   overflow-y: auto;
+  padding: 1.5rem;
 }
 
 .c14 {
-  margin-top: auto;
-  margin-left: 1.5rem;
-  margin-bottom: 1.5rem;
   align-self: flex-start;
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+  margin-top: auto;
 }
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 

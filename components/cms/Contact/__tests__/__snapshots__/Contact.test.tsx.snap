@@ -8,11 +8,11 @@ exports[`Contact renders correctly with a single link 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -26,18 +26,18 @@ exports[`Contact renders correctly with a single link 1`] = `
 }
 
 .c4 {
+  color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: var(--color-headline);
   font-size: 2rem;
   line-height: 1.1;
 }
 
 .c9 {
   color: var(--color-highlight);
-  text-decoration: none;
   font-size: 1rem;
   line-height: 1;
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
@@ -67,11 +67,11 @@ exports[`Contact renders correctly with a single link 1`] = `
 }
 
 .c3 {
+  color: var(--color-highlight);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 }
 
 .c5 {
@@ -85,36 +85,36 @@ exports[`Contact renders correctly with a single link 1`] = `
 }
 
 .c7 {
-  max-width: 600px;
   line-height: 1.7;
   margin-bottom: 2rem;
+  max-width: 600px;
 }
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 
@@ -197,11 +197,11 @@ exports[`Contact renders correctly with all links 1`] = `
 
 .c1 {
   display: grid;
-  position: relative;
   min-height: auto;
+  position: relative;
   width: 100%;
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
 }
 
 .c1 >* {
@@ -215,18 +215,18 @@ exports[`Contact renders correctly with all links 1`] = `
 }
 
 .c4 {
+  color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
-  color: var(--color-headline);
   font-size: 2rem;
   line-height: 1.1;
 }
 
 .c9 {
   color: var(--color-highlight);
-  text-decoration: none;
   font-size: 1rem;
   line-height: 1;
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
@@ -256,11 +256,11 @@ exports[`Contact renders correctly with all links 1`] = `
 }
 
 .c3 {
+  color: var(--color-highlight);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-highlight);
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 }
 
 .c5 {
@@ -274,36 +274,36 @@ exports[`Contact renders correctly with all links 1`] = `
 }
 
 .c7 {
-  max-width: 600px;
   line-height: 1.7;
   margin-bottom: 2rem;
+  max-width: 600px;
 }
 
 @media (min-width: 600px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
     column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
   }
 }
 
 @media (min-width: 900px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
     column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
   }
 }
 
 @media (min-width: 1200px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
     column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
   }
 }
 
 @media (min-width: 1536px) {
   .c1 {
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
     column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
   }
 }
 

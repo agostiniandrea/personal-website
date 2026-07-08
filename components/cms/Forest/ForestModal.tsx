@@ -143,30 +143,30 @@ const leafFall = keyframes`
 /* ── Layout ── */
 
 const Backdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  z-index: 1000;
-  display: flex;
   align-items: center;
+  animation: ${fadeIn} 0.2s ease;
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  inset: 0;
   justify-content: center;
   padding: 1rem;
-  animation: ${fadeIn} 0.2s ease;
+  position: fixed;
+  z-index: 1000;
 `;
 
 const Card = styled.div`
+  animation: ${slideUp} 0.25s ease;
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1.25rem;
-  padding: 2.5rem 2rem;
-  width: 100%;
-  max-width: 520px;
   max-height: 92vh;
+  max-width: 520px;
   overflow-y: auto;
+  padding: 2.5rem 2rem;
   position: relative;
-  animation: ${slideUp} 0.25s ease;
+  width: 100%;
 
   @media (min-width: ${BREAKPOINTS.mobile}) {
     padding: 3rem;
@@ -174,46 +174,46 @@ const Card = styled.div`
 `;
 
 const CloseBtn = styled.button`
+  align-self: center;
   background: none;
   border: none;
-  cursor: pointer;
   color: ${({ theme }) => theme.colors.paragraph};
-  padding: 0.25rem;
-  line-height: 1;
-  font-size: 1.125rem;
-  transition: color 0.15s ease;
+  cursor: pointer;
   flex-shrink: 0;
-  align-self: center;
+  font-size: 1.125rem;
+  line-height: 1;
+  padding: 0.25rem;
+  transition: color 0.15s ease;
 
   &:hover { color: ${({ theme }) => theme.colors.headline}; }
 
   &:focus-visible {
+    border-radius: 4px;
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
-    border-radius: 4px;
   }
 `;
 
 /* ── Step indicator ── */
 
 const ModalHeader = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 0.75rem;
   margin-bottom: 2rem;
 `;
 
 const Dots = styled.div`
   display: flex;
-  gap: 0.375rem;
   flex: 1;
+  gap: 0.375rem;
 `;
 
 const Dot = styled.span<{ $on: boolean }>`
-  height: 3px;
+  background: ${({ theme, $on }) => ($on ? theme.colors.highlight : "rgba(128,128,128,0.18)")};
   border-radius: 999px;
   flex: 1;
-  background: ${({ theme, $on }) => ($on ? theme.colors.highlight : "rgba(128,128,128,0.18)")};
+  height: 3px;
   transition: background 0.3s ease;
 `;
 
@@ -232,10 +232,10 @@ const Icon = styled.div`
 `;
 
 const Title = styled.h2`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
   line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0 0 0.75rem;
 
@@ -245,8 +245,8 @@ const Title = styled.h2`
 `;
 
 const Body = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0 0 2rem;
 `;
@@ -255,25 +255,25 @@ const Body = styled.p`
 
 const CatGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
   margin-bottom: 2rem;
 `;
 
 const CatBtn = styled.button<{ $selected: boolean }>`
-  padding: 0.625rem 0.875rem;
-  border-radius: 0.625rem;
+  background: ${({ theme, $selected }) =>
+    $selected ? theme.colors.surface : "transparent"};
   border: 1.5px solid
     ${({ theme, $selected }) =>
       $selected ? theme.colors.highlight : "rgba(128,128,128,0.2)"};
-  background: ${({ theme, $selected }) =>
-    $selected ? theme.colors.surface : "transparent"};
+  border-radius: 0.625rem;
   color: ${({ theme, $selected }) =>
     $selected ? theme.colors.highlight : theme.colors.paragraph};
+  cursor: pointer;
+  font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-family: ${({ theme }) => theme.fontFamilies.default};
-  cursor: pointer;
+  padding: 0.625rem 0.875rem;
   text-align: left;
   transition: all 0.15s ease;
 
@@ -291,20 +291,20 @@ const CatBtn = styled.button<{ $selected: boolean }>`
 /* ── Step 3: Textarea ── */
 
 const Textarea = styled.textarea`
-  width: 100%;
-  min-height: 160px;
-  padding: 1rem;
   background: transparent;
   border: 1.5px solid rgba(128, 128, 128, 0.2);
   border-radius: 0.75rem;
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  resize: vertical;
   margin-bottom: 2rem;
+  min-height: 160px;
+  padding: 1rem;
+  resize: vertical;
   transition: border-color 0.15s ease;
-  box-sizing: border-box;
+  width: 100%;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.paragraph};
@@ -312,19 +312,19 @@ const Textarea = styled.textarea`
   }
 
   &:focus {
-    outline: none;
     border-color: ${({ theme }) => theme.colors.highlight};
+    outline: none;
   }
 `;
 
 /* ── Step 4: Optional fields ── */
 
 const OptionalLabel = styled.p`
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.paragraph};
   margin: 0 0 0.875rem;
+  text-transform: uppercase;
 `;
 
 const InputList = styled.div`
@@ -335,16 +335,16 @@ const InputList = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100%;
-  padding: 0.75rem 1rem;
   background: transparent;
   border: 1.5px solid rgba(128, 128, 128, 0.2);
   border-radius: 0.625rem;
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
+  padding: 0.75rem 1rem;
   transition: border-color 0.15s ease;
-  box-sizing: border-box;
+  width: 100%;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.paragraph};
@@ -352,53 +352,53 @@ const Input = styled.input`
   }
 
   &:focus {
-    outline: none;
     border-color: ${({ theme }) => theme.colors.highlight};
+    outline: none;
   }
 `;
 
 const CheckboxRow = styled.label`
-  display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
   cursor: pointer;
+  display: flex;
+  gap: 0.75rem;
   margin-bottom: 2rem;
 
   input[type="checkbox"] {
-    flex-shrink: 0;
-    margin-top: 0.1875rem;
-    width: 1rem;
-    height: 1rem;
     accent-color: ${({ theme }) => theme.colors.highlight};
     cursor: pointer;
+    flex-shrink: 0;
+    height: 1rem;
+    margin-top: 0.1875rem;
+    width: 1rem;
   }
 `;
 
 const CheckboxText = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
 `;
 
 const ErrorMsg = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #ef4444;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin: 0 0 1rem;
 `;
 
 /* ── Buttons ── */
 
 const BtnRow = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 1.25rem;
 `;
 
 const BackBtn = styled.button`
   background: none;
   border: none;
-  cursor: pointer;
   color: ${({ theme }) => theme.colors.paragraph};
+  cursor: pointer;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   padding: 0;
@@ -413,18 +413,18 @@ const BackBtn = styled.button`
 `;
 
 const PrimaryBtn = styled.button`
-  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 1.75rem;
   background: ${({ theme }) => theme.colors.button};
+  border: 2px solid transparent;
+  border-radius: ${({ theme }) => theme.radii.xs};
   color: ${({ theme }) => theme.colors.button_text};
+  cursor: pointer;
+  display: inline-flex;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  border: 2px solid transparent;
-  border-radius: ${({ theme }) => theme.radii.xs};
-  cursor: pointer;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
   transition: all 0.2s ease;
 
   &:hover {
@@ -434,8 +434,8 @@ const PrimaryBtn = styled.button`
   }
 
   &:disabled {
-    opacity: 0.4;
     cursor: not-allowed;
+    opacity: 0.4;
     pointer-events: none;
   }
 
@@ -448,40 +448,40 @@ const PrimaryBtn = styled.button`
 /* ── Step 5: Success ── */
 
 const SuccessWrap = styled.div`
-  text-align: center;
-  padding: 1rem 0;
   animation: ${slideUp} 0.3s ease;
+  padding: 1rem 0;
+  text-align: center;
 `;
 
 const Leaves = styled.div`
-  position: relative;
   height: 90px;
   margin-bottom: 1.5rem;
+  position: relative;
 `;
 
 const Leaf = styled.span<{ $delay: number; $drift: string }>`
-  position: absolute;
   font-size: 1.5rem;
-  top: 0;
   left: 50%;
+  position: absolute;
+  top: 0;
   --drift: ${({ $drift }) => $drift};
   animation: ${leafFall} 1.3s ease-out ${({ $delay }) => $delay}s both;
 `;
 
 const SuccessTitle = styled.h2`
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes["2xl"]};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.headline};
   margin: 0 0 0.75rem;
 `;
 
 const SuccessBody = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  max-width: 34ch;
   margin: 0 auto 2rem;
+  max-width: 34ch;
 `;
 
 /* ── Component ── */

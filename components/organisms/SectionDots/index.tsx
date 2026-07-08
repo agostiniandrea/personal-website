@@ -15,26 +15,26 @@ const SECTIONS = [
 ];
 
 const Nav = styled.nav`
+  display: none;
   position: fixed;
   right: 1.25rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
-  display: none;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
+    align-items: flex-end;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     gap: 0.875rem;
   }
 `;
 
 const DotRow = styled.li`
-  position: relative;
-  display: flex;
   align-items: center;
+  display: flex;
   list-style: none;
+  position: relative;
 
   &:hover span {
     opacity: 1;
@@ -43,31 +43,31 @@ const DotRow = styled.li`
 `;
 
 const Label = styled.span`
-  position: absolute;
-  right: calc(100% + 0.5rem);
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: calc(100% + 0.5rem);
+  text-transform: uppercase;
   transform: translateX(6px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
-  pointer-events: none;
 `;
 
 const Dot = styled.button<{ $active: boolean }>`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.colors.highlight};
   background: ${({ $active, theme }) =>
     $active ? theme.colors.highlight : "transparent"};
+  border: 2px solid ${({ theme }) => theme.colors.highlight};
+  border-radius: 50%;
   cursor: pointer;
+  flex-shrink: 0;
+  height: 10px;
   padding: 0;
   transition: background 0.2s ease;
-  flex-shrink: 0;
+  width: 10px;
 
   &:hover {
     background: ${({ theme }) => theme.colors.highlight};
@@ -80,15 +80,15 @@ const Dot = styled.button<{ $active: boolean }>`
 `;
 
 const VisuallyHidden = styled.span`
-  position: absolute;
-  width: 1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
   height: 1px;
-  padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  padding: 0;
+  position: absolute;
   white-space: nowrap;
-  border: 0;
+  width: 1px;
 `;
 
 
