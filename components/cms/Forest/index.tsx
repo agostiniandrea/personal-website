@@ -184,9 +184,11 @@ const OriginDate = styled.span`
   flex-shrink: 0;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.08em;
-  min-width: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
+  width: 90px;
 `;
 
 const OriginText = styled.span`
@@ -276,9 +278,10 @@ const CtaDecor = styled.div`
     align-items: flex-start;
     border-left: 1px solid ${({ theme }) => theme.colors.highlight}25;
     border-top: none;
-    min-width: 180px;
+    flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
+    width: 220px;
   }
 `;
 

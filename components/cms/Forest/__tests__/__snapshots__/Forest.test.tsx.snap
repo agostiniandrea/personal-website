@@ -113,9 +113,11 @@ exports[`Forest renders correctly with all props 1`] = `
   flex-shrink: 0;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
-  min-width: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
+  width: 90px;
 }
 
 .c13 {
@@ -363,9 +365,10 @@ exports[`Forest renders correctly with all props 1`] = `
     align-items: flex-start;
     border-left: 1px solid var(--color-highlight)25;
     border-top: none;
-    min-width: 180px;
+    flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
+    width: 220px;
   }
 }
 
@@ -707,9 +710,11 @@ exports[`Forest renders correctly with minimal props 1`] = `
   flex-shrink: 0;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
-  min-width: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
+  width: 90px;
 }
 
 .c13 {
@@ -957,9 +962,10 @@ exports[`Forest renders correctly with minimal props 1`] = `
     align-items: flex-start;
     border-left: 1px solid var(--color-highlight)25;
     border-top: none;
-    min-width: 180px;
+    flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
+    width: 220px;
   }
 }
 
