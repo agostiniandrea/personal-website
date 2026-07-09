@@ -12,9 +12,8 @@ test("English page sets lang attribute", async ({ page }) => {
 
 test("language switcher navigates to Italian version", async ({ page }) => {
   await page.goto("/");
-  // The lang switcher renders two links: EN (active) and IT
-  const itLink = page.getByRole("link", { name: /^IT$/i });
-  await itLink.first().click();
+  // LocaleButton is a <button> with aria-label "Switch to Italian" on the EN page
+  await page.getByRole("button", { name: /switch to italian/i }).first().click();
   await expect(page).toHaveURL(/\/it/);
 });
 
@@ -22,7 +21,6 @@ test("language switcher navigates back to English from Italian", async ({
   page,
 }) => {
   await page.goto("/it");
-  const enLink = page.getByRole("link", { name: /^EN$/i });
-  await enLink.first().click();
+  await page.getByRole("button", { name: /switch to english/i }).first().click();
   await expect(page).toHaveURL(/^http:\/\/localhost:3000\/$/);
 });

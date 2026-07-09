@@ -1,10 +1,13 @@
 import { test, expect } from "./fixtures";
 
+const feedbackDialog = (page: import("@playwright/test").Page) =>
+  page.getByRole("dialog", { name: "Share feedback" });
+
 async function openModal(page: import("@playwright/test").Page) {
   await page.goto("/");
   await page.locator("#forest").scrollIntoViewIfNeeded();
   await page.getByRole("button", { name: /plant a leaf/i }).click();
-  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(feedbackDialog(page)).toBeVisible();
 }
 
 test("Forest CTA opens the feedback modal", async ({ page }) => {
@@ -13,14 +16,14 @@ test("Forest CTA opens the feedback modal", async ({ page }) => {
 
 test("modal closes when the X button is clicked", async ({ page }) => {
   await openModal(page);
-  await page.getByRole("button", { name: /close/i }).click();
-  await expect(page.getByRole("dialog")).not.toBeVisible();
+  await feedbackDialog(page).getByRole("button", { name: /close/i }).click();
+  await expect(feedbackDialog(page)).not.toBeVisible();
 });
 
 test("modal closes on Escape key", async ({ page }) => {
   await openModal(page);
   await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).not.toBeVisible();
+  await expect(feedbackDialog(page)).not.toBeVisible();
 });
 
 test("step 3 Continue is disabled until 10+ characters are typed", async ({
