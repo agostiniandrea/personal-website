@@ -275,13 +275,12 @@ const CtaDecor = styled.div`
   padding-top: 0.25rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    align-items: flex-start;
+    align-items: flex-end;
     border-left: 1px solid ${({ theme }) => theme.colors.highlight}25;
     border-top: none;
-    flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
-    width: 220px;
+    text-align: right;
   }
 `;
 
