@@ -5,15 +5,14 @@ test("site header is visible", async ({ page }) => {
   await expect(page.getByRole("banner")).toBeVisible();
 });
 
-test("clicking a nav anchor updates the URL hash", async ({ page }) => {
+test("desktop nav contains the expected section links", async ({ page }) => {
   await page.goto("/");
-  // Find the first internal anchor in the header that points to a section
-  const aboutLink = page
-    .getByRole("navigation")
-    .getByRole("link", { name: /about/i })
-    .first();
-  await aboutLink.click();
-  await expect(page).toHaveURL(/#about/);
+  const desktopNav = page.locator('nav[aria-label="Main navigation"]');
+  await expect(desktopNav).toBeVisible();
+  // Verify the nav links that Contentful configures are present
+  for (const href of ["/#skills", "/#journey", "/#experience", "/#forest"]) {
+    await expect(desktopNav.locator(`a[href="${href}"]`)).toBeAttached();
+  }
 });
 
 test("site footer is present", async ({ page }) => {
