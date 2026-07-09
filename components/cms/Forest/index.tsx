@@ -184,9 +184,9 @@ const OriginDate = styled.span`
   flex-shrink: 0;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.08em;
-  min-width: 88px;
   text-transform: uppercase;
   white-space: nowrap;
+  width: 110px;
 `;
 
 const OriginText = styled.span`
@@ -273,12 +273,14 @@ const CtaDecor = styled.div`
   padding-top: 0.25rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    align-items: flex-start;
+    align-items: flex-end;
     border-left: 1px solid ${({ theme }) => theme.colors.highlight}25;
     border-top: none;
-    min-width: 180px;
+    flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
+    text-align: right;
+    width: 260px;
   }
 `;
 
