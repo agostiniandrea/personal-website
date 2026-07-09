@@ -174,7 +174,7 @@ const OriginBlock = styled.div`
 `;
 
 const OriginItem = styled.div`
-  align-items: baseline;
+  align-items: flex-start;
   display: flex;
   gap: ${({ theme }) => theme.space.lg};
 `;
