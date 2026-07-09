@@ -39,8 +39,7 @@ export const defaultProjects: ProjectsProps = {
       description:
         "Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.",
       tags: ["Next.js", "TypeScript", "Redux", "Storybook", "Jest", "Azure DevOps"],
-      url: "https://www.kizi.nl/",
-      urlLabel: "View project →",
+      status: "live",
     },
     {
       title: "FCA Build & Price",

@@ -6,7 +6,7 @@ const feedbackDialog = (page: import("@playwright/test").Page) =>
 async function openModal(page: import("@playwright/test").Page) {
   await page.goto("/");
   await page.locator("#forest").scrollIntoViewIfNeeded();
-  await page.getByRole("button", { name: /plant a leaf/i }).click();
+  await page.getByRole("button", { name: /leave a leaf/i }).click();
   await expect(feedbackDialog(page)).toBeVisible();
 }
 

@@ -1117,15 +1117,12 @@ exports[`Projects renders correctly with full project list 1`] = `
                 Azure DevOps
               </span>
             </div>
-            <a
-              aria-label="View project: Kizi.nl"
-              class="c17 c18"
-              href="https://www.kizi.nl/"
-              rel="noopener noreferrer"
-              target="_blank"
+            <span
+              class="c19"
             >
-              View project →
-            </a>
+              — 
+              Live
+            </span>
           </div>
         </article>
         <article

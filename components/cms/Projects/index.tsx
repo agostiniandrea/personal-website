@@ -5,8 +5,9 @@ import { Badge } from "@components/molecules";
 import { contentfulImageUrl } from "@utils/contentfulImage";
 
 const STATUS_LABELS: Record<string, Record<string, string>> = {
-  "pre-launch": { en: "Pre-launch", it: "Pre lancio" },
   "internal":   { en: "Internal",   it: "Interno" },
+  "live":       { en: "Live",        it: "Live" },
+  "pre-launch": { en: "Pre-launch", it: "Pre lancio" },
 };
 
 export interface ProjectItem {
@@ -15,7 +16,7 @@ export interface ProjectItem {
   tags?: string[];
   url?: string;
   urlLabel?: string;
-  status?: "internal" | "pre-launch";
+  status?: "internal" | "live" | "pre-launch";
   image?: ImageProps;
 }
 
