@@ -103,7 +103,7 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 .c11 {
-  align-items: baseline;
+  align-items: flex-start;
   display: flex;
   gap: 1rem;
 }
@@ -697,7 +697,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 .c11 {
-  align-items: baseline;
+  align-items: flex-start;
   display: flex;
   gap: 1rem;
 }
