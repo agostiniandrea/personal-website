@@ -11,7 +11,7 @@ const sendBtn = (page: Page) =>
 async function reachStep4(page: Page) {
   await page.goto("/");
   await page.locator("#forest").scrollIntoViewIfNeeded();
-  await page.getByRole("button", { name: /plant a leaf/i }).click();
+  await page.getByRole("button", { name: /leave a leaf/i }).click();
   await expect(feedbackDialog(page)).toBeVisible();
   // Step 1 → 2
   await feedbackDialog(page).getByRole("button", { name: /continue/i }).click();
