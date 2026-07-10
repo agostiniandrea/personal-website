@@ -176,6 +176,16 @@ const CATEGORIES: FeedbackCategory[] = [
   "General thoughts",
 ];
 
+const CATEGORY_LABELS: Record<FeedbackCategory, { en: string; it: string }> = {
+  "UX":               { en: "UX",               it: "UX" },
+  "Accessibility":    { en: "Accessibility",    it: "Accessibilità" },
+  "Performance":      { en: "Performance",      it: "Performance" },
+  "Design":           { en: "Design",           it: "Design" },
+  "Content":          { en: "Content",          it: "Contenuto" },
+  "Bug":              { en: "Bug",              it: "Bug" },
+  "General thoughts": { en: "General thoughts", it: "Considerazioni generali" },
+};
+
 const EMPTY: FeedbackData = {
   category: "",
   message: "",
@@ -682,7 +692,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   type="button"
                   aria-pressed={data.category === cat}
                 >
-                  {cat}
+                  {CATEGORY_LABELS[cat][locale]}
                 </CatBtn>
               ))}
             </CatGrid>
