@@ -692,7 +692,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   type="button"
                   aria-pressed={data.category === cat}
                 >
-                  {CATEGORY_LABELS[cat][locale]}
+                  {CATEGORY_LABELS[cat][locale === "it" ? "it" : "en"]}
                 </CatBtn>
               ))}
             </CatGrid>
