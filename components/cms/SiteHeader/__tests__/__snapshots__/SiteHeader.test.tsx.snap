@@ -16,10 +16,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: all 0.2s ease-in-out;
 }
 
-.c7:hover {
-  opacity: 0.8;
-}
-
 .c7:focus {
   outline: 2px solid var(--color-button);
   outline-offset: 2px;
@@ -59,10 +55,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   line-height: 1;
   text-decoration: none;
   transition: color 0.2s ease-in-out;
-}
-
-.c3:hover {
-  color: var(--color-tertiary);
 }
 
 .c3:focus-visible {
@@ -152,10 +144,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: transform 0.25s ease;
 }
 
-.c6:hover::after {
-  transform: scaleX(1);
-}
-
 .c9 {
   align-items: center;
   background: none;
@@ -188,11 +176,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: all 0.2s ease;
 }
 
-.c8:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
 .c8:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
@@ -211,6 +194,12 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   margin-bottom: 1.5rem;
   margin-left: 1.5rem;
   margin-top: auto;
+}
+
+@media (hover: hover) {
+  .c7:hover {
+    opacity: 0.8;
+  }
 }
 
 @media (min-width: 600px) {
@@ -259,15 +248,34 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c3:hover {
+    color: var(--color-tertiary);
+  }
+}
+
 @media (min-width: 900px) {
   .c5 {
     display: flex;
   }
 }
 
+@media (hover: hover) {
+  .c6:hover::after {
+    transform: scaleX(1);
+  }
+}
+
 @media (min-width: 900px) {
   .c10 {
     display: none;
+  }
+}
+
+@media (hover: hover) {
+  .c8:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -468,10 +476,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   transition: all 0.2s ease-in-out;
 }
 
-.c6:hover {
-  opacity: 0.8;
-}
-
 .c6:focus {
   outline: 2px solid var(--color-button);
   outline-offset: 2px;
@@ -511,10 +515,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   line-height: 1;
   text-decoration: none;
   transition: color 0.2s ease-in-out;
-}
-
-.c3:hover {
-  color: var(--color-tertiary);
 }
 
 .c3:focus-visible {
@@ -618,11 +618,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   transition: all 0.2s ease;
 }
 
-.c7:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
 .c7:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
@@ -641,6 +636,12 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   margin-bottom: 1.5rem;
   margin-left: 1.5rem;
   margin-top: auto;
+}
+
+@media (hover: hover) {
+  .c6:hover {
+    opacity: 0.8;
+  }
 }
 
 @media (min-width: 600px) {
@@ -689,6 +690,12 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c3:hover {
+    color: var(--color-tertiary);
+  }
+}
+
 @media (min-width: 900px) {
   .c5 {
     display: flex;
@@ -698,6 +705,13 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 @media (min-width: 900px) {
   .c9 {
     display: none;
+  }
+}
+
+@media (hover: hover) {
+  .c7:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 }
 

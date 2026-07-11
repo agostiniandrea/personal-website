@@ -23,8 +23,10 @@ const Button = styled.button<{ $visible: boolean }>`
   width: 2.75rem;
   z-index: 100;
 
-  &:hover {
-    opacity: 0.85;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.85;
+    }
   }
 
   &:focus-visible {

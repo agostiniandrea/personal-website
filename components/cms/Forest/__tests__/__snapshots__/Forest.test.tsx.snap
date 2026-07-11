@@ -205,12 +205,6 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c18:hover {
-  background: transparent;
-  border-color: var(--color-highlight);
-  color: var(--color-highlight);
-}
-
 .c18:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
@@ -285,10 +279,6 @@ exports[`Forest renders correctly with all props 1`] = `
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
-}
-
-.c33 a:hover {
-  opacity: 0.75;
 }
 
 @media (min-width: 600px) {
@@ -380,6 +370,20 @@ exports[`Forest renders correctly with all props 1`] = `
 @media (min-width: 1200px) {
   .c16 {
     font-size: 2rem;
+  }
+}
+
+@media (hover: hover) {
+  .c18:hover {
+    background: transparent;
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c33 a:hover {
+    opacity: 0.75;
   }
 }
 
@@ -801,12 +805,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c18:hover {
-  background: transparent;
-  border-color: var(--color-highlight);
-  color: var(--color-highlight);
-}
-
 .c18:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
@@ -881,10 +879,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
-}
-
-.c33 a:hover {
-  opacity: 0.75;
 }
 
 @media (min-width: 600px) {
@@ -976,6 +970,20 @@ exports[`Forest renders correctly with minimal props 1`] = `
 @media (min-width: 1200px) {
   .c16 {
     font-size: 2rem;
+  }
+}
+
+@media (hover: hover) {
+  .c18:hover {
+    background: transparent;
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c33 a:hover {
+    opacity: 0.75;
   }
 }
 
