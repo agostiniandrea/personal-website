@@ -104,10 +104,12 @@ const PrimaryLink = styled(Link)`
   text-decoration: none;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: transparent;
-    border-color: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.highlight};
+  @media (hover: hover) {
+    &:hover {
+      background: transparent;
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.highlight};
+    }
   }
 
   &:focus-visible {
@@ -128,9 +130,11 @@ const CvLink = styled.a`
   text-decoration: none;
   transition: color 0.2s ease, border-color 0.2s ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.headline};
-    color: ${({ theme }) => theme.colors.headline};
+  @media (hover: hover) {
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.headline};
+      color: ${({ theme }) => theme.colors.headline};
+    }
   }
 
   &:focus-visible {
@@ -150,9 +154,11 @@ const SecondaryLink = styled(Link)`
   text-decoration: none;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.button_text};
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.button_text};
+    }
   }
 
   &:focus-visible {
@@ -214,7 +220,9 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
   transition: opacity 0.4s ease;
 
-  &:hover { opacity: 1; }
+  @media (hover: hover) {
+    &:hover { opacity: 1; }
+  }
 
   &:focus:not(:focus-visible) { outline: none; }
 

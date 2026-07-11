@@ -70,8 +70,10 @@ const NavLink = styled(Link)<{ $active: boolean }>`
     transition: transform 0.25s ease;
   }
 
-  &:hover::after {
-    transform: scaleX(1);
+  @media (hover: hover) {
+    &:hover::after {
+      transform: scaleX(1);
+    }
   }
 `;
 
@@ -112,9 +114,11 @@ const LocaleButton = styled(Button)`
   text-transform: uppercase;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.4);
+  @media (hover: hover) {
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
   }
 
   &:focus-visible {

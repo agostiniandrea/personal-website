@@ -260,7 +260,9 @@ const CloseBtn = styled.button`
   padding: ${({ theme }) => theme.space.xs};
   transition: color 0.15s ease;
 
-  &:hover { color: ${({ theme }) => theme.colors.headline}; }
+  @media (hover: hover) {
+    &:hover { color: ${({ theme }) => theme.colors.headline}; }
+  }
 
   &:focus-visible {
     border-radius: ${({ theme }) => theme.radii.xs};
@@ -352,9 +354,11 @@ const CatBtn = styled.button<{ $selected: boolean }>`
   text-align: left;
   transition: all 0.15s ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.headline};
+  @media (hover: hover) {
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.headline};
+    }
   }
 
   &:focus-visible {
@@ -491,7 +495,9 @@ const BackBtn = styled.button`
   padding: 0;
   transition: color 0.15s ease;
 
-  &:hover { color: ${({ theme }) => theme.colors.headline}; }
+  @media (hover: hover) {
+    &:hover { color: ${({ theme }) => theme.colors.headline}; }
+  }
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
@@ -514,10 +520,12 @@ const PrimaryBtn = styled.button`
   padding: 0.875rem 1.75rem;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: transparent;
-    border-color: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.highlight};
+  @media (hover: hover) {
+    &:hover {
+      background: transparent;
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.highlight};
+    }
   }
 
   &:disabled {

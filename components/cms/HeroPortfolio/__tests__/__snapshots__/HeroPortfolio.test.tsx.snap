@@ -39,10 +39,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c11:hover {
-  color: var(--color-tertiary);
-}
-
 .c11:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
@@ -118,12 +114,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c12:hover {
-  background: transparent;
-  border-color: var(--color-highlight);
-  color: var(--color-highlight);
-}
-
 .c12:focus-visible {
   outline: 2px solid var(--color-headline);
   outline-offset: 3px;
@@ -142,11 +132,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: color 0.2s ease,border-color 0.2s ease;
 }
 
-.c14:hover {
-  border-color: var(--color-headline);
-  color: var(--color-headline);
-}
-
 .c14:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
@@ -162,11 +147,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   padding: 0.875rem 2rem;
   text-decoration: none;
   transition: all 0.2s ease;
-}
-
-.c13:hover {
-  background: var(--color-highlight);
-  color: var(--color-button-text);
 }
 
 .c13:focus-visible {
@@ -209,10 +189,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   padding: 0.5rem;
   pointer-events: auto;
   transition: opacity 0.4s ease;
-}
-
-.c18:hover {
-  opacity: 1;
 }
 
 .c18:focus:not(:focus-visible) {
@@ -289,6 +265,12 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c11:hover {
+    color: var(--color-tertiary);
+  }
+}
+
 @media (min-width: 1200px) {
   .c0 {
     min-height: 100svh;
@@ -323,6 +305,28 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c12:hover {
+    background: transparent;
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c14:hover {
+    border-color: var(--color-headline);
+    color: var(--color-headline);
+  }
+}
+
+@media (hover: hover) {
+  .c13:hover {
+    background: var(--color-highlight);
+    color: var(--color-button-text);
+  }
+}
+
 @media (min-width: 1200px) {
   .c15 {
     height: 380px;
@@ -336,6 +340,12 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
     align-items: center;
     display: flex;
     justify-content: center;
+  }
+}
+
+@media (hover: hover) {
+  .c18:hover {
+    opacity: 1;
   }
 }
 
@@ -496,10 +506,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c11:hover {
-  color: var(--color-tertiary);
-}
-
 .c11:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
@@ -575,12 +581,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   transition: all 0.2s ease;
 }
 
-.c12:hover {
-  background: transparent;
-  border-color: var(--color-highlight);
-  color: var(--color-highlight);
-}
-
 .c12:focus-visible {
   outline: 2px solid var(--color-headline);
   outline-offset: 3px;
@@ -597,11 +597,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   padding: 0.875rem 0;
   text-decoration: none;
   transition: color 0.2s ease,border-color 0.2s ease;
-}
-
-.c13:hover {
-  border-color: var(--color-headline);
-  color: var(--color-headline);
 }
 
 .c13:focus-visible {
@@ -644,10 +639,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   padding: 0.5rem;
   pointer-events: auto;
   transition: opacity 0.4s ease;
-}
-
-.c17:hover {
-  opacity: 1;
 }
 
 .c17:focus:not(:focus-visible) {
@@ -724,6 +715,12 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c11:hover {
+    color: var(--color-tertiary);
+  }
+}
+
 @media (min-width: 1200px) {
   .c0 {
     min-height: 100svh;
@@ -758,6 +755,21 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c12:hover {
+    background: transparent;
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c13:hover {
+    border-color: var(--color-headline);
+    color: var(--color-headline);
+  }
+}
+
 @media (min-width: 1200px) {
   .c14 {
     height: 380px;
@@ -771,6 +783,12 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
     align-items: center;
     display: flex;
     justify-content: center;
+  }
+}
+
+@media (hover: hover) {
+  .c17:hover {
+    opacity: 1;
   }
 }
 

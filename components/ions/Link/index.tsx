@@ -21,8 +21,10 @@ const StyledLink = styled(NextLink)`
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.tertiary};
+  @media (hover: hover) {
+    &:hover {
+      color: ${({ theme }) => theme.colors.tertiary};
+    }
   }
 
   &:focus-visible {
