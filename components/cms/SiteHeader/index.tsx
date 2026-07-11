@@ -148,7 +148,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const router = useRouter();
   const t = useI18n(router.locale);
   const nextLocale = router.locale === "en" ? "it" : "en";
-  const nextLocaleName = nextLocale === "it" ? "Italiano" : "English";
+  const nextLocaleName = router.locale === "it"
+    ? (nextLocale === "en" ? "Inglese" : "Italiano")
+    : (nextLocale === "it" ? "Italian" : "English");
 
   const switchLocale = () => {
     router.push(router.asPath, router.asPath, { locale: nextLocale, scroll: false });
