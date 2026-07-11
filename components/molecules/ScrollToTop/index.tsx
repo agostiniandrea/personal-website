@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useI18n } from "@lib/utils/i18n";
 
 const Button = styled.button<{ $visible: boolean }>`
   align-items: center;
@@ -21,8 +23,10 @@ const Button = styled.button<{ $visible: boolean }>`
   width: 2.75rem;
   z-index: 100;
 
-  &:hover {
-    opacity: 0.85;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.85;
+    }
   }
 
   &:focus-visible {
@@ -38,6 +42,8 @@ const Button = styled.button<{ $visible: boolean }>`
 const ScrollToTop: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
+  const { locale } = useRouter();
+  const t = useI18n(locale);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 400);
@@ -59,7 +65,7 @@ const ScrollToTop: React.FC = () => {
   return (
     <Button
       $visible={scrolled && !footerVisible}
-      aria-label="Scroll to top"
+      aria-label={t.scrollToTop}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

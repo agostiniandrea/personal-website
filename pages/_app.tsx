@@ -1,6 +1,7 @@
 import { Head } from "@components/atoms";
 import { ScrollToTop } from "@components/molecules";
 import { CookieBanner } from "@components/molecules";
+import { useI18n } from "@lib/utils/i18n";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
 import type { AppProps } from "next/app";
@@ -45,8 +46,9 @@ const SkipLink = styled.a`
   }
 `;
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps) {
   const [gaConsent, setGaConsent] = useState(false);
+  const t = useI18n(router.locale);
 
   useEffect(() => {
     if (localStorage.getItem("cookie-consent") === "accepted") {
@@ -60,7 +62,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${inter.variable} ${spaceGrotesk.variable}`} style={{ display: "contents" }}>
       <ThemeProvider theme={theme}>
-        <SkipLink href="#main-content">Skip to main content</SkipLink>
+        <SkipLink href="#main-content">{t.skipToMainContent}</SkipLink>
         <GlobalStyle />
         <Head />
         <Component {...pageProps} />

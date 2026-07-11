@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Drawer renders closed drawer 1`] = `
+exports[`Drawer — closed state matches snapshot when closed 1`] = `
 .c0 {
   background: var(--color-background);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -18,10 +18,10 @@ exports[`Drawer renders closed drawer 1`] = `
 }
 
 <div
-  aria-modal="true"
+  aria-hidden="true"
   class="c0"
   id="mobile-nav"
-  role="dialog"
+  inert=""
 >
   <p>
     Content

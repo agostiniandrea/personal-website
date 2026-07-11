@@ -16,6 +16,7 @@ export type SeoProps = {
   canonicalUrl?: string;
   nofollow?: boolean;
   noindex?: boolean;
+  ogImageAlt?: string;
   seoImage?: {
     url: string;
     width?: number;
@@ -23,8 +24,11 @@ export type SeoProps = {
   };
 };
 
-const localePath = (locale: string, path: string) =>
-  locale === "en" ? `${SITE_URL}${path}` : `${SITE_URL}/${locale}${path}`;
+/** @internal exported for unit testing */
+export const localePath = (locale: string, path: string) =>
+  locale === "en"
+    ? `${SITE_URL}${path}`
+    : `${SITE_URL}/${locale}${path}`.replace(/\/$/, "");
 
 const Seo: React.FC<SeoProps> = ({
   seoDescription,
@@ -32,13 +36,15 @@ const Seo: React.FC<SeoProps> = ({
   seoImage,
   canonicalUrl,
   locale,
+  ogImageAlt,
   path,
   nofollow,
   noindex,
 }) => {
+  const resolvedOgAlt = ogImageAlt ?? seoTitle;
   const ogImage = seoImage
-    ? { url: seoImage.url, width: seoImage.width, height: seoImage.height, alt: seoTitle }
-    : { url: `${SITE_URL}/api/og`, width: 1200, height: 630, alt: seoTitle };
+    ? { url: seoImage.url, width: seoImage.width, height: seoImage.height, alt: resolvedOgAlt }
+    : { url: `${SITE_URL}/api/og`, width: 1200, height: 630, alt: resolvedOgAlt };
 
   const canonical = locale && path ? localePath(locale, path) : canonicalUrl;
 

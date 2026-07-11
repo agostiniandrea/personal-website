@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { contentfulImageUrl } from "@utils/contentfulImage";
+import { useI18n } from "@lib/utils/i18n";
 
 export interface HeroPortfolioProps {
   greeting: string;
@@ -102,10 +104,12 @@ const PrimaryLink = styled(Link)`
   text-decoration: none;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: transparent;
-    border-color: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.highlight};
+  @media (hover: hover) {
+    &:hover {
+      background: transparent;
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.highlight};
+    }
   }
 
   &:focus-visible {
@@ -126,9 +130,11 @@ const CvLink = styled.a`
   text-decoration: none;
   transition: color 0.2s ease, border-color 0.2s ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.headline};
-    color: ${({ theme }) => theme.colors.headline};
+  @media (hover: hover) {
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.headline};
+      color: ${({ theme }) => theme.colors.headline};
+    }
   }
 
   &:focus-visible {
@@ -148,9 +154,11 @@ const SecondaryLink = styled(Link)`
   text-decoration: none;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.button_text};
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.button_text};
+    }
   }
 
   &:focus-visible {
@@ -212,7 +220,9 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
   transition: opacity 0.4s ease;
 
-  &:hover { opacity: 1; }
+  @media (hover: hover) {
+    &:hover { opacity: 1; }
+  }
 
   &:focus:not(:focus-visible) { outline: none; }
 
@@ -237,6 +247,8 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   cvDownloadFile,
 }) => {
   const [scrolled, setScrolled] = useState(false);
+  const { locale } = useRouter();
+  const t = useI18n(locale);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -303,7 +315,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
       <ScrollHint
         $visible={!scrolled}
         onClick={scrollDown}
-        aria-label="Scroll down"
+        aria-label={t.scrollDown}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9" />

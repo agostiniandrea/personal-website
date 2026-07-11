@@ -32,8 +32,8 @@ describe("DrawerTopBar", () => {
   });
 });
 
-describe("Drawer", () => {
-  it("renders open drawer with children", () => {
+describe("Drawer — open state", () => {
+  it("renders as dialog with aria-modal when open", () => {
     renderWithTheme(
       <Drawer isOpen={true} aria-label="Navigation menu">
         <p>Drawer content</p>
@@ -43,27 +43,91 @@ describe("Drawer", () => {
     const dialog = screen.getByRole("dialog");
     expect(dialog).toBeInTheDocument();
     expect(dialog).toHaveAttribute("aria-modal", "true");
-    expect(screen.getByText("Drawer content")).toBeInTheDocument();
   });
 
-  it("renders closed drawer", () => {
+  it("exposes children to the accessibility tree when open", () => {
+    renderWithTheme(
+      <Drawer isOpen={true} aria-label="Navigation menu">
+        <button>Close</button>
+      </Drawer>,
+    );
+    expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
+  });
+
+  it("does not have aria-hidden when open", () => {
+    renderWithTheme(
+      <Drawer isOpen={true} aria-label="Navigation menu">
+        <p>Content</p>
+      </Drawer>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).not.toHaveAttribute("aria-hidden");
+  });
+
+  it("forwards ref to underlying div when open", () => {
+    const ref = React.createRef<HTMLDivElement>();
+    renderWithTheme(
+      <Drawer isOpen={true} ref={ref}>
+        <p>Content</p>
+      </Drawer>,
+    );
+    expect(ref.current).not.toBeNull();
+  });
+});
+
+describe("Drawer — closed state", () => {
+  it("is not queryable as a dialog when closed", () => {
+    renderWithTheme(
+      <Drawer isOpen={false} id="mobile-nav" aria-label="Navigation menu">
+        <p>Content</p>
+      </Drawer>,
+    );
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("has aria-hidden=true when closed", () => {
     const { container } = renderWithTheme(
       <Drawer isOpen={false} id="mobile-nav">
         <p>Content</p>
       </Drawer>,
     );
-
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container.firstChild).toHaveAttribute("aria-hidden", "true");
   });
 
-  it("forwards ref to underlying div", () => {
+  it("has inert attribute when closed", () => {
+    const { container } = renderWithTheme(
+      <Drawer isOpen={false} id="mobile-nav">
+        <button>Should not be reachable</button>
+      </Drawer>,
+    );
+    expect(container.firstChild).toHaveAttribute("inert");
+  });
+
+  it("does not have role=dialog when closed", () => {
+    const { container } = renderWithTheme(
+      <Drawer isOpen={false} id="mobile-nav">
+        <p>Content</p>
+      </Drawer>,
+    );
+    expect(container.firstChild).not.toHaveAttribute("role", "dialog");
+  });
+
+  it("forwards ref when closed", () => {
     const ref = React.createRef<HTMLDivElement>();
     renderWithTheme(
       <Drawer isOpen={false} ref={ref}>
         <p>Content</p>
       </Drawer>,
     );
-
     expect(ref.current).not.toBeNull();
+  });
+
+  it("matches snapshot when closed", () => {
+    const { container } = renderWithTheme(
+      <Drawer isOpen={false} id="mobile-nav">
+        <p>Content</p>
+      </Drawer>,
+    );
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

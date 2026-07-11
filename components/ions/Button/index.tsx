@@ -33,8 +33,10 @@ const StyledButton = styled.button<ButtonProps>`
   padding: ${({ theme }) => theme.space.md} 1.25rem;
   transition: all 0.2s ease-in-out;
 
-  &:hover {
-    opacity: ${({ disabled }) => (disabled ? 0.5 : 0.8)};
+  @media (hover: hover) {
+    &:hover {
+      opacity: ${({ disabled }) => (disabled ? 0.5 : 0.8)};
+    }
   }
 
   &:focus {
