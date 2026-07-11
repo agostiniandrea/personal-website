@@ -73,25 +73,30 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
   };
 }
 
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Andrea Agostini",
-  jobTitle: "Senior Frontend Developer & Tech Lead",
-  url: "https://agostiniandrea.dev",
-  email: "a.agostini92@gmail.com",
-  sameAs: [
-    "https://linkedin.com/in/agostiniandrea",
-    "https://github.com/agostiniandrea",
-  ],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Bangkok",
-    addressCountry: "TH",
-  },
+const JOB_TITLE: Record<string, string> = {
+  en: "Senior Frontend Developer & Tech Lead",
+  it: "Senior Frontend Developer e Tech Lead",
 };
 
 export default function Home({ page, header, footer, locale }: THomepage) {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Andrea Agostini",
+    jobTitle: JOB_TITLE[locale] ?? JOB_TITLE.en,
+    url: "https://agostiniandrea.dev",
+    email: "a.agostini92@gmail.com",
+    sameAs: [
+      "https://linkedin.com/in/agostiniandrea",
+      "https://github.com/agostiniandrea",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Bangkok",
+      addressCountry: "TH",
+    },
+  };
+
   return (
     <>
       <NextHead>

@@ -21,6 +21,6 @@ test("language switcher navigates back to English from Italian", async ({
   page,
 }) => {
   await page.goto("/it");
-  await page.getByRole("button", { name: /switch to english/i }).first().click();
+  await page.getByRole("button", { name: /passa a inglese/i }).first().click();
   await expect(page).toHaveURL(/^http:\/\/localhost:3000\/$/);
 });

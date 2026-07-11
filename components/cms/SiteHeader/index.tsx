@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { useI18n } from "@lib/utils/i18n";
 import styled from "styled-components";
 import { Button, Container, Flex, Link } from "@components/ions";
 import { Drawer, DrawerTopBar, Overlay } from "@components/molecules";
@@ -145,7 +146,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const t = useI18n(router.locale);
   const nextLocale = router.locale === "en" ? "it" : "en";
+  const nextLocaleName = router.locale === "it" ? "Inglese" : "Italian";
 
   const switchLocale = () => {
     router.push(router.asPath, router.asPath, { locale: nextLocale, scroll: false });
@@ -253,20 +256,20 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
         <Container>
           <Flex justifyContent="space-between" alignItems="center">
             <Logo href="/">{logoText}</Logo>
-            <DesktopNav aria-label="Main navigation">
+            <DesktopNav aria-label={t.mainNavigation}>
               {navLinks.map((link) => (
                 <NavLink key={link.url} href={link.url} $active={activeSection === link.url} onClick={(e) => handleAnchorClick(e, link.url)}>
                   {link.label}
                 </NavLink>
               ))}
-              <LocaleButton onClick={switchLocale} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
+              <LocaleButton onClick={switchLocale} aria-label={t.switchToLocale(nextLocaleName)}>
                 {nextLocale.toUpperCase()}
               </LocaleButton>
             </DesktopNav>
             <HamburgerButton
               ref={hamburgerRef}
               onClick={() => setIsOpen(true)}
-              aria-label="Open menu"
+              aria-label={t.openMenu}
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
             >
@@ -286,17 +289,17 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             ref={drawerRef}
             id="mobile-nav"
             isOpen={isOpen}
-            aria-label="Navigation menu"
+            aria-label={t.navigationMenu}
           >
             <DrawerTopBar>
-              <IconButton onClick={closeDrawer} aria-label="Close menu">
+              <IconButton onClick={closeDrawer} aria-label={t.closeMenu}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </IconButton>
             </DrawerTopBar>
-            <nav aria-label="Mobile navigation">
+            <nav aria-label={t.mobileNavigation}>
               <DrawerLinks>
                 {navLinks.map((link) => (
                   <Link key={link.url} href={link.url} onClick={(e) => { handleAnchorClick(e, link.url); closeDrawer(); }}>
@@ -305,7 +308,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
                 ))}
               </DrawerLinks>
             </nav>
-            <DrawerLocaleButton onClick={() => { closeDrawer(); switchLocale(); }} aria-label={`Switch to ${nextLocale === "it" ? "Italian" : "English"}`}>
+            <DrawerLocaleButton onClick={() => { closeDrawer(); switchLocale(); }} aria-label={t.switchToLocale(nextLocaleName)}>
               {nextLocale.toUpperCase()}
             </DrawerLocaleButton>
           </Drawer>
