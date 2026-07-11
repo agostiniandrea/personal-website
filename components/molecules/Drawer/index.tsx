@@ -87,9 +87,13 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
         ref={ref}
         $isOpen={isOpen}
         id={id}
-        aria-label={ariaLabel}
-        role="dialog"
-        aria-modal="true"
+        aria-label={isOpen ? ariaLabel : undefined}
+        aria-hidden={isOpen ? undefined : true}
+        // `inert` removes the element from the accessibility tree and prevents focus
+        // when the drawer is closed, while preserving the CSS slide animation.
+        inert={isOpen ? undefined : true}
+        role={isOpen ? "dialog" : undefined}
+        aria-modal={isOpen ? "true" : undefined}
       >
         {children}
       </StyledDrawer>

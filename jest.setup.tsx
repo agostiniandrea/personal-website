@@ -49,6 +49,7 @@ jest.mock("next/router", () => ({
     replace: jest.fn(),
     prefetch: jest.fn(),
     back: jest.fn(),
+    locale: "en",
     pathname: "/",
     query: {},
     asPath: "/",

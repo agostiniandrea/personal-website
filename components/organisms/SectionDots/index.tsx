@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { BREAKPOINTS } from "@constants";
+import { useI18n, SECTION_LABELS } from "@lib/utils/i18n";
 
-const SECTIONS = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "journey", label: "Journey" },
-  { id: "experience", label: "Experience" },
-  { id: "sustainability", label: "Sustainability" },
-  { id: "beyond-code", label: "Beyond Code" },
-  { id: "forest", label: "Forest" },
-];
+const SECTION_IDS = [
+  "hero",
+  "about",
+  "projects",
+  "skills",
+  "journey",
+  "experience",
+  "sustainability",
+  "beyond-code",
+  "forest",
+] as const;
 
 const Nav = styled.nav`
   display: none;
@@ -95,6 +97,13 @@ const VisuallyHidden = styled.span`
 export default function SectionDots() {
   const [active, setActive] = useState("hero");
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const { locale } = useRouter();
+  const t = useI18n(locale);
+  const localeKey = locale === "it" ? "it" : "en";
+  const sections = SECTION_IDS.map((id) => ({
+    id,
+    label: SECTION_LABELS[id]?.[localeKey] ?? id,
+  }));
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -108,7 +117,7 @@ export default function SectionDots() {
       { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
     );
 
-    SECTIONS.forEach(({ id }) => {
+    sections.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observerRef.current?.observe(el);
     });
@@ -121,19 +130,19 @@ export default function SectionDots() {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const activeLabel = SECTIONS.find((s) => s.id === active)?.label ?? "";
+  const activeLabel = sections.find((s) => s.id === active)?.label ?? "";
 
   return (
     <>
-      <Nav aria-label="Section navigation">
+      <Nav aria-label={t.sectionNavigation}>
         <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.875rem" }}>
-          {SECTIONS.map(({ id, label }) => (
+          {sections.map(({ id, label }) => (
             <DotRow key={id}>
               <Label>{label}</Label>
               <Dot
                 $active={active === id}
                 onClick={() => scrollTo(id)}
-                aria-label={`Go to ${label}`}
+                aria-label={t.goTo(label)}
                 aria-current={active === id ? "true" : undefined}
               />
             </DotRow>

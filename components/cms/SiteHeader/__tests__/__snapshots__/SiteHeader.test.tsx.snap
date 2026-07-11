@@ -317,11 +317,11 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
           </a>
           <button
             aria-disabled="false"
-            aria-label="Switch to English"
+            aria-label="Switch to Italiano"
             class="c7 c8"
             type="button"
           >
-            EN
+            IT
           </button>
         </nav>
         <button
@@ -369,11 +369,10 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     class="c11"
   />
   <div
-    aria-label="Navigation menu"
-    aria-modal="true"
+    aria-hidden="true"
     class="c12"
     id="mobile-nav"
-    role="dialog"
+    inert=""
   >
     <div
       class="c13"
@@ -443,11 +442,11 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     </nav>
     <button
       aria-disabled="false"
-      aria-label="Switch to English"
+      aria-label="Switch to Italiano"
       class="c7 c8 c15"
       type="button"
     >
-      EN
+      IT
     </button>
   </div>
 </div>
@@ -724,11 +723,11 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
         >
           <button
             aria-disabled="false"
-            aria-label="Switch to English"
+            aria-label="Switch to Italiano"
             class="c6 c7"
             type="button"
           >
-            EN
+            IT
           </button>
         </nav>
         <button
@@ -776,11 +775,10 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
     class="c10"
   />
   <div
-    aria-label="Navigation menu"
-    aria-modal="true"
+    aria-hidden="true"
     class="c11"
     id="mobile-nav"
-    role="dialog"
+    inert=""
   >
     <div
       class="c12"
@@ -825,11 +823,11 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
     </nav>
     <button
       aria-disabled="false"
-      aria-label="Switch to English"
+      aria-label="Switch to Italiano"
       class="c6 c7 c14"
       type="button"
     >
-      EN
+      IT
     </button>
   </div>
 </div>
