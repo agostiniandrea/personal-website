@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useI18n } from "@lib/utils/i18n";
 import { Box, Container, Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
 import { Badge } from "@components/molecules";
 import { contentfulImageUrl } from "@utils/contentfulImage";
@@ -150,6 +151,7 @@ const CardLink = styled(Link)`
 
 const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => {
   const { locale = "en" } = useRouter();
+  const t = useI18n(locale);
   return (
   <Box as="section" id="projects" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
     <Container>
@@ -189,7 +191,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
                 <CardLink
                   href={item.url}
                   isExternal
-                  ariaLabel={`View project: ${item.title}`}
+                  ariaLabel={t.viewProject(item.title)}
                 >
                   {item.urlLabel ?? "View project →"}
                 </CardLink>

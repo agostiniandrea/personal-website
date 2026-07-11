@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { contentfulImageUrl } from "@utils/contentfulImage";
+import { useI18n } from "@lib/utils/i18n";
 
 export interface HeroPortfolioProps {
   greeting: string;
@@ -237,6 +239,8 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   cvDownloadFile,
 }) => {
   const [scrolled, setScrolled] = useState(false);
+  const { locale } = useRouter();
+  const t = useI18n(locale);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -303,7 +307,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
       <ScrollHint
         $visible={!scrolled}
         onClick={scrollDown}
-        aria-label="Scroll down"
+        aria-label={t.scrollDown}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9" />
