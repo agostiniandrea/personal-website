@@ -73,28 +73,12 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
   };
 }
 
-// Italian SEO fallbacks — applied when Contentful's Italian locale fields are not yet translated.
-// Once the pageLanding entry's seoTitle/seoDescription have been set in Contentful under the
-// Italian locale, these constants can be removed.
-const IT_SEO_FALLBACKS = {
-  seoTitle: "Andrea Agostini · Senior Frontend Developer e Tech Lead",
-  seoDescription:
-    "Senior Frontend Developer e Tech Lead con oltre 10 anni di esperienza in ecommerce headless e design system con React, Next.js, TypeScript e Shopify. Da Bangkok, full remote.",
-  ogImageAlt: "Foto di Andrea Agostini — Senior Frontend Developer e Tech Lead",
-} as const;
-
 const JOB_TITLE: Record<string, string> = {
   en: "Senior Frontend Developer & Tech Lead",
   it: "Senior Frontend Developer e Tech Lead",
 };
 
 export default function Home({ page, header, footer, locale }: THomepage) {
-  const isItalian = locale === "it";
-
-  const seoTitle = isItalian ? IT_SEO_FALLBACKS.seoTitle : page.seoTitle;
-  const seoDescription = isItalian ? IT_SEO_FALLBACKS.seoDescription : page.seoDescription;
-  const ogImageAlt = isItalian ? IT_SEO_FALLBACKS.ogImageAlt : undefined;
-
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -123,10 +107,9 @@ export default function Home({ page, header, footer, locale }: THomepage) {
       </NextHead>
       <Seo
         locale={locale}
-        ogImageAlt={ogImageAlt}
         path="/"
-        seoDescription={seoDescription}
-        seoTitle={seoTitle}
+        seoDescription={page.seoDescription}
+        seoTitle={page.seoTitle}
       />
       {header && <SiteHeader {...header} />}
       <SectionDots />
