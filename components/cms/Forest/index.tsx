@@ -348,10 +348,12 @@ const PlantButton = styled.button`
   padding: 0.875rem 2rem;
   transition: all 0.2s ease;
 
-  &:hover {
-    background: transparent;
-    border-color: ${({ theme }) => theme.colors.highlight};
-    color: ${({ theme }) => theme.colors.highlight};
+  @media (hover: hover) {
+    &:hover {
+      background: transparent;
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.highlight};
+    }
   }
 
   &:focus-visible {
@@ -437,7 +439,9 @@ const TreeNationNote = styled(Text)`
     text-decoration: none;
     transition: opacity 0.2s ease;
 
-    &:hover { opacity: 0.75; }
+    @media (hover: hover) {
+      &:hover { opacity: 0.75; }
+    }
   }
 `;
 

@@ -48,10 +48,6 @@ exports[`Projects renders correctly with a single item 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c17:hover {
-  color: var(--color-tertiary);
-}
-
 .c17:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
@@ -273,6 +269,12 @@ exports[`Projects renders correctly with a single item 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (hover: hover) {
+  .c17:hover {
+    color: var(--color-tertiary);
   }
 }
 
@@ -508,10 +510,6 @@ exports[`Projects renders correctly with full project list 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c17:hover {
-  color: var(--color-tertiary);
-}
-
 .c17:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
@@ -733,6 +731,12 @@ exports[`Projects renders correctly with full project list 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (hover: hover) {
+  .c17:hover {
+    color: var(--color-tertiary);
   }
 }
 

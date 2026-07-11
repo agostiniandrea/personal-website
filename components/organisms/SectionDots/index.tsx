@@ -38,9 +38,11 @@ const DotRow = styled.li`
   list-style: none;
   position: relative;
 
-  &:hover span {
-    opacity: 1;
-    transform: translateX(0);
+  @media (hover: hover) {
+    &:hover span {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 `;
 
@@ -71,8 +73,10 @@ const Dot = styled.button<{ $active: boolean }>`
   transition: background 0.2s ease;
   width: 10px;
 
-  &:hover {
-    background: ${({ theme }) => theme.colors.highlight};
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => theme.colors.highlight};
+    }
   }
 
   &:focus-visible {

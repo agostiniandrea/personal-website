@@ -122,7 +122,9 @@ const PrimaryBtn = styled.button`
   transition: opacity 0.2s ease;
   white-space: nowrap;
 
-  &:hover { opacity: 0.85; }
+  @media (hover: hover) {
+    &:hover { opacity: 0.85; }
+  }
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.button};
     outline-offset: 2px;
@@ -143,7 +145,9 @@ const SecondaryBtn = styled.button`
   transition: opacity 0.2s ease;
   white-space: nowrap;
 
-  &:hover { opacity: 0.7; }
+  @media (hover: hover) {
+    &:hover { opacity: 0.7; }
+  }
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 2px;
@@ -162,7 +166,9 @@ const TextBtn = styled.button`
   text-align: left;
   transition: opacity 0.2s ease;
 
-  &:hover { opacity: 0.7; }
+  @media (hover: hover) {
+    &:hover { opacity: 0.7; }
+  }
   &:focus-visible {
     border-radius: 2px;
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
