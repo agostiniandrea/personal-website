@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import Forest from "../index";
-import { defaultForest, minimalForest } from "../model";
+import { defaultForest, minimalForest, oneStatForest, twoStatForest, fullStatForest } from "../model";
 
 describe("Forest", () => {
   it("renders correctly with all props", () => {
@@ -64,5 +64,30 @@ describe("Forest", () => {
     const closeBtn = screen.getByRole("button", { name: "Close" });
     await user.click(closeBtn);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  describe("stats section visibility", () => {
+    const getStatItems = (container: HTMLElement) =>
+      container.querySelectorAll("[data-testid='stat-item']");
+
+    it("hides stats when no stats are positive", () => {
+      const { container } = renderWithTheme(<Forest {...defaultForest} feedbackCount={0} treesDedicatedCount={0} improvementsCount={0} />);
+      expect(getStatItems(container).length).toBe(0);
+    });
+
+    it("hides stats when only one stat is positive", () => {
+      const { container } = renderWithTheme(<Forest {...oneStatForest} />);
+      expect(getStatItems(container).length).toBe(0);
+    });
+
+    it("shows stats when two stats are positive", () => {
+      const { container } = renderWithTheme(<Forest {...twoStatForest} />);
+      expect(getStatItems(container).length).toBe(2);
+    });
+
+    it("shows all three stats when all are positive", () => {
+      const { container } = renderWithTheme(<Forest {...fullStatForest} />);
+      expect(getStatItems(container).length).toBe(3);
+    });
   });
 });

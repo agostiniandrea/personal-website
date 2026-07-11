@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import Forest from "./index";
-import { defaultForest, minimalForest } from "./model";
+import { defaultForest, minimalForest, oneStatForest, twoStatForest, fullStatForest } from "./model";
 
 const meta: Meta<typeof Forest> = {
   title: "CMS/Forest",
@@ -49,4 +49,16 @@ export const NoChangelog: Story = {
 
 export const Minimal: Story = {
   args: minimalForest,
+};
+
+export const OneStat: Story = {
+  args: oneStatForest,
+};
+
+export const TwoStats: Story = {
+  args: twoStatForest,
+};
+
+export const FullStats: Story = {
+  args: fullStatForest,
 };

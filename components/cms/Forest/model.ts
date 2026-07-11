@@ -33,3 +33,24 @@ export const defaultForest: ForestProps = {
 };
 
 export const minimalForest: ForestProps = {};
+
+export const oneStatForest: ForestProps = {
+  ...defaultForest,
+  feedbackCount: 1,
+  treesDedicatedCount: 0,
+  improvementsCount: 0,
+};
+
+export const twoStatForest: ForestProps = {
+  ...defaultForest,
+  feedbackCount: 5,
+  treesDedicatedCount: 2,
+  improvementsCount: 0,
+};
+
+export const fullStatForest: ForestProps = {
+  ...defaultForest,
+  feedbackCount: 68,
+  treesDedicatedCount: 25,
+  improvementsCount: 25,
+};
