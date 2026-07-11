@@ -317,7 +317,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
           </a>
           <button
             aria-disabled="false"
-            aria-label="Switch to Italiano"
+            aria-label="Switch to Italian"
             class="c7 c8"
             type="button"
           >
@@ -442,7 +442,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
     </nav>
     <button
       aria-disabled="false"
-      aria-label="Switch to Italiano"
+      aria-label="Switch to Italian"
       class="c7 c8 c15"
       type="button"
     >
@@ -723,7 +723,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
         >
           <button
             aria-disabled="false"
-            aria-label="Switch to Italiano"
+            aria-label="Switch to Italian"
             class="c6 c7"
             type="button"
           >
@@ -823,7 +823,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
     </nav>
     <button
       aria-disabled="false"
-      aria-label="Switch to Italiano"
+      aria-label="Switch to Italian"
       class="c6 c7 c14"
       type="button"
     >
