@@ -546,7 +546,7 @@ const Forest: React.FC<ForestProps> = ({
     { value: animTrees, label: resolvedTreesDedicatedCountLabel, active: treesDedicatedCount > 0 },
     { value: animImprovements, label: resolvedImprovementsCountLabel, active: improvementsCount > 0 },
   ].filter((s) => s.active);
-  const hasStats = visibleStats.length > 0;
+  const hasStats = visibleStats.length >= 2;
   const resolvedOriginItems = originItems?.length ? originItems : DEFAULT_ORIGIN_ITEMS;
 
   useEffect(() => {
@@ -588,7 +588,7 @@ const Forest: React.FC<ForestProps> = ({
           {hasStats && (
             <StatsGrid $count={visibleStats.length}>
               {visibleStats.map((s) => (
-                <StatItem key={s.label}>
+                <StatItem key={s.label} data-testid="stat-item">
                   <StatNumber>{s.value}</StatNumber>
                   <StatLabel variant="small">{s.label}</StatLabel>
                 </StatItem>
