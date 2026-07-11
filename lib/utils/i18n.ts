@@ -1,8 +1,3 @@
-/**
- * Minimal locale dictionary for accessibility strings that are not sourced from Contentful.
- * Extend as needed; keep keys alphabetically ordered within each locale block.
- */
-
 type Locale = "en" | "it";
 
 const strings = {
