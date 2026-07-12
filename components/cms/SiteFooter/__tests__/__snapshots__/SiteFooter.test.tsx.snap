@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
-.c8 #wcb_2 {
-  display: none!important;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -25,12 +21,46 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c11 {
+.c14 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c8 {
+  display: inline-flex;
+  align-items: stretch;
+  font-family: -apple-system,BlinkMacSystemFont,sans-serif;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.c9 {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.3em 0.5em;
+  border: 0.13em solid #00ffbc;
+}
+
+.c10 {
+  background: #fff;
+  color: #0e11a8;
+  border-right: 0;
+  border-radius: 0.3em 0 0 0.3em;
+  min-width: 8.2em;
+}
+
+.c11 {
+  background: #00ffbc;
+  color: #0e11a8;
+  font-weight: 700;
+  text-decoration: none;
+  border-left: 0;
+  border-radius: 0 0.3em 0.3em 0;
 }
 
 .c0 {
@@ -70,7 +100,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   justify-content: center;
 }
 
-.c9 {
+.c12 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -83,7 +113,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   transform-origin: center center;
 }
 
-.c10 {
+.c13 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -166,7 +196,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c9 {
+  .c12 {
     align-items: center;
     text-align: center;
   }
@@ -179,7 +209,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c10 {
+  .c13 {
     align-items: flex-end;
   }
 }
@@ -213,24 +243,35 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           <div
             class="c7"
           >
-            <div
+            <span
               class="c8"
             >
-              <div
-                class="carbonbadge wcb-d "
-                id="wcb"
-              />
-            </div>
+              <span
+                class="c9 c10"
+              >
+                0.04
+                g of CO₂/view
+              </span>
+              <a
+                aria-label="Website Carbon result: 0.04 grams of CO₂ per page view, tested 2026-07-12"
+                class="c9 c11"
+                href="https://www.websitecarbon.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Website Carbon
+              </a>
+            </span>
           </div>
         </div>
         <div
-          class="c9"
+          class="c12"
         />
         <div
-          class="c10"
+          class="c13"
         >
           <p
-            class="c11"
+            class="c14"
           >
             © 
             2026
@@ -245,10 +286,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 `;
 
 exports[`SiteFooter renders correctly with social links 1`] = `
-.c10 #wcb_2 {
-  display: none!important;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -282,12 +319,46 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c12 {
+.c15 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c10 {
+  display: inline-flex;
+  align-items: stretch;
+  font-family: -apple-system,BlinkMacSystemFont,sans-serif;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.c11 {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.3em 0.5em;
+  border: 0.13em solid #00ffbc;
+}
+
+.c12 {
+  background: #fff;
+  color: #0e11a8;
+  border-right: 0;
+  border-radius: 0.3em 0 0 0.3em;
+  min-width: 8.2em;
+}
+
+.c13 {
+  background: #00ffbc;
+  color: #0e11a8;
+  font-weight: 700;
+  text-decoration: none;
+  border-left: 0;
+  border-radius: 0 0.3em 0.3em 0;
 }
 
 .c0 {
@@ -332,14 +403,14 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   justify-content: center;
 }
 
-.c11 {
+.c14 {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.c13 {
+.c16 {
   color: var(--color-paragraph);
   max-width: 36ch;
 }
@@ -350,7 +421,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   transform-origin: center center;
 }
 
-.c14 {
+.c17 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -439,7 +510,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c11 {
+  .c14 {
     align-items: center;
     text-align: center;
   }
@@ -452,7 +523,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c14 {
+  .c17 {
     align-items: flex-end;
   }
 }
@@ -512,21 +583,32 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           <div
             class="c9"
           >
-            <div
+            <span
               class="c10"
             >
-              <div
-                class="carbonbadge wcb-d "
-                id="wcb"
-              />
-            </div>
+              <span
+                class="c11 c12"
+              >
+                0.04
+                g of CO₂/view
+              </span>
+              <a
+                aria-label="Website Carbon result: 0.04 grams of CO₂ per page view, tested 2026-07-12"
+                class="c11 c13"
+                href="https://www.websitecarbon.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Website Carbon
+              </a>
+            </span>
           </div>
         </div>
         <div
-          class="c11"
+          class="c14"
         >
           <p
-            class="c12 c13"
+            class="c15 c16"
           >
             <span>
               Building for the web, one component at a time. Based in Bangkok.
@@ -534,10 +616,10 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           </p>
         </div>
         <div
-          class="c14"
+          class="c17"
         >
           <p
-            class="c12"
+            class="c15"
           >
             © 
             2026

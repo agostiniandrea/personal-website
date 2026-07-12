@@ -1,33 +1,67 @@
-"use client";
-
-import { useEffect } from "react";
-import { Box } from "@components/ions";
+import React from "react";
+import styled from "styled-components";
+import { WEBSITE_CARBON } from "@constants";
 
 interface CarbonBadgeProps {
   className?: string;
 }
 
-const CarbonBadge: React.FC<CarbonBadgeProps> = ({ className }) => {
-  useEffect(() => {
-    if (window.location.hostname === "localhost") return;
+// Visually replicates the official Website Carbon badge (dark variant) with
+// its own brand colours, but renders the last verified result statically —
+// no third-party script, no API call on page view. The value lives in
+// constants/websiteCarbon.ts and is updated after significant changes.
+const WC_INDIGO = "#0e11a8";
+const WC_MINT = "#00ffbc";
 
-    const existingScript = document.querySelector(
-      'script[src*="website-carbon-badges"]'
-    );
+const Wrapper = styled.span`
+  display: inline-flex;
+  align-items: stretch;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  line-height: 1.15;
+`;
 
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/website-carbon-badges@1.1.3/b.min.js";
-      script.defer = true;
-      document.head.appendChild(script);
-    }
-  }, []);
+const Segment = styled.span`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.3em 0.5em;
+  border: 0.13em solid ${WC_MINT};
+`;
 
-  return (
-    <Box styles="#wcb_2 { display: none !important; }">
-      <div id="wcb" className={`carbonbadge wcb-d ${className || ""}`} />
-    </Box>
-  );
-};
+const Value = styled(Segment)`
+  background: #fff;
+  color: ${WC_INDIGO};
+  border-right: 0;
+  border-radius: 0.3em 0 0 0.3em;
+  min-width: 8.2em;
+`;
+
+const SourceLink = styled(Segment).attrs({ as: "a" })`
+  background: ${WC_MINT};
+  color: ${WC_INDIGO};
+  font-weight: 700;
+  text-decoration: none;
+  border-left: 0;
+  border-radius: 0 0.3em 0.3em 0;
+`;
+
+const CarbonBadge: React.FC<CarbonBadgeProps> = ({ className }) => (
+  <Wrapper className={className}>
+    <Value>
+      {WEBSITE_CARBON.emissions}
+      {WEBSITE_CARBON.unit}
+    </Value>
+    <SourceLink
+      href={WEBSITE_CARBON.resultUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Website Carbon result: ${WEBSITE_CARBON.emissions} grams of CO₂ per page view, tested ${WEBSITE_CARBON.testedAt}`}
+    >
+      {WEBSITE_CARBON.source}
+    </SourceLink>
+  </Wrapper>
+);
 
 export default CarbonBadge;
