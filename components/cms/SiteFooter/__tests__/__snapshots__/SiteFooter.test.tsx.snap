@@ -249,13 +249,13 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
               <span
                 class="c9 c10"
               >
-                0.04
+                0.05
                 g of CO₂/view
               </span>
               <a
-                aria-label="Website Carbon result: 0.04 grams of CO₂ per page view, tested 2026-07-12"
+                aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
                 class="c9 c11"
-                href="https://www.websitecarbon.com/"
+                href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -589,13 +589,13 @@ exports[`SiteFooter renders correctly with social links 1`] = `
               <span
                 class="c11 c12"
               >
-                0.04
+                0.05
                 g of CO₂/view
               </span>
               <a
-                aria-label="Website Carbon result: 0.04 grams of CO₂ per page view, tested 2026-07-12"
+                aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
                 class="c11 c13"
-                href="https://www.websitecarbon.com/"
+                href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
                 rel="noopener noreferrer"
                 target="_blank"
               >

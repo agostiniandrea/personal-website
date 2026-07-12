@@ -7,12 +7,13 @@
  * Carbon API on every visit.
  */
 const WEBSITE_CARBON = {
-  emissions: 0.04,
+  emissions: 0.05,
   unit: "g of CO₂/view",
-  rating: "A+",
+  rating: "A",
+  cleanerThan: 93,
   testedAt: "2026-07-12",
   source: "Website Carbon",
-  resultUrl: "https://www.websitecarbon.com/",
+  resultUrl: "https://www.websitecarbon.com/website/agostiniandrea-dev/",
 } as const;
 
 export default WEBSITE_CARBON;

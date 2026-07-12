@@ -41,13 +41,13 @@ exports[`CarbonBadge renders the stored emissions value statically 1`] = `
   <span
     class="c1 c2"
   >
-    0.04
+    0.05
     g of CO₂/view
   </span>
   <a
-    aria-label="Website Carbon result: 0.04 grams of CO₂ per page view, tested 2026-07-12"
+    aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
     class="c1 c3"
-    href="https://www.websitecarbon.com/"
+    href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
     rel="noopener noreferrer"
     target="_blank"
   >

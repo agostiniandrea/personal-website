@@ -206,9 +206,9 @@ Latest audit — **12 July 2026**, production ([agostiniandrea.dev](https://agos
 
 Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 173 unit tests and 37 E2E tests.
 
-**Carbon estimate** — homepage weight ~426 KiB ≈ **0.15 g CO₂e per page view** (Sustainable Web Design v3 model). This is an estimate, not an exact emissions measurement; it corresponds to a Website Carbon "A" rating. Re-tested after substantial design, asset, hosting or performance changes.
+**Carbon** — official [Website Carbon result](https://www.websitecarbon.com/website/agostiniandrea-dev/): **0.05 g CO₂ per page view, rating A**, cleaner than 93% of pages tested (12 July 2026). Treated as an estimate, not an exact emissions measurement; re-tested after substantial design, asset, hosting or performance changes. The footer badge renders this stored value statically — no third-party script per visit.
 
-**Known gap** — hosting is not yet verified as green by [The Green Web Foundation](https://www.thegreenwebfoundation.org/) (checked 12 July 2026).
+**Known gap** — hosting is not yet verified as green by [The Green Web Foundation](https://www.thegreenwebfoundation.org/); Website Carbon estimates green hosting would cut emissions by ~9% (checked 12 July 2026).
 
 ## Environment Variables
 
