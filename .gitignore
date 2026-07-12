@@ -58,3 +58,8 @@ build-storybook.log
 
 # Next.js auto-generated
 next-env.d.ts
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
