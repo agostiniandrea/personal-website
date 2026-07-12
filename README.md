@@ -191,6 +191,25 @@ Every PR triggers the `Test & Lint` GitHub Actions job:
 
 A separate `Vercel Scheduled Build` workflow fires every Monday at 03:30 UTC to force a Vercel redeploy and refresh ISR content.
 
+## Quality Standards
+
+Every production release is verified against a fixed quality bar: Lighthouse (performance, accessibility, best practices, SEO), responsive behaviour, production build, linting, type checking and a website carbon estimate.
+
+Latest audit — **12 July 2026**, production ([agostiniandrea.dev](https://agostiniandrea.dev), v1.11.0), EN and IT locales:
+
+| Lighthouse | Desktop | Mobile |
+|---|---|---|
+| Performance | 100 | 100 |
+| Accessibility | 100 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 100 | 100 |
+
+Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 173 unit tests and 37 E2E tests.
+
+**Carbon estimate** — homepage weight ~426 KiB ≈ **0.15 g CO₂e per page view** (Sustainable Web Design v3 model). This is an estimate, not an exact emissions measurement; it corresponds to a Website Carbon "A" rating. Re-tested after substantial design, asset, hosting or performance changes.
+
+**Known gap** — hosting is not yet verified as green by [The Green Web Foundation](https://www.thegreenwebfoundation.org/) (checked 12 July 2026).
+
 ## Environment Variables
 
 | Variable | Required | Purpose |
