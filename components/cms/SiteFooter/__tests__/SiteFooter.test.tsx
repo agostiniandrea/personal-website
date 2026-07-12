@@ -47,8 +47,11 @@ describe("SiteFooter", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders no links when socialLinks is empty", () => {
+  it("renders no social links when socialLinks is empty", () => {
     renderWithTheme(<SiteFooter {...minimalSiteFooter} />);
-    expect(screen.queryAllByRole("link")).toHaveLength(0);
+    // The static Website Carbon badge is the only remaining link
+    const links = screen.queryAllByRole("link");
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
   });
 });
