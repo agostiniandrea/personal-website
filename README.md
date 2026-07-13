@@ -4,6 +4,8 @@ Personal portfolio and sustainability initiative built with Next.js and Contentf
 
 Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 
+**Verified quality** — Lighthouse 100 in all four categories, desktop and mobile, EN and IT · [Website Carbon](https://www.websitecarbon.com/website/agostiniandrea-dev/) rating **A**, 0.05 g CO₂/view, cleaner than 93% of pages tested · full details in [Quality Standards](#quality-standards).
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -190,6 +192,25 @@ Every PR triggers the `Test & Lint` GitHub Actions job:
 7. Auto-squash-merge on success
 
 A separate `Vercel Scheduled Build` workflow fires every Monday at 03:30 UTC to force a Vercel redeploy and refresh ISR content.
+
+## Quality Standards
+
+Every production release is verified against a fixed quality bar: Lighthouse (performance, accessibility, best practices, SEO), responsive behaviour, production build, linting, type checking and a website carbon estimate.
+
+Latest audit — **12 July 2026**, production ([agostiniandrea.dev](https://agostiniandrea.dev), v1.11.0), EN and IT locales:
+
+| Lighthouse | Desktop | Mobile |
+|---|---|---|
+| Performance | 100 | 100 |
+| Accessibility | 100 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 100 | 100 |
+
+Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 173 unit tests and 37 E2E tests.
+
+**Carbon** — official [Website Carbon result](https://www.websitecarbon.com/website/agostiniandrea-dev/): **0.05 g CO₂ per page view, rating A**, cleaner than 93% of pages tested (12 July 2026). Treated as an estimate, not an exact emissions measurement; re-tested after substantial design, asset, hosting or performance changes. The footer badge renders this stored value statically — no third-party script per visit.
+
+**Known gap** — hosting is not yet verified as green by [The Green Web Foundation](https://www.thegreenwebfoundation.org/); Website Carbon estimates green hosting would cut emissions by ~9% (checked 12 July 2026).
 
 ## Environment Variables
 
