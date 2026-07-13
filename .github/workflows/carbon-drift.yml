@@ -1,0 +1,78 @@
+name: Carbon Drift Check
+
+# Monthly check: measures the production homepage weight with Lighthouse and
+# compares it against the baseline stored in constants/websiteCarbon.json
+# (the page weight when the official Website Carbon test was last run).
+# If they drift more than the threshold, an issue is opened as a reminder to
+# re-run the official test and update the stored result — the footer badge
+# renders that stored value statically.
+
+on:
+  schedule:
+    - cron: "30 4 1 * *" # 04:30 UTC on the 1st of every month
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  carbon-drift:
+    name: Check page-weight drift
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Measure production homepage with Lighthouse
+        run: |
+          yarn lhci collect \
+            --url=https://agostiniandrea.dev \
+            --numberOfRuns=1 \
+            --settings.chromeFlags="--no-sandbox --disable-dev-shm-usage"
+
+      - name: Compare against stored baseline
+        id: drift
+        run: node scripts/check-carbon-drift.mjs
+        continue-on-error: true
+
+      - name: Open reminder issue if drift exceeded
+        if: steps.drift.outputs.exceeded == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          existing=$(gh issue list --label carbon-drift --state open --json number --jq 'length')
+          if [ "$existing" -eq 0 ]; then
+            gh issue create \
+              --title "Re-run the Website Carbon test — page weight drifted" \
+              --label carbon-drift \
+              --body "${{ steps.drift.outputs.summary }}
+
+          The homepage weight has drifted beyond the threshold since the last official test, so the stored result rendered by the footer badge may no longer be representative.
+
+          **To resolve:**
+          1. Re-run the test at https://www.websitecarbon.com/website/agostiniandrea-dev/
+          2. Update \`constants/websiteCarbon.json\` (\`emissions\`, \`rating\`, \`cleanerThan\`, \`testedAt\`, and \`pageWeightKb\` = ${{ steps.drift.outputs.current_kb }})
+          3. Open a PR — the badge and README pick the new value up automatically."
+          else
+            echo "Open carbon-drift issue already exists — not creating a duplicate."
+          fi
+
+      - name: Fail the run when drift exceeded
+        if: steps.drift.outputs.exceeded == 'true'
+        run: |
+          echo "::error::${{ steps.drift.outputs.summary }}"
+          exit 1
