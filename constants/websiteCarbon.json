@@ -1,0 +1,10 @@
+{
+  "emissions": 0.05,
+  "unit": "g of CO₂/view",
+  "rating": "A",
+  "cleanerThan": 93,
+  "testedAt": "2026-07-12",
+  "source": "Website Carbon",
+  "resultUrl": "https://www.websitecarbon.com/website/agostiniandrea-dev/",
+  "pageWeightKb": 426
+}
