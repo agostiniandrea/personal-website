@@ -4,6 +4,8 @@ Personal portfolio and sustainability initiative built with Next.js and Contentf
 
 Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 
+**Verified quality** — Lighthouse 100 in all four categories, desktop and mobile, EN and IT · [Website Carbon](https://www.websitecarbon.com/website/agostiniandrea-dev/) rating **A**, 0.05 g CO₂/view, cleaner than 93% of pages tested · full details in [Quality Standards](#quality-standards).
+
 ## Tech Stack
 
 | Layer | Technology |
