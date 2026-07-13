@@ -821,6 +821,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               onChange={(e) => setData((d) => ({ ...d, _hp: e.target.value }))}
               tabIndex={-1}
               aria-hidden="true"
+              autoComplete="off"
               style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
             />
             <CheckboxRow>
