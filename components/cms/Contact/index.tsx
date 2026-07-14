@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Box, Container, Flex, Heading, Link, Text } from "@components/ions";
+import { trackContactInteraction } from "@lib/utils/analytics";
 
 export interface ContactLink {
   label: string;
@@ -52,6 +53,7 @@ const Contact: React.FC<ContactProps> = ({ sectionLabel, heading, body, links })
             href={link.url}
             isExternal={!link.url.startsWith("#") && !link.url.startsWith("/")}
             ariaLabel={link.label}
+            onClick={() => trackContactInteraction(link.url, "contact")}
           >
             {link.label}
           </ContactLink>

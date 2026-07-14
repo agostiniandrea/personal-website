@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import HeroPortfolio from "../index";
 import { defaultHeroPortfolio, noCta } from "../model";
@@ -74,5 +75,36 @@ describe("HeroPortfolio", () => {
       "alt",
       defaultHeroPortfolio.image.alt,
     );
+  });
+
+  it("tracks the hero contact CTA", async () => {
+    const user = userEvent.setup();
+    window.gtag = jest.fn();
+    renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
+
+    const contactLink = screen.getByRole("link", { name: defaultHeroPortfolio.ctaSecondaryLabel });
+    contactLink.addEventListener("click", (event) => event.preventDefault());
+    await user.click(contactLink);
+
+    expect(window.gtag).toHaveBeenCalledWith("event", "contact_clicked", {
+      location: "hero",
+      method: "email",
+    });
+    delete window.gtag;
+  });
+
+  it("tracks CV downloads", async () => {
+    const user = userEvent.setup();
+    window.gtag = jest.fn();
+    renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
+
+    const cvLink = screen.getByRole("link", { name: defaultHeroPortfolio.cvDownloadLabel });
+    cvLink.addEventListener("click", (event) => event.preventDefault());
+    await user.click(cvLink);
+
+    expect(window.gtag).toHaveBeenCalledWith("event", "cv_downloaded", {
+      locale: "en",
+    });
+    delete window.gtag;
   });
 });

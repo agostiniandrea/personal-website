@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { BREAKPOINTS } from "@constants";
+import { trackEvent } from "@lib/utils/analytics";
 
 const copy = {
   en: {
@@ -646,6 +647,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
+      trackEvent("feedback_submitted", {
+        feedback_category: data.category,
+        locale: locale ?? "en",
+      });
       setStep(5);
     } catch {
       setError(t.errorMsg);

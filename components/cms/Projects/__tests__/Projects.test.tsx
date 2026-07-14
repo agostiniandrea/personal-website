@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import Projects from "../index";
 import { defaultProjects, fewItemsProjects, noTagsProject } from "../model";
@@ -56,5 +57,19 @@ describe("Projects", () => {
   it("does not render tags when none are provided", () => {
     renderWithTheme(<Projects {...noTagsProject} />);
     expect(screen.queryByText("Next.js")).not.toBeInTheDocument();
+  });
+
+  it("tracks project opens using the project title", async () => {
+    const user = userEvent.setup();
+    const firstItem = defaultProjects.items[0];
+    window.gtag = jest.fn();
+    renderWithTheme(<Projects {...defaultProjects} />);
+
+    await user.click(screen.getByRole("link", { name: `View project: ${firstItem.title}` }));
+
+    expect(window.gtag).toHaveBeenCalledWith("event", "project_opened", {
+      project_name: firstItem.title,
+    });
+    delete window.gtag;
   });
 });

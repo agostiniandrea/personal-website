@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import Contact from "../index";
 import { defaultContact, minimalContact } from "../model";
@@ -51,5 +52,28 @@ describe("Contact", () => {
         "_blank",
       );
     });
+  });
+
+  it("tracks contact and social clicks without sending their URLs", async () => {
+    const user = userEvent.setup();
+    window.gtag = jest.fn();
+    renderWithTheme(<Contact {...defaultContact} />);
+
+    const emailLink = screen.getByRole("link", { name: "Email me" });
+    const linkedinLink = screen.getByRole("link", { name: "LinkedIn" });
+    emailLink.addEventListener("click", (event) => event.preventDefault());
+    linkedinLink.addEventListener("click", (event) => event.preventDefault());
+    await user.click(emailLink);
+    await user.click(linkedinLink);
+
+    expect(window.gtag).toHaveBeenNthCalledWith(1, "event", "contact_clicked", {
+      location: "contact",
+      method: "email",
+    });
+    expect(window.gtag).toHaveBeenNthCalledWith(2, "event", "social_profile_clicked", {
+      location: "contact",
+      platform: "linkedin",
+    });
+    delete window.gtag;
   });
 });
