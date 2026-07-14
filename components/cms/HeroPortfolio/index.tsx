@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { contentfulImageUrl } from "@utils/contentfulImage";
+import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 
 export interface HeroPortfolioProps {
@@ -286,12 +287,24 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
             >
               <PrimaryLink href={ctaPrimaryUrl} onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}>{ctaPrimaryLabel}</PrimaryLink>
               {ctaSecondaryLabel && ctaSecondaryUrl && (
-                <SecondaryLink href={ctaSecondaryUrl} onClick={(e) => handleAnchorClick(e, ctaSecondaryUrl)}>
+                <SecondaryLink
+                  href={ctaSecondaryUrl}
+                  onClick={(e) => {
+                    handleAnchorClick(e, ctaSecondaryUrl);
+                    trackContactInteraction(ctaSecondaryUrl, "hero");
+                  }}
+                >
                   {ctaSecondaryLabel}
                 </SecondaryLink>
               )}
               {cvDownloadLabel && cvDownloadFile && (
-                <CvLink href={cvDownloadFile} target="_blank" rel="noopener noreferrer" aria-label={cvDownloadLabel}>
+                <CvLink
+                  href={cvDownloadFile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={cvDownloadLabel}
+                  onClick={() => trackEvent("cv_downloaded", { locale: locale ?? "en" })}
+                >
                   ↓ {cvDownloadLabel}
                 </CvLink>
               )}

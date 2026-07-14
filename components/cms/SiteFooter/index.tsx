@@ -3,6 +3,7 @@ import { toSpacing } from "@config/tokens";
 import { Container, Flex, Link, Text } from "@components/ions";
 import { CarbonBadge } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
+import { trackContactInteraction } from "@lib/utils/analytics";
 
 export interface SiteFooterLink {
   label: string;
@@ -143,6 +144,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
               href={link.url}
               isExternal={!link.url.startsWith("mailto:")}
               ariaLabel={link.label}
+              onClick={() => trackContactInteraction(link.url, "footer")}
             >
               {link.label}
             </SocialLink>
