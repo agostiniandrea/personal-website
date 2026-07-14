@@ -1,5 +1,7 @@
 import React from "react";
+
 import NextImage from "next/image";
+
 import styled from "styled-components";
 
 interface ImageProps {

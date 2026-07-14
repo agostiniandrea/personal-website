@@ -1,5 +1,7 @@
 import React from "react";
+
 import styled from "styled-components";
+
 import { WEBSITE_CARBON } from "@constants";
 
 interface CarbonBadgeProps {

@@ -1,5 +1,6 @@
-import { BREAKPOINTS } from "@constants";
 import styled from "styled-components";
+
+import { BREAKPOINTS } from "@constants";
 
 type BoxSizeValue = string | { width: number; height: number };
 

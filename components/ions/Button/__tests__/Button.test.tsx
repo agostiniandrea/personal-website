@@ -1,6 +1,8 @@
-import { screen, fireEvent } from "@testing-library/react";
-import Button from "../index";
+import { fireEvent,screen } from "@testing-library/react";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import Button from "../index";
 
 describe("Button", () => {
   it("renders button with default styles", () => {

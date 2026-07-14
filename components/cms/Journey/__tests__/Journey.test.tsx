@@ -1,5 +1,7 @@
 import { screen } from "@testing-library/react";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import Journey from "../index";
 import { journeyData } from "../model";
 

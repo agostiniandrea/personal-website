@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import SiteFooter from "./index";
 import { defaultSiteFooter, minimalSiteFooter } from "./model";
 

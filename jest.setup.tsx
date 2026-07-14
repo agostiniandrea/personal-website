@@ -1,6 +1,7 @@
-import { jest } from "@jest/globals";
 import "@testing-library/jest-dom";
 import "jest-styled-components";
+
+import { jest } from "@jest/globals";
 
 // Extend expect with the matchers from jest-dom
 declare global {

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Contact from "./index";
 import { defaultContact, minimalContact } from "./model";
 

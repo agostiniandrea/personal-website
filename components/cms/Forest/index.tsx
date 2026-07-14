@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import { useRouter } from "next/router";
+
 import styled, { keyframes } from "styled-components";
+
 import { Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
+
 import { ForestModal } from "./ForestModal";
 
 const LABEL_DEFAULTS = {

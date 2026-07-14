@@ -1,5 +1,7 @@
 import { screen } from "@testing-library/react";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import Skills from "../index";
 import { defaultSkills, minimalSkills } from "../model";
 

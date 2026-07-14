@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
-import Grid from "../index";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import Grid from "../index";
 
 describe("Grid", () => {
   it("renders grid with children", () => {

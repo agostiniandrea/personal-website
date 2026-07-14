@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import AspectRatio from "./index";
 
 const meta: Meta<typeof AspectRatio> = {

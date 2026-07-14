@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+
 import { useRouter } from "next/router";
+
 import styled from "styled-components";
+
 import { useI18n } from "@lib/utils/i18n";
 
 const Button = styled.button<{ $visible: boolean }>`

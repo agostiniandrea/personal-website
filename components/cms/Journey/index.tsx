@@ -1,7 +1,10 @@
 import { useRouter } from "next/router";
+
 import styled, { css, keyframes } from "styled-components";
+
 import { Box, Container, Heading, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
+
 import { journeyData, type JourneyProps } from "./model";
 
 const JourneySection = styled.section`

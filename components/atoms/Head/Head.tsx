@@ -1,6 +1,7 @@
-import configSEO from "@config/seo.json";
-import { DefaultSeo } from "next-seo";
 import NextHead from "next/head";
+import { DefaultSeo } from "next-seo";
+
+import configSEO from "@config/seo.json";
 
 /**
  * Component for rendering the head section of the document.

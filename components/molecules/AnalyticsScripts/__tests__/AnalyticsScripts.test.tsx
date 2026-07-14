@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+
 import AnalyticsScripts from "../index";
 
 jest.mock("next/script", () => ({

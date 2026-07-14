@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
-import Heading from "../index";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import Heading from "../index";
 
 describe("Heading", () => {
   it("renders heading with default props (h2, section size)", () => {

@@ -1,3 +1,6 @@
+import { DefaultTheme } from "styled-components";
+
+import breakpoints from "../constants/breakpoints";
 import { button, link } from "./componentThemes";
 import {
   colors,
@@ -8,8 +11,6 @@ import {
   radii,
   space,
 } from "./customizations";
-import breakpoints from "../constants/breakpoints";
-import { DefaultTheme } from "styled-components";
 
 const theme = {
   colors,
