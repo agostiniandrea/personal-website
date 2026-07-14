@@ -125,7 +125,7 @@ const BadgeDot = styled.span`
 
 const BadgeLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
-  font-size: 0.65rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
   text-transform: uppercase;
