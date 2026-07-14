@@ -127,7 +127,7 @@ const CvLink = styled.a`
   border-bottom: 1px solid ${({ theme }) => theme.colors.paragraph};
   color: ${({ theme }) => theme.colors.paragraph};
   display: inline-flex;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.375rem;
   padding: 0.875rem 0;
