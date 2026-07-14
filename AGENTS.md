@@ -107,6 +107,8 @@ styled-components with a ThemeProvider wrapping the entire app (`pages/_app.tsx`
 
 Theme values are accessed via `${({ theme }) => theme.xxx}` in styled components. Prefer theme tokens over raw CSS values whenever a matching token exists, and keep CSS properties inside each styled-components block sorted alphabetically.
 
+Import ordering is enforced by ESLint (`simple-import-sort`): side-effects → react → next → external → path aliases → relative, alphabetized within each group. Don't order imports by hand — `yarn lint:fix` does it.
+
 ### Global Types
 
 `ImageProps` and `CtaProps` are declared globally in `lib/global/index.d.ts` — available everywhere without imports.

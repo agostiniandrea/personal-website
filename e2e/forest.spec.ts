@@ -1,4 +1,4 @@
-import { test, expect } from "./fixtures";
+import { expect,test } from "./fixtures";
 
 type CapturedAnalyticsEvent = ["event", string, Record<string, string>];
 

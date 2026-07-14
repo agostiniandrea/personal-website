@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Projects from "./index";
 import { defaultProjects, fewItemsProjects, noTagsProject } from "./model";
 

@@ -1,8 +1,10 @@
 import * as React from "react";
+import { act } from "react";
+
 import { render, RenderResult } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
+
 import theme from "../config/theme";
-import { act } from "react";
 
 export type RenderWithThemeOptions = {
   theme?: typeof theme;

@@ -1,8 +1,11 @@
 import React from "react";
+
 import styled from "styled-components";
-import Link from "../../ions/Link";
+
 import { Heading, Text } from "@components/ions";
+
 import { useMedia } from "../../../lib/utils/useMedia";
+import Link from "../../ions/Link";
 
 export interface HeadingBoxProps {
   heading: string | null;

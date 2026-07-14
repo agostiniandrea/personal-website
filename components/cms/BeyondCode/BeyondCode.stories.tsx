@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import BeyondCode from "./index";
 import { defaultBeyondCode, noIntrosBeyondCode, noTagsBeyondCode } from "./model";
 

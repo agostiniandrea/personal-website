@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { toSpacing } from "@config/tokens";
+
 import { Container, Flex, Link, Text } from "@components/ions";
 import { CarbonBadge } from "@components/molecules";
+import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
 

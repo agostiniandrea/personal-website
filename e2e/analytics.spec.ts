@@ -1,4 +1,4 @@
-import { test, expect } from "./fixtures";
+import { expect,test } from "./fixtures";
 
 test("localhost does not load GA4 or Clarity after analytics consent", async ({ page }) => {
   const analyticsRequests: string[] = [];

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import HeadingBox from "./index";
 import {
-  defaultHeadingBox,
   aboutHeadingBox,
+  defaultHeadingBox,
   minimalHeadingBox,
   withLongContent,
   withSpecialCharacters,

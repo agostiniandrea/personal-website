@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+
 import { useRouter } from "next/router";
+
 import styled, { keyframes } from "styled-components";
+
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
-import { contentfulImageUrl } from "@utils/contentfulImage";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
+import { contentfulImageUrl } from "@utils/contentfulImage";
 
 export interface HeroPortfolioProps {
   greeting: string;

@@ -1,4 +1,5 @@
 import Script from "next/script";
+
 import { isAnalyticsHost } from "@lib/utils/analytics";
 
 export interface AnalyticsScriptsProps {

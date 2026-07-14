@@ -1,18 +1,20 @@
-import NextHead from "next/head";
-import { createClient } from "@supabase/supabase-js";
-import { Seo } from "@components/atoms";
-import { SiteHeader, SiteFooter } from "@components/cms";
-import { ModuleRenderer, SectionDots } from "@components/organisms";
-import {
-  TPageFields,
-  TSiteHeaderData,
-  TSiteFooterData,
-  getPageContent,
-  getSiteHeaderContent,
-  getSiteFooterContent,
-} from "@lib/utils/cms";
-import { PAGE_TYPES, MODULES } from "@constants";
 import { GetStaticPropsResult } from "next";
+import NextHead from "next/head";
+
+import { createClient } from "@supabase/supabase-js";
+
+import { Seo } from "@components/atoms";
+import { SiteFooter,SiteHeader } from "@components/cms";
+import { ModuleRenderer, SectionDots } from "@components/organisms";
+import { MODULES,PAGE_TYPES } from "@constants";
+import {
+  getPageContent,
+  getSiteFooterContent,
+  getSiteHeaderContent,
+  TPageFields,
+  TSiteFooterData,
+  TSiteHeaderData,
+} from "@lib/utils/cms";
 
 type THomepage = {
   page: TPageFields;

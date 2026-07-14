@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
+
 import styled from "styled-components";
-import { useI18n } from "@lib/utils/i18n";
+
 import { Box, Container, Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
 import { Badge } from "@components/molecules";
-import { contentfulImageUrl } from "@utils/contentfulImage";
 import { trackEvent } from "@lib/utils/analytics";
+import { useI18n } from "@lib/utils/i18n";
+import { contentfulImageUrl } from "@utils/contentfulImage";
 
 const STATUS_LABELS: Record<string, Record<string, string>> = {
   "internal":   { en: "Internal",   it: "Interno" },

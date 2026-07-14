@@ -1,5 +1,6 @@
-import { toSpacing, type SpacingToken } from "@config/tokens";
 import styled, { Interpolation } from "styled-components";
+
+import { type SpacingToken,toSpacing } from "@config/tokens";
 
 type SpacingValue = SpacingToken | number | string;
 

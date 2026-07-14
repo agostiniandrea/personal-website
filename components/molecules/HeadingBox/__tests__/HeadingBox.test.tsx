@@ -1,13 +1,15 @@
 import { screen } from "@testing-library/react";
-import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import {
-  mockMobileViewport,
   mockDesktopViewport,
+  mockMobileViewport,
 } from "@test-utils/mockMatchMedia";
+import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import HeadingBox from "../index";
 import {
-  defaultHeadingBox,
   aboutHeadingBox,
+  defaultHeadingBox,
   minimalHeadingBox,
   withLongContent,
   withSpecialCharacters,

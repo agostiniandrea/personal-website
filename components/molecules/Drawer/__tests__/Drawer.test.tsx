@@ -1,7 +1,10 @@
 import React from "react";
+
 import { screen } from "@testing-library/react";
-import { Drawer, DrawerTopBar, Overlay } from "../index";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import { Drawer, DrawerTopBar, Overlay } from "../index";
 
 describe("Overlay", () => {
   it("renders overlay when open", () => {

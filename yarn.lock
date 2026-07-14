@@ -5097,13 +5097,13 @@ __metadata:
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-html: "npm:8.1.4"
     eslint-plugin-import: "npm:^2.32.0"
-    eslint-plugin-import-helpers: "npm:^2.0.1"
     eslint-plugin-jest: "npm:29.15.2"
     eslint-plugin-jsx-a11y: "npm:^6.10.2"
     eslint-plugin-next: "npm:^0.0.0"
     eslint-plugin-prettier: "npm:5.5.5"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:7.1.1"
+    eslint-plugin-simple-import-sort: "npm:^13.0.0"
     eslint-plugin-storybook: "npm:10.3.6"
     globals: "npm:16.5.0"
     identity-obj-proxy: "npm:^3.0.0"
@@ -8149,15 +8149,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import-helpers@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "eslint-plugin-import-helpers@npm:2.0.1"
-  peerDependencies:
-    eslint: 9.x
-  checksum: 10c0/0d9709e926a7e1287078aa174b6ee011a3b4f84cca55b14fa1e2b48e70edef409c4c236d0b725a7008f580a20a6475d30475da1dcb2efb1c16a97a01b9ceabc0
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-import@npm:^2.32.0":
   version: 2.32.0
   resolution: "eslint-plugin-import@npm:2.32.0"
@@ -8315,6 +8306,15 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
   checksum: 10c0/c850bfd556291d4d9234f5ca38db1436924a1013627c8ab1853f77cac73ec19b020e861e6c7b783436a48b6ffcdfba4547598235a37ad4611b6739f65fd8ad57
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-simple-import-sort@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "eslint-plugin-simple-import-sort@npm:13.0.0"
+  peerDependencies:
+    eslint: ">=5.0.0"
+  checksum: 10c0/f561f3483c1c18dfa2705326d38d62c62d4aeb5947ed6d1f028299c5dc668586b5ef144926e68fe187b3a937ee0159738dcbca8c286fe56f489de52fd8f9e678
   languageName: node
   linkType: hard
 

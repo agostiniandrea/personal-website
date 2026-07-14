@@ -1,20 +1,22 @@
-import { Seo } from "@components/atoms";
-import { SiteHeader, SiteFooter } from "@components/cms";
-import { Flex, Skeleton } from "@components/ions";
-import { ModuleRenderer } from "@components/organisms";
-import {
-  TPageFields,
-  TSiteHeaderData,
-  TSiteFooterData,
-  getPageContent,
-  getPaths,
-  getSiteHeaderContent,
-  getSiteFooterContent,
-} from "@lib/utils/cms";
-import { PAGE_TYPES } from "@constants";
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { useRouter } from "next/router";
+
 import styled from "styled-components";
+
+import { Seo } from "@components/atoms";
+import { SiteFooter,SiteHeader } from "@components/cms";
+import { Flex, Skeleton } from "@components/ions";
+import { ModuleRenderer } from "@components/organisms";
+import { PAGE_TYPES } from "@constants";
+import {
+  getPageContent,
+  getPaths,
+  getSiteFooterContent,
+  getSiteHeaderContent,
+  TPageFields,
+  TSiteFooterData,
+  TSiteHeaderData,
+} from "@lib/utils/cms";
 
 type TPage = {
   page: TPageFields;

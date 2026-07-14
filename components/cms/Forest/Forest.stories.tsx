@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Forest from "./index";
-import { defaultForest, minimalForest, oneStatForest, twoStatForest, fullStatForest } from "./model";
+import { defaultForest, fullStatForest,minimalForest, oneStatForest, twoStatForest } from "./model";
 
 const meta: Meta<typeof Forest> = {
   title: "CMS/Forest",

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import SiteHeader from "./index";
 import { defaultSiteHeader, minimalSiteHeader } from "./model";
 
