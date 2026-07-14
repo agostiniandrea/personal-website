@@ -22,7 +22,9 @@ const SECTION_IDS = [
 const Nav = styled.nav`
   display: none;
   position: fixed;
-  right: 1.25rem;
+  /* 3px + half the 44px button = 25px to the dot centre, the same spot the
+     original 10px dot had at right: 1.25rem — keeps dots off the content */
+  right: 3px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
@@ -31,7 +33,6 @@ const Nav = styled.nav`
     align-items: flex-end;
     display: flex;
     flex-direction: column;
-    gap: 0.875rem;
   }
 `;
 
@@ -57,32 +58,53 @@ const Label = styled.span`
   opacity: 0;
   pointer-events: none;
   position: absolute;
-  right: calc(100% + 0.5rem);
+  /* center + half visible dot + gap, so the label hugs the dot, not the hit area */
+  right: calc(50% + 7px + 0.5rem);
   text-transform: uppercase;
   transform: translateX(6px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
 `;
 
+/* The button is the hit area (44px wide; 24px tall keeps the original 24px
+   visual pitch — taller would overlap neighbours); the visible dot is ::before */
 const Dot = styled.button<{ $active: boolean }>`
-  background: ${({ $active, theme }) =>
-    $active ? theme.colors.highlight : "transparent"};
-  border: 2px solid ${({ theme }) => theme.colors.highlight};
-  border-radius: ${({ theme }) => theme.radii.rounded};
+  align-items: center;
+  background: transparent;
+  border: none;
   cursor: pointer;
+  display: flex;
   flex-shrink: 0;
-  height: 10px;
+  height: 24px;
+  justify-content: center;
   padding: 0;
-  transition: background 0.2s ease;
-  width: 10px;
+  width: 44px;
+
+  /* 6px + 2px border each side = 10px total, matching the original
+     border-box button regardless of inherited box-sizing */
+  &::before {
+    background: ${({ $active, theme }) =>
+      $active ? theme.colors.highlight : "transparent"};
+    border: 2px solid ${({ theme }) => theme.colors.highlight};
+    border-radius: ${({ theme }) => theme.radii.rounded};
+    box-sizing: content-box;
+    content: "";
+    height: 6px;
+    transition: background 0.2s ease;
+    width: 6px;
+  }
 
   @media (hover: hover) {
-    &:hover {
+    &:hover::before {
       background: ${({ theme }) => theme.colors.highlight};
     }
   }
 
   &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::before {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
@@ -142,7 +164,7 @@ export default function SectionDots() {
   return (
     <>
       <Nav aria-label={t.sectionNavigation}>
-        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column" }}>
           {sections.map(({ id, label }) => (
             <DotRow key={id}>
               <Label>{label}</Label>
