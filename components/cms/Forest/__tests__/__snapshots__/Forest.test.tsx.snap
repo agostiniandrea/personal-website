@@ -38,6 +38,15 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
+.c6 {
+  color: var(--color-highlight);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
 .c2 {
   align-items: center;
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -69,14 +78,6 @@ exports[`Forest renders correctly with all props 1`] = `
 .c0 {
   padding: 3rem 0;
   position: relative;
-}
-
-.c6 {
-  color: var(--color-highlight);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
 }
 
 .c7 {
@@ -638,6 +639,15 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
+.c6 {
+  color: var(--color-highlight);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
 .c2 {
   align-items: center;
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -669,14 +679,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c0 {
   padding: 3rem 0;
   position: relative;
-}
-
-.c6 {
-  color: var(--color-highlight);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
 }
 
 .c7 {

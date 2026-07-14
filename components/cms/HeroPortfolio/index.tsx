@@ -63,12 +63,12 @@ const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
 `;
 
 const GreetingSpan = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
+  color: ${({ theme }) => theme.colors.highlight};
   display: block;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.regular};
-  letter-spacing: 0.15em;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  letter-spacing: 0.2em;
   margin-bottom: ${({ theme }) => theme.space.lg};
   text-transform: uppercase;
 `;

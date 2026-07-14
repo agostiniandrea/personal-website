@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 
 import { Container, Text } from "@components/ions";
+import { SectionLabel } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 
@@ -139,14 +140,6 @@ const Section = styled.section`
   @media (max-width: 1199px) {
     padding: ${({ theme }) => theme.space["2xl"]} 0;
   }
-`;
-
-const SectionLabel = styled(Text)`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.2em;
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
 `;
 
 const SectionHeading = styled.h2`

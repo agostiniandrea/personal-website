@@ -76,12 +76,12 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c6 {
-  color: var(--color-paragraph);
+  color: var(--color-highlight);
   display: block;
   font-family: var(--font-inter),sans-serif;
   font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
@@ -543,12 +543,12 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 .c6 {
-  color: var(--color-paragraph);
+  color: var(--color-highlight);
   display: block;
   font-family: var(--font-inter),sans-serif;
   font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   margin-bottom: 1rem;
   text-transform: uppercase;
 }

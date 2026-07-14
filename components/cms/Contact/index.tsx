@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { Box, Container, Flex, Heading, Link, Text } from "@components/ions";
+import { SectionLabel } from "@components/molecules";
 import { trackContactInteraction } from "@lib/utils/analytics";
 
 export interface ContactLink {
@@ -14,14 +15,6 @@ export interface ContactProps {
   body: string;
   links: ContactLink[];
 }
-
-const SectionLabel = styled(Text)`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.2em;
-  margin: 0 0 1.25rem;
-  text-transform: uppercase;
-`;
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;

@@ -30,16 +30,17 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   padding: 0;
 }
 
-.c0 {
-  padding: 3rem 0;
-}
-
 .c3 {
   color: var(--color-highlight);
   font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.2em;
   margin: 0 0 1.25rem;
   text-transform: uppercase;
+}
+
+.c0 {
+  padding: 3rem 0;
 }
 
 .c5 {
@@ -272,16 +273,17 @@ exports[`Experience renders correctly with all items 1`] = `
   padding: 0.25rem 0.5rem;
 }
 
-.c0 {
-  padding: 3rem 0;
-}
-
 .c3 {
   color: var(--color-highlight);
   font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.2em;
   margin: 0 0 1.25rem;
   text-transform: uppercase;
+}
+
+.c0 {
+  padding: 3rem 0;
 }
 
 .c5 {
