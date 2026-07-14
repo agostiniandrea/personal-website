@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 import SiteFooter from "../index";
 import { defaultSiteFooter, minimalSiteFooter } from "../model";
@@ -53,5 +54,19 @@ describe("SiteFooter", () => {
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(1);
     expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
+  });
+
+  it("tracks footer social profile clicks", async () => {
+    const user = userEvent.setup();
+    window.gtag = jest.fn();
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+
+    await user.click(screen.getByRole("link", { name: "GitHub" }));
+
+    expect(window.gtag).toHaveBeenCalledWith("event", "social_profile_clicked", {
+      location: "footer",
+      platform: "github",
+    });
+    delete window.gtag;
   });
 });

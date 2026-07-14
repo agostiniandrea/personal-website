@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { Container, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
+import { trackEvent } from "@lib/utils/analytics";
 import { ForestModal } from "./ForestModal";
 
 const LABEL_DEFAULTS = {
@@ -553,6 +554,11 @@ const Forest: React.FC<ForestProps> = ({
   const hasStats = visibleStats.length >= 2;
   const resolvedOriginItems = originItems?.length ? originItems : DEFAULT_ORIGIN_ITEMS;
 
+  const openFeedbackModal = () => {
+    trackEvent("feedback_modal_opened", { locale: locale ?? "en" });
+    setModalOpen(true);
+  };
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -605,7 +611,7 @@ const Forest: React.FC<ForestProps> = ({
               <CtaHeading>{ctaHeading}</CtaHeading>
               <CtaBody>{ctaBody}</CtaBody>
               <PlantButton
-                onClick={() => setModalOpen(true)}
+                onClick={openFeedbackModal}
                 aria-haspopup="dialog"
               >
                 {ctaButtonLabel}
