@@ -67,4 +67,41 @@ describe("SiteHeader", () => {
     fireEvent.click(screen.getByRole("button", { name: "Close menu" }));
     expect(hamburger).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("keeps closed drawer controls out of the accessibility tree", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+
+    expect(screen.queryByRole("dialog", { name: "Navigation menu" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Close menu" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Mobile navigation" })).not.toBeInTheDocument();
+  });
+
+  it("moves focus into the drawer when it opens", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    expect(screen.getByRole("button", { name: "Close menu" })).toHaveFocus();
+  });
+
+  it("closes on Escape and restores focus to the hamburger", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    const hamburger = screen.getByRole("button", { name: "Open menu" });
+    fireEvent.click(hamburger);
+
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(screen.queryByRole("dialog", { name: "Navigation menu" })).not.toBeInTheDocument();
+    expect(hamburger).toHaveFocus();
+  });
+
+  it("wraps focus from the first to the last drawer control", () => {
+    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    const closeButton = screen.getByRole("button", { name: "Close menu" });
+    const localeButton = screen.getByRole("button", { name: "Switch to Italian" });
+
+    expect(closeButton).toHaveFocus();
+    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+
+    expect(localeButton).toHaveFocus();
+  });
 });

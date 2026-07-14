@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { BREAKPOINTS } from "@constants";
+import { trackEvent } from "@lib/utils/analytics";
 
 const copy = {
   en: {
@@ -646,6 +647,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
+      trackEvent("feedback_submitted", {
+        feedback_category: data.category,
+        locale: locale ?? "en",
+      });
       setStep(5);
     } catch {
       setError(t.errorMsg);
@@ -821,6 +826,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               onChange={(e) => setData((d) => ({ ...d, _hp: e.target.value }))}
               tabIndex={-1}
               aria-hidden="true"
+              autoComplete="off"
               style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
             />
             <CheckboxRow>

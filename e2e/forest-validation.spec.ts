@@ -27,6 +27,22 @@ async function reachStep4(page: Page) {
   await expect(feedbackDialog(page).getByLabel(/your email/i)).toBeVisible();
 }
 
+test("step 4: honeypot is excluded from navigation and the accessibility tree", async ({ page }) => {
+  await reachStep4(page);
+  const honeypot = page.locator('input[name="_hp"]');
+
+  await expect(honeypot).toHaveAttribute("aria-hidden", "true");
+  await expect(honeypot).toHaveAttribute("tabindex", "-1");
+  await expect(honeypot).toHaveAttribute("autocomplete", "off");
+  const accessibleTextboxes = page.getByRole("textbox");
+  await expect(accessibleTextboxes).toHaveCount(5);
+  expect(
+    await accessibleTextboxes.evaluateAll((nodes) =>
+      nodes.some((node) => node.getAttribute("name") === "_hp")
+    )
+  ).toBe(false);
+});
+
 // ── Happy paths ────────────────────────────────────────────────────────────────
 
 test("step 4: Send enabled when all optional fields are empty", async ({

@@ -1,6 +1,5 @@
 import { Head } from "@components/atoms";
-import { ScrollToTop } from "@components/molecules";
-import { CookieBanner } from "@components/molecules";
+import { AnalyticsScripts, CookieBanner, ScrollToTop } from "@components/molecules";
 import { useI18n } from "@lib/utils/i18n";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
@@ -10,7 +9,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
-import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -70,26 +68,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <CookieBanner />
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
         {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
-        {GA_ID && gaConsent && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-            <Script id="ga-init" strategy="afterInteractive">{`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_ID}');
-            `}</Script>
-          </>
-        )}
-        {CLARITY_ID && gaConsent && (
-          <Script id="clarity-init" strategy="afterInteractive">{`
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window,document,"clarity","script","${CLARITY_ID}");
-          `}</Script>
-        )}
+        <AnalyticsScripts gaId={GA_ID} clarityId={CLARITY_ID} hasConsent={gaConsent} />
       </ThemeProvider>
     </div>
   );

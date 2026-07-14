@@ -4,6 +4,7 @@ import { useI18n } from "@lib/utils/i18n";
 import { Box, Container, Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
 import { Badge } from "@components/molecules";
 import { contentfulImageUrl } from "@utils/contentfulImage";
+import { trackEvent } from "@lib/utils/analytics";
 
 const STATUS_LABELS: Record<string, Record<string, string>> = {
   "internal":   { en: "Internal",   it: "Interno" },
@@ -192,6 +193,7 @@ const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => 
                   href={item.url}
                   isExternal
                   ariaLabel={t.viewProject(item.title)}
+                  onClick={() => trackEvent("project_opened", { project_name: item.title })}
                 >
                   {item.urlLabel ?? "View project →"}
                 </CardLink>
