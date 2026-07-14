@@ -32,9 +32,10 @@ const SectionHeading = styled(Heading)`
 `;
 
 const Grid = styled.div`
+  column-gap: ${({ theme }) => theme.space["2xl"]};
   display: grid;
-  gap: ${({ theme }) => theme.space["2xl"]};
   grid-template-columns: 1fr;
+  row-gap: ${({ theme }) => theme.space["3xl"]};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     grid-template-columns: repeat(2, 1fr);

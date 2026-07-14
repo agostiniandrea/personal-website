@@ -59,9 +59,10 @@ exports[`Skills renders correctly with a single category 1`] = `
 }
 
 .c6 {
+  column-gap: 2rem;
   display: grid;
-  gap: 2rem;
   grid-template-columns: 1fr;
+  row-gap: 3rem;
 }
 
 .c7 {
@@ -280,9 +281,10 @@ exports[`Skills renders correctly with all categories 1`] = `
 }
 
 .c6 {
+  column-gap: 2rem;
   display: grid;
-  gap: 2rem;
   grid-template-columns: 1fr;
+  row-gap: 3rem;
 }
 
 .c7 {
