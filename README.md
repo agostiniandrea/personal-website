@@ -177,7 +177,7 @@ Edge runtime handler that generates dynamic Open Graph images from `?title=` and
 
 ## Analytics and Privacy
 
-GA4 and Microsoft Clarity scripts are only injected after the user accepts cookie consent. Consent state is stored in `localStorage` (`cookie-consent: accepted`) and communicated via a `cookie-consent-accepted` custom DOM event. Neither script is loaded on Vercel preview environments (`NEXT_PUBLIC_VERCEL_ENV` gate).
+GA4 and Microsoft Clarity scripts are only injected after the user accepts cookie consent and only on `agostiniandrea.dev` or `www.agostiniandrea.dev`. Consent state is stored in `localStorage` (`cookie-consent: accepted`) and communicated via a `cookie-consent-accepted` custom DOM event. The hostname allowlist prevents both scripts from loading on localhost and Vercel preview environments, even when analytics IDs are present in the build.
 
 ## CI Pipeline
 
