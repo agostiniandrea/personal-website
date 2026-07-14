@@ -1,5 +1,7 @@
-import { screen, fireEvent } from "@testing-library/react";
+import { fireEvent,screen } from "@testing-library/react";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import SiteHeader from "../index";
 import { defaultSiteHeader, minimalSiteHeader } from "../model";
 

@@ -1,8 +1,8 @@
 export {
   spacing,
-  spacingTokens,
-  toSpacing,
   type SpacingToken,
+  spacingTokens,
   type SpacingTokenSize,
+  toSpacing,
 } from "./spacing";
 

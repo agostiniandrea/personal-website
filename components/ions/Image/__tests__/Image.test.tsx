@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
-import Image from "../index";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import Image from "../index";
 
 describe("Image", () => {
   it("renders image with default props", () => {

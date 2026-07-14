@@ -1,8 +1,10 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import Forest from "../index";
-import { defaultForest, minimalForest, oneStatForest, twoStatForest, fullStatForest } from "../model";
+import { defaultForest, fullStatForest,minimalForest, oneStatForest, twoStatForest } from "../model";
 
 describe("Forest", () => {
   it("renders correctly with all props", () => {

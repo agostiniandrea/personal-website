@@ -1,6 +1,8 @@
 import styled from "styled-components";
+
 import { Box, Container, Grid, Heading, Text } from "@components/ions";
 import { Badge } from "@components/molecules";
+
 import type { BeyondCodeProps } from "./model";
 
 const SectionLabel = styled(Text)`

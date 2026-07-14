@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+
 import type { Preview } from "@storybook/nextjs";
-import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "storybook-dark-mode";
+import { ThemeProvider } from "styled-components";
 import { createGlobalStyle } from "styled-components";
+
 import GlobalStyle from "../config/customizations/globalStyles";
 import theme from "../config/theme";
 

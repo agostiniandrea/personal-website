@@ -1,15 +1,17 @@
-import { Seo } from "@components/atoms";
-import { SiteHeader, SiteFooter } from "@components/cms";
-import { Box, Container, Heading, Link, Text } from "@components/ions";
-import {
-  TSiteHeaderData,
-  TSiteFooterData,
-  getSiteHeaderContent,
-  getSiteFooterContent,
-} from "@lib/utils/cms";
-import { BREAKPOINTS } from "@constants";
 import { GetStaticPropsResult } from "next";
+
 import styled from "styled-components";
+
+import { Seo } from "@components/atoms";
+import { SiteFooter,SiteHeader } from "@components/cms";
+import { Box, Container, Heading, Link, Text } from "@components/ions";
+import { BREAKPOINTS } from "@constants";
+import {
+  getSiteFooterContent,
+  getSiteHeaderContent,
+  TSiteFooterData,
+  TSiteHeaderData,
+} from "@lib/utils/cms";
 
 type T404 = {
   header: TSiteHeaderData | null;

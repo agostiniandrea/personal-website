@@ -1,4 +1,4 @@
-import { test, expect } from "./fixtures";
+import { expect,test } from "./fixtures";
 
 test("homepage loads with a visible h1", async ({ page }) => {
   await page.goto("/");

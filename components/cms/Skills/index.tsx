@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { Box, Container, Heading, Text } from "@components/ions";
 import { Badge } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";

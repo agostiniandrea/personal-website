@@ -1,7 +1,9 @@
 import React from "react";
+
 import styled from "styled-components";
+
+import { type SpacingToken,toSpacing } from "@config/tokens";
 import { BREAKPOINTS } from "@constants";
-import { toSpacing, type SpacingToken } from "@config/tokens";
 
 type ColumnValue = number | string; // number → repeat(N, 1fr); string → literal CSS
 type ResponsiveColumns = ColumnValue | (ColumnValue | undefined)[];

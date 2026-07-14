@@ -1,15 +1,18 @@
-import { Head } from "@components/atoms";
-import { AnalyticsScripts, CookieBanner, ScrollToTop } from "@components/molecules";
-import { useI18n } from "@lib/utils/i18n";
-import GlobalStyle from "@config/customizations/globalStyles";
-import theme from "@config/theme";
+import { useEffect, useState } from "react";
+
 import type { AppProps } from "next/app";
 import { Inter, Space_Grotesk } from "next/font/google";
+
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { ThemeProvider } from "styled-components";
+
+import { Head } from "@components/atoms";
+import { AnalyticsScripts, CookieBanner, ScrollToTop } from "@components/molecules";
+import GlobalStyle from "@config/customizations/globalStyles";
+import theme from "@config/theme";
+import { useI18n } from "@lib/utils/i18n";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;

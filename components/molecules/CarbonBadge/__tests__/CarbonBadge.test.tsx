@@ -1,7 +1,9 @@
 import { screen } from "@testing-library/react";
-import CarbonBadge from "../index";
+
 import { WEBSITE_CARBON } from "@constants";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import CarbonBadge from "../index";
 
 describe("CarbonBadge", () => {
   it("renders the stored emissions value statically", () => {

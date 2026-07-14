@@ -1,5 +1,7 @@
 import { screen } from "@testing-library/react";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import BeyondCode from "../index";
 import { defaultBeyondCode, noIntrosBeyondCode, noTagsBeyondCode } from "../model";
 

@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
-import Text from "../index";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import Text from "../index";
 
 describe("Text", () => {
   it("renders text with default styles", () => {

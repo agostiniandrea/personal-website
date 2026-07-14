@@ -1,12 +1,13 @@
 import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import nextPlugin from "@next/eslint-plugin-next";
+import jestPlugin from "eslint-plugin-jest";
+import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
-import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
-import jestPlugin from "eslint-plugin-jest";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
 import storybookPlugin from "eslint-plugin-storybook";
-import nextPlugin from "@next/eslint-plugin-next";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
@@ -64,8 +65,30 @@ export default tseslint.config(
       jest: jestPlugin,
       storybook: storybookPlugin,
       "@next/next": nextPlugin,
+      "simple-import-sort": simpleImportSort,
     },
     rules: {
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [
+            ["^\\u0000"],
+            ["^react$", "^react-dom"],
+            ["^next"],
+            ["^@?\\w"],
+            [
+              "^@components/",
+              "^@config/",
+              "^@constants",
+              "^@lib/",
+              "^@utils/",
+              "^@test-utils/",
+            ],
+            ["^\\.\\.", "^\\./"],
+          ],
+        },
+      ],
+      "simple-import-sort/exports": "error",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",

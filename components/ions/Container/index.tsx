@@ -1,5 +1,6 @@
-import { BREAKPOINTS } from "@constants";
 import styled, { Interpolation } from "styled-components";
+
+import { BREAKPOINTS } from "@constants";
 
 type FullBleedValue = boolean | boolean[];
 type ContainerElement = "div" | "section" | "header" | "footer" | "main" | "article" | "aside" | "nav";

@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+
 import { useRouter } from "next/router";
+
 import styled from "styled-components";
+
 import { BREAKPOINTS } from "@constants";
-import { useI18n, SECTION_LABELS } from "@lib/utils/i18n";
+import { SECTION_LABELS,useI18n } from "@lib/utils/i18n";
 
 const SECTION_IDS = [
   "hero",
