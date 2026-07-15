@@ -521,7 +521,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c22"
           >
-            Personally planted since May 2026
+            Trees planted since May 2026
           </span>
         </div>
       </div>
@@ -559,7 +559,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c30"
           >
-            Current season
+            Trees dedicated through portfolio feedback
           </span>
           <span
             class="c31"
@@ -1122,7 +1122,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c22"
           >
-            Personally planted since May 2026
+            Trees planted since May 2026
           </span>
         </div>
       </div>
@@ -1160,7 +1160,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c30"
           >
-            Current season
+            Trees dedicated through portfolio feedback
           </span>
           <span
             class="c31"
