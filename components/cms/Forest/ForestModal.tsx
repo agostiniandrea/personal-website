@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+
 import { useRouter } from "next/router";
+
 import styled, { keyframes } from "styled-components";
+
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 

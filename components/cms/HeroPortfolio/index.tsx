@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+
 import { useRouter } from "next/router";
+
 import styled, { keyframes } from "styled-components";
+
 import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
-import { contentfulImageUrl } from "@utils/contentfulImage";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
+import { contentfulImageUrl } from "@utils/contentfulImage";
 
 export interface HeroPortfolioProps {
   greeting: string;
@@ -60,12 +63,12 @@ const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
 `;
 
 const GreetingSpan = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
+  color: ${({ theme }) => theme.colors.highlight};
   display: block;
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.regular};
-  letter-spacing: 0.15em;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  letter-spacing: 0.2em;
   margin-bottom: ${({ theme }) => theme.space.lg};
   text-transform: uppercase;
 `;
@@ -124,7 +127,7 @@ const CvLink = styled.a`
   border-bottom: 1px solid ${({ theme }) => theme.colors.paragraph};
   color: ${({ theme }) => theme.colors.paragraph};
   display: inline-flex;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.375rem;
   padding: 0.875rem 0;

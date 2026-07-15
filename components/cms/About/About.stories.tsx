@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import About from "./index";
 import { defaultAbout, minimalAbout } from "./model";
 

@@ -1,4 +1,4 @@
-import { test, expect } from "./fixtures";
+import { expect,test } from "./fixtures";
 
 test("at least one project card is visible", async ({ page }) => {
   await page.goto("/");

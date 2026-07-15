@@ -1,4 +1,4 @@
-import { test, expect } from "./fixtures";
+import { expect,test } from "./fixtures";
 
 test("Italian page loads and sets lang attribute", async ({ page }) => {
   await page.goto("/it");

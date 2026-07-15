@@ -160,7 +160,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c8 {
   align-items: center;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid color-mix(in srgb, var(--color-headline) 20%, transparent);
   border-radius: 4px;
   color: var(--color-headline);
   cursor: pointer;
@@ -274,8 +274,8 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 
 @media (hover: hover) {
   .c8:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: color-mix(         in srgb,         var(--color-headline) 5%,         transparent       );
+    border-color: color-mix(         in srgb,         var(--color-headline) 40%,         transparent       );
   }
 }
 
@@ -602,7 +602,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 .c7 {
   align-items: center;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid color-mix(in srgb, var(--color-headline) 20%, transparent);
   border-radius: 4px;
   color: var(--color-headline);
   cursor: pointer;
@@ -710,8 +710,8 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 
 @media (hover: hover) {
   .c7:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: color-mix(         in srgb,         var(--color-headline) 5%,         transparent       );
+    border-color: color-mix(         in srgb,         var(--color-headline) 40%,         transparent       );
   }
 }
 

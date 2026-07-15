@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Text from "./index";
 
 const meta: Meta<typeof Text> = {

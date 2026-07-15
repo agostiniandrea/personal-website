@@ -1,4 +1,4 @@
-import { toSpacing, type SpacingToken } from "@config/tokens";
+import { type SpacingToken,toSpacing } from "@config/tokens";
 
 /**
  * Type for spacing values that can be used in CSS properties

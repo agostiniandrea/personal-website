@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Skills from "./index";
 import { defaultSkills, minimalSkills } from "./model";
 

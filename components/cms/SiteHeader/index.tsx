@@ -1,10 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef,useState } from "react";
+
 import { useRouter } from "next/router";
-import { useI18n } from "@lib/utils/i18n";
+
 import styled from "styled-components";
+
 import { Button, Container, Flex, Link } from "@components/ions";
 import { Drawer, DrawerTopBar, Overlay } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
+import { useI18n } from "@lib/utils/i18n";
 
 export interface SiteHeaderLink {
   label: string;
@@ -99,7 +102,8 @@ const HamburgerButton = styled(IconButton)`
 const LocaleButton = styled(Button)`
   align-items: center;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid
+    color-mix(in srgb, ${({ theme }) => theme.colors.headline} 20%, transparent);
   border-radius: ${({ theme }) => theme.radii.xs};
   color: ${({ theme }) => theme.colors.headline};
   cursor: pointer;
@@ -116,8 +120,16 @@ const LocaleButton = styled(Button)`
 
   @media (hover: hover) {
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.4);
+      background: color-mix(
+        in srgb,
+        ${({ theme }) => theme.colors.headline} 5%,
+        transparent
+      );
+      border-color: color-mix(
+        in srgb,
+        ${({ theme }) => theme.colors.headline} 40%,
+        transparent
+      );
     }
   }
 

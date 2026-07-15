@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Sustainability from "./index";
 import { defaultSustainability, minimalSustainability, noCarbonBadgeSustainability } from "./model";
 

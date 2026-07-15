@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import { useRouter } from "next/router";
+
 import styled, { keyframes } from "styled-components";
+
 import { Container, Text } from "@components/ions";
+import { SectionLabel } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
+
 import { ForestModal } from "./ForestModal";
 
 const LABEL_DEFAULTS = {
@@ -120,7 +125,7 @@ const BadgeDot = styled.span`
 
 const BadgeLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
-  font-size: 0.65rem;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -135,14 +140,6 @@ const Section = styled.section`
   @media (max-width: 1199px) {
     padding: ${({ theme }) => theme.space["2xl"]} 0;
   }
-`;
-
-const SectionLabel = styled(Text)`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.2em;
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
 `;
 
 const SectionHeading = styled.h2`
@@ -522,8 +519,8 @@ const Forest: React.FC<ForestProps> = ({
   ctaBody = "Every meaningful suggestion plants a real tree. Your feedback grows the forest.",
   ctaButtonLabel = "🌱 Plant a leaf",
   seasonName = "Season One",
-  seasonCurrentLabel = "Current season",
-  treeCountLabel = "Personally planted since May 2026",
+  seasonCurrentLabel = "Trees dedicated through portfolio feedback",
+  treeCountLabel = "Trees planted since May 2026",
   treesLabel = "trees",
   viewForestLabel = "View the living forest",
   feedbackCountLabel,

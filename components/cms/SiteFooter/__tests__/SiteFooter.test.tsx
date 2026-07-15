@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
 import SiteFooter from "../index";
 import { defaultSiteFooter, minimalSiteFooter } from "../model";
 

@@ -38,6 +38,15 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
+.c6 {
+  color: var(--color-highlight);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
 .c2 {
   align-items: center;
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -60,7 +69,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c4 {
   color: var(--color-paragraph);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -69,14 +78,6 @@ exports[`Forest renders correctly with all props 1`] = `
 .c0 {
   padding: 3rem 0;
   position: relative;
-}
-
-.c6 {
-  color: var(--color-highlight);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
 }
 
 .c7 {
@@ -520,7 +521,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c22"
           >
-            Personally planted since May 2026
+            Trees planted since May 2026
           </span>
         </div>
       </div>
@@ -558,7 +559,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c30"
           >
-            Current season
+            Trees dedicated through portfolio feedback
           </span>
           <span
             class="c31"
@@ -638,6 +639,15 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
+.c6 {
+  color: var(--color-highlight);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
 .c2 {
   align-items: center;
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -660,7 +670,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 .c4 {
   color: var(--color-paragraph);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -669,14 +679,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c0 {
   padding: 3rem 0;
   position: relative;
-}
-
-.c6 {
-  color: var(--color-highlight);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
 }
 
 .c7 {
@@ -1120,7 +1122,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c22"
           >
-            Personally planted since May 2026
+            Trees planted since May 2026
           </span>
         </div>
       </div>
@@ -1158,7 +1160,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c30"
           >
-            Current season
+            Trees dedicated through portfolio feedback
           </span>
           <span
             class="c31"

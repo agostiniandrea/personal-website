@@ -9,7 +9,7 @@
  *
  * Usage: node scripts/check-carbon-drift.mjs [lighthouseci-dir]
  */
-import { readFileSync, readdirSync, appendFileSync } from "node:fs";
+import { appendFileSync,readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const THRESHOLD_PERCENT = 15;

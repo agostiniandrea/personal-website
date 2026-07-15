@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/react";
-import Badge from "../index";
+
 import { renderWithTheme } from "@test-utils/renderWithTheme";
+
+import Badge from "../index";
 
 describe("Badge", () => {
   it("renders badge with default props (md size, span)", () => {

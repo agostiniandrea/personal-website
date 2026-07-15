@@ -1,6 +1,7 @@
-import { BREAKPOINTS } from "@constants";
-import { toSpacing, type SpacingToken } from "@config/tokens";
 import styled, { Interpolation } from "styled-components";
+
+import { type SpacingToken,toSpacing } from "@config/tokens";
+import { BREAKPOINTS } from "@constants";
 
 type FlexDirectionValue = "row" | "column" | "row-reverse" | "column-reverse";
 // Gap can be a spacing token (xs, sm, md, lg, xl, 2xl, etc.), number (pixels), or string (any CSS value)

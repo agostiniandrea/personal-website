@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Journey from "./index";
 import { journeyData } from "./model";
 

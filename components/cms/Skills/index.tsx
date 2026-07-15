@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Box, Container, Heading, Text } from "@components/ions";
-import { Badge } from "@components/molecules";
+
+import { Box, Container, Heading } from "@components/ions";
+import { Badge, SectionLabel } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 
 export interface SkillCategory {
@@ -22,14 +23,6 @@ const Section = styled.section`
   }
 `;
 
-const SectionLabel = styled(Text)`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.2em;
-  margin: 0 0 1.25rem;
-  text-transform: uppercase;
-`;
-
 const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
   max-width: 600px;
@@ -39,9 +32,10 @@ const SectionHeading = styled(Heading)`
 `;
 
 const Grid = styled.div`
+  column-gap: ${({ theme }) => theme.space["2xl"]};
   display: grid;
-  gap: ${({ theme }) => theme.space["2xl"]};
   grid-template-columns: 1fr;
+  row-gap: ${({ theme }) => theme.space["3xl"]};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     grid-template-columns: repeat(2, 1fr);
