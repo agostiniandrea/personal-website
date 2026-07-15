@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { Box, Container, Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
-import { Badge } from "@components/molecules";
+import { Badge, SectionLabel } from "@components/molecules";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { contentfulImageUrl } from "@utils/contentfulImage";
@@ -30,14 +30,6 @@ export interface ProjectsProps {
   items: ProjectItem[];
 }
 
-
-const SectionLabel = styled(Text)`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.2em;
-  margin: 0 0 1.25rem;
-  text-transform: uppercase;
-`;
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["3xl"]};
