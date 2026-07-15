@@ -5,3 +5,4 @@ export { default as CookieBanner } from "./CookieBanner";
 export { Drawer, DrawerTopBar, Overlay } from "./Drawer";
 export { default as HeadingBox } from "./HeadingBox";
 export { default as ScrollToTop } from "./ScrollToTop";
+export { default as SectionLabel } from "./SectionLabel";
