@@ -30,12 +30,22 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c32 {
+.c42 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c40 {
+  background: var(--color-badge-bg);
+  border: 1px solid var(--color-highlight);
+  border-radius: 9999px;
+  color: var(--color-paragraph);
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .c6 {
@@ -218,26 +228,26 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 1.5rem 1.75rem;
 }
 
-.c24 {
+.c25 {
   align-items: baseline;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.c25 {
+.c26 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
 }
 
-.c26 {
+.c27 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c27 {
+.c28 {
   background: var(--color-highlight)1a;
   border-radius: 999px;
   height: 8px;
@@ -245,7 +255,7 @@ exports[`Forest renders correctly with all props 1`] = `
   overflow: hidden;
 }
 
-.c28 {
+.c29 {
   background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
   border-radius: 999px;
   height: 100%;
@@ -253,30 +263,103 @@ exports[`Forest renders correctly with all props 1`] = `
   width: 2%;
 }
 
-.c29 {
+.c30 {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-.c30 {
+.c31 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
-.c31 {
+.c32 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 700;
 }
 
+.c24 {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .c33 {
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+}
+
+.c34 {
+  color: var(--color-paragraph);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.c35 {
+  color: var(--color-headline);
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.c36 {
+  color: var(--color-paragraph);
+  font-size: 0.875rem;
+}
+
+.c37 {
+  color: var(--color-headline);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.c38 {
+  align-items: flex-end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+}
+
+.c39 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c41 {
+  align-items: center;
+  color: var(--color-highlight);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.c41:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c43 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c33 a {
+.c43 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -382,8 +465,30 @@ exports[`Forest renders correctly with all props 1`] = `
   }
 }
 
+@media (min-width: 900px) {
+  .c24 {
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .c33 {
+    border-left: 1px solid rgba(128, 128, 128, 0.12);
+    border-top: none;
+    padding-left: 2rem;
+    padding-top: 0;
+  }
+}
+
 @media (hover: hover) {
-  .c33 a:hover {
+  .c41:hover {
+    opacity: 0.75;
+  }
+}
+
+@media (hover: hover) {
+  .c43 a:hover {
     opacity: 0.75;
   }
 }
@@ -478,7 +583,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c13"
           >
-            →  Every meaningful suggestion earns a dedicated tree from my forest.
+            →  Every meaningful suggestion grows a pair of trees — one for you, one matched by me.
           </span>
         </div>
       </div>
@@ -496,7 +601,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <p
             class="c17"
           >
-            Every meaningful suggestion becomes a real tree. Together we're growing this forest.
+            Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.
           </p>
           <button
             aria-haspopup="dialog"
@@ -516,7 +621,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <span
             class="c21"
           >
-            30
+            34
           </span>
           <span
             class="c22"
@@ -531,46 +636,119 @@ exports[`Forest renders correctly with all props 1`] = `
         <div
           class="c24"
         >
-          <span
-            class="c25"
-          >
-            Season One
-          </span>
-          <span
-            class="c26"
-          >
-            0
-             / 
-            25
-             
-            trees
-          </span>
-        </div>
-        <div
-          class="c27"
-        >
+          <div>
+            <div
+              class="c25"
+            >
+              <span
+                class="c26"
+              >
+                Season One
+              </span>
+              <span
+                class="c27"
+              >
+                0
+                 / 
+                50
+                 
+                trees
+              </span>
+            </div>
+            <div
+              class="c28"
+            >
+              <div
+                class="c29"
+              />
+            </div>
+            <div
+              class="c30"
+            >
+              <span
+                class="c31"
+              >
+                Trees planted through portfolio feedback
+              </span>
+              <span
+                class="c32"
+              >
+                0
+                %
+              </span>
+            </div>
+          </div>
           <div
-            class="c28"
-          />
-        </div>
-        <div
-          class="c29"
-        >
-          <span
-            class="c30"
+            class="c33"
+            data-testid="season-project"
           >
-            Trees dedicated through portfolio feedback
-          </span>
-          <span
-            class="c31"
-          >
-            0
-            %
-          </span>
+            <span
+              class="c34"
+            >
+              Season One project
+            </span>
+            <span
+              class="c35"
+            >
+              Community Reforestation in Indonesia
+            </span>
+            <span
+              class="c36"
+            >
+              Indonesia · Tropical community reforestation
+            </span>
+            <span
+              class="c37"
+            >
+              4 trees · 1.5 t CO₂ · 2 species
+            </span>
+            <div
+              class="c38"
+            >
+              <ul
+                class="c39"
+              >
+                <li
+                  class="c40"
+                >
+                  Sengon
+                </li>
+                <li
+                  class="c40"
+                >
+                  Kadamba
+                </li>
+              </ul>
+              <a
+                class="c41"
+                href="https://tree-nation.com/projects/community-reforestation-in-indonesia"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                View project
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  height="11"
+                  style="display: inline-block; margin-left: 0.25rem;"
+                  viewBox="0 0 11 11"
+                  width="11"
+                >
+                  <path
+                    d="M2 9L9 2M9 2H4M9 2V7"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <p
-        class="c32 c33"
+        class="c42 c43"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
@@ -631,7 +809,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c32 {
+.c33 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -819,26 +997,26 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 1.5rem 1.75rem;
 }
 
-.c24 {
+.c25 {
   align-items: baseline;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.c25 {
+.c26 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
 }
 
-.c26 {
+.c27 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c27 {
+.c28 {
   background: var(--color-highlight)1a;
   border-radius: 999px;
   height: 8px;
@@ -846,7 +1024,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   overflow: hidden;
 }
 
-.c28 {
+.c29 {
   background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
   border-radius: 999px;
   height: 100%;
@@ -854,30 +1032,35 @@ exports[`Forest renders correctly with minimal props 1`] = `
   width: 2%;
 }
 
-.c29 {
+.c30 {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-.c30 {
+.c31 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
-.c31 {
+.c32 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 700;
 }
 
-.c33 {
+.c24 {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.c34 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c33 a {
+.c34 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -983,8 +1166,15 @@ exports[`Forest renders correctly with minimal props 1`] = `
   }
 }
 
+@media (min-width: 900px) {
+  .c24 {
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (hover: hover) {
-  .c33 a:hover {
+  .c34 a:hover {
     opacity: 0.75;
   }
 }
@@ -1079,7 +1269,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c13"
           >
-            →  Every meaningful suggestion earns a dedicated tree from my forest.
+            →  Every meaningful suggestion grows a pair of trees — one for you, one matched by me.
           </span>
         </div>
       </div>
@@ -1097,7 +1287,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <p
             class="c17"
           >
-            Every meaningful suggestion plants a real tree. Your feedback grows the forest.
+            Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.
           </p>
           <button
             aria-haspopup="dialog"
@@ -1117,7 +1307,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <span
             class="c21"
           >
-            30
+            34
           </span>
           <span
             class="c22"
@@ -1132,46 +1322,52 @@ exports[`Forest renders correctly with minimal props 1`] = `
         <div
           class="c24"
         >
-          <span
-            class="c25"
-          >
-            Season One
-          </span>
-          <span
-            class="c26"
-          >
-            0
-             / 
-            25
-             
-            trees
-          </span>
-        </div>
-        <div
-          class="c27"
-        >
-          <div
-            class="c28"
-          />
-        </div>
-        <div
-          class="c29"
-        >
-          <span
-            class="c30"
-          >
-            Trees dedicated through portfolio feedback
-          </span>
-          <span
-            class="c31"
-          >
-            0
-            %
-          </span>
+          <div>
+            <div
+              class="c25"
+            >
+              <span
+                class="c26"
+              >
+                Season One
+              </span>
+              <span
+                class="c27"
+              >
+                0
+                 / 
+                50
+                 
+                trees
+              </span>
+            </div>
+            <div
+              class="c28"
+            >
+              <div
+                class="c29"
+              />
+            </div>
+            <div
+              class="c30"
+            >
+              <span
+                class="c31"
+              >
+                Trees planted through portfolio feedback
+              </span>
+              <span
+                class="c32"
+              >
+                0
+                %
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <p
-        class="c32 c33"
+        class="c33 c34"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
