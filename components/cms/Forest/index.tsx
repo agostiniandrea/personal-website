@@ -206,7 +206,7 @@ const StatsGrid = styled.div<{ $count: number }>`
   display: grid;
   gap: 0.625rem;
   grid-template-columns: repeat(${({ $count }) => $count}, 1fr);
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     gap: ${({ theme }) => theme.space.xl};
