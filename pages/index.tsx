@@ -44,12 +44,19 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    const [{ count: feedbackCount }, { count: treesDedicatedCount }, { count: improvementsCount }] =
+    const [{ count: feedbackCount }, { data: plantedRows }, { count: improvementsCount }] =
       await Promise.all([
         supabase.from("feedback").select("id", { count: "exact", head: true }),
-        supabase.from("feedback").select("id", { count: "exact", head: true }).in("status", ["accepted", "implemented"]),
+        supabase.from("feedback").select("trees_planted"),
         supabase.from("feedback").select("id", { count: "exact", head: true }).eq("status", "implemented"),
       ]);
+
+    // Trees are counted only once actually purchased (trees_planted is set at
+    // purchase time), never inferred from feedback statuses
+    const treesDedicatedCount = (plantedRows ?? []).reduce(
+      (sum, row) => sum + (row.trees_planted ?? 0),
+      0
+    );
 
     const forestModule = page.modules.find((m) => m.type === MODULES.FOREST);
     if (forestModule) {

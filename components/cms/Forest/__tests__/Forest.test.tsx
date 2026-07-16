@@ -51,6 +51,25 @@ describe("Forest", () => {
     );
   });
 
+  it("renders the season project panel with species and project link", () => {
+    renderWithTheme(<Forest {...defaultForest} />);
+    const panel = screen.getByTestId("season-project");
+    expect(panel).toHaveTextContent(defaultForest.seasonProjectName!);
+    expect(panel).toHaveTextContent(defaultForest.seasonProjectStats!);
+    defaultForest.seasonProjectSpecies!.forEach((species) => {
+      expect(screen.getByText(species)).toBeInTheDocument();
+    });
+    expect(screen.getByRole("link", { name: /View project/i })).toHaveAttribute(
+      "href",
+      defaultForest.seasonProjectUrl,
+    );
+  });
+
+  it("hides the season project panel when no project name is provided", () => {
+    renderWithTheme(<Forest {...minimalForest} />);
+    expect(screen.queryByTestId("season-project")).not.toBeInTheDocument();
+  });
+
   it("opens the modal when Plant button is clicked", async () => {
     const user = userEvent.setup();
     renderWithTheme(<Forest {...defaultForest} />);
