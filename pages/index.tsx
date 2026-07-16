@@ -15,6 +15,7 @@ import {
   TSiteFooterData,
   TSiteHeaderData,
 } from "@lib/utils/cms";
+import { getForestTreeCount } from "@lib/utils/treeNation";
 
 type THomepage = {
   page: TPageFields;
@@ -44,12 +45,24 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    const [{ count: feedbackCount }, { count: treesDedicatedCount }, { count: improvementsCount }] =
-      await Promise.all([
-        supabase.from("feedback").select("id", { count: "exact", head: true }),
-        supabase.from("feedback").select("id", { count: "exact", head: true }).in("status", ["accepted", "implemented"]),
-        supabase.from("feedback").select("id", { count: "exact", head: true }).eq("status", "implemented"),
-      ]);
+    const [
+      { count: feedbackCount },
+      { data: plantedRows },
+      { count: improvementsCount },
+      liveTreeCount,
+    ] = await Promise.all([
+      supabase.from("feedback").select("id", { count: "exact", head: true }),
+      supabase.from("feedback").select("trees_planted"),
+      supabase.from("feedback").select("id", { count: "exact", head: true }).eq("status", "implemented"),
+      getForestTreeCount(supabase),
+    ]);
+
+    // Trees are counted only once actually purchased (trees_planted is set at
+    // purchase time), never inferred from feedback statuses
+    const treesDedicatedCount = (plantedRows ?? []).reduce(
+      (sum, row) => sum + (row.trees_planted ?? 0),
+      0
+    );
 
     const forestModule = page.modules.find((m) => m.type === MODULES.FOREST);
     if (forestModule) {
@@ -58,6 +71,9 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
         feedbackCount: feedbackCount ?? 0,
         treesDedicatedCount: treesDedicatedCount ?? 0,
         improvementsCount: improvementsCount ?? 0,
+        // Verified Tree-Nation total wins; the Contentful treeCount stays as
+        // the fallback when no sync has ever succeeded
+        ...(liveTreeCount !== null && { treeCount: liveTreeCount }),
       };
     }
   } catch (err) {
