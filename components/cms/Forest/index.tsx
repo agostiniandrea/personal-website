@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 
 import { Container, Text } from "@components/ions";
-import { SectionLabel } from "@components/molecules";
+import { Badge, SectionLabel } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 
@@ -58,6 +58,13 @@ export interface ForestProps {
   improvementsCountLabel?: string;
   seasonCurrent?: number;
   seasonTarget?: number;
+  seasonProjectLabel?: string;
+  seasonProjectName?: string;
+  seasonProjectMeta?: string;
+  seasonProjectStats?: string;
+  seasonProjectSpecies?: string[];
+  seasonProjectUrl?: string;
+  seasonProjectLinkLabel?: string;
   changelogItems?: ChangelogItem[];
 }
 
@@ -426,6 +433,99 @@ const SeasonPct = styled.span`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
+/* ── Season project panel ── */
+
+const SeasonGrid = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.space.xl};
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    gap: ${({ theme }) => theme.space["2xl"]};
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const ProjectPanel = styled.div`
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.sm};
+  padding-top: ${({ theme }) => theme.space.xl};
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    border-left: 1px solid rgba(128, 128, 128, 0.12);
+    border-top: none;
+    padding-left: ${({ theme }) => theme.space["2xl"]};
+    padding-top: 0;
+  }
+`;
+
+const ProjectLabel = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+`;
+
+const ProjectName = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: ${({ theme }) => theme.lineHeights.normal};
+`;
+
+const ProjectMeta = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+`;
+
+const ProjectStats = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
+const ProjectFooter = styled.div`
+  align-items: flex-end;
+  display: flex;
+  gap: ${({ theme }) => theme.space.lg};
+  justify-content: space-between;
+  margin-top: ${({ theme }) => theme.space.xs};
+`;
+
+const SpeciesList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.space.sm};
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const ProjectLink = styled.a`
+  align-items: center;
+  color: ${({ theme }) => theme.colors.highlight};
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+  }
+`;
+
 /* ── View forest link ── */
 
 const TreeNationNote = styled(Text)`
@@ -499,7 +599,7 @@ const Divider = styled.div`
 const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
   { date: "May 2026",  text: "🌱  Started planting trees every month — a personal commitment, before any portfolio." },
   { date: "July 2026", text: "🌳  Forest was born. The portfolio invites others to become part of that journey." },
-  { date: "Today",     text: "→  Every meaningful suggestion earns a dedicated tree from my forest." },
+  { date: "Today",     text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me." },
 ];
 
 /* ── Component ── */
@@ -513,20 +613,27 @@ const Forest: React.FC<ForestProps> = ({
   feedbackCount = 0,
   treesDedicatedCount = 0,
   improvementsCount = 0,
-  treeCount = 30,
+  treeCount = 34,
   treeCountTitle = "My Forest",
   ctaHeading = "Help this portfolio grow.",
-  ctaBody = "Every meaningful suggestion plants a real tree. Your feedback grows the forest.",
+  ctaBody = "Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.",
   ctaButtonLabel = "🌱 Plant a leaf",
   seasonName = "Season One",
-  seasonCurrentLabel = "Trees dedicated through portfolio feedback",
+  seasonCurrentLabel = "Trees planted through portfolio feedback",
   treeCountLabel = "Trees planted since May 2026",
   treesLabel = "trees",
   viewForestLabel = "View the living forest",
   feedbackCountLabel,
   treesDedicatedCountLabel,
   improvementsCountLabel,
-  seasonTarget = 25,
+  seasonTarget = 50,
+  seasonProjectLabel = "Season One project",
+  seasonProjectName,
+  seasonProjectMeta,
+  seasonProjectStats,
+  seasonProjectSpecies = [],
+  seasonProjectUrl,
+  seasonProjectLinkLabel = "View project",
   changelogItems = [],
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -622,17 +729,59 @@ const Forest: React.FC<ForestProps> = ({
           </CtaCard>
 
           <SeasonCard>
-            <SeasonHeader>
-              <SeasonLabel>{seasonName}</SeasonLabel>
-              <SeasonCount>{treesDedicatedCount} / {seasonTarget} {treesLabel}</SeasonCount>
-            </SeasonHeader>
-            <ProgressTrack>
-              <ProgressFill $pct={pct} $animate={inView} />
-            </ProgressTrack>
-            <SeasonMeta>
-              <SeasonSublabel>{seasonCurrentLabel}</SeasonSublabel>
-              <SeasonPct>{Math.round(pct)}%</SeasonPct>
-            </SeasonMeta>
+            <SeasonGrid>
+              <div>
+                <SeasonHeader>
+                  <SeasonLabel>{seasonName}</SeasonLabel>
+                  <SeasonCount>{treesDedicatedCount} / {seasonTarget} {treesLabel}</SeasonCount>
+                </SeasonHeader>
+                <ProgressTrack>
+                  <ProgressFill $pct={pct} $animate={inView} />
+                </ProgressTrack>
+                <SeasonMeta>
+                  <SeasonSublabel>{seasonCurrentLabel}</SeasonSublabel>
+                  <SeasonPct>{Math.round(pct)}%</SeasonPct>
+                </SeasonMeta>
+              </div>
+              {seasonProjectName && (
+                <ProjectPanel data-testid="season-project">
+                  {seasonProjectLabel && <ProjectLabel>{seasonProjectLabel}</ProjectLabel>}
+                  <ProjectName>{seasonProjectName}</ProjectName>
+                  {seasonProjectMeta && <ProjectMeta>{seasonProjectMeta}</ProjectMeta>}
+                  {seasonProjectStats && <ProjectStats>{seasonProjectStats}</ProjectStats>}
+                  {(seasonProjectSpecies.length > 0 || seasonProjectUrl) && (
+                    <ProjectFooter>
+                      {seasonProjectSpecies.length > 0 && (
+                        <SpeciesList>
+                          {seasonProjectSpecies.map((species) => (
+                            <Badge key={species} as="li" size="sm">{species}</Badge>
+                          ))}
+                        </SpeciesList>
+                      )}
+                      {seasonProjectUrl && (
+                        <ProjectLink
+                          href={seasonProjectUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {seasonProjectLinkLabel}
+                          <svg
+                            width="11"
+                            height="11"
+                            viewBox="0 0 11 11"
+                            fill="none"
+                            aria-hidden="true"
+                            style={{ display: "inline-block", marginLeft: "0.25rem" }}
+                          >
+                            <path d="M2 9L9 2M9 2H4M9 2V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </ProjectLink>
+                      )}
+                    </ProjectFooter>
+                  )}
+                </ProjectPanel>
+              )}
+            </SeasonGrid>
           </SeasonCard>
 
           <TreeNationNote variant="small">
