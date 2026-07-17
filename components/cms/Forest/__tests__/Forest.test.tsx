@@ -110,5 +110,17 @@ describe("Forest", () => {
       const { container } = renderWithTheme(<Forest {...fullStatForest} />);
       expect(getStatItems(container).length).toBe(3);
     });
+
+    it("renders the real stat values on first render, before any intersection", () => {
+      const { container } = renderWithTheme(<Forest {...fullStatForest} />);
+      const numbers = Array.from(getStatItems(container)).map(
+        (item) => item.firstElementChild?.textContent,
+      );
+      expect(numbers).toEqual([
+        String(fullStatForest.feedbackCount),
+        String(fullStatForest.treesDedicatedCount),
+        String(fullStatForest.improvementsCount),
+      ]);
+    });
   });
 });

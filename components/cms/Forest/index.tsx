@@ -68,13 +68,16 @@ export interface ForestProps {
   changelogItems?: ChangelogItem[];
 }
 
+/* Server-renders the real value (SEO, no-JS, session replays); the 0→target
+   count-up is a client-only, in-view enhancement skipped for reduced motion */
 function useAnimatedCounter(target: number, inView: boolean) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
   const started = useRef(false);
 
   useEffect(() => {
     if (!inView || started.current) return;
     started.current = true;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const duration = 1400;
     const startTime = performance.now();
     const tick = (now: number) => {
