@@ -21,17 +21,16 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 .c10 {
   display: flex;
   gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
 }
 
-.c17 {
+.c18 {
   margin: 0;
   padding: 0;
   position: relative;
 }
 
-.c11 {
+.c12 {
   color: var(--color-highlight);
   font-size: 1rem;
   line-height: 1;
@@ -39,7 +38,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c11:focus-visible {
+.c12:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -56,23 +55,27 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   align-items: center;
   display: flex;
   padding-bottom: 2rem;
-  padding-top: 3.5rem;
+  padding-top: 5.5rem;
   position: relative;
 }
 
 .c3 {
   align-items: center;
-  flex-direction: column-reverse;
-  gap: 3rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-areas: "copy" "photo" "actions";
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .c4 {
   flex: 1;
-  text-align: center;
+  grid-area: copy;
+  text-align: left;
 }
 
 .c5 {
-  margin: 0 0 1rem;
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
 }
 
 .c6 {
@@ -82,26 +85,38 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
 .c7 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1.2;
-  margin: 0 0 1.5rem;
+  margin: 0 0 0.75rem;
 }
 
 .c9 {
+  font-size: 1rem;
   line-height: 1.6;
-  margin: 0 auto 2rem;
+  margin: 0;
   max-width: 500px;
 }
 
-.c12 {
+.c11 {
+  align-items: center;
+  flex-direction: column;
+  grid-area: actions;
+}
+
+.c11 >a {
+  min-width: 180px;
+  text-align: center;
+}
+
+.c13 {
   background: var(--color-button);
   border: 2px solid transparent;
   border-radius: 4px;
@@ -114,7 +129,495 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   transition: all 0.2s ease;
 }
 
+.c13:focus-visible {
+  outline: 2px solid var(--color-headline);
+  outline-offset: 3px;
+}
+
+.c15 {
+  align-items: center;
+  border-bottom: 1px solid var(--color-paragraph);
+  color: var(--color-paragraph);
+  display: inline-flex;
+  font-size: 1rem;
+  font-weight: 700;
+  gap: 0.375rem;
+  padding: 0.875rem 0;
+  text-decoration: none;
+  transition: color 0.2s ease,border-color 0.2s ease;
+}
+
+.c15:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c14 {
+  border: 2px solid var(--color-highlight);
+  border-radius: 4px;
+  color: var(--color-highlight);
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 2rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.c14:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c16 {
+  background: linear-gradient(     135deg,     var(--color-ring-start),     var(--color-ring-end)   );
+  border-radius: 100%;
+  flex-shrink: 0;
+  grid-area: photo;
+  height: 148px;
+  justify-self: center;
+  padding: 3px;
+  width: 148px;
+}
+
+.c17 {
+  border-radius: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.c19 {
+  bottom: 2rem;
+  display: none;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  -webkit-appearance: none;
+  animation: k0 1.8s ease-in-out infinite;
+  appearance: none;
+  background: none;
+  border: none;
+  color: var(--color-highlight);
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0.5rem;
+  pointer-events: auto;
+  transition: opacity 0.4s ease;
+}
+
+.c19:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.c19:focus-visible {
+  border-radius: 100%;
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (hover: hover) {
+  .c12:hover {
+    color: var(--color-tertiary);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c0 {
+    min-height: 100svh;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c3 {
+    grid-template-areas: "copy photo" "actions photo";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    gap: 4rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c4 {
+    text-align: left;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c5 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c7 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c9 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c11 {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  .c11 >a {
+    min-width: 0;
+  }
+}
+
+@media (hover: hover) {
+  .c13:hover {
+    background: transparent;
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c15:hover {
+    border-color: var(--color-headline);
+    color: var(--color-headline);
+  }
+}
+
+@media (hover: hover) {
+  .c14:hover {
+    background: var(--color-highlight);
+    color: var(--color-button-text);
+  }
+}
+
+@media (min-width: 1200px) {
+  .c16 {
+    height: 380px;
+    width: 380px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c19 {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (hover: hover) {
+  .c19:hover {
+    opacity: 1;
+  }
+}
+
+@keyframes k0 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+<div>
+  <section
+    class="c0"
+    id="hero"
+  >
+    <section
+      class="c1"
+    >
+      <div
+        class="c2 c3"
+      >
+        <div
+          class="c4"
+        >
+          <h1
+            class="c5"
+          >
+            <span
+              class="c6"
+            >
+              Hi, I'm
+            </span>
+            Andrea Agostini
+          </h1>
+          <p
+            class="c7"
+          >
+            Senior Frontend Developer & Tech Lead
+          </p>
+          <p
+            class="c8 c9"
+          >
+            Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
+          </p>
+        </div>
+        <div
+          class="c10 c11"
+        >
+          <a
+            class="c12 c13"
+            href="#projects"
+          >
+            View Projects
+          </a>
+          <a
+            class="c12 c14"
+            href="mailto:a.agostini92@gmail.com"
+          >
+            Get in touch
+          </a>
+          <a
+            aria-label="Download CV"
+            class="c15"
+            href="https://assets.ctfassets.net/placeholder/cv.pdf"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ↓
+            </span>
+            Download CV
+          </a>
+        </div>
+        <div
+          class="c16"
+        >
+          <div
+            class="c17"
+          >
+            <figure
+              class="c18"
+            >
+              <img
+                alt="Andrea Agostini"
+                fetchpriority="high"
+                height="800"
+                sizes="(max-width: 1200px) 148px, 380px"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&f=face"
+                style="max-width: 100%; height: auto; display: block; object-fit: cover;"
+                width="800"
+              />
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+    <button
+      aria-label="Scroll down"
+      class="c19"
+    >
+      <svg
+        aria-hidden="true"
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <polyline
+          points="6 9 12 15 18 9"
+        />
+      </svg>
+    </button>
+  </section>
+</div>
+`;
+
+exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
+.c1 {
+  display: grid;
+  min-height: auto;
+  position: relative;
+  width: 100%;
+  column-gap: calc(24px);
+  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c2 {
+  display: flex;
+}
+
+.c10 {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.c17 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.c12 {
+  color: var(--color-highlight);
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
 .c12:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
+.c8 {
+  color: var(--color-paragraph);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.c0 {
+  align-items: center;
+  display: flex;
+  padding-bottom: 2rem;
+  padding-top: 5.5rem;
+  position: relative;
+}
+
+.c3 {
+  align-items: center;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-areas: "copy" "photo" "actions";
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.c4 {
+  flex: 1;
+  grid-area: copy;
+  text-align: left;
+}
+
+.c5 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+
+.c6 {
+  color: var(--color-highlight);
+  display: block;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.c7 {
+  color: var(--color-highlight);
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+.c9 {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+}
+
+.c11 {
+  align-items: center;
+  flex-direction: column;
+  grid-area: actions;
+}
+
+.c11 >a {
+  min-width: 180px;
+  text-align: center;
+}
+
+.c13 {
+  background: var(--color-button);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  color: var(--color-button-text);
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.875rem 2rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.c13:focus-visible {
   outline: 2px solid var(--color-headline);
   outline-offset: 3px;
 }
@@ -137,31 +640,15 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   outline-offset: 3px;
 }
 
-.c13 {
-  border: 2px solid var(--color-highlight);
-  border-radius: 4px;
-  color: var(--color-highlight);
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0.875rem 2rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.c13:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
 .c15 {
-  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
+  background: linear-gradient(     135deg,     var(--color-ring-start),     var(--color-ring-end)   );
   border-radius: 100%;
   flex-shrink: 0;
-  height: 240px;
-  margin-top: 2rem;
+  grid-area: photo;
+  height: 148px;
+  justify-self: center;
   padding: 3px;
-  width: 240px;
+  width: 148px;
 }
 
 .c16 {
@@ -247,26 +734,8 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 600px) {
-  .c10 {
-    justify-content: center;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c10 {
-    justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c10 {
-    justify-content: flex-start;
-  }
-}
-
 @media (hover: hover) {
-  .c11:hover {
+  .c12:hover {
     color: var(--color-tertiary);
   }
 }
@@ -281,15 +750,23 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c3 {
-    flex-direction: row;
+    grid-template-areas: "copy photo" "actions photo";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
     gap: 4rem;
-    justify-content: space-between;
   }
 }
 
 @media (min-width: 1200px) {
   .c4 {
     text-align: left;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c5 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -301,12 +778,24 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c9 {
-    margin: 0 0 2rem;
+    font-size: 1.25rem;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c11 {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  .c11 >a {
+    min-width: 0;
   }
 }
 
 @media (hover: hover) {
-  .c12:hover {
+  .c13:hover {
     background: transparent;
     border-color: var(--color-highlight);
     color: var(--color-highlight);
@@ -320,17 +809,9 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
-@media (hover: hover) {
-  .c13:hover {
-    background: var(--color-highlight);
-    color: var(--color-button-text);
-  }
-}
-
 @media (min-width: 1200px) {
   .c15 {
     height: 380px;
-    margin-top: 0;
     width: 380px;
   }
 }
@@ -393,32 +874,30 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
           >
             Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
           </p>
-          <div
-            class="c10"
+        </div>
+        <div
+          class="c10 c11"
+        >
+          <a
+            class="c12 c13"
+            href="#projects"
           >
-            <a
-              class="c11 c12"
-              href="#projects"
+            View Projects
+          </a>
+          <a
+            aria-label="Download CV"
+            class="c14"
+            href="https://assets.ctfassets.net/placeholder/cv.pdf"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span
+              aria-hidden="true"
             >
-              View Projects
-            </a>
-            <a
-              class="c11 c13"
-              href="mailto:a.agostini92@gmail.com"
-            >
-              Get in touch
-            </a>
-            <a
-              aria-label="Download CV"
-              class="c14"
-              href="https://assets.ctfassets.net/placeholder/cv.pdf"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              ↓ 
-              Download CV
-            </a>
-          </div>
+              ↓
+            </span>
+            Download CV
+          </a>
         </div>
         <div
           class="c15"
@@ -433,7 +912,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
                 alt="Andrea Agostini"
                 fetchpriority="high"
                 height="800"
-                sizes="(max-width: 1200px) 240px, 380px"
+                sizes="(max-width: 1200px) 148px, 380px"
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&f=face"
                 style="max-width: 100%; height: auto; display: block; object-fit: cover;"
                 width="800"
@@ -446,443 +925,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
     <button
       aria-label="Scroll down"
       class="c18"
-    >
-      <svg
-        aria-hidden="true"
-        fill="none"
-        height="24"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-        width="24"
-      >
-        <polyline
-          points="6 9 12 15 18 9"
-        />
-      </svg>
-    </button>
-  </section>
-</div>
-`;
-
-exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
-.c1 {
-  display: grid;
-  min-height: auto;
-  position: relative;
-  width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-}
-
-.c1 >* {
-  grid-column: 2/auto;
-}
-
-.c2 {
-  display: flex;
-}
-
-.c10 {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.c16 {
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-.c11 {
-  color: var(--color-highlight);
-  font-size: 1rem;
-  line-height: 1;
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-}
-
-.c11:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 2px;
-}
-
-.c8 {
-  color: var(--color-paragraph);
-  font-size: 1.25rem;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-}
-
-.c0 {
-  align-items: center;
-  display: flex;
-  padding-bottom: 2rem;
-  padding-top: 3.5rem;
-  position: relative;
-}
-
-.c3 {
-  align-items: center;
-  flex-direction: column-reverse;
-  gap: 3rem;
-}
-
-.c4 {
-  flex: 1;
-  text-align: center;
-}
-
-.c5 {
-  margin: 0 0 1rem;
-}
-
-.c6 {
-  color: var(--color-highlight);
-  display: block;
-  font-family: var(--font-inter),sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-}
-
-.c7 {
-  color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0 0 1.5rem;
-}
-
-.c9 {
-  line-height: 1.6;
-  margin: 0 auto 2rem;
-  max-width: 500px;
-}
-
-.c12 {
-  background: var(--color-button);
-  border: 2px solid transparent;
-  border-radius: 4px;
-  color: var(--color-button-text);
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0.875rem 2rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.c12:focus-visible {
-  outline: 2px solid var(--color-headline);
-  outline-offset: 3px;
-}
-
-.c13 {
-  align-items: center;
-  border-bottom: 1px solid var(--color-paragraph);
-  color: var(--color-paragraph);
-  display: inline-flex;
-  font-size: 1rem;
-  font-weight: 700;
-  gap: 0.375rem;
-  padding: 0.875rem 0;
-  text-decoration: none;
-  transition: color 0.2s ease,border-color 0.2s ease;
-}
-
-.c13:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-.c14 {
-  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
-  border-radius: 100%;
-  flex-shrink: 0;
-  height: 240px;
-  margin-top: 2rem;
-  padding: 3px;
-  width: 240px;
-}
-
-.c15 {
-  border-radius: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-
-.c17 {
-  bottom: 2rem;
-  display: none;
-  left: 50%;
-  position: fixed;
-  transform: translateX(-50%);
-  -webkit-appearance: none;
-  animation: k0 1.8s ease-in-out infinite;
-  appearance: none;
-  background: none;
-  border: none;
-  color: var(--color-highlight);
-  cursor: pointer;
-  opacity: 0.6;
-  padding: 0.5rem;
-  pointer-events: auto;
-  transition: opacity 0.4s ease;
-}
-
-.c17:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.c17:focus-visible {
-  border-radius: 100%;
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-@media (min-width: 600px) {
-  .c1 {
-    column-gap: calc(24px);
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-  }
-}
-
-@media (min-width: 900px) {
-  .c1 {
-    column-gap: calc(36px);
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 {
-    column-gap: calc(81px);
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 {
-    column-gap: calc(121.5px);
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
-  }
-}
-
-@media (min-width: 600px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 600px) {
-  .c10 {
-    justify-content: center;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c10 {
-    justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c10 {
-    justify-content: flex-start;
-  }
-}
-
-@media (hover: hover) {
-  .c11:hover {
-    color: var(--color-tertiary);
-  }
-}
-
-@media (min-width: 1200px) {
-  .c0 {
-    min-height: 100svh;
-    padding-bottom: 0;
-    padding-top: 0;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c3 {
-    flex-direction: row;
-    gap: 4rem;
-    justify-content: space-between;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c4 {
-    text-align: left;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c7 {
-    font-size: 2rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c9 {
-    margin: 0 0 2rem;
-  }
-}
-
-@media (hover: hover) {
-  .c12:hover {
-    background: transparent;
-    border-color: var(--color-highlight);
-    color: var(--color-highlight);
-  }
-}
-
-@media (hover: hover) {
-  .c13:hover {
-    border-color: var(--color-headline);
-    color: var(--color-headline);
-  }
-}
-
-@media (min-width: 1200px) {
-  .c14 {
-    height: 380px;
-    margin-top: 0;
-    width: 380px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c17 {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-}
-
-@media (hover: hover) {
-  .c17:hover {
-    opacity: 1;
-  }
-}
-
-@keyframes k0 {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(6px);
-  }
-}
-
-<div>
-  <section
-    class="c0"
-    id="hero"
-  >
-    <section
-      class="c1"
-    >
-      <div
-        class="c2 c3"
-      >
-        <div
-          class="c4"
-        >
-          <h1
-            class="c5"
-          >
-            <span
-              class="c6"
-            >
-              Hi, I'm
-            </span>
-            Andrea Agostini
-          </h1>
-          <p
-            class="c7"
-          >
-            Senior Frontend Developer & Tech Lead
-          </p>
-          <p
-            class="c8 c9"
-          >
-            Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
-          </p>
-          <div
-            class="c10"
-          >
-            <a
-              class="c11 c12"
-              href="#projects"
-            >
-              View Projects
-            </a>
-            <a
-              aria-label="Download CV"
-              class="c13"
-              href="https://assets.ctfassets.net/placeholder/cv.pdf"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              ↓ 
-              Download CV
-            </a>
-          </div>
-        </div>
-        <div
-          class="c14"
-        >
-          <div
-            class="c15"
-          >
-            <figure
-              class="c16"
-            >
-              <img
-                alt="Andrea Agostini"
-                fetchpriority="high"
-                height="800"
-                sizes="(max-width: 1200px) 240px, 380px"
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&f=face"
-                style="max-width: 100%; height: auto; display: block; object-fit: cover;"
-                width="800"
-              />
-            </figure>
-          </div>
-        </div>
-      </div>
-    </section>
-    <button
-      aria-label="Scroll down"
-      class="c17"
     >
       <svg
         aria-hidden="true"

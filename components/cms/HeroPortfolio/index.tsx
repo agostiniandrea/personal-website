@@ -4,7 +4,15 @@ import { useRouter } from "next/router";
 
 import styled, { keyframes } from "styled-components";
 
-import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Link,
+  Text,
+} from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
@@ -28,7 +36,7 @@ const Section = styled.section`
   align-items: center;
   display: flex;
   padding-bottom: 2rem;
-  padding-top: 3.5rem;
+  padding-top: 5.5rem;
   position: relative;
   @media (min-width: ${BREAKPOINTS.tablet}) {
     min-height: 100svh;
@@ -39,19 +47,28 @@ const Section = styled.section`
 
 const HeroGrid = styled(Flex)`
   align-items: center;
-  flex-direction: column-reverse;
-  gap: ${({ theme }) => theme.space["3xl"]};
+  display: grid;
+  gap: ${({ theme }) => theme.space.xl};
+  grid-template-areas:
+    "copy"
+    "photo"
+    "actions";
+  grid-template-columns: minmax(0, 1fr);
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    flex-direction: row;
+    grid-template-areas:
+      "copy photo"
+      "actions photo";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
     gap: ${({ theme }) => theme.space["4xl"]};
-    justify-content: space-between;
   }
 `;
 
 const TextBlock = styled(Box)`
   flex: 1;
-  text-align: center;
+  grid-area: copy;
+  text-align: left;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     text-align: left;
@@ -59,7 +76,13 @@ const TextBlock = styled(Box)`
 `;
 
 const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
-  margin: 0 0 1rem;
+  font-size: ${({ theme }) => theme.fontSizes["2xl"]};
+  margin: 0 0 ${({ theme }) => theme.space.sm};
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes["6xl"]};
+    margin-bottom: 1rem;
+  }
 `;
 
 const GreetingSpan = styled.span`
@@ -69,17 +92,17 @@ const GreetingSpan = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   letter-spacing: 0.2em;
-  margin-bottom: ${({ theme }) => theme.space.lg};
+  margin-bottom: ${({ theme }) => theme.space.sm};
   text-transform: uppercase;
 `;
 
 const Role = styled.p`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   line-height: ${({ theme }) => theme.lineHeights.normal};
-  margin: 0 0 ${({ theme }) => theme.space.xl};
+  margin: 0 0 ${({ theme }) => theme.space.md};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["2xl"]};
@@ -87,12 +110,34 @@ const Role = styled.p`
 `;
 
 const Tagline = styled(Text)`
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 0 auto ${({ theme }) => theme.space["2xl"]};
+  margin: 0;
   max-width: 500px;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    margin: 0 0 ${({ theme }) => theme.space["2xl"]};
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    margin: 0;
+  }
+`;
+
+const Actions = styled(Flex)`
+  align-items: center;
+  flex-direction: column;
+  grid-area: actions;
+
+  > a {
+    min-width: 180px;
+    text-align: center;
+  }
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    align-items: flex-start;
+    flex-direction: row;
+
+    > a {
+      min-width: 0;
+    }
   }
 `;
 
@@ -132,7 +177,9 @@ const CvLink = styled.a`
   gap: 0.375rem;
   padding: 0.875rem 0;
   text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 
   @media (hover: hover) {
     &:hover {
@@ -172,17 +219,21 @@ const SecondaryLink = styled(Link)`
 `;
 
 const PhotoOuter = styled.div`
-  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
+  background: linear-gradient(
+    135deg,
+    var(--color-ring-start),
+    var(--color-ring-end)
+  );
   border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
-  height: 240px;
-  margin-top: ${({ theme }) => theme.space["2xl"]};
+  grid-area: photo;
+  height: 148px;
+  justify-self: center;
   padding: 3px;
-  width: 240px;
+  width: 148px;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     height: 380px;
-    margin-top: 0;
     width: 380px;
   }
 `;
@@ -225,10 +276,14 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   transition: opacity 0.4s ease;
 
   @media (hover: hover) {
-    &:hover { opacity: 1; }
+    &:hover {
+      opacity: 1;
+    }
   }
 
-  &:focus:not(:focus-visible) { outline: none; }
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 
   &:focus-visible {
     border-radius: ${({ theme }) => theme.radii.rounded};
@@ -261,10 +316,15 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   }, []);
 
   const scrollDown = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById("about")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     if (!href.startsWith("#")) return;
     e.preventDefault();
     const el = document.getElementById(href.slice(1));
@@ -273,22 +333,24 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
 
   return (
     <>
-    <Section id="hero">
-      <Container>
-        <HeroGrid>
-          <TextBlock>
-            <Name>
-              <GreetingSpan>{greeting}</GreetingSpan>
-              {personName}
-            </Name>
-            <Role>{role}</Role>
-            <Tagline variant="large">{tagline}</Tagline>
-            <Flex
-              gap="lg"
-              wrap="wrap"
-              justifyContent={["center", undefined, "flex-start"]}
-            >
-              <PrimaryLink href={ctaPrimaryUrl} onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}>{ctaPrimaryLabel}</PrimaryLink>
+      <Section id="hero">
+        <Container>
+          <HeroGrid>
+            <TextBlock>
+              <Name>
+                <GreetingSpan>{greeting}</GreetingSpan>
+                {personName}
+              </Name>
+              <Role>{role}</Role>
+              <Tagline variant="large">{tagline}</Tagline>
+            </TextBlock>
+            <Actions gap="lg" wrap="wrap">
+              <PrimaryLink
+                href={ctaPrimaryUrl}
+                onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}
+              >
+                {ctaPrimaryLabel}
+              </PrimaryLink>
               {ctaSecondaryLabel && ctaSecondaryUrl && (
                 <SecondaryLink
                   href={ctaSecondaryUrl}
@@ -306,38 +368,54 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={cvDownloadLabel}
-                  onClick={() => trackEvent("cv_downloaded", { locale: locale ?? "en" })}
+                  onClick={() =>
+                    trackEvent("cv_downloaded", { locale: locale ?? "en" })
+                  }
                 >
-                  ↓ {cvDownloadLabel}
+                  <span aria-hidden="true">↓</span>
+                  {cvDownloadLabel}
                 </CvLink>
               )}
-            </Flex>
-          </TextBlock>
-          <PhotoOuter>
-            <PhotoWrapper>
-              <Image
-                src={contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" })}
-                alt={image.alt || personName}
-                priority
-                fetchPriority="high"
-                width={800}
-                height={800}
-                sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
-              />
-            </PhotoWrapper>
-          </PhotoOuter>
-        </HeroGrid>
-      </Container>
-      <ScrollHint
-        $visible={!scrolled}
-        onClick={scrollDown}
-        aria-label={t.scrollDown}
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </ScrollHint>
-    </Section>
+            </Actions>
+            <PhotoOuter>
+              <PhotoWrapper>
+                <Image
+                  src={contentfulImageUrl(image.url, {
+                    width: 800,
+                    height: 800,
+                    focus: "face",
+                  })}
+                  alt={image.alt || personName}
+                  priority
+                  fetchPriority="high"
+                  width={800}
+                  height={800}
+                  sizes={`(max-width: ${BREAKPOINTS.tablet}) 148px, 380px`}
+                />
+              </PhotoWrapper>
+            </PhotoOuter>
+          </HeroGrid>
+        </Container>
+        <ScrollHint
+          $visible={!scrolled}
+          onClick={scrollDown}
+          aria-label={t.scrollDown}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </ScrollHint>
+      </Section>
     </>
   );
 };
