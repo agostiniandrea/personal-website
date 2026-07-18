@@ -20,6 +20,35 @@ test("site footer is present", async ({ page }) => {
   await expect(page.getByRole("contentinfo")).toBeAttached();
 });
 
+test("desktop Forest teaser is inline after Work and before Skills", async ({ page }) => {
+  await page.goto("/");
+  const teaser = page.getByTestId("forest-teaser");
+  await expect(teaser).toBeVisible();
+  await expect(teaser).toContainText("Thoughtful feedback grows into real trees.");
+  await expect(teaser).toContainText(/trees planted through portfolio feedback/);
+  await expect(
+    page.locator("#projects ~ [data-testid='forest-teaser']"),
+  ).toHaveCount(1);
+  const order = await page.locator("#projects, [data-testid='forest-teaser'], #skills").evaluateAll(
+    (elements) => elements.map((element) => element.id || element.getAttribute("data-testid")),
+  );
+  expect(order).toEqual(["projects", "forest-teaser", "skills"]);
+});
+
+test("feedback nudge suppresses back to top and clears project actions", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => window.scrollTo(0, 700));
+  const nudge = page.getByTestId("feedback-nudge");
+  await expect(nudge).toBeVisible();
+  await expect(page.getByRole("button", { name: "Scroll to top" })).toHaveCSS(
+    "opacity",
+    "0",
+  );
+
+  await page.locator("#projects").scrollIntoViewIfNeeded();
+  await expect(nudge).toHaveCount(0);
+});
+
 test.describe("mobile app navigation accessibility", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
@@ -60,6 +89,27 @@ test.describe("mobile app navigation accessibility", () => {
 
     await expect(localeButton).toBeFocused();
   });
+
+  for (const width of [320, 375, 390, 430]) {
+    test(`Italian More sheet stays within a ${width}px viewport`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 568 });
+      await page.goto("/it");
+      await page.getByRole("button", { name: "Altro" }).click();
+      const dialog = page.getByRole("dialog", { name: "Esplora" });
+      await expect(dialog).toBeVisible();
+      const bounds = await dialog.boundingBox();
+      expect(bounds).not.toBeNull();
+      expect(bounds!.x).toBeGreaterThanOrEqual(0);
+      expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+      expect(bounds!.y).toBeGreaterThanOrEqual(0);
+      const navTop = await page.getByRole("navigation", { name: "Navigazione mobile" }).evaluate(
+        (element) => element.getBoundingClientRect().top,
+      );
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(navTop + 1);
+      await expect(dialog.getByRole("heading", { name: "Esplora" })).toBeVisible();
+      await expect(dialog.getByRole("button", { name: "Chiudi menu" })).toBeVisible();
+    });
+  }
 
   test("tab navigation uses the canonical Work hash", async ({ page }) => {
     await page.goto("/");

@@ -20,6 +20,12 @@ export interface SiteHeaderProps {
 
 // Sections not in the nav that still count toward a nav link's active state
 const SECTION_TO_NAV: Record<string, string> = {};
+const LEGACY_HOME_ANCHOR = ["#", "hero"].join("");
+
+const canonicalNavUrl = (url: string) =>
+  url.endsWith(LEGACY_HOME_ANCHOR)
+    ? url.slice(0, -LEGACY_HOME_ANCHOR.length) || "/"
+    : url;
 
 const Header = styled.header<{ $scrolled: boolean }>`
   background: ${({ theme }) => theme.colors.background};
@@ -132,6 +138,18 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   };
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.endsWith(LEGACY_HOME_ANCHOR) || href === "/") {
+      if (router.pathname !== "/") return;
+      e.preventDefault();
+      window.history.pushState(
+        { ...window.history.state, mobileView: "home", storySub: "journey" },
+        "",
+        `${window.location.pathname}${window.location.search}`,
+      );
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setActiveSection("/");
+      return;
+    }
     if (!href.startsWith("#")) return;
     e.preventDefault();
     const id = href.slice(1);
@@ -156,8 +174,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   useEffect(() => {
     const anchorIds = [
       ...navLinks
-        .filter((l) => l.url.startsWith("#"))
-        .map((l) => l.url.slice(1)),
+        .map((link) => canonicalNavUrl(link.url))
+        .filter((url) => url.startsWith("#"))
+        .map((url) => url.slice(1)),
       ...Object.keys(SECTION_TO_NAV),
     ];
 
@@ -187,14 +206,24 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
       <Header $scrolled={scrolled}>
         <Container>
           <Flex justifyContent="space-between" alignItems="center">
-            <Logo href="/">{logoText}</Logo>
+            <Logo href="/" onClick={(e) => handleAnchorClick(e, "/")}>
+              {logoText}
+            </Logo>
             <Flex alignItems="center" gap="lg">
               <DesktopNav aria-label={t.mainNavigation}>
-                {navLinks.map((link) => (
-                  <NavLink key={link.url} href={link.url} $active={activeSection === link.url} onClick={(e) => handleAnchorClick(e, link.url)}>
-                    {link.label}
-                  </NavLink>
-                ))}
+                {navLinks.map((link) => {
+                  const url = canonicalNavUrl(link.url);
+                  return (
+                    <NavLink
+                      key={link.url}
+                      href={url}
+                      $active={activeSection === url}
+                      onClick={(e) => handleAnchorClick(e, link.url)}
+                    >
+                      {link.label}
+                    </NavLink>
+                  );
+                })}
               </DesktopNav>
               {/* Visible at every width: mobile navigation lives in the bottom
                   tab bar, but the language switch stays in the header */}

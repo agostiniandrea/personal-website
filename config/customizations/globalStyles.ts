@@ -200,7 +200,7 @@ const GlobalStyle = createGlobalStyle`
 
       /* Room for the fixed bottom navigation (+ iOS home indicator) */
       html[data-mobile-view] main {
-        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom) + 1.5rem);
       }
       html[data-mobile-view] footer[role="contentinfo"] {
         padding-bottom: calc(1.5rem + 4.5rem + env(safe-area-inset-bottom));

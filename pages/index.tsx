@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 
 import { Seo } from "@components/atoms";
 import { SiteFooter,SiteHeader } from "@components/cms";
-import { ForestTeaser } from "@components/molecules";
+import { FeedbackNudge } from "@components/molecules";
 import { MobileNav, ModuleRenderer, SectionDots } from "@components/organisms";
 import { MODULES,PAGE_TYPES } from "@constants";
 import {
@@ -150,7 +150,7 @@ export default function Home({ page, header, footer, locale }: THomepage) {
         <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
       </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
-      <ForestTeaser />
+      <FeedbackNudge />
       <MobileNav cvDownloadUrl={extractCvUrl(page)} />
     </>
   );

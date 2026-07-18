@@ -1,33 +1,33 @@
-import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, screen } from "@testing-library/react";
 
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import ForestTeaser from "../index";
 
 describe("ForestTeaser", () => {
-  it("renders the desktop Forest preview copy", () => {
-    renderWithTheme(<ForestTeaser />);
+  it("renders localized, data-driven inline Forest copy", () => {
+    renderWithTheme(<ForestTeaser feedbackTrees={4} totalTrees={34} />);
     expect(
-      screen.getByRole("complementary", {
-        name: "Ideas that grow into trees.",
+      screen.getByRole("heading", {
+        name: "Thoughtful feedback grows into real trees.",
+        hidden: true,
       }),
     ).toBeInTheDocument();
+    expect(screen.getByText(/4 trees planted.*34 trees/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /see how it grows/i }),
+      screen.getByRole("button", { name: /explore the forest/i, hidden: true }),
     ).toBeInTheDocument();
   });
 
   it("scrolls to Forest without adding a URL hash", async () => {
-    const user = userEvent.setup();
     const forest = document.createElement("section");
     forest.id = "forest";
     forest.scrollIntoView = jest.fn();
     document.body.appendChild(forest);
-    renderWithTheme(<ForestTeaser />);
+    renderWithTheme(<ForestTeaser feedbackTrees={4} totalTrees={34} />);
 
-    await user.click(
-      screen.getByRole("button", { name: /see how it grows/i }),
+    fireEvent.click(
+      screen.getByRole("button", { name: /explore the forest/i, hidden: true }),
     );
 
     expect(forest.scrollIntoView).toHaveBeenCalledWith({
@@ -38,16 +38,9 @@ describe("ForestTeaser", () => {
     forest.remove();
   });
 
-  it("can be dismissed", async () => {
-    const user = userEvent.setup();
+  it("is an inline region without a dismiss control", () => {
     renderWithTheme(<ForestTeaser />);
-    await user.click(
-      screen.getByRole("button", { name: "Dismiss Forest preview" }),
-    );
-    expect(
-      screen.queryByRole("complementary", {
-        name: "Ideas that grow into trees.",
-      }),
-    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("forest-teaser")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /dismiss/i })).not.toBeInTheDocument();
   });
 });
