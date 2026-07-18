@@ -15,12 +15,17 @@ interface StyledBadgeProps {
   $size: "sm" | "md";
 }
 
+/* Passive tag: never suggest interactivity (no pointer cursor, no mobile
+   tap flash) — these are labels, not buttons or filters */
 const StyledBadge = styled(Text)<StyledBadgeProps>`
+  -webkit-tap-highlight-color: transparent;
   background: ${({ theme }) => theme.colors.badgeBg};
   border: 1px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.full};
   color: ${({ theme }) => theme.colors.paragraph};
+  cursor: default;
   display: inline-block;
+  user-select: none;
 
   ${({ $size, theme }) =>
     $size === "sm"

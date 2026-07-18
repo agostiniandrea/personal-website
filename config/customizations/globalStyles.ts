@@ -1,5 +1,30 @@
 import { createGlobalStyle, css } from "styled-components";
 
+import { VIEW_SECTIONS } from "@lib/utils/mobileNav";
+
+/* App-like mobile tabs: below the desktop-nav breakpoint, when the
+   pre-hydration script has resolved a view, only that view's sections stay
+   visible. Without JS the attribute is absent and the page keeps its full
+   one-page layout. */
+const MANAGED_SECTION_IDS = Array.from(
+  new Set(Object.values(VIEW_SECTIONS).flat())
+);
+
+const mobileTabRules = Object.entries(VIEW_SECTIONS)
+  .map(([view, visible]) => {
+    const hidden = MANAGED_SECTION_IDS.filter((id) => !visible.includes(id));
+    const selectors = hidden
+      .map((id) => `html[data-mobile-view="${view}"] main #${id}`)
+      .join(",\n");
+    return `${selectors} { display: none; }`;
+  })
+  .join("\n");
+
+const storySubRules = `
+  html[data-mobile-view="story"][data-story-sub="journey"] main #experience { display: none; }
+  html[data-mobile-view="story"][data-story-sub="experience"] main #journey { display: none; }
+`;
+
 const GlobalStyle = createGlobalStyle`
   :root {
     --font-inter: "Inter", sans-serif;
@@ -166,6 +191,19 @@ const GlobalStyle = createGlobalStyle`
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 899.98px) {
+      ${mobileTabRules}
+      ${storySubRules}
+
+      /* Room for the fixed bottom navigation (+ iOS home indicator) */
+      html[data-mobile-view] main {
+        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+      }
+      html[data-mobile-view] footer[role="contentinfo"] {
+        padding-bottom: calc(1.5rem + 4.5rem + env(safe-area-inset-bottom));
       }
     }
   `}

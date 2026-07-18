@@ -21,9 +21,7 @@ describe("HeroPortfolio", () => {
 
   it("renders the greeting text", () => {
     renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
-    expect(
-      screen.getByText(defaultHeroPortfolio.greeting),
-    ).toBeInTheDocument();
+    expect(screen.getByText(defaultHeroPortfolio.greeting)).toBeInTheDocument();
   });
 
   it("renders the name as h1", () => {
@@ -49,7 +47,10 @@ describe("HeroPortfolio", () => {
       name: defaultHeroPortfolio.ctaPrimaryLabel,
     });
     expect(primaryLink).toBeInTheDocument();
-    expect(primaryLink).toHaveAttribute("href", defaultHeroPortfolio.ctaPrimaryUrl);
+    expect(primaryLink).toHaveAttribute(
+      "href",
+      defaultHeroPortfolio.ctaPrimaryUrl,
+    );
   });
 
   it("renders the secondary CTA when provided", () => {
@@ -84,7 +85,9 @@ describe("HeroPortfolio", () => {
     window.gtag = jest.fn();
     renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
 
-    const contactLink = screen.getByRole("link", { name: defaultHeroPortfolio.ctaSecondaryLabel });
+    const contactLink = screen.getByRole("link", {
+      name: defaultHeroPortfolio.ctaSecondaryLabel,
+    });
     contactLink.addEventListener("click", (event) => event.preventDefault());
     await user.click(contactLink);
 
@@ -100,7 +103,9 @@ describe("HeroPortfolio", () => {
     window.gtag = jest.fn();
     renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
 
-    const cvLink = screen.getByRole("link", { name: defaultHeroPortfolio.cvDownloadLabel });
+    const cvLink = screen.getByRole("link", {
+      name: defaultHeroPortfolio.cvDownloadLabel,
+    });
     cvLink.addEventListener("click", (event) => event.preventDefault());
     await user.click(cvLink);
 

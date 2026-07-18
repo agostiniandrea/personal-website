@@ -70,11 +70,14 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c16 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
@@ -533,11 +536,14 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c16 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }

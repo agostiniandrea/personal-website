@@ -50,11 +50,14 @@ exports[`About renders correctly with all props 1`] = `
 }
 
 .c9 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
 }

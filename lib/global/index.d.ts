@@ -1,5 +1,6 @@
 declare global {
   interface Window {
+    clarity?: (command: "event", eventName: string) => void;
     gtag?: (
       command: "event",
       eventName: string,
