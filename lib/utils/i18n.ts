@@ -3,11 +3,16 @@ type Locale = "en" | "it";
 const strings = {
   en: {
     closeMenu: "Close menu",
+    co2LifetimeSuffix: "lifetime estimate",
+    co2TooltipBody:
+      "Estimated CO₂ capture over the trees’ expected lifetime, based on Tree-Nation data.",
+    co2TooltipLabel: "About the CO₂ estimate",
     goTo: (label: string) => `Go to ${label}`,
     mainNavigation: "Main navigation",
     mobileNavigation: "Mobile navigation",
     navigationMenu: "Navigation menu",
     openMenu: "Open menu",
+    speciesLabel: "species",
     scrollDown: "Scroll down",
     scrollToTop: "Scroll to top",
     sectionNavigation: "Section navigation",
@@ -17,11 +22,16 @@ const strings = {
   },
   it: {
     closeMenu: "Chiudi menu",
+    co2LifetimeSuffix: "stima sul ciclo di vita",
+    co2TooltipBody:
+      "Stima della CO₂ assorbita durante il ciclo di vita previsto degli alberi, basata sui dati di Tree-Nation.",
+    co2TooltipLabel: "Informazioni sulla stima della CO₂",
     goTo: (label: string) => `Vai a ${label}`,
     mainNavigation: "Navigazione principale",
     mobileNavigation: "Navigazione mobile",
     navigationMenu: "Menu di navigazione",
     openMenu: "Apri menu",
+    speciesLabel: "specie",
     scrollDown: "Scorri verso il basso",
     scrollToTop: "Torna all'inizio",
     sectionNavigation: "Navigazione sezioni",
@@ -37,13 +47,13 @@ export function useI18n(locale?: string) {
 }
 
 export const SECTION_LABELS: Record<string, Record<Locale, string>> = {
-  "about":          { en: "About",          it: "Chi sono" },
-  "beyond-code":    { en: "Beyond Code",    it: "Oltre il codice" },
-  "experience":     { en: "Experience",     it: "Esperienza" },
-  "forest":         { en: "Forest",         it: "Foresta" },
-  "hero":           { en: "Home",           it: "Home" },
-  "journey":        { en: "Journey",        it: "Percorso" },
-  "projects":       { en: "Projects",       it: "Progetti" },
-  "skills":         { en: "Skills",         it: "Competenze" },
-  "sustainability": { en: "Sustainability", it: "Sostenibilità" },
+  about: { en: "About", it: "Chi sono" },
+  "beyond-code": { en: "Beyond Code", it: "Oltre il codice" },
+  experience: { en: "Experience", it: "Esperienza" },
+  forest: { en: "Forest", it: "Foresta" },
+  hero: { en: "Home", it: "Home" },
+  journey: { en: "Journey", it: "Percorso" },
+  projects: { en: "Projects", it: "Progetti" },
+  skills: { en: "Skills", it: "Competenze" },
+  sustainability: { en: "Sustainability", it: "Sostenibilità" },
 };

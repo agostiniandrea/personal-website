@@ -1,9 +1,18 @@
 import { ForestProps, OriginItem } from "./index";
 
 export const defaultOriginItems: OriginItem[] = [
-  { date: "May 2026",  text: "🌱  Started planting trees every month — a personal commitment, before any portfolio." },
-  { date: "July 2026", text: "🌳  Forest was born. The portfolio invites others to become part of that journey." },
-  { date: "Today",     text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me." },
+  {
+    date: "May 2026",
+    text: "🌱  Started planting trees every month — a personal commitment, before any portfolio.",
+  },
+  {
+    date: "July 2026",
+    text: "🌳  Forest was born. The portfolio invites others to become part of that journey.",
+  },
+  {
+    date: "Today",
+    text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me.",
+  },
 ];
 
 export const defaultForest: ForestProps = {
@@ -19,7 +28,8 @@ export const defaultForest: ForestProps = {
   treeCount: 34,
   treeCountTitle: "My Forest",
   ctaHeading: "Help this portfolio grow.",
-  ctaBody: "Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.",
+  ctaBody:
+    "Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.",
   ctaButtonLabel: "🌱 Plant a leaf",
   seasonName: "Season One",
   seasonCurrentLabel: "Trees planted through portfolio feedback",
@@ -33,8 +43,11 @@ export const defaultForest: ForestProps = {
   seasonProjectName: "Community Reforestation in Indonesia",
   seasonProjectMeta: "Indonesia · Tropical community reforestation",
   seasonProjectStats: "4 trees · 1.5 t CO₂ · 2 species",
+  seasonProjectTreesCount: 4,
+  seasonProjectCo2Kg: 1500,
   seasonProjectSpecies: ["Sengon", "Kadamba"],
-  seasonProjectUrl: "https://tree-nation.com/projects/community-reforestation-in-indonesia",
+  seasonProjectUrl:
+    "https://tree-nation.com/projects/community-reforestation-in-indonesia",
   seasonProjectLinkLabel: "View project",
   changelogItems: [],
 };
