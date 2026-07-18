@@ -152,8 +152,22 @@ test("desktop sections and keyboard dot navigation follow the approved order", a
 
 test("feedback nudge suppresses back to top and clears project actions", async ({ page }) => {
   await page.goto("/");
-  await page.evaluate(() => window.scrollTo(0, 700));
   const nudge = page.getByTestId("feedback-nudge");
+  await expect(nudge).toBeVisible();
+
+  await page.evaluate(() => {
+    const projectsTop = document.getElementById("projects")!.offsetTop;
+    const lastSafeScrollPosition = projectsTop - window.innerHeight - 24;
+    window.scrollTo(0, Math.max(401, lastSafeScrollPosition));
+  });
+  await expect
+    .poll(() =>
+      page.locator("#projects").evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.top >= window.innerHeight || bounds.bottom <= 0;
+      }),
+    )
+    .toBe(true);
   await expect(nudge).toBeVisible();
   await expect(page.getByRole("button", { name: "Scroll to top" })).toHaveCSS(
     "opacity",
