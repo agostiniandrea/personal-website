@@ -30,6 +30,9 @@ describe("ForestTeaser", () => {
       screen.getByRole("button", { name: /explore the forest/i, hidden: true }),
     );
 
+    expect(sessionStorage.getItem("forest-inline-teaser-engaged")).toBe(
+      "true",
+    );
     expect(forest.scrollIntoView).toHaveBeenCalledWith({
       behavior: "smooth",
       block: "start",

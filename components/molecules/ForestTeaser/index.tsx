@@ -17,34 +17,73 @@ const Root = styled.section`
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: block;
-    padding: ${({ theme }) => theme.space.xl} 0;
+    padding: ${({ theme }) => theme.space.md} 0;
   }
 `;
 
 const Panel = styled.div`
+  --teaser-art: #0f766e;
+  --teaser-ink: #0a0a0f;
+  --teaser-muted: #485650;
+  --teaser-surface-end: #dfeadd;
+  --teaser-surface-start: #eaf1e6;
+
   align-items: center;
-  background: linear-gradient(112deg, #f7f8f3 0%, #f1f5ef 58%, #eaf2ec 100%);
+  background: linear-gradient(
+    112deg,
+    var(--teaser-surface-start) 0%,
+    #e6eee2 58%,
+    var(--teaser-surface-end) 100%
+  );
   border: 1px solid rgba(15, 118, 110, 0.34);
   border-radius: ${({ theme }) => theme.radii.lg};
+  box-sizing: border-box;
   box-shadow: 0 18px 48px rgba(31, 55, 47, 0.08);
-  color: #0a0a0f;
-  display: flex;
-  min-height: 270px;
+  color: var(--teaser-ink);
+  display: grid;
+  grid-template-columns: minmax(0, 65%) minmax(0, 35%);
+  height: clamp(260px, 21vw, 276px);
   overflow: hidden;
-  padding: clamp(2.25rem, 4.5vw, 4rem);
+  padding: clamp(2.5rem, 3.5vw, 3rem) clamp(3rem, 4vw, 3.5rem);
   position: relative;
+
+  @media (prefers-color-scheme: dark) {
+    --teaser-art: #5eead4;
+    --teaser-ink: #f5faf7;
+    --teaser-muted: #c4d3cd;
+    --teaser-surface-end: #19362f;
+    --teaser-surface-start: #203c34;
+
+    border-color: rgba(94, 234, 212, 0.3);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+  }
+
+  :root[data-theme="light"] & {
+    --teaser-art: #0f766e;
+    --teaser-ink: #0a0a0f;
+    --teaser-muted: #485650;
+    --teaser-surface-end: #dfeadd;
+    --teaser-surface-start: #eaf1e6;
+  }
+
+  :root[data-theme="dark"] & {
+    --teaser-art: #5eead4;
+    --teaser-ink: #f5faf7;
+    --teaser-muted: #c4d3cd;
+    --teaser-surface-end: #19362f;
+    --teaser-surface-start: #203c34;
+  }
 `;
 
 const Copy = styled.div`
-  max-width: 650px;
+  max-width: 700px;
   position: relative;
-  width: 58%;
   z-index: 1;
 `;
 
 const Eyebrow = styled.p`
   align-items: center;
-  color: #0f5f58;
+  color: var(--teaser-art);
   display: flex;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -60,21 +99,21 @@ const Sprout = styled.svg`
 `;
 
 const Heading = styled.h2`
-  color: #0a0a0f;
+  color: var(--teaser-ink);
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-size: clamp(2.25rem, calc(2vw + 1.25rem), 2.75rem);
   line-height: ${({ theme }) => theme.lineHeights.tight};
   margin-bottom: ${({ theme }) => theme.space.md};
 `;
 
 const Metric = styled.p`
-  color: #4d5853;
+  color: var(--teaser-muted);
   font-size: ${({ theme }) => theme.fontSizes.md};
   margin-bottom: ${({ theme }) => theme.space.xl};
 `;
 
 const Cta = styled.button`
-  color: #0b615a;
+  color: var(--teaser-art);
   cursor: pointer;
   font-family: inherit;
   font-size: ${({ theme }) => theme.fontSizes.md};
@@ -82,18 +121,24 @@ const Cta = styled.button`
   padding: 0;
 
   &:focus-visible {
-    outline-color: #101812;
+    outline-color: var(--teaser-ink);
   }
 `;
 
+const ArtworkColumn = styled.div`
+  align-self: stretch;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+`;
+
 const Artwork = styled.svg`
-  bottom: -30px;
-  color: #0f766e;
-  height: 330px;
-  opacity: 0.17;
+  color: var(--teaser-art);
+  height: 100%;
+  inset: 0;
+  opacity: 0.1;
   position: absolute;
-  right: -38px;
-  width: min(52%, 650px);
+  width: 100%;
 `;
 
 const ForestTeaser: React.FC<ForestTeaserProps> = ({
@@ -104,6 +149,8 @@ const ForestTeaser: React.FC<ForestTeaserProps> = ({
   const t = useI18n(router.locale);
 
   const openForest = () => {
+    sessionStorage.setItem("forest-inline-teaser-engaged", "true");
+    window.dispatchEvent(new Event("forest-inline-teaser-engaged"));
     trackEvent("forest_teaser_click", { locale: router.locale ?? "en" });
     document.getElementById("forest")?.scrollIntoView({
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -116,8 +163,8 @@ const ForestTeaser: React.FC<ForestTeaserProps> = ({
   return (
     <Root aria-labelledby="forest-teaser-heading" data-testid="forest-teaser">
       <Container>
-        <Panel>
-          <Copy>
+        <Panel data-testid="forest-teaser-panel">
+          <Copy data-testid="forest-teaser-copy">
             <Eyebrow>
               <Sprout viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 21V10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
@@ -130,7 +177,8 @@ const ForestTeaser: React.FC<ForestTeaserProps> = ({
             <Metric>{t.forestInlineMetric(feedbackTrees, totalTrees)}</Metric>
             <Cta onClick={openForest}>{t.forestInlineCta} →</Cta>
           </Copy>
-          <Artwork viewBox="0 0 650 330" fill="none" aria-hidden="true">
+          <ArtworkColumn data-testid="forest-teaser-artwork">
+          <Artwork viewBox="0 0 650 330" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
             <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
               <path d="M34 188c111-18 181-66 254-133 56-51 119-48 202-27 49 13 91 12 139-8" strokeWidth="2.2" />
               <path d="M168 132c-6-36 2-69 25-101M228 94c21-31 47-50 79-57M287 56c17 17 42 28 74 31M361 37c22 24 55 38 97 42M444 41c25-8 51-8 79 1M118 158c-24-3-49 2-74 16" strokeWidth="1.55" />
@@ -161,6 +209,7 @@ const ForestTeaser: React.FC<ForestTeaserProps> = ({
               <path d="M551 332c0-10 3-20 10-26 7-7 18-8 27-4 12 6 17 19 12 30" />
             </g>
           </Artwork>
+          </ArtworkColumn>
         </Panel>
       </Container>
     </Root>

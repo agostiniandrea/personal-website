@@ -39,6 +39,82 @@ test("desktop Forest teaser is inline after Work and before Skills", async ({ pa
   expect(order).toEqual(["projects", "forest-teaser", "skills"]);
 });
 
+for (const width of [1024, 1280, 1440, 1920]) {
+  for (const colorScheme of ["light", "dark"] as const) {
+    test(`desktop Forest teaser stays compact at ${width}px in ${colorScheme} mode`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.emulateMedia({ colorScheme });
+      await page.goto("/");
+
+      const teaser = page.getByTestId("forest-teaser");
+      const panel = page.getByTestId("forest-teaser-panel");
+      const artwork = page.getByTestId("forest-teaser-artwork");
+      await teaser.scrollIntoViewIfNeeded();
+      await expect(teaser).toBeVisible();
+      await expect(page.getByTestId("feedback-nudge")).toHaveCount(0);
+
+      const layout = await panel.evaluate((element) => {
+        const panelRect = element.getBoundingClientRect();
+        const copyRect = element
+          .querySelector('[data-testid="forest-teaser-copy"]')!
+          .getBoundingClientRect();
+        const artworkRect = element
+          .querySelector('[data-testid="forest-teaser-artwork"]')!
+          .getBoundingClientRect();
+        const heading = element.querySelector("h2")!;
+        const headingStyle = getComputedStyle(heading);
+        const panelStyle = getComputedStyle(element);
+        return {
+          artworkEnd: artworkRect.right,
+          artworkStart: artworkRect.left,
+          background: panelStyle.backgroundImage,
+          copyStart: copyRect.left,
+          headingFontSize: parseFloat(headingStyle.fontSize),
+          headingLines:
+            heading.getBoundingClientRect().height /
+            parseFloat(headingStyle.lineHeight),
+          panelEnd: panelRect.right,
+          panelHeight: panelRect.height,
+          panelStart: panelRect.left,
+        };
+      });
+
+      expect(layout.panelHeight).toBeGreaterThanOrEqual(260);
+      expect(layout.panelHeight).toBeLessThanOrEqual(280);
+      expect(layout.background).toContain("linear-gradient");
+      expect(layout.headingFontSize).toBeGreaterThanOrEqual(40);
+      expect(layout.headingFontSize).toBeLessThanOrEqual(44);
+      expect(layout.headingLines).toBeLessThanOrEqual(2.1);
+      expect(layout.copyStart).toBeGreaterThan(layout.panelStart);
+      expect(layout.artworkStart).toBeGreaterThan(
+        layout.panelStart + (layout.panelEnd - layout.panelStart) * 0.58,
+      );
+      expect(layout.artworkEnd).toBeLessThanOrEqual(layout.panelEnd);
+      await expect(artwork.locator("svg")).toHaveCSS("opacity", "0.1");
+    });
+  }
+}
+
+test("using the inline Forest teaser suppresses the feedback nudge for the session", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const teaser = page.getByTestId("forest-teaser");
+  await teaser.scrollIntoViewIfNeeded();
+  await teaser.getByRole("button", { name: /explore the forest/i }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        sessionStorage.getItem("forest-inline-teaser-engaged"),
+      ),
+    )
+    .toBe("true");
+  await page.evaluate(() => window.scrollTo(0, 700));
+  await expect(page.getByTestId("feedback-nudge")).toHaveCount(0);
+});
+
 test("desktop sections and keyboard dot navigation follow the approved order", async ({ page }) => {
   await page.goto("/");
   const sectionOrder = await page.locator("main > section[id]").evaluateAll(

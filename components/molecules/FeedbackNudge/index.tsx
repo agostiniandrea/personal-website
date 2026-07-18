@@ -97,8 +97,14 @@ const FeedbackNudge: React.FC = () => {
   const router = useRouter();
   const t = useI18n(router.locale);
   const [dismissed, setDismissed] = useState(false);
+  const [inlineTeaserVisible, setInlineTeaserVisible] = useState(false);
   const [projectActionsVisible, setProjectActionsVisible] = useState(false);
-  const visible = !dismissed && !projectActionsVisible;
+  const [teaserEngaged, setTeaserEngaged] = useState(false);
+  const visible =
+    !dismissed &&
+    !inlineTeaserVisible &&
+    !projectActionsVisible &&
+    !teaserEngaged;
 
   useEffect(() => {
     const projects = document.getElementById("projects");
@@ -109,6 +115,27 @@ const FeedbackNudge: React.FC = () => {
     );
     observer.observe(projects);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    setTeaserEngaged(
+      sessionStorage.getItem("forest-inline-teaser-engaged") === "true",
+    );
+    const teaser = document.querySelector('[data-testid="forest-teaser"]');
+    if (!teaser) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInlineTeaserVisible(entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    observer.observe(teaser);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onEngaged = () => setTeaserEngaged(true);
+    window.addEventListener("forest-inline-teaser-engaged", onEngaged);
+    return () =>
+      window.removeEventListener("forest-inline-teaser-engaged", onEngaged);
   }, []);
 
   useEffect(() => {
