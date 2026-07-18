@@ -1,11 +1,10 @@
-import { useEffect, useRef,useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
 import { Button, Container, Flex, Link } from "@components/ions";
-import { Drawer, DrawerTopBar, Overlay } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 
@@ -80,25 +79,6 @@ const NavLink = styled(Link)<{ $active: boolean }>`
   }
 `;
 
-const IconButton = styled(Button)`
-  align-items: center;
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.colors.headline};
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  min-height: 44px;
-  min-width: 44px;
-  padding: ${({ theme }) => theme.space.sm};
-`;
-
-const HamburgerButton = styled(IconButton)`
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    display: none;
-  }
-`;
-
 const LocaleButton = styled(Button)`
   align-items: center;
   background: none;
@@ -139,28 +119,9 @@ const LocaleButton = styled(Button)`
   }
 `;
 
-const DrawerLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.space.xl};
-  overflow-y: auto;
-  padding: ${({ theme }) => theme.space.xl};
-`;
-
-const DrawerLocaleButton = styled(LocaleButton)`
-  align-self: flex-start;
-  margin-bottom: 1.5rem;
-  margin-left: 1.5rem;
-  margin-top: auto;
-`;
-
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const drawerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const t = useI18n(router.locale);
   const nextLocale = router.locale === "en" ? "it" : "en";
@@ -185,9 +146,6 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -221,50 +179,8 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [navLinks]);
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen || !drawerRef.current) return;
 
-    const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled])'
-    );
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    first?.focus();
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeDrawer();
-        return;
-      }
-      if (e.key !== "Tab") return;
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last?.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first?.focus();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
-
-  const closeDrawer = () => {
-    setIsOpen(false);
-    hamburgerRef.current?.focus();
-  };
 
   return (
     <>
@@ -272,64 +188,23 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
         <Container>
           <Flex justifyContent="space-between" alignItems="center">
             <Logo href="/">{logoText}</Logo>
-            <DesktopNav aria-label={t.mainNavigation}>
-              {navLinks.map((link) => (
-                <NavLink key={link.url} href={link.url} $active={activeSection === link.url} onClick={(e) => handleAnchorClick(e, link.url)}>
-                  {link.label}
-                </NavLink>
-              ))}
+            <Flex alignItems="center" gap="lg">
+              <DesktopNav aria-label={t.mainNavigation}>
+                {navLinks.map((link) => (
+                  <NavLink key={link.url} href={link.url} $active={activeSection === link.url} onClick={(e) => handleAnchorClick(e, link.url)}>
+                    {link.label}
+                  </NavLink>
+                ))}
+              </DesktopNav>
+              {/* Visible at every width: mobile navigation lives in the bottom
+                  tab bar, but the language switch stays in the header */}
               <LocaleButton onClick={switchLocale} aria-label={t.switchToLocale(nextLocaleName)}>
                 {nextLocale.toUpperCase()}
               </LocaleButton>
-            </DesktopNav>
-            <HamburgerButton
-              ref={hamburgerRef}
-              onClick={() => setIsOpen(true)}
-              aria-label={t.openMenu}
-              aria-expanded={isOpen}
-              aria-controls="mobile-nav"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </HamburgerButton>
+            </Flex>
           </Flex>
         </Container>
       </Header>
-      {mounted && (
-        <>
-          <Overlay isOpen={isOpen} onClick={closeDrawer} />
-          <Drawer
-            ref={drawerRef}
-            id="mobile-nav"
-            isOpen={isOpen}
-            aria-label={t.navigationMenu}
-          >
-            <DrawerTopBar>
-              <IconButton onClick={closeDrawer} aria-label={t.closeMenu}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </IconButton>
-            </DrawerTopBar>
-            <nav aria-label={t.mobileNavigation}>
-              <DrawerLinks>
-                {navLinks.map((link) => (
-                  <Link key={link.url} href={link.url} onClick={(e) => { handleAnchorClick(e, link.url); closeDrawer(); }}>
-                    {link.label}
-                  </Link>
-                ))}
-              </DrawerLinks>
-            </nav>
-            <DrawerLocaleButton onClick={() => { closeDrawer(); switchLocale(); }} aria-label={t.switchToLocale(nextLocaleName)}>
-              {nextLocale.toUpperCase()}
-            </DrawerLocaleButton>
-          </Drawer>
-        </>
-      )}
     </>
   );
 };

@@ -48,21 +48,27 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 .c10 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
 }
 
 .c16 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
@@ -550,11 +556,14 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 .c9 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
 }

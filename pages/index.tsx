@@ -5,7 +5,8 @@ import { createClient } from "@supabase/supabase-js";
 
 import { Seo } from "@components/atoms";
 import { SiteFooter,SiteHeader } from "@components/cms";
-import { ModuleRenderer, SectionDots } from "@components/organisms";
+import { ForestTeaser } from "@components/molecules";
+import { MobileNav, ModuleRenderer, SectionDots } from "@components/organisms";
 import { MODULES,PAGE_TYPES } from "@constants";
 import {
   getPageContent,
@@ -96,6 +97,20 @@ const JOB_TITLE: Record<string, string> = {
   it: "Senior Frontend Developer e Tech Lead",
 };
 
+/* The CV asset reaches the hero through cleanProps as a plain URL, but the
+   raw page modules may still carry the Contentful asset shape */
+function extractCvUrl(page: TPageFields): string | undefined {
+  const hero = page.modules.find((m) => m.type === MODULES.HERO_PORTFOLIO);
+  const file = hero?.fields?.cvDownloadFile as
+    | string
+    | { fields?: { file?: { url?: string } } }
+    | undefined;
+  if (!file) return undefined;
+  if (typeof file === "string") return file;
+  const url = file.fields?.file?.url;
+  return url ? (url.startsWith("//") ? `https:${url}` : url) : undefined;
+}
+
 export default function Home({ page, header, footer, locale }: THomepage) {
   const personSchema = {
     "@context": "https://schema.org",
@@ -135,6 +150,8 @@ export default function Home({ page, header, footer, locale }: THomepage) {
         <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
       </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
+      <ForestTeaser />
+      <MobileNav cvDownloadUrl={extractCvUrl(page)} />
     </>
   );
 }

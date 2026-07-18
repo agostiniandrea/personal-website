@@ -20,43 +20,71 @@ test("site footer is present", async ({ page }) => {
   await expect(page.getByRole("contentinfo")).toBeAttached();
 });
 
-test.describe("mobile navigation accessibility", () => {
+test.describe("mobile app navigation accessibility", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
-  test("closed menu is hidden and opening moves focus into the dialog", async ({ page }) => {
+  test("closed More sheet is hidden and opening moves focus into it", async ({ page }) => {
     await page.goto("/");
-    const hamburger = page.getByRole("button", { name: "Open menu" });
+    const more = page.getByRole("button", { name: "More" });
 
-    await expect(page.getByRole("dialog", { name: "Navigation menu" })).toHaveCount(0);
+    await expect(page.getByRole("dialog", { name: "Explore" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Close menu" })).toHaveCount(0);
 
-    await hamburger.click();
+    await more.click();
 
-    const dialog = page.getByRole("dialog", { name: "Navigation menu" });
+    const dialog = page.getByRole("dialog", { name: "Explore" });
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole("button", { name: "Close menu" })).toBeFocused();
+    await expect(more).toHaveAttribute("aria-current", "page");
   });
 
-  test("Escape closes the menu and restores focus to the hamburger", async ({ page }) => {
+  test("Escape closes More and restores focus to its tab", async ({ page }) => {
     await page.goto("/");
-    const hamburger = page.getByRole("button", { name: "Open menu" });
-    await hamburger.click();
+    const more = page.getByRole("button", { name: "More" });
+    await more.click();
 
     await page.keyboard.press("Escape");
 
-    await expect(page.getByRole("dialog", { name: "Navigation menu" })).toHaveCount(0);
-    await expect(hamburger).toBeFocused();
+    await expect(page.getByRole("dialog", { name: "Explore" })).toHaveCount(0);
+    await expect(more).toBeFocused();
   });
 
-  test("focus wraps within the open menu", async ({ page }) => {
+  test("focus wraps within the open More sheet", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Open menu" }).click();
-    const dialog = page.getByRole("dialog", { name: "Navigation menu" });
-    const localeButton = dialog.getByRole("button", { name: "Switch to Italian" });
+    await page.getByRole("button", { name: "More" }).click();
+    const dialog = page.getByRole("dialog", { name: "Explore" });
+    const localeButton = dialog.getByRole("button", { name: "IT", exact: true });
 
     await expect(dialog.getByRole("button", { name: "Close menu" })).toBeFocused();
     await page.keyboard.press("Shift+Tab");
 
     await expect(localeButton).toBeFocused();
+  });
+
+  test("tab navigation keeps the public URL clean", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Work" }).click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("html")).toHaveAttribute("data-mobile-view", "work");
+  });
+
+  test("internal CTAs switch views without exposing section hashes", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: "View Projects" }).click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("html")).toHaveAttribute("data-mobile-view", "work");
+  });
+
+  test("More destinations stay owned by the More tab", async ({ page }) => {
+    await page.goto("/");
+    const more = page.getByRole("button", { name: "More" });
+    await more.click();
+    await page
+      .getByRole("dialog", { name: "Explore" })
+      .getByRole("button", { name: /Skills & tools Technologies and practices/i })
+      .click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("html")).toHaveAttribute("data-mobile-view", "skills");
+    await expect(more).toHaveAttribute("aria-current", "page");
   });
 });

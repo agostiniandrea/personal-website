@@ -4,6 +4,7 @@ import styled, { css, keyframes } from "styled-components";
 
 import { Box, Container, Heading, Text } from "@components/ions";
 import { SectionLabel } from "@components/molecules";
+import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS } from "@constants";
 
 import { journeyData, type JourneyProps } from "./model";
@@ -146,6 +147,7 @@ const Journey: React.FC<JourneyProps> = ({
         <SectionHeading size="section">{heading}</SectionHeading>
       )}
       {intro && <Intro variant="large">{intro}</Intro>}
+      <StorySegmentedControl />
 
       <Timeline aria-label="Life journey timeline">
         {chapters?.map((chapter) => (

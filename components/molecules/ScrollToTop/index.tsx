@@ -40,6 +40,13 @@ const Button = styled.button<{ $visible: boolean }>`
   svg {
     display: block;
   }
+
+  /* Clear the fixed bottom tab bar when the mobile app-like nav is active */
+  @media (max-width: 899.98px) {
+    html[data-mobile-view] && {
+      bottom: calc(4.5rem + 1rem + env(safe-area-inset-bottom));
+    }
+  }
 `;
 
 const ScrollToTop: React.FC = () => {
