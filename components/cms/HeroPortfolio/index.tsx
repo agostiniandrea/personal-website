@@ -126,18 +126,9 @@ const Actions = styled(Flex)`
   flex-direction: column;
   grid-area: actions;
 
-  > a {
-    min-width: 180px;
-    text-align: center;
-  }
-
   @media (min-width: ${BREAKPOINTS.tablet}) {
     align-items: flex-start;
     flex-direction: row;
-
-    > a {
-      min-width: 0;
-    }
   }
 `;
 
@@ -149,7 +140,9 @@ const PrimaryLink = styled(Link)`
   display: inline-block;
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  min-width: 180px;
   padding: 0.875rem 2rem;
+  text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
 
@@ -165,6 +158,10 @@ const PrimaryLink = styled(Link)`
     outline: 2px solid ${({ theme }) => theme.colors.headline};
     outline-offset: 3px;
   }
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    min-width: 0;
+  }
 `;
 
 const CvLink = styled.a`
@@ -175,7 +172,11 @@ const CvLink = styled.a`
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.375rem;
-  padding: 0.875rem 0;
+  justify-content: center;
+  margin-inline: auto;
+  min-height: 44px;
+  min-width: 0;
+  padding-inline: 0;
   text-decoration: none;
   transition:
     color 0.2s ease,
@@ -192,6 +193,12 @@ const CvLink = styled.a`
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
+
+  width: fit-content;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    margin-inline: 0;
+  }
 `;
 
 const SecondaryLink = styled(Link)`
@@ -201,7 +208,9 @@ const SecondaryLink = styled(Link)`
   display: inline-block;
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  min-width: 180px;
   padding: 0.875rem 2rem;
+  text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
 
@@ -215,6 +224,10 @@ const SecondaryLink = styled(Link)`
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
+  }
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    min-width: 0;
   }
 `;
 
@@ -373,7 +386,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                   }
                 >
                   <span aria-hidden="true">↓</span>
-                  {cvDownloadLabel}
+                  <span>{cvDownloadLabel}</span>
                 </CvLink>
               )}
             </Actions>
