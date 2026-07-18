@@ -1,6 +1,7 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { mockDesktopViewport } from "@test-utils/mockMatchMedia";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import InfoTooltip from "../index";
@@ -65,6 +66,20 @@ describe("InfoTooltip", () => {
     expect(screen.getByRole("button")).toHaveFocus();
     expect(screen.getByRole("tooltip")).toBeInTheDocument();
     await user.tab();
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
+
+  it("stays open while the pointer moves from the trigger into the tooltip", () => {
+    mockDesktopViewport();
+    renderTooltip();
+
+    const trigger = screen.getByRole("button");
+    fireEvent.mouseEnter(trigger.parentElement!);
+    const tooltip = screen.getByRole("tooltip");
+    fireEvent.mouseLeave(trigger, { relatedTarget: tooltip });
+
+    expect(tooltip).toBeInTheDocument();
+    fireEvent.mouseLeave(trigger.parentElement!, { relatedTarget: document.body });
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 

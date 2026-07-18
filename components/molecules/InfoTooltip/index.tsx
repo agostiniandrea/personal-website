@@ -158,20 +158,21 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
   }, [open]);
 
   return (
-    <Wrapper ref={wrapperRef}>
+    <Wrapper
+      ref={wrapperRef}
+      onMouseEnter={() => {
+        if (window.matchMedia("(hover: hover)").matches) show(false);
+      }}
+      onMouseLeave={() => {
+        if (!pinnedRef.current) hide();
+      }}
+    >
       <TriggerButton
         type="button"
         aria-label={ariaLabel}
         aria-expanded={open}
         aria-describedby={open ? id : undefined}
         onClick={() => (pinnedRef.current ? hide() : show(true))}
-        onMouseEnter={(e) => {
-          if (window.matchMedia("(hover: hover)").matches) show(false);
-          e.preventDefault();
-        }}
-        onMouseLeave={() => {
-          if (!pinnedRef.current) hide();
-        }}
         onFocus={() => show(false)}
         onBlur={() => hide()}
       >
