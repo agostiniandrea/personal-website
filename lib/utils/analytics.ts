@@ -23,6 +23,11 @@ interface AnalyticsEventParams {
     feedback_category: string;
     locale: string;
   };
+  forest_co2_tooltip_open: {
+    device_type: "mobile" | "desktop";
+    locale: string;
+    project_id: string;
+  };
   project_opened: {
     project_name: string;
   };
@@ -36,7 +41,8 @@ export const trackEvent = <EventName extends keyof AnalyticsEventParams>(
   eventName: EventName,
   params: AnalyticsEventParams[EventName],
 ): void => {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  if (typeof window === "undefined" || typeof window.gtag !== "function")
+    return;
   window.gtag("event", eventName, params);
 };
 

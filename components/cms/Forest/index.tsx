@@ -5,9 +5,11 @@ import { useRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 
 import { Container, Text } from "@components/ions";
-import { Badge, SectionLabel } from "@components/molecules";
+import { Badge, InfoTooltip, SectionLabel } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
+import { formatCo2Tonnes } from "@lib/utils/formatCo2";
+import { useI18n } from "@lib/utils/i18n";
 
 import { ForestModal } from "./ForestModal";
 
@@ -62,6 +64,8 @@ export interface ForestProps {
   seasonProjectName?: string;
   seasonProjectMeta?: string;
   seasonProjectStats?: string;
+  seasonProjectTreesCount?: number;
+  seasonProjectCo2Kg?: number;
   seasonProjectSpecies?: string[];
   seasonProjectUrl?: string;
   seasonProjectLinkLabel?: string;
@@ -94,7 +98,7 @@ function useAnimatedCounter(target: number, inView: boolean) {
 
 function relativeTime(dateStr: string): string {
   const days = Math.floor(
-    (Date.now() - new Date(dateStr).getTime()) / 86_400_000
+    (Date.now() - new Date(dateStr).getTime()) / 86_400_000,
   );
   if (days === 0) return "Today";
   if (days === 1) return "Yesterday";
@@ -492,6 +496,18 @@ const ProjectStats = styled.span`
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 `;
 
+/* The CO₂ metric wraps as one unit (or takes its own row) so neither the
+   subscript nor the "lifetime estimate" suffix is ever orphaned */
+const Co2Unit = styled.span`
+  display: inline-block;
+  white-space: nowrap;
+
+  sub {
+    font-size: 0.7em;
+    line-height: 1;
+  }
+`;
+
 const ProjectFooter = styled.div`
   align-items: flex-end;
   display: flex;
@@ -543,7 +559,9 @@ const TreeNationNote = styled(Text)`
     transition: opacity 0.2s ease;
 
     @media (hover: hover) {
-      &:hover { opacity: 0.75; }
+      &:hover {
+        opacity: 0.75;
+      }
     }
   }
 `;
@@ -602,9 +620,18 @@ const Divider = styled.div`
 /* ── Fallback origin story (EN) ── */
 
 const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
-  { date: "May 2026",  text: "🌱  Started planting trees every month — a personal commitment, before any portfolio." },
-  { date: "July 2026", text: "🌳  Forest was born. The portfolio invites others to become part of that journey." },
-  { date: "Today",     text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me." },
+  {
+    date: "May 2026",
+    text: "🌱  Started planting trees every month — a personal commitment, before any portfolio.",
+  },
+  {
+    date: "July 2026",
+    text: "🌳  Forest was born. The portfolio invites others to become part of that journey.",
+  },
+  {
+    date: "Today",
+    text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me.",
+  },
 ];
 
 /* ── Component ── */
@@ -636,6 +663,8 @@ const Forest: React.FC<ForestProps> = ({
   seasonProjectName,
   seasonProjectMeta,
   seasonProjectStats,
+  seasonProjectTreesCount,
+  seasonProjectCo2Kg,
   seasonProjectSpecies = [],
   seasonProjectUrl,
   seasonProjectLinkLabel = "View project",
@@ -645,23 +674,58 @@ const Forest: React.FC<ForestProps> = ({
   const [inView, setInView] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const { locale } = useRouter();
+  const t = useI18n(locale);
   const labelDefaults = locale === "it" ? LABEL_DEFAULTS.it : LABEL_DEFAULTS.en;
-  const resolvedFeedbackCountLabel = feedbackCountLabel ?? labelDefaults.feedbackCountLabel;
-  const resolvedTreesDedicatedCountLabel = treesDedicatedCountLabel ?? labelDefaults.treesDedicatedCountLabel;
-  const resolvedImprovementsCountLabel = improvementsCountLabel ?? labelDefaults.improvementsCountLabel;
+  const projectId =
+    seasonProjectUrl?.split("/").filter(Boolean).pop() ?? "unknown";
+  const hasStructuredStats =
+    seasonProjectTreesCount != null && seasonProjectCo2Kg != null;
+
+  const onCo2TooltipOpen = () => {
+    trackEvent("forest_co2_tooltip_open", {
+      device_type: window.matchMedia("(max-width: 899.98px)").matches
+        ? "mobile"
+        : "desktop",
+      locale: locale ?? "en",
+      project_id: projectId,
+    });
+  };
+  const resolvedFeedbackCountLabel =
+    feedbackCountLabel ?? labelDefaults.feedbackCountLabel;
+  const resolvedTreesDedicatedCountLabel =
+    treesDedicatedCountLabel ?? labelDefaults.treesDedicatedCountLabel;
+  const resolvedImprovementsCountLabel =
+    improvementsCountLabel ?? labelDefaults.improvementsCountLabel;
 
   const animFeedback = useAnimatedCounter(feedbackCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
   const animImprovements = useAnimatedCounter(improvementsCount, inView);
 
-  const pct = Math.min(seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0, 100);
+  const pct = Math.min(
+    seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0,
+    100,
+  );
   const visibleStats = [
-    { value: animFeedback, label: resolvedFeedbackCountLabel, active: feedbackCount > 0 },
-    { value: animTrees, label: resolvedTreesDedicatedCountLabel, active: treesDedicatedCount > 0 },
-    { value: animImprovements, label: resolvedImprovementsCountLabel, active: improvementsCount > 0 },
+    {
+      value: animFeedback,
+      label: resolvedFeedbackCountLabel,
+      active: feedbackCount > 0,
+    },
+    {
+      value: animTrees,
+      label: resolvedTreesDedicatedCountLabel,
+      active: treesDedicatedCount > 0,
+    },
+    {
+      value: animImprovements,
+      label: resolvedImprovementsCountLabel,
+      active: improvementsCount > 0,
+    },
   ].filter((s) => s.active);
   const hasStats = visibleStats.length >= 2;
-  const resolvedOriginItems = originItems?.length ? originItems : DEFAULT_ORIGIN_ITEMS;
+  const resolvedOriginItems = originItems?.length
+    ? originItems
+    : DEFAULT_ORIGIN_ITEMS;
 
   const openFeedbackModal = () => {
     trackEvent("feedback_modal_opened", { locale: locale ?? "en" });
@@ -672,8 +736,10 @@ const Forest: React.FC<ForestProps> = ({
     const el = sectionRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); },
-      { threshold: 0.15 }
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.15 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -683,7 +749,6 @@ const Forest: React.FC<ForestProps> = ({
     <>
       <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
         <Container>
-
           {badge && (
             <BadgeWrap>
               <BadgeDot aria-hidden="true" />
@@ -719,15 +784,14 @@ const Forest: React.FC<ForestProps> = ({
             <CtaContent>
               <CtaHeading>{ctaHeading}</CtaHeading>
               <CtaBody>{ctaBody}</CtaBody>
-              <PlantButton
-                onClick={openFeedbackModal}
-                aria-haspopup="dialog"
-              >
+              <PlantButton onClick={openFeedbackModal} aria-haspopup="dialog">
                 {ctaButtonLabel}
               </PlantButton>
             </CtaContent>
             <CtaDecor>
-              {treeCountTitle && <CtaDecorTitle>{treeCountTitle}</CtaDecorTitle>}
+              {treeCountTitle && (
+                <CtaDecorTitle>{treeCountTitle}</CtaDecorTitle>
+              )}
               <CtaDecorNumber>{treeCount}</CtaDecorNumber>
               <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
             </CtaDecor>
@@ -738,7 +802,9 @@ const Forest: React.FC<ForestProps> = ({
               <div>
                 <SeasonHeader>
                   <SeasonLabel>{seasonName}</SeasonLabel>
-                  <SeasonCount>{treesDedicatedCount} / {seasonTarget} {treesLabel}</SeasonCount>
+                  <SeasonCount>
+                    {treesDedicatedCount} / {seasonTarget} {treesLabel}
+                  </SeasonCount>
                 </SeasonHeader>
                 <ProgressTrack>
                   <ProgressFill $pct={pct} $animate={inView} />
@@ -750,16 +816,43 @@ const Forest: React.FC<ForestProps> = ({
               </div>
               {seasonProjectName && (
                 <ProjectPanel data-testid="season-project">
-                  {seasonProjectLabel && <ProjectLabel>{seasonProjectLabel}</ProjectLabel>}
+                  {seasonProjectLabel && (
+                    <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
+                  )}
                   <ProjectName>{seasonProjectName}</ProjectName>
-                  {seasonProjectMeta && <ProjectMeta>{seasonProjectMeta}</ProjectMeta>}
-                  {seasonProjectStats && <ProjectStats>{seasonProjectStats}</ProjectStats>}
+                  {seasonProjectMeta && (
+                    <ProjectMeta>{seasonProjectMeta}</ProjectMeta>
+                  )}
+                  {hasStructuredStats ? (
+                    <ProjectStats data-testid="project-stats">
+                      {`${seasonProjectTreesCount} ${treesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
+                      <Co2Unit>
+                        {` · ${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
+                        <sub>2</sub>
+                        {` ${t.co2LifetimeSuffix}`}
+                        <InfoTooltip
+                          ariaLabel={t.co2TooltipLabel}
+                          onOpen={onCo2TooltipOpen}
+                        >
+                          {t.co2TooltipBody}
+                        </InfoTooltip>
+                      </Co2Unit>
+                    </ProjectStats>
+                  ) : (
+                    seasonProjectStats && (
+                      <ProjectStats data-testid="project-stats">
+                        {seasonProjectStats}
+                      </ProjectStats>
+                    )
+                  )}
                   {(seasonProjectSpecies.length > 0 || seasonProjectUrl) && (
                     <ProjectFooter>
                       {seasonProjectSpecies.length > 0 && (
                         <SpeciesList>
                           {seasonProjectSpecies.map((species) => (
-                            <Badge key={species} as="li" size="sm">{species}</Badge>
+                            <Badge key={species} as="li" size="sm">
+                              {species}
+                            </Badge>
                           ))}
                         </SpeciesList>
                       )}
@@ -776,9 +869,18 @@ const Forest: React.FC<ForestProps> = ({
                             viewBox="0 0 11 11"
                             fill="none"
                             aria-hidden="true"
-                            style={{ display: "inline-block", marginLeft: "0.25rem" }}
+                            style={{
+                              display: "inline-block",
+                              marginLeft: "0.25rem",
+                            }}
                           >
-                            <path d="M2 9L9 2M9 2H4M9 2V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path
+                              d="M2 9L9 2M9 2H4M9 2V7"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
                           </svg>
                         </ProjectLink>
                       )}
@@ -802,9 +904,21 @@ const Forest: React.FC<ForestProps> = ({
                 viewBox="0 0 11 11"
                 fill="none"
                 aria-hidden="true"
-                style={{ display: "inline-block", marginLeft: "0.25rem", verticalAlign: "middle", position: "relative", top: "-1px" }}
+                style={{
+                  display: "inline-block",
+                  marginLeft: "0.25rem",
+                  verticalAlign: "middle",
+                  position: "relative",
+                  top: "-1px",
+                }}
               >
-                <path d="M2 9L9 2M9 2H4M9 2V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M2 9L9 2M9 2H4M9 2V7"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </a>
           </TreeNationNote>
@@ -825,14 +939,10 @@ const Forest: React.FC<ForestProps> = ({
               </TimelineSection>
             </>
           )}
-
         </Container>
       </Section>
 
-      <ForestModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-      />
+      <ForestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };
