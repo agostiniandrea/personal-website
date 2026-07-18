@@ -7,5 +7,6 @@ export { default as FeedbackNudge } from "./FeedbackNudge";
 export { default as ForestTeaser } from "./ForestTeaser";
 export { default as HeadingBox } from "./HeadingBox";
 export { default as InfoTooltip } from "./InfoTooltip";
+export { default as MobileFeedbackNudge } from "./MobileFeedbackNudge";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as SectionLabel } from "./SectionLabel";

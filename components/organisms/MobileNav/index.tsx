@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
+import { MobileFeedbackNudge } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
@@ -332,6 +333,11 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
 
   return (
     <>
+      <MobileFeedbackNudge
+        blocked={sheetOpen}
+        currentView={view}
+        onNavigateToForest={() => navigateTo("forest")}
+      />
       <Nav aria-label={t.mobileNavigation} data-testid="mobile-nav">
         <TabList>
           {tabs.map(({ id, label }) => (

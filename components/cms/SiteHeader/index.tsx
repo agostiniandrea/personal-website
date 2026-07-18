@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useRouter } from "next/router";
 
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Button, Container, Flex, Link } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
+import { sectionRankFromUrl } from "@lib/utils/sectionOrder";
 
 export interface SiteHeaderLink {
   label: string;
@@ -132,6 +133,19 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   const t = useI18n(router.locale);
   const nextLocale = router.locale === "en" ? "it" : "en";
   const nextLocaleName = router.locale === "it" ? "Inglese" : "Italian";
+  const orderedNavLinks = useMemo(
+    () =>
+      navLinks
+        .map((link, index) => ({ link, index }))
+        .sort(
+          (a, b) =>
+            sectionRankFromUrl(canonicalNavUrl(a.link.url)) -
+              sectionRankFromUrl(canonicalNavUrl(b.link.url)) ||
+            a.index - b.index,
+        )
+        .map(({ link }) => link),
+    [navLinks],
+  );
 
   const switchLocale = () => {
     router.push(router.asPath, router.asPath, { locale: nextLocale, scroll: false });
@@ -173,7 +187,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
 
   useEffect(() => {
     const anchorIds = [
-      ...navLinks
+      ...orderedNavLinks
         .map((link) => canonicalNavUrl(link.url))
         .filter((url) => url.startsWith("#"))
         .map((url) => url.slice(1)),
@@ -196,7 +210,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     const onScroll = () => setActiveSection(getActive());
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [navLinks]);
+  }, [orderedNavLinks]);
 
 
 
@@ -211,7 +225,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
             </Logo>
             <Flex alignItems="center" gap="lg">
               <DesktopNav aria-label={t.mainNavigation}>
-                {navLinks.map((link) => {
+                {orderedNavLinks.map((link) => {
                   const url = canonicalNavUrl(link.url);
                   return (
                     <NavLink

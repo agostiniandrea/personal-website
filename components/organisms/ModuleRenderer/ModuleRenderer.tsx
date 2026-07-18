@@ -4,6 +4,7 @@ import { About, AboutProps, BeyondCode, BeyondCodeProps, Contact, ContactProps, 
 import { ForestTeaser } from "@components/molecules";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
+import { DESKTOP_MODULE_ORDER } from "@lib/utils/sectionOrder";
 
 type DefaultModuleProps = {
   data: TPageModule;
@@ -153,10 +154,19 @@ const ModuleRenderer: React.FC<ModuleRendererProps> = ({
     forestProps.treesDedicatedCount ?? forestProps.seasonProjectTreesCount ?? 0,
   );
   const totalTrees = Number(forestProps.treeCount ?? 0);
+  const orderedComponents = components
+    .map((component, index) => ({ component, index }))
+    .sort(
+      (a, b) =>
+        (DESKTOP_MODULE_ORDER[a.component.type] ?? Number.MAX_SAFE_INTEGER) -
+          (DESKTOP_MODULE_ORDER[b.component.type] ?? Number.MAX_SAFE_INTEGER) ||
+        a.index - b.index,
+    )
+    .map(({ component }) => component);
 
   return (
     <>
-      {components.map((componentData, index) => (
+      {orderedComponents.map((componentData, index) => (
         <React.Fragment key={`${componentData.id}-${index.toString()}`}>
           {componentData && (
             <ModuleMatrix

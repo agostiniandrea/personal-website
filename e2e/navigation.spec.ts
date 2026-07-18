@@ -13,6 +13,10 @@ test("desktop nav contains the expected section links", async ({ page }) => {
   for (const href of ["/#skills", "/#journey", "/#experience", "/#forest"]) {
     await expect(desktopNav.locator(`a[href="${href}"]`)).toBeAttached();
   }
+  const hrefs = await desktopNav.locator("a").evaluateAll((links) =>
+    links.map((link) => link.getAttribute("href")),
+  );
+  expect(hrefs.indexOf("/#experience")).toBeLessThan(hrefs.indexOf("/#journey"));
 });
 
 test("site footer is present", async ({ page }) => {
@@ -33,6 +37,41 @@ test("desktop Forest teaser is inline after Work and before Skills", async ({ pa
     (elements) => elements.map((element) => element.id || element.getAttribute("data-testid")),
   );
   expect(order).toEqual(["projects", "forest-teaser", "skills"]);
+});
+
+test("desktop sections and keyboard dot navigation follow the approved order", async ({ page }) => {
+  await page.goto("/");
+  const sectionOrder = await page.locator("main > section[id]").evaluateAll(
+    (sections) => sections.map((section) => section.id),
+  );
+  expect(sectionOrder).toEqual([
+    "hero",
+    "about",
+    "projects",
+    "skills",
+    "experience",
+    "journey",
+    "sustainability",
+    "beyond-code",
+    "forest",
+  ]);
+  await expect(page.locator("main + footer[role='contentinfo']")).toBeAttached();
+
+  const dotLabels = await page
+    .getByRole("navigation", { name: "Section navigation" })
+    .getByRole("button")
+    .evaluateAll((buttons) => buttons.map((button) => button.getAttribute("aria-label")));
+  expect(dotLabels).toEqual([
+    "Go to Home",
+    "Go to About",
+    "Go to Projects",
+    "Go to Skills",
+    "Go to Experience",
+    "Go to Journey",
+    "Go to Sustainability",
+    "Go to Beyond Code",
+    "Go to Forest",
+  ]);
 });
 
 test("feedback nudge suppresses back to top and clears project actions", async ({ page }) => {
@@ -193,5 +232,25 @@ test.describe("mobile app navigation accessibility", () => {
 
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(page).toHaveURL(/\/$/);
+  });
+
+  test("eligible feedback nudge keeps context and routes to Forest without opening the form", async ({ page }) => {
+    await page.addInitScript(() => {
+      sessionStorage.setItem(
+        "forest-feedback-nudge-started-at",
+        String(Date.now() - 36_000),
+      );
+      sessionStorage.setItem(
+        "forest-feedback-nudge-visited",
+        JSON.stringify(["home", "work"]),
+      );
+    });
+    await page.goto("/#work");
+    const nudge = page.getByTestId("mobile-feedback-nudge");
+    await expect(nudge).toBeVisible();
+    await nudge.getByRole("button", { name: /see how it grows/i }).click();
+    await expect(page).toHaveURL(/\/#forest$/);
+    await expect(page.locator("html")).toHaveAttribute("data-mobile-view", "forest");
+    await expect(page.getByRole("dialog")).toHaveCount(0);
   });
 });
