@@ -30,7 +30,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c42 {
+.c45 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -38,7 +38,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c40 {
+.c43 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -49,6 +49,38 @@ exports[`Forest renders correctly with all props 1`] = `
   user-select: none;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
+}
+
+.c39 {
+  display: inline-block;
+  position: relative;
+}
+
+.c40 {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-paragraph);
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  margin: -13px -10px -13px -8px;
+  opacity: 0.65;
+  transition: opacity 0.2s ease;
+  vertical-align: middle;
+  width: 44px;
+}
+
+.c40:focus-visible {
+  border-radius: 100%;
+  opacity: 1;
+  outline: 2px solid var(--color-highlight);
+  outline-offset: -10px;
+}
+
+.c40 svg {
+  display: block;
 }
 
 .c6 {
@@ -325,6 +357,16 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 .c38 {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.c38 sub {
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.c41 {
   align-items: flex-end;
   display: flex;
   gap: 1rem;
@@ -332,7 +374,7 @@ exports[`Forest renders correctly with all props 1`] = `
   margin-top: 0.25rem;
 }
 
-.c39 {
+.c42 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -341,7 +383,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c41 {
+.c44 {
   align-items: center;
   color: var(--color-highlight);
   display: inline-flex;
@@ -352,17 +394,17 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: opacity 0.2s ease;
 }
 
-.c41:focus-visible {
+.c44:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c43 {
+.c46 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c43 a {
+.c46 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -411,6 +453,12 @@ exports[`Forest renders correctly with all props 1`] = `
 @media (min-width: 1536px) {
   .c1 >* {
     grid-column: 2/auto;
+  }
+}
+
+@media (hover: hover) {
+  .c40:hover {
+    opacity: 1;
   }
 }
 
@@ -485,13 +533,13 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (hover: hover) {
-  .c41:hover {
+  .c44:hover {
     opacity: 0.75;
   }
 }
 
 @media (hover: hover) {
-  .c43 a:hover {
+  .c46 a:hover {
     opacity: 0.75;
   }
 }
@@ -702,28 +750,71 @@ exports[`Forest renders correctly with all props 1`] = `
             </span>
             <span
               class="c37"
+              data-testid="project-stats"
             >
-              4 trees · 1.5 t CO₂ · 2 species
+              4 trees · 2 species
+              <span
+                class="c38"
+              >
+                 · 1.5 t CO
+                <sub>
+                  2
+                </sub>
+                 lifetime estimate
+                <span
+                  class="c39"
+                >
+                  <button
+                    aria-expanded="false"
+                    aria-label="About the CO₂ estimate"
+                    class="c40"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      fill="none"
+                      height="17"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-width="1.75"
+                      viewBox="0 0 24 24"
+                      width="17"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="9.5"
+                      />
+                      <path
+                        d="M12 11v6"
+                      />
+                      <path
+                        d="M12 7.5v.5"
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </span>
             </span>
             <div
-              class="c38"
+              class="c41"
             >
               <ul
-                class="c39"
+                class="c42"
               >
                 <li
-                  class="c40"
+                  class="c43"
                 >
                   Sengon
                 </li>
                 <li
-                  class="c40"
+                  class="c43"
                 >
                   Kadamba
                 </li>
               </ul>
               <a
-                class="c41"
+                class="c44"
                 href="https://tree-nation.com/projects/community-reforestation-in-indonesia"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -751,7 +842,7 @@ exports[`Forest renders correctly with all props 1`] = `
         </div>
       </div>
       <p
-        class="c42 c43"
+        class="c45 c46"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
