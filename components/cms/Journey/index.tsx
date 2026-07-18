@@ -4,6 +4,7 @@ import styled, { css, keyframes } from "styled-components";
 
 import { Box, Container, Heading, Text } from "@components/ions";
 import { SectionLabel } from "@components/molecules";
+import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS } from "@constants";
 
 import { journeyData, type JourneyProps } from "./model";
@@ -141,6 +142,7 @@ const Journey: React.FC<JourneyProps> = ({
   return (
   <JourneySection id="journey">
   <Container>
+      <StorySegmentedControl />
       {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
       {heading && (
         <SectionHeading size="section">{heading}</SectionHeading>

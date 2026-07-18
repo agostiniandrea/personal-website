@@ -14,7 +14,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -22,7 +22,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c5 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -30,7 +30,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   padding: 0;
 }
 
-.c3 {
+.c6 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -39,16 +39,60 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   text-transform: uppercase;
 }
 
+.c2 {
+  display: none;
+}
+
+.c3 {
+  background: var(--color-background);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  color: var(--color-headline);
+  cursor: pointer;
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-height: 44px;
+  transition: background 0.2s ease,color 0.2s ease;
+}
+
+.c3:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: -2px;
+}
+
+.c4 {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  color: var(--color-paragraph);
+  cursor: pointer;
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-height: 44px;
+  transition: background 0.2s ease,color 0.2s ease;
+}
+
+.c4:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: -2px;
+}
+
 .c0 {
   padding: 3rem 0;
 }
 
-.c5 {
+.c8 {
   margin: 0 0 3rem;
   max-width: 600px;
 }
 
-.c6 {
+.c9 {
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -57,7 +101,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   padding: 0;
 }
 
-.c7 {
+.c10 {
   border-top: 1px solid var(--color-main);
   display: grid;
   gap: 1rem;
@@ -65,26 +109,26 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   padding: 2rem 0;
 }
 
-.c7:last-child {
+.c10:last-child {
   border-bottom: 1px solid var(--color-main);
 }
 
-.c8 {
+.c11 {
   font-size: 0.75rem;
   margin: 0 0 0.25rem;
 }
 
-.c9 {
+.c12 {
   font-size: 0.875rem;
   font-weight: 700;
   margin: 0 0 0.125rem;
 }
 
-.c10 {
+.c13 {
   margin: 0 0 0.625rem;
 }
 
-.c11 {
+.c14 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0 0 1rem;
@@ -137,14 +181,30 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 899.98px) {
+  html[data-mobile-view="story"] .c2 {
+    background: rgba(128, 128, 128, 0.12);
+    border-radius: 999px;
+    display: flex;
+    margin: 0 0 1.5rem;
+    padding: 0.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c2 {
+    display: none!important;
   }
 }
 
@@ -156,13 +216,13 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 }
 
 @media (max-width: 1199px) {
-  .c5 {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c7 {
+  .c10 {
     gap: 2rem;
     grid-template-columns: 200px 1fr;
   }
@@ -176,32 +236,58 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
     <section
       class="c1"
     >
+      <div
+        aria-label="Story sections"
+        class="c2"
+        role="tablist"
+      >
+        <button
+          aria-controls="journey"
+          aria-selected="true"
+          class="c3"
+          data-story-segment="journey"
+          role="tab"
+          tabindex="0"
+        >
+          Journey
+        </button>
+        <button
+          aria-controls="experience"
+          aria-selected="false"
+          class="c4"
+          data-story-segment="experience"
+          role="tab"
+          tabindex="-1"
+        >
+          Experience
+        </button>
+      </div>
       <p
-        class="c2 c3"
+        class="c5 c6"
       >
         Experience
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Where I've worked
       </h2>
       <ol
-        class="c6"
+        class="c9"
       >
         <li
-          class="c7"
+          class="c10"
         >
           <div
             class=""
           >
             <p
-              class="c2 c8"
+              class="c5 c11"
             >
               May 2022 — Present
             </p>
             <p
-              class="c2 c9"
+              class="c5 c12"
             >
               JIBE eCommerce
             </p>
@@ -210,12 +296,12 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
             class=""
           >
             <h3
-              class="c10"
+              class="c13"
             >
               Senior Frontend Developer
             </h3>
             <p
-              class="c2 c11"
+              class="c5 c14"
             >
               Leading frontend development for headless Shopify storefronts.
             </p>
@@ -241,13 +327,13 @@ exports[`Experience renders correctly with all items 1`] = `
   grid-column: 2/auto;
 }
 
-.c13 {
+.c16 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -255,7 +341,7 @@ exports[`Experience renders correctly with all items 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c5 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -263,17 +349,20 @@ exports[`Experience renders correctly with all items 1`] = `
   padding: 0;
 }
 
-.c14 {
+.c17 {
+  -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
   border-radius: 9999px;
   color: var(--color-paragraph);
+  cursor: default;
   display: inline-block;
+  user-select: none;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
 
-.c3 {
+.c6 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -282,16 +371,60 @@ exports[`Experience renders correctly with all items 1`] = `
   text-transform: uppercase;
 }
 
+.c2 {
+  display: none;
+}
+
+.c3 {
+  background: var(--color-background);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  color: var(--color-headline);
+  cursor: pointer;
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-height: 44px;
+  transition: background 0.2s ease,color 0.2s ease;
+}
+
+.c3:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: -2px;
+}
+
+.c4 {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  color: var(--color-paragraph);
+  cursor: pointer;
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-height: 44px;
+  transition: background 0.2s ease,color 0.2s ease;
+}
+
+.c4:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: -2px;
+}
+
 .c0 {
   padding: 3rem 0;
 }
 
-.c5 {
+.c8 {
   margin: 0 0 3rem;
   max-width: 600px;
 }
 
-.c6 {
+.c9 {
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -300,7 +433,7 @@ exports[`Experience renders correctly with all items 1`] = `
   padding: 0;
 }
 
-.c7 {
+.c10 {
   border-top: 1px solid var(--color-main);
   display: grid;
   gap: 1rem;
@@ -308,32 +441,32 @@ exports[`Experience renders correctly with all items 1`] = `
   padding: 2rem 0;
 }
 
-.c7:last-child {
+.c10:last-child {
   border-bottom: 1px solid var(--color-main);
 }
 
-.c8 {
+.c11 {
   font-size: 0.75rem;
   margin: 0 0 0.25rem;
 }
 
-.c9 {
+.c12 {
   font-size: 0.875rem;
   font-weight: 700;
   margin: 0 0 0.125rem;
 }
 
-.c10 {
+.c13 {
   color: var(--color-secondary);
   font-size: 0.75rem;
   margin: 0;
 }
 
-.c11 {
+.c14 {
   margin: 0 0 0.625rem;
 }
 
-.c12 {
+.c15 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0 0 1rem;
@@ -386,14 +519,30 @@ exports[`Experience renders correctly with all items 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 899.98px) {
+  html[data-mobile-view="story"] .c2 {
+    background: rgba(128, 128, 128, 0.12);
+    border-radius: 999px;
+    display: flex;
+    margin: 0 0 1.5rem;
+    padding: 0.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .c2 {
+    display: none!important;
   }
 }
 
@@ -405,13 +554,13 @@ exports[`Experience renders correctly with all items 1`] = `
 }
 
 @media (max-width: 1199px) {
-  .c5 {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c7 {
+  .c10 {
     gap: 2rem;
     grid-template-columns: 200px 1fr;
   }
@@ -425,37 +574,63 @@ exports[`Experience renders correctly with all items 1`] = `
     <section
       class="c1"
     >
+      <div
+        aria-label="Story sections"
+        class="c2"
+        role="tablist"
+      >
+        <button
+          aria-controls="journey"
+          aria-selected="true"
+          class="c3"
+          data-story-segment="journey"
+          role="tab"
+          tabindex="0"
+        >
+          Journey
+        </button>
+        <button
+          aria-controls="experience"
+          aria-selected="false"
+          class="c4"
+          data-story-segment="experience"
+          role="tab"
+          tabindex="-1"
+        >
+          Experience
+        </button>
+      </div>
       <p
-        class="c2 c3"
+        class="c5 c6"
       >
         Experience
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Where I've worked
       </h2>
       <ol
-        class="c6"
+        class="c9"
       >
         <li
-          class="c7"
+          class="c10"
         >
           <div
             class=""
           >
             <p
-              class="c2 c8"
+              class="c5 c11"
             >
               May 2022 — Present
             </p>
             <p
-              class="c2 c9"
+              class="c5 c12"
             >
               JIBE eCommerce
             </p>
             <p
-              class="c2 c10"
+              class="c5 c13"
             >
               Remote · Vancouver, CA
             </p>
@@ -464,40 +639,40 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c11"
+              class="c14"
             >
               Senior Frontend Developer
             </h3>
             <p
-              class="c2 c12"
+              class="c5 c15"
             >
               Building and maintaining headless Shopify storefronts on Next.js/TypeScript for brands including 7mesh, Nest Designs and Saul Good. Core contributor and maintainer of Compass, the agency's internal design system powering all client storefronts. Tech lead on selected projects and epics — technical direction, code reviews, and mentoring.
             </p>
             <div
-              class="c13"
+              class="c16"
             >
               <span
-                class="c14"
+                class="c17"
               >
                 Next.js
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 TypeScript
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Shopify
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Storybook
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 styled-components
               </span>
@@ -505,23 +680,23 @@ exports[`Experience renders correctly with all items 1`] = `
           </div>
         </li>
         <li
-          class="c7"
+          class="c10"
         >
           <div
             class=""
           >
             <p
-              class="c2 c8"
+              class="c5 c11"
             >
               Mar 2020 — Apr 2022
             </p>
             <p
-              class="c2 c9"
+              class="c5 c12"
             >
               Overstappen.nl
             </p>
             <p
-              class="c2 c10"
+              class="c5 c13"
             >
               Hybrid · Amsterdam, NL
             </p>
@@ -530,45 +705,45 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c11"
+              class="c14"
             >
               Senior Frontend Developer → Architect
             </h3>
             <p
-              class="c2 c12"
+              class="c5 c15"
             >
               Frontend developer on the Netherlands' main price comparison platform — built the energy comparison product, led the health insurance tool, and architected Kizi.nl, a new consumer brand, alongside the CTO. Promoted to define tech stacks, coding standards, and CI/CD pipelines across the development team.
             </p>
             <div
-              class="c13"
+              class="c16"
             >
               <span
-                class="c14"
+                class="c17"
               >
                 Next.js
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 TypeScript
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Redux
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Storybook
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Jest
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Azure DevOps
               </span>
@@ -576,23 +751,23 @@ exports[`Experience renders correctly with all items 1`] = `
           </div>
         </li>
         <li
-          class="c7"
+          class="c10"
         >
           <div
             class=""
           >
             <p
-              class="c2 c8"
+              class="c5 c11"
             >
               Jan 2019 — Feb 2020
             </p>
             <p
-              class="c2 c9"
+              class="c5 c12"
             >
               TWC / The Widget Company
             </p>
             <p
-              class="c2 c10"
+              class="c5 c13"
             >
               On-site · Amsterdam, NL
             </p>
@@ -601,40 +776,40 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c11"
+              class="c14"
             >
               Frontend Developer
             </h3>
             <p
-              class="c2 c12"
+              class="c5 c15"
             >
               Built Smart TV streaming applications for media companies — most notably Videoland, RTL Nederland's VOD service — deployed across Samsung, LG, Philips, Sony, Panasonic and PlayStation platforms.
             </p>
             <div
-              class="c13"
+              class="c16"
             >
               <span
-                class="c14"
+                class="c17"
               >
                 Vue.js
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 TypeScript
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Vuex
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Jest
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Webpack
               </span>
@@ -642,23 +817,23 @@ exports[`Experience renders correctly with all items 1`] = `
           </div>
         </li>
         <li
-          class="c7"
+          class="c10"
         >
           <div
             class=""
           >
             <p
-              class="c2 c8"
+              class="c5 c11"
             >
               Mar 2015 — Dec 2018
             </p>
             <p
-              class="c2 c9"
+              class="c5 c12"
             >
               Consoft Sistemi (now ALTEN Italia)
             </p>
             <p
-              class="c2 c10"
+              class="c5 c13"
             >
               On-site · Turin, IT
             </p>
@@ -667,40 +842,40 @@ exports[`Experience renders correctly with all items 1`] = `
             class=""
           >
             <h3
-              class="c11"
+              class="c14"
             >
               Frontend Developer
             </h3>
             <p
-              class="c2 c12"
+              class="c5 c15"
             >
               Built and maintained FCA Group's Build & Price vehicle configurators for NAFTA and EMEA brand sites — Jeep, Ram, Dodge, Fiat, Alfa Romeo — and led frontend development of the Mopar accessories configurator. Nearly three years of ownership on high-traffic consumer tools.
             </p>
             <div
-              class="c13"
+              class="c16"
             >
               <span
-                class="c14"
+                class="c17"
               >
                 React
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Redux
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 JavaScript
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Webpack
               </span>
               <span
-                class="c14"
+                class="c17"
               >
                 Node.js
               </span>

@@ -18,7 +18,7 @@ describe("Experience", () => {
 
   it("renders the section label", () => {
     renderWithTheme(<Experience {...defaultExperience} />);
-    expect(screen.getByText(defaultExperience.sectionLabel)).toBeInTheDocument();
+    expect(screen.getByText(defaultExperience.sectionLabel, { selector: "p" })).toBeInTheDocument();
   });
 
   it("renders the heading", () => {

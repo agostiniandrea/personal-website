@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { Box, Container, Flex, Heading, Text } from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
+import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS } from "@constants";
 
 export interface ExperienceItem {
@@ -92,6 +93,7 @@ const Description = styled(Text)`
 const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items }) => (
   <Section id="experience">
     <Container>
+      <StorySegmentedControl />
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
       <List>
