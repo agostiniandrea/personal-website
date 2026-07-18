@@ -15,6 +15,7 @@ import {
   resolveViewFromState,
   StorySub,
   tabForView,
+  VIEW_TO_HASH,
 } from "@lib/utils/mobileNav";
 
 import { MoreSheet } from "./MoreSheet";
@@ -87,6 +88,12 @@ const isMobileViewport = () =>
   window.matchMedia?.(`(max-width: ${BREAKPOINTS.xTablet})`).matches ??
   window.innerWidth < 900;
 
+const routeWithHash = (hash = "") =>
+  `${window.location.pathname}${window.location.search}${hash ? `#${hash}` : ""}`;
+
+const hashForView = (view: MobileView, storySub: StorySub) =>
+  view === "story" ? storySub : VIEW_TO_HASH[view];
+
 /* Owns the html[data-mobile-view] / [data-story-sub] attributes after
    hydration; the inline _document script sets them before first paint. */
 export function applyView(view: MobileView, storySub: StorySub) {
@@ -114,13 +121,30 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
       window.location.hash,
     );
     setView(resolved.view);
+    setSheetOpen(resolved.sheetOpen);
     applyView(resolved.view, resolved.storySub);
 
-    if (isMobileViewport() && window.location.hash) {
+    if (isMobileViewport() && resolved.isUnknownHash) {
       window.history.replaceState(
-        { ...window.history.state, ...resolved, mobileView: resolved.view },
+        {
+          ...window.history.state,
+          mobileMoreEntry: false,
+          mobileView: "home",
+          storySub: "journey",
+        },
         "",
-        `${window.location.pathname}${window.location.search}`,
+        routeWithHash(),
+      );
+    } else if (isMobileViewport() && window.location.hash === "#projects") {
+      window.history.replaceState(
+        {
+          ...window.history.state,
+          mobileMoreEntry: false,
+          mobileView: "work",
+          storySub: "journey",
+        },
+        "",
+        routeWithHash("work"),
       );
     }
   }, []);
@@ -141,19 +165,32 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
   }, [router.pathname, syncFromLocation]);
 
   const navigateTo = useCallback((next: MobileView, storySub: StorySub = "journey") => {
-    if (
+    const nextHash = hashForView(next, storySub);
+    const isAlreadyCanonical =
       next === view &&
-      document.documentElement.getAttribute("data-story-sub") === storySub
-    )
-      return;
+      document.documentElement.getAttribute("data-story-sub") === storySub &&
+      window.location.hash === (nextHash ? `#${nextHash}` : "");
     setView(next);
+    setSheetOpen(false);
     applyView(next, storySub);
-    window.history.pushState(
-      { ...window.history.state, mobileView: next, storySub },
-      "",
-      `${window.location.pathname}${window.location.search}`,
-    );
-    window.scrollTo({ top: 0, behavior: "auto" });
+    if (!isAlreadyCanonical) {
+      window.history.pushState(
+        {
+          ...window.history.state,
+          mobileMoreEntry: false,
+          mobileView: next,
+          storySub,
+        },
+        "",
+        routeWithHash(nextHash),
+      );
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
     const tab = tabForView(next);
     if (tab !== "more") trackEvent(TAB_EVENTS[tab], {});
     if (next === "forest") {
@@ -193,9 +230,82 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     return () => document.removeEventListener("click", onInternalLink, true);
   }, [navigateTo, router.pathname]);
 
+  useEffect(() => {
+    if (view !== "home" || sheetOpen || !isMobileViewport()) return;
+    let frame = 0;
+    const syncHomeSection = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        if (
+          window.location.hash !== "" &&
+          window.location.hash !== "#about"
+        )
+          return;
+        const about = document.getElementById("about");
+        const isAbout =
+          about !== null &&
+          about.getBoundingClientRect().top <= window.innerHeight * 0.35;
+        const nextHash = isAbout ? "about" : "";
+        if (window.location.hash === (nextHash ? `#${nextHash}` : "")) return;
+        window.history.replaceState(
+          {
+            ...window.history.state,
+            mobileMoreEntry: false,
+            mobileView: "home",
+            storySub: "journey",
+          },
+          "",
+          routeWithHash(nextHash),
+        );
+      });
+    };
+    syncHomeSection();
+    window.addEventListener("scroll", syncHomeSection, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", syncHomeSection);
+    };
+  }, [sheetOpen, view]);
+
   const openSheet = () => {
     trackEvent("mobile_more_open", {});
     setSheetOpen(true);
+    window.history.pushState(
+      {
+        ...window.history.state,
+        mobileMoreEntry: true,
+        mobileView: view,
+        storySub:
+          document.documentElement.getAttribute("data-story-sub") ===
+          "experience"
+            ? "experience"
+            : "journey",
+      },
+      "",
+      routeWithHash("more"),
+    );
+  };
+
+  const closeSheet = () => {
+    setSheetOpen(false);
+    if (window.history.state?.mobileMoreEntry) {
+      window.history.back();
+      return;
+    }
+    const storySub =
+      document.documentElement.getAttribute("data-story-sub") === "experience"
+        ? "experience"
+        : "journey";
+    window.history.replaceState(
+      {
+        ...window.history.state,
+        mobileMoreEntry: false,
+        mobileView: view,
+        storySub,
+      },
+      "",
+      routeWithHash(hashForView(view, storySub)),
+    );
   };
 
   const onSheetNavigate = (destination: MoreDestination) => {
@@ -245,7 +355,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
         isOpen={sheetOpen}
         activeView={view}
         cvDownloadUrl={cvDownloadUrl}
-        onClose={() => setSheetOpen(false)}
+        onClose={closeSheet}
         onNavigate={onSheetNavigate}
       />
     </>
