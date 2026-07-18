@@ -1,12 +1,30 @@
+import { useRouter } from "next/router";
+
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import Forest from "../index";
-import { defaultForest, fullStatForest,minimalForest, oneStatForest, twoStatForest } from "../model";
+import {
+  defaultForest,
+  fullStatForest,
+  minimalForest,
+  oneStatForest,
+  twoStatForest,
+} from "../model";
+
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
+
+const mockUseRouter = useRouter as jest.Mock;
 
 describe("Forest", () => {
+  beforeEach(() => {
+    mockUseRouter.mockReturnValue({ locale: "en" });
+  });
+
   it("renders correctly with all props", () => {
     const { container } = renderWithTheme(<Forest {...defaultForest} />);
     expect(container).toMatchSnapshot();
@@ -45,7 +63,9 @@ describe("Forest", () => {
 
   it("renders the Tree-Nation link", () => {
     renderWithTheme(<Forest {...defaultForest} />);
-    expect(screen.getByRole("link", { name: /View the living forest/i })).toHaveAttribute(
+    expect(
+      screen.getByRole("link", { name: /View the living forest/i }),
+    ).toHaveAttribute(
       "href",
       "https://tree-nation.com/profile/andrea-agostini-103769",
     );
@@ -55,7 +75,9 @@ describe("Forest", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     const panel = screen.getByTestId("season-project");
     expect(panel).toHaveTextContent(defaultForest.seasonProjectName!);
-    expect(panel).toHaveTextContent(defaultForest.seasonProjectStats!);
+    expect(panel).toHaveTextContent(
+      "4 trees · 2 species · 1.5 t CO2 lifetime estimate",
+    );
     defaultForest.seasonProjectSpecies!.forEach((species) => {
       expect(screen.getByText(species)).toBeInTheDocument();
     });
@@ -70,10 +92,75 @@ describe("Forest", () => {
     expect(screen.queryByTestId("season-project")).not.toBeInTheDocument();
   });
 
+  describe("CO₂ metric with clarification tooltip", () => {
+    it("renders the structured metric line with a subscripted 2", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      const stats = screen.getByTestId("project-stats");
+      expect(stats).toHaveTextContent(
+        "4 trees · 2 species · 1.5 t CO2 lifetime estimate",
+      );
+      const sub = stats.querySelector("sub");
+      expect(sub).not.toBeNull();
+      expect(sub).toHaveTextContent("2");
+    });
+
+    it("falls back to the legacy stats string without structured values", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          seasonProjectTreesCount={undefined}
+          seasonProjectCo2Kg={undefined}
+        />,
+      );
+      expect(screen.getByTestId("project-stats")).toHaveTextContent(
+        defaultForest.seasonProjectStats!,
+      );
+      expect(
+        screen.queryByRole("button", { name: /CO₂ estimate/i }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("opens the tooltip with the exact copy and wires aria-describedby", async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<Forest {...defaultForest} />);
+      const trigger = screen.getByRole("button", {
+        name: "About the CO₂ estimate",
+      });
+      await user.click(trigger);
+      const tooltip = screen.getByRole("tooltip");
+      expect(tooltip).toHaveTextContent(
+        "Estimated CO₂ capture over the trees’ expected lifetime, based on Tree-Nation data.",
+      );
+      expect(trigger).toHaveAttribute("aria-describedby", tooltip.id);
+      await user.keyboard("{Escape}");
+      expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    });
+
+    it("renders the exact localized Italian label and copy", async () => {
+      const user = userEvent.setup();
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(<Forest {...defaultForest} treesLabel="alberi" />);
+
+      const trigger = screen.getByRole("button", {
+        name: "Informazioni sulla stima della CO₂",
+      });
+      expect(screen.getByTestId("project-stats")).toHaveTextContent(
+        "4 alberi · 2 specie · 1,5 t CO2 stima sul ciclo di vita",
+      );
+      await user.click(trigger);
+
+      expect(screen.getByRole("tooltip")).toHaveTextContent(
+        "Stima della CO₂ assorbita durante il ciclo di vita previsto degli alberi, basata sui dati di Tree-Nation.",
+      );
+    });
+  });
+
   it("opens the modal when Plant button is clicked", async () => {
     const user = userEvent.setup();
     renderWithTheme(<Forest {...defaultForest} />);
-    const btn = screen.getByRole("button", { name: defaultForest.ctaButtonLabel });
+    const btn = screen.getByRole("button", {
+      name: defaultForest.ctaButtonLabel,
+    });
     await user.click(btn);
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
@@ -81,7 +168,9 @@ describe("Forest", () => {
   it("closes the modal when ✕ is clicked", async () => {
     const user = userEvent.setup();
     renderWithTheme(<Forest {...defaultForest} />);
-    await user.click(screen.getByRole("button", { name: defaultForest.ctaButtonLabel }));
+    await user.click(
+      screen.getByRole("button", { name: defaultForest.ctaButtonLabel }),
+    );
     const closeBtn = screen.getByRole("button", { name: "Close" });
     await user.click(closeBtn);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -92,7 +181,14 @@ describe("Forest", () => {
       container.querySelectorAll("[data-testid='stat-item']");
 
     it("hides stats when no stats are positive", () => {
-      const { container } = renderWithTheme(<Forest {...defaultForest} feedbackCount={0} treesDedicatedCount={0} improvementsCount={0} />);
+      const { container } = renderWithTheme(
+        <Forest
+          {...defaultForest}
+          feedbackCount={0}
+          treesDedicatedCount={0}
+          improvementsCount={0}
+        />,
+      );
       expect(getStatItems(container).length).toBe(0);
     });
 

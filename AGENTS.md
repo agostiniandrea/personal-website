@@ -50,7 +50,25 @@ yarn build-storybook    # Build Storybook static output
 yarn chromatic          # Visual regression via Chromatic (requires CHROMATIC_PROJECT_TOKEN)
 ```
 
+## Pull request screenshots
+
+Every PR with a user-visible change must include screenshots captured from the
+Vercel preview after deployment succeeds. Add them to the PR's `Screenshots`
+section at these standard viewport widths:
+
+- Desktop: 1440px
+- Tablet: 768px
+- Mobile: 390px
+
+Show the affected UI in the same state at every viewport. Include both closed
+and open/interactive states when the change introduces a popover, modal,
+drawer, menu, tooltip, or similar interaction. Add before/after pairs when they
+materially help reviewers understand the change. If screenshots cannot be
+captured, state the concrete reason in the PR instead of writing “Not
+applicable”. Non-visual changes may continue to use “Not applicable”.
+
 Run a single test file:
+
 ```bash
 yarn test -- components/ions/Button/__tests__/Button.test.tsx
 ```
@@ -63,10 +81,10 @@ yarn test -- components/ions/Button/__tests__/Button.test.tsx
 
 Content is fetched from Contentful in `lib/utils/cms/index.ts`. Two content types are mapped to page routes:
 
-| Contentful type | Route | Notes |
-|---|---|---|
-| `pageLanding` | `pages/index.tsx` | Home |
-| `pageDetail` | `pages/[slug].tsx` | All other pages, keyed by `uid` field |
+| Contentful type | Route              | Notes                                 |
+| --------------- | ------------------ | ------------------------------------- |
+| `pageLanding`   | `pages/index.tsx`  | Home                                  |
+| `pageDetail`    | `pages/[slug].tsx` | All other pages, keyed by `uid` field |
 
 Pages are built at static time via `getPaths` / `getStaticProps`, with `revalidate` for ISR.
 
@@ -82,6 +100,7 @@ Contentful modules within a page are rendered by `organisms/ModuleRenderer`. The
 4. `cleanProps` normalises Contentful field shapes — particularly images — before spreading onto the component
 
 **To add a new CMS module:**
+
 1. Add the Contentful content type ID to `constants/modules.ts`
 2. Create the component in `components/cms/YourModule/`
 3. Add a `case` in the `ModuleMatrix` switch in `organisms/ModuleRenderer/ModuleRenderer.tsx`
@@ -101,6 +120,7 @@ Each tier barrel-exports via its `index.ts`.
 ### Styling
 
 styled-components with a ThemeProvider wrapping the entire app (`pages/_app.tsx`). Theme is composed in `config/theme.tsx` from:
+
 - `config/customizations/` — colors, fonts, spacing, typography, radii, line-heights
 - `config/componentThemes/` — per-component token overrides (button, link)
 - `constants/breakpoints.ts` — breakpoint values
