@@ -3,6 +3,7 @@ import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, Next
 import { ServerStyleSheet } from "styled-components";
 
 import { colors } from "@config/customizations/colors";
+import { PRE_HYDRATION_VIEW_SCRIPT } from "@lib/utils/mobileNav";
 
 type MyDocumentProps = DocumentInitialProps & { locale: string };
 
@@ -44,6 +45,9 @@ export default class MyDocument extends Document<MyDocumentProps> {
           />
         </Head>
         <body>
+          {/* Resolves the active mobile view from the hash before first paint
+              so deep links (e.g. /#forest) never flash the Home tab */}
+          <script dangerouslySetInnerHTML={{ __html: PRE_HYDRATION_VIEW_SCRIPT }} />
           <Main />
           <NextScript />
         </body>
