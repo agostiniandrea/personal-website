@@ -142,12 +142,12 @@ const Journey: React.FC<JourneyProps> = ({
   return (
   <JourneySection id="journey">
   <Container>
-      <StorySegmentedControl />
       {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
       {heading && (
         <SectionHeading size="section">{heading}</SectionHeading>
       )}
       {intro && <Intro variant="large">{intro}</Intro>}
+      <StorySegmentedControl />
 
       <Timeline aria-label="Life journey timeline">
         {chapters?.map((chapter) => (

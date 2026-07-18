@@ -14,7 +14,7 @@ exports[`Journey renders correctly with default data 1`] = `
   grid-column: 2/auto;
 }
 
-.c7 {
+.c4 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -22,7 +22,7 @@ exports[`Journey renders correctly with default data 1`] = `
   line-height: 1.1;
 }
 
-.c5 {
+.c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -30,7 +30,7 @@ exports[`Journey renders correctly with default data 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c6 {
   color: var(--color-paragraph);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -38,7 +38,7 @@ exports[`Journey renders correctly with default data 1`] = `
   padding: 0;
 }
 
-.c6 {
+.c3 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -47,11 +47,11 @@ exports[`Journey renders correctly with default data 1`] = `
   text-transform: uppercase;
 }
 
-.c2 {
+.c8 {
   display: none;
 }
 
-.c3 {
+.c9 {
   background: var(--color-background);
   border: none;
   border-radius: 999px;
@@ -66,12 +66,12 @@ exports[`Journey renders correctly with default data 1`] = `
   transition: background 0.2s ease,color 0.2s ease;
 }
 
-.c3:focus-visible {
+.c9:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: -2px;
 }
 
-.c4 {
+.c10 {
   background: transparent;
   border: none;
   border-radius: 999px;
@@ -86,7 +86,7 @@ exports[`Journey renders correctly with default data 1`] = `
   transition: background 0.2s ease,color 0.2s ease;
 }
 
-.c4:focus-visible {
+.c10:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: -2px;
 }
@@ -95,11 +95,11 @@ exports[`Journey renders correctly with default data 1`] = `
   padding: 3rem 0;
 }
 
-.c8 {
+.c5 {
   margin: 0 0 2rem;
 }
 
-.c10 {
+.c7 {
   line-height: 1.7;
   margin-bottom: 4rem;
   max-width: 680px;
@@ -233,19 +233,19 @@ li:last-child>.c15 {
 }
 
 @media (min-width: 900px) {
-  .c7 {
+  .c4 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c7 {
+  .c4 {
     font-size: 3.5rem;
   }
 }
 
 @media (max-width: 899.98px) {
-  html[data-mobile-view="story"] .c2 {
+  html[data-mobile-view="story"] .c8 {
     background: rgba(128, 128, 128, 0.12);
     border-radius: 999px;
     display: flex;
@@ -255,7 +255,7 @@ li:last-child>.c15 {
 }
 
 @media (min-width: 900px) {
-  .c2 {
+  .c8 {
     display: none!important;
   }
 }
@@ -268,13 +268,13 @@ li:last-child>.c15 {
 }
 
 @media (max-width: 1199px) {
-  .c8 {
+  .c5 {
     margin-bottom: 1rem;
   }
 }
 
 @media (max-width: 1199px) {
-  .c10 {
+  .c7 {
     margin-bottom: 1rem;
   }
 }
@@ -312,15 +312,30 @@ li:last-child>.c15 {
     <section
       class="c1"
     >
+      <p
+        class="c2 c3"
+      >
+        The Journey
+      </p>
+      <h2
+        class="c4 c5"
+      >
+        A Life in Motion
+      </h2>
+      <p
+        class="c6 c7"
+      >
+        From a small town outside Bologna to the streets of Bangkok — via Turin, Amsterdam, and 35 countries in between.
+      </p>
       <div
         aria-label="Story sections"
-        class="c2"
+        class="c8"
         role="tablist"
       >
         <button
           aria-controls="journey"
           aria-selected="true"
-          class="c3"
+          class="c9"
           data-story-segment="journey"
           role="tab"
           tabindex="0"
@@ -330,7 +345,7 @@ li:last-child>.c15 {
         <button
           aria-controls="experience"
           aria-selected="false"
-          class="c4"
+          class="c10"
           data-story-segment="experience"
           role="tab"
           tabindex="-1"
@@ -338,21 +353,6 @@ li:last-child>.c15 {
           Experience
         </button>
       </div>
-      <p
-        class="c5 c6"
-      >
-        The Journey
-      </p>
-      <h2
-        class="c7 c8"
-      >
-        A Life in Motion
-      </h2>
-      <p
-        class="c9 c10"
-      >
-        From a small town outside Bologna to the streets of Bangkok — via Turin, Amsterdam, and 35 countries in between.
-      </p>
       <ol
         aria-label="Life journey timeline"
         class="c11"
@@ -371,7 +371,7 @@ li:last-child>.c15 {
             class="c15"
           >
             <p
-              class="c5 c16"
+              class="c2 c16"
             >
               Thailand
             </p>
@@ -385,14 +385,14 @@ li:last-child>.c15 {
               </h3>
             </div>
             <p
-              class="c5 c18"
+              class="c2 c18"
             >
               33 y.o. · 
               2025 –
                ?
             </p>
             <p
-              class="c5 c19"
+              class="c2 c19"
             >
               In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.
             </p>
@@ -412,7 +412,7 @@ li:last-child>.c15 {
             class="c15"
           >
             <p
-              class="c5 c16"
+              class="c2 c16"
             >
               Netherlands
             </p>
@@ -426,13 +426,13 @@ li:last-child>.c15 {
               </h3>
             </div>
             <p
-              class="c5 c18"
+              class="c2 c18"
             >
               26 y.o. · 
               2019 – 2025
             </p>
             <p
-              class="c5 c19"
+              class="c2 c19"
             >
               Moving to Amsterdam in early 2019 felt like stepping into the version of life I'd been building toward. I lived in the heart of the city, between Centraal and Dam Square, worked in tech, and watched the world flip to remote almost overnight in March 2020. That shift suited me. By 2022 I was fully remote for a Canadian company, working across time zones — and somewhere between a first trip to Indonesia and a winter in British Columbia, I realised the city I lived in mattered less than I'd thought. Amsterdam gave me six and a half good years. It also planted the seed for what came next.
             </p>
@@ -452,7 +452,7 @@ li:last-child>.c15 {
             class="c15"
           >
             <p
-              class="c5 c16"
+              class="c2 c16"
             >
               Italy
             </p>
@@ -466,13 +466,13 @@ li:last-child>.c15 {
               </h3>
             </div>
             <p
-              class="c5 c18"
+              class="c2 c18"
             >
               21 y.o. · 
               2013 – 2018
             </p>
             <p
-              class="c5 c19"
+              class="c2 c19"
             >
               Five years in Turin taught me two things: that learning by doing is the only kind that sticks, and that I wasn't afraid of starting over somewhere new. The ITS programme put me into real projects from day one. By the time I left in late 2018, I had a career — and the confidence to take a much bigger leap.
             </p>
@@ -492,7 +492,7 @@ li:last-child>.c15 {
             class="c15"
           >
             <p
-              class="c5 c16"
+              class="c2 c16"
             >
               Italy
             </p>
@@ -506,12 +506,12 @@ li:last-child>.c15 {
               </h3>
             </div>
             <p
-              class="c5 c18"
+              class="c2 c18"
             >
               1992 – 2013
             </p>
             <p
-              class="c5 c19"
+              class="c2 c19"
             >
               I grew up just outside Bologna, in a town small enough to know your neighbours and big enough to want more. Secondary school at ITIS Belluzzi in Bologna, where I got serious about code for the first time. Between shifts at the warehouse and the supermarket, I kept studying — and when an ITS ICT programme in Turin came up, with hands-on work in mobile app design, I said yes before I'd finished reading the application.
             </p>

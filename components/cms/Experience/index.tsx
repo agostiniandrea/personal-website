@@ -93,9 +93,9 @@ const Description = styled(Text)`
 const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items }) => (
   <Section id="experience">
     <Container>
-      <StorySegmentedControl />
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
+      <StorySegmentedControl />
       <List>
         {items.map((item) => (
           <Item key={`${item.company}-${item.role}`}>
