@@ -45,6 +45,15 @@ interface AnalyticsEventParams {
     locale: string;
     project_id: string;
   };
+  forest_feedback_nudge_click: {
+    locale: string;
+  };
+  forest_feedback_nudge_dismiss: {
+    locale: string;
+  };
+  forest_feedback_nudge_view: {
+    locale: string;
+  };
   forest_teaser_click: {
     locale: string;
   };
@@ -62,6 +71,9 @@ interface AnalyticsEventParams {
   mobile_tab_work: Record<string, never>;
   project_opened: {
     project_name: string;
+  };
+  section_view: {
+    section_name: string;
   };
   social_profile_clicked: {
     location: AnalyticsLocation;

@@ -1,8 +1,10 @@
 import React from "react";
 
 import { About, AboutProps, BeyondCode, BeyondCodeProps, Contact, ContactProps, Experience, ExperienceProps, Forest, ForestProps, HeroPortfolio, HeroPortfolioProps, Journey, JourneyProps, Projects, ProjectsProps, Skills, SkillsProps, Sustainability, SustainabilityProps } from "@components/cms";
+import { ForestTeaser } from "@components/molecules";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
+import { DESKTOP_MODULE_ORDER } from "@lib/utils/sectionOrder";
 
 type DefaultModuleProps = {
   data: TPageModule;
@@ -145,20 +147,44 @@ const ModuleRenderer: React.FC<ModuleRendererProps> = ({
   components = [],
   pageOrigin = "",
   ...rest
-}) => (
-  <>
-    {components.map((componentData, index) => (
-      <React.Fragment key={`${componentData.id}-${index.toString()}`}>
-        {componentData && (
-          <ModuleMatrix
-            data={componentData}
-            pageOrigin={pageOrigin}
-            {...rest}
-          />
-        )}
-      </React.Fragment>
-    ))}
-  </>
-);
+}) => {
+  const forestModule = components.find(({ type }) => type === MODULES.FOREST);
+  const forestProps = forestModule ? cleanProps(forestModule.fields) : {};
+  const feedbackTrees = Number(
+    forestProps.treesDedicatedCount ?? forestProps.seasonProjectTreesCount ?? 0,
+  );
+  const totalTrees = Number(forestProps.treeCount ?? 0);
+  const orderedComponents = components
+    .map((component, index) => ({ component, index }))
+    .sort(
+      (a, b) =>
+        (DESKTOP_MODULE_ORDER[a.component.type] ?? Number.MAX_SAFE_INTEGER) -
+          (DESKTOP_MODULE_ORDER[b.component.type] ?? Number.MAX_SAFE_INTEGER) ||
+        a.index - b.index,
+    )
+    .map(({ component }) => component);
+
+  return (
+    <>
+      {orderedComponents.map((componentData, index) => (
+        <React.Fragment key={`${componentData.id}-${index.toString()}`}>
+          {componentData && (
+            <ModuleMatrix
+              data={componentData}
+              pageOrigin={pageOrigin}
+              {...rest}
+            />
+          )}
+          {componentData.type === MODULES.PROJECTS && (
+            <ForestTeaser
+              feedbackTrees={feedbackTrees}
+              totalTrees={totalTrees}
+            />
+          )}
+        </React.Fragment>
+      ))}
+    </>
+  );
+};
 
 export default ModuleRenderer;

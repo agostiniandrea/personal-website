@@ -123,7 +123,7 @@ supabase/
 
 ## CMS Architecture
 
-Content is fetched from Contentful at build time via `getStaticProps`. Pages revalidate via ISR — 24 hours for the home page, 1 minute for detail pages. A scheduled GitHub Actions workflow triggers a full Vercel redeploy every Monday at 03:30 UTC to pick up Contentful content changes.
+Content is fetched from Contentful at build time via `getStaticProps`. Pages revalidate via ISR — 1 hour for the home page, 1 minute for detail pages. Successful Forest feedback submissions also request on-demand revalidation for both homepage locales. A scheduled GitHub Actions workflow triggers a full Vercel redeploy every Monday at 03:30 UTC to pick up Contentful content changes.
 
 ### Page types
 

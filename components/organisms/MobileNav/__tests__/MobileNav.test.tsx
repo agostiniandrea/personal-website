@@ -1,12 +1,19 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { createMatchMediaMock } from "@test-utils/mockMatchMedia";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import MobileNav from "../index";
 
-const setNavigationState = (mobileView: string) => {
-  window.history.replaceState({ mobileView, storySub: "journey" }, "", "/");
+const defaultMatchMedia = window.matchMedia;
+
+const setNavigationState = (mobileView: string, hash: string) => {
+  window.history.replaceState(
+    { mobileView, storySub: "journey" },
+    "",
+    `/${hash}`,
+  );
   act(() => {
     window.dispatchEvent(new PopStateEvent("popstate"));
   });
@@ -19,6 +26,7 @@ describe("MobileNav", () => {
 
   afterEach(() => {
     window.history.replaceState(null, "", "/");
+    window.matchMedia = defaultMatchMedia;
     document.documentElement.removeAttribute("data-mobile-view");
     document.documentElement.removeAttribute("data-story-sub");
   });
@@ -44,7 +52,8 @@ describe("MobileNav", () => {
   });
 
   it.each([
-    ["#projects", "Work", "work"],
+    ["#about", "Home", "home"],
+    ["#work", "Work", "work"],
     ["#journey", "Story", "story"],
     ["#experience", "Story", "story"],
     ["#forest", "Forest", "forest"],
@@ -67,11 +76,31 @@ describe("MobileNav", () => {
     );
   });
 
-  it("navigates on tab click with a clean URL and history state", async () => {
+  it("removes the hash for Home while preserving path and query", async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, "", "/it?preview=1#forest");
+    renderWithTheme(<MobileNav />);
+    await user.click(screen.getByRole("button", { name: "Home" }));
+    expect(window.location.pathname).toBe("/it");
+    expect(window.location.search).toBe("?preview=1");
+    expect(window.location.hash).toBe("");
+  });
+
+  it("falls back from an unknown mobile hash to the canonical root", () => {
+    window.matchMedia = createMatchMediaMock(true);
+    window.history.replaceState(null, "", "/?preview=1#unknown");
+    renderWithTheme(<MobileNav />);
+    expect(window.location.pathname).toBe("/");
+    expect(window.location.search).toBe("?preview=1");
+    expect(window.location.hash).toBe("");
+    expect(document.documentElement).toHaveAttribute("data-mobile-view", "home");
+  });
+
+  it("navigates on tab click with its canonical hash and history state", async () => {
     const user = userEvent.setup();
     renderWithTheme(<MobileNav />);
     await user.click(screen.getByRole("button", { name: "Work" }));
-    expect(window.location.hash).toBe("");
+    expect(window.location.hash).toBe("#work");
     expect(window.history.state).toEqual(
       expect.objectContaining({ mobileView: "work", storySub: "journey" }),
     );
@@ -91,7 +120,7 @@ describe("MobileNav", () => {
     expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
       "forest",
     );
-    setNavigationState("work");
+    setNavigationState("work", "#work");
     expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
       "work",
     );
@@ -106,6 +135,7 @@ describe("MobileNav", () => {
       const user = userEvent.setup();
       renderWithTheme(<MobileNav cvDownloadUrl="https://example.com/cv.pdf" />);
       await user.click(screen.getByRole("button", { name: "More" }));
+      expect(window.location.hash).toBe("#more");
       const sheet = screen.getByTestId("more-sheet");
       expect(sheet).toHaveAttribute("role", "dialog");
       expect(screen.getByRole("link", { name: /download cv/i })).toHaveAttribute(
@@ -121,7 +151,7 @@ describe("MobileNav", () => {
       expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
         "skills",
       );
-      expect(window.location.hash).toBe("");
+      expect(window.location.hash).toBe("#skills");
       expect(window.history.state).toEqual(
         expect.objectContaining({ mobileView: "skills" }),
       );
