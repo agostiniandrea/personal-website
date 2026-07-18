@@ -26,7 +26,7 @@ export const journeyData: JourneyProps = {
       years: "2025 –",
       age: "33",
       description:
-        "In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. The question mark at the end of this chapter is the point.",
+        "In August 2025 I left Amsterdam. Spent a few months rediscovering southern Italy, then in October boarded a one-way flight to Thailand on a digital nomad visa. Same job, same team, different hemisphere. Bangkok is loud, fast, and somehow immediately home. This chapter is still being written.",
       isOngoing: true,
     },
     {
