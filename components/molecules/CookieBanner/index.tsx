@@ -66,6 +66,13 @@ const Card = styled.div`
     right: 1rem;
     width: auto;
   }
+
+  /* Sit above the fixed bottom tab bar when the mobile nav is active */
+  @media (max-width: 899.98px) {
+    html[data-mobile-view] && {
+      bottom: calc(4.5rem + 1rem + env(safe-area-inset-bottom));
+    }
+  }
 `;
 
 const Eyebrow = styled.p`

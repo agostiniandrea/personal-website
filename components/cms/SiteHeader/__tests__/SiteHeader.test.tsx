@@ -1,4 +1,4 @@
-import { fireEvent,screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
@@ -28,7 +28,7 @@ describe("SiteHeader", () => {
     expect(logo).toHaveAttribute("href", "/");
   });
 
-  it("renders nav links with correct hrefs (desktop + drawer)", () => {
+  it("renders nav links with correct hrefs", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
     defaultSiteHeader.navLinks.forEach(({ label, url }) => {
       const links = screen.getAllByRole("link", { name: label, hidden: true });
@@ -49,61 +49,17 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("banner")).toBeInTheDocument();
   });
 
-  it("renders a hamburger button", () => {
+  it("does not render a hamburger menu (mobile uses the bottom navigation)", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    expect(screen.getByRole("button", { name: "Open menu" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /open menu/i }),
+    ).not.toBeInTheDocument();
   });
 
-  it("sets aria-expanded=true on hamburger when clicked", () => {
+  it("renders the locale switch button", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    const hamburger = screen.getByRole("button", { name: "Open menu" });
-    expect(hamburger).toHaveAttribute("aria-expanded", "false");
-    fireEvent.click(hamburger);
-    expect(hamburger).toHaveAttribute("aria-expanded", "true");
-  });
-
-  it("sets aria-expanded=false when drawer is closed", () => {
-    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    const hamburger = screen.getByRole("button", { name: "Open menu" });
-    fireEvent.click(hamburger);
-    fireEvent.click(screen.getByRole("button", { name: "Close menu" }));
-    expect(hamburger).toHaveAttribute("aria-expanded", "false");
-  });
-
-  it("keeps closed drawer controls out of the accessibility tree", () => {
-    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-
-    expect(screen.queryByRole("dialog", { name: "Navigation menu" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Close menu" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("navigation", { name: "Mobile navigation" })).not.toBeInTheDocument();
-  });
-
-  it("moves focus into the drawer when it opens", () => {
-    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
-    expect(screen.getByRole("button", { name: "Close menu" })).toHaveFocus();
-  });
-
-  it("closes on Escape and restores focus to the hamburger", () => {
-    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    const hamburger = screen.getByRole("button", { name: "Open menu" });
-    fireEvent.click(hamburger);
-
-    fireEvent.keyDown(document, { key: "Escape" });
-
-    expect(screen.queryByRole("dialog", { name: "Navigation menu" })).not.toBeInTheDocument();
-    expect(hamburger).toHaveFocus();
-  });
-
-  it("wraps focus from the first to the last drawer control", () => {
-    renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
-    const closeButton = screen.getByRole("button", { name: "Close menu" });
-    const localeButton = screen.getByRole("button", { name: "Switch to Italian" });
-
-    expect(closeButton).toHaveFocus();
-    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
-
-    expect(localeButton).toHaveFocus();
+    expect(
+      screen.getByRole("button", { name: /switch to italian/i }),
+    ).toBeInTheDocument();
   });
 });
