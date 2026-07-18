@@ -5,14 +5,18 @@ import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import MobileNav from "../index";
 
-const setHash = (hash: string) => {
-  window.history.replaceState(null, "", `/${hash}`);
+const setNavigationState = (mobileView: string) => {
+  window.history.replaceState({ mobileView, storySub: "journey" }, "", "/");
   act(() => {
-    window.dispatchEvent(new Event("hashchange"));
+    window.dispatchEvent(new PopStateEvent("popstate"));
   });
 };
 
 describe("MobileNav", () => {
+  beforeAll(() => {
+    window.scrollTo = jest.fn();
+  });
+
   afterEach(() => {
     window.history.replaceState(null, "", "/");
     document.documentElement.removeAttribute("data-mobile-view");
@@ -63,11 +67,14 @@ describe("MobileNav", () => {
     );
   });
 
-  it("navigates on tab click, updating hash and html attribute", async () => {
+  it("navigates on tab click with a clean URL and history state", async () => {
     const user = userEvent.setup();
     renderWithTheme(<MobileNav />);
     await user.click(screen.getByRole("button", { name: "Work" }));
-    expect(window.location.hash).toBe("#projects");
+    expect(window.location.hash).toBe("");
+    expect(window.history.state).toEqual(
+      expect.objectContaining({ mobileView: "work", storySub: "journey" }),
+    );
     expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
       "work",
     );
@@ -77,14 +84,14 @@ describe("MobileNav", () => {
     );
   });
 
-  it("restores the previous view on hashchange (Back/Forward)", async () => {
+  it("restores the previous view on popstate (Back/Forward)", async () => {
     const user = userEvent.setup();
     renderWithTheme(<MobileNav />);
     await user.click(screen.getByRole("button", { name: "Forest" }));
     expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
       "forest",
     );
-    setHash("#projects");
+    setNavigationState("work");
     expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
       "work",
     );
@@ -106,17 +113,35 @@ describe("MobileNav", () => {
         "https://example.com/cv.pdf",
       );
       await user.click(
-        screen.getByRole("button", { name: "Skills & tools" }),
+        screen.getByRole("button", {
+          name: /Skills & tools Technologies and practices/i,
+        }),
       );
       expect(screen.queryByTestId("more-sheet")).not.toBeInTheDocument();
       expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
         "skills",
       );
-      expect(window.location.hash).toBe("#skills");
+      expect(window.location.hash).toBe("");
+      expect(window.history.state).toEqual(
+        expect.objectContaining({ mobileView: "skills" }),
+      );
       expect(screen.getByRole("button", { name: "More" })).toHaveAttribute(
         "aria-current",
         "page",
       );
+    });
+
+    it("marks More as current while the sheet is open and includes Experience", async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<MobileNav />);
+      await user.click(screen.getByRole("button", { name: "More" }));
+      expect(screen.getByRole("button", { name: "More" })).toHaveAttribute(
+        "aria-current",
+        "page",
+      );
+      expect(
+        screen.getByRole("button", { name: /Experience Where I've worked/i }),
+      ).toBeInTheDocument();
     });
 
     it("closes on Escape and on backdrop click", async () => {

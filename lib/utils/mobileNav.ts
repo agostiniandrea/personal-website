@@ -2,6 +2,12 @@ export type MobileTab = "home" | "work" | "story" | "forest";
 export type MoreView = "skills" | "sustainability" | "beyond-code";
 export type MobileView = MobileTab | MoreView;
 export type StorySub = "journey" | "experience";
+export type MoreDestination = MoreView | "experience";
+
+export type MobileNavigationState = {
+  mobileView?: MobileView;
+  storySub?: StorySub;
+};
 
 export const MOBILE_TABS: MobileTab[] = ["home", "work", "story", "forest"];
 export const MORE_VIEWS: MoreView[] = ["skills", "sustainability", "beyond-code"];
@@ -51,6 +57,30 @@ export function resolveViewFromHash(hash: string): {
     view: match?.view ?? "home",
     storySub: match?.storySub ?? "journey",
   };
+}
+
+export function resolveManagedHash(
+  hash: string,
+): { view: MobileView; storySub: StorySub } | null {
+  const match = HASH_TO_VIEW[hash.replace(/^#/, "")];
+  if (!match) return null;
+  return {
+    view: match.view,
+    storySub: match.storySub ?? "journey",
+  };
+}
+
+export function resolveViewFromState(
+  state: MobileNavigationState | null,
+  hash: string,
+): { view: MobileView; storySub: StorySub } {
+  if (state?.mobileView && VIEW_SECTIONS[state.mobileView]) {
+    return {
+      view: state.mobileView,
+      storySub: state.storySub === "experience" ? "experience" : "journey",
+    };
+  }
+  return resolveViewFromHash(hash);
 }
 
 /* Tab owning a view, for aria-current on the bottom navigation */

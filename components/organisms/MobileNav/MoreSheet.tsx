@@ -8,27 +8,54 @@ import styled from "styled-components";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
-import { MobileView, MoreView } from "@lib/utils/mobileNav";
+import {
+  MobileView,
+  MoreDestination,
+} from "@lib/utils/mobileNav";
 
 export interface MoreSheetProps {
   isOpen: boolean;
   activeView: MobileView;
   cvDownloadUrl?: string;
   onClose: () => void;
-  onNavigate: (destination: MoreView) => void;
+  onNavigate: (destination: MoreDestination) => void;
 }
 
-const ITEM_LABELS: Record<MoreView, { en: string; it: string }> = {
-  skills: { en: "Skills & tools", it: "Competenze e strumenti" },
-  sustainability: { en: "Sustainability", it: "Sostenibilità" },
-  "beyond-code": { en: "Beyond code", it: "Oltre il codice" },
+const ITEM_META: Record<
+  MoreDestination,
+  { title: { en: string; it: string }; subtitle: { en: string; it: string } }
+> = {
+  skills: {
+    title: { en: "Skills & tools", it: "Competenze e strumenti" },
+    subtitle: { en: "Technologies and practices", it: "Tecnologie e pratiche" },
+  },
+  experience: {
+    title: { en: "Experience", it: "Esperienza" },
+    subtitle: { en: "Where I've worked", it: "Dove ho lavorato" },
+  },
+  sustainability: {
+    title: { en: "Sustainability", it: "Sostenibilità" },
+    subtitle: { en: "Values and action", it: "Valori e azioni" },
+  },
+  "beyond-code": {
+    title: { en: "Beyond code", it: "Oltre il codice" },
+    subtitle: { en: "Life, travel and passions", it: "Vita, viaggi e passioni" },
+  },
 };
 
+const ITEM_ORDER: MoreDestination[] = [
+  "skills",
+  "experience",
+  "sustainability",
+  "beyond-code",
+];
+
 const Backdrop = styled.div`
-  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  background: rgba(10, 10, 15, 0.52);
   inset: 0;
   position: fixed;
-  z-index: 300;
+  z-index: 201;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
@@ -37,13 +64,16 @@ const Backdrop = styled.div`
 
 const Sheet = styled.div`
   background: ${({ theme }) => theme.colors.background};
-  border-radius: 1rem 1rem 0 0;
-  bottom: 0;
+  border: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.highlight} 16%, transparent);
+  border-bottom: 0;
+  border-radius: 1.25rem 1.25rem 0 0;
+  bottom: calc(3.75rem + env(safe-area-inset-bottom));
+  box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.18);
   left: 0;
-  max-height: 80vh;
+  max-height: calc(100svh - 7.5rem);
   overflow-y: auto;
-  padding: ${({ theme }) => theme.space.lg} ${({ theme }) => theme.space.xl}
-    calc(${({ theme }) => theme.space.xl} + env(safe-area-inset-bottom));
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
+    ${({ theme }) => theme.space.xl};
   position: fixed;
   right: 0;
   z-index: 301;
@@ -61,7 +91,7 @@ const SheetHeader = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.space.lg};
+  margin-bottom: ${({ theme }) => theme.space.md};
 `;
 
 const SheetTitle = styled.h2`
@@ -74,8 +104,9 @@ const SheetTitle = styled.h2`
 
 const CloseButton = styled.button`
   align-items: center;
-  background: none;
-  border: none;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid rgba(128, 128, 128, 0.16);
+  border-radius: ${({ theme }) => theme.radii.rounded};
   color: ${({ theme }) => theme.colors.paragraph};
   cursor: pointer;
   display: flex;
@@ -93,6 +124,7 @@ const CloseButton = styled.button`
 const ItemList = styled.ul`
   display: flex;
   flex-direction: column;
+  gap: ${({ theme }) => theme.space.xs};
   list-style: none;
   margin: 0 0 ${({ theme }) => theme.space.lg};
   padding: 0;
@@ -100,18 +132,20 @@ const ItemList = styled.ul`
 
 const ItemButton = styled.button<{ $active?: boolean }>`
   align-items: center;
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  background: ${({ $active, theme }) =>
+    $active ? theme.colors.badgeBg : "transparent"};
+  border: 1px solid
+    ${({ $active, theme }) =>
+      $active ? theme.colors.stroke : "transparent"};
+  border-radius: ${({ theme }) => theme.radii.sm};
   color: ${({ $active, theme }) =>
     $active ? theme.colors.highlight : theme.colors.headline};
   cursor: pointer;
   display: flex;
   font-family: inherit;
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.medium};
-  min-height: 44px;
-  padding: ${({ theme }) => theme.space.md} 0;
+  gap: ${({ theme }) => theme.space.md};
+  min-height: 56px;
+  padding: ${({ theme }) => theme.space.sm};
   text-align: left;
   width: 100%;
 
@@ -120,6 +154,51 @@ const ItemButton = styled.button<{ $active?: boolean }>`
     outline-offset: -2px;
   }
 `;
+
+const ItemIconWrap = styled.span`
+  align-items: center;
+  background: ${({ theme }) => theme.colors.badgeBg};
+  border-radius: ${({ theme }) => theme.radii.sm};
+  color: ${({ theme }) => theme.colors.highlight};
+  display: flex;
+  flex: 0 0 40px;
+  height: 40px;
+  justify-content: center;
+`;
+
+const ItemCopy = styled.span`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+`;
+
+const ItemTitle = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
+const ItemSubtitle = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+`;
+
+const Chevron = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+`;
+
+const ItemIcon = ({ destination }: { destination: MoreDestination }) => (
+  <ItemIconWrap aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      {destination === "skills" && <><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /><circle cx="12" cy="12" r="4" /></>}
+      {destination === "experience" && <><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5h8v2M3 12h18" /></>}
+      {destination === "sustainability" && <><path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" /><path d="M5 21c2-6 6-10 12-14" /></>}
+      {destination === "beyond-code" && <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></>}
+    </svg>
+  </ItemIconWrap>
+);
 
 const CvLink = styled.a`
   align-items: center;
@@ -244,14 +323,19 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
           </CloseButton>
         </SheetHeader>
         <ItemList>
-          {(Object.keys(ITEM_LABELS) as MoreView[]).map((destination) => (
+          {ITEM_ORDER.map((destination) => (
             <li key={destination}>
               <ItemButton
                 $active={activeView === destination}
                 aria-current={activeView === destination ? "page" : undefined}
                 onClick={() => onNavigate(destination)}
               >
-                {ITEM_LABELS[destination][localeKey]}
+                <ItemIcon destination={destination} />
+                <ItemCopy>
+                  <ItemTitle>{ITEM_META[destination].title[localeKey]}</ItemTitle>
+                  <ItemSubtitle>{ITEM_META[destination].subtitle[localeKey]}</ItemSubtitle>
+                </ItemCopy>
+                <Chevron aria-hidden="true">›</Chevron>
               </ItemButton>
             </li>
           ))}

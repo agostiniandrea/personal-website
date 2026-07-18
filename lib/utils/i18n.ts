@@ -7,6 +7,11 @@ const strings = {
     co2TooltipBody:
       "Estimated CO₂ capture over the trees’ expected lifetime, based on Tree-Nation data.",
     co2TooltipLabel: "About the CO₂ estimate",
+    forestTeaserBody:
+      "Your feedback helps fund real trees and improve this portfolio.",
+    forestTeaserCta: "See how it grows",
+    forestTeaserDismiss: "Dismiss Forest preview",
+    forestTeaserTitle: "Ideas that grow into trees.",
     goTo: (label: string) => `Go to ${label}`,
     mainNavigation: "Main navigation",
     mobileNavigation: "Mobile navigation",
@@ -35,6 +40,11 @@ const strings = {
     co2TooltipBody:
       "Stima della CO₂ assorbita durante il ciclo di vita previsto degli alberi, basata sui dati di Tree-Nation.",
     co2TooltipLabel: "Informazioni sulla stima della CO₂",
+    forestTeaserBody:
+      "Il tuo feedback aiuta a finanziare alberi reali e migliorare questo portfolio.",
+    forestTeaserCta: "Scopri come cresce",
+    forestTeaserDismiss: "Chiudi l'anteprima Forest",
+    forestTeaserTitle: "Idee che diventano alberi.",
     goTo: (label: string) => `Vai a ${label}`,
     mainNavigation: "Navigazione principale",
     mobileNavigation: "Navigazione mobile",
