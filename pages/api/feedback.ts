@@ -126,5 +126,15 @@ export default async function handler(
     return res.status(500).json({ error: "Failed to save feedback" });
   }
 
+  const revalidationResults = await Promise.allSettled([
+    res.revalidate("/"),
+    res.revalidate("/it"),
+  ]);
+  revalidationResults.forEach((result) => {
+    if (result.status === "rejected") {
+      console.error("Forest statistics revalidation failed:", result.reason);
+    }
+  });
+
   return res.status(200).json({ success: true });
 }

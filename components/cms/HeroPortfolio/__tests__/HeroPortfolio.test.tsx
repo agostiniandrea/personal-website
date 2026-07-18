@@ -114,4 +114,19 @@ describe("HeroPortfolio", () => {
     });
     delete window.gtag;
   });
+
+  it.each(["Download CV", "Scarica CV"])(
+    "keeps the %s label and arrow inside one tertiary link",
+    (label) => {
+      renderWithTheme(
+        <HeroPortfolio {...defaultHeroPortfolio} cvDownloadLabel={label} />,
+      );
+      const cvLink = screen.getByRole("link", { name: label });
+      expect(cvLink).toHaveStyleRule("display", "inline-flex");
+      expect(cvLink).toHaveStyleRule("min-height", "44px");
+      expect(cvLink).toHaveStyleRule("width", "fit-content");
+      expect(cvLink.querySelector('[aria-hidden="true"]')).toHaveTextContent("↓");
+      expect(cvLink.lastElementChild).toHaveTextContent(label);
+    },
+  );
 });

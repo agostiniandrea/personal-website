@@ -5,6 +5,7 @@ export type StorySub = "journey" | "experience";
 export type MoreDestination = MoreView | "experience";
 
 export type MobileNavigationState = {
+  mobileMoreEntry?: boolean;
   mobileView?: MobileView;
   storySub?: StorySub;
 };
@@ -25,9 +26,10 @@ export const VIEW_SECTIONS: Record<MobileView, string[]> = {
 };
 
 const HASH_TO_VIEW: Record<string, { view: MobileView; storySub?: StorySub }> = {
-  hero: { view: "home" },
   about: { view: "home" },
+  work: { view: "work" },
   projects: { view: "work" },
+  story: { view: "story", storySub: "journey" },
   journey: { view: "story", storySub: "journey" },
   experience: { view: "story", storySub: "experience" },
   forest: { view: "forest" },
@@ -38,8 +40,8 @@ const HASH_TO_VIEW: Record<string, { view: MobileView; storySub?: StorySub }> = 
 
 /* The canonical hash pushed when a view is activated */
 export const VIEW_TO_HASH: Record<MobileView, string> = {
-  home: "hero",
-  work: "projects",
+  home: "",
+  work: "work",
   story: "journey",
   forest: "forest",
   skills: "skills",
@@ -73,14 +75,32 @@ export function resolveManagedHash(
 export function resolveViewFromState(
   state: MobileNavigationState | null,
   hash: string,
-): { view: MobileView; storySub: StorySub } {
-  if (state?.mobileView && VIEW_SECTIONS[state.mobileView]) {
+): {
+  isUnknownHash: boolean;
+  sheetOpen: boolean;
+  storySub: StorySub;
+  view: MobileView;
+} {
+  const key = hash.replace(/^#/, "");
+  if (key === "more") {
+    const stateView = state?.mobileView;
     return {
-      view: state.mobileView,
-      storySub: state.storySub === "experience" ? "experience" : "journey",
+      isUnknownHash: false,
+      sheetOpen: true,
+      storySub: state?.storySub === "experience" ? "experience" : "journey",
+      view: stateView && VIEW_SECTIONS[stateView] ? stateView : "home",
     };
   }
-  return resolveViewFromHash(hash);
+  const managed = resolveManagedHash(hash);
+  if (managed) {
+    return { ...managed, isUnknownHash: false, sheetOpen: false };
+  }
+  return {
+    isUnknownHash: key.length > 0,
+    sheetOpen: false,
+    storySub: "journey",
+    view: "home",
+  };
 }
 
 /* Tab owning a view, for aria-current on the bottom navigation */

@@ -52,6 +52,7 @@ const Button = styled.button<{ $visible: boolean }>`
 const ScrollToTop: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
+  const [feedbackNudgeVisible, setFeedbackNudgeVisible] = useState(false);
   const { locale } = useRouter();
   const t = useI18n(locale);
 
@@ -59,6 +60,20 @@ const ScrollToTop: React.FC = () => {
     const onScroll = () => setScrolled(window.scrollY > 400);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setFeedbackNudgeVisible(
+      document.body.dataset.feedbackNudgeVisible === "true",
+    );
+    const onVisibility = (event: Event) => {
+      setFeedbackNudgeVisible(
+        Boolean((event as CustomEvent<{ visible: boolean }>).detail?.visible),
+      );
+    };
+    window.addEventListener("feedback-nudge-visibility", onVisibility);
+    return () =>
+      window.removeEventListener("feedback-nudge-visibility", onVisibility);
   }, []);
 
   useEffect(() => {
@@ -74,7 +89,7 @@ const ScrollToTop: React.FC = () => {
 
   return (
     <Button
-      $visible={scrolled && !footerVisible}
+      $visible={scrolled && !footerVisible && !feedbackNudgeVisible}
       aria-label={t.scrollToTop}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >

@@ -5,19 +5,11 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { BREAKPOINTS } from "@constants";
+import { trackOnce } from "@lib/utils/analytics";
 import { SECTION_LABELS,useI18n } from "@lib/utils/i18n";
+import { ANALYTICS_SECTION_NAMES, DESKTOP_SECTION_ORDER } from "@lib/utils/sectionOrder";
 
-const SECTION_IDS = [
-  "hero",
-  "about",
-  "projects",
-  "skills",
-  "journey",
-  "experience",
-  "sustainability",
-  "beyond-code",
-  "forest",
-] as const;
+const SECTION_IDS = DESKTOP_SECTION_ORDER.filter((id) => id !== "contact");
 
 const Nav = styled.nav`
   display: none;
@@ -139,7 +131,13 @@ export default function SectionDots() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActive(entry.target.id);
+            const id = entry.target.id as (typeof SECTION_IDS)[number];
+            setActive(id);
+            trackOnce(
+              "section_view",
+              { section_name: ANALYTICS_SECTION_NAMES[id] },
+              `section-view-${id}`,
+            );
           }
         });
       },

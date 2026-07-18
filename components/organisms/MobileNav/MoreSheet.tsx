@@ -63,20 +63,28 @@ const Backdrop = styled.div`
 `;
 
 const Sheet = styled.div`
+  -webkit-overflow-scrolling: touch;
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.highlight} 16%, transparent);
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
-  bottom: calc(3.75rem + env(safe-area-inset-bottom));
+  bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  box-sizing: border-box;
   box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.18);
   left: 0;
-  max-height: calc(100svh - 7.5rem);
+  max-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom) - 1rem);
+  overscroll-behavior: contain;
   overflow-y: auto;
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
     ${({ theme }) => theme.space.xl};
   position: fixed;
   right: 0;
   z-index: 301;
+
+  @media (max-width: 360px) {
+    padding-left: ${({ theme }) => theme.space.md};
+    padding-right: ${({ theme }) => theme.space.md};
+  }
 `;
 
 const Grabber = styled.div`
@@ -89,9 +97,13 @@ const Grabber = styled.div`
 
 const SheetHeader = styled.div`
   align-items: center;
+  background: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.space.md};
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const SheetTitle = styled.h2`

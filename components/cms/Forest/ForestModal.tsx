@@ -654,6 +654,8 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
         feedback_category: data.category,
         locale: locale ?? "en",
       });
+      localStorage.setItem("forest-feedback-submitted", "true");
+      window.dispatchEvent(new Event("feedback-submitted"));
       setStep(5);
     } catch {
       setError(t.errorMsg);

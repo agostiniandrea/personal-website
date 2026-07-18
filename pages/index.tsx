@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 
 import { Seo } from "@components/atoms";
 import { SiteFooter,SiteHeader } from "@components/cms";
-import { ForestTeaser } from "@components/molecules";
+import { FeedbackNudge } from "@components/molecules";
 import { MobileNav, ModuleRenderer, SectionDots } from "@components/organisms";
 import { MODULES,PAGE_TYPES } from "@constants";
 import {
@@ -16,6 +16,7 @@ import {
   TSiteFooterData,
   TSiteHeaderData,
 } from "@lib/utils/cms";
+import { getForestImpactStats } from "@lib/utils/forestStats";
 import { getForestTreeCount } from "@lib/utils/treeNation";
 
 type THomepage = {
@@ -41,37 +42,26 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
   }
 
   try {
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      throw new Error(
+        "SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is unavailable during static generation",
+      );
+    }
     const supabase = createClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
     );
 
-    const [
-      { count: feedbackCount },
-      { data: plantedRows },
-      { count: improvementsCount },
-      liveTreeCount,
-    ] = await Promise.all([
-      supabase.from("feedback").select("id", { count: "exact", head: true }),
-      supabase.from("feedback").select("trees_planted"),
-      supabase.from("feedback").select("id", { count: "exact", head: true }).eq("status", "implemented"),
+    const [impactStats, liveTreeCount] = await Promise.all([
+      getForestImpactStats(supabase),
       getForestTreeCount(supabase),
     ]);
-
-    // Trees are counted only once actually purchased (trees_planted is set at
-    // purchase time), never inferred from feedback statuses
-    const treesDedicatedCount = (plantedRows ?? []).reduce(
-      (sum, row) => sum + (row.trees_planted ?? 0),
-      0
-    );
 
     const forestModule = page.modules.find((m) => m.type === MODULES.FOREST);
     if (forestModule) {
       forestModule.fields = {
         ...forestModule.fields,
-        feedbackCount: feedbackCount ?? 0,
-        treesDedicatedCount: treesDedicatedCount ?? 0,
-        improvementsCount: improvementsCount ?? 0,
+        ...impactStats,
         // Verified Tree-Nation total wins; the Contentful treeCount stays as
         // the fallback when no sync has ever succeeded
         ...(liveTreeCount !== null && { treeCount: liveTreeCount }),
@@ -88,7 +78,7 @@ export async function getStaticProps({ locale = "en" }: { locale?: string }): Pr
       footer,
       locale,
     },
-    revalidate: 86400,
+    revalidate: 3600,
   };
 }
 
@@ -150,7 +140,7 @@ export default function Home({ page, header, footer, locale }: THomepage) {
         <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
       </main>
       <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
-      <ForestTeaser />
+      <FeedbackNudge />
       <MobileNav cvDownloadUrl={extractCvUrl(page)} />
     </>
   );

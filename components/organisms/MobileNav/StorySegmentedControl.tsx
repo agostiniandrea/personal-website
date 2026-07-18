@@ -74,7 +74,11 @@ const StorySegmentedControl: React.FC = () => {
     if (sub === active) return;
     setActive(sub);
     document.documentElement.setAttribute("data-story-sub", sub);
-    window.history.pushState(null, "", `#${sub}`);
+    window.history.pushState(
+      { ...window.history.state, mobileView: "story", storySub: sub },
+      "",
+      `${window.location.pathname}${window.location.search}#${sub}`,
+    );
     window.scrollTo({ top: 0, behavior: "auto" });
     trackEvent(
       sub === "experience" ? "story_experience_view" : "story_journey_view",
