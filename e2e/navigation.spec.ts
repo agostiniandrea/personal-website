@@ -253,4 +253,19 @@ test.describe("mobile app navigation accessibility", () => {
     await expect(page.locator("html")).toHaveAttribute("data-mobile-view", "forest");
     await expect(page.getByRole("dialog")).toHaveCount(0);
   });
+
+  test("Journey shows location periods without ages in English and Italian", async ({ page }) => {
+    await page.goto("/#journey");
+    await expect(page.getByText("2025 – Now", { exact: true })).toBeVisible();
+    for (const period of ["2019 – 2025", "2013 – 2018", "1992 – 2013"]) {
+      await expect(page.getByText(period, { exact: true })).toBeVisible();
+    }
+    await expect(page.locator("#journey")).not.toContainText("y.o.");
+
+    await page.goto("/it#journey");
+    await expect(page.getByText("2025 – Oggi", { exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Torino" })).toBeVisible();
+    const italianJourneyText = await page.locator("#journey").textContent();
+    expect(italianJourneyText).not.toMatch(/\d+ anni ·/);
+  });
 });

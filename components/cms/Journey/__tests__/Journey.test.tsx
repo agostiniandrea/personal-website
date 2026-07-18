@@ -42,10 +42,12 @@ describe("Journey", () => {
     ).toBeInTheDocument();
   });
 
-  it("uses Now/Oggi for the open-ended Journey period", () => {
+  it("renders only location periods and localizes the open ending", () => {
     const ongoing = journeyData.chapters![0];
-    expect(formatJourneyDate(ongoing, "en")).toBe("33 y.o. · 2025 – Now");
-    expect(formatJourneyDate(ongoing, "it")).toBe("33 anni · 2025 – Oggi");
-    expect(formatJourneyDate(ongoing, "en")).not.toContain("?");
+    expect(formatJourneyDate(ongoing, "Now")).toBe("2025 – Now");
+    expect(formatJourneyDate(ongoing, "Oggi")).toBe("2025 – Oggi");
+    journeyData.chapters?.forEach((chapter) => {
+      expect(formatJourneyDate(chapter, "Now")).not.toMatch(/y\.o\.|anni|\?/);
+    });
   });
 });

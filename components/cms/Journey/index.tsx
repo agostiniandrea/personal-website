@@ -6,6 +6,7 @@ import { Box, Container, Heading, Text } from "@components/ions";
 import { SectionLabel } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS } from "@constants";
+import { useI18n } from "@lib/utils/i18n";
 
 import { type JourneyChapter, journeyData, type JourneyProps } from "./model";
 
@@ -133,13 +134,10 @@ const Description = styled(Text)`
 
 export const formatJourneyDate = (
   chapter: JourneyChapter,
-  locale?: string,
+  ongoingLabel: string,
 ) => {
-  const ageLabel = locale === "it" ? "anni" : "y.o.";
-  const ongoingLabel = locale === "it" ? "Oggi" : "Now";
-  const age = chapter.age ? `${chapter.age} ${ageLabel} · ` : "";
   const years = chapter.years.trimEnd();
-  return `${age}${years}${chapter.isOngoing ? ` ${ongoingLabel}` : ""}`;
+  return `${years}${chapter.isOngoing ? ` ${ongoingLabel}` : ""}`;
 };
 
 const Journey: React.FC<JourneyProps> = ({
@@ -149,6 +147,7 @@ const Journey: React.FC<JourneyProps> = ({
   chapters = journeyData.chapters,
 }) => {
   const { locale } = useRouter();
+  const t = useI18n(locale);
   return (
   <JourneySection id="journey">
   <Container>
@@ -170,7 +169,7 @@ const Journey: React.FC<JourneyProps> = ({
               <Box>
                 <CityHeading size="card" as="h3">{chapter.city}</CityHeading>
               </Box>
-              <DateLabel>{formatJourneyDate(chapter, locale)}</DateLabel>
+              <DateLabel>{formatJourneyDate(chapter, t.journeyNow)}</DateLabel>
               <Description>{chapter.description}</Description>
             </ItemContent>
           </TimelineItem>
