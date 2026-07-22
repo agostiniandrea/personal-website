@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
 
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { VIEW_SECTIONS } from "@lib/utils/mobileNav";
 
 /* App-like mobile tabs: below the desktop-nav breakpoint, when the
@@ -7,7 +8,7 @@ import { VIEW_SECTIONS } from "@lib/utils/mobileNav";
    visible. Without JS the attribute is absent and the page keeps its full
    one-page layout. */
 const MANAGED_SECTION_IDS = Array.from(
-  new Set(Object.values(VIEW_SECTIONS).flat())
+  new Set(Object.values(VIEW_SECTIONS).flat()),
 );
 
 const mobileTabRules = Object.entries(VIEW_SECTIONS)
@@ -29,6 +30,15 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --font-inter: "Inter", sans-serif;
     --font-space-grotesk: "Space Grotesk", sans-serif;
+
+    /* Height of the fixed site header — single source of truth. SiteHeader
+       sizes itself from it, and every fixed-header offset reads it back, so
+       the two can never drift apart. */
+    --site-header-height: 3.5rem;
+
+    @media (min-width: ${BREAKPOINTS.xTablet}) {
+      --site-header-height: 4.3125rem;
+    }
 
     /* color tokens — dark (default) */
     --color-background: #0a0a0f;
@@ -112,18 +122,18 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       background: ${theme.colors.background};
       color: ${theme.colors.main};
-      font-size: 18px;
       font-family: var(--font-inter), sans-serif;
+      font-size: 18px;
       margin: 0;
       overflow-x: hidden;
       padding: 0;
       scroll-behavior: smooth;
-      visibility: visible;
       text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      visibility: visible;
     }
 
     p,
@@ -163,20 +173,20 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .sr-only {
-      position: absolute;
-      width: 1px;
+      border: 0;
+      clip: rect(0, 0, 0, 0);
       height: 1px;
-      padding: 0;
       margin: -1px;
       overflow: hidden;
-      clip: rect(0, 0, 0, 0);
+      padding: 0;
+      position: absolute;
       white-space: nowrap;
-      border: 0;
+      width: 1px;
     }
 
     main {
-      padding-top: 0;
       margin-top: 0;
+      padding-top: 0;
     }
 
     section[id] {
@@ -189,19 +199,22 @@ const GlobalStyle = createGlobalStyle`
       *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
       }
     }
 
-    @media (max-width: 899.98px) {
+    @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
       ${mobileTabRules}
       ${storySubRules}
 
-      /* Room for the fixed bottom navigation (+ iOS home indicator) */
+      /* Every mobile view starts below the fixed site header, and leaves room
+         for the fixed bottom navigation (the footer reserves the rest). */
       html[data-mobile-view] main {
-        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom) + 1.5rem);
+        padding-bottom: 1rem;
+        padding-top: var(--site-header-height);
       }
+
       html[data-mobile-view] footer[role="contentinfo"] {
         padding-bottom: calc(1.5rem + 4.5rem + env(safe-area-inset-bottom));
       }

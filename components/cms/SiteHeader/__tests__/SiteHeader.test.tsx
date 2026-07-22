@@ -1,18 +1,41 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
+import MobileNav from "@components/organisms/MobileNav";
+import { createMatchMediaMock } from "@test-utils/mockMatchMedia";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import SiteHeader from "../index";
 import { defaultSiteHeader, minimalSiteHeader } from "../model";
 
+const defaultMatchMedia = window.matchMedia;
+
 describe("SiteHeader", () => {
+  beforeAll(() => {
+    Object.defineProperty(window, "scrollTo", {
+      writable: true,
+      value: jest.fn(),
+    });
+  });
+
+  afterEach(() => {
+    window.matchMedia = defaultMatchMedia;
+    window.history.replaceState(null, "", "/");
+    document.documentElement.removeAttribute("data-mobile-view");
+    document.documentElement.removeAttribute("data-story-sub");
+  });
+
   it("renders correctly with all nav links", () => {
-    const { container } = renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
+    const { container } = renderWithTheme(
+      <SiteHeader {...defaultSiteHeader} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
   it("renders correctly with no nav links", () => {
-    const { container } = renderWithTheme(<SiteHeader {...minimalSiteHeader} />);
+    const { container } = renderWithTheme(
+      <SiteHeader {...minimalSiteHeader} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
@@ -28,6 +51,36 @@ describe("SiteHeader", () => {
     expect(logo).toHaveAttribute("href", "/");
   });
 
+  it("returns the mobile experience to Home when the logo is clicked", async () => {
+    const user = userEvent.setup();
+    window.matchMedia = createMatchMediaMock(true);
+    window.history.replaceState(
+      { mobileView: "story", storySub: "experience" },
+      "",
+      "/#experience",
+    );
+    document.documentElement.setAttribute("data-mobile-view", "story");
+    document.documentElement.setAttribute("data-story-sub", "experience");
+
+    renderWithTheme(
+      <>
+        <SiteHeader {...defaultSiteHeader} />
+        <MobileNav />
+      </>,
+    );
+    await user.click(screen.getByText(defaultSiteHeader.logoText));
+
+    expect(window.location.hash).toBe("");
+    expect(document.documentElement).toHaveAttribute(
+      "data-mobile-view",
+      "home",
+    );
+    expect(screen.getByRole("button", { name: "Home" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
   it("renders nav links with correct hrefs", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
     defaultSiteHeader.navLinks.forEach(({ label, url }) => {
@@ -40,7 +93,9 @@ describe("SiteHeader", () => {
   it("renders no nav links when navLinks is empty", () => {
     renderWithTheme(<SiteHeader {...minimalSiteHeader} />);
     defaultSiteHeader.navLinks.forEach(({ label }) => {
-      expect(screen.queryAllByRole("link", { name: label, hidden: true })).toHaveLength(0);
+      expect(
+        screen.queryAllByRole("link", { name: label, hidden: true }),
+      ).toHaveLength(0);
     });
   });
 

@@ -4,17 +4,17 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { SECTION_LABELS, useI18n } from "@lib/utils/i18n";
-import { resolveViewFromHash, StorySub } from "@lib/utils/mobileNav";
+import { StorySub } from "@lib/utils/mobileNav";
 
 /* Rendered at the top of both Journey and Experience; only one instance is
    ever visible because the sections are mutually exclusive in the story tab */
 const Group = styled.div`
   display: none;
 
-  @media (max-width: 899.98px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
     html[data-mobile-view="story"] & {
       background: rgba(128, 128, 128, 0.12);
       border-radius: 999px;
@@ -44,7 +44,9 @@ const Segment = styled.button<{ $active: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   min-height: 44px;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
@@ -60,15 +62,19 @@ const StorySegmentedControl: React.FC = () => {
   const localeKey = locale === "it" ? "it" : "en";
   const [active, setActive] = useState<StorySub>("journey");
 
-  const syncFromLocation = useCallback(() => {
-    setActive(resolveViewFromHash(window.location.hash).storySub);
+  const syncFromHistory = useCallback(() => {
+    setActive(
+      window.history.state?.storySub === "experience"
+        ? "experience"
+        : "journey",
+    );
   }, []);
 
   useEffect(() => {
-    syncFromLocation();
-    window.addEventListener("hashchange", syncFromLocation);
-    return () => window.removeEventListener("hashchange", syncFromLocation);
-  }, [syncFromLocation]);
+    syncFromHistory();
+    window.addEventListener("popstate", syncFromHistory);
+    return () => window.removeEventListener("popstate", syncFromHistory);
+  }, [syncFromHistory]);
 
   const select = (sub: StorySub) => {
     if (sub === active) return;
@@ -77,12 +83,15 @@ const StorySegmentedControl: React.FC = () => {
     window.history.pushState(
       { ...window.history.state, mobileView: "story", storySub: sub },
       "",
-      `${window.location.pathname}${window.location.search}#${sub}`,
+      `${window.location.pathname}${window.location.search}`,
+    );
+    window.dispatchEvent(
+      new PopStateEvent("popstate", { state: window.history.state }),
     );
     window.scrollTo({ top: 0, behavior: "auto" });
     trackEvent(
       sub === "experience" ? "story_experience_view" : "story_journey_view",
-      {}
+      {},
     );
   };
 
@@ -92,13 +101,17 @@ const StorySegmentedControl: React.FC = () => {
     const next = active === "journey" ? "experience" : "journey";
     select(next);
     const el = document.querySelector<HTMLElement>(
-      `[data-story-segment="${next}"]`
+      `[data-story-segment="${next}"]`,
     );
     el?.focus();
   };
 
   return (
-    <Group role="tablist" aria-label={t.storySubNavigation} onKeyDown={onKeyDown}>
+    <Group
+      role="tablist"
+      aria-label={t.storySubNavigation}
+      onKeyDown={onKeyDown}
+    >
       {SUBS.map((sub) => (
         <Segment
           key={sub}

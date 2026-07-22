@@ -3,21 +3,20 @@ import { createPortal } from "react-dom";
 
 import { useRouter } from "next/router";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
-import {
-  MobileView,
-  MoreDestination,
-} from "@lib/utils/mobileNav";
+import { MobileView, MoreDestination } from "@lib/utils/mobileNav";
 
 export interface MoreSheetProps {
   isOpen: boolean;
   activeView: MobileView;
   cvDownloadUrl?: string;
   onClose: () => void;
+  onDownload: () => void;
+  onLocaleChange: (locale: "en" | "it") => void;
   onNavigate: (destination: MoreDestination) => void;
 }
 
@@ -29,23 +28,21 @@ const ITEM_META: Record<
     title: { en: "Skills & tools", it: "Competenze e strumenti" },
     subtitle: { en: "Technologies and practices", it: "Tecnologie e pratiche" },
   },
-  experience: {
-    title: { en: "Experience", it: "Esperienza" },
-    subtitle: { en: "Where I've worked", it: "Dove ho lavorato" },
-  },
   sustainability: {
     title: { en: "Sustainability", it: "Sostenibilità" },
     subtitle: { en: "Values and action", it: "Valori e azioni" },
   },
   "beyond-code": {
     title: { en: "Beyond code", it: "Oltre il codice" },
-    subtitle: { en: "Life, travel and passions", it: "Vita, viaggi e passioni" },
+    subtitle: {
+      en: "Life, travel and passions",
+      it: "Vita, viaggi e passioni",
+    },
   },
 };
 
 const ITEM_ORDER: MoreDestination[] = [
   "skills",
-  "experience",
   "sustainability",
   "beyond-code",
 ];
@@ -53,8 +50,11 @@ const ITEM_ORDER: MoreDestination[] = [
 const Backdrop = styled.div`
   backdrop-filter: blur(2px);
   background: rgba(10, 10, 15, 0.52);
-  inset: 0;
+  bottom: calc(4.5rem + 1px + env(safe-area-inset-bottom));
+  inset-inline: 0;
   position: fixed;
+  top: 0;
+  touch-action: none;
   z-index: 201;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -62,28 +62,48 @@ const Backdrop = styled.div`
   }
 `;
 
+const enter = keyframes`
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+`;
+
 const Sheet = styled.div`
-  -webkit-overflow-scrolling: touch;
+  animation: ${enter} 0.24s ease-out;
   background: ${({ theme }) => theme.colors.background};
-  border: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.highlight} 16%, transparent);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.highlight} 16%,
+      transparent
+    );
+  -webkit-overflow-scrolling: touch;
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
-  bottom: calc(4.5rem + env(safe-area-inset-bottom));
-  box-sizing: border-box;
+  bottom: calc(4.5rem + 1px + env(safe-area-inset-bottom));
   box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
   left: 0;
   max-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom) - 1rem);
-  overscroll-behavior: contain;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
     ${({ theme }) => theme.space.xl};
   position: fixed;
   right: 0;
+  touch-action: pan-y;
   z-index: 301;
 
   @media (max-width: 360px) {
     padding-left: ${({ theme }) => theme.space.md};
     padding-right: ${({ theme }) => theme.space.md};
+  }
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `;
 
@@ -147,8 +167,7 @@ const ItemButton = styled.button<{ $active?: boolean }>`
   background: ${({ $active, theme }) =>
     $active ? theme.colors.badgeBg : "transparent"};
   border: 1px solid
-    ${({ $active, theme }) =>
-      $active ? theme.colors.stroke : "transparent"};
+    ${({ $active, theme }) => ($active ? theme.colors.stroke : "transparent")};
   border-radius: ${({ theme }) => theme.radii.sm};
   color: ${({ $active, theme }) =>
     $active ? theme.colors.highlight : theme.colors.headline};
@@ -203,11 +222,34 @@ const Chevron = styled.span`
 
 const ItemIcon = ({ destination }: { destination: MoreDestination }) => (
   <ItemIconWrap aria-hidden="true">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      {destination === "skills" && <><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /><circle cx="12" cy="12" r="4" /></>}
-      {destination === "experience" && <><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5h8v2M3 12h18" /></>}
-      {destination === "sustainability" && <><path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" /><path d="M5 21c2-6 6-10 12-14" /></>}
-      {destination === "beyond-code" && <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></>}
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {destination === "skills" && (
+        <>
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+          <circle cx="12" cy="12" r="4" />
+        </>
+      )}
+      {destination === "sustainability" && (
+        <>
+          <path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" />
+          <path d="M5 21c2-6 6-10 12-14" />
+        </>
+      )}
+      {destination === "beyond-code" && (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+        </>
+      )}
     </svg>
   </ItemIconWrap>
 );
@@ -267,6 +309,8 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
   activeView,
   cvDownloadUrl,
   onClose,
+  onDownload,
+  onLocaleChange,
   onNavigate,
 }) => {
   const router = useRouter();
@@ -274,13 +318,37 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
   const localeKey = router.locale === "it" ? "it" : "en";
   const sheetRef = useRef<HTMLDivElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     if (!isOpen) return;
     restoreFocusRef.current = document.activeElement as HTMLElement | null;
     const sheet = sheetRef.current;
     sheet?.querySelector<HTMLElement>("button, a")?.focus();
+    const appRoot = document.getElementById("__next");
+    appRoot?.setAttribute("aria-hidden", "true");
+    appRoot?.setAttribute("inert", "");
+    const bodyStyle = document.body.style;
+    const rootStyle = document.documentElement.style;
+    const previousBodyStyles = {
+      left: bodyStyle.left,
+      overflow: bodyStyle.overflow,
+      position: bodyStyle.position,
+      right: bodyStyle.right,
+      top: bodyStyle.top,
+      width: bodyStyle.width,
+    };
+    const previousRootOverscroll = rootStyle.getPropertyValue(
+      "overscroll-behavior",
+    );
+    scrollPositionRef.current = window.scrollY;
+    bodyStyle.left = "0";
     document.body.style.overflow = "hidden";
+    bodyStyle.position = "fixed";
+    bodyStyle.right = "0";
+    bodyStyle.top = `-${scrollPositionRef.current}px`;
+    bodyStyle.width = "100%";
+    rootStyle.setProperty("overscroll-behavior", "none");
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -289,7 +357,7 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
       }
       if (e.key !== "Tab" || !sheet) return;
       const focusables = Array.from(
-        sheet.querySelectorAll<HTMLElement>("button, a[href]")
+        sheet.querySelectorAll<HTMLElement>("button, a[href]"),
       );
       if (focusables.length === 0) return;
       const first = focusables[0];
@@ -305,17 +373,29 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      bodyStyle.left = previousBodyStyles.left;
+      bodyStyle.overflow = previousBodyStyles.overflow;
+      bodyStyle.position = previousBodyStyles.position;
+      bodyStyle.right = previousBodyStyles.right;
+      bodyStyle.top = previousBodyStyles.top;
+      bodyStyle.width = previousBodyStyles.width;
+      if (previousRootOverscroll) {
+        rootStyle.setProperty("overscroll-behavior", previousRootOverscroll);
+      } else {
+        rootStyle.removeProperty("overscroll-behavior");
+      }
+      window.scrollTo({
+        behavior: "auto",
+        left: 0,
+        top: scrollPositionRef.current,
+      });
+      appRoot?.removeAttribute("aria-hidden");
+      appRoot?.removeAttribute("inert");
       restoreFocusRef.current?.focus();
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
-  const switchLocale = (next: "en" | "it") => {
-    if (next === localeKey) return;
-    router.push(router.asPath, router.asPath, { locale: next, scroll: false });
-  };
 
   return createPortal(
     <>
@@ -324,7 +404,7 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
         ref={sheetRef}
         role="dialog"
         aria-modal="true"
-        aria-label={t.moreTitle}
+        aria-label={t.mobileMenuLabel}
         data-testid="more-sheet"
       >
         <Grabber aria-hidden="true" />
@@ -344,8 +424,12 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
               >
                 <ItemIcon destination={destination} />
                 <ItemCopy>
-                  <ItemTitle>{ITEM_META[destination].title[localeKey]}</ItemTitle>
-                  <ItemSubtitle>{ITEM_META[destination].subtitle[localeKey]}</ItemSubtitle>
+                  <ItemTitle>
+                    {ITEM_META[destination].title[localeKey]}
+                  </ItemTitle>
+                  <ItemSubtitle>
+                    {ITEM_META[destination].subtitle[localeKey]}
+                  </ItemSubtitle>
                 </ItemCopy>
                 <Chevron aria-hidden="true">›</Chevron>
               </ItemButton>
@@ -357,9 +441,10 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
             href={cvDownloadUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() =>
-              trackEvent("cv_downloaded", { locale: router.locale ?? "en" })
-            }
+            onClick={() => {
+              trackEvent("cv_downloaded", { locale: router.locale ?? "en" });
+              onDownload();
+            }}
           >
             ↓ {t.moreDownloadCv}
           </CvLink>
@@ -368,14 +453,14 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
           <LocaleLabel>{t.moreLanguage}</LocaleLabel>
           <LocaleButton
             $active={localeKey === "en"}
-            onClick={() => switchLocale("en")}
+            onClick={() => onLocaleChange("en")}
             aria-pressed={localeKey === "en"}
           >
             EN
           </LocaleButton>
           <LocaleButton
             $active={localeKey === "it"}
-            onClick={() => switchLocale("it")}
+            onClick={() => onLocaleChange("it")}
             aria-pressed={localeKey === "it"}
           >
             IT
@@ -383,6 +468,6 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
         </LocaleRow>
       </Sheet>
     </>,
-    document.body
+    document.body,
   );
 };
