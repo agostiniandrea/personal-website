@@ -1,6 +1,6 @@
 import styled, { Interpolation } from "styled-components";
 
-import { type SpacingToken,toSpacing } from "@config/tokens";
+import { type SpacingToken, toSpacing } from "@config/tokens";
 
 type SpacingValue = SpacingToken | number | string;
 
@@ -85,7 +85,23 @@ const StyledBox = styled.div.withConfig({
   ${({ $styles }) => $styles}
 `;
 
-type BoxElement = "div" | "section" | "header" | "footer" | "main" | "article" | "aside" | "nav" | "span" | "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type BoxElement =
+  | "div"
+  | "section"
+  | "header"
+  | "footer"
+  | "main"
+  | "article"
+  | "aside"
+  | "nav"
+  | "span"
+  | "p"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6";
 
 interface BoxProps extends SpacingProps {
   as?: BoxElement;
@@ -149,4 +165,3 @@ const Box: React.FC<BoxProps> = ({
 };
 
 export default Box;
-

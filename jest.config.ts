@@ -21,14 +21,15 @@ const config: Config.InitialOptions = {
   },
   testMatch: ["**/components/**/*.test.tsx"],
   transform: {
-    "^.+\\.(ts|tsx)$": ["ts-jest", {
-      tsconfig: "tsconfig.jest.json",
-      useESM: true
-    }]
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
+      {
+        tsconfig: "tsconfig.jest.json",
+        useESM: true,
+      },
+    ],
   },
-  transformIgnorePatterns: [
-    "/node_modules/",
-  ],
+  transformIgnorePatterns: ["/node_modules/"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 };
 

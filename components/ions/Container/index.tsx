@@ -3,7 +3,15 @@ import styled, { Interpolation } from "styled-components";
 import { BREAKPOINTS } from "@constants";
 
 type FullBleedValue = boolean | boolean[];
-type ContainerElement = "div" | "section" | "header" | "footer" | "main" | "article" | "aside" | "nav";
+type ContainerElement =
+  | "div"
+  | "section"
+  | "header"
+  | "footer"
+  | "main"
+  | "article"
+  | "aside"
+  | "nav";
 
 interface ContainerProps {
   as?: ContainerElement;
@@ -40,7 +48,10 @@ const getFullBleed = (
     }
 
     // If value at index is undefined/null, fallback to previous value
-    if (fullBleed[breakpointIndex] === undefined || fullBleed[breakpointIndex] === null) {
+    if (
+      fullBleed[breakpointIndex] === undefined ||
+      fullBleed[breakpointIndex] === null
+    ) {
       // Look backwards for first defined value
       for (let i = breakpointIndex - 1; i >= 0; i--) {
         if (fullBleed[i] !== undefined && fullBleed[i] !== null) {
@@ -134,8 +145,10 @@ const StyledContainer = styled.div.withConfig({
       return `
         column-gap: calc(81px);
         grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
-        ${$verticalPadding &&
-        "padding-top: calc(2.5rem); padding-bottom: calc(2.5rem);"}
+        ${
+          $verticalPadding &&
+          "padding-top: calc(2.5rem); padding-bottom: calc(2.5rem);"
+        }
       `;
     }}
   }

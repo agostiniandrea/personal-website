@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { Seo } from "@components/atoms";
-import { SiteFooter,SiteHeader } from "@components/cms";
+import { SiteFooter, SiteHeader } from "@components/cms";
 import { Flex, Skeleton } from "@components/ions";
 import { ModuleRenderer } from "@components/organisms";
 import { PAGE_TYPES } from "@constants";
@@ -26,7 +26,8 @@ type TPage = {
 };
 
 const SkeletonPage = styled(Flex).attrs({ direction: "column", gap: "xl" })`
-  padding: ${({ theme }) => theme.space["6xl"]} ${({ theme }) => theme.space["2xl"]};
+  padding: ${({ theme }) => theme.space["6xl"]}
+    ${({ theme }) => theme.space["2xl"]};
   max-width: 800px;
   margin: 0 auto;
 `;
@@ -89,7 +90,9 @@ export default function Pages({ page, header, footer, locale }: TPage) {
             <Skeleton height="1rem" width="85%" />
           </SkeletonPage>
         </main>
-        <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
+        <SiteFooter
+          {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })}
+        />
       </>
     );
   }
@@ -106,7 +109,9 @@ export default function Pages({ page, header, footer, locale }: TPage) {
       <PageMain id="main-content">
         <ModuleRenderer components={page?.modules} />
       </PageMain>
-      <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
+      <SiteFooter
+        {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })}
+      />
     </>
   );
 }

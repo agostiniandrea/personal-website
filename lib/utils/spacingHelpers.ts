@@ -1,4 +1,4 @@
-import { type SpacingToken,toSpacing } from "@config/tokens";
+import { type SpacingToken, toSpacing } from "@config/tokens";
 
 /**
  * Type for spacing values that can be used in CSS properties
@@ -17,12 +17,14 @@ export const spacing = (value: SpacingValue): string => {
 /**
  * Helper function for margin CSS property
  */
-export const margin = (value: SpacingValue): string => `margin: ${spacing(value)};`;
+export const margin = (value: SpacingValue): string =>
+  `margin: ${spacing(value)};`;
 
 /**
  * Helper function for padding CSS property
  */
-export const padding = (value: SpacingValue): string => `padding: ${spacing(value)};`;
+export const padding = (value: SpacingValue): string =>
+  `padding: ${spacing(value)};`;
 
 /**
  * Helper function for gap CSS property
@@ -32,12 +34,14 @@ export const gap = (value: SpacingValue): string => `gap: ${spacing(value)};`;
 /**
  * Helper function for row-gap CSS property
  */
-export const rowGap = (value: SpacingValue): string => `row-gap: ${spacing(value)};`;
+export const rowGap = (value: SpacingValue): string =>
+  `row-gap: ${spacing(value)};`;
 
 /**
  * Helper function for column-gap CSS property
  */
-export const columnGap = (value: SpacingValue): string => `column-gap: ${spacing(value)};`;
+export const columnGap = (value: SpacingValue): string =>
+  `column-gap: ${spacing(value)};`;
 
 /**
  * Helper function for margin-top CSS property
@@ -86,4 +90,3 @@ export const paddingBottom = (value: SpacingValue): string =>
  */
 export const paddingLeft = (value: SpacingValue): string =>
   `padding-left: ${spacing(value)};`;
-

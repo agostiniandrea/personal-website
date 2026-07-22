@@ -6,11 +6,7 @@
     "incremental": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "outDir": "./dist",
@@ -19,36 +15,16 @@
     "strict": true,
     "target": "esnext",
     "paths": {
-      "@assets/*": [
-        "./assets/*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@config/*": [
-        "./config/*"
-      ],
-      "@constants": [
-        "./constants"
-      ],
-      "@contexts/*": [
-        "./contexts/*"
-      ],
-      "@fonts/*": [
-        "./public/assets/fonts/*"
-      ],
-      "@images/*": [
-        "./assets/images/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@test-utils/*": [
-        "./test-utils/*"
-      ],
-      "@utils/*": [
-        "./lib/utils/*"
-      ]
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@config/*": ["./config/*"],
+      "@constants": ["./constants"],
+      "@contexts/*": ["./contexts/*"],
+      "@fonts/*": ["./public/assets/fonts/*"],
+      "@images/*": ["./assets/images/*"],
+      "@lib/*": ["./lib/*"],
+      "@test-utils/*": ["./test-utils/*"],
+      "@utils/*": ["./lib/utils/*"]
     },
     "noEmit": true,
     "noUnusedLocals": true,
@@ -65,8 +41,5 @@
     "next.config.js",
     "components/molecules/HeadingBox/HeadingBox.test.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "storybook-static"
-  ]
+  "exclude": ["node_modules", "storybook-static"]
 }

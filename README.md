@@ -8,24 +8,24 @@ Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 16 (Pages Router), EN + IT via built-in i18n routing |
-| CMS | Contentful — `getStaticProps` + ISR (24 h home, 1 min detail pages) |
-| Database | Supabase — feedback submissions with RLS and IP rate limiting |
-| Styling | styled-components + ThemeProvider |
-| Theming | Dark (default) + light via `prefers-color-scheme` — CSS custom properties, zero JS |
-| Fonts | Inter + Space Grotesk via `next/font` |
-| Images | `next/image` with avif/webp, 30-day CDN TTL, Contentful remote pattern |
-| Language | TypeScript |
-| Unit tests | Jest + Testing Library |
-| E2E tests | Playwright — 37 tests (homepage, i18n, navigation, projects, Forest modal + validation) |
-| Component explorer | Storybook with dark-mode addon + Chromatic visual regression |
-| CI | GitHub Actions — type-check → lint → Jest → Lighthouse → Playwright → auto-merge |
-| Deployment | Vercel — preview on every PR, production on `main` |
-| Analytics | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent |
-| Observability | Vercel Analytics + Speed Insights |
-| Open Graph | Edge runtime at `/api/og` — dynamic OG image generation |
+| Layer              | Technology                                                                              |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| Framework          | Next.js 16 (Pages Router), EN + IT via built-in i18n routing                            |
+| CMS                | Contentful — `getStaticProps` + ISR (24 h home, 1 min detail pages)                     |
+| Database           | Supabase — feedback submissions with RLS and IP rate limiting                           |
+| Styling            | styled-components + ThemeProvider                                                       |
+| Theming            | Dark (default) + light via `prefers-color-scheme` — CSS custom properties, zero JS      |
+| Fonts              | Inter + Space Grotesk via `next/font`                                                   |
+| Images             | `next/image` with avif/webp, 30-day CDN TTL, Contentful remote pattern                  |
+| Language           | TypeScript                                                                              |
+| Unit tests         | Jest + Testing Library                                                                  |
+| E2E tests          | Playwright — 37 tests (homepage, i18n, navigation, projects, Forest modal + validation) |
+| Component explorer | Storybook with dark-mode addon + Chromatic visual regression                            |
+| CI                 | GitHub Actions — type-check → lint → Jest → Lighthouse → Playwright → auto-merge        |
+| Deployment         | Vercel — preview on every PR, production on `main`                                      |
+| Analytics          | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent                |
+| Observability      | Vercel Analytics + Speed Insights                                                       |
+| Open Graph         | Edge runtime at `/api/og` — dynamic OG image generation                                 |
 
 ## Getting Started
 
@@ -127,12 +127,12 @@ Content is fetched from Contentful at build time via `getStaticProps`. Pages rev
 
 ### Page types
 
-| Contentful type | Route | Notes |
-|---|---|---|
-| `pageLanding` | `/` | Home page |
-| `pageDetail` | `/[slug]` | Any other page, keyed by `uid` field |
-| `siteHeader` | Global | Nav links, logo, locale switcher |
-| `siteFooter` | Global | Footer links and social links |
+| Contentful type | Route     | Notes                                |
+| --------------- | --------- | ------------------------------------ |
+| `pageLanding`   | `/`       | Home page                            |
+| `pageDetail`    | `/[slug]` | Any other page, keyed by `uid` field |
+| `siteHeader`    | Global    | Nav links, logo, locale switcher     |
+| `siteFooter`    | Global    | Footer links and social links        |
 
 ### Module flow
 
@@ -145,18 +145,18 @@ Content is fetched from Contentful at build time via `getStaticProps`. Pages rev
 
 ### Available modules
 
-| Module | Contentful type | Notes |
-|---|---|---|
-| `HeroPortfolio` | `heroPortfolio` | Hero with name, role, and CTAs |
-| `About` | `about` | Bio and intro copy |
-| `Experience` | `experience` | Work history timeline |
-| `Skills` | `skills` | Technical skills grouped by category |
-| `Projects` | `projects` | Selected project cards |
-| `Journey` | `journey` | Life timeline — chapters with location, age, and copy |
-| `Sustainability` | `sustainability` | Values, volunteering history, and carbon badge |
-| `BeyondCode` | `beyondCode` | Personal interests and hobbies |
-| `Forest` | `forest` | Feedback initiative — modal collects a message + optional contact info, inserts to Supabase, dedicated tree planted on Tree-Nation per accepted submission |
-| `Contact` | `contact` | Contact section |
+| Module           | Contentful type  | Notes                                                                                                                                                      |
+| ---------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HeroPortfolio`  | `heroPortfolio`  | Hero with name, role, and CTAs                                                                                                                             |
+| `About`          | `about`          | Bio and intro copy                                                                                                                                         |
+| `Experience`     | `experience`     | Work history timeline                                                                                                                                      |
+| `Skills`         | `skills`         | Technical skills grouped by category                                                                                                                       |
+| `Projects`       | `projects`       | Selected project cards                                                                                                                                     |
+| `Journey`        | `journey`        | Life timeline — chapters with location, age, and copy                                                                                                      |
+| `Sustainability` | `sustainability` | Values, volunteering history, and carbon badge                                                                                                             |
+| `BeyondCode`     | `beyondCode`     | Personal interests and hobbies                                                                                                                             |
+| `Forest`         | `forest`         | Feedback initiative — modal collects a message + optional contact info, inserts to Supabase, dedicated tree planted on Tree-Nation per accepted submission |
+| `Contact`        | `contact`        | Contact section                                                                                                                                            |
 
 ## API Routes
 
@@ -210,12 +210,12 @@ Every production release is verified against a fixed quality bar: Lighthouse (pe
 
 Latest audit — **12 July 2026**, production ([agostiniandrea.dev](https://agostiniandrea.dev), v1.11.0), EN and IT locales:
 
-| Lighthouse | Desktop | Mobile |
-|---|---|---|
-| Performance | 100 | 100 |
-| Accessibility | 100 | 100 |
-| Best Practices | 100 | 100 |
-| SEO | 100 | 100 |
+| Lighthouse     | Desktop | Mobile |
+| -------------- | ------- | ------ |
+| Performance    | 100     | 100    |
+| Accessibility  | 100     | 100    |
+| Best Practices | 100     | 100    |
+| SEO            | 100     | 100    |
 
 Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 173 unit tests and 37 E2E tests.
 
@@ -225,28 +225,28 @@ Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mob
 
 ## Environment Variables
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `NEXT_PUBLIC_CONTENTFUL_SPACE_ID` | Yes | Contentful space ID |
-| `NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN` | Yes | Contentful Delivery API token |
-| `SUPABASE_URL` | Yes | Supabase project URL — server-side only |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes — **Sensitive** | Supabase service role key — never expose client-side; mark Sensitive on Vercel |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL (default: `https://agostiniandrea.dev`) |
-| `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics 4 measurement ID |
-| `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Optional | Microsoft Clarity project ID |
-| `CONTENTFUL_MANAGEMENT_TOKEN` | Local only | Contentful Management API — only for one-off content scripts |
-| `CONTENTFUL_ENVIRONMENT_ID` | Local only | Contentful environment (default: `master`) |
-| `CHROMATIC_PROJECT_TOKEN` | Local only | Chromatic visual regression token |
+| Variable                              | Required            | Purpose                                                                        |
+| ------------------------------------- | ------------------- | ------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_CONTENTFUL_SPACE_ID`     | Yes                 | Contentful space ID                                                            |
+| `NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN` | Yes                 | Contentful Delivery API token                                                  |
+| `SUPABASE_URL`                        | Yes                 | Supabase project URL — server-side only                                        |
+| `SUPABASE_SERVICE_ROLE_KEY`           | Yes — **Sensitive** | Supabase service role key — never expose client-side; mark Sensitive on Vercel |
+| `NEXT_PUBLIC_SITE_URL`                | Yes                 | Canonical site URL (default: `https://agostiniandrea.dev`)                     |
+| `NEXT_PUBLIC_GA_ID`                   | Optional            | Google Analytics 4 measurement ID                                              |
+| `NEXT_PUBLIC_CLARITY_PROJECT_ID`      | Optional            | Microsoft Clarity project ID                                                   |
+| `CONTENTFUL_MANAGEMENT_TOKEN`         | Local only          | Contentful Management API — only for one-off content scripts                   |
+| `CONTENTFUL_ENVIRONMENT_ID`           | Local only          | Contentful environment (default: `master`)                                     |
+| `CHROMATIC_PROJECT_TOKEN`             | Local only          | Chromatic visual regression token                                              |
 
 ## Path Aliases
 
-| Alias | Resolves to |
-|---|---|
+| Alias           | Resolves to    |
+| --------------- | -------------- |
 | `@components/*` | `components/*` |
-| `@config/*` | `config/*` |
-| `@constants` | `constants/` |
-| `@lib/*` | `lib/*` |
-| `@utils/*` | `lib/utils/*` |
+| `@config/*`     | `config/*`     |
+| `@constants`    | `constants/`   |
+| `@lib/*`        | `lib/*`        |
+| `@utils/*`      | `lib/utils/*`  |
 | `@test-utils/*` | `test-utils/*` |
 
 ## Changelog

@@ -72,10 +72,15 @@ describe("Contact", () => {
       location: "contact",
       method: "email",
     });
-    expect(window.gtag).toHaveBeenNthCalledWith(2, "event", "social_profile_clicked", {
-      location: "contact",
-      platform: "linkedin",
-    });
+    expect(window.gtag).toHaveBeenNthCalledWith(
+      2,
+      "event",
+      "social_profile_clicked",
+      {
+        location: "contact",
+        platform: "linkedin",
+      },
+    );
     delete window.gtag;
   });
 });

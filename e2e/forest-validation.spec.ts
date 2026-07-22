@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 
-import { expect,test } from "./fixtures";
+import { expect, test } from "./fixtures";
 
 const feedbackDialog = (page: Page) =>
   page.getByRole("dialog", { name: "Share feedback" });
@@ -15,20 +15,28 @@ async function reachStep4(page: Page) {
   await page.getByRole("button", { name: /leave a leaf/i }).click();
   await expect(feedbackDialog(page)).toBeVisible();
   // Step 1 → 2
-  await feedbackDialog(page).getByRole("button", { name: /continue/i }).click();
+  await feedbackDialog(page)
+    .getByRole("button", { name: /continue/i })
+    .click();
   // Step 2: pick category → 3
   await feedbackDialog(page).getByRole("button", { name: "UX" }).click();
-  await feedbackDialog(page).getByRole("button", { name: /continue/i }).click();
+  await feedbackDialog(page)
+    .getByRole("button", { name: /continue/i })
+    .click();
   // Step 3: write message → 4
   await feedbackDialog(page)
     .getByLabel(/your feedback/i)
     .fill("This is a detailed feedback message for validation testing.");
-  await feedbackDialog(page).getByRole("button", { name: /continue/i }).click();
+  await feedbackDialog(page)
+    .getByRole("button", { name: /continue/i })
+    .click();
   // Assert we're on step 4
   await expect(feedbackDialog(page).getByLabel(/your email/i)).toBeVisible();
 }
 
-test("step 4: honeypot is excluded from navigation and the accessibility tree", async ({ page }) => {
+test("step 4: honeypot is excluded from navigation and the accessibility tree", async ({
+  page,
+}) => {
   await reachStep4(page);
   const honeypot = page.locator('input[name="_hp"]');
 
@@ -39,8 +47,8 @@ test("step 4: honeypot is excluded from navigation and the accessibility tree", 
   await expect(accessibleTextboxes).toHaveCount(5);
   expect(
     await accessibleTextboxes.evaluateAll((nodes) =>
-      nodes.some((node) => node.getAttribute("name") === "_hp")
-    )
+      nodes.some((node) => node.getAttribute("name") === "_hp"),
+    ),
   ).toBe(false);
 });
 
@@ -50,7 +58,7 @@ test("step 4: Send enabled when all optional fields are empty", async ({
   page,
 }) => {
   await page.route("/api/feedback", (route) =>
-    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) })
+    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) }),
   );
   await reachStep4(page);
   // No fields filled — all optional, so Send should be enabled
@@ -61,7 +69,7 @@ test("step 4: submitting with no optional fields reaches success screen", async 
   page,
 }) => {
   await page.route("/api/feedback", (route) =>
-    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) })
+    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) }),
   );
   await reachStep4(page);
   await sendBtn(page).click();
@@ -72,8 +80,12 @@ test("step 4: name with only numbers is accepted (no format restriction)", async
   page,
 }) => {
   await reachStep4(page);
-  await feedbackDialog(page).getByLabel(/your name/i).fill("12345");
-  await feedbackDialog(page).getByLabel(/your name/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/your name/i)
+    .fill("12345");
+  await feedbackDialog(page)
+    .getByLabel(/your name/i)
+    .blur();
   await expect(sendBtn(page)).toBeEnabled();
 });
 
@@ -97,29 +109,47 @@ test("step 4: plain text in email field shows error and disables Send", async ({
   page,
 }) => {
   await reachStep4(page);
-  await feedbackDialog(page).getByLabel(/your email/i).fill("notanemail");
-  await feedbackDialog(page).getByLabel(/your email/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/your email/i)
+    .fill("notanemail");
+  await feedbackDialog(page)
+    .getByLabel(/your email/i)
+    .blur();
   await expect(
-    feedbackDialog(page).getByRole("alert").filter({ hasText: /valid email/i })
+    feedbackDialog(page)
+      .getByRole("alert")
+      .filter({ hasText: /valid email/i }),
   ).toBeVisible();
   await expect(sendBtn(page)).toBeDisabled();
 });
 
 test("step 4: email missing @ shows error", async ({ page }) => {
   await reachStep4(page);
-  await feedbackDialog(page).getByLabel(/your email/i).fill("andrea.gmail.com");
-  await feedbackDialog(page).getByLabel(/your email/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/your email/i)
+    .fill("andrea.gmail.com");
+  await feedbackDialog(page)
+    .getByLabel(/your email/i)
+    .blur();
   await expect(
-    feedbackDialog(page).getByRole("alert").filter({ hasText: /valid email/i })
+    feedbackDialog(page)
+      .getByRole("alert")
+      .filter({ hasText: /valid email/i }),
   ).toBeVisible();
 });
 
 test("step 4: email missing domain shows error", async ({ page }) => {
   await reachStep4(page);
-  await feedbackDialog(page).getByLabel(/your email/i).fill("andrea@");
-  await feedbackDialog(page).getByLabel(/your email/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/your email/i)
+    .fill("andrea@");
+  await feedbackDialog(page)
+    .getByLabel(/your email/i)
+    .blur();
   await expect(
-    feedbackDialog(page).getByRole("alert").filter({ hasText: /valid email/i })
+    feedbackDialog(page)
+      .getByRole("alert")
+      .filter({ hasText: /valid email/i }),
   ).toBeVisible();
 });
 
@@ -127,12 +157,16 @@ test("step 4: email missing domain shows error", async ({ page }) => {
 
 test("step 4: plain text in LinkedIn field shows error", async ({ page }) => {
   await reachStep4(page);
-  await feedbackDialog(page).getByLabel(/linkedin url/i).fill("andrea-agostini");
-  await feedbackDialog(page).getByLabel(/linkedin url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/linkedin url/i)
+    .fill("andrea-agostini");
+  await feedbackDialog(page)
+    .getByLabel(/linkedin url/i)
+    .blur();
   await expect(
     feedbackDialog(page)
       .getByRole("alert")
-      .filter({ hasText: /linkedin/i })
+      .filter({ hasText: /linkedin/i }),
   ).toBeVisible();
   await expect(sendBtn(page)).toBeDisabled();
 });
@@ -144,11 +178,13 @@ test("step 4: a valid URL that is not linkedin.com shows error", async ({
   await feedbackDialog(page)
     .getByLabel(/linkedin url/i)
     .fill("https://twitter.com/andrea");
-  await feedbackDialog(page).getByLabel(/linkedin url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/linkedin url/i)
+    .blur();
   await expect(
     feedbackDialog(page)
       .getByRole("alert")
-      .filter({ hasText: /linkedin/i })
+      .filter({ hasText: /linkedin/i }),
   ).toBeVisible();
 });
 
@@ -157,10 +193,14 @@ test("step 4: valid LinkedIn URL is accepted", async ({ page }) => {
   await feedbackDialog(page)
     .getByLabel(/linkedin url/i)
     .fill("https://linkedin.com/in/andrea-agostini");
-  await feedbackDialog(page).getByLabel(/linkedin url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/linkedin url/i)
+    .blur();
   // No alert for LinkedIn
   await expect(
-    feedbackDialog(page).getByRole("alert").filter({ hasText: /linkedin/i })
+    feedbackDialog(page)
+      .getByRole("alert")
+      .filter({ hasText: /linkedin/i }),
   ).not.toBeVisible();
   await expect(sendBtn(page)).toBeEnabled();
 });
@@ -169,12 +209,16 @@ test("step 4: valid LinkedIn URL is accepted", async ({ page }) => {
 
 test("step 4: plain text in GitHub field shows error", async ({ page }) => {
   await reachStep4(page);
-  await feedbackDialog(page).getByLabel(/github url/i).fill("andrea");
-  await feedbackDialog(page).getByLabel(/github url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/github url/i)
+    .fill("andrea");
+  await feedbackDialog(page)
+    .getByLabel(/github url/i)
+    .blur();
   await expect(
     feedbackDialog(page)
       .getByRole("alert")
-      .filter({ hasText: /github/i })
+      .filter({ hasText: /github/i }),
   ).toBeVisible();
   await expect(sendBtn(page)).toBeDisabled();
 });
@@ -184,9 +228,13 @@ test("step 4: valid GitHub URL is accepted", async ({ page }) => {
   await feedbackDialog(page)
     .getByLabel(/github url/i)
     .fill("https://github.com/andreaagostini");
-  await feedbackDialog(page).getByLabel(/github url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/github url/i)
+    .blur();
   await expect(
-    feedbackDialog(page).getByRole("alert").filter({ hasText: /github/i })
+    feedbackDialog(page)
+      .getByRole("alert")
+      .filter({ hasText: /github/i }),
   ).not.toBeVisible();
   await expect(sendBtn(page)).toBeEnabled();
 });
@@ -198,11 +246,13 @@ test("step 4: plain text in website field shows error", async ({ page }) => {
   await feedbackDialog(page)
     .getByLabel(/website url/i)
     .fill("mywebsite");
-  await feedbackDialog(page).getByLabel(/website url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/website url/i)
+    .blur();
   await expect(
     feedbackDialog(page)
       .getByRole("alert")
-      .filter({ hasText: /valid url/i })
+      .filter({ hasText: /valid url/i }),
   ).toBeVisible();
   await expect(sendBtn(page)).toBeDisabled();
 });
@@ -212,11 +262,13 @@ test("step 4: website without protocol shows error", async ({ page }) => {
   await feedbackDialog(page)
     .getByLabel(/website url/i)
     .fill("www.mysite.com");
-  await feedbackDialog(page).getByLabel(/website url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/website url/i)
+    .blur();
   await expect(
     feedbackDialog(page)
       .getByRole("alert")
-      .filter({ hasText: /valid url/i })
+      .filter({ hasText: /valid url/i }),
   ).toBeVisible();
 });
 
@@ -225,11 +277,13 @@ test("step 4: valid website URL is accepted", async ({ page }) => {
   await feedbackDialog(page)
     .getByLabel(/website url/i)
     .fill("https://mysite.com");
-  await feedbackDialog(page).getByLabel(/website url/i).blur();
+  await feedbackDialog(page)
+    .getByLabel(/website url/i)
+    .blur();
   await expect(
     feedbackDialog(page)
       .getByRole("alert")
-      .filter({ hasText: /valid url/i })
+      .filter({ hasText: /valid url/i }),
   ).not.toBeVisible();
   await expect(sendBtn(page)).toBeEnabled();
 });
@@ -254,7 +308,7 @@ test("step 4: multiple invalid fields all show errors and block Send", async ({
 
 test("step 4: fixing all errors re-enables Send", async ({ page }) => {
   await page.route("/api/feedback", (route) =>
-    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) })
+    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) }),
   );
   await reachStep4(page);
   const dialog = feedbackDialog(page);
