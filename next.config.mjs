@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+import { config } from "dotenv";
 
 // Load environment variables from .env.local file
 config();
@@ -8,6 +8,9 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,
+  env: {
+    NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV ?? "development",
+  },
   i18n: {
     locales: ["en", "it"],
     defaultLocale: "en",
@@ -18,7 +21,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.ctfassets.net",
       },
-
     ],
     // Optimize images for better performance
     formats: ["image/avif", "image/webp"],
@@ -33,9 +35,12 @@ const nextConfig = {
       displayName: process.env.NODE_ENV !== "production",
     },
     // Remove console logs in production
-    removeConsole: process.env.NODE_ENV === "production" ? {
-      exclude: ["error", "warn"],
-    } : false,
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? {
+            exclude: ["error", "warn"],
+          }
+        : false,
   },
   // Enable compression
   compress: true,
@@ -61,7 +66,10 @@ const nextConfig = {
       {
         source: "/_next/static/(.*)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
       {
@@ -71,7 +79,10 @@ const nextConfig = {
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
         ],
       },
     ];

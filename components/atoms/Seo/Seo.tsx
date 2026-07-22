@@ -1,9 +1,11 @@
+import Head from "next/head";
 import { NextSeo } from "next-seo";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://agostiniandrea.dev";
 
 const LOCALES = ["en", "it"] as const;
+const OG_LOCALES: Record<string, string> = { en: "en_US", it: "it_IT" };
 
 export type SeoProps = {
   seoTitle?: string;
@@ -41,10 +43,21 @@ const Seo: React.FC<SeoProps> = ({
   nofollow,
   noindex,
 }) => {
+  const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
   const resolvedOgAlt = ogImageAlt ?? seoTitle;
   const ogImage = seoImage
-    ? { url: seoImage.url, width: seoImage.width, height: seoImage.height, alt: resolvedOgAlt }
-    : { url: `${SITE_URL}/api/og`, width: 1200, height: 630, alt: resolvedOgAlt };
+    ? {
+        url: seoImage.url,
+        width: seoImage.width,
+        height: seoImage.height,
+        alt: resolvedOgAlt,
+      }
+    : {
+        url: `${SITE_URL}/api/og`,
+        width: 1200,
+        height: 630,
+        alt: resolvedOgAlt,
+      };
 
   const canonical = locale && path ? localePath(locale, path) : canonicalUrl;
 
@@ -57,23 +70,35 @@ const Seo: React.FC<SeoProps> = ({
       : undefined;
 
   return (
-    <NextSeo
-      canonical={canonical}
-      description={seoDescription}
-      noindex={noindex ?? false}
-      nofollow={nofollow ?? false}
-      title={seoTitle}
-      languageAlternates={languageAlternates}
-      openGraph={{
-        description: seoDescription,
-        title: seoTitle,
-        type: "website",
-        images: [ogImage],
-      }}
-      twitter={{
-        cardType: "summary_large_image",
-      }}
-    />
+    <>
+      <NextSeo
+        canonical={canonical}
+        description={seoDescription}
+        noindex={noindex ?? !isProduction}
+        nofollow={nofollow ?? !isProduction}
+        title={seoTitle}
+        languageAlternates={languageAlternates}
+        openGraph={{
+          description: seoDescription,
+          locale: OG_LOCALES[locale ?? "en"] ?? OG_LOCALES.en,
+          title: seoTitle,
+          type: "website",
+          images: [ogImage],
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+        }}
+      />
+      <Head>
+        {LOCALES.filter((l) => l !== (locale ?? "en")).map((l) => (
+          <meta
+            content={OG_LOCALES[l]}
+            key={`og-locale-alternate-${l}`}
+            property="og:locale:alternate"
+          />
+        ))}
+      </Head>
+    </>
   );
 };
 
