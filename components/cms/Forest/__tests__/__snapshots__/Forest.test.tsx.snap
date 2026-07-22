@@ -30,7 +30,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c45 {
+.c46 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -38,7 +38,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c43 {
+.c44 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -51,12 +51,21 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0.25rem 0.5rem;
 }
 
-.c39 {
+.c6 {
+  color: var(--color-highlight);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
+.c40 {
   display: inline-block;
   position: relative;
 }
 
-.c40 {
+.c41 {
   align-items: center;
   background: none;
   border: none;
@@ -72,24 +81,15 @@ exports[`Forest renders correctly with all props 1`] = `
   width: 44px;
 }
 
-.c40:focus-visible {
+.c41:focus-visible {
   border-radius: 100%;
   opacity: 1;
   outline: 2px solid var(--color-highlight);
   outline-offset: -10px;
 }
 
-.c40 svg {
+.c41 svg {
   display: block;
-}
-
-.c6 {
-  color: var(--color-highlight);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  margin: 0 0 1.25rem;
-  text-transform: uppercase;
 }
 
 .c2 {
@@ -123,6 +123,10 @@ exports[`Forest renders correctly with all props 1`] = `
 .c0 {
   padding: 3rem 0;
   position: relative;
+}
+
+.c14 {
+  scroll-margin-top: 6rem;
 }
 
 .c7 {
@@ -170,8 +174,8 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1.2;
 }
 
-.c14 {
-  background: var(--color-highlight)0d;
+.c15 {
+  background: color-mix(in srgb, var(--color-highlight) 5%, transparent);
   border: 2px solid var(--color-highlight);
   border-radius: 1rem;
   display: flex;
@@ -181,20 +185,20 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 2rem;
 }
 
-.c15 {
+.c16 {
   flex: 1;
 }
 
-.c19 {
+.c20 {
   align-items: flex-start;
-  border-top: 1px solid var(--color-highlight)25;
+  border-top: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   padding-top: 0.25rem;
 }
 
-.c20 {
+.c21 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   font-weight: 700;
@@ -203,7 +207,7 @@ exports[`Forest renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c21 {
+.c22 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 3.5rem;
@@ -211,7 +215,7 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1;
 }
 
-.c22 {
+.c23 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   font-weight: 700;
@@ -219,7 +223,7 @@ exports[`Forest renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c16 {
+.c17 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.5rem;
@@ -227,7 +231,7 @@ exports[`Forest renders correctly with all props 1`] = `
   margin: 0 0 0.625rem;
 }
 
-.c17 {
+.c18 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.6;
@@ -235,7 +239,7 @@ exports[`Forest renders correctly with all props 1`] = `
   max-width: 420px;
 }
 
-.c18 {
+.c19 {
   align-items: center;
   background: var(--color-button);
   border: 2px solid transparent;
@@ -251,77 +255,77 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c18:focus-visible {
+.c19:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c23 {
+.c24 {
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   margin-bottom: 2rem;
   padding: 1.5rem 1.75rem;
 }
 
-.c25 {
+.c26 {
   align-items: baseline;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.c26 {
+.c27 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
 }
 
-.c27 {
+.c28 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c28 {
-  background: var(--color-highlight)1a;
+.c29 {
+  background: color-mix(in srgb, var(--color-highlight) 10%, transparent);
   border-radius: 999px;
   height: 8px;
   margin-bottom: 0.875rem;
   overflow: hidden;
 }
 
-.c29 {
-  background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
+.c30 {
+  background: linear-gradient(       90deg,       var(--color-highlight),       color-mix(in srgb, var(--color-highlight) 80%, transparent)     );
   border-radius: 999px;
   height: 100%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
   width: 2%;
 }
 
-.c30 {
+.c31 {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-.c31 {
+.c32 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
-.c32 {
+.c33 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 700;
 }
 
-.c24 {
+.c25 {
   display: grid;
   gap: 1.5rem;
 }
 
-.c33 {
+.c34 {
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
   flex-direction: column;
@@ -329,7 +333,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding-top: 1.5rem;
 }
 
-.c34 {
+.c35 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   font-weight: 600;
@@ -337,7 +341,7 @@ exports[`Forest renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c35 {
+.c36 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
@@ -345,28 +349,28 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1.2;
 }
 
-.c36 {
+.c37 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c37 {
+.c38 {
   color: var(--color-headline);
   font-size: 0.875rem;
   font-weight: 600;
 }
 
-.c38 {
+.c39 {
   display: inline-block;
   white-space: nowrap;
 }
 
-.c38 sub {
+.c39 sub {
   font-size: 0.7em;
   line-height: 1;
 }
 
-.c41 {
+.c42 {
   align-items: flex-end;
   display: flex;
   gap: 1rem;
@@ -374,7 +378,7 @@ exports[`Forest renders correctly with all props 1`] = `
   margin-top: 0.25rem;
 }
 
-.c42 {
+.c43 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -383,7 +387,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c44 {
+.c45 {
   align-items: center;
   color: var(--color-highlight);
   display: inline-flex;
@@ -394,17 +398,17 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: opacity 0.2s ease;
 }
 
-.c44:focus-visible {
+.c45:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c46 {
+.c47 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c46 a {
+.c47 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -457,12 +461,12 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (hover: hover) {
-  .c40:hover {
+  .c41:hover {
     opacity: 1;
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding: 2rem 0;
   }
@@ -474,8 +478,8 @@ exports[`Forest renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c14 {
+@media (min-width: 900px) {
+  .c15 {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
@@ -483,10 +487,10 @@ exports[`Forest renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c19 {
+@media (min-width: 900px) {
+  .c20 {
     align-items: flex-end;
-    border-left: 1px solid var(--color-highlight)25;
+    border-left: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
     border-top: none;
     flex-shrink: 0;
     padding-left: 3rem;
@@ -497,19 +501,19 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c21 {
+  .c22 {
     font-size: 4.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c16 {
+  .c17 {
     font-size: 2rem;
   }
 }
 
 @media (hover: hover) {
-  .c18:hover {
+  .c19:hover {
     background: transparent;
     border-color: var(--color-highlight);
     color: var(--color-highlight);
@@ -517,14 +521,14 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c24 {
+  .c25 {
     gap: 2rem;
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (min-width: 900px) {
-  .c33 {
+  .c34 {
     border-left: 1px solid rgba(128, 128, 128, 0.12);
     border-top: none;
     padding-left: 2rem;
@@ -533,13 +537,13 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (hover: hover) {
-  .c44:hover {
+  .c45:hover {
     opacity: 0.75;
   }
 }
 
 @media (hover: hover) {
-  .c46 a:hover {
+  .c47 a:hover {
     opacity: 0.75;
   }
 }
@@ -640,64 +644,68 @@ exports[`Forest renders correctly with all props 1`] = `
       </div>
       <div
         class="c14"
+        id="forest-impact"
+      />
+      <div
+        class="c15"
       >
         <div
-          class="c15"
+          class="c16"
         >
           <h3
-            class="c16"
+            class="c17"
           >
             Help this portfolio grow.
           </h3>
           <p
-            class="c17"
+            class="c18"
           >
             Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.
           </p>
           <button
             aria-haspopup="dialog"
-            class="c18"
+            class="c19"
           >
             🌱 Plant a leaf
           </button>
         </div>
         <div
-          class="c19"
+          class="c20"
         >
           <span
-            class="c20"
+            class="c21"
           >
             My Forest
           </span>
           <span
-            class="c21"
+            class="c22"
           >
             34
           </span>
           <span
-            class="c22"
+            class="c23"
           >
             Trees planted since May 2026
           </span>
         </div>
       </div>
       <div
-        class="c23"
+        class="c24"
       >
         <div
-          class="c24"
+          class="c25"
         >
           <div>
             <div
-              class="c25"
+              class="c26"
             >
               <span
-                class="c26"
+                class="c27"
               >
                 Season One
               </span>
               <span
-                class="c27"
+                class="c28"
               >
                 0
                  / 
@@ -707,22 +715,22 @@ exports[`Forest renders correctly with all props 1`] = `
               </span>
             </div>
             <div
-              class="c28"
+              class="c29"
             >
               <div
-                class="c29"
+                class="c30"
               />
             </div>
             <div
-              class="c30"
+              class="c31"
             >
               <span
-                class="c31"
+                class="c32"
               >
                 Trees planted through portfolio feedback
               </span>
               <span
-                class="c32"
+                class="c33"
               >
                 0
                 %
@@ -730,31 +738,31 @@ exports[`Forest renders correctly with all props 1`] = `
             </div>
           </div>
           <div
-            class="c33"
+            class="c34"
             data-testid="season-project"
           >
             <span
-              class="c34"
+              class="c35"
             >
               Season One project
             </span>
             <span
-              class="c35"
+              class="c36"
             >
               Community Reforestation in Indonesia
             </span>
             <span
-              class="c36"
+              class="c37"
             >
               Indonesia · Tropical community reforestation
             </span>
             <span
-              class="c37"
+              class="c38"
               data-testid="project-stats"
             >
               4 trees · 2 species
               <span
-                class="c38"
+                class="c39"
               >
                  · 1.5 t CO
                 <sub>
@@ -762,12 +770,12 @@ exports[`Forest renders correctly with all props 1`] = `
                 </sub>
                  lifetime estimate
                 <span
-                  class="c39"
+                  class="c40"
                 >
                   <button
                     aria-expanded="false"
                     aria-label="About the CO₂ estimate"
-                    class="c40"
+                    class="c41"
                     type="button"
                   >
                     <svg
@@ -797,24 +805,24 @@ exports[`Forest renders correctly with all props 1`] = `
               </span>
             </span>
             <div
-              class="c41"
+              class="c42"
             >
               <ul
-                class="c42"
+                class="c43"
               >
                 <li
-                  class="c43"
+                  class="c44"
                 >
                   Sengon
                 </li>
                 <li
-                  class="c43"
+                  class="c44"
                 >
                   Kadamba
                 </li>
               </ul>
               <a
-                class="c44"
+                class="c45"
                 href="https://tree-nation.com/projects/community-reforestation-in-indonesia"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -842,7 +850,7 @@ exports[`Forest renders correctly with all props 1`] = `
         </div>
       </div>
       <p
-        class="c45 c46"
+        class="c46 c47"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
@@ -903,7 +911,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c33 {
+.c34 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -953,6 +961,10 @@ exports[`Forest renders correctly with minimal props 1`] = `
   position: relative;
 }
 
+.c14 {
+  scroll-margin-top: 6rem;
+}
+
 .c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
@@ -998,8 +1010,8 @@ exports[`Forest renders correctly with minimal props 1`] = `
   line-height: 1.2;
 }
 
-.c14 {
-  background: var(--color-highlight)0d;
+.c15 {
+  background: color-mix(in srgb, var(--color-highlight) 5%, transparent);
   border: 2px solid var(--color-highlight);
   border-radius: 1rem;
   display: flex;
@@ -1009,20 +1021,20 @@ exports[`Forest renders correctly with minimal props 1`] = `
   padding: 2rem;
 }
 
-.c15 {
+.c16 {
   flex: 1;
 }
 
-.c19 {
+.c20 {
   align-items: flex-start;
-  border-top: 1px solid var(--color-highlight)25;
+  border-top: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   padding-top: 0.25rem;
 }
 
-.c20 {
+.c21 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   font-weight: 700;
@@ -1031,7 +1043,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   text-transform: uppercase;
 }
 
-.c21 {
+.c22 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 3.5rem;
@@ -1039,7 +1051,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   line-height: 1;
 }
 
-.c22 {
+.c23 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   font-weight: 700;
@@ -1047,7 +1059,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   text-transform: uppercase;
 }
 
-.c16 {
+.c17 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.5rem;
@@ -1055,7 +1067,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   margin: 0 0 0.625rem;
 }
 
-.c17 {
+.c18 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.6;
@@ -1063,7 +1075,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   max-width: 420px;
 }
 
-.c18 {
+.c19 {
   align-items: center;
   background: var(--color-button);
   border: 2px solid transparent;
@@ -1079,82 +1091,82 @@ exports[`Forest renders correctly with minimal props 1`] = `
   transition: all 0.2s ease;
 }
 
-.c18:focus-visible {
+.c19:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
 }
 
-.c23 {
+.c24 {
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   margin-bottom: 2rem;
   padding: 1.5rem 1.75rem;
 }
 
-.c25 {
+.c26 {
   align-items: baseline;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.c26 {
+.c27 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
 }
 
-.c27 {
+.c28 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c28 {
-  background: var(--color-highlight)1a;
+.c29 {
+  background: color-mix(in srgb, var(--color-highlight) 10%, transparent);
   border-radius: 999px;
   height: 8px;
   margin-bottom: 0.875rem;
   overflow: hidden;
 }
 
-.c29 {
-  background: linear-gradient(     90deg,     var(--color-highlight),     var(--color-highlight)cc   );
+.c30 {
+  background: linear-gradient(       90deg,       var(--color-highlight),       color-mix(in srgb, var(--color-highlight) 80%, transparent)     );
   border-radius: 999px;
   height: 100%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
   width: 2%;
 }
 
-.c30 {
+.c31 {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-.c31 {
+.c32 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
-.c32 {
+.c33 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 700;
 }
 
-.c24 {
+.c25 {
   display: grid;
   gap: 1.5rem;
 }
 
-.c34 {
+.c35 {
   color: var(--color-paragraph);
   margin-bottom: 0;
 }
 
-.c34 a {
+.c35 a {
   color: var(--color-highlight);
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -1206,7 +1218,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding: 2rem 0;
   }
@@ -1218,8 +1230,8 @@ exports[`Forest renders correctly with minimal props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c14 {
+@media (min-width: 900px) {
+  .c15 {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
@@ -1227,10 +1239,10 @@ exports[`Forest renders correctly with minimal props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c19 {
+@media (min-width: 900px) {
+  .c20 {
     align-items: flex-end;
-    border-left: 1px solid var(--color-highlight)25;
+    border-left: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
     border-top: none;
     flex-shrink: 0;
     padding-left: 3rem;
@@ -1241,19 +1253,19 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 @media (min-width: 1200px) {
-  .c21 {
+  .c22 {
     font-size: 4.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c16 {
+  .c17 {
     font-size: 2rem;
   }
 }
 
 @media (hover: hover) {
-  .c18:hover {
+  .c19:hover {
     background: transparent;
     border-color: var(--color-highlight);
     color: var(--color-highlight);
@@ -1261,14 +1273,14 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c24 {
+  .c25 {
     gap: 2rem;
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (hover: hover) {
-  .c34 a:hover {
+  .c35 a:hover {
     opacity: 0.75;
   }
 }
@@ -1369,64 +1381,68 @@ exports[`Forest renders correctly with minimal props 1`] = `
       </div>
       <div
         class="c14"
+        id="forest-impact"
+      />
+      <div
+        class="c15"
       >
         <div
-          class="c15"
+          class="c16"
         >
           <h3
-            class="c16"
+            class="c17"
           >
             Help this portfolio grow.
           </h3>
           <p
-            class="c17"
+            class="c18"
           >
             Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.
           </p>
           <button
             aria-haspopup="dialog"
-            class="c18"
+            class="c19"
           >
             🌱 Plant a leaf
           </button>
         </div>
         <div
-          class="c19"
+          class="c20"
         >
           <span
-            class="c20"
+            class="c21"
           >
             My Forest
           </span>
           <span
-            class="c21"
+            class="c22"
           >
             34
           </span>
           <span
-            class="c22"
+            class="c23"
           >
             Trees planted since May 2026
           </span>
         </div>
       </div>
       <div
-        class="c23"
+        class="c24"
       >
         <div
-          class="c24"
+          class="c25"
         >
           <div>
             <div
-              class="c25"
+              class="c26"
             >
               <span
-                class="c26"
+                class="c27"
               >
                 Season One
               </span>
               <span
-                class="c27"
+                class="c28"
               >
                 0
                  / 
@@ -1436,22 +1452,22 @@ exports[`Forest renders correctly with minimal props 1`] = `
               </span>
             </div>
             <div
-              class="c28"
+              class="c29"
             >
               <div
-                class="c29"
+                class="c30"
               />
             </div>
             <div
-              class="c30"
+              class="c31"
             >
               <span
-                class="c31"
+                class="c32"
               >
                 Trees planted through portfolio feedback
               </span>
               <span
-                class="c32"
+                class="c33"
               >
                 0
                 %
@@ -1461,7 +1477,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
         </div>
       </div>
       <p
-        class="c33 c34"
+        class="c34 c35"
       >
         <a
           href="https://tree-nation.com/profile/andrea-agostini-103769"
