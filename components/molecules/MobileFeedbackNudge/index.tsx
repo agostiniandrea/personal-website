@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent, trackOnce } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { MobileView } from "@lib/utils/mobileNav";
@@ -15,6 +15,7 @@ const STARTED_AT_KEY = "forest-feedback-nudge-started-at";
 const VISITED_KEY = "forest-feedback-nudge-visited";
 const DELAY_MS = 35_000;
 const MEANINGFUL_SCROLL_PX = 240;
+const DISMISSAL_TTL_MS = 14 * 24 * 60 * 60 * 1000;
 
 const Card = styled.aside`
   background: color-mix(
@@ -23,7 +24,11 @@ const Card = styled.aside`
     ${({ theme }) => theme.colors.highlight}
   );
   border: 1px solid
-    color-mix(in srgb, ${({ theme }) => theme.colors.highlight} 38%, transparent);
+    color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.highlight} 38%,
+      transparent
+    );
   border-radius: ${({ theme }) => theme.radii.md};
   bottom: calc(4.5rem + env(safe-area-inset-bottom) + 1rem);
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
@@ -32,7 +37,9 @@ const Card = styled.aside`
   padding: ${({ theme }) => theme.space.md};
   position: fixed;
   right: 1rem;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
   z-index: 190;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -119,22 +126,30 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
   const viewedWorkOrStory = useRef(false);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 899.98px)");
-    const update = () => setMobileViewport(media.matches || window.innerWidth < 900);
+    const media = window.matchMedia(
+      `(max-width: ${BREAKPOINTS_BELOW.xTablet})`,
+    );
+    const update = () =>
+      setMobileViewport(media.matches || window.innerWidth < 900);
     update();
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
-    const alreadyDismissed = sessionStorage.getItem(DISMISSED_KEY) === "true";
+    const dismissedAt = Number(localStorage.getItem(DISMISSED_KEY));
+    const alreadyDismissed =
+      Number.isFinite(dismissedAt) &&
+      dismissedAt > 0 &&
+      Date.now() - dismissedAt < DISMISSAL_TTL_MS;
     const alreadySubmitted = localStorage.getItem(SUBMITTED_KEY) === "true";
     setDismissed(alreadyDismissed || alreadySubmitted);
 
     const storedStart = Number(sessionStorage.getItem(STARTED_AT_KEY));
-    const startedAt = Number.isFinite(storedStart) && storedStart > 0
-      ? storedStart
-      : Date.now();
+    const startedAt =
+      Number.isFinite(storedStart) && storedStart > 0
+        ? storedStart
+        : Date.now();
     sessionStorage.setItem(STARTED_AT_KEY, String(startedAt));
     const remaining = Math.max(0, DELAY_MS - (Date.now() - startedAt));
     const timeout = window.setTimeout(() => setDelayElapsed(true), remaining);
@@ -201,7 +216,7 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
     if (!visible) return;
     const onEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
-      sessionStorage.setItem(DISMISSED_KEY, "true");
+      localStorage.setItem(DISMISSED_KEY, String(Date.now()));
       trackEvent("forest_feedback_nudge_dismiss", {
         locale: locale ?? "en",
       });
@@ -214,23 +229,28 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
   if (!visible) return null;
 
   const dismiss = () => {
-    sessionStorage.setItem(DISMISSED_KEY, "true");
+    localStorage.setItem(DISMISSED_KEY, String(Date.now()));
     trackEvent("forest_feedback_nudge_dismiss", { locale: locale ?? "en" });
     setDismissed(true);
   };
 
   const navigate = () => {
-    sessionStorage.setItem(DISMISSED_KEY, "true");
+    localStorage.setItem(DISMISSED_KEY, String(Date.now()));
     trackEvent("forest_feedback_nudge_click", { locale: locale ?? "en" });
     setDismissed(true);
     onNavigateToForest();
   };
 
   return (
-    <Card aria-labelledby="mobile-feedback-nudge-title" data-testid="mobile-feedback-nudge">
+    <Card
+      aria-labelledby="mobile-feedback-nudge-title"
+      data-testid="mobile-feedback-nudge"
+    >
       <Header>
         <Copy>
-          <Title id="mobile-feedback-nudge-title">{t.mobileFeedbackNudgeTitle}</Title>
+          <Title id="mobile-feedback-nudge-title">
+            {t.mobileFeedbackNudgeTitle}
+          </Title>
           <Body>{t.mobileFeedbackNudgeBody}</Body>
           <Cta onClick={navigate}>{t.mobileFeedbackNudgeCta} →</Cta>
         </Copy>

@@ -19,8 +19,12 @@ const prepareEligibleSession = () => {
 describe("MobileFeedbackNudge", () => {
   beforeEach(() => {
     sessionStorage.clear();
+    localStorage.removeItem("forest-feedback-nudge-dismissed");
     localStorage.removeItem("forest-feedback-submitted");
-    Object.defineProperty(window, "innerWidth", { configurable: true, value: 390 });
+    Object.defineProperty(window, "innerWidth", {
+      configurable: true,
+      value: 390,
+    });
   });
 
   it("appears only for an eligible session and navigates to Forest", async () => {
@@ -53,7 +57,9 @@ describe("MobileFeedbackNudge", () => {
       />,
     );
     await act(async () => {});
-    expect(screen.queryByTestId("mobile-feedback-nudge")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mobile-feedback-nudge"),
+    ).not.toBeInTheDocument();
 
     rerender(
       <MobileFeedbackNudge
@@ -62,10 +68,13 @@ describe("MobileFeedbackNudge", () => {
         onNavigateToForest={jest.fn()}
       />,
     );
-    expect(screen.queryByTestId("mobile-feedback-nudge")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mobile-feedback-nudge"),
+    ).not.toBeInTheDocument();
   });
 
-  it("dismisses with Escape and persists for the session", async () => {
+  it("dismisses with Escape and persists the dismissal timestamp", async () => {
+    const startedAt = Date.now();
     prepareEligibleSession();
     renderWithTheme(
       <MobileFeedbackNudge
@@ -77,8 +86,16 @@ describe("MobileFeedbackNudge", () => {
     await screen.findByTestId("mobile-feedback-nudge");
     await userEvent.keyboard("{Escape}");
     await waitFor(() =>
-      expect(screen.queryByTestId("mobile-feedback-nudge")).not.toBeInTheDocument(),
+      expect(
+        screen.queryByTestId("mobile-feedback-nudge"),
+      ).not.toBeInTheDocument(),
     );
-    expect(sessionStorage.getItem("forest-feedback-nudge-dismissed")).toBe("true");
+    // the dismissal is stored as a timestamp, so assert it is actually "now"
+    // rather than any truthy number
+    const dismissedAt = Number(
+      localStorage.getItem("forest-feedback-nudge-dismissed"),
+    );
+    expect(dismissedAt).toBeGreaterThanOrEqual(startedAt);
+    expect(dismissedAt).toBeLessThanOrEqual(Date.now());
   });
 });
