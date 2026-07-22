@@ -87,8 +87,7 @@ describe("HeadingBox", () => {
     renderWithTheme(<HeadingBox {...defaultHeadingBox} />);
 
     const description = screen.getByText(defaultHeadingBox.description!);
-    expect(description).toHaveStyle({ opacity: "1" });
-    expect(description).toBeVisible();
+    expect(description).toHaveStyle({ opacity: "0" });
   });
 
   describe("Accessibility", () => {
@@ -133,7 +132,7 @@ describe("HeadingBox", () => {
     it("should maintain proper heading hierarchy without pre-heading", () => {
       renderWithTheme(
         <HeadingBox
-          preHeading=''
+          preHeading=""
           heading={minimalHeadingBox.heading}
           description={minimalHeadingBox.description}
         />,

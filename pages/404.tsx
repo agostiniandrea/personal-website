@@ -3,7 +3,7 @@ import { GetStaticPropsResult } from "next";
 import styled from "styled-components";
 
 import { Seo } from "@components/atoms";
-import { SiteFooter,SiteHeader } from "@components/cms";
+import { SiteFooter, SiteHeader } from "@components/cms";
 import { Box, Container, Heading, Link, Text } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
 import {
@@ -38,11 +38,11 @@ const Wrapper = styled(Box).attrs({ as: "main" })`
 `;
 
 const Label = styled(Text)`
+  color: ${({ theme }) => theme.colors.highlight};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.highlight};
   margin: 0 0 1.25rem;
+  text-transform: uppercase;
 `;
 
 const PageHeading = styled(Heading).attrs({ size: "display", as: "h1" })`
@@ -50,12 +50,16 @@ const PageHeading = styled(Heading).attrs({ size: "display", as: "h1" })`
 `;
 
 const Body = styled(Text)`
-  max-width: 480px;
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin: 0 0 ${({ theme }) => theme.space["3xl"]};
+  max-width: 480px;
 `;
 
-export async function getStaticProps({ locale = "en" }: { locale?: string }): Promise<GetStaticPropsResult<T404>> {
+export async function getStaticProps({
+  locale = "en",
+}: {
+  locale?: string;
+}): Promise<GetStaticPropsResult<T404>> {
   const [header, footer] = await Promise.all([
     getSiteHeaderContent(locale),
     getSiteFooterContent(locale),
@@ -88,7 +92,9 @@ export default function NotFound({ header, footer }: T404) {
           </Link>
         </Container>
       </Wrapper>
-      <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
+      <SiteFooter
+        {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })}
+      />
     </PageLayout>
   );
 }

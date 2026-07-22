@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Box, Container, Flex, Heading, Text } from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 
 export interface ExperienceItem {
   role: string;
@@ -22,7 +22,7 @@ export interface ExperienceProps {
 
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
@@ -31,7 +31,7 @@ const Section = styled.section`
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["3xl"]};
   max-width: 600px;
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     margin-bottom: 1.5rem;
   }
 `;
@@ -89,8 +89,11 @@ const Description = styled(Text)`
   margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
-
-const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items }) => (
+const Experience: React.FC<ExperienceProps> = ({
+  sectionLabel,
+  heading,
+  items,
+}) => (
   <Section id="experience">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
@@ -110,7 +113,9 @@ const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items })
               {item.tags && item.tags.length > 0 && (
                 <Flex wrap="wrap" gap="sm">
                   {item.tags.map((tag) => (
-                    <Badge key={tag} size="sm">{tag}</Badge>
+                    <Badge key={tag} size="sm">
+                      {tag}
+                    </Badge>
                   ))}
                 </Flex>
               )}
