@@ -259,15 +259,22 @@ test.describe("mobile app navigation accessibility", () => {
       await page.getByRole("button", { name: "Altro" }).click();
       const dialog = page.getByRole("dialog", { name: "Esplora" });
       await expect(dialog).toBeVisible();
+      const navTop = await page
+        .getByRole("navigation", { name: "Navigazione mobile" })
+        .evaluate((element) => element.getBoundingClientRect().top);
+      // polled: the sheet slides up over 240ms, so the box settles after open
+      await expect
+        .poll(async () => {
+          const bounds = await dialog.boundingBox();
+          if (!bounds) return Number.POSITIVE_INFINITY;
+          return bounds.y + bounds.height;
+        })
+        .toBeLessThanOrEqual(navTop + 1);
       const bounds = await dialog.boundingBox();
       expect(bounds).not.toBeNull();
       expect(bounds!.x).toBeGreaterThanOrEqual(0);
       expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
       expect(bounds!.y).toBeGreaterThanOrEqual(0);
-      const navTop = await page
-        .getByRole("navigation", { name: "Navigazione mobile" })
-        .evaluate((element) => element.getBoundingClientRect().top);
-      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(navTop + 1);
       await expect(
         dialog.getByRole("heading", { name: "Esplora" }),
       ).toBeVisible();

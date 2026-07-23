@@ -181,6 +181,35 @@ describe("MobileNav", () => {
       ).toBeInTheDocument();
     });
 
+    it("closes the sheet when More is tapped again", async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<MobileNav />);
+      const moreButton = screen.getByRole("button", { name: "More" });
+
+      expect(moreButton).toHaveAttribute("aria-expanded", "false");
+
+      await user.click(moreButton);
+      expect(screen.getByTestId("more-sheet")).toBeInTheDocument();
+      expect(moreButton).toHaveAttribute("aria-expanded", "true");
+
+      await user.click(moreButton);
+      expect(screen.queryByTestId("more-sheet")).not.toBeInTheDocument();
+      expect(moreButton).toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("keeps the tab bar operable while the sheet is open", async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<MobileNav />);
+      await user.click(screen.getByRole("button", { name: "More" }));
+      expect(screen.getByTestId("mobile-nav").closest("[inert]")).toBeNull();
+
+      await user.click(screen.getByRole("button", { name: "Forest" }));
+      expect(screen.queryByTestId("more-sheet")).not.toBeInTheDocument();
+      expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
+        "forest",
+      );
+    });
+
     it("closes on Escape and on backdrop click", async () => {
       const user = userEvent.setup();
       renderWithTheme(<MobileNav />);
