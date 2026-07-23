@@ -104,18 +104,21 @@ const Artwork = styled.div`
   -webkit-mask-image: url("/assets/forest-teaser-pattern.svg");
   -webkit-mask-position: right center;
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
+  -webkit-mask-size: auto 100%;
   background: ${({ theme }) => theme.colors.highlight};
   inset-block: 0;
   inset-inline-end: 0;
+  /* auto 100% keeps the drawing at full panel height in every layout;
+     contain would fit the width instead and leave gaps above and below.
+     Right-anchored, so a narrow column crops the branch's left edge only. */
   mask-image: url("/assets/forest-teaser-pattern.svg");
   mask-position: right center;
   mask-repeat: no-repeat;
-  mask-size: contain;
+  mask-size: auto 100%;
   opacity: var(--artwork-opacity);
   pointer-events: none;
   position: absolute;
-  width: min(30rem, 46%);
+  width: min(38rem, 48%);
 `;
 
 const ForestTeaser: React.FC<ForestTeaserProps> = ({
