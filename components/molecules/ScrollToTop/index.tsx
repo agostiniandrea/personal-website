@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import { BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
+import { useMedia } from "@lib/utils/useMedia";
 
 const Button = styled.button<{ $visible: boolean }>`
   align-items: center;
@@ -57,6 +58,7 @@ const ScrollToTop: React.FC = () => {
   const [footerVisible, setFooterVisible] = useState(false);
   const [feedbackNudgeVisible, setFeedbackNudgeVisible] = useState(false);
   const { locale } = useRouter();
+  const { isMobile } = useMedia();
   const t = useI18n(locale);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ const ScrollToTop: React.FC = () => {
 
   return (
     <Button
-      $visible={scrolled && !footerVisible && !feedbackNudgeVisible}
+      $visible={!isMobile && scrolled && !footerVisible && !feedbackNudgeVisible}
       aria-label={t.scrollToTop}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
