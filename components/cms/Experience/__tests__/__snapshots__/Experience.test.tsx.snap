@@ -222,14 +222,14 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1rem;
   }
@@ -242,7 +242,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c7 {
     margin-bottom: 1rem;
   }
@@ -585,14 +585,14 @@ exports[`Experience renders correctly with all items 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1rem;
   }
@@ -605,7 +605,7 @@ exports[`Experience renders correctly with all items 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c7 {
     margin-bottom: 1rem;
   }
