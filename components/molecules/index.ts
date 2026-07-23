@@ -3,6 +3,12 @@ export { default as Badge } from "./Badge";
 export { default as CarbonBadge } from "./CarbonBadge";
 export { default as CookieBanner } from "./CookieBanner";
 export { Drawer, DrawerTopBar, Overlay } from "./Drawer";
+export {
+  ContextEyebrow,
+  ContextSubtitle,
+  DesktopSectionLabel,
+  default as ExploreContext,
+} from "./ExploreContext";
 export { default as FeedbackNudge } from "./FeedbackNudge";
 export { default as ForestTeaser } from "./ForestTeaser";
 export { default as HeadingBox } from "./HeadingBox";

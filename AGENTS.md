@@ -148,6 +148,31 @@ Import ordering is enforced by ESLint (`simple-import-sort`): side-effects → r
 @test-utils/*  →  test-utils/*
 ```
 
+### Feedback Nudges
+
+Two independent components invite visitors toward the Forest/feedback flow.
+Their visibility rules are deliberate — change them here first if behaviour
+changes:
+
+**`FeedbackNudge` (desktop, card bottom-right)** — a contextual reminder:
+
+- Appears only after scrolling past ~60% of the first viewport (never on load).
+- Fades out (stays mounted, `visibility: hidden`) while something more
+  important is on screen: the inline Forest teaser, the Projects section, or
+  any open modal. Fades back when they leave the viewport.
+- Dies for the session (`sessionStorage`) once its job is done: the ✕ is
+  clicked, the inline teaser is used, or the Forest section is reached.
+
+**`MobileFeedbackNudge` (mobile, banner above the tab bar)** — much more
+cautious because screen space is scarce. It shows only when **all** of these
+hold: ≥ 35s on the page, ≥ 240px of scroll, and ≥ 2 sections visited
+(a real exploration signal). A dismissal is respected for 14 days
+(`localStorage`), a submitted feedback silences it permanently, and it pauses
+while the More sheet is open.
+
+When testing: any run that touches Forest or the teaser kills the desktop
+nudge for that session — use a private window to see it again.
+
 ### Observability
 
 - **Sentry**: server + edge config in `sentry.server.config.ts` / `sentry.edge.config.ts`, wired via `instrumentation.ts`

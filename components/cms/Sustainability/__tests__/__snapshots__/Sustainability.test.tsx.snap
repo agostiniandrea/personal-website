@@ -6,7 +6,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding-bottom: 3rem;
 }
 
-.c15 {
+.c19 {
   margin-top: 0.5rem;
 }
 
@@ -23,7 +23,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -31,7 +31,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -39,7 +39,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c6 {
+.c10 {
   color: var(--color-paragraph);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -47,7 +47,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c14 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -60,7 +60,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0.5rem 1rem;
 }
 
-.c16 {
+.c20 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -73,7 +73,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0.25rem 0.5rem;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -82,18 +82,45 @@ exports[`Sustainability renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c5 {
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
+.c8 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c7 {
+.c11 {
   line-height: 1.7;
   margin-bottom: 3rem;
   max-width: 680px;
 }
 
-.c8 {
+.c12 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
@@ -103,7 +130,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c9 {
+.c13 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -112,7 +139,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c11 {
+.c15 {
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -120,7 +147,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c12 {
+.c16 {
   border-top: 1px solid var(--color-main);
   display: grid;
   gap: 1rem;
@@ -128,29 +155,29 @@ exports[`Sustainability renders correctly with all props 1`] = `
   padding: 1.5rem 0;
 }
 
-.c12:last-child {
+.c16:last-child {
   border-bottom: 1px solid var(--color-main);
 }
 
-.c13 {
+.c17 {
   color: var(--color-headline);
   font-size: 0.875rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
 }
 
-.c14 {
+.c18 {
   font-size: 0.75rem;
   margin: 0;
 }
 
-.c17 {
+.c21 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -204,31 +231,55 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
   .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 1199px) {
-  .c7 {
+@media (max-width: 1199.98px) {
+  .c11 {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c12 {
+  .c16 {
     gap: 2rem;
     grid-template-columns: 200px 1fr;
   }
@@ -242,18 +293,34 @@ exports[`Sustainability renders correctly with all props 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Sustainability
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Values & Action
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Sustainability matters to me
       </h2>
       <p
-        class="c6 c7"
+        class="c9"
+      >
+        Values and action
+      </p>
+      <p
+        class="c10 c11"
       >
         I believe the tech industry has a responsibility to build lighter, more mindful products. Outside of work, I act on that belief — from how I run this site to how I spend my weekends.
       </p>
@@ -261,41 +328,41 @@ exports[`Sustainability renders correctly with all props 1`] = `
         class=""
       >
         <h3
-          class="c8"
+          class="c12"
         >
           What I care about
         </h3>
         <ul
           aria-label="What I care about"
-          class="c9"
+          class="c13"
         >
           <li
-            class="c10"
+            class="c14"
           >
             Environment
           </li>
           <li
-            class="c10"
+            class="c14"
           >
             Animal Welfare
           </li>
           <li
-            class="c10"
+            class="c14"
           >
             Social Services
           </li>
           <li
-            class="c10"
+            class="c14"
           >
             Disaster & Humanitarian Relief
           </li>
           <li
-            class="c10"
+            class="c14"
           >
             Education
           </li>
           <li
-            class="c10"
+            class="c14"
           >
             Science & Technology
           </li>
@@ -305,202 +372,202 @@ exports[`Sustainability renders correctly with all props 1`] = `
         class=""
       >
         <h3
-          class="c8"
+          class="c12"
         >
           Where I've shown up
         </h3>
         <ol
           aria-label="Where I've shown up"
-          class="c11"
+          class="c15"
         >
           <li
-            class="c12"
+            class="c16"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 Clean Up Your City
               </p>
               <p
-                class="c2 c14"
+                class="c3 c18"
               >
                 May – Sep 2024
               </p>
               <div
-                class="c15"
+                class="c19"
               >
                 <span
-                  class="c16"
+                  class="c20"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c17"
+              class="c3 c21"
             >
               Monthly clean-up initiatives in Amsterdam city center, working with residents and local entrepreneurs to maintain public spaces.
             </p>
           </li>
           <li
-            class="c12"
+            class="c16"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 NDSM Cleans Up
               </p>
               <p
-                class="c2 c14"
+                class="c3 c18"
               >
                 Jun – Sep 2024
               </p>
               <div
-                class="c15"
+                class="c19"
               >
                 <span
-                  class="c16"
+                  class="c20"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c17"
+              class="c3 c21"
             >
               Monthly clean-up events at NDSM Wharf, Amsterdam's former industrial shipyard turned cultural hub.
             </p>
           </li>
           <li
-            class="c12"
+            class="c16"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 About Waste
               </p>
               <p
-                class="c2 c14"
+                class="c3 c18"
               >
                 Jun 2024
               </p>
               <div
-                class="c15"
+                class="c19"
               >
                 <span
-                  class="c16"
+                  class="c20"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c17"
+              class="c3 c21"
             >
               Volunteered at the Silent Disco Party Cleanup at IJ-Hallen, Europe's largest flea market, combining environmental action with community fun.
             </p>
           </li>
           <li
-            class="c12"
+            class="c16"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 Serve the City Amsterdam
               </p>
               <p
-                class="c2 c14"
+                class="c3 c18"
               >
                 May – Sep 2024
               </p>
               <div
-                class="c15"
+                class="c19"
               >
                 <span
-                  class="c16"
+                  class="c20"
                 >
                   Environment
                 </span>
               </div>
             </div>
             <p
-              class="c2 c17"
+              class="c3 c21"
             >
               Community clean-up events at Vondelpark, supporting the park maintenance team in keeping one of Amsterdam's most visited public spaces clean.
             </p>
           </li>
           <li
-            class="c12"
+            class="c16"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 Stichting Care4Good Foundation
               </p>
               <p
-                class="c2 c14"
+                class="c3 c18"
               >
                 Mar 2024
               </p>
               <div
-                class="c15"
+                class="c19"
               >
                 <span
-                  class="c16"
+                  class="c20"
                 >
                   Social Services
                 </span>
               </div>
             </div>
             <p
-              class="c2 c17"
+              class="c3 c21"
             >
               Helped unload and organize donated furniture for people experiencing homelessness and Ukrainian refugees.
             </p>
           </li>
           <li
-            class="c12"
+            class="c16"
           >
             <div
               class=""
             >
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 Municipality of Casalecchio di Reno
               </p>
               <p
-                class="c2 c14"
+                class="c3 c18"
               >
                 Jun – Jul 2009
               </p>
               <div
-                class="c15"
+                class="c19"
               >
                 <span
-                  class="c16"
+                  class="c20"
                 >
                   Education
                 </span>
               </div>
             </div>
             <p
-              class="c2 c17"
+              class="c3 c21"
             >
               Student volunteer at a summer youth program, supporting children's daily activities and ensuring their safety and wellbeing.
             </p>
@@ -531,7 +598,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -539,7 +606,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -547,7 +614,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c6 {
+.c10 {
   color: var(--color-paragraph);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -555,7 +622,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -568,7 +635,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 0.5rem 1rem;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -577,18 +644,45 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   text-transform: uppercase;
 }
 
-.c5 {
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
+.c8 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c7 {
+.c11 {
   line-height: 1.7;
   margin-bottom: 3rem;
   max-width: 680px;
 }
 
-.c8 {
+.c12 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -597,7 +691,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c14 {
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -605,7 +699,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 0;
 }
 
-.c11 {
+.c15 {
   border-top: 1px solid var(--color-main);
   display: grid;
   gap: 1rem;
@@ -613,29 +707,29 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   padding: 1.5rem 0;
 }
 
-.c11:last-child {
+.c15:last-child {
   border-bottom: 1px solid var(--color-main);
 }
 
-.c12 {
+.c16 {
   color: var(--color-headline);
   font-size: 0.875rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
 }
 
-.c13 {
+.c17 {
   font-size: 0.75rem;
   margin: 0;
 }
 
-.c14 {
+.c18 {
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -689,31 +783,55 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
   .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 1199px) {
-  .c7 {
+@media (max-width: 1199.98px) {
+  .c11 {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c11 {
+  .c15 {
     gap: 2rem;
     grid-template-columns: 200px 1fr;
   }
@@ -727,18 +845,34 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Sustainability
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Values & Action
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Sustainability matters to me
       </h2>
       <p
-        class="c6 c7"
+        class="c9"
+      >
+        Values and action
+      </p>
+      <p
+        class="c10 c11"
       >
         I believe the tech industry has a responsibility to build lighter, more mindful products.
       </p>
@@ -747,15 +881,15 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
       >
         <ul
           aria-label="Values"
-          class="c8"
+          class="c12"
         >
           <li
-            class="c9"
+            class="c13"
           >
             Environment
           </li>
           <li
-            class="c9"
+            class="c13"
           >
             Education
           </li>
@@ -766,27 +900,27 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
       >
         <ol
           aria-label="Volunteering"
-          class="c10"
+          class="c14"
         >
           <li
-            class="c11"
+            class="c15"
           >
             <div
               class=""
             >
               <p
-                class="c2 c12"
+                class="c3 c16"
               >
                 Clean Up Your City
               </p>
               <p
-                class="c2 c13"
+                class="c3 c17"
               >
                 May – Sep 2024
               </p>
             </div>
             <p
-              class="c2 c14"
+              class="c3 c18"
             >
               Monthly clean-up initiatives in Amsterdam city center.
             </p>

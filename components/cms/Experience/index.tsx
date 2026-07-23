@@ -14,10 +14,14 @@ export interface ExperienceItem {
   tags?: string[];
 }
 
+export const DEFAULT_EXPERIENCE_INTRO =
+  "Companies, projects and teams I've helped grow.";
+
 export interface ExperienceProps {
   sectionLabel: string;
   heading: string;
   items: ExperienceItem[];
+  intro?: string;
 }
 
 const Section = styled.section`
@@ -89,15 +93,28 @@ const Description = styled(Text)`
   margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
+const Intro = styled(Text)`
+  line-height: ${({ theme }) => theme.lineHeights.loose};
+  margin-bottom: ${({ theme }) => theme.space["4xl"]};
+  max-width: 680px;
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
+    margin-bottom: 1rem;
+  }
+`;
+
 const Experience: React.FC<ExperienceProps> = ({
   sectionLabel,
   heading,
+  intro = DEFAULT_EXPERIENCE_INTRO,
   items,
 }) => (
   <Section id="experience">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
+      {/* mirrors Journey's intro so the segmented control sits at the same
+          height when switching between the two story sub-views */}
+      {intro && <Intro variant="large">{intro}</Intro>}
       <StorySegmentedControl />
       <List>
         {items.map((item) => (

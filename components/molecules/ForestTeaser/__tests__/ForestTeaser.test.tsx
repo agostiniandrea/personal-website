@@ -37,8 +37,9 @@ describe("ForestTeaser", () => {
     );
 
     expect(sessionStorage.getItem("forest-inline-teaser-engaged")).toBe("true");
+    // reduced-motion in tests -> instant scroll
     expect(forest.scrollIntoView).toHaveBeenCalledWith({
-      behavior: "smooth",
+      behavior: "auto",
       block: "start",
     });
     forest.remove();

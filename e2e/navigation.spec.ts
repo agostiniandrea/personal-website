@@ -53,7 +53,7 @@ test("desktop Forest teaser is inline after Work and before Skills", async ({
 
 for (const width of [1024, 1280, 1440, 1920]) {
   for (const colorScheme of ["light", "dark"] as const) {
-    test(`desktop Forest teaser stays compact at ${width}px in ${colorScheme} mode`, async ({
+    test(`desktop Forest teaser matches the design proportions at ${width}px in ${colorScheme} mode`, async ({
       page,
     }) => {
       await page.setViewportSize({ width, height: 900 });
@@ -65,7 +65,7 @@ for (const width of [1024, 1280, 1440, 1920]) {
       const artwork = page.getByTestId("forest-teaser-artwork");
       await teaser.scrollIntoViewIfNeeded();
       await expect(teaser).toBeVisible();
-      await expect(page.getByTestId("feedback-nudge")).toHaveCount(0);
+      await expect(page.getByTestId("feedback-nudge")).toBeHidden();
 
       const layout = await panel.evaluate((element) => {
         const panelRect = element.getBoundingClientRect();
@@ -93,18 +93,22 @@ for (const width of [1024, 1280, 1440, 1920]) {
         };
       });
 
-      expect(layout.panelHeight).toBeGreaterThanOrEqual(260);
-      expect(layout.panelHeight).toBeLessThanOrEqual(280);
+      expect(layout.panelHeight).toBeGreaterThanOrEqual(420);
+      expect(layout.panelHeight).toBeLessThanOrEqual(504);
       expect(layout.background).toContain("linear-gradient");
-      expect(layout.headingFontSize).toBeGreaterThanOrEqual(40);
-      expect(layout.headingFontSize).toBeLessThanOrEqual(44);
+      expect(layout.headingFontSize).toBeGreaterThanOrEqual(52);
+      expect(layout.headingFontSize).toBeLessThanOrEqual(64);
       expect(layout.headingLines).toBeLessThanOrEqual(2.1);
       expect(layout.copyStart).toBeGreaterThan(layout.panelStart);
+      // the artwork owns the right half of the panel, clear of the copy
       expect(layout.artworkStart).toBeGreaterThan(
-        layout.panelStart + (layout.panelEnd - layout.panelStart) * 0.58,
+        layout.panelStart + (layout.panelEnd - layout.panelStart) * 0.5,
       );
       expect(layout.artworkEnd).toBeLessThanOrEqual(layout.panelEnd);
-      await expect(artwork.locator("svg")).toHaveCSS("opacity", "0.1");
+      await expect(artwork).toHaveCSS(
+        "opacity",
+        colorScheme === "dark" ? "0.22" : "0.35",
+      );
     });
   }
 }
@@ -124,7 +128,7 @@ test("using the inline Forest teaser suppresses the feedback nudge for the sessi
     )
     .toBe("true");
   await page.evaluate(() => window.scrollTo(0, 700));
-  await expect(page.getByTestId("feedback-nudge")).toHaveCount(0);
+  await expect(page.getByTestId("feedback-nudge")).toBeHidden();
 });
 
 test("desktop sections and keyboard dot navigation follow the approved order", async ({
@@ -173,6 +177,22 @@ test("feedback nudge suppresses back to top and clears project actions", async (
 }) => {
   await page.goto("/");
   const nudge = page.getByTestId("feedback-nudge");
+  // the nudge earns its slot only after scrolling past most of the hero
+  await expect(nudge).toBeHidden();
+  /* Scroll into the neutral zone: past the hero threshold but with Projects
+     still fully below the viewport (a fixed offset breaks when the CI build
+     lays out slightly shorter than dev). */
+  await page.evaluate(() => {
+    const projectsTop = document.getElementById("projects")!.offsetTop;
+    const target = Math.max(
+      window.innerHeight * 0.61,
+      Math.min(
+        window.innerHeight * 0.75,
+        projectsTop - window.innerHeight - 24,
+      ),
+    );
+    window.scrollTo(0, target);
+  });
   await expect(nudge).toBeVisible();
 
   await page.evaluate(() => {
@@ -195,7 +215,7 @@ test("feedback nudge suppresses back to top and clears project actions", async (
   );
 
   await page.locator("#projects").scrollIntoViewIfNeeded();
-  await expect(nudge).toHaveCount(0);
+  await expect(nudge).toBeHidden();
 });
 
 test.describe("mobile app navigation accessibility", () => {
@@ -259,15 +279,33 @@ test.describe("mobile app navigation accessibility", () => {
       await page.getByRole("button", { name: "Altro" }).click();
       const dialog = page.getByRole("dialog", { name: "Esplora" });
       await expect(dialog).toBeVisible();
+      const navTop = await page
+        .getByRole("navigation", { name: "Navigazione mobile" })
+        .evaluate((element) => element.getBoundingClientRect().top);
+      /* The sheet slides up behind the tab bar (its box reaches the viewport
+         bottom), while its padding keeps every control above the nav. Polled:
+         the entrance animation runs 240ms before the box settles. */
+      await expect
+        .poll(async () => {
+          const bounds = await dialog.boundingBox();
+          if (!bounds) return 0;
+          return bounds.y + bounds.height;
+        })
+        .toBeGreaterThanOrEqual(567);
+      /* On short viewports the sheet scrolls internally; once its bottom is
+         reached, the padding keeps every control clear of the tab bar. */
+      const itButton = dialog.getByRole("button", { name: "IT", exact: true });
+      await itButton.scrollIntoViewIfNeeded();
+      const lastControl = await itButton.boundingBox();
+      expect(lastControl).not.toBeNull();
+      expect(lastControl!.y + lastControl!.height).toBeLessThanOrEqual(
+        navTop + 1,
+      );
       const bounds = await dialog.boundingBox();
       expect(bounds).not.toBeNull();
       expect(bounds!.x).toBeGreaterThanOrEqual(0);
       expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
       expect(bounds!.y).toBeGreaterThanOrEqual(0);
-      const navTop = await page
-        .getByRole("navigation", { name: "Navigazione mobile" })
-        .evaluate((element) => element.getBoundingClientRect().top);
-      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(navTop + 1);
       await expect(
         dialog.getByRole("heading", { name: "Esplora" }),
       ).toBeVisible();

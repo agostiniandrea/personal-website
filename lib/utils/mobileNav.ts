@@ -1,4 +1,7 @@
 export type MobileTab = "home" | "work" | "story" | "forest";
+
+/* Fired by content (e.g. the ExploreContext back link) to open the More sheet */
+export const OPEN_MOBILE_EXPLORE_EVENT = "open-mobile-explore";
 export type MoreView = "skills" | "sustainability" | "beyond-code";
 export type MobileView = MobileTab | MoreView;
 export type StorySub = "journey" | "experience";

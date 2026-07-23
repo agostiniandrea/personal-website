@@ -47,7 +47,7 @@ const CONSENT_KEY = "cookie-consent";
 type ConsentValue = "accepted" | "rejected" | "custom";
 
 const Card = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.surfaceRaised};
   border: 1px solid #e0e0e8;
   border-radius: ${({ theme }) => theme.radii.md};
   border-top: 3px solid ${({ theme }) => theme.colors.highlight};
@@ -89,7 +89,7 @@ const Eyebrow = styled.p`
 `;
 
 const Title = styled.h2`
-  color: #0a0a0f;
+  color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -97,7 +97,7 @@ const Title = styled.h2`
 `;
 
 const Body = styled.p`
-  color: #5e5e72;
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0;
@@ -154,7 +154,7 @@ const SecondaryBtn = styled.button`
       transparent
     );
   border-radius: ${({ theme }) => theme.radii.xs};
-  color: #0a0a0f;
+  color: ${({ theme }) => theme.colors.headline};
   cursor: pointer;
   flex: 1;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -217,14 +217,14 @@ const PreferenceRow = styled.div`
 `;
 
 const PreferenceName = styled.p`
-  color: #0a0a0f;
+  color: ${({ theme }) => theme.colors.headline};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   margin: 0 0 0.125rem;
 `;
 
 const PreferenceDesc = styled.p`
-  color: #5e5e72;
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   margin: 0;
 `;

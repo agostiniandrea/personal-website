@@ -15,11 +15,13 @@ declare global {
   }
 }
 
-// Mock window.matchMedia
+// Mock window.matchMedia. Reduced motion matches so exit animations resolve
+// synchronously — jsdom never fires animation events, so animated unmounts
+// would otherwise hang around forever in tests.
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
-    matches: false,
+    matches: query.includes("prefers-reduced-motion"),
     media: query,
     onchange: null,
     addListener: () => {},

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 
@@ -12,6 +12,7 @@ import {
   MobileTab,
   MobileView,
   MoreDestination,
+  OPEN_MOBILE_EXPLORE_EVENT,
   resolveManagedHash,
   resolveViewFromState,
   StorySub,
@@ -35,7 +36,8 @@ const Nav = styled.nav`
   padding-bottom: env(safe-area-inset-bottom);
   position: fixed;
   right: 0;
-  z-index: 200;
+  /* above the More sheet (301), which slides away behind the tab bar */
+  z-index: 400;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
@@ -63,14 +65,14 @@ const TabButton = styled.button<{ $active: boolean }>`
   display: flex;
   flex-direction: column;
   font-family: inherit;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: ${({ $active, theme }) =>
     $active ? theme.fontWeights.semiBold : theme.fontWeights.medium};
-  gap: 0.25rem;
+  gap: 0.375rem;
   justify-content: center;
   letter-spacing: 0.02em;
-  min-height: 44px;
-  padding: ${({ theme }) => theme.space.sm} 0 ${({ theme }) => theme.space.xs};
+  min-height: 56px;
+  padding: 0.625rem 0 0.5rem;
   transition: color 0.2s ease;
   width: 100%;
 
@@ -312,6 +314,25 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     );
   };
 
+  // tapping "More" while the sheet is open dismisses it
+  const toggleSheet = () => {
+    if (sheetOpen) {
+      closeSheet();
+      return;
+    }
+    openSheet();
+  };
+
+  /* Content (the ExploreContext back link) can ask for the sheet; the ref keeps
+     the listener stable while openSheet closes over fresh state. */
+  const openSheetRef = useRef(openSheet);
+  openSheetRef.current = openSheet;
+  useEffect(() => {
+    const open = () => openSheetRef.current();
+    window.addEventListener(OPEN_MOBILE_EXPLORE_EVENT, open);
+    return () => window.removeEventListener(OPEN_MOBILE_EXPLORE_EVENT, open);
+  }, []);
+
   const onSheetNavigate = (destination: MoreDestination) => {
     trackEvent("mobile_more_destination", { destination });
     setSheetOpen(false);
@@ -348,9 +369,10 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
               <TabButton
                 $active={activeTab === id}
                 aria-current={activeTab === id ? "page" : undefined}
+                aria-expanded={id === "more" ? sheetOpen : undefined}
                 aria-haspopup={id === "more" ? "dialog" : undefined}
                 onClick={() =>
-                  id === "more" ? openSheet() : navigateTo(id as MobileTab)
+                  id === "more" ? toggleSheet() : navigateTo(id as MobileTab)
                 }
               >
                 {NAV_ICONS[id]}

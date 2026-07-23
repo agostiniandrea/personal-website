@@ -14,7 +14,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -22,7 +22,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -30,7 +30,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -43,7 +43,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   padding: 0.5rem 1rem;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -52,23 +52,50 @@ exports[`Skills renders correctly with a single category 1`] = `
   text-transform: uppercase;
 }
 
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
 .c0 {
   padding: 3rem 0;
 }
 
-.c5 {
+.c8 {
   margin: 0 0 3rem;
   max-width: 600px;
 }
 
-.c6 {
+.c10 {
   column-gap: 2rem;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 3rem;
 }
 
-.c7 {
+.c11 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
@@ -78,7 +105,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   text-transform: uppercase;
 }
 
-.c8 {
+.c12 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -134,38 +161,62 @@ exports[`Skills renders correctly with a single category 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199px) {
-  .c5 {
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -178,42 +229,58 @@ exports[`Skills renders correctly with a single category 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Skills & Tools
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Skills
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         What I work with
       </h2>
+      <p
+        class="c9"
+      >
+        Technologies and practices
+      </p>
       <div
-        class="c6"
+        class="c10"
       >
         <div
           class=""
         >
           <h3
-            class="c7"
+            class="c11"
           >
             Frontend
           </h3>
           <ul
-            class="c8"
+            class="c12"
           >
             <li
-              class="c9"
+              class="c13"
             >
               React
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Next.js
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               TypeScript
             </li>
@@ -239,7 +306,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   grid-column: 2/auto;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -247,7 +314,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -255,7 +322,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -268,7 +335,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   padding: 0.5rem 1rem;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -277,23 +344,50 @@ exports[`Skills renders correctly with all categories 1`] = `
   text-transform: uppercase;
 }
 
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
 .c0 {
   padding: 3rem 0;
 }
 
-.c5 {
+.c8 {
   margin: 0 0 3rem;
   max-width: 600px;
 }
 
-.c6 {
+.c10 {
   column-gap: 2rem;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 3rem;
 }
 
-.c7 {
+.c11 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
@@ -303,7 +397,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   text-transform: uppercase;
 }
 
-.c8 {
+.c12 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -359,38 +453,62 @@ exports[`Skills renders correctly with all categories 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199px) {
-  .c5 {
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -403,57 +521,73 @@ exports[`Skills renders correctly with all categories 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Skills & Tools
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Skills
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         What I work with
       </h2>
+      <p
+        class="c9"
+      >
+        Technologies and practices
+      </p>
       <div
-        class="c6"
+        class="c10"
       >
         <div
           class=""
         >
           <h3
-            class="c7"
+            class="c11"
           >
             Languages & Frameworks
           </h3>
           <ul
-            class="c8"
+            class="c12"
           >
             <li
-              class="c9"
+              class="c13"
             >
               React
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Next.js
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               TypeScript
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               JavaScript
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Redux
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Vue.js
             </li>
@@ -463,40 +597,40 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c7"
+            class="c11"
           >
             Commerce & CMS
           </h3>
           <ul
-            class="c8"
+            class="c12"
           >
             <li
-              class="c9"
+              class="c13"
             >
               Shopify
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               BigCommerce
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Prismic
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Contentful
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Algolia
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               headless WordPress
             </li>
@@ -506,30 +640,30 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c7"
+            class="c11"
           >
             Shopify App Stack
           </h3>
           <ul
-            class="c8"
+            class="c12"
           >
             <li
-              class="c9"
+              class="c13"
             >
               Remix
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Prisma
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Shopify Polaris
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Liquid
             </li>
@@ -539,45 +673,45 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c7"
+            class="c11"
           >
             Tooling & Testing
           </h3>
           <ul
-            class="c8"
+            class="c12"
           >
             <li
-              class="c9"
+              class="c13"
             >
               Storybook
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Chromatic
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Jest
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Sentry
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Webpack
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Node.js
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Git
             </li>
@@ -587,35 +721,35 @@ exports[`Skills renders correctly with all categories 1`] = `
           class=""
         >
           <h3
-            class="c7"
+            class="c11"
           >
             Practices
           </h3>
           <ul
-            class="c8"
+            class="c12"
           >
             <li
-              class="c9"
+              class="c13"
             >
               Frontend Architecture
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Design Systems
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Core Web Vitals
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               WCAG 2.1 AA
             </li>
             <li
-              class="c9"
+              class="c13"
             >
               Tech Leadership
             </li>

@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { SECTION_LABELS, useI18n } from "@lib/utils/i18n";
-import { resolveViewFromHash, StorySub } from "@lib/utils/mobileNav";
+import { StorySub } from "@lib/utils/mobileNav";
 
 /* Rendered at the top of both Journey and Experience; only one instance is
    ever visible because the sections are mutually exclusive in the story tab */
@@ -62,15 +62,30 @@ const StorySegmentedControl: React.FC = () => {
   const localeKey = locale === "it" ? "it" : "en";
   const [active, setActive] = useState<StorySub>("journey");
 
-  const syncFromLocation = useCallback(() => {
-    setActive(resolveViewFromHash(window.location.hash).storySub);
+  /* data-story-sub is the single source of truth (it already drives which
+     section is visible). Both rendered instances observe it, so selecting a
+     sub in one instance also updates the control that becomes visible —
+     pushState alone fires no event the other instance could hear. */
+  const syncFromDocument = useCallback(() => {
+    const sub = document.documentElement.getAttribute("data-story-sub");
+    setActive(sub === "experience" ? "experience" : "journey");
   }, []);
 
   useEffect(() => {
-    syncFromLocation();
-    window.addEventListener("hashchange", syncFromLocation);
-    return () => window.removeEventListener("hashchange", syncFromLocation);
-  }, [syncFromLocation]);
+    syncFromDocument();
+    window.addEventListener("hashchange", syncFromDocument);
+    window.addEventListener("popstate", syncFromDocument);
+    const observer = new MutationObserver(syncFromDocument);
+    observer.observe(document.documentElement, {
+      attributeFilter: ["data-story-sub"],
+      attributes: true,
+    });
+    return () => {
+      window.removeEventListener("hashchange", syncFromDocument);
+      window.removeEventListener("popstate", syncFromDocument);
+      observer.disconnect();
+    };
+  }, [syncFromDocument]);
 
   const select = (sub: StorySub) => {
     if (sub === active) return;

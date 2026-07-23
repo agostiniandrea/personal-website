@@ -19,13 +19,13 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c8 {
+.c12 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -33,7 +33,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -41,7 +41,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c6 {
+.c10 {
   color: var(--color-paragraph);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -49,7 +49,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c11 {
+.c15 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -57,7 +57,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c14 {
+.c18 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -70,7 +70,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   padding: 0.25rem 0.5rem;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -79,18 +79,45 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c5 {
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
+.c8 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c7 {
+.c11 {
   line-height: 1.7;
   margin-bottom: 3rem;
   max-width: 680px;
 }
 
-.c9 {
+.c13 {
   border: 1px solid var(--color-main);
   border-radius: 10px;
   display: flex;
@@ -98,7 +125,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   padding: 3rem 2rem;
 }
 
-.c10 {
+.c14 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
@@ -108,13 +135,13 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c12 {
+.c16 {
   flex: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
 
-.c13 {
+.c17 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -123,7 +150,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   padding: 0;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -177,49 +204,73 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 }
 
 @media (min-width: 600px) {
-  .c8 {
+  .c12 {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c8 {
+  .c12 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c8 {
+  .c12 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c8 {
+  .c12 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
   .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 1199px) {
-  .c7 {
+@media (max-width: 1199.98px) {
+  .c11 {
     margin-bottom: 1.5rem;
   }
 }
@@ -232,116 +283,132 @@ exports[`BeyondCode renders correctly with all props 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Beyond Code
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Life & Passions
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Beyond the keyboard
       </h2>
       <p
-        class="c6 c7"
+        class="c9"
+      >
+        Life, travel and passions
+      </p>
+      <p
+        class="c10 c11"
       >
         Work is a big part of who I am, but not the whole story. Here's the rest.
       </p>
       <div
-        class="c8"
+        class="c12"
       >
         <article
-          class="c9"
+          class="c13"
         >
           <h3
-            class="c10"
+            class="c14"
           >
             Sports
           </h3>
           <p
-            class="c11 c12"
+            class="c15 c16"
           >
             Bologna FC and Virtus Bologna — followed from Bangkok, where every evening kick-off lands well past midnight.
           </p>
           <ul
             aria-label="Sports tags"
-            class="c13"
+            class="c17"
           >
             <li
-              class="c14"
+              class="c18"
             >
               Bologna FC
             </li>
             <li
-              class="c14"
+              class="c18"
             >
               Virtus Bologna
             </li>
           </ul>
         </article>
         <article
-          class="c9"
+          class="c13"
         >
           <h3
-            class="c10"
+            class="c14"
           >
             Travel & Life
           </h3>
           <p
-            class="c11 c12"
+            class="c15 c16"
           >
             Based in Bangkok since late 2025, after six years in Amsterdam. Fully remote, used to working across time zones with North American and European teams.
           </p>
           <ul
             aria-label="Travel & Life tags"
-            class="c13"
+            class="c17"
           >
             <li
-              class="c14"
+              class="c18"
             >
               Bangkok
             </li>
             <li
-              class="c14"
+              class="c18"
             >
               Amsterdam
             </li>
             <li
-              class="c14"
+              class="c18"
             >
               Remote-first
             </li>
           </ul>
         </article>
         <article
-          class="c9"
+          class="c13"
         >
           <h3
-            class="c10"
+            class="c14"
           >
             Languages
           </h3>
           <p
-            class="c11 c12"
+            class="c15 c16"
           >
             Italian native, English professional, Thai in progress — slowly but stubbornly.
           </p>
           <ul
             aria-label="Languages tags"
-            class="c13"
+            class="c17"
           >
             <li
-              class="c14"
+              class="c18"
             >
               Italian
             </li>
             <li
-              class="c14"
+              class="c18"
             >
               English
             </li>
             <li
-              class="c14"
+              class="c18"
             >
               Thai
             </li>
@@ -372,13 +439,13 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   grid-column: 2/auto;
 }
 
-.c6 {
+.c10 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -386,7 +453,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -394,7 +461,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -402,7 +469,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   padding: 0;
 }
 
-.c12 {
+.c16 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -415,7 +482,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   padding: 0.25rem 0.5rem;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -424,12 +491,39 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   text-transform: uppercase;
 }
 
-.c5 {
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
+.c8 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c7 {
+.c11 {
   border: 1px solid var(--color-main);
   border-radius: 10px;
   display: flex;
@@ -437,7 +531,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   padding: 3rem 2rem;
 }
 
-.c8 {
+.c12 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
@@ -447,13 +541,13 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   text-transform: uppercase;
 }
 
-.c10 {
+.c14 {
   flex: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
 
-.c11 {
+.c15 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -462,7 +556,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   padding: 0;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -516,43 +610,67 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 }
 
 @media (min-width: 600px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
   .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
@@ -565,111 +683,127 @@ exports[`BeyondCode renders correctly without intro 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Beyond Code
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Life & Passions
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Beyond the keyboard
       </h2>
+      <p
+        class="c9"
+      >
+        Life, travel and passions
+      </p>
       <div
-        class="c6"
+        class="c10"
       >
         <article
-          class="c7"
+          class="c11"
         >
           <h3
-            class="c8"
+            class="c12"
           >
             Sports
           </h3>
           <p
-            class="c9 c10"
+            class="c13 c14"
           >
             Bologna FC and Virtus Bologna — followed from Bangkok, where every evening kick-off lands well past midnight.
           </p>
           <ul
             aria-label="Sports tags"
-            class="c11"
+            class="c15"
           >
             <li
-              class="c12"
+              class="c16"
             >
               Bologna FC
             </li>
             <li
-              class="c12"
+              class="c16"
             >
               Virtus Bologna
             </li>
           </ul>
         </article>
         <article
-          class="c7"
+          class="c11"
         >
           <h3
-            class="c8"
+            class="c12"
           >
             Travel & Life
           </h3>
           <p
-            class="c9 c10"
+            class="c13 c14"
           >
             Based in Bangkok since late 2025, after six years in Amsterdam. Fully remote, used to working across time zones with North American and European teams.
           </p>
           <ul
             aria-label="Travel & Life tags"
-            class="c11"
+            class="c15"
           >
             <li
-              class="c12"
+              class="c16"
             >
               Bangkok
             </li>
             <li
-              class="c12"
+              class="c16"
             >
               Amsterdam
             </li>
             <li
-              class="c12"
+              class="c16"
             >
               Remote-first
             </li>
           </ul>
         </article>
         <article
-          class="c7"
+          class="c11"
         >
           <h3
-            class="c8"
+            class="c12"
           >
             Languages
           </h3>
           <p
-            class="c9 c10"
+            class="c13 c14"
           >
             Italian native, English professional, Thai in progress — slowly but stubbornly.
           </p>
           <ul
             aria-label="Languages tags"
-            class="c11"
+            class="c15"
           >
             <li
-              class="c12"
+              class="c16"
             >
               Italian
             </li>
             <li
-              class="c12"
+              class="c16"
             >
               English
             </li>
             <li
-              class="c12"
+              class="c16"
             >
               Thai
             </li>
@@ -700,13 +834,13 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   grid-column: 2/auto;
 }
 
-.c6 {
+.c10 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
 }
 
-.c4 {
+.c7 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-weight: 700;
@@ -714,7 +848,7 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   line-height: 1.1;
 }
 
-.c2 {
+.c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
   line-height: 1.5;
@@ -722,7 +856,7 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   padding: 0;
 }
 
-.c9 {
+.c13 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -730,7 +864,7 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   padding: 0;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 0.75rem;
   font-weight: 600;
@@ -739,12 +873,39 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   text-transform: uppercase;
 }
 
-.c5 {
+.c2 {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--color-highlight);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-inter),sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+  padding: 0;
+}
+
+.c9 {
+  color: var(--color-paragraph);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: -0.75rem 0 1.5rem;
+}
+
+.c6 {
+  display: none;
+}
+
+.c8 {
   margin: 0 0 2rem;
   max-width: 600px;
 }
 
-.c7 {
+.c11 {
   border: 1px solid var(--color-main);
   border-radius: 10px;
   display: flex;
@@ -752,7 +913,7 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   padding: 3rem 2rem;
 }
 
-.c8 {
+.c12 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 0.875rem;
@@ -762,13 +923,13 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   text-transform: uppercase;
 }
 
-.c10 {
+.c14 {
   flex: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -822,43 +983,67 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 }
 
 @media (min-width: 600px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1536px) {
-  .c6 {
+  .c10 {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 900px) {
-  .c4 {
+  .c7 {
     font-size: 2.5rem;
   }
 }
 
 @media (min-width: 1200px) {
-  .c4 {
+  .c7 {
     font-size: 3.5rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (min-width: 900px) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
   .c5 {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .c6 {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .c8 {
     margin-bottom: 1.5rem;
   }
 }
@@ -871,29 +1056,45 @@ exports[`BeyondCode renders correctly without tags 1`] = `
     <section
       class="c1"
     >
+      <button
+        class="c2"
+        type="button"
+      >
+        ← Explore
+      </button>
       <p
-        class="c2 c3"
+        class="c3 c4 c5"
+      >
+        Beyond Code
+      </p>
+      <p
+        class="c3 c4 c6"
       >
         Life & Passions
       </p>
       <h2
-        class="c4 c5"
+        class="c7 c8"
       >
         Beyond the keyboard
       </h2>
+      <p
+        class="c9"
+      >
+        Life, travel and passions
+      </p>
       <div
-        class="c6"
+        class="c10"
       >
         <article
-          class="c7"
+          class="c11"
         >
           <h3
-            class="c8"
+            class="c12"
           >
             Sports
           </h3>
           <p
-            class="c9 c10"
+            class="c13 c14"
           >
             Bologna FC and Virtus Bologna — follow both faithfully.
           </p>

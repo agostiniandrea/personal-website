@@ -36,11 +36,16 @@ const GlobalStyle = createGlobalStyle`
        the two can never drift apart. */
     --site-header-height: 3.5rem;
 
+    /* Height of the fixed bottom tab bar (excluding the safe-area inset);
+       everything that offsets around it reads this back. */
+    --mobile-nav-height: 4.75rem;
+
     @media (min-width: ${BREAKPOINTS.xTablet}) {
       --site-header-height: 4.3125rem;
     }
 
     /* color tokens — dark (default) */
+    --artwork-opacity: 0.22;
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
@@ -60,7 +65,9 @@ const GlobalStyle = createGlobalStyle`
 
   @media (prefers-color-scheme: light) {
     :root {
-      --color-background: #f5f5fa;
+      --artwork-opacity: 0.35;
+      --artwork-opacity: 0.35;
+    --color-background: #f5f5fa;
       --color-headline: #0a0a0f;
       --color-paragraph: #5e5e72;
       --color-button: #0f766e;
@@ -98,6 +105,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   :root[data-theme="dark"] {
+    --artwork-opacity: 0.22;
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
@@ -220,7 +228,9 @@ const GlobalStyle = createGlobalStyle`
       }
 
       html[data-mobile-view] footer[role="contentinfo"] {
-        padding-bottom: calc(1.5rem + 4.5rem + env(safe-area-inset-bottom));
+        padding-bottom: calc(
+          1.5rem + var(--mobile-nav-height) + env(safe-area-inset-bottom)
+        );
       }
     }
   `}
