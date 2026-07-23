@@ -49,7 +49,9 @@ const evaluateQuery = (query: string, device: SimulatedDevice): boolean => {
   if (/\(\s*hover:\s*none\s*\)/.test(query)) return !device.hover;
   if (/\(\s*pointer:\s*fine\s*\)/.test(query)) return device.hover;
   if (/\(\s*pointer:\s*coarse\s*\)/.test(query)) return !device.hover;
-  if (/prefers-reduced-motion/.test(query)) return false;
+  // Matches so animated unmounts resolve synchronously in jsdom, which never
+  // fires animation events.
+  if (/prefers-reduced-motion/.test(query)) return true;
   return matchesAtWidth(query, device.width);
 };
 

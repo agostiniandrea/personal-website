@@ -31,15 +31,24 @@ const Section = styled.section`
   padding-top: 2rem;
   position: relative;
 
-  /* the site header is fixed, so the hero has to start below it */
+  /* the site header is fixed, so the hero starts below it — with breathing
+     room, not glued to its edge */
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    padding-bottom: 2rem;
-    padding-top: var(--site-header-height);
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
+    padding-top: calc(
+      var(--site-header-height) + ${({ theme }) => theme.space["2xl"]}
+    );
   }
 
+  /* symmetric padding + border-box keep the content optically centred in the
+     viewport (an unbalanced top padding pushed the centre down) while still
+     clearing the fixed header — matches the padding-top inherited above */
   @media (min-width: ${BREAKPOINTS.tablet}) {
+    box-sizing: border-box;
     min-height: 100svh;
-    padding-bottom: 0;
+    padding-bottom: calc(
+      var(--site-header-height) + ${({ theme }) => theme.space["2xl"]}
+    );
   }
 `;
 

@@ -1,4 +1,4 @@
-import { act, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { useI18n } from "@lib/utils/i18n";
@@ -15,6 +15,7 @@ describe("FeedbackNudge", () => {
 
   it("renders as the dismissible desktop feedback prompt", () => {
     renderWithTheme(<FeedbackNudge />);
+    scrollPastHero();
     expect(
       screen.getByRole("complementary", {
         name: t.feedbackNudgeTitle,
@@ -22,9 +23,18 @@ describe("FeedbackNudge", () => {
     ).toBeInTheDocument();
   });
 
+  const scrollPastHero = () => {
+    Object.defineProperty(window, "scrollY", {
+      configurable: true,
+      value: 800,
+    });
+    fireEvent.scroll(window);
+  };
+
   it("announces its visibility and can be dismissed", async () => {
     const user = userEvent.setup();
     renderWithTheme(<FeedbackNudge />);
+    scrollPastHero();
 
     await waitFor(() => {
       expect(document.body.dataset.feedbackNudgeVisible).toBe("true");

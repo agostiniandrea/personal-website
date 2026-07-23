@@ -8,7 +8,7 @@ import { BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent, trackOnce } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 
-const Card = styled.aside`
+const Card = styled.aside<{ $visible: boolean }>`
   background: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.background} 94%,
@@ -26,8 +26,17 @@ const Card = styled.aside`
   display: block;
   max-width: 340px;
   padding: ${({ theme }) => theme.space.lg};
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  pointer-events: ${({ $visible }) => ($visible ? "auto" : "none")};
   position: fixed;
   right: ${({ theme }) => theme.space.xl};
+  transform: ${({ $visible }) =>
+    $visible ? "translateY(0)" : "translateY(12px)"};
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s;
+  visibility: ${({ $visible }) => ($visible ? "visible" : "hidden")};
   z-index: 90;
 
   @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
@@ -108,7 +117,11 @@ const FeedbackNudge: React.FC = () => {
   const [projectActionsVisible, setProjectActionsVisible] = useState(false);
   const [teaserEngaged, setTeaserEngaged] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  /* One-shot: the prompt earns its slot only after real engagement (scrolling
+     past most of the first viewport) instead of popping up on load. */
+  const [pastHero, setPastHero] = useState(false);
   const visible =
+    pastHero &&
     !dismissed &&
     !inlineTeaserVisible &&
     !modalOpen &&
@@ -117,6 +130,17 @@ const FeedbackNudge: React.FC = () => {
 
   useEffect(() => {
     setDismissed(sessionStorage.getItem(DISMISSED_KEY) === "true");
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY <= window.innerHeight * 0.6) return;
+      setPastHero(true);
+      window.removeEventListener("scroll", onScroll);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -190,7 +214,9 @@ const FeedbackNudge: React.FC = () => {
     return () => notifyVisibility(false);
   }, [router.locale, visible]);
 
-  if (!visible) return null;
+  /* Definitive states unmount; contextual hides (teaser/projects in view,
+     pre-scroll, open modal) fade the card instead of yanking it. */
+  if (dismissed || teaserEngaged) return null;
 
   const openForest = () => {
     sessionStorage.setItem(DISMISSED_KEY, "true");
@@ -203,7 +229,11 @@ const FeedbackNudge: React.FC = () => {
   };
 
   return (
-    <Card aria-label={t.feedbackNudgeTitle} data-testid="feedback-nudge">
+    <Card
+      $visible={visible}
+      aria-label={t.feedbackNudgeTitle}
+      data-testid="feedback-nudge"
+    >
       <Header>
         <Icon aria-hidden="true">🌱</Icon>
         <Copy>
