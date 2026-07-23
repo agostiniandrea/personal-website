@@ -76,8 +76,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <Component {...pageProps} />
         <ScrollToTop />
         <CookieBanner />
-        {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
-        {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
+        {process.env.NEXT_PUBLIC_VERCEL === "1" && <SpeedInsights />}
+        {process.env.NEXT_PUBLIC_VERCEL === "1" && <Analytics />}
         <AnalyticsScripts
           gaId={GA_ID}
           clarityId={CLARITY_ID}

@@ -8,10 +8,13 @@ import configSEO from "@config/seo.json";
  * This component includes the default SEO configuration and meta tags.
  */
 const Head = () => {
-  const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
-  const robots = isProduction
-    ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    : "noindex, nofollow";
+  // Only Vercel preview deploys must stay out of the index; everything else
+  // (production, local dev, CI) is indexable. Keyed off preview specifically so
+  // the shipped page — and the Lighthouse CI build — score as crawlable.
+  const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
+  const robots = isPreview
+    ? "noindex, nofollow"
+    : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
   return (
     <>

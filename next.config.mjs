@@ -10,6 +10,9 @@ const nextConfig = {
   devIndicators: false,
   env: {
     NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV ?? "development",
+    // "1" only on a real Vercel deploy; gates the Vercel analytics scripts so
+    // they aren't requested off-platform (they 404 on localhost/CI).
+    NEXT_PUBLIC_VERCEL: process.env.VERCEL ?? "",
   },
   i18n: {
     locales: ["en", "it"],
