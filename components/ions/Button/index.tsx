@@ -55,68 +55,74 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
-  children,
-  onClick,
-  disabled = false,
-  style,
-  className,
-  type = "button",
-  "aria-label": ariaLabel,
-  "aria-describedby": ariaDescribedby,
-  "aria-expanded": ariaExpanded,
-  "aria-pressed": ariaPressed,
-  "aria-controls": ariaControls,
-  role,
-  id,
-  tabIndex,
-  description,
-}, ref) => {
-  const descriptionId = id ? `${id}-description` : undefined;
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      onClick,
+      disabled = false,
+      style,
+      className,
+      type = "button",
+      "aria-label": ariaLabel,
+      "aria-describedby": ariaDescribedby,
+      "aria-expanded": ariaExpanded,
+      "aria-pressed": ariaPressed,
+      "aria-controls": ariaControls,
+      role,
+      id,
+      tabIndex,
+      description,
+    },
+    ref,
+  ) => {
+    const descriptionId = id ? `${id}-description` : undefined;
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      onClick?.();
-    }
-  };
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onClick?.();
+      }
+    };
 
-  // If content is just text, use it as fallback for aria-label
-  const defaultAriaLabel = typeof children === "string" ? children : undefined;
-  const computedAriaLabel = ariaLabel || defaultAriaLabel;
+    // If content is just text, use it as fallback for aria-label
+    const defaultAriaLabel =
+      typeof children === "string" ? children : undefined;
+    const computedAriaLabel = ariaLabel || defaultAriaLabel;
 
-  return (
-    <>
-      <StyledButton
-        ref={ref}
-        onClick={onClick}
-        onKeyDown={handleKeyDown}
-        disabled={disabled}
-        style={style}
-        className={className}
-        type={type}
-        aria-label={computedAriaLabel}
-        aria-describedby={
-          ariaDescribedby || (description ? descriptionId : undefined)
-        }
-        aria-expanded={ariaExpanded}
-        aria-pressed={ariaPressed}
-        aria-controls={ariaControls}
-        aria-disabled={disabled}
-        role={role}
-        id={id}
-        tabIndex={tabIndex}
-      >
-        {children}
-      </StyledButton>
-      {description && descriptionId && (
-        <span id={descriptionId} className="sr-only">
-          {description}
-        </span>
-      )}
-    </>
-  );
-});
+    return (
+      <>
+        <StyledButton
+          ref={ref}
+          onClick={onClick}
+          onKeyDown={handleKeyDown}
+          disabled={disabled}
+          style={style}
+          className={className}
+          type={type}
+          aria-label={computedAriaLabel}
+          aria-describedby={
+            ariaDescribedby || (description ? descriptionId : undefined)
+          }
+          aria-expanded={ariaExpanded}
+          aria-pressed={ariaPressed}
+          aria-controls={ariaControls}
+          aria-disabled={disabled}
+          role={role}
+          id={id}
+          tabIndex={tabIndex}
+        >
+          {children}
+        </StyledButton>
+        {description && descriptionId && (
+          <span id={descriptionId} className="sr-only">
+            {description}
+          </span>
+        )}
+      </>
+    );
+  },
+);
 
 Button.displayName = "Button";
 

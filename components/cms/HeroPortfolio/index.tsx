@@ -4,16 +4,8 @@ import { useRouter } from "next/router";
 
 import styled, { keyframes } from "styled-components";
 
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Text,
-} from "@components/ions";
-import { BREAKPOINTS } from "@constants";
+import { Box, Container, Heading, Image, Link, Text } from "@components/ions";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { contentfulImageUrl } from "@utils/contentfulImage";
@@ -35,53 +27,71 @@ export interface HeroPortfolioProps {
 const Section = styled.section`
   align-items: center;
   display: flex;
-  padding-bottom: 2rem;
-  padding-top: 5.5rem;
+  padding-bottom: 40px;
+  padding-top: 2rem;
   position: relative;
+
+  /* the site header is fixed, so the hero has to start below it */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    padding-bottom: 2rem;
+    padding-top: var(--site-header-height);
+  }
+
   @media (min-width: ${BREAKPOINTS.tablet}) {
     min-height: 100svh;
     padding-bottom: 0;
-    padding-top: 0;
   }
 `;
 
-const HeroGrid = styled(Flex)`
+const HeroGrid = styled.div`
   align-items: center;
   display: grid;
-  gap: ${({ theme }) => theme.space.xl};
+  gap: 0;
   grid-template-areas:
-    "copy"
     "photo"
+    "copy"
     "actions";
   grid-template-columns: minmax(0, 1fr);
+  margin-inline: -4px;
+  width: calc(100% + 8px);
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    align-items: center;
+    column-gap: ${({ theme }) => theme.space["4xl"]};
     grid-template-areas:
       "copy photo"
       "actions photo";
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-rows: auto auto;
-    gap: ${({ theme }) => theme.space["4xl"]};
+    margin-inline: 0;
+    row-gap: ${({ theme }) => theme.space["2xl"]};
+    width: 100%;
   }
 `;
 
 const TextBlock = styled(Box)`
   flex: 1;
   grid-area: copy;
-  text-align: left;
+  text-align: center;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     text-align: left;
   }
 `;
 
 const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
-  font-size: ${({ theme }) => theme.fontSizes["2xl"]};
-  margin: 0 0 ${({ theme }) => theme.space.sm};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: clamp(36px, 10vw, 44px);
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: 1.05;
+  margin: 0 0 16px;
+  white-space: nowrap;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: ${({ theme }) => theme.fontSizes["6xl"]};
-    margin-bottom: 1rem;
+    line-height: inherit;
+    margin-bottom: ${({ theme }) => theme.space.lg};
+    white-space: normal;
   }
 `;
 
@@ -89,62 +99,110 @@ const GreetingSpan = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   display: block;
   font-family: ${({ theme }) => theme.fontFamilies.default};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  letter-spacing: 0.2em;
-  margin-bottom: ${({ theme }) => theme.space.sm};
+  letter-spacing: 0.18em;
+  line-height: 20px;
+  margin-bottom: 14px;
   text-transform: uppercase;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    letter-spacing: 0.2em;
+    line-height: inherit;
+    margin-bottom: ${({ theme }) => theme.space.lg};
+  }
 `;
 
 const Role = styled.p`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  line-height: ${({ theme }) => theme.lineHeights.normal};
-  margin: 0 0 ${({ theme }) => theme.space.md};
+  font-size: clamp(18px, 4.8vw, 22px);
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  line-height: 1.25;
+  margin: 0 0 20px;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: 390px) and (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    white-space: nowrap;
+  }
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: ${({ theme }) => theme.fontSizes["2xl"]};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
+    line-height: ${({ theme }) => theme.lineHeights.normal};
+    margin-bottom: ${({ theme }) => theme.space["2xl"]};
+    white-space: normal;
   }
 `;
 
 const Tagline = styled(Text)`
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 0;
-  max-width: 500px;
+  font-size: 17px;
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  line-height: 1.55;
+  margin: 0 auto 26px;
+  margin-inline: auto;
+  max-width: 36ch;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: ${({ theme }) => theme.fontSizes.lg};
+    line-height: ${({ theme }) => theme.lineHeights.relaxed};
     margin: 0;
+    max-width: 500px;
   }
 `;
 
-const Actions = styled(Flex)`
+const Actions = styled.div`
   align-items: center;
-  flex-direction: column;
+  column-gap: 12px;
+  display: grid;
   grid-area: actions;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-self: center;
+  max-width: 390px;
+  row-gap: 20px;
+  width: 100%;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (max-width: 359.98px) {
+    grid-template-columns: minmax(0, 285px);
+  }
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-start;
+    column-gap: ${({ theme }) => theme.space.lg};
+    display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-self: stretch;
+    max-width: none;
+    row-gap: ${({ theme }) => theme.space.lg};
   }
 `;
 
 const PrimaryLink = styled(Link)`
+  align-items: center;
   background: ${({ theme }) => theme.colors.button};
   border: 2px solid transparent;
   border-radius: ${({ theme }) => theme.radii.xs};
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.button_text};
-  display: inline-block;
+  display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  min-width: 180px;
-  padding: 0.875rem 2rem;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  height: 56px;
+  justify-content: center;
+  max-width: none;
+  min-width: 0;
+  padding: 0 ${({ theme }) => theme.space.md};
   text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
+  width: 100%;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    height: auto;
+    padding: 0.75rem 2rem;
+    width: auto;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -160,7 +218,7 @@ const PrimaryLink = styled(Link)`
   }
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    min-width: 0;
+    padding: 0.875rem 2rem;
   }
 `;
 
@@ -172,7 +230,9 @@ const CvLink = styled.a`
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.375rem;
+  grid-column: 1 / -1;
   justify-content: center;
+  justify-self: center;
   margin-inline: auto;
   min-height: 44px;
   min-width: 0;
@@ -181,6 +241,7 @@ const CvLink = styled.a`
   transition:
     color 0.2s ease,
     border-color 0.2s ease;
+  width: fit-content;
 
   @media (hover: hover) {
     &:hover {
@@ -194,25 +255,38 @@ const CvLink = styled.a`
     outline-offset: 3px;
   }
 
-  width: fit-content;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  /* the actions row becomes a flex row here, so the CV link aligns with the
+     buttons instead of being centred on its own line */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    justify-self: auto;
     margin-inline: 0;
   }
 `;
 
 const SecondaryLink = styled(Link)`
+  align-items: center;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.xs};
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.highlight};
-  display: inline-block;
+  display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  min-width: 180px;
-  padding: 0.875rem 2rem;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  height: 56px;
+  justify-content: center;
+  max-width: none;
+  min-width: 0;
+  padding: 0 ${({ theme }) => theme.space.md};
   text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
+  width: 100%;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    height: auto;
+    padding: 0.75rem 2rem;
+    width: auto;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -227,26 +301,31 @@ const SecondaryLink = styled(Link)`
   }
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    min-width: 0;
+    padding: 0.875rem 2rem;
   }
 `;
 
 const PhotoOuter = styled.div`
-  background: linear-gradient(
-    135deg,
-    var(--color-ring-start),
-    var(--color-ring-end)
-  );
+  background: ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
   grid-area: photo;
-  height: 148px;
+  height: clamp(210px, 56vw, 240px);
   justify-self: center;
-  padding: 3px;
-  width: 148px;
+  margin-bottom: 28px;
+  padding: 2px;
+  width: clamp(210px, 56vw, 240px);
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    background: linear-gradient(
+      135deg,
+      var(--color-ring-start),
+      var(--color-ring-end)
+    );
     height: 380px;
+    justify-self: end;
+    margin-bottom: 0;
+    padding: 3px;
     width: 380px;
   }
 `;
@@ -349,6 +428,23 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
       <Section id="hero">
         <Container>
           <HeroGrid>
+            <PhotoOuter>
+              <PhotoWrapper>
+                <Image
+                  src={contentfulImageUrl(image.url, {
+                    width: 800,
+                    height: 800,
+                    focus: "face",
+                  })}
+                  alt={image.alt || personName}
+                  priority
+                  fetchPriority="high"
+                  width={800}
+                  height={800}
+                  sizes="(max-width: 767px) 56vw, (max-width: 1199px) 148px, 380px"
+                />
+              </PhotoWrapper>
+            </PhotoOuter>
             <TextBlock>
               <Name>
                 <GreetingSpan>{greeting}</GreetingSpan>
@@ -357,7 +453,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
               <Role>{role}</Role>
               <Tagline variant="large">{tagline}</Tagline>
             </TextBlock>
-            <Actions gap="lg" wrap="wrap">
+            <Actions>
               <PrimaryLink
                 href={ctaPrimaryUrl}
                 onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}
@@ -390,23 +486,6 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                 </CvLink>
               )}
             </Actions>
-            <PhotoOuter>
-              <PhotoWrapper>
-                <Image
-                  src={contentfulImageUrl(image.url, {
-                    width: 800,
-                    height: 800,
-                    focus: "face",
-                  })}
-                  alt={image.alt || personName}
-                  priority
-                  fetchPriority="high"
-                  width={800}
-                  height={800}
-                  sizes={`(max-width: ${BREAKPOINTS.tablet}) 148px, 380px`}
-                />
-              </PhotoWrapper>
-            </PhotoOuter>
           </HeroGrid>
         </Container>
         <ScrollHint

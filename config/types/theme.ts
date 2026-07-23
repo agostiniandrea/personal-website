@@ -14,6 +14,7 @@ declare module "styled-components" {
       secondary: string;
       tertiary: string;
       surface: string;
+      surfaceRaised: string;
       badgeBg: string;
       ringStart: string;
       ringEnd: string;

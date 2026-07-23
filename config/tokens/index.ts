@@ -5,4 +5,3 @@ export {
   type SpacingTokenSize,
   toSpacing,
 } from "./spacing";
-

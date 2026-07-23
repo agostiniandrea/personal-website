@@ -85,7 +85,6 @@ const Description = styled(Text)`
   margin: 0;
 `;
 
-
 const Sustainability: React.FC<SustainabilityProps> = ({
   sectionLabel,
   heading,
@@ -95,7 +94,12 @@ const Sustainability: React.FC<SustainabilityProps> = ({
   volunteeringHeading,
   volunteeringItems,
 }) => (
-  <Box as="section" id="sustainability" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
+  <Box
+    as="section"
+    id="sustainability"
+    py="3xl"
+    styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }"
+  >
     <Container>
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
@@ -106,7 +110,9 @@ const Sustainability: React.FC<SustainabilityProps> = ({
           {valuesHeading && <SubHeading>{valuesHeading}</SubHeading>}
           <ValuesList aria-label={valuesHeading ?? "Values"}>
             {values.map((value) => (
-              <Badge key={value} as="li" size="md">{value}</Badge>
+              <Badge key={value} as="li" size="md">
+                {value}
+              </Badge>
             ))}
           </ValuesList>
         </Box>

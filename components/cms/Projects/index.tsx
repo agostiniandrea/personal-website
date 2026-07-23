@@ -2,15 +2,25 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
+import {
+  Box,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Link,
+  Text,
+} from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
+import { BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { contentfulImageUrl } from "@utils/contentfulImage";
 
 const STATUS_LABELS: Record<string, Record<string, string>> = {
-  "internal":   { en: "Internal",   it: "Interno" },
-  "live":       { en: "Live",        it: "Live" },
+  internal: { en: "Internal", it: "Interno" },
+  live: { en: "Live", it: "Live" },
   "pre-launch": { en: "Pre-launch", it: "Pre lancio" },
 };
 
@@ -30,11 +40,10 @@ export interface ProjectsProps {
   items: ProjectItem[];
 }
 
-
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["3xl"]};
   max-width: 600px;
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     margin-bottom: 1.5rem;
   }
 `;
@@ -48,11 +57,17 @@ const Card = styled.article`
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &::before {
-    background: linear-gradient(90deg, var(--color-ring-start), var(--color-ring-end));
-    content: '';
+    background: linear-gradient(
+      90deg,
+      var(--color-ring-start),
+      var(--color-ring-end)
+    );
+    content: "";
     height: 3px;
     left: 0;
     opacity: 0;
@@ -86,7 +101,11 @@ const ImageSlot = styled.div`
 
 const Placeholder = styled.div`
   align-items: center;
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.surface} 0%, ${({ theme }) => theme.colors.badgeBg} 100%);
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.surface} 0%,
+    ${({ theme }) => theme.colors.badgeBg} 100%
+  );
   display: flex;
   height: 100%;
   justify-content: center;
@@ -119,7 +138,6 @@ const CardDescription = styled(Text)`
   margin-bottom: ${({ theme }) => theme.space.xl};
 `;
 
-
 const StatusTag = styled.span`
   align-self: flex-start;
   color: ${({ theme }) => theme.colors.secondary};
@@ -144,62 +162,80 @@ const CardLink = styled(Link)`
   }
 `;
 
-const Projects: React.FC<ProjectsProps> = ({ sectionLabel, heading, items }) => {
+const Projects: React.FC<ProjectsProps> = ({
+  sectionLabel,
+  heading,
+  items,
+}) => {
   const { locale = "en" } = useRouter();
   const t = useI18n(locale);
   return (
-  <Box as="section" id="projects" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
-    <Container>
-      <SectionLabel>{sectionLabel}</SectionLabel>
-      <SectionHeading>{heading}</SectionHeading>
-      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="xl">
-        {items.map((item) => (
-          <Card key={item.title}>
-            <ImageSlot>
-              {item.image ? (
-                <Image
-                  src={contentfulImageUrl(item.image.url, { width: 1200, height: 675 })}
-                  alt={item.image.alt || item.title}
-                  width={1200}
-                  height={675}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              ) : (
-                <Placeholder>
-                  <PlaceholderText>{item.title}</PlaceholderText>
-                </Placeholder>
-              )}
-            </ImageSlot>
-            <CardBody>
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription variant="small">
-                {item.description}
-              </CardDescription>
-              {item.tags && item.tags.length > 0 && (
-                <Flex gap="sm" wrap="wrap" styles="margin-bottom: 1.5rem;">
-                  {item.tags.map((tag) => (
-                    <Badge key={tag} size="sm">{tag}</Badge>
-                  ))}
-                </Flex>
-              )}
-              {item.url ? (
-                <CardLink
-                  href={item.url}
-                  isExternal
-                  ariaLabel={t.viewProject(item.title)}
-                  onClick={() => trackEvent("project_opened", { project_name: item.title })}
-                >
-                  {item.urlLabel ?? "View project →"}
-                </CardLink>
-              ) : item.status ? (
-                <StatusTag>— {STATUS_LABELS[item.status]?.[locale] ?? item.status}</StatusTag>
-              ) : null}
-            </CardBody>
-          </Card>
-        ))}
-      </ProjectsGrid>
-    </Container>
-  </Box>
+    <Box
+      as="section"
+      id="projects"
+      py="3xl"
+      styles={`@media (max-width: ${BREAKPOINTS_BELOW.tablet}) { padding-top: 2rem; padding-bottom: 2rem; }`}
+    >
+      <Container>
+        <SectionLabel>{sectionLabel}</SectionLabel>
+        <SectionHeading>{heading}</SectionHeading>
+        <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="xl">
+          {items.map((item) => (
+            <Card key={item.title}>
+              <ImageSlot>
+                {item.image ? (
+                  <Image
+                    src={contentfulImageUrl(item.image.url, {
+                      width: 1200,
+                      height: 675,
+                    })}
+                    alt={item.image.alt || item.title}
+                    width={1200}
+                    height={675}
+                    sizes="(max-width: 899px) 100vw, (max-width: 1535px) 50vw, 33vw"
+                  />
+                ) : (
+                  <Placeholder>
+                    <PlaceholderText>{item.title}</PlaceholderText>
+                  </Placeholder>
+                )}
+              </ImageSlot>
+              <CardBody>
+                <CardTitle>{item.title}</CardTitle>
+                <CardDescription variant="small">
+                  {item.description}
+                </CardDescription>
+                {item.tags && item.tags.length > 0 && (
+                  <Flex gap="sm" wrap="wrap" styles="margin-bottom: 1.5rem;">
+                    {item.tags.map((tag) => (
+                      <Badge key={tag} size="sm">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </Flex>
+                )}
+                {item.url ? (
+                  <CardLink
+                    href={item.url}
+                    isExternal
+                    ariaLabel={t.viewProject(item.title)}
+                    onClick={() =>
+                      trackEvent("project_opened", { project_name: item.title })
+                    }
+                  >
+                    {item.urlLabel ?? "View project →"}
+                  </CardLink>
+                ) : item.status ? (
+                  <StatusTag>
+                    — {STATUS_LABELS[item.status]?.[locale] ?? item.status}
+                  </StatusTag>
+                ) : null}
+              </CardBody>
+            </Card>
+          ))}
+        </ProjectsGrid>
+      </Container>
+    </Box>
   );
 };
 

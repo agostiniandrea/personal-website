@@ -8,7 +8,14 @@ export const defaultProjects: ProjectsProps = {
       title: "7mesh",
       description:
         "Long-term core developer on the headless storefront of 7mesh.com, a premium cycling apparel brand. Built PDP and PLP with faceted filtering, Algolia search, cart, and a full account section. Performance and WCAG 2.1 AA accessibility improvements ongoing since 2022.",
-      tags: ["Next.js", "TypeScript", "Shopify", "Prismic", "Algolia", "Storybook"],
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "Shopify",
+        "Prismic",
+        "Algolia",
+        "Storybook",
+      ],
       url: "https://www.7mesh.com/",
       urlLabel: "View project →",
     },
@@ -16,14 +23,27 @@ export const defaultProjects: ProjectsProps = {
       title: "Compass",
       description:
         "Core contributor and maintainer of JIBE's internal design system, powering all of its headless ecommerce storefronts. Built core components, led React 19 and Next.js upgrade discovery, and strengthened tooling with Chromatic visual regression and automated dependency pipelines.",
-      tags: ["React", "TypeScript", "Storybook", "styled-components", "Chromatic"],
+      tags: [
+        "React",
+        "TypeScript",
+        "Storybook",
+        "styled-components",
+        "Chromatic",
+      ],
       status: "internal",
     },
     {
       title: "Nest Designs",
       description:
         "Core developer on a headless Shopify storefront for a premium baby and kids sleepwear brand. Built an interactive size guide, faceted search with preserved scroll, BOPIS availability, and multi-currency support for AUD/GBP market launches.",
-      tags: ["Next.js", "TypeScript", "Shopify", "Prismic", "Algolia", "Klaviyo"],
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "Shopify",
+        "Prismic",
+        "Algolia",
+        "Klaviyo",
+      ],
       url: "https://www.nestdesigns.com/",
       urlLabel: "View project →",
     },
@@ -38,7 +58,14 @@ export const defaultProjects: ProjectsProps = {
       title: "Kizi.nl",
       description:
         "Frontend architect and developer of Kizi.nl, Overstappen.nl's consumer comparison platform. Designed the stack alongside the CTO, built the site and app integrations, and coordinated developers and design decisions.",
-      tags: ["Next.js", "TypeScript", "Redux", "Storybook", "Jest", "Azure DevOps"],
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "Redux",
+        "Storybook",
+        "Jest",
+        "Azure DevOps",
+      ],
       status: "live",
     },
     {

@@ -58,15 +58,20 @@ describe("MobileNav", () => {
     ["#experience", "Story", "story"],
     ["#forest", "Forest", "forest"],
     ["#skills", "More", "skills"],
-  ])("activates the right destination for deep link %s", (hash, label, view) => {
-    window.history.replaceState(null, "", `/${hash}`);
-    renderWithTheme(<MobileNav />);
-    expect(screen.getByRole("button", { name: label })).toHaveAttribute(
-      "aria-current",
-      "page",
-    );
-    expect(document.documentElement.getAttribute("data-mobile-view")).toBe(view);
-  });
+  ])(
+    "activates the right destination for deep link %s",
+    (hash, label, view) => {
+      window.history.replaceState(null, "", `/${hash}`);
+      renderWithTheme(<MobileNav />);
+      expect(screen.getByRole("button", { name: label })).toHaveAttribute(
+        "aria-current",
+        "page",
+      );
+      expect(document.documentElement.getAttribute("data-mobile-view")).toBe(
+        view,
+      );
+    },
+  );
 
   it("resolves the story subview from the hash", () => {
     window.history.replaceState(null, "", "/#experience");
@@ -93,7 +98,10 @@ describe("MobileNav", () => {
     expect(window.location.pathname).toBe("/");
     expect(window.location.search).toBe("?preview=1");
     expect(window.location.hash).toBe("");
-    expect(document.documentElement).toHaveAttribute("data-mobile-view", "home");
+    expect(document.documentElement).toHaveAttribute(
+      "data-mobile-view",
+      "home",
+    );
   });
 
   it("navigates on tab click with its canonical hash and history state", async () => {
@@ -138,10 +146,9 @@ describe("MobileNav", () => {
       expect(window.location.hash).toBe("#more");
       const sheet = screen.getByTestId("more-sheet");
       expect(sheet).toHaveAttribute("role", "dialog");
-      expect(screen.getByRole("link", { name: /download cv/i })).toHaveAttribute(
-        "href",
-        "https://example.com/cv.pdf",
-      );
+      expect(
+        screen.getByRole("link", { name: /download cv/i }),
+      ).toHaveAttribute("href", "https://example.com/cv.pdf");
       await user.click(
         screen.getByRole("button", {
           name: /Skills & tools Technologies and practices/i,

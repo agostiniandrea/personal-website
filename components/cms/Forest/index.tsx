@@ -6,8 +6,9 @@ import styled, { keyframes } from "styled-components";
 
 import { Container, Text } from "@components/ions";
 import { Badge, InfoTooltip, SectionLabel } from "@components/molecules";
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
+import { alpha } from "@lib/utils/color";
 import { formatCo2Tonnes } from "@lib/utils/formatCo2";
 import { useI18n } from "@lib/utils/i18n";
 
@@ -16,13 +17,13 @@ import { ForestModal } from "./ForestModal";
 const LABEL_DEFAULTS = {
   en: {
     feedbackCountLabel: "feedback received",
+    rewardedFeedbackCountLabel: "feedback rewarded",
     treesDedicatedCountLabel: "trees dedicated",
-    improvementsCountLabel: "improvements shipped",
   },
   it: {
     feedbackCountLabel: "feedback ricevuti",
+    rewardedFeedbackCountLabel: "feedback premiati",
     treesDedicatedCountLabel: "alberi dedicati",
-    improvementsCountLabel: "miglioramenti realizzati",
   },
 };
 
@@ -43,6 +44,7 @@ export interface ForestProps {
   subheading?: string;
   originItems?: OriginItem[];
   feedbackCount?: number;
+  rewardedFeedbackCount?: number;
   treesDedicatedCount?: number;
   improvementsCount?: number;
   treeCount?: number;
@@ -56,6 +58,7 @@ export interface ForestProps {
   treesLabel?: string;
   viewForestLabel?: string;
   feedbackCountLabel?: string;
+  rewardedFeedbackCountLabel?: string;
   treesDedicatedCountLabel?: string;
   improvementsCountLabel?: string;
   seasonCurrent?: number;
@@ -151,9 +154,13 @@ const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   position: relative;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     padding: ${({ theme }) => theme.space["2xl"]} 0;
   }
+`;
+
+const ImpactAnchor = styled.div`
+  scroll-margin-top: 6rem;
 `;
 
 const SectionHeading = styled.h2`
@@ -257,7 +264,7 @@ const StatLabel = styled(Text)`
 /* ── CTA card ── */
 
 const CtaCard = styled.div`
-  background: ${({ theme }) => theme.colors.highlight}0d;
+  background: ${({ theme }) => alpha(theme.colors.highlight, 5)};
   border: 2px solid ${({ theme }) => theme.colors.highlight};
   border-radius: 1rem;
   display: flex;
@@ -266,7 +273,9 @@ const CtaCard = styled.div`
   margin-bottom: 2.5rem;
   padding: ${({ theme }) => theme.space["2xl"]};
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  /* matches the breakpoint the rest of the Forest section switches at, so the
+     card fills the row instead of stacking with empty space beside it */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
@@ -280,15 +289,15 @@ const CtaContent = styled.div`
 
 const CtaDecor = styled.div`
   align-items: flex-start;
-  border-top: 1px solid ${({ theme }) => theme.colors.highlight}25;
+  border-top: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
   padding-top: 0.25rem;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
-    border-left: 1px solid ${({ theme }) => theme.colors.highlight}25;
+    border-left: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
     border-top: none;
     flex-shrink: 0;
     padding-left: 3rem;
@@ -405,7 +414,7 @@ const SeasonCount = styled.span`
 `;
 
 const ProgressTrack = styled.div`
-  background: ${({ theme }) => theme.colors.highlight}1a;
+  background: ${({ theme }) => alpha(theme.colors.highlight, 10)};
   border-radius: 999px;
   height: 8px;
   margin-bottom: 0.875rem;
@@ -413,11 +422,12 @@ const ProgressTrack = styled.div`
 `;
 
 const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
-  background: linear-gradient(
-    90deg,
-    ${({ theme }) => theme.colors.highlight},
-    ${({ theme }) => theme.colors.highlight}cc
-  );
+  background: ${({ theme }) =>
+    `linear-gradient(
+      90deg,
+      ${theme.colors.highlight},
+      ${alpha(theme.colors.highlight, 80)}
+    )`};
   border-radius: 999px;
   height: 100%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
@@ -643,8 +653,8 @@ const Forest: React.FC<ForestProps> = ({
   subheading = "Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.",
   originItems,
   feedbackCount = 0,
+  rewardedFeedbackCount = 0,
   treesDedicatedCount = 0,
-  improvementsCount = 0,
   treeCount = 34,
   treeCountTitle = "My Forest",
   ctaHeading = "Help this portfolio grow.",
@@ -656,8 +666,8 @@ const Forest: React.FC<ForestProps> = ({
   treesLabel = "trees",
   viewForestLabel = "View the living forest",
   feedbackCountLabel,
+  rewardedFeedbackCountLabel,
   treesDedicatedCountLabel,
-  improvementsCountLabel,
   seasonTarget = 50,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
@@ -683,7 +693,9 @@ const Forest: React.FC<ForestProps> = ({
 
   const onCo2TooltipOpen = () => {
     trackEvent("forest_co2_tooltip_open", {
-      device_type: window.matchMedia("(max-width: 899.98px)").matches
+      device_type: window.matchMedia(
+        `(max-width: ${BREAKPOINTS_BELOW.xTablet})`,
+      ).matches
         ? "mobile"
         : "desktop",
       locale: locale ?? "en",
@@ -694,12 +706,12 @@ const Forest: React.FC<ForestProps> = ({
     feedbackCountLabel ?? labelDefaults.feedbackCountLabel;
   const resolvedTreesDedicatedCountLabel =
     treesDedicatedCountLabel ?? labelDefaults.treesDedicatedCountLabel;
-  const resolvedImprovementsCountLabel =
-    improvementsCountLabel ?? labelDefaults.improvementsCountLabel;
+  const resolvedRewardedFeedbackCountLabel =
+    rewardedFeedbackCountLabel ?? labelDefaults.rewardedFeedbackCountLabel;
 
   const animFeedback = useAnimatedCounter(feedbackCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
-  const animImprovements = useAnimatedCounter(improvementsCount, inView);
+  const animRewarded = useAnimatedCounter(rewardedFeedbackCount, inView);
 
   const pct = Math.min(
     seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0,
@@ -712,14 +724,14 @@ const Forest: React.FC<ForestProps> = ({
       active: feedbackCount > 0,
     },
     {
+      value: animRewarded,
+      label: resolvedRewardedFeedbackCountLabel,
+      active: rewardedFeedbackCount > 0,
+    },
+    {
       value: animTrees,
       label: resolvedTreesDedicatedCountLabel,
       active: treesDedicatedCount > 0,
-    },
-    {
-      value: animImprovements,
-      label: resolvedImprovementsCountLabel,
-      active: improvementsCount > 0,
     },
   ].filter((s) => s.active);
   const hasStats = visibleStats.length >= 2;
@@ -768,6 +780,8 @@ const Forest: React.FC<ForestProps> = ({
               </OriginItem>
             ))}
           </OriginBlock>
+
+          <ImpactAnchor id="forest-impact" />
 
           {hasStats && (
             <StatsGrid $count={visibleStats.length}>

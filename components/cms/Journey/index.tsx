@@ -5,14 +5,14 @@ import styled, { css, keyframes } from "styled-components";
 import { Box, Container, Heading, Text } from "@components/ions";
 import { SectionLabel } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 
 import { type JourneyChapter, journeyData, type JourneyProps } from "./model";
 
 const JourneySection = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
@@ -20,7 +20,7 @@ const JourneySection = styled.section`
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 2rem;
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     margin-bottom: 1rem;
   }
 `;
@@ -29,7 +29,7 @@ const Intro = styled(Text)`
   line-height: ${({ theme }) => theme.lineHeights.loose};
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
   max-width: 680px;
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     margin-bottom: 1rem;
   }
 `;
@@ -97,7 +97,7 @@ const ItemContent = styled.div`
     padding-bottom: 0;
   }
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     padding-bottom: ${({ theme }) => theme.space["2xl"]};
   }
 `;
@@ -149,34 +149,36 @@ const Journey: React.FC<JourneyProps> = ({
   const { locale } = useRouter();
   const t = useI18n(locale);
   return (
-  <JourneySection id="journey">
-  <Container>
-      {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
-      {heading && (
-        <SectionHeading size="section">{heading}</SectionHeading>
-      )}
-      {intro && <Intro variant="large">{intro}</Intro>}
-      <StorySegmentedControl />
+    <JourneySection id="journey">
+      <Container>
+        {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
+        {heading && <SectionHeading size="section">{heading}</SectionHeading>}
+        {intro && <Intro variant="large">{intro}</Intro>}
+        <StorySegmentedControl />
 
-      <Timeline aria-label="Life journey timeline">
-        {chapters?.map((chapter) => (
-          <TimelineItem key={chapter.city}>
-            <DotColumn>
-              <Dot $ongoing={chapter.isOngoing} />
-            </DotColumn>
-            <ItemContent>
-              <CountryLabel>{chapter.country}</CountryLabel>
-              <Box>
-                <CityHeading size="card" as="h3">{chapter.city}</CityHeading>
-              </Box>
-              <DateLabel>{formatJourneyDate(chapter, t.journeyNow)}</DateLabel>
-              <Description>{chapter.description}</Description>
-            </ItemContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
-  </Container>
-  </JourneySection>
+        <Timeline aria-label="Life journey timeline">
+          {chapters?.map((chapter) => (
+            <TimelineItem key={chapter.city}>
+              <DotColumn>
+                <Dot $ongoing={chapter.isOngoing} />
+              </DotColumn>
+              <ItemContent>
+                <CountryLabel>{chapter.country}</CountryLabel>
+                <Box>
+                  <CityHeading size="card" as="h3">
+                    {chapter.city}
+                  </CityHeading>
+                </Box>
+                <DateLabel>
+                  {formatJourneyDate(chapter, t.journeyNow)}
+                </DateLabel>
+                <Description>{chapter.description}</Description>
+              </ItemContent>
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </Container>
+    </JourneySection>
   );
 };
 

@@ -165,47 +165,53 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     };
   }, [router.pathname, syncFromLocation]);
 
-  const navigateTo = useCallback((next: MobileView, storySub: StorySub = "journey") => {
-    const nextHash = hashForView(next, storySub);
-    const isAlreadyCanonical =
-      next === view &&
-      document.documentElement.getAttribute("data-story-sub") === storySub &&
-      window.location.hash === (nextHash ? `#${nextHash}` : "");
-    setView(next);
-    setSheetOpen(false);
-    applyView(next, storySub);
-    if (!isAlreadyCanonical) {
-      window.history.pushState(
-        {
-          ...window.history.state,
-          mobileMoreEntry: false,
-          mobileView: next,
-          storySub,
-        },
-        "",
-        routeWithHash(nextHash),
-      );
-    }
-    window.scrollTo({
-      top: 0,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-    const tab = tabForView(next);
-    if (tab !== "more") trackEvent(TAB_EVENTS[tab], {});
-    if (next === "forest") {
-      trackEvent("forest_view", { locale: router.locale ?? "en", source: "tab" });
-    }
-    if (next === "story") {
-      trackEvent(
-        storySub === "experience"
-          ? "story_experience_view"
-          : "story_journey_view",
-        {}
-      );
-    }
-  }, [router.locale, view]);
+  const navigateTo = useCallback(
+    (next: MobileView, storySub: StorySub = "journey") => {
+      const nextHash = hashForView(next, storySub);
+      const isAlreadyCanonical =
+        next === view &&
+        document.documentElement.getAttribute("data-story-sub") === storySub &&
+        window.location.hash === (nextHash ? `#${nextHash}` : "");
+      setView(next);
+      setSheetOpen(false);
+      applyView(next, storySub);
+      if (!isAlreadyCanonical) {
+        window.history.pushState(
+          {
+            ...window.history.state,
+            mobileMoreEntry: false,
+            mobileView: next,
+            storySub,
+          },
+          "",
+          routeWithHash(nextHash),
+        );
+      }
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+      const tab = tabForView(next);
+      if (tab !== "more") trackEvent(TAB_EVENTS[tab], {});
+      if (next === "forest") {
+        trackEvent("forest_view", {
+          locale: router.locale ?? "en",
+          source: "tab",
+        });
+      }
+      if (next === "story") {
+        trackEvent(
+          storySub === "experience"
+            ? "story_experience_view"
+            : "story_journey_view",
+          {},
+        );
+      }
+    },
+    [router.locale, view],
+  );
 
   useEffect(() => {
     if (!isHomepagePath(router.pathname)) return;
@@ -237,10 +243,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     const syncHomeSection = () => {
       window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
-        if (
-          window.location.hash !== "" &&
-          window.location.hash !== "#about"
-        )
+        if (window.location.hash !== "" && window.location.hash !== "#about")
           return;
         const about = document.getElementById("about");
         const isAbout =

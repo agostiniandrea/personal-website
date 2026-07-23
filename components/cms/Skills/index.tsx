@@ -46,7 +46,6 @@ const Grid = styled.div`
   }
 `;
 
-
 const CategoryTitle = styled.h3`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -66,8 +65,11 @@ const SkillList = styled.ul`
   padding: 0;
 `;
 
-
-const Skills: React.FC<SkillsProps> = ({ sectionLabel, heading, categories }) => (
+const Skills: React.FC<SkillsProps> = ({
+  sectionLabel,
+  heading,
+  categories,
+}) => (
   <Section id="skills">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
@@ -78,7 +80,9 @@ const Skills: React.FC<SkillsProps> = ({ sectionLabel, heading, categories }) =>
             <CategoryTitle>{category.title}</CategoryTitle>
             <SkillList>
               {category.skills.map((skill) => (
-                <Badge key={skill} as="li" size="md">{skill}</Badge>
+                <Badge key={skill} as="li" size="md">
+                  {skill}
+                </Badge>
               ))}
             </SkillList>
           </Box>

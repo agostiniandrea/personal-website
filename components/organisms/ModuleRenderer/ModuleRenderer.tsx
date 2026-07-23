@@ -1,6 +1,27 @@
 import React from "react";
 
-import { About, AboutProps, BeyondCode, BeyondCodeProps, Contact, ContactProps, Experience, ExperienceProps, Forest, ForestProps, HeroPortfolio, HeroPortfolioProps, Journey, JourneyProps, Projects, ProjectsProps, Skills, SkillsProps, Sustainability, SustainabilityProps } from "@components/cms";
+import {
+  About,
+  AboutProps,
+  BeyondCode,
+  BeyondCodeProps,
+  Contact,
+  ContactProps,
+  Experience,
+  ExperienceProps,
+  Forest,
+  ForestProps,
+  HeroPortfolio,
+  HeroPortfolioProps,
+  Journey,
+  JourneyProps,
+  Projects,
+  ProjectsProps,
+  Skills,
+  SkillsProps,
+  Sustainability,
+  SustainabilityProps,
+} from "@components/cms";
 import { ForestTeaser } from "@components/molecules";
 import { MODULES } from "@constants";
 import { TPageModule } from "@lib/utils/cms";
@@ -65,7 +86,11 @@ export const cleanProps = (fields: TPageModule["fields"]) => {
   for (const key of keys) {
     const data = fields[key as keyof typeof fields];
 
-    if (typeof data === "string" || typeof data === "number" || typeof data === "boolean") {
+    if (
+      typeof data === "string" ||
+      typeof data === "number" ||
+      typeof data === "boolean"
+    ) {
       newProps[key] = data;
     }
 
@@ -92,7 +117,10 @@ export const cleanProps = (fields: TPageModule["fields"]) => {
           width: nestedFields.file.details?.image?.width,
         } as ImageProps;
       } else if (nestedFields?.file?.url) {
-        newProps[key] = (nestedFields.file.url as string).replace("//", "https://");
+        newProps[key] = (nestedFields.file.url as string).replace(
+          "//",
+          "https://",
+        );
       } else if (nestedFields) {
         newProps[key] = nestedFields;
       }
@@ -114,25 +142,31 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
 
   switch (type) {
     case MODULES.ABOUT:
-      return <About {...propsComponent as unknown as AboutProps} />;
+      return <About {...(propsComponent as unknown as AboutProps)} />;
     case MODULES.BEYOND_CODE:
-      return <BeyondCode {...propsComponent as unknown as BeyondCodeProps} />;
+      return <BeyondCode {...(propsComponent as unknown as BeyondCodeProps)} />;
     case MODULES.CONTACT:
-      return <Contact {...propsComponent as unknown as ContactProps} />;
+      return <Contact {...(propsComponent as unknown as ContactProps)} />;
     case MODULES.EXPERIENCE:
-      return <Experience {...propsComponent as unknown as ExperienceProps} />;
+      return <Experience {...(propsComponent as unknown as ExperienceProps)} />;
     case MODULES.FOREST:
-      return <Forest {...propsComponent as unknown as ForestProps} />;
+      return <Forest {...(propsComponent as unknown as ForestProps)} />;
     case MODULES.HERO_PORTFOLIO:
-      return <HeroPortfolio {...propsComponent as unknown as HeroPortfolioProps} />;
+      return (
+        <HeroPortfolio {...(propsComponent as unknown as HeroPortfolioProps)} />
+      );
     case MODULES.JOURNEY:
-      return <Journey {...propsComponent as unknown as JourneyProps} />;
+      return <Journey {...(propsComponent as unknown as JourneyProps)} />;
     case MODULES.PROJECTS:
-      return <Projects {...propsComponent as unknown as ProjectsProps} />;
+      return <Projects {...(propsComponent as unknown as ProjectsProps)} />;
     case MODULES.SKILLS:
-      return <Skills {...propsComponent as unknown as SkillsProps} />;
+      return <Skills {...(propsComponent as unknown as SkillsProps)} />;
     case MODULES.SUSTAINABILITY:
-      return <Sustainability {...propsComponent as unknown as SustainabilityProps} />;
+      return (
+        <Sustainability
+          {...(propsComponent as unknown as SustainabilityProps)}
+        />
+      );
     default:
       return <DefaultModule data={data} typename={type} />;
   }

@@ -23,6 +23,7 @@ export const defaultForest: ForestProps = {
   subheading:
     "Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.",
   feedbackCount: 0,
+  rewardedFeedbackCount: 0,
   treesDedicatedCount: 0,
   improvementsCount: 0,
   treeCount: 34,
@@ -36,8 +37,9 @@ export const defaultForest: ForestProps = {
   treeCountLabel: "Trees planted since May 2026",
   viewForestLabel: "View the living forest",
   feedbackCountLabel: "feedback received",
+  rewardedFeedbackCountLabel: "feedback rewarded",
   treesDedicatedCountLabel: "trees dedicated",
-  improvementsCountLabel: "improvements shipped",
+  improvementsCountLabel: "feedback implemented",
   seasonTarget: 50,
   seasonProjectLabel: "Season One project",
   seasonProjectName: "Community Reforestation in Indonesia",
@@ -57,6 +59,7 @@ export const minimalForest: ForestProps = {};
 export const oneStatForest: ForestProps = {
   ...defaultForest,
   feedbackCount: 1,
+  rewardedFeedbackCount: 0,
   treesDedicatedCount: 0,
   improvementsCount: 0,
 };
@@ -64,6 +67,7 @@ export const oneStatForest: ForestProps = {
 export const twoStatForest: ForestProps = {
   ...defaultForest,
   feedbackCount: 5,
+  rewardedFeedbackCount: 0,
   treesDedicatedCount: 2,
   improvementsCount: 0,
 };
@@ -71,6 +75,7 @@ export const twoStatForest: ForestProps = {
 export const fullStatForest: ForestProps = {
   ...defaultForest,
   feedbackCount: 68,
+  rewardedFeedbackCount: 12,
   treesDedicatedCount: 25,
   improvementsCount: 25,
 };

@@ -44,7 +44,9 @@ const Segment = styled.button<{ $active: boolean }>`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   min-height: 44px;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
@@ -82,7 +84,7 @@ const StorySegmentedControl: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "auto" });
     trackEvent(
       sub === "experience" ? "story_experience_view" : "story_journey_view",
-      {}
+      {},
     );
   };
 
@@ -92,13 +94,17 @@ const StorySegmentedControl: React.FC = () => {
     const next = active === "journey" ? "experience" : "journey";
     select(next);
     const el = document.querySelector<HTMLElement>(
-      `[data-story-segment="${next}"]`
+      `[data-story-segment="${next}"]`,
     );
     el?.focus();
   };
 
   return (
-    <Group role="tablist" aria-label={t.storySubNavigation} onKeyDown={onKeyDown}>
+    <Group
+      role="tablist"
+      aria-label={t.storySubNavigation}
+      onKeyDown={onKeyDown}
+    >
       {SUBS.map((sub) => (
         <Segment
           key={sub}

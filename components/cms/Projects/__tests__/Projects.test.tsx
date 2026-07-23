@@ -47,7 +47,9 @@ describe("Projects", () => {
   it("renders a project link when url is provided", () => {
     renderWithTheme(<Projects {...defaultProjects} />);
     const firstItem = defaultProjects.items[0];
-    const link = screen.getByRole("link", { name: `View project: ${firstItem.title}` });
+    const link = screen.getByRole("link", {
+      name: `View project: ${firstItem.title}`,
+    });
     expect(link).toHaveAttribute("href", firstItem.url);
   });
 
@@ -67,7 +69,9 @@ describe("Projects", () => {
     window.gtag = jest.fn();
     renderWithTheme(<Projects {...defaultProjects} />);
 
-    await user.click(screen.getByRole("link", { name: `View project: ${firstItem.title}` }));
+    await user.click(
+      screen.getByRole("link", { name: `View project: ${firstItem.title}` }),
+    );
 
     expect(window.gtag).toHaveBeenCalledWith("event", "project_opened", {
       project_name: firstItem.title,

@@ -1,35 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SiteHeader renders correctly with all nav links 1`] = `
-.c8 {
-  background: var(--color-button);
-  border: none;
-  border-radius: 4px;
-  color: var(--color-button-text);
-  cursor: pointer;
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
-  opacity: 1;
-  padding: 0.75rem 1.25rem;
-  transition: all 0.2s ease-in-out;
-}
-
-.c8:focus {
-  outline: 2px solid var(--color-button);
-  outline-offset: 2px;
-}
-
-.c8:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.c8:focus-visible {
-  outline: 2px solid var(--color-button);
-  outline-offset: 2px;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -49,13 +20,13 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   justify-content: space-between;
 }
 
-.c5 {
+.c6 {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 1rem;
   line-height: 1;
@@ -63,7 +34,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c3:focus-visible {
+.c4:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -71,7 +42,9 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c0 {
   background: var(--color-background);
   border-bottom: 1px solid transparent;
+  box-sizing: border-box;
   box-shadow: none;
+  height: var(--site-header-height);
   left: 0;
   padding: 0.75rem 0;
   position: fixed;
@@ -82,7 +55,7 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   z-index: 100;
 }
 
-.c4 {
+.c5 {
   color: var(--color-headline);
   cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
@@ -91,21 +64,21 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   text-decoration: none;
 }
 
-.c6 {
+.c7 {
   align-items: center;
   display: none;
   gap: 2rem;
 }
 
-.c7 {
+.c8 {
   padding-bottom: 2px;
   position: relative;
 }
 
-.c7::after {
+.c8::after {
   background: var(--color-highlight);
   bottom: -4px;
-  content: '';
+  content: "";
   height: 2px;
   left: 0;
   position: absolute;
@@ -139,12 +112,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   outline-offset: 3px;
 }
 
-@media (hover: hover) {
-  .c8:hover {
-    opacity: 0.8;
-  }
-}
-
 @media (min-width: 600px) {
   .c1 {
     column-gap: calc(24px);
@@ -192,19 +159,41 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 }
 
 @media (hover: hover) {
-  .c3:hover {
+  .c4:hover {
     color: var(--color-tertiary);
   }
 }
 
+@media (max-width: 899.98px) {
+  .c0 {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .c3 {
+    height: var(--site-header-height);
+    margin-inline: -4px;
+    width: calc(100% + 8px);
+  }
+}
+
+@media (max-width: 899.98px) {
+  .c5 {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+}
+
 @media (min-width: 900px) {
-  .c6 {
+  .c7 {
     display: flex;
   }
 }
 
 @media (hover: hover) {
-  .c7:hover::after {
+  .c8:hover::after {
     transform: scaleX(1);
   }
 }
@@ -216,6 +205,23 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   }
 }
 
+@media (max-width: 899.98px) {
+  .c9 {
+    border-color: color-mix(       in srgb,       var(--color-headline) 22%,       transparent     );
+    border-radius: 6px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+    width: 36px;
+  }
+
+  .c9:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
 <div>
   <header
     class="c0"
@@ -224,51 +230,49 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
       class="c1"
     >
       <div
-        class="c2"
+        class="c2 c3"
       >
         <a
-          class="c3 c4"
+          class="c4 c5"
           href="/"
         >
           Andrea Agostini
         </a>
         <div
-          class="c5"
+          class="c6"
         >
           <nav
             aria-label="Main navigation"
-            class="c6"
+            class="c7"
           >
             <a
-              class="c3 c7"
+              class="c4 c8"
               href="#projects"
             >
               Projects
             </a>
             <a
-              class="c3 c7"
+              class="c4 c8"
               href="#skills"
             >
               Skills
             </a>
             <a
-              class="c3 c7"
+              class="c4 c8"
               href="#experience"
             >
               Experience
             </a>
             <a
-              class="c3 c7"
+              class="c4 c8"
               href="#contact"
             >
               Contact
             </a>
           </nav>
           <button
-            aria-disabled="false"
             aria-label="Switch to Italian"
-            class="c8 c9"
-            type="button"
+            class="c9"
           >
             IT
           </button>
@@ -280,35 +284,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 `;
 
 exports[`SiteHeader renders correctly with no nav links 1`] = `
-.c7 {
-  background: var(--color-button);
-  border: none;
-  border-radius: 4px;
-  color: var(--color-button-text);
-  cursor: pointer;
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
-  opacity: 1;
-  padding: 0.75rem 1.25rem;
-  transition: all 0.2s ease-in-out;
-}
-
-.c7:focus {
-  outline: 2px solid var(--color-button);
-  outline-offset: 2px;
-}
-
-.c7:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.c7:focus-visible {
-  outline: 2px solid var(--color-button);
-  outline-offset: 2px;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -328,13 +303,13 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   justify-content: space-between;
 }
 
-.c5 {
+.c6 {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
 }
 
-.c3 {
+.c4 {
   color: var(--color-highlight);
   font-size: 1rem;
   line-height: 1;
@@ -342,7 +317,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   transition: color 0.2s ease-in-out;
 }
 
-.c3:focus-visible {
+.c4:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
@@ -350,7 +325,9 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 .c0 {
   background: var(--color-background);
   border-bottom: 1px solid transparent;
+  box-sizing: border-box;
   box-shadow: none;
+  height: var(--site-header-height);
   left: 0;
   padding: 0.75rem 0;
   position: fixed;
@@ -361,7 +338,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   z-index: 100;
 }
 
-.c4 {
+.c5 {
   color: var(--color-headline);
   cursor: pointer;
   font-family: var(--font-space-grotesk),sans-serif;
@@ -370,7 +347,7 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   text-decoration: none;
 }
 
-.c6 {
+.c7 {
   align-items: center;
   display: none;
   gap: 2rem;
@@ -400,12 +377,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   outline-offset: 3px;
 }
 
-@media (hover: hover) {
-  .c7:hover {
-    opacity: 0.8;
-  }
-}
-
 @media (min-width: 600px) {
   .c1 {
     column-gap: calc(24px);
@@ -453,13 +424,35 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 }
 
 @media (hover: hover) {
-  .c3:hover {
+  .c4:hover {
     color: var(--color-tertiary);
   }
 }
 
+@media (max-width: 899.98px) {
+  .c0 {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .c3 {
+    height: var(--site-header-height);
+    margin-inline: -4px;
+    width: calc(100% + 8px);
+  }
+}
+
+@media (max-width: 899.98px) {
+  .c5 {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+}
+
 @media (min-width: 900px) {
-  .c6 {
+  .c7 {
     display: flex;
   }
 }
@@ -471,6 +464,23 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   }
 }
 
+@media (max-width: 899.98px) {
+  .c8 {
+    border-color: color-mix(       in srgb,       var(--color-headline) 22%,       transparent     );
+    border-radius: 6px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+    width: 36px;
+  }
+
+  .c8:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
 <div>
   <header
     class="c0"
@@ -479,26 +489,24 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
       class="c1"
     >
       <div
-        class="c2"
+        class="c2 c3"
       >
         <a
-          class="c3 c4"
+          class="c4 c5"
           href="/"
         >
           AA
         </a>
         <div
-          class="c5"
+          class="c6"
         >
           <nav
             aria-label="Main navigation"
-            class="c6"
+            class="c7"
           />
           <button
-            aria-disabled="false"
             aria-label="Switch to Italian"
-            class="c7 c8"
-            type="button"
+            class="c8"
           >
             IT
           </button>

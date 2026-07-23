@@ -4,7 +4,10 @@ import NextImage from "next/image";
 
 import styled from "styled-components";
 
-interface ImageProps {
+/* Named distinctly so it does not shadow the global CMS `ImageProps`
+   (lib/global/index.d.ts), which describes a Contentful asset, not this
+   component's props. */
+export interface ImageComponentProps {
   src: string;
   alt: string;
   style?: React.CSSProperties;
@@ -38,7 +41,7 @@ const FigCaption = styled.figcaption`
   width: 1px;
 `;
 
-const Image: React.FC<ImageProps> = ({
+const Image: React.FC<ImageComponentProps> = ({
   src,
   alt,
   style,
@@ -75,7 +78,13 @@ const Image: React.FC<ImageProps> = ({
           {...sharedProps}
           width={width}
           height={height}
-          style={{ maxWidth: "100%", height: "auto", display: "block", objectFit: "cover", ...style }}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+            display: "block",
+            objectFit: "cover",
+            ...style,
+          }}
           onLoad={onLoad}
         />
       ) : (

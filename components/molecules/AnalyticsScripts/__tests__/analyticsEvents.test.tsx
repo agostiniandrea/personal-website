@@ -7,7 +7,7 @@ describe("analytics events", () => {
 
   it("is a no-op when GA4 has not been initialized", () => {
     expect(() =>
-      trackEvent("feedback_modal_opened", { locale: "en" })
+      trackEvent("feedback_modal_opened", { locale: "en" }),
     ).not.toThrow();
   });
 
@@ -26,16 +26,31 @@ describe("analytics events", () => {
   });
 
   it.each([
-    ["mailto:hello@example.com", "contact_clicked", { location: "contact", method: "email" }],
-    ["https://linkedin.com/in/example", "social_profile_clicked", { location: "contact", platform: "linkedin" }],
-    ["https://github.com/example", "social_profile_clicked", { location: "contact", platform: "github" }],
-  ] as const)("classifies %s without exposing the URL", (url, eventName, params) => {
-    window.gtag = jest.fn();
+    [
+      "mailto:hello@example.com",
+      "contact_clicked",
+      { location: "contact", method: "email" },
+    ],
+    [
+      "https://linkedin.com/in/example",
+      "social_profile_clicked",
+      { location: "contact", platform: "linkedin" },
+    ],
+    [
+      "https://github.com/example",
+      "social_profile_clicked",
+      { location: "contact", platform: "github" },
+    ],
+  ] as const)(
+    "classifies %s without exposing the URL",
+    (url, eventName, params) => {
+      window.gtag = jest.fn();
 
-    trackContactInteraction(url, "contact");
+      trackContactInteraction(url, "contact");
 
-    expect(window.gtag).toHaveBeenCalledWith("event", eventName, params);
-  });
+      expect(window.gtag).toHaveBeenCalledWith("event", eventName, params);
+    },
+  );
 
   it("ignores contact URLs outside the supported allowlist", () => {
     window.gtag = jest.fn();

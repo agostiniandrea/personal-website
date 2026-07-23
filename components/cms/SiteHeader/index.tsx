@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Button, Container, Flex, Link } from "@components/ions";
-import { BREAKPOINTS } from "@constants";
+import { Container, Flex, Link } from "@components/ions";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 import { sectionRankFromUrl } from "@lib/utils/sectionOrder";
 
@@ -31,16 +31,40 @@ const canonicalNavUrl = (url: string) =>
 const Header = styled.header<{ $scrolled: boolean }>`
   background: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid
-    ${({ $scrolled, theme }) => ($scrolled ? `${theme.colors.highlight}30` : "transparent")};
-  box-shadow: ${({ $scrolled }) => ($scrolled ? "0 2px 12px rgba(0, 0, 0, 0.06)" : "none")};
+    ${({ $scrolled, theme }) =>
+      $scrolled
+        ? `color-mix(in srgb, ${theme.colors.highlight} 19%, transparent)`
+        : "transparent"};
+  /* border-box so the header's real height equals --site-header-height (the
+     value the hero and mobile views offset against) instead of that plus
+     padding — otherwise the fixed header overlaps content on short viewports */
+  box-sizing: border-box;
+  box-shadow: ${({ $scrolled }) =>
+    $scrolled ? "0 2px 12px rgba(0, 0, 0, 0.06)" : "none"};
+  height: var(--site-header-height);
   left: 0;
   padding: ${({ theme }) => theme.space.md} 0;
   position: fixed;
   right: 0;
   top: 0;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   width: 100%;
   z-index: 100;
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    box-shadow: none;
+    padding: 0;
+  }
+`;
+
+const HeaderRow = styled(Flex)`
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    height: var(--site-header-height);
+    margin-inline: -4px;
+    width: calc(100% + 8px);
+  }
 `;
 
 const Logo = styled(Link)`
@@ -50,6 +74,11 @@ const Logo = styled(Link)`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   text-decoration: none;
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    font-size: 18px;
+    white-space: nowrap;
+  }
 `;
 
 const DesktopNav = styled.nav`
@@ -69,7 +98,7 @@ const NavLink = styled(Link)<{ $active: boolean }>`
   &::after {
     background: ${({ theme }) => theme.colors.highlight};
     bottom: -4px;
-    content: '';
+    content: "";
     height: 2px;
     left: 0;
     position: absolute;
@@ -86,7 +115,7 @@ const NavLink = styled(Link)<{ $active: boolean }>`
   }
 `;
 
-const LocaleButton = styled(Button)`
+const LocaleButton = styled.button`
   align-items: center;
   background: none;
   border: 1px solid
@@ -124,6 +153,33 @@ const LocaleButton = styled(Button)`
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    border-color: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.headline} 22%,
+      transparent
+    );
+    border-radius: 6px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+    width: 36px;
+
+    @media (hover: hover) {
+      &:hover {
+        background: transparent;
+        border-color: ${({ theme }) => theme.colors.highlight};
+        color: ${({ theme }) => theme.colors.highlight};
+      }
+    }
+
+    &:focus-visible {
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.highlight};
+    }
+  }
 `;
 
 const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
@@ -148,10 +204,16 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
   );
 
   const switchLocale = () => {
-    router.push(router.asPath, router.asPath, { locale: nextLocale, scroll: false });
+    router.push(router.asPath, router.asPath, {
+      locale: nextLocale,
+      scroll: false,
+    });
   };
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     if (href.endsWith(LEGACY_HOME_ANCHOR) || href === "/") {
       if (router.pathname !== "/") return;
       e.preventDefault();
@@ -159,6 +221,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
         { ...window.history.state, mobileView: "home", storySub: "journey" },
         "",
         `${window.location.pathname}${window.location.search}`,
+      );
+      window.dispatchEvent(
+        new PopStateEvent("popstate", { state: window.history.state }),
       );
       window.scrollTo({ top: 0, behavior: "smooth" });
       setActiveSection("/");
@@ -177,7 +242,6 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     }
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
-
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -212,18 +276,15 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [orderedNavLinks]);
 
-
-
-
   return (
     <>
       <Header $scrolled={scrolled}>
         <Container>
-          <Flex justifyContent="space-between" alignItems="center">
+          <HeaderRow justifyContent="space-between" alignItems="center">
             <Logo href="/" onClick={(e) => handleAnchorClick(e, "/")}>
               {logoText}
             </Logo>
-            <Flex alignItems="center" gap="lg">
+            <Flex alignItems="center" gap="2xl">
               <DesktopNav aria-label={t.mainNavigation}>
                 {orderedNavLinks.map((link) => {
                   const url = canonicalNavUrl(link.url);
@@ -241,11 +302,14 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
               </DesktopNav>
               {/* Visible at every width: mobile navigation lives in the bottom
                   tab bar, but the language switch stays in the header */}
-              <LocaleButton onClick={switchLocale} aria-label={t.switchToLocale(nextLocaleName)}>
+              <LocaleButton
+                onClick={switchLocale}
+                aria-label={t.switchToLocale(nextLocaleName)}
+              >
                 {nextLocale.toUpperCase()}
               </LocaleButton>
             </Flex>
-          </Flex>
+          </HeaderRow>
         </Container>
       </Header>
     </>

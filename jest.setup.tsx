@@ -33,13 +33,40 @@ Object.defineProperty(window, "matchMedia", {
 // Mock next/image
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt, width, height, fill: _fill, style, className, priority: _priority, ...rest }: {
-    src: string; alt: string; width?: number; height?: number; fill?: boolean;
-    style?: React.CSSProperties; className?: string; priority?: boolean; sizes?: string;
+  default: ({
+    src,
+    alt,
+    width,
+    height,
+    fill: _fill,
+    style,
+    className,
+    priority: _priority,
+    ...rest
+  }: {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    fill?: boolean;
+    style?: React.CSSProperties;
+    className?: string;
+    priority?: boolean;
+    sizes?: string;
     [key: string]: unknown;
   }) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} width={width} height={height} style={style} className={className} {...rest} />;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        style={style}
+        className={className}
+        {...rest}
+      />
+    );
   },
 }));
 
@@ -63,3 +90,10 @@ global.IntersectionObserver = jest.fn().mockImplementation(() => ({
   unobserve: jest.fn(),
   disconnect: jest.fn(),
 })) as unknown as typeof IntersectionObserver;
+
+// Mock MutationObserver (jsdom's implementation does not fire for our observers)
+global.MutationObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  disconnect: jest.fn(),
+  takeRecords: jest.fn(() => []),
+})) as unknown as typeof MutationObserver;

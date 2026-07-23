@@ -11,7 +11,11 @@ export type MobileNavigationState = {
 };
 
 export const MOBILE_TABS: MobileTab[] = ["home", "work", "story", "forest"];
-export const MORE_VIEWS: MoreView[] = ["skills", "sustainability", "beyond-code"];
+export const MORE_VIEWS: MoreView[] = [
+  "skills",
+  "sustainability",
+  "beyond-code",
+];
 
 /* Section ids shown by each view; every other managed section is hidden.
    The story sub-view narrows further via data-story-sub. */
@@ -25,18 +29,19 @@ export const VIEW_SECTIONS: Record<MobileView, string[]> = {
   "beyond-code": ["beyond-code"],
 };
 
-const HASH_TO_VIEW: Record<string, { view: MobileView; storySub?: StorySub }> = {
-  about: { view: "home" },
-  work: { view: "work" },
-  projects: { view: "work" },
-  story: { view: "story", storySub: "journey" },
-  journey: { view: "story", storySub: "journey" },
-  experience: { view: "story", storySub: "experience" },
-  forest: { view: "forest" },
-  skills: { view: "skills" },
-  sustainability: { view: "sustainability" },
-  "beyond-code": { view: "beyond-code" },
-};
+const HASH_TO_VIEW: Record<string, { view: MobileView; storySub?: StorySub }> =
+  {
+    about: { view: "home" },
+    work: { view: "work" },
+    projects: { view: "work" },
+    story: { view: "story", storySub: "journey" },
+    journey: { view: "story", storySub: "journey" },
+    experience: { view: "story", storySub: "experience" },
+    forest: { view: "forest" },
+    skills: { view: "skills" },
+    sustainability: { view: "sustainability" },
+    "beyond-code": { view: "beyond-code" },
+  };
 
 /* The canonical hash pushed when a view is activated */
 export const VIEW_TO_HASH: Record<MobileView, string> = {
@@ -118,6 +123,6 @@ export const PRE_HYDRATION_VIEW_SCRIPT = `(function(){try{var p=location.pathnam
     Object.entries(HASH_TO_VIEW).map(([k, v]) => [
       k,
       [v.view, v.storySub ?? "journey"],
-    ])
-  )
+    ]),
+  ),
 )};var h=location.hash.replace('#','');var r=m[h]||["home","journey"];var d=document.documentElement;d.setAttribute('data-mobile-view',r[0]);d.setAttribute('data-story-sub',r[1]);}catch(e){}})()`;
