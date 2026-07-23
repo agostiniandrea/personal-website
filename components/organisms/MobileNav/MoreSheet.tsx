@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { useRouter } from "next/router";
@@ -47,7 +47,31 @@ const ITEM_ORDER: MoreDestination[] = [
   "beyond-code",
 ];
 
-const Backdrop = styled.div`
+const SHEET_ANIMATION_MS = 240;
+
+const enter = keyframes`
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+`;
+
+const exit = keyframes`
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+`;
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const fadeOut = keyframes`
+  from { opacity: 1; }
+  to { opacity: 0; }
+`;
+
+const Backdrop = styled.div<{ $closing: boolean }>`
+  animation: ${({ $closing }) => ($closing ? fadeOut : fadeIn)}
+    ${SHEET_ANIMATION_MS}ms ease-out forwards;
   backdrop-filter: blur(2px);
   background: rgba(10, 10, 15, 0.52);
   bottom: calc(4.5rem + 1px + env(safe-area-inset-bottom));
@@ -60,15 +84,52 @@ const Backdrop = styled.div`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: ${({ $closing }) => ($closing ? 0 : 1)};
+  }
 `;
 
-const enter = keyframes`
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-`;
+/**
+ * Marks the app background inert while the sheet is open, but keeps the bottom
+ * tab bar operable — it is the sheet's own trigger, so tapping another tab must
+ * still switch section (closing the sheet) and tapping More must close it.
+ * Walks up from the nav to #__next, inerting each level's other children.
+ * Returns a restore function.
+ */
+const inertBackground = (): (() => void) => {
+  const nav = document.querySelector('[data-testid="mobile-nav"]');
+  const root = document.getElementById("__next");
+  const affected: Element[] = [];
+  const mark = (el: Element) => {
+    el.setAttribute("inert", "");
+    el.setAttribute("aria-hidden", "true");
+    affected.push(el);
+  };
 
-const Sheet = styled.div`
-  animation: ${enter} 0.24s ease-out;
+  if (nav && root) {
+    let node: Element | null = nav;
+    while (node && node !== root && node.parentElement) {
+      for (const sibling of Array.from(node.parentElement.children)) {
+        if (sibling !== node && !sibling.contains(nav)) mark(sibling);
+      }
+      node = node.parentElement;
+    }
+  } else if (root) {
+    mark(root);
+  }
+
+  return () =>
+    affected.forEach((el) => {
+      el.removeAttribute("inert");
+      el.removeAttribute("aria-hidden");
+    });
+};
+
+const Sheet = styled.div<{ $closing: boolean }>`
+  animation: ${({ $closing }) => ($closing ? exit : enter)}
+    ${SHEET_ANIMATION_MS}ms ease-out forwards;
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid
     color-mix(
@@ -104,6 +165,8 @@ const Sheet = styled.div`
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
+    transform: ${({ $closing }) =>
+      $closing ? "translateY(100%)" : "translateY(0)"};
   }
 `;
 
@@ -319,15 +382,34 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
   const sheetRef = useRef<HTMLDivElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
   const scrollPositionRef = useRef(0);
+  // Stays mounted through the slide-down close animation, then unmounts.
+  const [mounted, setMounted] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen) {
+      setMounted(true);
+      return;
+    }
+    // no exit animation to wait for → unmount immediately
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMounted(false);
+      return;
+    }
+    // onAnimationEnd normally unmounts; this is a fallback for when it never
+    // fires (e.g. a backgrounded tab pauses CSS animations)
+    const timer = window.setTimeout(
+      () => setMounted(false),
+      SHEET_ANIMATION_MS + 80,
+    );
+    return () => window.clearTimeout(timer);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
     restoreFocusRef.current = document.activeElement as HTMLElement | null;
     const sheet = sheetRef.current;
     sheet?.querySelector<HTMLElement>("button, a")?.focus();
-    const appRoot = document.getElementById("__next");
-    appRoot?.setAttribute("aria-hidden", "true");
-    appRoot?.setAttribute("inert", "");
+    const restoreInert = inertBackground();
     const bodyStyle = document.body.style;
     const rootStyle = document.documentElement.style;
     const previousBodyStyles = {
@@ -389,19 +471,30 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
         left: 0,
         top: scrollPositionRef.current,
       });
-      appRoot?.removeAttribute("aria-hidden");
-      appRoot?.removeAttribute("inert");
+      restoreInert();
       restoreFocusRef.current?.focus();
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  // Render while open (isOpen), and keep rendering through the close animation
+  // (mounted) after isOpen flips false.
+  if (!isOpen && !mounted) return null;
+
+  const closing = !isOpen;
 
   return createPortal(
     <>
-      <Backdrop onClick={onClose} data-testid="more-backdrop" />
+      <Backdrop
+        $closing={closing}
+        onClick={onClose}
+        data-testid="more-backdrop"
+      />
       <Sheet
         ref={sheetRef}
+        $closing={closing}
+        onAnimationEnd={(e) => {
+          if (closing && e.target === e.currentTarget) setMounted(false);
+        }}
         role="dialog"
         aria-modal="true"
         aria-label={t.mobileMenuLabel}

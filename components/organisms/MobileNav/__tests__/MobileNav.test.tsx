@@ -262,11 +262,18 @@ describe("MobileNav", () => {
       expect(screen.queryByTestId("more-sheet")).not.toBeInTheDocument();
     });
 
-    it("traps focus, makes the background inert, and returns focus to More", async () => {
+    it("inerts the background but keeps the tab bar operable, traps focus, and restores it", async () => {
       const user = userEvent.setup();
-      const { container } = renderWithTheme(<MobileNav />);
+      const { container } = renderWithTheme(
+        <>
+          <main data-testid="bg-content">background</main>
+          <MobileNav />
+        </>,
+      );
       container.id = "__next";
       const moreButton = screen.getByRole("button", { name: "More" });
+      const background = screen.getByTestId("bg-content");
+      const tabBar = screen.getByTestId("mobile-nav");
 
       await user.click(moreButton);
 
@@ -274,14 +281,18 @@ describe("MobileNav", () => {
         "aria-label",
         "Mobile navigation menu",
       );
-      expect(container).toHaveAttribute("aria-hidden", "true");
-      expect(container).toHaveAttribute("inert");
+      // background is inert, but the tab bar (the sheet's trigger) is not, so
+      // tapping another tab or More still works while the sheet is open
+      expect(background).toHaveAttribute("inert");
+      expect(background).toHaveAttribute("aria-hidden", "true");
+      expect(tabBar).not.toHaveAttribute("inert");
+      expect(tabBar.closest("[inert]")).toBeNull();
       expect(screen.getByRole("button", { name: "Close menu" })).toHaveFocus();
 
       await user.keyboard("{Escape}");
 
-      expect(container).not.toHaveAttribute("aria-hidden");
-      expect(container).not.toHaveAttribute("inert");
+      expect(background).not.toHaveAttribute("inert");
+      expect(background).not.toHaveAttribute("aria-hidden");
       expect(moreButton).toHaveFocus();
     });
 
