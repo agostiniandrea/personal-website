@@ -345,7 +345,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 390px) and (max-width: 899.98px) {
+@media (min-width: 390px) and (max-width: 899.99px) {
   .c9 {
     white-space: nowrap;
   }
@@ -915,7 +915,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   }
 }
 
-@media (min-width: 390px) and (max-width: 899.98px) {
+@media (min-width: 390px) and (max-width: 899.99px) {
   .c9 {
     white-space: nowrap;
   }

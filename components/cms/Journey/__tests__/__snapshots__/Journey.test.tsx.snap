@@ -260,26 +260,26 @@ li:last-child>.c15 {
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c7 {
     margin-bottom: 1rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c15 {
     padding-bottom: 2rem;
   }

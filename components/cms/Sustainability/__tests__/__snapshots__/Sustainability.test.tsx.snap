@@ -177,7 +177,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
   margin: 0;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -266,13 +266,13 @@ exports[`Sustainability renders correctly with all props 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c11 {
     margin-bottom: 1.5rem;
   }
@@ -729,7 +729,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   margin: 0;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -818,13 +818,13 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c8 {
     margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c11 {
     margin-bottom: 1.5rem;
   }
