@@ -24,19 +24,20 @@ const Root = styled.section`
 
 /* Colours come from the theme tokens, which already resolve per colour scheme
    (prefers-color-scheme + the Storybook data-theme override), so this panel
-   needs no palette of its own. */
+   needs no palette of its own. It sits on the raised surface — lighter than the
+   page background in both themes — so it reads as a distinct card. */
 const Panel = styled.div`
   align-items: center;
   background: ${({ theme }) =>
     `linear-gradient(
       112deg,
-      ${tint(theme.colors.highlight, 8, theme.colors.background)} 0%,
-      ${theme.colors.background} 58%,
-      ${tint(theme.colors.highlight, 5, theme.colors.background)} 100%
+      ${tint(theme.colors.highlight, 10, theme.colors.surfaceRaised)} 0%,
+      ${theme.colors.surfaceRaised} 58%,
+      ${tint(theme.colors.highlight, 6, theme.colors.surfaceRaised)} 100%
     )`};
-  border: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 32)};
+  border: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 28)};
   border-radius: ${({ theme }) => theme.radii.lg};
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
   box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
   display: grid;
