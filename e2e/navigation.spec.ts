@@ -179,7 +179,20 @@ test("feedback nudge suppresses back to top and clears project actions", async (
   const nudge = page.getByTestId("feedback-nudge");
   // the nudge earns its slot only after scrolling past most of the hero
   await expect(nudge).toBeHidden();
-  await page.evaluate(() => window.scrollTo(0, 700));
+  /* Scroll into the neutral zone: past the hero threshold but with Projects
+     still fully below the viewport (a fixed offset breaks when the CI build
+     lays out slightly shorter than dev). */
+  await page.evaluate(() => {
+    const projectsTop = document.getElementById("projects")!.offsetTop;
+    const target = Math.max(
+      window.innerHeight * 0.61,
+      Math.min(
+        window.innerHeight * 0.75,
+        projectsTop - window.innerHeight - 24,
+      ),
+    );
+    window.scrollTo(0, target);
+  });
   await expect(nudge).toBeVisible();
 
   await page.evaluate(() => {
