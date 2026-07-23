@@ -19,7 +19,7 @@ const JourneySection = styled.section`
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 2rem;
+  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
     margin-bottom: 1rem;
   }

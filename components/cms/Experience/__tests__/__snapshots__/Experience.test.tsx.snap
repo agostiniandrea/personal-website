@@ -96,7 +96,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 }
 
 .c5 {
-  margin: 0 0 3rem;
+  margin: 0 0 2rem;
   max-width: 600px;
 }
 
@@ -231,7 +231,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
 
 @media (max-width: 1199.98px) {
   .c5 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -269,7 +269,7 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
       <p
         class="c6 c7"
       >
-        Companies, projects and teams I've helped grow.
+        From ecommerce storefronts to design systems — the companies, projects and teams I've helped grow over the last ten years.
       </p>
       <div
         aria-label="Story sections"
@@ -453,7 +453,7 @@ exports[`Experience renders correctly with all items 1`] = `
 }
 
 .c5 {
-  margin: 0 0 3rem;
+  margin: 0 0 2rem;
   max-width: 600px;
 }
 
@@ -594,7 +594,7 @@ exports[`Experience renders correctly with all items 1`] = `
 
 @media (max-width: 1199.98px) {
   .c5 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -632,7 +632,7 @@ exports[`Experience renders correctly with all items 1`] = `
       <p
         class="c6 c7"
       >
-        Companies, projects and teams I've helped grow.
+        From ecommerce storefronts to design systems — the companies, projects and teams I've helped grow over the last ten years.
       </p>
       <div
         aria-label="Story sections"

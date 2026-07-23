@@ -15,7 +15,7 @@ export interface ExperienceItem {
 }
 
 export const DEFAULT_EXPERIENCE_INTRO =
-  "Companies, projects and teams I've helped grow.";
+  "From ecommerce storefronts to design systems — the companies, projects and teams I've helped grow over the last ten years.";
 
 export interface ExperienceProps {
   sectionLabel: string;
@@ -33,10 +33,10 @@ const Section = styled.section`
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
+  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   max-width: 600px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
