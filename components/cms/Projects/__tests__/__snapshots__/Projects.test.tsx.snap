@@ -187,7 +187,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   position: absolute;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -282,7 +282,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1.5rem;
   }
@@ -653,7 +653,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   position: absolute;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c0 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -748,7 +748,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   }
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1.5rem;
   }

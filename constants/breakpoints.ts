@@ -22,10 +22,10 @@ const breakpoints: Breakpoints = {
  * Always pair these with `breakpoints` — never hardcode a raw pixel value.
  */
 export const breakpointsBelow: Omit<Breakpoints, "xMobile"> = {
-  mobile: "599.98px",
-  xTablet: "899.98px",
-  tablet: "1199.98px",
-  desktop: "1535.98px",
+  mobile: "599.99px",
+  xTablet: "899.99px",
+  tablet: "1199.99px",
+  desktop: "1535.99px",
 };
 
 export default breakpoints;
