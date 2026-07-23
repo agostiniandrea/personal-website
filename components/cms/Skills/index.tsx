@@ -1,17 +1,8 @@
-import { useRouter } from "next/router";
-
 import styled from "styled-components";
 
 import { Box, Container, Heading } from "@components/ions";
-import {
-  Badge,
-  ContextEyebrow,
-  ContextSubtitle,
-  DesktopSectionLabel,
-  ExploreContext,
-} from "@components/molecules";
-import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
-import { useI18n } from "@lib/utils/i18n";
+import { Badge, SectionLabel } from "@components/molecules";
+import { BREAKPOINTS } from "@constants";
 
 export interface SkillCategory {
   title: string;
@@ -26,7 +17,7 @@ export interface SkillsProps {
 
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
+  @media (max-width: 1199px) {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
@@ -35,7 +26,7 @@ const Section = styled.section`
 const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
   max-width: 600px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
+  @media (max-width: 1199px) {
     margin-bottom: 1.5rem;
   }
 `;
@@ -78,35 +69,27 @@ const Skills: React.FC<SkillsProps> = ({
   sectionLabel,
   heading,
   categories,
-}) => {
-  const { locale } = useRouter();
-  const t = useI18n(locale);
-
-  return (
-    <Section id="skills">
-      <Container>
-        <ExploreContext />
-        <ContextEyebrow>{t.moreSkillsTitle}</ContextEyebrow>
-        <DesktopSectionLabel>{sectionLabel}</DesktopSectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ContextSubtitle>{t.moreSkillsSubtitle}</ContextSubtitle>
-        <Grid>
-          {categories.map((category) => (
-            <Box key={category.title}>
-              <CategoryTitle>{category.title}</CategoryTitle>
-              <SkillList>
-                {category.skills.map((skill) => (
-                  <Badge key={skill} as="li" size="md">
-                    {skill}
-                  </Badge>
-                ))}
-              </SkillList>
-            </Box>
-          ))}
-        </Grid>
-      </Container>
-    </Section>
-  );
-};
+}) => (
+  <Section id="skills">
+    <Container>
+      <SectionLabel>{sectionLabel}</SectionLabel>
+      <SectionHeading>{heading}</SectionHeading>
+      <Grid>
+        {categories.map((category) => (
+          <Box key={category.title}>
+            <CategoryTitle>{category.title}</CategoryTitle>
+            <SkillList>
+              {category.skills.map((skill) => (
+                <Badge key={skill} as="li" size="md">
+                  {skill}
+                </Badge>
+              ))}
+            </SkillList>
+          </Box>
+        ))}
+      </Grid>
+    </Container>
+  </Section>
+);
 
 export default Skills;

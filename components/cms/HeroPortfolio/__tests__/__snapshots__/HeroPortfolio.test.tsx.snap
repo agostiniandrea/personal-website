@@ -144,7 +144,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 .c16 {
   align-items: center;
-  border-bottom: 0;
+  border-bottom: 1px solid var(--color-paragraph);
   color: var(--color-paragraph);
   display: inline-flex;
   font-size: 1rem;
@@ -156,21 +156,10 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   margin-inline: auto;
   min-height: 44px;
   min-width: 0;
-  padding: 0 0 9px;
-  position: relative;
+  padding-inline: 0;
   text-decoration: none;
   transition: color 0.2s ease,border-color 0.2s ease;
   width: fit-content;
-}
-
-.c16::after {
-  background: currentColor;
-  bottom: 0;
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  right: 0;
 }
 
 .c16:focus-visible {
@@ -432,17 +421,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   .c16 {
     justify-self: auto;
     margin-inline: 0;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c16 {
-    border-bottom: 1px solid var(--color-paragraph);
-    padding: 0;
-  }
-
-  .c16::after {
-    display: none;
   }
 }
 
@@ -760,7 +738,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 .c15 {
   align-items: center;
-  border-bottom: 0;
+  border-bottom: 1px solid var(--color-paragraph);
   color: var(--color-paragraph);
   display: inline-flex;
   font-size: 1rem;
@@ -772,21 +750,10 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   margin-inline: auto;
   min-height: 44px;
   min-width: 0;
-  padding: 0 0 9px;
-  position: relative;
+  padding-inline: 0;
   text-decoration: none;
   transition: color 0.2s ease,border-color 0.2s ease;
   width: fit-content;
-}
-
-.c15::after {
-  background: currentColor;
-  bottom: 0;
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  right: 0;
 }
 
 .c15:focus-visible {
@@ -1023,17 +990,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   .c15 {
     justify-self: auto;
     margin-inline: 0;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c15 {
-    border-bottom: 1px solid var(--color-paragraph);
-    padding: 0;
-  }
-
-  .c15::after {
-    display: none;
   }
 }
 

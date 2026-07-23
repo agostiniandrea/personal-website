@@ -53,7 +53,8 @@ export default class MyDocument extends Document<MyDocumentProps> {
           />
         </Head>
         <body>
-          {/* Mobile app-style navigation always starts at Home on refresh. */}
+          {/* Resolves the active mobile view from the hash before first paint
+              so deep links (e.g. /#forest) never flash the Home tab */}
           <script
             dangerouslySetInnerHTML={{ __html: PRE_HYDRATION_VIEW_SCRIPT }}
           />

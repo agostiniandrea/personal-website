@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { useRouter } from "next/router";
 
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
@@ -15,8 +15,6 @@ export interface MoreSheetProps {
   activeView: MobileView;
   cvDownloadUrl?: string;
   onClose: () => void;
-  onDownload: () => void;
-  onLocaleChange: (locale: "en" | "it") => void;
   onNavigate: (destination: MoreDestination) => void;
 }
 
@@ -27,6 +25,10 @@ const ITEM_META: Record<
   skills: {
     title: { en: "Skills & tools", it: "Competenze e strumenti" },
     subtitle: { en: "Technologies and practices", it: "Tecnologie e pratiche" },
+  },
+  experience: {
+    title: { en: "Experience", it: "Esperienza" },
+    subtitle: { en: "Where I've worked", it: "Dove ho lavorato" },
   },
   sustainability: {
     title: { en: "Sustainability", it: "Sostenibilità" },
@@ -43,93 +45,25 @@ const ITEM_META: Record<
 
 const ITEM_ORDER: MoreDestination[] = [
   "skills",
+  "experience",
   "sustainability",
   "beyond-code",
 ];
 
-const SHEET_ANIMATION_MS = 240;
-
-const enter = keyframes`
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-`;
-
-const exit = keyframes`
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
-`;
-
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
-
-const fadeOut = keyframes`
-  from { opacity: 1; }
-  to { opacity: 0; }
-`;
-
-const Backdrop = styled.div<{ $closing: boolean }>`
-  animation: ${({ $closing }) => ($closing ? fadeOut : fadeIn)}
-    ${SHEET_ANIMATION_MS}ms ease-out forwards;
+const Backdrop = styled.div`
   backdrop-filter: blur(2px);
   background: rgba(10, 10, 15, 0.52);
-  bottom: calc(4.5rem + 1px + env(safe-area-inset-bottom));
-  inset-inline: 0;
+  inset: 0;
   position: fixed;
-  top: 0;
-  touch-action: none;
   z-index: 201;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    opacity: ${({ $closing }) => ($closing ? 0 : 1)};
-  }
 `;
 
-/**
- * Marks the app background inert while the sheet is open, but keeps the bottom
- * tab bar operable — it is the sheet's own trigger, so tapping another tab must
- * still switch section (closing the sheet) and tapping More must close it.
- * Walks up from the nav to #__next, inerting each level's other children.
- * Returns a restore function.
- */
-const inertBackground = (): (() => void) => {
-  const nav = document.querySelector('[data-testid="mobile-nav"]');
-  const root = document.getElementById("__next");
-  const affected: Element[] = [];
-  const mark = (el: Element) => {
-    el.setAttribute("inert", "");
-    el.setAttribute("aria-hidden", "true");
-    affected.push(el);
-  };
-
-  if (nav && root) {
-    let node: Element | null = nav;
-    while (node && node !== root && node.parentElement) {
-      for (const sibling of Array.from(node.parentElement.children)) {
-        if (sibling !== node && !sibling.contains(nav)) mark(sibling);
-      }
-      node = node.parentElement;
-    }
-  } else if (root) {
-    mark(root);
-  }
-
-  return () =>
-    affected.forEach((el) => {
-      el.removeAttribute("inert");
-      el.removeAttribute("aria-hidden");
-    });
-};
-
-const Sheet = styled.div<{ $closing: boolean }>`
-  animation: ${({ $closing }) => ($closing ? exit : enter)}
-    ${SHEET_ANIMATION_MS}ms ease-out forwards;
+const Sheet = styled.div`
+  -webkit-overflow-scrolling: touch;
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid
     color-mix(
@@ -137,36 +71,24 @@ const Sheet = styled.div<{ $closing: boolean }>`
       ${({ theme }) => theme.colors.highlight} 16%,
       transparent
     );
-  -webkit-overflow-scrolling: touch;
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
-  bottom: calc(4.5rem + 1px + env(safe-area-inset-bottom));
-  box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.18);
+  bottom: calc(4.5rem + env(safe-area-inset-bottom));
   box-sizing: border-box;
+  box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.18);
   left: 0;
   max-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom) - 1rem);
-  overflow-y: auto;
   overscroll-behavior: contain;
+  overflow-y: auto;
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
     ${({ theme }) => theme.space.xl};
   position: fixed;
   right: 0;
-  touch-action: pan-y;
   z-index: 301;
 
   @media (max-width: 360px) {
     padding-left: ${({ theme }) => theme.space.md};
     padding-right: ${({ theme }) => theme.space.md};
-  }
-
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    display: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    transform: ${({ $closing }) =>
-      $closing ? "translateY(100%)" : "translateY(0)"};
   }
 `;
 
@@ -301,6 +223,12 @@ const ItemIcon = ({ destination }: { destination: MoreDestination }) => (
           <circle cx="12" cy="12" r="4" />
         </>
       )}
+      {destination === "experience" && (
+        <>
+          <rect x="3" y="7" width="18" height="13" rx="2" />
+          <path d="M8 7V5h8v2M3 12h18" />
+        </>
+      )}
       {destination === "sustainability" && (
         <>
           <path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" />
@@ -372,8 +300,6 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
   activeView,
   cvDownloadUrl,
   onClose,
-  onDownload,
-  onLocaleChange,
   onNavigate,
 }) => {
   const router = useRouter();
@@ -381,56 +307,13 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
   const localeKey = router.locale === "it" ? "it" : "en";
   const sheetRef = useRef<HTMLDivElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
-  const scrollPositionRef = useRef(0);
-  // Stays mounted through the slide-down close animation, then unmounts.
-  const [mounted, setMounted] = useState(isOpen);
-
-  useEffect(() => {
-    if (isOpen) {
-      setMounted(true);
-      return;
-    }
-    // no exit animation to wait for → unmount immediately
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setMounted(false);
-      return;
-    }
-    // onAnimationEnd normally unmounts; this is a fallback for when it never
-    // fires (e.g. a backgrounded tab pauses CSS animations)
-    const timer = window.setTimeout(
-      () => setMounted(false),
-      SHEET_ANIMATION_MS + 80,
-    );
-    return () => window.clearTimeout(timer);
-  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
     restoreFocusRef.current = document.activeElement as HTMLElement | null;
     const sheet = sheetRef.current;
     sheet?.querySelector<HTMLElement>("button, a")?.focus();
-    const restoreInert = inertBackground();
-    const bodyStyle = document.body.style;
-    const rootStyle = document.documentElement.style;
-    const previousBodyStyles = {
-      left: bodyStyle.left,
-      overflow: bodyStyle.overflow,
-      position: bodyStyle.position,
-      right: bodyStyle.right,
-      top: bodyStyle.top,
-      width: bodyStyle.width,
-    };
-    const previousRootOverscroll = rootStyle.getPropertyValue(
-      "overscroll-behavior",
-    );
-    scrollPositionRef.current = window.scrollY;
-    bodyStyle.left = "0";
     document.body.style.overflow = "hidden";
-    bodyStyle.position = "fixed";
-    bodyStyle.right = "0";
-    bodyStyle.top = `-${scrollPositionRef.current}px`;
-    bodyStyle.width = "100%";
-    rootStyle.setProperty("overscroll-behavior", "none");
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -455,49 +338,26 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      bodyStyle.left = previousBodyStyles.left;
-      bodyStyle.overflow = previousBodyStyles.overflow;
-      bodyStyle.position = previousBodyStyles.position;
-      bodyStyle.right = previousBodyStyles.right;
-      bodyStyle.top = previousBodyStyles.top;
-      bodyStyle.width = previousBodyStyles.width;
-      if (previousRootOverscroll) {
-        rootStyle.setProperty("overscroll-behavior", previousRootOverscroll);
-      } else {
-        rootStyle.removeProperty("overscroll-behavior");
-      }
-      window.scrollTo({
-        behavior: "auto",
-        left: 0,
-        top: scrollPositionRef.current,
-      });
-      restoreInert();
+      document.body.style.overflow = "";
       restoreFocusRef.current?.focus();
     };
   }, [isOpen, onClose]);
 
-  // Render while open (isOpen), and keep rendering through the close animation
-  // (mounted) after isOpen flips false.
-  if (!isOpen && !mounted) return null;
+  if (!isOpen) return null;
 
-  const closing = !isOpen;
+  const switchLocale = (next: "en" | "it") => {
+    if (next === localeKey) return;
+    router.push(router.asPath, router.asPath, { locale: next, scroll: false });
+  };
 
   return createPortal(
     <>
-      <Backdrop
-        $closing={closing}
-        onClick={onClose}
-        data-testid="more-backdrop"
-      />
+      <Backdrop onClick={onClose} data-testid="more-backdrop" />
       <Sheet
         ref={sheetRef}
-        $closing={closing}
-        onAnimationEnd={(e) => {
-          if (closing && e.target === e.currentTarget) setMounted(false);
-        }}
         role="dialog"
         aria-modal="true"
-        aria-label={t.mobileMenuLabel}
+        aria-label={t.moreTitle}
         data-testid="more-sheet"
       >
         <Grabber aria-hidden="true" />
@@ -534,10 +394,9 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
             href={cvDownloadUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => {
-              trackEvent("cv_downloaded", { locale: router.locale ?? "en" });
-              onDownload();
-            }}
+            onClick={() =>
+              trackEvent("cv_downloaded", { locale: router.locale ?? "en" })
+            }
           >
             ↓ {t.moreDownloadCv}
           </CvLink>
@@ -546,14 +405,14 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
           <LocaleLabel>{t.moreLanguage}</LocaleLabel>
           <LocaleButton
             $active={localeKey === "en"}
-            onClick={() => onLocaleChange("en")}
+            onClick={() => switchLocale("en")}
             aria-pressed={localeKey === "en"}
           >
             EN
           </LocaleButton>
           <LocaleButton
             $active={localeKey === "it"}
-            onClick={() => onLocaleChange("it")}
+            onClick={() => switchLocale("it")}
             aria-pressed={localeKey === "it"}
           >
             IT

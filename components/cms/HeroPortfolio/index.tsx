@@ -224,7 +224,7 @@ const PrimaryLink = styled(Link)`
 
 const CvLink = styled.a`
   align-items: center;
-  border-bottom: 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.paragraph};
   color: ${({ theme }) => theme.colors.paragraph};
   display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.md};
@@ -236,23 +236,12 @@ const CvLink = styled.a`
   margin-inline: auto;
   min-height: 44px;
   min-width: 0;
-  padding: 0 0 9px;
-  position: relative;
+  padding-inline: 0;
   text-decoration: none;
   transition:
     color 0.2s ease,
     border-color 0.2s ease;
   width: fit-content;
-
-  &::after {
-    background: currentColor;
-    bottom: 0;
-    content: "";
-    height: 1px;
-    left: 0;
-    position: absolute;
-    right: 0;
-  }
 
   @media (hover: hover) {
     &:hover {
@@ -271,15 +260,6 @@ const CvLink = styled.a`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     justify-self: auto;
     margin-inline: 0;
-  }
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.paragraph};
-    padding: 0;
-
-    &::after {
-      display: none;
-    }
   }
 `;
 

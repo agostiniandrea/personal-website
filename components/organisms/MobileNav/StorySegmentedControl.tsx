@@ -4,17 +4,17 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
+import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { SECTION_LABELS, useI18n } from "@lib/utils/i18n";
-import { StorySub } from "@lib/utils/mobileNav";
+import { resolveViewFromHash, StorySub } from "@lib/utils/mobileNav";
 
 /* Rendered at the top of both Journey and Experience; only one instance is
    ever visible because the sections are mutually exclusive in the story tab */
 const Group = styled.div`
   display: none;
 
-  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+  @media (max-width: 899.98px) {
     html[data-mobile-view="story"] & {
       background: rgba(128, 128, 128, 0.12);
       border-radius: 999px;
@@ -62,19 +62,15 @@ const StorySegmentedControl: React.FC = () => {
   const localeKey = locale === "it" ? "it" : "en";
   const [active, setActive] = useState<StorySub>("journey");
 
-  const syncFromHistory = useCallback(() => {
-    setActive(
-      window.history.state?.storySub === "experience"
-        ? "experience"
-        : "journey",
-    );
+  const syncFromLocation = useCallback(() => {
+    setActive(resolveViewFromHash(window.location.hash).storySub);
   }, []);
 
   useEffect(() => {
-    syncFromHistory();
-    window.addEventListener("popstate", syncFromHistory);
-    return () => window.removeEventListener("popstate", syncFromHistory);
-  }, [syncFromHistory]);
+    syncFromLocation();
+    window.addEventListener("hashchange", syncFromLocation);
+    return () => window.removeEventListener("hashchange", syncFromLocation);
+  }, [syncFromLocation]);
 
   const select = (sub: StorySub) => {
     if (sub === active) return;
@@ -83,10 +79,7 @@ const StorySegmentedControl: React.FC = () => {
     window.history.pushState(
       { ...window.history.state, mobileView: "story", storySub: sub },
       "",
-      `${window.location.pathname}${window.location.search}`,
-    );
-    window.dispatchEvent(
-      new PopStateEvent("popstate", { state: window.history.state }),
+      `${window.location.pathname}${window.location.search}#${sub}`,
     );
     window.scrollTo({ top: 0, behavior: "auto" });
     trackEvent(

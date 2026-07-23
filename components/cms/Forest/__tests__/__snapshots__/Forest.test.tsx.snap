@@ -51,15 +51,6 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0.25rem 0.5rem;
 }
 
-.c6 {
-  color: var(--color-highlight);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  margin: 0 0 1.25rem;
-  text-transform: uppercase;
-}
-
 .c40 {
   display: inline-block;
   position: relative;
@@ -90,6 +81,15 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c41 svg {
   display: block;
+}
+
+.c6 {
+  color: var(--color-highlight);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
 }
 
 .c2 {

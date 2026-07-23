@@ -1,24 +1,22 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
 import { MobileFeedbackNudge } from "@components/molecules";
-import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
+import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import {
-  MobileNavigationState,
   MobileTab,
   MobileView,
-  MORE_VIEWS,
   MoreDestination,
-  OPEN_MOBILE_EXPLORE_EVENT,
   resolveManagedHash,
+  resolveViewFromState,
   StorySub,
   tabForView,
-  VIEW_SECTIONS,
+  VIEW_TO_HASH,
 } from "@lib/utils/mobileNav";
 
 import { MoreSheet } from "./MoreSheet";
@@ -29,12 +27,7 @@ export interface MobileNavProps {
 }
 
 const Nav = styled.nav`
-  backdrop-filter: blur(12px);
-  background: color-mix(
-    in srgb,
-    ${({ theme }) => theme.colors.background} 96%,
-    transparent
-  );
+  background: ${({ theme }) => theme.colors.background};
   border-top: 1px solid rgba(128, 128, 128, 0.18);
   bottom: 0;
   display: block;
@@ -70,12 +63,13 @@ const TabButton = styled.button<{ $active: boolean }>`
   display: flex;
   flex-direction: column;
   font-family: inherit;
-  font-size: 0.75rem;
-  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  font-size: 0.6875rem;
+  font-weight: ${({ $active, theme }) =>
+    $active ? theme.fontWeights.semiBold : theme.fontWeights.medium};
   gap: 0.25rem;
-  height: 4.5rem;
   justify-content: center;
   letter-spacing: 0.02em;
+  min-height: 44px;
   padding: ${({ theme }) => theme.space.sm} 0 ${({ theme }) => theme.space.xs};
   transition: color 0.2s ease;
   width: 100%;
@@ -92,11 +86,14 @@ const TabButton = styled.button<{ $active: boolean }>`
 
 const isHomepagePath = (pathname: string) => pathname === "/";
 const isMobileViewport = () =>
-  window.matchMedia?.(`(max-width: ${BREAKPOINTS_BELOW.xTablet})`).matches ??
+  window.matchMedia?.(`(max-width: ${BREAKPOINTS.xTablet})`).matches ??
   window.innerWidth < 900;
 
-const cleanMobileUrl = () =>
-  `${window.location.pathname}${window.location.search}`;
+const routeWithHash = (hash = "") =>
+  `${window.location.pathname}${window.location.search}${hash ? `#${hash}` : ""}`;
+
+const hashForView = (view: MobileView, storySub: StorySub) =>
+  view === "story" ? storySub : VIEW_TO_HASH[view];
 
 /* Owns the html[data-mobile-view] / [data-story-sub] attributes after
    hydration; the inline _document script sets them before first paint. */
@@ -118,81 +115,68 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
   const t = useI18n(router.locale);
   const [view, setView] = useState<MobileView>("home");
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [mobileViewport, setMobileViewport] = useState(false);
-  const initialized = useRef(false);
 
-  const syncFromHistory = useCallback(() => {
-    if (!isMobileViewport()) return;
-    const state = window.history.state as MobileNavigationState | null;
-    const nextView =
-      state?.mobileView && VIEW_SECTIONS[state.mobileView]
-        ? state.mobileView
-        : "home";
-    const nextStorySub =
-      state?.storySub === "experience" ? "experience" : "journey";
-    setView(nextView);
-    setSheetOpen(state?.mobileMoreEntry === true);
-    applyView(nextView, nextStorySub);
-  }, []);
-
-  useEffect(() => {
-    const media = window.matchMedia(
-      `(max-width: ${BREAKPOINTS_BELOW.xTablet})`,
+  const syncFromLocation = useCallback(() => {
+    const resolved = resolveViewFromState(
+      window.history.state as { mobileView?: MobileView; storySub?: StorySub },
+      window.location.hash,
     );
-    const initialize = () => {
-      setMobileViewport(media.matches);
-      if (!isHomepagePath(router.pathname) || !media.matches) {
-        setSheetOpen(false);
-        document.documentElement.removeAttribute("data-mobile-view");
-        document.documentElement.removeAttribute("data-story-sub");
-        return;
-      }
-      if (!initialized.current) {
-        initialized.current = true;
-        const initialState: MobileNavigationState = {
+    setView(resolved.view);
+    setSheetOpen(resolved.sheetOpen);
+    applyView(resolved.view, resolved.storySub);
+
+    if (isMobileViewport() && resolved.isUnknownHash) {
+      window.history.replaceState(
+        {
           ...window.history.state,
           mobileMoreEntry: false,
           mobileView: "home",
           storySub: "journey",
-        };
-        window.history.replaceState(initialState, "", cleanMobileUrl());
-        setView("home");
-        setSheetOpen(false);
-        applyView("home", "journey");
-        return;
-      }
-      syncFromHistory();
-    };
-    initialize();
-    window.addEventListener("popstate", syncFromHistory);
-    media.addEventListener("change", initialize);
-    return () => {
-      window.removeEventListener("popstate", syncFromHistory);
-      media.removeEventListener("change", initialize);
-    };
-  }, [router.pathname, syncFromHistory]);
+        },
+        "",
+        routeWithHash(),
+      );
+    } else if (isMobileViewport() && window.location.hash === "#projects") {
+      window.history.replaceState(
+        {
+          ...window.history.state,
+          mobileMoreEntry: false,
+          mobileView: "work",
+          storySub: "journey",
+        },
+        "",
+        routeWithHash("work"),
+      );
+    }
+  }, []);
 
   useEffect(() => {
-    if (!isHomepagePath(router.pathname) || isMobileViewport()) return;
-    document.documentElement.removeAttribute("data-mobile-view");
-    document.documentElement.removeAttribute("data-story-sub");
-  }, [router.pathname]);
+    if (!isHomepagePath(router.pathname)) {
+      document.documentElement.removeAttribute("data-mobile-view");
+      document.documentElement.removeAttribute("data-story-sub");
+      return;
+    }
+    syncFromLocation();
+    window.addEventListener("popstate", syncFromLocation);
+    window.addEventListener("hashchange", syncFromLocation);
+    return () => {
+      window.removeEventListener("popstate", syncFromLocation);
+      window.removeEventListener("hashchange", syncFromLocation);
+    };
+  }, [router.pathname, syncFromLocation]);
 
   const navigateTo = useCallback(
-    (
-      next: MobileView,
-      storySub: StorySub = "journey",
-      replace = false,
-      deferScroll = false,
-    ) => {
+    (next: MobileView, storySub: StorySub = "journey") => {
+      const nextHash = hashForView(next, storySub);
       const isAlreadyCanonical =
         next === view &&
-        document.documentElement.getAttribute("data-story-sub") === storySub;
+        document.documentElement.getAttribute("data-story-sub") === storySub &&
+        window.location.hash === (nextHash ? `#${nextHash}` : "");
       setView(next);
       setSheetOpen(false);
       applyView(next, storySub);
       if (!isAlreadyCanonical) {
-        window.history[replace ? "replaceState" : "pushState"](
+        window.history.pushState(
           {
             ...window.history.state,
             mobileMoreEntry: false,
@@ -200,19 +184,15 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
             storySub,
           },
           "",
-          cleanMobileUrl(),
+          routeWithHash(nextHash),
         );
       }
-      const scrollToTop = () =>
-        window.scrollTo({
-          top: 0,
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? "auto"
-            : "smooth",
-        });
-      if (deferScroll) window.requestAnimationFrame(scrollToTop);
-      else scrollToTop();
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
       const tab = tabForView(next);
       if (tab !== "more") trackEvent(TAB_EVENTS[tab], {});
       if (next === "forest") {
@@ -252,23 +232,46 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
       event.preventDefault();
       event.stopPropagation();
       navigateTo(resolved.view, resolved.storySub);
-      if (
-        destination.hash === "#about" ||
-        destination.hash === "#forest-impact"
-      ) {
-        window.requestAnimationFrame(() => {
-          document
-            .getElementById(destination.hash.slice(1))
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
     };
     document.addEventListener("click", onInternalLink, true);
     return () => document.removeEventListener("click", onInternalLink, true);
   }, [navigateTo, router.pathname]);
 
-  const openSheet = useCallback(() => {
-    if (!isMobileViewport()) return;
+  useEffect(() => {
+    if (view !== "home" || sheetOpen || !isMobileViewport()) return;
+    let frame = 0;
+    const syncHomeSection = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        if (window.location.hash !== "" && window.location.hash !== "#about")
+          return;
+        const about = document.getElementById("about");
+        const isAbout =
+          about !== null &&
+          about.getBoundingClientRect().top <= window.innerHeight * 0.35;
+        const nextHash = isAbout ? "about" : "";
+        if (window.location.hash === (nextHash ? `#${nextHash}` : "")) return;
+        window.history.replaceState(
+          {
+            ...window.history.state,
+            mobileMoreEntry: false,
+            mobileView: "home",
+            storySub: "journey",
+          },
+          "",
+          routeWithHash(nextHash),
+        );
+      });
+    };
+    syncHomeSection();
+    window.addEventListener("scroll", syncHomeSection, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", syncHomeSection);
+    };
+  }, [sheetOpen, view]);
+
+  const openSheet = () => {
     trackEvent("mobile_more_open", {});
     setSheetOpen(true);
     window.history.pushState(
@@ -283,60 +286,20 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
             : "journey",
       },
       "",
-      cleanMobileUrl(),
+      routeWithHash("more"),
     );
-  }, [view]);
+  };
 
-  useEffect(() => {
-    window.addEventListener(OPEN_MOBILE_EXPLORE_EVENT, openSheet);
-    return () =>
-      window.removeEventListener(OPEN_MOBILE_EXPLORE_EVENT, openSheet);
-  }, [openSheet]);
-
-  const closeSheet = useCallback(() => {
+  const closeSheet = () => {
     setSheetOpen(false);
     if (window.history.state?.mobileMoreEntry) {
       window.history.back();
       return;
     }
-  }, []);
-
-  // tapping "More" while the sheet is open dismisses it
-  const toggleSheet = useCallback(() => {
-    if (sheetOpen) {
-      closeSheet();
-      return;
-    }
-    openSheet();
-  }, [closeSheet, openSheet, sheetOpen]);
-
-  const onSheetNavigate = (destination: MoreDestination) => {
-    trackEvent("mobile_more_destination", { destination });
-    const replaceDestination = () =>
-      navigateTo(destination, "journey", true, true);
-
-    if (MORE_VIEWS.includes(view as (typeof MORE_VIEWS)[number])) {
-      const onReturnToSecondary = () => {
-        window.removeEventListener("popstate", onReturnToSecondary);
-        replaceDestination();
-      };
-      window.addEventListener("popstate", onReturnToSecondary);
-      setSheetOpen(false);
-      window.history.back();
-      return;
-    }
-
-    replaceDestination();
-  };
-
-  const switchMobileLocale = async (nextLocale: "en" | "it") => {
     const storySub =
       document.documentElement.getAttribute("data-story-sub") === "experience"
         ? "experience"
         : "journey";
-    setSheetOpen(false);
-    await router.push("/", "/", { locale: nextLocale, scroll: false });
-    applyView(view, storySub);
     window.history.replaceState(
       {
         ...window.history.state,
@@ -345,11 +308,21 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
         storySub,
       },
       "",
-      nextLocale === "it" ? "/it" : "/",
+      routeWithHash(hashForView(view, storySub)),
     );
   };
 
-  if (!isHomepagePath(router.pathname) || !mobileViewport) return null;
+  const onSheetNavigate = (destination: MoreDestination) => {
+    trackEvent("mobile_more_destination", { destination });
+    setSheetOpen(false);
+    if (destination === "experience") {
+      navigateTo("story", "experience");
+    } else {
+      navigateTo(destination);
+    }
+  };
+
+  if (!isHomepagePath(router.pathname)) return null;
 
   const activeTab = sheetOpen ? "more" : tabForView(view);
 
@@ -375,10 +348,9 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
               <TabButton
                 $active={activeTab === id}
                 aria-current={activeTab === id ? "page" : undefined}
-                aria-expanded={id === "more" ? sheetOpen : undefined}
                 aria-haspopup={id === "more" ? "dialog" : undefined}
                 onClick={() =>
-                  id === "more" ? toggleSheet() : navigateTo(id as MobileTab)
+                  id === "more" ? openSheet() : navigateTo(id as MobileTab)
                 }
               >
                 {NAV_ICONS[id]}
@@ -393,8 +365,6 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
         activeView={view}
         cvDownloadUrl={cvDownloadUrl}
         onClose={closeSheet}
-        onDownload={closeSheet}
-        onLocaleChange={switchMobileLocale}
         onNavigate={onSheetNavigate}
       />
     </>
