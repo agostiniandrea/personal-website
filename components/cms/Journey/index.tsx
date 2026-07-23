@@ -21,7 +21,7 @@ const JourneySection = styled.section`
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space["lg"]};
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
@@ -30,7 +30,7 @@ const Intro = styled(Text)`
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
   max-width: 680px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space["lg"]};
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 

@@ -36,7 +36,7 @@ const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   max-width: 600px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space["lg"]};
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
@@ -68,7 +68,7 @@ const Item = styled.li`
 
 const Period = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  margin: 0 0 0.25rem;
+  margin: 0 0 ${({ theme }) => theme.space.xs};
 `;
 
 const Company = styled(Text)`
@@ -98,7 +98,7 @@ const Intro = styled(Text)`
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
   max-width: 680px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
