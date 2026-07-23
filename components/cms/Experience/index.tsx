@@ -15,7 +15,7 @@ export interface ExperienceItem {
 }
 
 export const DEFAULT_EXPERIENCE_INTRO =
-  "Companies, projects and teams I've helped grow.";
+  "From ecommerce storefronts to design systems — the companies, projects and teams I've helped grow over the last ten years.";
 
 export interface ExperienceProps {
   sectionLabel: string;
@@ -27,16 +27,16 @@ export interface ExperienceProps {
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
+    padding-top: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
+  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   max-width: 600px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1.5rem;
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
@@ -68,7 +68,7 @@ const Item = styled.li`
 
 const Period = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  margin: 0 0 0.25rem;
+  margin: 0 0 ${({ theme }) => theme.space.xs};
 `;
 
 const Company = styled(Text)`
@@ -98,7 +98,7 @@ const Intro = styled(Text)`
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
   max-width: 680px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 

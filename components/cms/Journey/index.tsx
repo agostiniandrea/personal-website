@@ -13,15 +13,15 @@ import { type JourneyChapter, journeyData, type JourneyProps } from "./model";
 const JourneySection = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
+    padding-top: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 2rem;
+  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
@@ -30,7 +30,7 @@ const Intro = styled(Text)`
   margin-bottom: ${({ theme }) => theme.space["4xl"]};
   max-width: 680px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
