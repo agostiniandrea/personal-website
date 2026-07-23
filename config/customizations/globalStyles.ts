@@ -52,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);
-    --color-surface-raised: #15151d;
+    --color-surface-raised: #203c34;
     --color-badge-bg: rgba(45, 212, 191, 0.08);
     --color-ring-start: #2dd4bf;
     --color-ring-end: #34d399;
@@ -71,7 +71,7 @@ const GlobalStyle = createGlobalStyle`
       --color-secondary: #0a0a0f;
       --color-tertiary: #0f766e;
       --color-surface: rgba(15, 118, 110, 0.04);
-      --color-surface-raised: #ffffff;
+      --color-surface-raised: #eaf1e6;
       --color-badge-bg: rgba(15, 118, 110, 0.07);
       --color-ring-start: #0f766e;
       --color-ring-end: #059669;
@@ -91,7 +91,7 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #0a0a0f;
     --color-tertiary: #0f766e;
     --color-surface: rgba(15, 118, 110, 0.04);
-    --color-surface-raised: #ffffff;
+    --color-surface-raised: #eaf1e6;
     --color-badge-bg: rgba(15, 118, 110, 0.07);
     --color-ring-start: #0f766e;
     --color-ring-end: #059669;
@@ -109,7 +109,7 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);
-    --color-surface-raised: #15151d;
+    --color-surface-raised: #203c34;
     --color-badge-bg: rgba(45, 212, 191, 0.08);
     --color-ring-start: #2dd4bf;
     --color-ring-end: #34d399;

@@ -21,28 +21,27 @@ describe("ForestTeaser", () => {
       screen.getByText(t.forestInlineMetric(4, 34), { exact: false }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: ctaName, hidden: true }),
+      screen.getByRole("button", { name: ctaName, hidden: true }),
     ).toBeInTheDocument();
   });
 
-  it("scrolls directly to the Forest impact and action area", async () => {
-    const forestImpact = document.createElement("div");
-    forestImpact.id = "forest-impact";
-    forestImpact.scrollIntoView = jest.fn();
-    document.body.appendChild(forestImpact);
+  it("engages the session and scrolls to the Forest section on click", async () => {
+    const forest = document.createElement("section");
+    forest.id = "forest";
+    forest.scrollIntoView = jest.fn();
+    document.body.appendChild(forest);
     renderWithTheme(<ForestTeaser feedbackTrees={4} totalTrees={34} />);
 
-    fireEvent.click(screen.getByRole("link", { name: ctaName, hidden: true }));
+    fireEvent.click(
+      screen.getByRole("button", { name: ctaName, hidden: true }),
+    );
 
     expect(sessionStorage.getItem("forest-inline-teaser-engaged")).toBe("true");
-    expect(forestImpact.scrollIntoView).toHaveBeenCalledWith({
+    expect(forest.scrollIntoView).toHaveBeenCalledWith({
       behavior: "smooth",
       block: "start",
     });
-    expect(
-      screen.getByRole("link", { name: ctaName, hidden: true }),
-    ).toHaveAttribute("href", "/#forest-impact");
-    forestImpact.remove();
+    forest.remove();
   });
 
   it("is an inline region without a dismiss control", () => {
