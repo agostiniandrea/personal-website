@@ -13,7 +13,7 @@ const strings = {
     feedbackNudgeDismiss: "Dismiss feedback prompt",
     feedbackNudgeTitle: "Your feedback helps grow real trees.",
     forestInlineCta: "Explore the Forest",
-    forestInlineEyebrow: "GROWING THROUGH FEEDBACK",
+    forestInlineEyebrow: "Feedback with impact",
     forestInlineHeading: "Thoughtful feedback grows into real trees.",
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} trees planted through portfolio feedback · ${totalTrees} trees in my forest`,
@@ -62,9 +62,9 @@ const strings = {
     feedbackNudgeCta: "Scopri come cresce",
     feedbackNudgeDismiss: "Chiudi l'invito al feedback",
     feedbackNudgeTitle: "Il tuo feedback aiuta a far crescere alberi veri.",
-    forestInlineCta: "Esplora la Forest",
-    forestInlineEyebrow: "CRESCERE GRAZIE AI FEEDBACK",
-    forestInlineHeading: "I feedback attenti diventano alberi reali.",
+    forestInlineCta: "Esplora Forest",
+    forestInlineEyebrow: "Feedback che lascia il segno",
+    forestInlineHeading: "Ogni feedback fa crescere alberi veri.",
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} alberi piantati grazie ai feedback sul portfolio · ${totalTrees} alberi nella mia foresta`,
     goTo: (label: string) => `Vai a ${label}`,
