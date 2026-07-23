@@ -27,8 +27,8 @@ export interface ExperienceProps {
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
+    padding-top: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 
@@ -36,7 +36,7 @@ const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   max-width: 600px;
   @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.space["lg"]};
   }
 `;
 
