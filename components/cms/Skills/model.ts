@@ -6,11 +6,25 @@ export const defaultSkills: SkillsProps = {
   categories: [
     {
       title: "Languages & Frameworks",
-      skills: ["React", "Next.js", "TypeScript", "JavaScript", "Redux", "Vue.js"],
+      skills: [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "Redux",
+        "Vue.js",
+      ],
     },
     {
       title: "Commerce & CMS",
-      skills: ["Shopify", "BigCommerce", "Prismic", "Contentful", "Algolia", "headless WordPress"],
+      skills: [
+        "Shopify",
+        "BigCommerce",
+        "Prismic",
+        "Contentful",
+        "Algolia",
+        "headless WordPress",
+      ],
     },
     {
       title: "Shopify App Stack",
@@ -18,11 +32,25 @@ export const defaultSkills: SkillsProps = {
     },
     {
       title: "Tooling & Testing",
-      skills: ["Storybook", "Chromatic", "Jest", "Sentry", "Webpack", "Node.js", "Git"],
+      skills: [
+        "Storybook",
+        "Chromatic",
+        "Jest",
+        "Sentry",
+        "Webpack",
+        "Node.js",
+        "Git",
+      ],
     },
     {
       title: "Practices",
-      skills: ["Frontend Architecture", "Design Systems", "Core Web Vitals", "WCAG 2.1 AA", "Tech Leadership"],
+      skills: [
+        "Frontend Architecture",
+        "Design Systems",
+        "Core Web Vitals",
+        "WCAG 2.1 AA",
+        "Tech Leadership",
+      ],
     },
   ],
 };

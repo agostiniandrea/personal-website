@@ -24,7 +24,7 @@ function getIp(req: NextApiRequest): string {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Response>
+  res: NextApiResponse<Response>,
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -55,24 +55,38 @@ export default async function handler(
     return res.status(400).json({ error: "Message is too short" });
   }
 
-  if (name !== undefined && name !== null && name !== "" && (typeof name !== "string" || name.length > 100)) {
+  if (
+    name !== undefined &&
+    name !== null &&
+    name !== "" &&
+    (typeof name !== "string" || name.length > 100)
+  ) {
     return res.status(400).json({ error: "Invalid name" });
   }
 
   if (email !== undefined && email !== null && email !== "") {
-    if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (
+      typeof email !== "string" ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
       return res.status(400).json({ error: "Invalid email" });
     }
   }
 
   if (linkedin !== undefined && linkedin !== null && linkedin !== "") {
-    if (typeof linkedin !== "string" || !/^https?:\/\/(www\.)?linkedin\.com\//.test(linkedin)) {
+    if (
+      typeof linkedin !== "string" ||
+      !/^https?:\/\/(www\.)?linkedin\.com\//.test(linkedin)
+    ) {
       return res.status(400).json({ error: "Invalid LinkedIn URL" });
     }
   }
 
   if (github !== undefined && github !== null && github !== "") {
-    if (typeof github !== "string" || !/^https?:\/\/(www\.)?github\.com\//.test(github)) {
+    if (
+      typeof github !== "string" ||
+      !/^https?:\/\/(www\.)?github\.com\//.test(github)
+    ) {
       return res.status(400).json({ error: "Invalid GitHub URL" });
     }
   }
@@ -80,7 +94,8 @@ export default async function handler(
   if (website !== undefined && website !== null && website !== "") {
     try {
       const url = new URL(website);
-      if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error();
+      if (url.protocol !== "http:" && url.protocol !== "https:")
+        throw new Error();
     } catch {
       return res.status(400).json({ error: "Invalid website URL" });
     }
@@ -98,7 +113,9 @@ export default async function handler(
   const ip = getIp(req);
 
   // IP cooldown — 1 submission per IP per 24h
-  const since = new Date(Date.now() - COOLDOWN_HOURS * 60 * 60 * 1000).toISOString();
+  const since = new Date(
+    Date.now() - COOLDOWN_HOURS * 60 * 60 * 1000,
+  ).toISOString();
   const { count } = await supabase
     .from("feedback")
     .select("id", { count: "exact", head: true })
@@ -106,7 +123,9 @@ export default async function handler(
     .gte("created_at", since);
 
   if (count && count > 0) {
-    return res.status(429).json({ error: "You've already submitted feedback recently. Thank you!" });
+    return res.status(429).json({
+      error: "You've already submitted feedback recently. Thank you!",
+    });
   }
 
   const { error } = await supabase.from("feedback").insert({

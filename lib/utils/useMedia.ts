@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
+
 interface IUseMedia {
   isMobile: boolean;
   isDesktop: boolean;
@@ -17,7 +19,7 @@ export const useMedia = (): IUseMedia => {
     if (typeof window == "undefined") return;
 
     const mobileListener = window.matchMedia(
-      "(min-width: 0px) and (max-width: 600px)",
+      `(min-width: ${BREAKPOINTS.xMobile}) and (max-width: ${BREAKPOINTS_BELOW.mobile})`,
     );
 
     if (isMobile !== mobileListener.matches) {
@@ -25,14 +27,16 @@ export const useMedia = (): IUseMedia => {
     }
 
     const tabletListener = window.matchMedia(
-      "(min-width: 600px) and (max-width: 1200px)",
+      `(min-width: ${BREAKPOINTS.mobile}) and (max-width: ${BREAKPOINTS_BELOW.tablet})`,
     );
 
     if (isTablet !== tabletListener.matches) {
       setTablet(tabletListener.matches);
     }
 
-    const desktopListener = window.matchMedia("(min-width: 1200px)");
+    const desktopListener = window.matchMedia(
+      `(min-width: ${BREAKPOINTS.tablet})`,
+    );
 
     if (isDesktop !== desktopListener.matches) {
       setDesktop(desktopListener.matches);

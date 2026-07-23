@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
+import { BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent, trackOnce } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 
@@ -14,7 +15,11 @@ const Card = styled.aside`
     ${({ theme }) => theme.colors.highlight}
   );
   border: 1px solid
-    color-mix(in srgb, ${({ theme }) => theme.colors.highlight} 32%, transparent);
+    color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.highlight} 32%,
+      transparent
+    );
   border-radius: ${({ theme }) => theme.radii.lg};
   bottom: ${({ theme }) => theme.space.xl};
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
@@ -25,7 +30,7 @@ const Card = styled.aside`
   right: ${({ theme }) => theme.space.xl};
   z-index: 90;
 
-  @media (max-width: 899.98px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
     display: none;
   }
 `;
@@ -93,6 +98,8 @@ const notifyVisibility = (visible: boolean) => {
   );
 };
 
+const DISMISSED_KEY = "forest-desktop-nudge-dismissed";
+
 const FeedbackNudge: React.FC = () => {
   const router = useRouter();
   const t = useI18n(router.locale);
@@ -100,11 +107,17 @@ const FeedbackNudge: React.FC = () => {
   const [inlineTeaserVisible, setInlineTeaserVisible] = useState(false);
   const [projectActionsVisible, setProjectActionsVisible] = useState(false);
   const [teaserEngaged, setTeaserEngaged] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const visible =
     !dismissed &&
     !inlineTeaserVisible &&
+    !modalOpen &&
     !projectActionsVisible &&
     !teaserEngaged;
+
+  useEffect(() => {
+    setDismissed(sessionStorage.getItem(DISMISSED_KEY) === "true");
+  }, []);
 
   useEffect(() => {
     const projects = document.getElementById("projects");
@@ -114,6 +127,18 @@ const FeedbackNudge: React.FC = () => {
       { threshold: 0.05 },
     );
     observer.observe(projects);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const forest = document.getElementById("forest");
+    if (!forest) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      sessionStorage.setItem(DISMISSED_KEY, "true");
+      setDismissed(true);
+    });
+    observer.observe(forest);
     return () => observer.disconnect();
   }, []);
 
@@ -139,6 +164,21 @@ const FeedbackNudge: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const updateModalState = () => {
+      const nextModalOpen = Boolean(
+        document.querySelector('[aria-modal="true"]'),
+      );
+      setModalOpen((current) =>
+        current === nextModalOpen ? current : nextModalOpen,
+      );
+    };
+    updateModalState();
+    const observer = new MutationObserver(updateModalState);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     notifyVisibility(visible);
     if (visible) {
       trackOnce(
@@ -153,8 +193,10 @@ const FeedbackNudge: React.FC = () => {
   if (!visible) return null;
 
   const openForest = () => {
+    sessionStorage.setItem(DISMISSED_KEY, "true");
+    setDismissed(true);
     trackEvent("feedback_nudge_click", { locale: router.locale ?? "en" });
-    document.getElementById("forest")?.scrollIntoView({
+    document.getElementById("forest-impact")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -171,6 +213,7 @@ const FeedbackNudge: React.FC = () => {
         <Close
           aria-label={t.feedbackNudgeDismiss}
           onClick={() => {
+            sessionStorage.setItem(DISMISSED_KEY, "true");
             trackEvent("feedback_nudge_dismiss", {
               locale: router.locale ?? "en",
             });

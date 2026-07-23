@@ -15,6 +15,7 @@ export const colors = {
 
   // surface & accent tokens
   surface: "var(--color-surface)",
+  surfaceRaised: "var(--color-surface-raised)",
   badgeBg: "var(--color-badge-bg)",
   ringStart: "var(--color-ring-start)",
   ringEnd: "var(--color-ring-end)",

@@ -4,10 +4,10 @@ import NextHead from "next/head";
 import { createClient } from "@supabase/supabase-js";
 
 import { Seo } from "@components/atoms";
-import { SiteFooter,SiteHeader } from "@components/cms";
+import { SiteFooter, SiteHeader } from "@components/cms";
 import { FeedbackNudge } from "@components/molecules";
 import { MobileNav, ModuleRenderer, SectionDots } from "@components/organisms";
-import { MODULES,PAGE_TYPES } from "@constants";
+import { MODULES, PAGE_TYPES } from "@constants";
 import {
   getPageContent,
   getSiteFooterContent,
@@ -26,9 +26,11 @@ type THomepage = {
   locale: string;
 };
 
-export async function getStaticProps({ locale = "en" }: { locale?: string }): Promise<
-  GetStaticPropsResult<THomepage>
-> {
+export async function getStaticProps({
+  locale = "en",
+}: {
+  locale?: string;
+}): Promise<GetStaticPropsResult<THomepage>> {
   const [page, header, footer] = await Promise.all([
     getPageContent(PAGE_TYPES.HOME, "", locale),
     getSiteHeaderContent(locale),
@@ -137,9 +139,14 @@ export default function Home({ page, header, footer, locale }: THomepage) {
       {header && <SiteHeader {...header} />}
       <SectionDots />
       <main id="main-content">
-        <ModuleRenderer components={page.modules} pageOrigin={PAGE_TYPES.HOME} />
+        <ModuleRenderer
+          components={page.modules}
+          pageOrigin={PAGE_TYPES.HOME}
+        />
       </main>
-      <SiteFooter {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })} />
+      <SiteFooter
+        {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })}
+      />
       <FeedbackNudge />
       <MobileNav cvDownloadUrl={extractCvUrl(page)} />
     </>

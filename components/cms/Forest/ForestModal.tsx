@@ -14,7 +14,8 @@ const copy = {
     close: "✕",
     closeAriaLabel: "Close",
     s1Title: "Help this portfolio grow.",
-    s1Body: "I'd love to hear your thoughts. Every meaningful suggestion helps improve this project — and I'll plant two real trees in return: one dedicated to you, one matched by me.",
+    s1Body:
+      "I'd love to hear your thoughts. Every meaningful suggestion helps improve this project — and I'll plant two real trees in return: one dedicated to you, one matched by me.",
     s2Title: "What type of feedback?",
     s2CatAriaLabel: "Feedback category",
     s3Title: "What would you improve?",
@@ -33,13 +34,15 @@ const copy = {
     websitePlaceholder: "Website",
     websiteAriaLabel: "Website URL",
     publicAck: "I'm happy to be credited publicly for this suggestion.",
-    errorMsg: "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
+    errorMsg:
+      "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
     sending: "Sending…",
     send: "🌱 Send",
     continue: "Continue →",
     back: "← Back",
     s5Title: "Thank you.",
-    s5Body: "Your leaf has been received. I'll personally read every submission.",
+    s5Body:
+      "Your leaf has been received. I'll personally read every submission.",
     s5Close: "Close",
     errName: "Name must be under 100 characters.",
     errEmail: "Please enter a valid email address.",
@@ -52,7 +55,8 @@ const copy = {
     close: "✕",
     closeAriaLabel: "Chiudi",
     s1Title: "Aiuta questo portfolio a crescere.",
-    s1Body: "Mi farebbe piacere conoscere il tuo punto di vista. Ogni suggerimento significativo migliora il progetto — e in cambio pianto due alberi veri: uno dedicato a te e uno aggiunto da me.",
+    s1Body:
+      "Mi farebbe piacere conoscere il tuo punto di vista. Ogni suggerimento significativo migliora il progetto — e in cambio pianto due alberi veri: uno dedicato a te e uno aggiunto da me.",
     s2Title: "Che tipo di feedback?",
     s2CatAriaLabel: "Categoria del feedback",
     s3Title: "Cosa miglioreresti?",
@@ -70,14 +74,17 @@ const copy = {
     githubAriaLabel: "URL GitHub",
     websitePlaceholder: "Sito web",
     websiteAriaLabel: "URL sito web",
-    publicAck: "Sono felice di essere citato pubblicamente per questo suggerimento.",
-    errorMsg: "Qualcosa è andato storto. Riprova oppure scrivimi a a.agostini92@gmail.com",
+    publicAck:
+      "Sono felice di essere citato pubblicamente per questo suggerimento.",
+    errorMsg:
+      "Qualcosa è andato storto. Riprova oppure scrivimi a a.agostini92@gmail.com",
     sending: "Invio in corso…",
     send: "🌱 Invia",
     continue: "Continua →",
     back: "← Indietro",
     s5Title: "Grazie.",
-    s5Body: "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
+    s5Body:
+      "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
     s5Close: "Chiudi",
     errName: "Il nome non può superare i 100 caratteri.",
     errEmail: "Inserisci un indirizzo email valido.",
@@ -114,7 +121,9 @@ function validateWebsite(v: string): string | null {
   if (!v) return null;
   try {
     const url = new URL(v);
-    return url.protocol === "http:" || url.protocol === "https:" ? null : "errWebsite";
+    return url.protocol === "http:" || url.protocol === "https:"
+      ? null
+      : "errWebsite";
   } catch {
     return "errWebsite";
   }
@@ -181,12 +190,12 @@ const CATEGORIES: FeedbackCategory[] = [
 ];
 
 const CATEGORY_LABELS: Record<FeedbackCategory, { en: string; it: string }> = {
-  "UX":               { en: "UX",               it: "UX" },
-  "Accessibility":    { en: "Accessibility",    it: "Accessibilità" },
-  "Performance":      { en: "Performance",      it: "Performance" },
-  "Design":           { en: "Design",           it: "Design" },
-  "Content":          { en: "Content",          it: "Contenuto" },
-  "Bug":              { en: "Bug",              it: "Bug" },
+  UX: { en: "UX", it: "UX" },
+  Accessibility: { en: "Accessibility", it: "Accessibilità" },
+  Performance: { en: "Performance", it: "Performance" },
+  Design: { en: "Design", it: "Design" },
+  Content: { en: "Content", it: "Contenuto" },
+  Bug: { en: "Bug", it: "Bug" },
   "General thoughts": { en: "General thoughts", it: "Considerazioni generali" },
 };
 
@@ -265,7 +274,9 @@ const CloseBtn = styled.button`
   transition: color 0.15s ease;
 
   @media (hover: hover) {
-    &:hover { color: ${({ theme }) => theme.colors.headline}; }
+    &:hover {
+      color: ${({ theme }) => theme.colors.headline};
+    }
   }
 
   &:focus-visible {
@@ -291,7 +302,8 @@ const Dots = styled.div`
 `;
 
 const Dot = styled.span<{ $on: boolean }>`
-  background: ${({ theme, $on }) => ($on ? theme.colors.highlight : "rgba(128,128,128,0.18)")};
+  background: ${({ theme, $on }) =>
+    $on ? theme.colors.highlight : "rgba(128,128,128,0.18)"};
   border-radius: 999px;
   flex: 1;
   height: 3px;
@@ -425,7 +437,8 @@ const InputWrap = styled.div`
 
 const Input = styled.input<{ $invalid?: boolean }>`
   background: transparent;
-  border: 1.5px solid ${({ $invalid }) => ($invalid ? "#ef4444" : "rgba(128, 128, 128, 0.2)")};
+  border: 1.5px solid
+    ${({ $invalid }) => ($invalid ? "#ef4444" : "rgba(128, 128, 128, 0.2)")};
   border-radius: 0.625rem;
   box-sizing: border-box;
   color: ${({ theme }) => theme.colors.headline};
@@ -441,7 +454,8 @@ const Input = styled.input<{ $invalid?: boolean }>`
   }
 
   &:focus {
-    border-color: ${({ $invalid }) => ($invalid ? "#ef4444" : "var(--highlight)")};
+    border-color: ${({ $invalid }) =>
+      $invalid ? "#ef4444" : "var(--highlight)"};
     outline: none;
   }
 `;
@@ -500,7 +514,9 @@ const BackBtn = styled.button`
   transition: color 0.15s ease;
 
   @media (hover: hover) {
-    &:hover { color: ${({ theme }) => theme.colors.headline}; }
+    &:hover {
+      color: ${({ theme }) => theme.colors.headline};
+    }
   }
 
   &:focus-visible {
@@ -559,12 +575,12 @@ const Leaves = styled.div`
 `;
 
 const Leaf = styled.span<{ $delay: number; $drift: string }>`
+  --drift: ${({ $drift }) => $drift};
+  animation: ${leafFall} 1.3s ease-out ${({ $delay }) => $delay}s both;
   font-size: ${({ theme }) => theme.fontSizes.xl};
   left: 50%;
   position: absolute;
   top: 0;
-  --drift: ${({ $drift }) => $drift};
-  animation: ${leafFall} 1.3s ease-out ${({ $delay }) => $delay}s both;
 `;
 
 const SuccessTitle = styled.h2`
@@ -593,7 +609,10 @@ const LEAVES = [
   { delay: 0.65, drift: "36px" },
 ];
 
-export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => {
+export const ForestModal: React.FC<ForestModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<FeedbackData>(EMPTY);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -620,7 +639,9 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
 
   useEffect(() => {
     if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
@@ -633,13 +654,26 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
     if (isOpen) firstFocusRef.current?.focus();
   }, [step, isOpen]);
 
-  const next = useCallback(() => setStep((s) => (Math.min(s + 1, 5) as Step)), []);
-  const back = useCallback(() => { setError(null); setStep((s) => (Math.max(s - 1, 1) as Step)); }, []);
+  const next = useCallback(
+    () => setStep((s) => Math.min(s + 1, 5) as Step),
+    [],
+  );
+  const back = useCallback(() => {
+    setError(null);
+    setStep((s) => Math.max(s - 1, 1) as Step);
+  }, []);
 
-  const touch = (field: string) => setTouched((prev) => ({ ...prev, [field]: true }));
+  const touch = (field: string) =>
+    setTouched((prev) => ({ ...prev, [field]: true }));
 
   const submit = async () => {
-    setTouched({ name: true, email: true, linkedin: true, github: true, website: true });
+    setTouched({
+      name: true,
+      email: true,
+      linkedin: true,
+      github: true,
+      website: true,
+    });
     if (!canSubmit) return;
     setSubmitting(true);
     setError(null);
@@ -668,7 +702,9 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
 
   const modal = (
     <Backdrop
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
       role="dialog"
       aria-modal="true"
       aria-label={t.ariaLabel}
@@ -684,7 +720,9 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
           ) : (
             <div style={{ flex: 1 }} />
           )}
-          <CloseBtn onClick={onClose} aria-label={t.closeAriaLabel}>{t.close}</CloseBtn>
+          <CloseBtn onClick={onClose} aria-label={t.closeAriaLabel}>
+            {t.close}
+          </CloseBtn>
         </ModalHeader>
 
         {step === 1 && (
@@ -715,7 +753,9 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               ))}
             </CatGrid>
             <BtnRow>
-              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
+              <BackBtn onClick={back} type="button">
+                {t.back}
+              </BackBtn>
               <PrimaryBtn
                 ref={firstFocusRef}
                 onClick={next}
@@ -734,12 +774,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
             <Textarea
               placeholder={t.s3Placeholder}
               value={data.message}
-              onChange={(e) => setData((d) => ({ ...d, message: e.target.value }))}
+              onChange={(e) =>
+                setData((d) => ({ ...d, message: e.target.value }))
+              }
               aria-label={t.s3FieldAriaLabel}
               autoFocus
             />
             <BtnRow>
-              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
+              <BackBtn onClick={back} type="button">
+                {t.back}
+              </BackBtn>
               <PrimaryBtn
                 onClick={next}
                 disabled={data.message.trim().length < 10}
@@ -761,12 +805,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   placeholder={t.namePlaceholder}
                   value={data.name}
                   $invalid={!!(touched.name && fieldErrors.name)}
-                  onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
+                  onChange={(e) =>
+                    setData((d) => ({ ...d, name: e.target.value }))
+                  }
                   onBlur={() => touch("name")}
                   aria-label={t.nameAriaLabel}
                 />
                 {touched.name && fieldErrors.name && (
-                  <FieldError role="alert">{t[fieldErrors.name as keyof typeof t]}</FieldError>
+                  <FieldError role="alert">
+                    {t[fieldErrors.name as keyof typeof t]}
+                  </FieldError>
                 )}
               </InputWrap>
               <InputWrap>
@@ -775,12 +823,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   type="email"
                   value={data.email}
                   $invalid={!!(touched.email && fieldErrors.email)}
-                  onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
+                  onChange={(e) =>
+                    setData((d) => ({ ...d, email: e.target.value }))
+                  }
                   onBlur={() => touch("email")}
                   aria-label={t.emailAriaLabel}
                 />
                 {touched.email && fieldErrors.email && (
-                  <FieldError role="alert">{t[fieldErrors.email as keyof typeof t]}</FieldError>
+                  <FieldError role="alert">
+                    {t[fieldErrors.email as keyof typeof t]}
+                  </FieldError>
                 )}
               </InputWrap>
               <InputWrap>
@@ -788,12 +840,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   placeholder={t.linkedinPlaceholder}
                   value={data.linkedin}
                   $invalid={!!(touched.linkedin && fieldErrors.linkedin)}
-                  onChange={(e) => setData((d) => ({ ...d, linkedin: e.target.value }))}
+                  onChange={(e) =>
+                    setData((d) => ({ ...d, linkedin: e.target.value }))
+                  }
                   onBlur={() => touch("linkedin")}
                   aria-label={t.linkedinAriaLabel}
                 />
                 {touched.linkedin && fieldErrors.linkedin && (
-                  <FieldError role="alert">{t[fieldErrors.linkedin as keyof typeof t]}</FieldError>
+                  <FieldError role="alert">
+                    {t[fieldErrors.linkedin as keyof typeof t]}
+                  </FieldError>
                 )}
               </InputWrap>
               <InputWrap>
@@ -801,12 +857,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   placeholder={t.githubPlaceholder}
                   value={data.github}
                   $invalid={!!(touched.github && fieldErrors.github)}
-                  onChange={(e) => setData((d) => ({ ...d, github: e.target.value }))}
+                  onChange={(e) =>
+                    setData((d) => ({ ...d, github: e.target.value }))
+                  }
                   onBlur={() => touch("github")}
                   aria-label={t.githubAriaLabel}
                 />
                 {touched.github && fieldErrors.github && (
-                  <FieldError role="alert">{t[fieldErrors.github as keyof typeof t]}</FieldError>
+                  <FieldError role="alert">
+                    {t[fieldErrors.github as keyof typeof t]}
+                  </FieldError>
                 )}
               </InputWrap>
               <InputWrap>
@@ -814,12 +874,16 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
                   placeholder={t.websitePlaceholder}
                   value={data.website}
                   $invalid={!!(touched.website && fieldErrors.website)}
-                  onChange={(e) => setData((d) => ({ ...d, website: e.target.value }))}
+                  onChange={(e) =>
+                    setData((d) => ({ ...d, website: e.target.value }))
+                  }
                   onBlur={() => touch("website")}
                   aria-label={t.websiteAriaLabel}
                 />
                 {touched.website && fieldErrors.website && (
-                  <FieldError role="alert">{t[fieldErrors.website as keyof typeof t]}</FieldError>
+                  <FieldError role="alert">
+                    {t[fieldErrors.website as keyof typeof t]}
+                  </FieldError>
                 )}
               </InputWrap>
             </InputList>
@@ -832,14 +896,23 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
               tabIndex={-1}
               aria-hidden="true"
               autoComplete="off"
-              style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                width: "1px",
+                height: "1px",
+                opacity: 0,
+              }}
             />
             <CheckboxRow>
               <input
                 type="checkbox"
                 checked={data.publicAcknowledgment}
                 onChange={(e) =>
-                  setData((d) => ({ ...d, publicAcknowledgment: e.target.checked }))
+                  setData((d) => ({
+                    ...d,
+                    publicAcknowledgment: e.target.checked,
+                  }))
                 }
                 id="public-ack"
               />
@@ -847,12 +920,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
             </CheckboxRow>
             {error && <ErrorMsg role="alert">{t.errorMsg}</ErrorMsg>}
             <BtnRow>
-              <BackBtn onClick={back} type="button">{t.back}</BackBtn>
-              <PrimaryBtn
-                onClick={submit}
-                disabled={!canSubmit}
-                type="button"
-              >
+              <BackBtn onClick={back} type="button">
+                {t.back}
+              </BackBtn>
+              <PrimaryBtn onClick={submit} disabled={!canSubmit} type="button">
                 {submitting ? t.sending : t.send}
               </PrimaryBtn>
             </BtnRow>
@@ -863,7 +934,9 @@ export const ForestModal: React.FC<ForestModalProps> = ({ isOpen, onClose }) => 
           <SuccessWrap key="s5">
             <Leaves aria-hidden="true">
               {LEAVES.map(({ delay, drift }, i) => (
-                <Leaf key={i} $delay={delay} $drift={drift}>🍃</Leaf>
+                <Leaf key={i} $delay={delay} $drift={drift}>
+                  🍃
+                </Leaf>
               ))}
             </Leaves>
             <SuccessTitle>{t.s5Title}</SuccessTitle>

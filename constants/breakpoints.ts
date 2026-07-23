@@ -14,4 +14,18 @@ const breakpoints: Breakpoints = {
   desktop: "1536px",
 };
 
+/**
+ * Max-width counterparts, for styles that target everything *below* a
+ * breakpoint. Offset by 0.02px so they never overlap their min-width twin at
+ * fractional viewport widths (zoom, browser scaling).
+ *
+ * Always pair these with `breakpoints` — never hardcode a raw pixel value.
+ */
+export const breakpointsBelow: Omit<Breakpoints, "xMobile"> = {
+  mobile: "599.98px",
+  xTablet: "899.98px",
+  tablet: "1199.98px",
+  desktop: "1535.98px",
+};
+
 export default breakpoints;

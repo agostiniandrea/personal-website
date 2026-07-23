@@ -18,11 +18,13 @@ const meta: Meta<typeof Flex> = {
   argTypes: {
     direction: {
       control: "text",
-      description: "flex-direction (can be a string or object with breakpoints)",
+      description:
+        "flex-direction (can be a string or object with breakpoints)",
     },
     gap: {
       control: "number",
-      description: "gap value (can be a number, string, or object with breakpoints)",
+      description:
+        "gap value (can be a number, string, or object with breakpoints)",
     },
     alignItems: {
       control: "text",
@@ -98,7 +100,8 @@ export const WithSpacingTokens: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Using spacing token 'xl' (1.5rem = 24px). Tokens: xs, sm, md, lg, xl, 2xl, 3xl, 4xl, etc.",
+        story:
+          "Using spacing token 'xl' (1.5rem = 24px). Tokens: xs, sm, md, lg, xl, 2xl, 3xl, 4xl, etc.",
       },
     },
   },
@@ -119,7 +122,8 @@ export const ResponsiveTokens: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Using spacing tokens in responsive array: ['sm', 'md', 'lg', 'xl'] = [0.5rem, 0.75rem, 1rem, 1.5rem]",
+        story:
+          "Using spacing tokens in responsive array: ['sm', 'md', 'lg', 'xl'] = [0.5rem, 0.75rem, 1rem, 1.5rem]",
       },
     },
   },
@@ -204,9 +208,9 @@ export const PartialArray: Story = {
   parameters: {
     docs: {
       description: {
-        story: "When array has fewer values than breakpoints, the last defined value is used for remaining breakpoints.",
+        story:
+          "When array has fewer values than breakpoints, the last defined value is used for remaining breakpoints.",
       },
     },
   },
 };
-

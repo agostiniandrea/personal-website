@@ -27,7 +27,8 @@ const Card = styled.article`
   border-radius: ${({ theme }) => theme.radii.md};
   display: flex;
   flex-direction: column;
-  padding: ${({ theme }) => theme.space["3xl"]} ${({ theme }) => theme.space["2xl"]};
+  padding: ${({ theme }) => theme.space["3xl"]}
+    ${({ theme }) => theme.space["2xl"]};
 `;
 
 const CategoryLabel = styled.h3`
@@ -61,7 +62,12 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
   intro,
   items,
 }) => (
-  <Box as="section" id="beyond-code" py="3xl" styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }">
+  <Box
+    as="section"
+    id="beyond-code"
+    py="3xl"
+    styles="@media (max-width: 1199px) { padding-top: 2rem; padding-bottom: 2rem; }"
+  >
     <Container>
       <SectionLabel aria-hidden="true">{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
@@ -70,11 +76,15 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
         {items.map((item) => (
           <Card key={item.category}>
             <CategoryLabel>{item.category}</CategoryLabel>
-            <CardDescription variant="small">{item.description}</CardDescription>
+            <CardDescription variant="small">
+              {item.description}
+            </CardDescription>
             {item.tags && item.tags.length > 0 && (
               <TagList aria-label={`${item.category} tags`}>
                 {item.tags.map((tag) => (
-                  <Badge key={tag} as="li" size="sm">{tag}</Badge>
+                  <Badge key={tag} as="li" size="sm">
+                    {tag}
+                  </Badge>
                 ))}
               </TagList>
             )}

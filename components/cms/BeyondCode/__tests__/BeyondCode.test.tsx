@@ -3,11 +3,17 @@ import { screen } from "@testing-library/react";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import BeyondCode from "../index";
-import { defaultBeyondCode, noIntrosBeyondCode, noTagsBeyondCode } from "../model";
+import {
+  defaultBeyondCode,
+  noIntrosBeyondCode,
+  noTagsBeyondCode,
+} from "../model";
 
 describe("BeyondCode", () => {
   it("renders correctly with all props", () => {
-    const { container } = renderWithTheme(<BeyondCode {...defaultBeyondCode} />);
+    const { container } = renderWithTheme(
+      <BeyondCode {...defaultBeyondCode} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
@@ -44,13 +50,17 @@ describe("BeyondCode", () => {
 
   it("does not render intro when absent", () => {
     renderWithTheme(<BeyondCode {...noIntrosBeyondCode} />);
-    expect(screen.queryByText(defaultBeyondCode.intro!)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(defaultBeyondCode.intro!),
+    ).not.toBeInTheDocument();
   });
 
   it("renders all category headings", () => {
     renderWithTheme(<BeyondCode {...defaultBeyondCode} />);
     defaultBeyondCode.items.forEach(({ category }) => {
-      expect(screen.getByRole("heading", { name: category })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: category }),
+      ).toBeInTheDocument();
     });
   });
 

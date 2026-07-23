@@ -214,8 +214,8 @@ describe("Forest", () => {
       );
       expect(numbers).toEqual([
         String(fullStatForest.feedbackCount),
+        String(fullStatForest.rewardedFeedbackCount),
         String(fullStatForest.treesDedicatedCount),
-        String(fullStatForest.improvementsCount),
       ]);
     });
   });

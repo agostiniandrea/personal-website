@@ -3,7 +3,7 @@
  * lg = 1rem (baseline = 16px default font size)
  * Scale goes up: xl, 2xl, 3xl, 4xl, 5xl, 6xl...
  * Scale goes down: md, sm, xs
- * 
+ *
  * xs = 0.25rem (4px)
  * sm = 0.5rem (8px)
  * md = 0.75rem (12px)
@@ -70,18 +70,17 @@ export const toSpacing = (value: SpacingToken | number | string): string => {
   if (value === 0 || value === "0") {
     return spacing(0);
   }
-  
+
   // If it's a string that matches a valid token, use the token system
   if (typeof value === "string" && value in spacingTokens) {
     return spacing(value as SpacingToken);
   }
-  
+
   // If it's a number, assume it's pixels
   if (typeof value === "number") {
     return `${value}px`;
   }
-  
+
   // If it's already a string (not a token), return as-is
   return value;
 };
-

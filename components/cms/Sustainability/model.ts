@@ -84,7 +84,8 @@ export const defaultSustainability: SustainabilityProps = {
 export const minimalSustainability: SustainabilityProps = {
   sectionLabel: "Values & Action",
   heading: "Sustainability matters to me",
-  intro: "I believe the tech industry has a responsibility to build lighter, more mindful products.",
+  intro:
+    "I believe the tech industry has a responsibility to build lighter, more mindful products.",
   values: ["Environment", "Education"],
   volunteeringItems: [
     {

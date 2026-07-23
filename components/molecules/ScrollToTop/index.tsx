@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
+import { BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 
 const Button = styled.button<{ $visible: boolean }>`
@@ -22,7 +23,9 @@ const Button = styled.button<{ $visible: boolean }>`
   position: fixed;
   right: ${({ theme }) => theme.space["2xl"]};
   transform: translateY(${({ $visible }) => ($visible ? "0" : "0.5rem")});
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
   width: 2.75rem;
   z-index: 100;
 
@@ -42,7 +45,7 @@ const Button = styled.button<{ $visible: boolean }>`
   }
 
   /* Clear the fixed bottom tab bar when the mobile app-like nav is active */
-  @media (max-width: 899.98px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
     html[data-mobile-view] && {
       bottom: calc(4.5rem + 1rem + env(safe-area-inset-bottom));
     }
@@ -81,7 +84,7 @@ const ScrollToTop: React.FC = () => {
     if (!footer) return;
     const observer = new IntersectionObserver(
       ([entry]) => setFooterVisible(entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     observer.observe(footer);
     return () => observer.disconnect();
@@ -93,8 +96,20 @@ const ScrollToTop: React.FC = () => {
       aria-label={t.scrollToTop}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M8 13V3M8 3L3 8M8 3l5 5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M8 13V3M8 3L3 8M8 3l5 5"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     </Button>
   );

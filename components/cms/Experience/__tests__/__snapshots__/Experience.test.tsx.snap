@@ -208,14 +208,14 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c5 {
     margin-bottom: 1.5rem;
   }
@@ -546,14 +546,14 @@ exports[`Experience renders correctly with all items 1`] = `
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .c5 {
     margin-bottom: 1.5rem;
   }

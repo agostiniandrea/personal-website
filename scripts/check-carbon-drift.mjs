@@ -9,18 +9,18 @@
  *
  * Usage: node scripts/check-carbon-drift.mjs [lighthouseci-dir]
  */
-import { appendFileSync,readdirSync, readFileSync } from "node:fs";
+import { appendFileSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const THRESHOLD_PERCENT = 15;
 
 const lhciDir = process.argv[2] ?? ".lighthouseci";
 const baseline = JSON.parse(
-  readFileSync("constants/websiteCarbon.json", "utf8")
+  readFileSync("constants/websiteCarbon.json", "utf8"),
 );
 
 const lhrFile = readdirSync(lhciDir).find(
-  (f) => f.startsWith("lhr-") && f.endsWith(".json")
+  (f) => f.startsWith("lhr-") && f.endsWith(".json"),
 );
 if (!lhrFile) {
   console.error(`No lhr-*.json found in ${lhciDir} — did lhci collect run?`);
@@ -43,13 +43,13 @@ console.log(summary);
 console.log(
   exceeded
     ? "Drift threshold exceeded — the official Website Carbon test should be re-run."
-    : "Within threshold — stored Website Carbon result is still representative."
+    : "Within threshold — stored Website Carbon result is still representative.",
 );
 
 if (process.env.GITHUB_OUTPUT) {
   appendFileSync(
     process.env.GITHUB_OUTPUT,
-    `exceeded=${exceeded}\nsummary=${summary}\ncurrent_kb=${currentKb.toFixed(0)}\n`
+    `exceeded=${exceeded}\nsummary=${summary}\ncurrent_kb=${currentKb.toFixed(0)}\n`,
   );
 }
 

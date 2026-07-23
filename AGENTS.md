@@ -56,9 +56,13 @@ Every PR with a user-visible change must include screenshots captured from the
 Vercel preview after deployment succeeds. Add them to the PR's `Screenshots`
 section at these standard viewport widths:
 
-- Desktop: 1440px
-- Tablet: 768px
-- Mobile: 390px
+- Desktop: 1440px (above the `tablet` breakpoint — full desktop layout)
+- Tablet: 1024px (between `xTablet` 900px and `tablet` 1200px — desktop nav, two-column content)
+- Mobile: 390px (below `mobile` 600px — bottom-tab mobile layout)
+
+The mobile navigation switches to the desktop header at 900px (`xTablet`), so a
+768px capture would still show the mobile layout and duplicate the 390px shot —
+use 1024px to actually exercise the intermediate layout.
 
 Show the affected UI in the same state at every viewport. Include both closed
 and open/interactive states when the change introduces a popover, modal,

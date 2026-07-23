@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
+import { BREAKPOINTS_BELOW } from "@constants";
+
 const copy = {
   en: {
     eyebrow: "Privacy",
@@ -53,7 +55,8 @@ const Card = styled.div`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
   left: 1.5rem;
   max-width: 440px;
-  padding: 1.25rem ${({ theme }) => theme.space.xl} ${({ theme }) => theme.space.xl};
+  padding: 1.25rem ${({ theme }) => theme.space.xl}
+    ${({ theme }) => theme.space.xl};
   position: fixed;
   width: calc(100% - 3rem);
   z-index: 9000;
@@ -68,7 +71,7 @@ const Card = styled.div`
   }
 
   /* Sit above the fixed bottom tab bar when the mobile nav is active */
-  @media (max-width: 899.98px) {
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
     html[data-mobile-view] && {
       bottom: calc(4.5rem + 1rem + env(safe-area-inset-bottom));
     }
@@ -132,7 +135,9 @@ const PrimaryBtn = styled.button`
   white-space: nowrap;
 
   @media (hover: hover) {
-    &:hover { opacity: 0.85; }
+    &:hover {
+      opacity: 0.85;
+    }
   }
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.button};
@@ -142,7 +147,12 @@ const PrimaryBtn = styled.button`
 
 const SecondaryBtn = styled.button`
   background: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.highlight}55;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.highlight} 33%,
+      transparent
+    );
   border-radius: ${({ theme }) => theme.radii.xs};
   color: #0a0a0f;
   cursor: pointer;
@@ -155,7 +165,9 @@ const SecondaryBtn = styled.button`
   white-space: nowrap;
 
   @media (hover: hover) {
-    &:hover { opacity: 0.7; }
+    &:hover {
+      opacity: 0.7;
+    }
   }
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
@@ -176,7 +188,9 @@ const TextBtn = styled.button`
   transition: opacity 0.2s ease;
 
   @media (hover: hover) {
-    &:hover { opacity: 0.7; }
+    &:hover {
+      opacity: 0.7;
+    }
   }
   &:focus-visible {
     border-radius: 2px;
@@ -197,7 +211,9 @@ const PreferenceRow = styled.div`
   gap: ${({ theme }) => theme.space.lg};
   justify-content: space-between;
 
-  & + & { margin-top: 0.75rem; }
+  & + & {
+    margin-top: 0.75rem;
+  }
 `;
 
 const PreferenceName = styled.p`
@@ -215,7 +231,11 @@ const PreferenceDesc = styled.p`
 
 const Toggle = styled.button<{ $on: boolean; $disabled?: boolean }>`
   background: ${({ $on, $disabled, theme }) =>
-    $disabled ? theme.colors.main : $on ? theme.colors.highlight : theme.colors.main};
+    $disabled
+      ? theme.colors.main
+      : $on
+        ? theme.colors.highlight
+        : theme.colors.main};
   border: none;
   border-radius: 999px;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
@@ -263,7 +283,12 @@ const CookieBanner: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <Card role="dialog" aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
+    <Card
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cookie-title"
+      aria-describedby="cookie-desc"
+    >
       <Eyebrow>{t.eyebrow}</Eyebrow>
       <Title id="cookie-title">{t.title}</Title>
       <Body id="cookie-desc">{t.body}</Body>
@@ -272,17 +297,27 @@ const CookieBanner: React.FC = () => {
         {showPreferences ? (
           <>
             <MainActions>
-              <PrimaryBtn onClick={() => save("custom", analyticsOn)}>{t.savePreferences}</PrimaryBtn>
+              <PrimaryBtn onClick={() => save("custom", analyticsOn)}>
+                {t.savePreferences}
+              </PrimaryBtn>
             </MainActions>
-            <TextBtn onClick={() => setShowPreferences(false)}>{t.back}</TextBtn>
+            <TextBtn onClick={() => setShowPreferences(false)}>
+              {t.back}
+            </TextBtn>
           </>
         ) : (
           <>
             <MainActions>
-              <PrimaryBtn onClick={() => save("accepted", true)}>{t.acceptAll}</PrimaryBtn>
-              <SecondaryBtn onClick={() => save("rejected", false)}>{t.rejectNonEssential}</SecondaryBtn>
+              <PrimaryBtn onClick={() => save("accepted", true)}>
+                {t.acceptAll}
+              </PrimaryBtn>
+              <SecondaryBtn onClick={() => save("rejected", false)}>
+                {t.rejectNonEssential}
+              </SecondaryBtn>
             </MainActions>
-            <TextBtn onClick={() => setShowPreferences(true)}>{t.managePreferences}</TextBtn>
+            <TextBtn onClick={() => setShowPreferences(true)}>
+              {t.managePreferences}
+            </TextBtn>
           </>
         )}
       </Actions>
@@ -295,7 +330,12 @@ const CookieBanner: React.FC = () => {
               <PreferenceName>{t.essential}</PreferenceName>
               <PreferenceDesc>{t.essentialDesc}</PreferenceDesc>
             </div>
-            <Toggle $on={true} $disabled={true} aria-label={t.essentialAriaLabel} aria-pressed={true} />
+            <Toggle
+              $on={true}
+              $disabled={true}
+              aria-label={t.essentialAriaLabel}
+              aria-pressed={true}
+            />
           </PreferenceRow>
           <PreferenceRow>
             <div>

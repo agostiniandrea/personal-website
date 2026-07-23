@@ -2,10 +2,8 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { Heading, Text } from "@components/ions";
-
-import { useMedia } from "../../../lib/utils/useMedia";
-import Link from "../../ions/Link";
+import { Heading, Link, Text } from "@components/ions";
+import { useMedia } from "@utils/useMedia";
 
 export interface HeadingBoxProps {
   heading: string | null;
@@ -70,7 +68,11 @@ const HeadingBox: React.FC<HeadingBoxProps> = ({
 
   return (
     <HeadingBoxContainer role="region" aria-label="Heading Box">
-      {preHeading && <PreHeading as="span" id="pre-heading">{preHeading}</PreHeading>}
+      {preHeading && (
+        <PreHeading as="span" id="pre-heading">
+          {preHeading}
+        </PreHeading>
+      )}
       {heading && <Title id="heading-title">{heading}</Title>}
       {description && (
         <Description id="heading-description" $hideDescription={isMobile}>

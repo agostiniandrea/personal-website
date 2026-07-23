@@ -11,7 +11,13 @@ export const defaultExperience: ExperienceProps = {
       period: "May 2022 — Present",
       description:
         "Building and maintaining headless Shopify storefronts on Next.js/TypeScript for brands including 7mesh, Nest Designs and Saul Good. Core contributor and maintainer of Compass, the agency's internal design system powering all client storefronts. Tech lead on selected projects and epics — technical direction, code reviews, and mentoring.",
-      tags: ["Next.js", "TypeScript", "Shopify", "Storybook", "styled-components"],
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "Shopify",
+        "Storybook",
+        "styled-components",
+      ],
     },
     {
       role: "Senior Frontend Developer → Architect",
@@ -20,7 +26,14 @@ export const defaultExperience: ExperienceProps = {
       period: "Mar 2020 — Apr 2022",
       description:
         "Frontend developer on the Netherlands' main price comparison platform — built the energy comparison product, led the health insurance tool, and architected Kizi.nl, a new consumer brand, alongside the CTO. Promoted to define tech stacks, coding standards, and CI/CD pipelines across the development team.",
-      tags: ["Next.js", "TypeScript", "Redux", "Storybook", "Jest", "Azure DevOps"],
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "Redux",
+        "Storybook",
+        "Jest",
+        "Azure DevOps",
+      ],
     },
     {
       role: "Frontend Developer",
@@ -51,7 +64,8 @@ export const minimalExperience: ExperienceProps = {
       role: "Senior Frontend Developer",
       company: "JIBE eCommerce",
       period: "May 2022 — Present",
-      description: "Leading frontend development for headless Shopify storefronts.",
+      description:
+        "Leading frontend development for headless Shopify storefronts.",
     },
   ],
 };

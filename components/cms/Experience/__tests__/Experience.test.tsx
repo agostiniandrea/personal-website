@@ -7,18 +7,24 @@ import { defaultExperience, minimalExperience } from "../model";
 
 describe("Experience", () => {
   it("renders correctly with all items", () => {
-    const { container } = renderWithTheme(<Experience {...defaultExperience} />);
+    const { container } = renderWithTheme(
+      <Experience {...defaultExperience} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
   it("renders correctly with a single item and no tags", () => {
-    const { container } = renderWithTheme(<Experience {...minimalExperience} />);
+    const { container } = renderWithTheme(
+      <Experience {...minimalExperience} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
   it("renders the section label", () => {
     renderWithTheme(<Experience {...defaultExperience} />);
-    expect(screen.getByText(defaultExperience.sectionLabel, { selector: "p" })).toBeInTheDocument();
+    expect(
+      screen.getByText(defaultExperience.sectionLabel, { selector: "p" }),
+    ).toBeInTheDocument();
   });
 
   it("renders the heading", () => {

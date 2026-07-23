@@ -37,7 +37,8 @@ const meta: Meta<typeof Image> = {
     },
     longDescription: {
       control: "text",
-      description: "Long description — rendered as visually hidden figcaption and referenced via aria-labelledby",
+      description:
+        "Long description — rendered as visually hidden figcaption and referenced via aria-labelledby",
     },
   },
 };
@@ -60,7 +61,8 @@ export const WithLongDescription: Story = {
     alt: "Image with long description",
     width: 400,
     height: 300,
-    longDescription: "A detailed description of the image content for screen readers",
+    longDescription:
+      "A detailed description of the image content for screen readers",
   },
 };
 

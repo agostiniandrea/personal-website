@@ -10,7 +10,7 @@ describe("CarbonBadge", () => {
     const { container } = renderWithTheme(<CarbonBadge />);
 
     expect(
-      screen.getByText(`${WEBSITE_CARBON.emissions}${WEBSITE_CARBON.unit}`)
+      screen.getByText(`${WEBSITE_CARBON.emissions}${WEBSITE_CARBON.unit}`),
     ).toBeInTheDocument();
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -27,7 +27,7 @@ describe("CarbonBadge", () => {
     renderWithTheme(<CarbonBadge />);
 
     expect(
-      document.querySelector('script[src*="website-carbon-badges"]')
+      document.querySelector('script[src*="website-carbon-badges"]'),
     ).not.toBeInTheDocument();
   });
 });

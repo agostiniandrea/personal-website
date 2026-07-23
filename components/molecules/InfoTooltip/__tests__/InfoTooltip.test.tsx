@@ -79,7 +79,9 @@ describe("InfoTooltip", () => {
     fireEvent.mouseLeave(trigger, { relatedTarget: tooltip });
 
     expect(tooltip).toBeInTheDocument();
-    fireEvent.mouseLeave(trigger.parentElement!, { relatedTarget: document.body });
+    fireEvent.mouseLeave(trigger.parentElement!, {
+      relatedTarget: document.body,
+    });
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 

@@ -123,7 +123,6 @@ const MetaCol = styled.div`
   }
 `;
 
-
 const CURRENT_YEAR = new Date().getFullYear();
 
 const SiteFooter: React.FC<SiteFooterProps> = ({
@@ -134,7 +133,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
 }) => (
   <FooterWrapper role="contentinfo">
     <Container>
-
       {/* Primary CTA */}
       <CtaArea>
         {ctaHeading && <CtaHeading>{ctaHeading}</CtaHeading>}
@@ -165,7 +163,10 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           {tagline && (
             <Tagline variant="small">
               {tagline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+                <span key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </span>
               ))}
             </Tagline>
           )}
@@ -177,7 +178,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           </Text>
         </MetaCol>
       </Subfooter>
-
     </Container>
   </FooterWrapper>
 );

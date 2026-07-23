@@ -9,7 +9,11 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 
 import { Head } from "@components/atoms";
-import { AnalyticsScripts, CookieBanner, ScrollToTop } from "@components/molecules";
+import {
+  AnalyticsScripts,
+  CookieBanner,
+  ScrollToTop,
+} from "@components/molecules";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
 import { useI18n } from "@lib/utils/i18n";
@@ -31,16 +35,16 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SkipLink = styled.a`
-  position: absolute;
-  top: -100%;
-  left: 0;
-  padding: 0.75rem 1.25rem;
   background: ${({ theme }) => theme.colors.button};
   color: ${({ theme }) => theme.colors.button_text};
-  font-weight: bold;
   font-size: 1rem;
-  z-index: 9999;
+  font-weight: bold;
+  left: 0;
+  padding: 0.75rem 1.25rem;
+  position: absolute;
   text-decoration: none;
+  top: -100%;
+  z-index: 9999;
 
   &:focus-visible {
     top: 0;
@@ -61,7 +65,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
   }, []);
 
   return (
-    <div className={`${inter.variable} ${spaceGrotesk.variable}`} style={{ display: "contents" }}>
+    <div
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      style={{ display: "contents" }}
+    >
       <ThemeProvider theme={theme}>
         <SkipLink href="#main-content">{t.skipToMainContent}</SkipLink>
         <GlobalStyle />
@@ -69,9 +76,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <Component {...pageProps} />
         <ScrollToTop />
         <CookieBanner />
-        {process.env.NEXT_PUBLIC_VERCEL_ENV && <SpeedInsights />}
-        {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics />}
-        <AnalyticsScripts gaId={GA_ID} clarityId={CLARITY_ID} hasConsent={gaConsent} />
+        {process.env.NEXT_PUBLIC_VERCEL === "1" && <SpeedInsights />}
+        {process.env.NEXT_PUBLIC_VERCEL === "1" && <Analytics />}
+        <AnalyticsScripts
+          gaId={GA_ID}
+          clarityId={CLARITY_ID}
+          hasConsent={gaConsent}
+        />
       </ThemeProvider>
     </div>
   );

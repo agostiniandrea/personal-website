@@ -1,4 +1,11 @@
-import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from "next/document";
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
 
 import { ServerStyleSheet } from "styled-components";
 
@@ -15,7 +22,8 @@ export default class MyDocument extends Document<MyDocumentProps> {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -47,7 +55,9 @@ export default class MyDocument extends Document<MyDocumentProps> {
         <body>
           {/* Resolves the active mobile view from the hash before first paint
               so deep links (e.g. /#forest) never flash the Home tab */}
-          <script dangerouslySetInnerHTML={{ __html: PRE_HYDRATION_VIEW_SCRIPT }} />
+          <script
+            dangerouslySetInnerHTML={{ __html: PRE_HYDRATION_VIEW_SCRIPT }}
+          />
           <Main />
           <NextScript />
         </body>

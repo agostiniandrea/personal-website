@@ -8,10 +8,7 @@ import styled from "styled-components";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
-import {
-  MobileView,
-  MoreDestination,
-} from "@lib/utils/mobileNav";
+import { MobileView, MoreDestination } from "@lib/utils/mobileNav";
 
 export interface MoreSheetProps {
   isOpen: boolean;
@@ -39,7 +36,10 @@ const ITEM_META: Record<
   },
   "beyond-code": {
     title: { en: "Beyond code", it: "Oltre il codice" },
-    subtitle: { en: "Life, travel and passions", it: "Vita, viaggi e passioni" },
+    subtitle: {
+      en: "Life, travel and passions",
+      it: "Vita, viaggi e passioni",
+    },
   },
 };
 
@@ -65,7 +65,12 @@ const Backdrop = styled.div`
 const Sheet = styled.div`
   -webkit-overflow-scrolling: touch;
   background: ${({ theme }) => theme.colors.background};
-  border: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.highlight} 16%, transparent);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.highlight} 16%,
+      transparent
+    );
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
   bottom: calc(4.5rem + env(safe-area-inset-bottom));
@@ -147,8 +152,7 @@ const ItemButton = styled.button<{ $active?: boolean }>`
   background: ${({ $active, theme }) =>
     $active ? theme.colors.badgeBg : "transparent"};
   border: 1px solid
-    ${({ $active, theme }) =>
-      $active ? theme.colors.stroke : "transparent"};
+    ${({ $active, theme }) => ($active ? theme.colors.stroke : "transparent")};
   border-radius: ${({ theme }) => theme.radii.sm};
   color: ${({ $active, theme }) =>
     $active ? theme.colors.highlight : theme.colors.headline};
@@ -203,11 +207,40 @@ const Chevron = styled.span`
 
 const ItemIcon = ({ destination }: { destination: MoreDestination }) => (
   <ItemIconWrap aria-hidden="true">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      {destination === "skills" && <><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /><circle cx="12" cy="12" r="4" /></>}
-      {destination === "experience" && <><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5h8v2M3 12h18" /></>}
-      {destination === "sustainability" && <><path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" /><path d="M5 21c2-6 6-10 12-14" /></>}
-      {destination === "beyond-code" && <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></>}
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {destination === "skills" && (
+        <>
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+          <circle cx="12" cy="12" r="4" />
+        </>
+      )}
+      {destination === "experience" && (
+        <>
+          <rect x="3" y="7" width="18" height="13" rx="2" />
+          <path d="M8 7V5h8v2M3 12h18" />
+        </>
+      )}
+      {destination === "sustainability" && (
+        <>
+          <path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" />
+          <path d="M5 21c2-6 6-10 12-14" />
+        </>
+      )}
+      {destination === "beyond-code" && (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+        </>
+      )}
     </svg>
   </ItemIconWrap>
 );
@@ -289,7 +322,7 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
       }
       if (e.key !== "Tab" || !sheet) return;
       const focusables = Array.from(
-        sheet.querySelectorAll<HTMLElement>("button, a[href]")
+        sheet.querySelectorAll<HTMLElement>("button, a[href]"),
       );
       if (focusables.length === 0) return;
       const first = focusables[0];
@@ -344,8 +377,12 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
               >
                 <ItemIcon destination={destination} />
                 <ItemCopy>
-                  <ItemTitle>{ITEM_META[destination].title[localeKey]}</ItemTitle>
-                  <ItemSubtitle>{ITEM_META[destination].subtitle[localeKey]}</ItemSubtitle>
+                  <ItemTitle>
+                    {ITEM_META[destination].title[localeKey]}
+                  </ItemTitle>
+                  <ItemSubtitle>
+                    {ITEM_META[destination].subtitle[localeKey]}
+                  </ItemSubtitle>
                 </ItemCopy>
                 <Chevron aria-hidden="true">›</Chevron>
               </ItemButton>
@@ -383,6 +420,6 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
         </LocaleRow>
       </Sheet>
     </>,
-    document.body
+    document.body,
   );
 };

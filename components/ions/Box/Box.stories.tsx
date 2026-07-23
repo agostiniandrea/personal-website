@@ -12,11 +12,13 @@ const meta: Meta<typeof Box> = {
   argTypes: {
     m: {
       control: "text",
-      description: "Margin (all sides) - accepts spacing token (xs, sm, md, lg, xl, 2xl, etc.), number (px), or string",
+      description:
+        "Margin (all sides) - accepts spacing token (xs, sm, md, lg, xl, 2xl, etc.), number (px), or string",
     },
     p: {
       control: "text",
-      description: "Padding (all sides) - accepts spacing token, number, or string",
+      description:
+        "Padding (all sides) - accepts spacing token, number, or string",
     },
     gap: {
       control: "text",
@@ -121,7 +123,11 @@ export const WithRowAndColumnGap: Story = {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            style={{ background: "#b3e5fc", padding: "0.5rem", textAlign: "center" }}
+            style={{
+              background: "#b3e5fc",
+              padding: "0.5rem",
+              textAlign: "center",
+            }}
           >
             {i + 1}
           </div>
@@ -167,4 +173,3 @@ export const WithNumberValue: Story = {
     },
   },
 };
-
