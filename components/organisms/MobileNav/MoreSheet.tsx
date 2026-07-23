@@ -43,9 +43,9 @@ const ITEM_META: Record<
   },
 };
 
+/* Experience lives under the Story tab, so it is not repeated here */
 const ITEM_ORDER: MoreDestination[] = [
   "skills",
-  "experience",
   "sustainability",
   "beyond-code",
 ];
@@ -108,17 +108,15 @@ const inertBackground = (): (() => void) => {
     });
 };
 
-/* Stops above the bottom tab bar so the tabs stay visible and tappable while
-   the sheet is open. */
+/* Sits behind the tab bar (the nav has the higher z-index), so the tabs stay
+   visible and tappable while the sheet is open. */
 const Backdrop = styled.div<{ $closing: boolean }>`
   animation: ${({ $closing }) => ($closing ? fadeOut : fadeIn)}
     ${SHEET_ANIMATION_MS}ms ease-out forwards;
   backdrop-filter: blur(2px);
   background: rgba(10, 10, 15, 0.52);
-  bottom: calc(4.5rem + env(safe-area-inset-bottom));
-  inset-inline: 0;
+  inset: 0;
   position: fixed;
-  top: 0;
   z-index: 201;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -144,15 +142,19 @@ const Sheet = styled.div<{ $closing: boolean }>`
     );
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
-  bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  bottom: 0;
   box-sizing: border-box;
   box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.18);
   left: 0;
-  max-height: calc(100svh - 4.5rem - env(safe-area-inset-bottom) - 1rem);
+  max-height: calc(100svh - 4rem);
   overscroll-behavior: contain;
   overflow-y: auto;
+  /* bottom padding clears the fixed tab bar the sheet now slides behind */
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
-    ${({ theme }) => theme.space.xl};
+    calc(
+      var(--mobile-nav-height) + env(safe-area-inset-bottom) +
+        ${({ theme }) => theme.space.xl}
+    );
   position: fixed;
   right: 0;
   z-index: 301;
@@ -406,7 +408,24 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
     restoreFocusRef.current = document.activeElement as HTMLElement | null;
     const sheet = sheetRef.current;
     sheet?.querySelector<HTMLElement>("button, a")?.focus();
-    document.body.style.overflow = "hidden";
+    /* Full scroll lock: overflow alone still lets touch scrolling drag the
+       page on iOS, so the body is pinned and the offset restored on close. */
+    const bodyStyle = document.body.style;
+    const previousBodyStyles = {
+      left: bodyStyle.left,
+      overflow: bodyStyle.overflow,
+      position: bodyStyle.position,
+      right: bodyStyle.right,
+      top: bodyStyle.top,
+      width: bodyStyle.width,
+    };
+    const scrollPosition = window.scrollY;
+    bodyStyle.left = "0";
+    bodyStyle.overflow = "hidden";
+    bodyStyle.position = "fixed";
+    bodyStyle.right = "0";
+    bodyStyle.top = `-${scrollPosition}px`;
+    bodyStyle.width = "100%";
     const restoreInert = inertBackground();
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -432,7 +451,13 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      bodyStyle.left = previousBodyStyles.left;
+      bodyStyle.overflow = previousBodyStyles.overflow;
+      bodyStyle.position = previousBodyStyles.position;
+      bodyStyle.right = previousBodyStyles.right;
+      bodyStyle.top = previousBodyStyles.top;
+      bodyStyle.width = previousBodyStyles.width;
+      window.scrollTo({ behavior: "auto", left: 0, top: scrollPosition });
       restoreInert();
       restoreFocusRef.current?.focus();
     };

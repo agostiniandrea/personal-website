@@ -168,7 +168,7 @@ describe("MobileNav", () => {
       );
     });
 
-    it("marks More as current while the sheet is open and includes Experience", async () => {
+    it("marks More as current while open and leaves Experience to Story", async () => {
       const user = userEvent.setup();
       renderWithTheme(<MobileNav />);
       await user.click(screen.getByRole("button", { name: "More" }));
@@ -176,9 +176,10 @@ describe("MobileNav", () => {
         "aria-current",
         "page",
       );
+      // Experience lives under the Story tab, so the sheet must not repeat it
       expect(
-        screen.getByRole("button", { name: /Experience Where I've worked/i }),
-      ).toBeInTheDocument();
+        screen.queryByRole("button", { name: /Experience Where I've worked/i }),
+      ).not.toBeInTheDocument();
     });
 
     it("closes the sheet when More is tapped again", async () => {

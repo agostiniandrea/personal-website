@@ -36,7 +36,8 @@ const Nav = styled.nav`
   padding-bottom: env(safe-area-inset-bottom);
   position: fixed;
   right: 0;
-  z-index: 200;
+  /* above the More sheet (301), which slides away behind the tab bar */
+  z-index: 400;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     display: none;
@@ -64,14 +65,14 @@ const TabButton = styled.button<{ $active: boolean }>`
   display: flex;
   flex-direction: column;
   font-family: inherit;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: ${({ $active, theme }) =>
     $active ? theme.fontWeights.semiBold : theme.fontWeights.medium};
-  gap: 0.25rem;
+  gap: 0.375rem;
   justify-content: center;
   letter-spacing: 0.02em;
-  min-height: 44px;
-  padding: ${({ theme }) => theme.space.sm} 0 ${({ theme }) => theme.space.xs};
+  min-height: 56px;
+  padding: 0.625rem 0 0.5rem;
   transition: color 0.2s ease;
   width: 100%;
 
