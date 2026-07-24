@@ -169,7 +169,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (max-width: 899.99px) {
   .c0 {
-    padding-top: 1.5rem;
+    display: none;
   }
 }
 
@@ -503,7 +503,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (max-width: 899.99px) {
   .c0 {
-    padding-top: 1.5rem;
+    display: none;
   }
 }
 

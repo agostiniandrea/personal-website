@@ -24,11 +24,10 @@ const FooterWrapper = styled.footer`
   padding-bottom: ${toSpacing("xl")};
   padding-top: ${toSpacing("3xl")};
 
-  /* Slim footer on mobile: the bottom tab bar already handles section
-     navigation, so the footer keeps only its unique content (contact CTA,
-     socials, carbon badge) at a tighter vertical rhythm. */
+  /* Hidden on mobile: the app-style tab bar makes a per-page footer redundant,
+     so its contact/social/carbon/copyright content moves into the More sheet. */
   @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
-    padding-top: ${toSpacing("xl")};
+    display: none;
   }
 `;
 

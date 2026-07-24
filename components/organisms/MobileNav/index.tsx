@@ -25,6 +25,7 @@ import { NAV_ICONS } from "./navIcons";
 
 export interface MobileNavProps {
   cvDownloadUrl?: string;
+  socialLinks?: { label: string; url: string }[];
 }
 
 const Nav = styled.nav`
@@ -112,7 +113,10 @@ const TAB_EVENTS = {
   forest: "mobile_tab_forest",
 } as const;
 
-const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
+const MobileNav: React.FC<MobileNavProps> = ({
+  cvDownloadUrl,
+  socialLinks,
+}) => {
   const router = useRouter();
   const t = useI18n(router.locale);
   const [view, setView] = useState<MobileView>("home");
@@ -239,7 +243,6 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     return () => document.removeEventListener("click", onInternalLink, true);
   }, [navigateTo, router.pathname]);
 
-
   const openSheet = () => {
     trackEvent("mobile_more_open", {});
     setSheetOpen(true);
@@ -353,6 +356,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
         isOpen={sheetOpen}
         activeView={view}
         cvDownloadUrl={cvDownloadUrl}
+        socialLinks={socialLinks}
         onClose={closeSheet}
         onNavigate={onSheetNavigate}
       />

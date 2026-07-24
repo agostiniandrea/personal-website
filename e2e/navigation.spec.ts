@@ -257,17 +257,15 @@ test.describe("mobile app navigation accessibility", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "More" }).click();
     const dialog = page.getByRole("dialog", { name: "Explore" });
-    const localeButton = dialog.getByRole("button", {
-      name: "IT",
-      exact: true,
-    });
+    // The last focusable is the final social link in the footer-info block
+    const lastFocusable = dialog.getByRole("link", { name: "Email" });
 
     await expect(
       dialog.getByRole("button", { name: "Close menu" }),
     ).toBeFocused();
     await page.keyboard.press("Shift+Tab");
 
-    await expect(localeButton).toBeFocused();
+    await expect(lastFocusable).toBeFocused();
   });
 
   for (const width of [320, 375, 390, 430]) {
