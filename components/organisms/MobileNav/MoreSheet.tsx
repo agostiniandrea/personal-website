@@ -134,12 +134,7 @@ const Sheet = styled.div<{ $closing: boolean }>`
     ${SHEET_ANIMATION_MS}ms ease-out forwards;
   -webkit-overflow-scrolling: touch;
   background: ${({ theme }) => theme.colors.background};
-  border: 1px solid
-    color-mix(
-      in srgb,
-      ${({ theme }) => theme.colors.highlight} 16%,
-      transparent
-    );
+  border: 1px solid rgba(128, 128, 128, 0.16);
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
   bottom: 0;
@@ -149,11 +144,12 @@ const Sheet = styled.div<{ $closing: boolean }>`
   max-height: calc(100svh - 4rem);
   overscroll-behavior: contain;
   overflow-y: auto;
-  /* bottom padding clears the fixed tab bar the sheet now slides behind */
+  /* bottom padding clears the fixed tab bar the sheet slides behind — just a
+     small gap above the bar, not a big void */
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
     calc(
       var(--mobile-nav-height) + env(safe-area-inset-bottom) +
-        ${({ theme }) => theme.space.xl}
+        ${({ theme }) => theme.space.sm}
     );
   position: fixed;
   right: 0;

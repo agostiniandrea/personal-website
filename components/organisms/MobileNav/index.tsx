@@ -239,39 +239,6 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     return () => document.removeEventListener("click", onInternalLink, true);
   }, [navigateTo, router.pathname]);
 
-  useEffect(() => {
-    if (view !== "home" || sheetOpen || !isMobileViewport()) return;
-    let frame = 0;
-    const syncHomeSection = () => {
-      window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        if (window.location.hash !== "" && window.location.hash !== "#about")
-          return;
-        const about = document.getElementById("about");
-        const isAbout =
-          about !== null &&
-          about.getBoundingClientRect().top <= window.innerHeight * 0.35;
-        const nextHash = isAbout ? "about" : "";
-        if (window.location.hash === (nextHash ? `#${nextHash}` : "")) return;
-        window.history.replaceState(
-          {
-            ...window.history.state,
-            mobileMoreEntry: false,
-            mobileView: "home",
-            storySub: "journey",
-          },
-          "",
-          routeWithHash(nextHash),
-        );
-      });
-    };
-    syncHomeSection();
-    window.addEventListener("scroll", syncHomeSection, { passive: true });
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", syncHomeSection);
-    };
-  }, [sheetOpen, view]);
 
   const openSheet = () => {
     trackEvent("mobile_more_open", {});

@@ -86,9 +86,12 @@ const StyledContainer = styled.div.withConfig({
       `;
     }
 
+    /* Symmetric 16px gutters on small phones. The gutter is the column-gap
+       (the 1fr side columns collapse to 0), so gap and the content width
+       (100% - 2×gutter) must agree or the sides go asymmetric. */
     return `
-      column-gap: calc(24px);
-      grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+      column-gap: 16px;
+      grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
     `;
   }}
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container, Flex, Link, Text } from "@components/ions";
 import { CarbonBadge } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
 
 export interface SiteFooterLink {
@@ -23,6 +23,13 @@ const FooterWrapper = styled.footer`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   padding-bottom: ${toSpacing("xl")};
   padding-top: ${toSpacing("3xl")};
+
+  /* Slim footer on mobile: the bottom tab bar already handles section
+     navigation, so the footer keeps only its unique content (contact CTA,
+     socials, carbon badge) at a tighter vertical rhythm. */
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    padding-top: ${toSpacing("xl")};
+  }
 `;
 
 /* ── Primary CTA layer ── */
@@ -32,6 +39,11 @@ const CtaArea = styled.div`
   margin-bottom: ${toSpacing("2xl")};
   padding-bottom: ${toSpacing("2xl")};
   text-align: center;
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    margin-bottom: ${toSpacing("lg")};
+    padding-bottom: ${toSpacing("lg")};
+  }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border-bottom: none;
@@ -45,6 +57,11 @@ const CtaHeading = styled.h2`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0 0 ${toSpacing("xl")};
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    margin-bottom: ${toSpacing("lg")};
+  }
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["3xl"]};

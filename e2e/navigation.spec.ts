@@ -409,12 +409,15 @@ test.describe("mobile app navigation accessibility", () => {
     );
   });
 
-  test("scroll synchronisation uses About and canonical Home URLs", async ({
+  test("Home stays on a clean URL while scrolling within the view", async ({
     page,
   }) => {
     await page.goto("/");
+    // Home holds both hero and about; scrolling between them must not toggle
+    // #about into the URL (it read as a pointless flicker, and made the logo
+    // appear to add/remove the hash).
     await page.locator("#about").scrollIntoViewIfNeeded();
-    await expect(page).toHaveURL(/\/#about$/);
+    await expect(page).toHaveURL(/\/$/);
     await expect(page.getByRole("button", { name: "Home" })).toHaveAttribute(
       "aria-current",
       "page",

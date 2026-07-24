@@ -222,14 +222,17 @@ const GlobalStyle = createGlobalStyle`
 
       /* Every mobile view starts below the fixed site header, and leaves room
          for the fixed bottom navigation (the footer reserves the rest). */
+      /* No bottom padding: the last section and the footer already provide
+         their own spacing — 1rem here just doubled the gap before the footer */
       html[data-mobile-view] main {
-        padding-bottom: 1rem;
+        padding-bottom: 0;
         padding-top: var(--site-header-height);
       }
 
+      /* Just clear the fixed tab bar — a small breathing gap, not a big void */
       html[data-mobile-view] footer[role="contentinfo"] {
         padding-bottom: calc(
-          1.5rem + var(--mobile-nav-height) + env(safe-area-inset-bottom)
+          0.5rem + var(--mobile-nav-height) + env(safe-area-inset-bottom)
         );
       }
     }
