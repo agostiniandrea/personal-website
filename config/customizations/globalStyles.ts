@@ -37,8 +37,9 @@ const GlobalStyle = createGlobalStyle`
     --site-header-height: 3.5rem;
 
     /* Height of the fixed bottom tab bar (excluding the safe-area inset);
-       everything that offsets around it reads this back. */
-    --mobile-nav-height: 4.75rem;
+       everything that offsets around it reads this back. Matches the real
+       rendered bar (~62px) so clearances don't over-reserve space. */
+    --mobile-nav-height: 4rem;
 
     @media (min-width: ${BREAKPOINTS.xTablet}) {
       --site-header-height: 4.3125rem;
@@ -220,17 +221,14 @@ const GlobalStyle = createGlobalStyle`
       ${mobileTabRules}
       ${storySubRules}
 
-      /* Every mobile view starts below the fixed site header, and leaves room
-         for the fixed bottom navigation (the footer reserves the rest). */
+      /* The footer is hidden on mobile, so main itself starts below the fixed
+         header and clears the fixed tab bar — otherwise the last section would
+         hide behind it. */
       html[data-mobile-view] main {
-        padding-bottom: 1rem;
-        padding-top: var(--site-header-height);
-      }
-
-      html[data-mobile-view] footer[role="contentinfo"] {
         padding-bottom: calc(
-          1.5rem + var(--mobile-nav-height) + env(safe-area-inset-bottom)
+          var(--mobile-nav-height) + env(safe-area-inset-bottom)
         );
+        padding-top: var(--site-header-height);
       }
     }
   `}

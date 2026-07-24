@@ -25,6 +25,7 @@ import { NAV_ICONS } from "./navIcons";
 
 export interface MobileNavProps {
   cvDownloadUrl?: string;
+  socialLinks?: { label: string; url: string }[];
 }
 
 const Nav = styled.nav`
@@ -112,7 +113,10 @@ const TAB_EVENTS = {
   forest: "mobile_tab_forest",
 } as const;
 
-const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
+const MobileNav: React.FC<MobileNavProps> = ({
+  cvDownloadUrl,
+  socialLinks,
+}) => {
   const router = useRouter();
   const t = useI18n(router.locale);
   const [view, setView] = useState<MobileView>("home");
@@ -239,40 +243,6 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
     return () => document.removeEventListener("click", onInternalLink, true);
   }, [navigateTo, router.pathname]);
 
-  useEffect(() => {
-    if (view !== "home" || sheetOpen || !isMobileViewport()) return;
-    let frame = 0;
-    const syncHomeSection = () => {
-      window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        if (window.location.hash !== "" && window.location.hash !== "#about")
-          return;
-        const about = document.getElementById("about");
-        const isAbout =
-          about !== null &&
-          about.getBoundingClientRect().top <= window.innerHeight * 0.35;
-        const nextHash = isAbout ? "about" : "";
-        if (window.location.hash === (nextHash ? `#${nextHash}` : "")) return;
-        window.history.replaceState(
-          {
-            ...window.history.state,
-            mobileMoreEntry: false,
-            mobileView: "home",
-            storySub: "journey",
-          },
-          "",
-          routeWithHash(nextHash),
-        );
-      });
-    };
-    syncHomeSection();
-    window.addEventListener("scroll", syncHomeSection, { passive: true });
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", syncHomeSection);
-    };
-  }, [sheetOpen, view]);
-
   const openSheet = () => {
     trackEvent("mobile_more_open", {});
     setSheetOpen(true);
@@ -386,6 +356,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ cvDownloadUrl }) => {
         isOpen={sheetOpen}
         activeView={view}
         cvDownloadUrl={cvDownloadUrl}
+        socialLinks={socialLinks}
         onClose={closeSheet}
         onNavigate={onSheetNavigate}
       />

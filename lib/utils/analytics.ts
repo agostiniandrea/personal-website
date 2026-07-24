@@ -6,7 +6,7 @@ export const ANALYTICS_HOSTS = [
 export const isAnalyticsHost = (hostname: string): boolean =>
   ANALYTICS_HOSTS.some((allowedHost) => allowedHost === hostname);
 
-type AnalyticsLocation = "contact" | "footer" | "hero";
+type AnalyticsLocation = "contact" | "footer" | "hero" | "more";
 
 interface AnalyticsEventParams {
   contact_clicked: {

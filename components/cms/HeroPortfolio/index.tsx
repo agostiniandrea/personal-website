@@ -61,8 +61,6 @@ const HeroGrid = styled.div`
     "copy"
     "actions";
   grid-template-columns: minmax(0, 1fr);
-  margin-inline: -4px;
-  width: calc(100% + 8px);
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: center;
@@ -72,7 +70,6 @@ const HeroGrid = styled.div`
       "actions photo";
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-rows: auto auto;
-    margin-inline: 0;
     row-gap: ${({ theme }) => theme.space["2xl"]};
     width: 100%;
   }

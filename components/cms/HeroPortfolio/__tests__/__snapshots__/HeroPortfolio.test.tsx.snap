@@ -6,8 +6,8 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   min-height: auto;
   position: relative;
   width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
 }
 
 .c1 >* {
@@ -55,8 +55,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   gap: 0;
   grid-template-areas: "photo" "copy" "actions";
   grid-template-columns: minmax(0, 1fr);
-  margin-inline: -4px;
-  width: calc(100% + 8px);
 }
 
 .c6 {
@@ -315,7 +313,6 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
     grid-template-areas: "copy photo" "actions photo";
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-rows: auto auto;
-    margin-inline: 0;
     row-gap: 2rem;
     width: 100%;
   }
@@ -601,8 +598,8 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   min-height: auto;
   position: relative;
   width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
 }
 
 .c1 >* {
@@ -650,8 +647,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   gap: 0;
   grid-template-areas: "photo" "copy" "actions";
   grid-template-columns: minmax(0, 1fr);
-  margin-inline: -4px;
-  width: calc(100% + 8px);
 }
 
 .c6 {
@@ -885,7 +880,6 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
     grid-template-areas: "copy photo" "actions photo";
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-rows: auto auto;
-    margin-inline: 0;
     row-gap: 2rem;
     width: 100%;
   }

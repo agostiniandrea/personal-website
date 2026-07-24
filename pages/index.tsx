@@ -148,7 +148,10 @@ export default function Home({ page, header, footer, locale }: THomepage) {
         {...(footer ?? { socialLinks: [], copyrightName: "Andrea Agostini" })}
       />
       <FeedbackNudge />
-      <MobileNav cvDownloadUrl={extractCvUrl(page)} />
+      <MobileNav
+        cvDownloadUrl={extractCvUrl(page)}
+        socialLinks={footer?.socialLinks ?? []}
+      />
     </>
   );
 }

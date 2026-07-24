@@ -11,8 +11,8 @@ exports[`Contact renders correctly with a single link 1`] = `
   min-height: auto;
   position: relative;
   width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
 }
 
 .c1 >* {
@@ -203,8 +203,8 @@ exports[`Contact renders correctly with all links 1`] = `
   min-height: auto;
   position: relative;
   width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
 }
 
 .c1 >* {

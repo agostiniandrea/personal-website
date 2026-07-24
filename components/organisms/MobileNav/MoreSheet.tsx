@@ -5,15 +5,25 @@ import { useRouter } from "next/router";
 
 import styled, { keyframes } from "styled-components";
 
+import { Link } from "@components/ions";
 import { BREAKPOINTS } from "@constants";
-import { trackEvent } from "@lib/utils/analytics";
+import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { MobileView, MoreDestination } from "@lib/utils/mobileNav";
+
+export interface MoreSheetSocialLink {
+  label: string;
+  url: string;
+}
 
 export interface MoreSheetProps {
   isOpen: boolean;
   activeView: MobileView;
   cvDownloadUrl?: string;
+  /* On mobile the footer is hidden and its contact/social/carbon/copyright
+     content lives here instead — the app-style tabs make a per-page footer
+     redundant. */
+  socialLinks?: MoreSheetSocialLink[];
   onClose: () => void;
   onNavigate: (destination: MoreDestination) => void;
 }
@@ -134,12 +144,7 @@ const Sheet = styled.div<{ $closing: boolean }>`
     ${SHEET_ANIMATION_MS}ms ease-out forwards;
   -webkit-overflow-scrolling: touch;
   background: ${({ theme }) => theme.colors.background};
-  border: 1px solid
-    color-mix(
-      in srgb,
-      ${({ theme }) => theme.colors.highlight} 16%,
-      transparent
-    );
+  border: 1px solid rgba(128, 128, 128, 0.16);
   border-bottom: 0;
   border-radius: 1.25rem 1.25rem 0 0;
   bottom: 0;
@@ -149,11 +154,12 @@ const Sheet = styled.div<{ $closing: boolean }>`
   max-height: calc(100svh - 4rem);
   overscroll-behavior: contain;
   overflow-y: auto;
-  /* bottom padding clears the fixed tab bar the sheet now slides behind */
+  /* bottom padding clears the fixed tab bar the sheet slides behind — just a
+     small gap above the bar, not a big void */
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
     calc(
       var(--mobile-nav-height) + env(safe-area-inset-bottom) +
-        ${({ theme }) => theme.space.xl}
+        ${({ theme }) => theme.space.sm}
     );
   position: fixed;
   right: 0;
@@ -169,14 +175,6 @@ const Sheet = styled.div<{ $closing: boolean }>`
     transform: ${({ $closing }) =>
       $closing ? "translateY(100%)" : "translateY(0)"};
   }
-`;
-
-const Grabber = styled.div`
-  background: rgba(128, 128, 128, 0.35);
-  border-radius: 999px;
-  height: 4px;
-  margin: 0 auto ${({ theme }) => theme.space.lg};
-  width: 36px;
 `;
 
 const SheetHeader = styled.div`
@@ -222,7 +220,7 @@ const ItemList = styled.ul`
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
   list-style: none;
-  margin: 0 0 ${({ theme }) => theme.space.lg};
+  margin: 0 0 ${({ theme }) => theme.space.xl};
   padding: 0;
 `;
 
@@ -374,10 +372,47 @@ const LocaleButton = styled.button<{ $active: boolean }>`
   }
 `;
 
+const FooterInfo = styled.div`
+  align-items: center;
+  border-top: 1px solid rgba(128, 128, 128, 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.sm};
+  margin-top: ${({ theme }) => theme.space.md};
+  padding-top: ${({ theme }) => theme.space.md};
+  text-align: center;
+`;
+
+const SocialRow = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.space.sm};
+  width: 100%;
+`;
+
+const SocialLink = styled(Link)`
+  align-items: center;
+  border: 1px solid rgba(128, 128, 128, 0.18);
+  border-radius: ${({ theme }) => theme.radii.xs};
+  color: ${({ theme }) => theme.colors.highlight};
+  display: flex;
+  flex: 1;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  justify-content: center;
+  min-height: 48px;
+
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => theme.colors.surface};
+    }
+  }
+`;
+
 export const MoreSheet: React.FC<MoreSheetProps> = ({
   isOpen,
   activeView,
   cvDownloadUrl,
+  socialLinks,
   onClose,
   onNavigate,
 }) => {
@@ -490,7 +525,6 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
         aria-label={t.moreTitle}
         data-testid="more-sheet"
       >
-        <Grabber aria-hidden="true" />
         <SheetHeader>
           <SheetTitle>{t.moreTitle}</SheetTitle>
           <CloseButton onClick={onClose} aria-label={t.closeMenu}>
@@ -548,6 +582,23 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
             IT
           </LocaleButton>
         </LocaleRow>
+        {socialLinks && socialLinks.length > 0 && (
+          <FooterInfo>
+            <SocialRow>
+              {socialLinks.map((link) => (
+                <SocialLink
+                  key={link.url}
+                  href={link.url}
+                  isExternal={!link.url.startsWith("mailto:")}
+                  ariaLabel={link.label}
+                  onClick={() => trackContactInteraction(link.url, "more")}
+                >
+                  {link.label}
+                </SocialLink>
+              ))}
+            </SocialRow>
+          </FooterInfo>
+        )}
       </Sheet>
     </>,
     document.body,
