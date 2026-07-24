@@ -62,8 +62,6 @@ const Header = styled.header<{ $scrolled: boolean }>`
 const HeaderRow = styled(Flex)`
   @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
     height: var(--site-header-height);
-    margin-inline: -4px;
-    width: calc(100% + 8px);
   }
 `;
 

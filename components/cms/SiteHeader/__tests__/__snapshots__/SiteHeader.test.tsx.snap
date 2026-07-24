@@ -6,8 +6,8 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   min-height: auto;
   position: relative;
   width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
 }
 
 .c1 >* {
@@ -174,8 +174,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 @media (max-width: 899.99px) {
   .c3 {
     height: var(--site-header-height);
-    margin-inline: -4px;
-    width: calc(100% + 8px);
   }
 }
 
@@ -289,8 +287,8 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
   min-height: auto;
   position: relative;
   width: 100%;
-  column-gap: calc(24px);
-  grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
 }
 
 .c1 >* {
@@ -439,8 +437,6 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
 @media (max-width: 899.99px) {
   .c3 {
     height: var(--site-header-height);
-    margin-inline: -4px;
-    width: calc(100% + 8px);
   }
 }
 

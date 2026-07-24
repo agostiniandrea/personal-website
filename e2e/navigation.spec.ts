@@ -257,17 +257,15 @@ test.describe("mobile app navigation accessibility", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "More" }).click();
     const dialog = page.getByRole("dialog", { name: "Explore" });
-    const localeButton = dialog.getByRole("button", {
-      name: "IT",
-      exact: true,
-    });
+    // The last focusable is the final social link in the footer-info block
+    const lastFocusable = dialog.getByRole("link", { name: "Email" });
 
     await expect(
       dialog.getByRole("button", { name: "Close menu" }),
     ).toBeFocused();
     await page.keyboard.press("Shift+Tab");
 
-    await expect(localeButton).toBeFocused();
+    await expect(lastFocusable).toBeFocused();
   });
 
   for (const width of [320, 375, 390, 430]) {
@@ -409,12 +407,15 @@ test.describe("mobile app navigation accessibility", () => {
     );
   });
 
-  test("scroll synchronisation uses About and canonical Home URLs", async ({
+  test("Home stays on a clean URL while scrolling within the view", async ({
     page,
   }) => {
     await page.goto("/");
+    // Home holds both hero and about; scrolling between them must not toggle
+    // #about into the URL (it read as a pointless flicker, and made the logo
+    // appear to add/remove the hash).
     await page.locator("#about").scrollIntoViewIfNeeded();
-    await expect(page).toHaveURL(/\/#about$/);
+    await expect(page).toHaveURL(/\/$/);
     await expect(page.getByRole("button", { name: "Home" })).toHaveAttribute(
       "aria-current",
       "page",
