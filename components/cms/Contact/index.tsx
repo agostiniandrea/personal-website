@@ -34,7 +34,12 @@ const Body = styled(Text)`
   max-width: 600px;
 `;
 
-const Contact: React.FC<ContactProps> = ({ sectionLabel, heading, body, links }) => (
+const Contact: React.FC<ContactProps> = ({
+  sectionLabel,
+  heading,
+  body,
+  links,
+}) => (
   <Box as="section" id="contact" my="4xl">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>

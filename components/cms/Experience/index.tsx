@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 import { Box, Container, Flex, Heading, Text } from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
-import { BREAKPOINTS } from "@constants";
+import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 
 export interface ExperienceItem {
   role: string;
@@ -13,25 +14,29 @@ export interface ExperienceItem {
   tags?: string[];
 }
 
+export const DEFAULT_EXPERIENCE_INTRO =
+  "From ecommerce storefronts to design systems — the companies, projects and teams I've helped grow over the last ten years.";
+
 export interface ExperienceProps {
   sectionLabel: string;
   heading: string;
   items: ExperienceItem[];
+  intro?: string;
 }
 
 const Section = styled.section`
   padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: 1199px) {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
+    padding-top: ${({ theme }) => theme.space["2xl"]};
   }
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
+  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   max-width: 600px;
-  @media (max-width: 1199px) {
-    margin-bottom: 1.5rem;
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
+    margin-bottom: ${({ theme }) => theme.space.lg};
   }
 `;
 
@@ -63,7 +68,7 @@ const Item = styled.li`
 
 const Period = styled(Text)`
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  margin: 0 0 0.25rem;
+  margin: 0 0 ${({ theme }) => theme.space.xs};
 `;
 
 const Company = styled(Text)`
@@ -88,12 +93,29 @@ const Description = styled(Text)`
   margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
+const Intro = styled(Text)`
+  line-height: ${({ theme }) => theme.lineHeights.loose};
+  margin-bottom: ${({ theme }) => theme.space["4xl"]};
+  max-width: 680px;
+  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
+    margin-bottom: ${({ theme }) => theme.space.lg};
+  }
+`;
 
-const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items }) => (
+const Experience: React.FC<ExperienceProps> = ({
+  sectionLabel,
+  heading,
+  intro = DEFAULT_EXPERIENCE_INTRO,
+  items,
+}) => (
   <Section id="experience">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
+      {/* mirrors Journey's intro so the segmented control sits at the same
+          height when switching between the two story sub-views */}
+      {intro && <Intro variant="large">{intro}</Intro>}
+      <StorySegmentedControl />
       <List>
         {items.map((item) => (
           <Item key={`${item.company}-${item.role}`}>
@@ -108,7 +130,9 @@ const Experience: React.FC<ExperienceProps> = ({ sectionLabel, heading, items })
               {item.tags && item.tags.length > 0 && (
                 <Flex wrap="wrap" gap="sm">
                   {item.tags.map((tag) => (
-                    <Badge key={tag} size="sm">{tag}</Badge>
+                    <Badge key={tag} size="sm">
+                      {tag}
+                    </Badge>
                   ))}
                 </Flex>
               )}

@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { type SpacingToken,toSpacing } from "@config/tokens";
+import { type SpacingToken, toSpacing } from "@config/tokens";
 import { BREAKPOINTS } from "@constants";
 
 type ColumnValue = number | string; // number → repeat(N, 1fr); string → literal CSS
@@ -62,7 +62,10 @@ const StyledGrid = styled.div<StyledGridProps>`
 
   ${({ $columns, $gap }) => {
     const cols = formatColumns(getResponsiveColumnValue($columns, 0));
-    const gap = $gap !== undefined ? toSpacing($gap as SpacingToken | number | string) : undefined;
+    const gap =
+      $gap !== undefined
+        ? toSpacing($gap as SpacingToken | number | string)
+        : undefined;
     return `
       ${cols ? `grid-template-columns: ${cols};` : ""}
       ${gap ? `gap: ${gap};` : ""}

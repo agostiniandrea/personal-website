@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container, Flex, Link, Text } from "@components/ions";
 import { CarbonBadge } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
 
 export interface SiteFooterLink {
@@ -23,6 +23,12 @@ const FooterWrapper = styled.footer`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   padding-bottom: ${toSpacing("xl")};
   padding-top: ${toSpacing("3xl")};
+
+  /* Hidden on mobile: the app-style tab bar makes a per-page footer redundant,
+     so its contact/social/carbon/copyright content moves into the More sheet. */
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    display: none;
+  }
 `;
 
 /* ── Primary CTA layer ── */
@@ -32,6 +38,11 @@ const CtaArea = styled.div`
   margin-bottom: ${toSpacing("2xl")};
   padding-bottom: ${toSpacing("2xl")};
   text-align: center;
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    margin-bottom: ${toSpacing("lg")};
+    padding-bottom: ${toSpacing("lg")};
+  }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border-bottom: none;
@@ -45,6 +56,11 @@ const CtaHeading = styled.h2`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   line-height: ${({ theme }) => theme.lineHeights.tight};
   margin: 0 0 ${toSpacing("xl")};
+
+  @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    margin-bottom: ${toSpacing("lg")};
+  }
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["3xl"]};
@@ -123,7 +139,6 @@ const MetaCol = styled.div`
   }
 `;
 
-
 const CURRENT_YEAR = new Date().getFullYear();
 
 const SiteFooter: React.FC<SiteFooterProps> = ({
@@ -134,7 +149,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
 }) => (
   <FooterWrapper role="contentinfo">
     <Container>
-
       {/* Primary CTA */}
       <CtaArea>
         {ctaHeading && <CtaHeading>{ctaHeading}</CtaHeading>}
@@ -165,7 +179,10 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           {tagline && (
             <Tagline variant="small">
               {tagline.split("\n").map((line, i, arr) => (
-                <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+                <span key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </span>
               ))}
             </Tagline>
           )}
@@ -177,7 +194,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           </Text>
         </MetaCol>
       </Subfooter>
-
     </Container>
   </FooterWrapper>
 );

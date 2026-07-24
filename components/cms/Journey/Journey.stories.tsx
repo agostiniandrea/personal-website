@@ -31,3 +31,18 @@ export const OngoingOnly: Story = {
     chapters: journeyData.chapters?.filter((c) => c.isOngoing),
   },
 };
+
+export const Italian: Story = {
+  args: {
+    ...journeyData,
+    chapters: journeyData.chapters?.map((chapter) => ({
+      ...chapter,
+      city: chapter.city === "Turin" ? "Torino" : chapter.city,
+    })),
+  },
+  parameters: {
+    nextjs: {
+      router: { locale: "it" },
+    },
+  },
+};

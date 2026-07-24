@@ -5,19 +5,14 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { BREAKPOINTS } from "@constants";
-import { SECTION_LABELS,useI18n } from "@lib/utils/i18n";
+import { trackOnce } from "@lib/utils/analytics";
+import { SECTION_LABELS, useI18n } from "@lib/utils/i18n";
+import {
+  ANALYTICS_SECTION_NAMES,
+  DESKTOP_SECTION_ORDER,
+} from "@lib/utils/sectionOrder";
 
-const SECTION_IDS = [
-  "hero",
-  "about",
-  "projects",
-  "skills",
-  "journey",
-  "experience",
-  "sustainability",
-  "beyond-code",
-  "forest",
-] as const;
+const SECTION_IDS = DESKTOP_SECTION_ORDER.filter((id) => id !== "contact");
 
 const Nav = styled.nav`
   display: none;
@@ -62,7 +57,9 @@ const Label = styled.span`
   right: calc(50% + 7px + 0.5rem);
   text-transform: uppercase;
   transform: translateX(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
   white-space: nowrap;
 `;
 
@@ -122,7 +119,6 @@ const VisuallyHidden = styled.span`
   width: 1px;
 `;
 
-
 export default function SectionDots() {
   const [active, setActive] = useState("hero");
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -139,11 +135,17 @@ export default function SectionDots() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActive(entry.target.id);
+            const id = entry.target.id as (typeof SECTION_IDS)[number];
+            setActive(id);
+            trackOnce(
+              "section_view",
+              { section_name: ANALYTICS_SECTION_NAMES[id] },
+              `section-view-${id}`,
+            );
           }
         });
       },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
     );
 
     sections.forEach(({ id }) => {
@@ -164,7 +166,15 @@ export default function SectionDots() {
   return (
     <>
       <Nav aria-label={t.sectionNavigation}>
-        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column" }}>
+        <ul
+          style={{
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           {sections.map(({ id, label }) => (
             <DotRow key={id}>
               <Label>{label}</Label>

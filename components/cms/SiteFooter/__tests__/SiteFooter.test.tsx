@@ -8,12 +8,16 @@ import { defaultSiteFooter, minimalSiteFooter } from "../model";
 
 describe("SiteFooter", () => {
   it("renders correctly with social links", () => {
-    const { container } = renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    const { container } = renderWithTheme(
+      <SiteFooter {...defaultSiteFooter} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
   it("renders correctly with no social links", () => {
-    const { container } = renderWithTheme(<SiteFooter {...minimalSiteFooter} />);
+    const { container } = renderWithTheme(
+      <SiteFooter {...minimalSiteFooter} />,
+    );
     expect(container).toMatchSnapshot();
   });
 
@@ -65,10 +69,14 @@ describe("SiteFooter", () => {
 
     await user.click(screen.getByRole("link", { name: "GitHub" }));
 
-    expect(window.gtag).toHaveBeenCalledWith("event", "social_profile_clicked", {
-      location: "footer",
-      platform: "github",
-    });
+    expect(window.gtag).toHaveBeenCalledWith(
+      "event",
+      "social_profile_clicked",
+      {
+        location: "footer",
+        platform: "github",
+      },
+    );
     delete window.gtag;
   });
 });

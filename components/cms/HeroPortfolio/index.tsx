@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 
 import styled, { keyframes } from "styled-components";
 
-import { Box, Container, Flex, Heading, Image, Link, Text } from "@components/ions";
-import { BREAKPOINTS } from "@constants";
+import { Box, Container, Heading, Image, Link, Text } from "@components/ions";
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { contentfulImageUrl } from "@utils/contentfulImage";
@@ -27,86 +27,188 @@ export interface HeroPortfolioProps {
 const Section = styled.section`
   align-items: center;
   display: flex;
-  padding-bottom: 2rem;
-  padding-top: 3.5rem;
+  padding-bottom: 40px;
+  padding-top: 2rem;
   position: relative;
+
+  /* the site header is fixed, so the hero starts below it — with breathing
+     room, not glued to its edge */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    padding-bottom: ${({ theme }) => theme.space["2xl"]};
+    padding-top: calc(
+      var(--site-header-height) + ${({ theme }) => theme.space["2xl"]}
+    );
+  }
+
+  /* symmetric padding + border-box keep the content optically centred in the
+     viewport (an unbalanced top padding pushed the centre down) while still
+     clearing the fixed header — matches the padding-top inherited above */
   @media (min-width: ${BREAKPOINTS.tablet}) {
+    box-sizing: border-box;
     min-height: 100svh;
-    padding-bottom: 0;
-    padding-top: 0;
+    padding-bottom: calc(
+      var(--site-header-height) + ${({ theme }) => theme.space["2xl"]}
+    );
   }
 `;
 
-const HeroGrid = styled(Flex)`
+const HeroGrid = styled.div`
   align-items: center;
-  flex-direction: column-reverse;
-  gap: ${({ theme }) => theme.space["3xl"]};
+  display: grid;
+  gap: 0;
+  grid-template-areas:
+    "photo"
+    "copy"
+    "actions";
+  grid-template-columns: minmax(0, 1fr);
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    flex-direction: row;
-    gap: ${({ theme }) => theme.space["4xl"]};
-    justify-content: space-between;
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    align-items: center;
+    column-gap: ${({ theme }) => theme.space["4xl"]};
+    grid-template-areas:
+      "copy photo"
+      "actions photo";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    row-gap: ${({ theme }) => theme.space["2xl"]};
+    width: 100%;
   }
 `;
 
 const TextBlock = styled(Box)`
   flex: 1;
+  grid-area: copy;
   text-align: center;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     text-align: left;
   }
 `;
 
 const Name = styled(Heading).attrs({ size: "display", as: "h1" })`
-  margin: 0 0 1rem;
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: clamp(36px, 10vw, 44px);
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: 1.05;
+  margin: 0 0 16px;
+  white-space: nowrap;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    font-size: ${({ theme }) => theme.fontSizes["6xl"]};
+    line-height: inherit;
+    margin-bottom: ${({ theme }) => theme.space.lg};
+    white-space: normal;
+  }
 `;
 
 const GreetingSpan = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   display: block;
   font-family: ${({ theme }) => theme.fontFamilies.default};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  letter-spacing: 0.2em;
-  margin-bottom: ${({ theme }) => theme.space.lg};
+  letter-spacing: 0.18em;
+  line-height: 20px;
+  margin-bottom: 14px;
   text-transform: uppercase;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    letter-spacing: 0.2em;
+    line-height: inherit;
+    margin-bottom: ${({ theme }) => theme.space.lg};
+  }
 `;
 
 const Role = styled.p`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  font-weight: ${({ theme }) => theme.fontWeights.regular};
-  line-height: ${({ theme }) => theme.lineHeights.normal};
-  margin: 0 0 ${({ theme }) => theme.space.xl};
+  font-size: clamp(18px, 4.8vw, 22px);
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  line-height: 1.25;
+  margin: 0 0 20px;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: 390px) and (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+    white-space: nowrap;
+  }
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: ${({ theme }) => theme.fontSizes["2xl"]};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
+    line-height: ${({ theme }) => theme.lineHeights.normal};
+    margin-bottom: ${({ theme }) => theme.space["2xl"]};
+    white-space: normal;
   }
 `;
 
 const Tagline = styled(Text)`
-  line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 0 auto ${({ theme }) => theme.space["2xl"]};
-  max-width: 500px;
+  font-size: 17px;
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  line-height: 1.55;
+  margin: 0 auto 26px;
+  margin-inline: auto;
+  max-width: 36ch;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    margin: 0 0 ${({ theme }) => theme.space["2xl"]};
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    line-height: ${({ theme }) => theme.lineHeights.relaxed};
+    margin: 0;
+    max-width: 500px;
+  }
+`;
+
+const Actions = styled.div`
+  align-items: center;
+  column-gap: 12px;
+  display: grid;
+  grid-area: actions;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-self: center;
+  max-width: 390px;
+  row-gap: 20px;
+  width: 100%;
+
+  @media (max-width: 359.98px) {
+    grid-template-columns: minmax(0, 285px);
+  }
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    align-items: flex-start;
+    column-gap: ${({ theme }) => theme.space.lg};
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-self: stretch;
+    max-width: none;
+    row-gap: ${({ theme }) => theme.space.lg};
   }
 `;
 
 const PrimaryLink = styled(Link)`
+  align-items: center;
   background: ${({ theme }) => theme.colors.button};
   border: 2px solid transparent;
   border-radius: ${({ theme }) => theme.radii.xs};
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.button_text};
-  display: inline-block;
+  display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  padding: 0.875rem 2rem;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  height: 56px;
+  justify-content: center;
+  max-width: none;
+  min-width: 0;
+  padding: 0 ${({ theme }) => theme.space.md};
+  text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
+  width: 100%;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    height: auto;
+    padding: 0.75rem 2rem;
+    width: auto;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -120,6 +222,10 @@ const PrimaryLink = styled(Link)`
     outline: 2px solid ${({ theme }) => theme.colors.headline};
     outline-offset: 3px;
   }
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding: 0.875rem 2rem;
+  }
 `;
 
 const CvLink = styled.a`
@@ -130,9 +236,18 @@ const CvLink = styled.a`
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.375rem;
-  padding: 0.875rem 0;
+  grid-column: 1 / -1;
+  justify-content: center;
+  justify-self: center;
+  margin-inline: auto;
+  min-height: 44px;
+  min-width: 0;
+  padding-inline: 0;
   text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+  width: fit-content;
 
   @media (hover: hover) {
     &:hover {
@@ -145,18 +260,39 @@ const CvLink = styled.a`
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
+
+  /* the actions row becomes a flex row here, so the CV link aligns with the
+     buttons instead of being centred on its own line */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    justify-self: auto;
+    margin-inline: 0;
+  }
 `;
 
 const SecondaryLink = styled(Link)`
+  align-items: center;
   border: 2px solid ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.xs};
+  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.highlight};
-  display: inline-block;
+  display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  padding: 0.875rem 2rem;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  height: 56px;
+  justify-content: center;
+  max-width: none;
+  min-width: 0;
+  padding: 0 ${({ theme }) => theme.space.md};
+  text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
+  width: 100%;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    height: auto;
+    padding: 0.75rem 2rem;
+    width: auto;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -169,20 +305,33 @@ const SecondaryLink = styled(Link)`
     outline: 2px solid ${({ theme }) => theme.colors.highlight};
     outline-offset: 3px;
   }
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    padding: 0.875rem 2rem;
+  }
 `;
 
 const PhotoOuter = styled.div`
-  background: linear-gradient(135deg, var(--color-ring-start), var(--color-ring-end));
+  background: ${({ theme }) => theme.colors.highlight};
   border-radius: ${({ theme }) => theme.radii.rounded};
   flex-shrink: 0;
-  height: 240px;
-  margin-top: ${({ theme }) => theme.space["2xl"]};
-  padding: 3px;
-  width: 240px;
+  grid-area: photo;
+  height: clamp(210px, 56vw, 240px);
+  justify-self: center;
+  margin-bottom: 28px;
+  padding: 2px;
+  width: clamp(210px, 56vw, 240px);
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    background: linear-gradient(
+      135deg,
+      var(--color-ring-start),
+      var(--color-ring-end)
+    );
     height: 380px;
-    margin-top: 0;
+    justify-self: end;
+    margin-bottom: 0;
+    padding: 3px;
     width: 380px;
   }
 `;
@@ -225,10 +374,14 @@ const ScrollHint = styled.button<{ $visible: boolean }>`
   transition: opacity 0.4s ease;
 
   @media (hover: hover) {
-    &:hover { opacity: 1; }
+    &:hover {
+      opacity: 1;
+    }
   }
 
-  &:focus:not(:focus-visible) { outline: none; }
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 
   &:focus-visible {
     border-radius: ${({ theme }) => theme.radii.rounded};
@@ -261,10 +414,15 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   }, []);
 
   const scrollDown = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById("about")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     if (!href.startsWith("#")) return;
     e.preventDefault();
     const el = document.getElementById(href.slice(1));
@@ -273,22 +431,41 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
 
   return (
     <>
-    <Section id="hero">
-      <Container>
-        <HeroGrid>
-          <TextBlock>
-            <Name>
-              <GreetingSpan>{greeting}</GreetingSpan>
-              {personName}
-            </Name>
-            <Role>{role}</Role>
-            <Tagline variant="large">{tagline}</Tagline>
-            <Flex
-              gap="lg"
-              wrap="wrap"
-              justifyContent={["center", undefined, "flex-start"]}
-            >
-              <PrimaryLink href={ctaPrimaryUrl} onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}>{ctaPrimaryLabel}</PrimaryLink>
+      <Section id="hero">
+        <Container>
+          <HeroGrid>
+            <PhotoOuter>
+              <PhotoWrapper>
+                <Image
+                  src={contentfulImageUrl(image.url, {
+                    width: 800,
+                    height: 800,
+                    focus: "face",
+                  })}
+                  alt={image.alt || personName}
+                  priority
+                  fetchPriority="high"
+                  width={800}
+                  height={800}
+                  sizes="(max-width: 767px) 56vw, (max-width: 1199px) 148px, 380px"
+                />
+              </PhotoWrapper>
+            </PhotoOuter>
+            <TextBlock>
+              <Name>
+                <GreetingSpan>{greeting}</GreetingSpan>
+                {personName}
+              </Name>
+              <Role>{role}</Role>
+              <Tagline variant="large">{tagline}</Tagline>
+            </TextBlock>
+            <Actions>
+              <PrimaryLink
+                href={ctaPrimaryUrl}
+                onClick={(e) => handleAnchorClick(e, ctaPrimaryUrl)}
+              >
+                {ctaPrimaryLabel}
+              </PrimaryLink>
               {ctaSecondaryLabel && ctaSecondaryUrl && (
                 <SecondaryLink
                   href={ctaSecondaryUrl}
@@ -306,38 +483,37 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={cvDownloadLabel}
-                  onClick={() => trackEvent("cv_downloaded", { locale: locale ?? "en" })}
+                  onClick={() =>
+                    trackEvent("cv_downloaded", { locale: locale ?? "en" })
+                  }
                 >
-                  ↓ {cvDownloadLabel}
+                  <span aria-hidden="true">↓</span>
+                  <span>{cvDownloadLabel}</span>
                 </CvLink>
               )}
-            </Flex>
-          </TextBlock>
-          <PhotoOuter>
-            <PhotoWrapper>
-              <Image
-                src={contentfulImageUrl(image.url, { width: 800, height: 800, focus: "face" })}
-                alt={image.alt || personName}
-                priority
-                fetchPriority="high"
-                width={800}
-                height={800}
-                sizes={`(max-width: ${BREAKPOINTS.tablet}) 240px, 380px`}
-              />
-            </PhotoWrapper>
-          </PhotoOuter>
-        </HeroGrid>
-      </Container>
-      <ScrollHint
-        $visible={!scrolled}
-        onClick={scrollDown}
-        aria-label={t.scrollDown}
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </ScrollHint>
-    </Section>
+            </Actions>
+          </HeroGrid>
+        </Container>
+        <ScrollHint
+          $visible={!scrolled}
+          onClick={scrollDown}
+          aria-label={t.scrollDown}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </ScrollHint>
+      </Section>
     </>
   );
 };

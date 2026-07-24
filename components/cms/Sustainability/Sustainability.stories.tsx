@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 
 import Sustainability from "./index";
-import { defaultSustainability, minimalSustainability, noCarbonBadgeSustainability } from "./model";
+import {
+  defaultSustainability,
+  minimalSustainability,
+  noCarbonBadgeSustainability,
+} from "./model";
 
 const meta: Meta<typeof Sustainability> = {
   title: "CMS/Sustainability",

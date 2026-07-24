@@ -1,4 +1,11 @@
-type FocusArea = "face" | "faces" | "center" | "top" | "bottom" | "left" | "right";
+type FocusArea =
+  | "face"
+  | "faces"
+  | "center"
+  | "top"
+  | "bottom"
+  | "left"
+  | "right";
 
 interface ContentfulImageOptions {
   width: number;
@@ -6,8 +13,16 @@ interface ContentfulImageOptions {
   focus?: FocusArea;
 }
 
-export function contentfulImageUrl(url: string, { width, height, focus = "center" }: ContentfulImageOptions): string {
+export function contentfulImageUrl(
+  url: string,
+  { width, height, focus = "center" }: ContentfulImageOptions,
+): string {
   const base = url.split("?")[0];
-  const params = new URLSearchParams({ w: String(width), h: String(height), fit: "crop", f: focus });
+  const params = new URLSearchParams({
+    w: String(width),
+    h: String(height),
+    fit: "crop",
+    f: focus,
+  });
   return `${base}?${params}`;
 }

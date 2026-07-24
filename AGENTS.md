@@ -50,7 +50,29 @@ yarn build-storybook    # Build Storybook static output
 yarn chromatic          # Visual regression via Chromatic (requires CHROMATIC_PROJECT_TOKEN)
 ```
 
+## Pull request screenshots
+
+Every PR with a user-visible change must include screenshots captured from the
+Vercel preview after deployment succeeds. Add them to the PR's `Screenshots`
+section at these standard viewport widths:
+
+- Desktop: 1440px (above the `tablet` breakpoint — full desktop layout)
+- Tablet: 1024px (between `xTablet` 900px and `tablet` 1200px — desktop nav, two-column content)
+- Mobile: 390px (below `mobile` 600px — bottom-tab mobile layout)
+
+The mobile navigation switches to the desktop header at 900px (`xTablet`), so a
+768px capture would still show the mobile layout and duplicate the 390px shot —
+use 1024px to actually exercise the intermediate layout.
+
+Show the affected UI in the same state at every viewport. Include both closed
+and open/interactive states when the change introduces a popover, modal,
+drawer, menu, tooltip, or similar interaction. Add before/after pairs when they
+materially help reviewers understand the change. If screenshots cannot be
+captured, state the concrete reason in the PR instead of writing “Not
+applicable”. Non-visual changes may continue to use “Not applicable”.
+
 Run a single test file:
+
 ```bash
 yarn test -- components/ions/Button/__tests__/Button.test.tsx
 ```
@@ -63,10 +85,10 @@ yarn test -- components/ions/Button/__tests__/Button.test.tsx
 
 Content is fetched from Contentful in `lib/utils/cms/index.ts`. Two content types are mapped to page routes:
 
-| Contentful type | Route | Notes |
-|---|---|---|
-| `pageLanding` | `pages/index.tsx` | Home |
-| `pageDetail` | `pages/[slug].tsx` | All other pages, keyed by `uid` field |
+| Contentful type | Route              | Notes                                 |
+| --------------- | ------------------ | ------------------------------------- |
+| `pageLanding`   | `pages/index.tsx`  | Home                                  |
+| `pageDetail`    | `pages/[slug].tsx` | All other pages, keyed by `uid` field |
 
 Pages are built at static time via `getPaths` / `getStaticProps`, with `revalidate` for ISR.
 
@@ -82,6 +104,7 @@ Contentful modules within a page are rendered by `organisms/ModuleRenderer`. The
 4. `cleanProps` normalises Contentful field shapes — particularly images — before spreading onto the component
 
 **To add a new CMS module:**
+
 1. Add the Contentful content type ID to `constants/modules.ts`
 2. Create the component in `components/cms/YourModule/`
 3. Add a `case` in the `ModuleMatrix` switch in `organisms/ModuleRenderer/ModuleRenderer.tsx`
@@ -101,6 +124,7 @@ Each tier barrel-exports via its `index.ts`.
 ### Styling
 
 styled-components with a ThemeProvider wrapping the entire app (`pages/_app.tsx`). Theme is composed in `config/theme.tsx` from:
+
 - `config/customizations/` — colors, fonts, spacing, typography, radii, line-heights
 - `config/componentThemes/` — per-component token overrides (button, link)
 - `constants/breakpoints.ts` — breakpoint values
@@ -123,6 +147,31 @@ Import ordering is enforced by ESLint (`simple-import-sort`): side-effects → r
 @utils/*       →  lib/utils/*
 @test-utils/*  →  test-utils/*
 ```
+
+### Feedback Nudges
+
+Two independent components invite visitors toward the Forest/feedback flow.
+Their visibility rules are deliberate — change them here first if behaviour
+changes:
+
+**`FeedbackNudge` (desktop, card bottom-right)** — a contextual reminder:
+
+- Appears only after scrolling past ~60% of the first viewport (never on load).
+- Fades out (stays mounted, `visibility: hidden`) while something more
+  important is on screen: the inline Forest teaser, the Projects section, or
+  any open modal. Fades back when they leave the viewport.
+- Dies for the session (`sessionStorage`) once its job is done: the ✕ is
+  clicked, the inline teaser is used, or the Forest section is reached.
+
+**`MobileFeedbackNudge` (mobile, banner above the tab bar)** — much more
+cautious because screen space is scarce. It shows only when **all** of these
+hold: ≥ 35s on the page, ≥ 240px of scroll, and ≥ 2 sections visited
+(a real exploration signal). A dismissal is respected for 14 days
+(`localStorage`), a submitted feedback silences it permanently, and it pauses
+while the More sheet is open.
+
+When testing: any run that touches Forest or the teaser kills the desktop
+nudge for that session — use a private window to see it again.
 
 ### Observability
 

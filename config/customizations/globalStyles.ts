@@ -1,11 +1,52 @@
 import { createGlobalStyle, css } from "styled-components";
 
+import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
+import { VIEW_SECTIONS } from "@lib/utils/mobileNav";
+
+/* App-like mobile tabs: below the desktop-nav breakpoint, when the
+   pre-hydration script has resolved a view, only that view's sections stay
+   visible. Without JS the attribute is absent and the page keeps its full
+   one-page layout. */
+const MANAGED_SECTION_IDS = Array.from(
+  new Set(Object.values(VIEW_SECTIONS).flat()),
+);
+
+const mobileTabRules = Object.entries(VIEW_SECTIONS)
+  .map(([view, visible]) => {
+    const hidden = MANAGED_SECTION_IDS.filter((id) => !visible.includes(id));
+    const selectors = hidden
+      .map((id) => `html[data-mobile-view="${view}"] main #${id}`)
+      .join(",\n");
+    return `${selectors} { display: none; }`;
+  })
+  .join("\n");
+
+const storySubRules = `
+  html[data-mobile-view="story"][data-story-sub="journey"] main #experience { display: none; }
+  html[data-mobile-view="story"][data-story-sub="experience"] main #journey { display: none; }
+`;
+
 const GlobalStyle = createGlobalStyle`
   :root {
     --font-inter: "Inter", sans-serif;
     --font-space-grotesk: "Space Grotesk", sans-serif;
 
+    /* Height of the fixed site header — single source of truth. SiteHeader
+       sizes itself from it, and every fixed-header offset reads it back, so
+       the two can never drift apart. */
+    --site-header-height: 3.5rem;
+
+    /* Height of the fixed bottom tab bar (excluding the safe-area inset);
+       everything that offsets around it reads this back. Matches the real
+       rendered bar (~62px) so clearances don't over-reserve space. */
+    --mobile-nav-height: 4rem;
+
+    @media (min-width: ${BREAKPOINTS.xTablet}) {
+      --site-header-height: 4.3125rem;
+    }
+
     /* color tokens — dark (default) */
+    --artwork-opacity: 0.22;
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
@@ -17,6 +58,7 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);
+    --color-surface-raised: #203c34;
     --color-badge-bg: rgba(45, 212, 191, 0.08);
     --color-ring-start: #2dd4bf;
     --color-ring-end: #34d399;
@@ -24,7 +66,9 @@ const GlobalStyle = createGlobalStyle`
 
   @media (prefers-color-scheme: light) {
     :root {
-      --color-background: #f5f5fa;
+      --artwork-opacity: 0.35;
+      --artwork-opacity: 0.35;
+    --color-background: #f5f5fa;
       --color-headline: #0a0a0f;
       --color-paragraph: #5e5e72;
       --color-button: #0f766e;
@@ -35,6 +79,7 @@ const GlobalStyle = createGlobalStyle`
       --color-secondary: #0a0a0f;
       --color-tertiary: #0f766e;
       --color-surface: rgba(15, 118, 110, 0.04);
+      --color-surface-raised: #eaf1e6;
       --color-badge-bg: rgba(15, 118, 110, 0.07);
       --color-ring-start: #0f766e;
       --color-ring-end: #059669;
@@ -54,12 +99,14 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #0a0a0f;
     --color-tertiary: #0f766e;
     --color-surface: rgba(15, 118, 110, 0.04);
+    --color-surface-raised: #eaf1e6;
     --color-badge-bg: rgba(15, 118, 110, 0.07);
     --color-ring-start: #0f766e;
     --color-ring-end: #059669;
   }
 
   :root[data-theme="dark"] {
+    --artwork-opacity: 0.22;
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
@@ -71,6 +118,7 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);
+    --color-surface-raised: #203c34;
     --color-badge-bg: rgba(45, 212, 191, 0.08);
     --color-ring-start: #2dd4bf;
     --color-ring-end: #34d399;
@@ -87,18 +135,18 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       background: ${theme.colors.background};
       color: ${theme.colors.main};
-      font-size: 18px;
       font-family: var(--font-inter), sans-serif;
+      font-size: 18px;
       margin: 0;
       overflow-x: hidden;
       padding: 0;
       scroll-behavior: smooth;
-      visibility: visible;
       text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      visibility: visible;
     }
 
     p,
@@ -138,20 +186,20 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .sr-only {
-      position: absolute;
-      width: 1px;
+      border: 0;
+      clip: rect(0, 0, 0, 0);
       height: 1px;
-      padding: 0;
       margin: -1px;
       overflow: hidden;
-      clip: rect(0, 0, 0, 0);
+      padding: 0;
+      position: absolute;
       white-space: nowrap;
-      border: 0;
+      width: 1px;
     }
 
     main {
-      padding-top: 0;
       margin-top: 0;
+      padding-top: 0;
     }
 
     section[id] {
@@ -164,8 +212,23 @@ const GlobalStyle = createGlobalStyle`
       *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
+      ${mobileTabRules}
+      ${storySubRules}
+
+      /* The footer is hidden on mobile, so main itself starts below the fixed
+         header and clears the fixed tab bar — otherwise the last section would
+         hide behind it. */
+      html[data-mobile-view] main {
+        padding-bottom: calc(
+          var(--mobile-nav-height) + env(safe-area-inset-bottom)
+        );
+        padding-top: var(--site-header-height);
       }
     }
   `}

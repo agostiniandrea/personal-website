@@ -1,4 +1,4 @@
-import { expect,test } from "./fixtures";
+import { expect, test } from "./fixtures";
 
 type CapturedAnalyticsEvent = ["event", string, Record<string, string>];
 
@@ -9,16 +9,23 @@ async function installAnalyticsSpy(page: import("@playwright/test").Page) {
     };
     analyticsWindow.capturedAnalyticsEvents = [];
     window.gtag = (command, eventName, params = {}) => {
-      analyticsWindow.capturedAnalyticsEvents.push([command, eventName, params]);
+      analyticsWindow.capturedAnalyticsEvents.push([
+        command,
+        eventName,
+        params,
+      ]);
     };
   });
 }
 
 const capturedEvents = (page: import("@playwright/test").Page) =>
-  page.evaluate(() =>
-    (window as typeof window & {
-      capturedAnalyticsEvents: CapturedAnalyticsEvent[];
-    }).capturedAnalyticsEvents
+  page.evaluate(
+    () =>
+      (
+        window as typeof window & {
+          capturedAnalyticsEvents: CapturedAnalyticsEvent[];
+        }
+      ).capturedAnalyticsEvents,
   );
 
 const feedbackDialog = (page: import("@playwright/test").Page) =>
@@ -80,13 +87,15 @@ test("step 4 shows validation error for invalid email on blur", async ({
   await page.getByRole("button", { name: /continue/i }).click();
   await page.getByRole("button", { name: "Design" }).click();
   await page.getByRole("button", { name: /continue/i }).click();
-  await page.getByLabel(/your feedback/i).fill("This is a detailed feedback message.");
+  await page
+    .getByLabel(/your feedback/i)
+    .fill("This is a detailed feedback message.");
   await page.getByRole("button", { name: /continue/i }).click();
   // Step 4: type invalid email and blur
   await page.getByLabel(/your email/i).fill("not-an-email");
   await page.getByLabel(/your email/i).blur();
   await expect(
-    page.getByRole("alert").filter({ hasText: /valid email/i })
+    page.getByRole("alert").filter({ hasText: /valid email/i }),
   ).toBeVisible();
 });
 
@@ -95,7 +104,7 @@ test("full happy path — mocked API — reaches success screen", async ({
 }) => {
   await installAnalyticsSpy(page);
   await page.route("/api/feedback", (route) =>
-    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) })
+    route.fulfill({ status: 200, body: JSON.stringify({ success: true }) }),
   );
 
   await openModal(page);
@@ -125,22 +134,33 @@ test("full happy path — mocked API — reaches success screen", async ({
   ]);
 });
 
-test("failed feedback request does not record a submission", async ({ page }) => {
+test("failed feedback request does not record a submission", async ({
+  page,
+}) => {
   await installAnalyticsSpy(page);
   await page.route("/api/feedback", (route) =>
-    route.fulfill({ status: 500, body: JSON.stringify({ error: "Test failure" }) })
+    route.fulfill({
+      status: 500,
+      body: JSON.stringify({ error: "Test failure" }),
+    }),
   );
 
   await openModal(page);
   await page.getByRole("button", { name: /continue/i }).click();
   await page.getByRole("button", { name: "UX" }).click();
   await page.getByRole("button", { name: /continue/i }).click();
-  await page.getByLabel(/your feedback/i).fill("A valid message that should fail to submit.");
+  await page
+    .getByLabel(/your feedback/i)
+    .fill("A valid message that should fail to submit.");
   await page.getByRole("button", { name: /continue/i }).click();
   await page.getByRole("button", { name: /send/i }).click();
 
   await expect(page.getByText(/something went wrong/i)).toBeVisible();
-  expect((await capturedEvents(page)).filter(([, name]) => name === "feedback_submitted")).toHaveLength(0);
+  expect(
+    (await capturedEvents(page)).filter(
+      ([, name]) => name === "feedback_submitted",
+    ),
+  ).toHaveLength(0);
 });
 
 test("Tree-Nation link is present and points to tree-nation.com", async ({
@@ -155,7 +175,7 @@ test("Tree-Nation link is present and points to tree-nation.com", async ({
     .or(
       page
         .locator("#forest")
-        .getByRole("link", { name: /living forest|view/i })
+        .getByRole("link", { name: /living forest|view/i }),
     )
     .first();
   const href = await link.getAttribute("href");

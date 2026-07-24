@@ -24,7 +24,7 @@ async function fetchLiveTreeCount(): Promise<number> {
     }
     const res = await fetch(
       `https://tree-nation.com/api/forests/${TREE_NATION_FOREST_SLUG}/tree_counter`,
-      { headers, signal: controller.signal }
+      { headers, signal: controller.signal },
     );
     if (!res.ok) throw new Error(`Tree-Nation responded ${res.status}`);
     const data = (await res.json()) as { count?: number | string };
@@ -45,7 +45,7 @@ async function fetchLiveTreeCount(): Promise<number> {
  * should then keep their own fallback (the Contentful treeCount).
  */
 export async function getForestTreeCount(
-  supabase: SupabaseClient
+  supabase: SupabaseClient,
 ): Promise<number | null> {
   let lastKnown: ForestSyncRow | null = null;
 

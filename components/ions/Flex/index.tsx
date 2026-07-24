@@ -1,6 +1,6 @@
 import styled, { Interpolation } from "styled-components";
 
-import { type SpacingToken,toSpacing } from "@config/tokens";
+import { type SpacingToken, toSpacing } from "@config/tokens";
 import { BREAKPOINTS } from "@constants";
 
 type FlexDirectionValue = "row" | "column" | "row-reverse" | "column-reverse";
@@ -38,7 +38,7 @@ const getResponsiveValue = <T,>(
   breakpointIndex: 0 | 1 | 2 | 3 | 4,
 ): T | undefined => {
   if (!value) return undefined;
-  
+
   // If it's a single value (not an array), return it for default only
   if (!Array.isArray(value)) {
     return breakpointIndex === 0 ? (value as T) : undefined;
@@ -46,7 +46,7 @@ const getResponsiveValue = <T,>(
 
   // If it's an array, get value at index or fallback to previous value
   const array = value as T[];
-  
+
   // If breakpoint index is beyond array length, use last defined value
   if (breakpointIndex >= array.length) {
     // Use the last defined value if array has values
@@ -101,7 +101,13 @@ const StyledFlex = styled.div<StyledFlexProps>`
       const mobileJustifyContent = getResponsiveValue($justifyContent, 1);
       const mobileWrap = getResponsiveValue($wrap, 1);
 
-      if (!mobileDirection && !mobileGap && !mobileAlignItems && !mobileJustifyContent && !mobileWrap) {
+      if (
+        !mobileDirection &&
+        !mobileGap &&
+        !mobileAlignItems &&
+        !mobileJustifyContent &&
+        !mobileWrap
+      ) {
         return "";
       }
 
@@ -124,7 +130,13 @@ const StyledFlex = styled.div<StyledFlexProps>`
       const tabletJustifyContent = getResponsiveValue($justifyContent, 2);
       const tabletWrap = getResponsiveValue($wrap, 2);
 
-      if (!tabletDirection && !tabletGap && !tabletAlignItems && !tabletJustifyContent && !tabletWrap) {
+      if (
+        !tabletDirection &&
+        !tabletGap &&
+        !tabletAlignItems &&
+        !tabletJustifyContent &&
+        !tabletWrap
+      ) {
         return "";
       }
 
@@ -147,7 +159,13 @@ const StyledFlex = styled.div<StyledFlexProps>`
       const desktopJustifyContent = getResponsiveValue($justifyContent, 3);
       const desktopWrap = getResponsiveValue($wrap, 3);
 
-      if (!desktopDirection && !desktopGap && !desktopAlignItems && !desktopJustifyContent && !desktopWrap) {
+      if (
+        !desktopDirection &&
+        !desktopGap &&
+        !desktopAlignItems &&
+        !desktopJustifyContent &&
+        !desktopWrap
+      ) {
         return "";
       }
 
@@ -190,4 +208,3 @@ const Flex: React.FC<FlexProps> = ({
 };
 
 export default Flex;
-
