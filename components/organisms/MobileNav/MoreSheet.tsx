@@ -421,6 +421,10 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
   const localeKey = router.locale === "it" ? "it" : "en";
   const sheetRef = useRef<HTMLDivElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
+  /* True when the sheet is closing because the user picked a destination (not a
+     plain dismiss). The scroll-lock cleanup then lands on the top of the new
+     view instead of restoring the scroll position the sheet was opened at. */
+  const navigatingRef = useRef(false);
   /* Stays true while the exit animation plays, so the sheet can slide down
      before unmounting; onAnimationEnd flips it off. */
   const [mounted, setMounted] = useState(isOpen);
@@ -492,7 +496,12 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
       bodyStyle.right = previousBodyStyles.right;
       bodyStyle.top = previousBodyStyles.top;
       bodyStyle.width = previousBodyStyles.width;
-      window.scrollTo({ behavior: "auto", left: 0, top: scrollPosition });
+      window.scrollTo({
+        behavior: "auto",
+        left: 0,
+        top: navigatingRef.current ? 0 : scrollPosition,
+      });
+      navigatingRef.current = false;
       restoreInert();
       restoreFocusRef.current?.focus();
     };
@@ -537,7 +546,10 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
               <ItemButton
                 $active={activeView === destination}
                 aria-current={activeView === destination ? "page" : undefined}
-                onClick={() => onNavigate(destination)}
+                onClick={() => {
+                  navigatingRef.current = true;
+                  onNavigate(destination);
+                }}
               >
                 <ItemIcon destination={destination} />
                 <ItemCopy>
