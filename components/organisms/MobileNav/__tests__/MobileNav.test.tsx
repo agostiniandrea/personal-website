@@ -27,6 +27,11 @@ describe("MobileNav", () => {
   afterEach(() => {
     window.history.replaceState(null, "", "/");
     window.matchMedia = defaultMatchMedia;
+    Object.defineProperty(window, "scrollY", {
+      configurable: true,
+      value: 0,
+      writable: true,
+    });
     document.documentElement.removeAttribute("data-mobile-view");
     document.documentElement.removeAttribute("data-story-sub");
   });
@@ -165,6 +170,46 @@ describe("MobileNav", () => {
       expect(screen.getByRole("button", { name: "More" })).toHaveAttribute(
         "aria-current",
         "page",
+      );
+    });
+
+    it("opens the picked destination at the top, not at the sheet's scroll position", async () => {
+      const user = userEvent.setup();
+      Object.defineProperty(window, "scrollY", {
+        configurable: true,
+        value: 500,
+        writable: true,
+      });
+      renderWithTheme(<MobileNav />);
+      await user.click(screen.getByRole("button", { name: "More" }));
+      (window.scrollTo as jest.Mock).mockClear();
+      await user.click(
+        screen.getByRole("button", {
+          name: /Skills & tools Technologies and practices/i,
+        }),
+      );
+      expect(window.scrollTo).toHaveBeenCalledWith(
+        expect.objectContaining({ top: 0 }),
+      );
+      // must never bounce back to where the page was when the sheet opened
+      expect(window.scrollTo).not.toHaveBeenCalledWith(
+        expect.objectContaining({ top: 500 }),
+      );
+    });
+
+    it("restores the scroll position on a plain dismiss", async () => {
+      const user = userEvent.setup();
+      Object.defineProperty(window, "scrollY", {
+        configurable: true,
+        value: 500,
+        writable: true,
+      });
+      renderWithTheme(<MobileNav />);
+      await user.click(screen.getByRole("button", { name: "More" }));
+      (window.scrollTo as jest.Mock).mockClear();
+      await user.keyboard("{Escape}");
+      expect(window.scrollTo).toHaveBeenCalledWith(
+        expect.objectContaining({ top: 500 }),
       );
     });
 
