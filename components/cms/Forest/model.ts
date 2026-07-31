@@ -11,7 +11,7 @@ export const defaultOriginItems: OriginItem[] = [
   },
   {
     date: "Today",
-    text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me.",
+    text: "→  Every meaningful contribution can shape the portfolio — community feedback grows a pair of real trees.",
   },
 ];
 
@@ -19,27 +19,21 @@ export const defaultForest: ForestProps = {
   originItems: defaultOriginItems,
   badge: "Growing in public",
   sectionLabel: "🌳 Forest",
-  heading: "This portfolio grows with your feedback.",
+  heading: "This portfolio grows through feedback, research and iteration.",
   subheading:
-    "Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.",
-  feedbackCount: 0,
-  rewardedFeedbackCount: 0,
-  treesDedicatedCount: 0,
-  improvementsCount: 0,
+    "Forest didn't start with this website — it began months earlier, as a personal commitment to give something back. Today it grows in three ways: community feedback, focused research, and my own iteration on the portfolio.",
+  insightsCollectedCount: 10,
+  treesDedicatedCount: 4,
+  improvementsShippedCount: 8,
+  communityContributionsCount: 2,
   treeCount: 34,
   treeCountTitle: "My Forest",
   ctaHeading: "Help this portfolio grow.",
   ctaBody:
-    "Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.",
+    "Every meaningful contribution can shape the portfolio. Community feedback grows a pair of real trees — one dedicated to you, one matched by me.",
   ctaButtonLabel: "🌱 Plant a leaf",
-  seasonName: "Season One",
-  seasonCurrentLabel: "Trees planted through portfolio feedback",
   treeCountLabel: "Trees planted since May 2026",
   viewForestLabel: "View the living forest",
-  feedbackCountLabel: "feedback received",
-  rewardedFeedbackCountLabel: "feedback rewarded",
-  treesDedicatedCountLabel: "trees dedicated",
-  improvementsCountLabel: "feedback implemented",
   seasonTarget: 50,
   seasonProjectLabel: "Season One project",
   seasonProjectName: "Community Reforestation in Indonesia",
@@ -58,24 +52,24 @@ export const minimalForest: ForestProps = {};
 
 export const oneStatForest: ForestProps = {
   ...defaultForest,
-  feedbackCount: 1,
-  rewardedFeedbackCount: 0,
+  insightsCollectedCount: 1,
   treesDedicatedCount: 0,
-  improvementsCount: 0,
+  improvementsShippedCount: 0,
+  communityContributionsCount: 0,
 };
 
 export const twoStatForest: ForestProps = {
   ...defaultForest,
-  feedbackCount: 5,
-  rewardedFeedbackCount: 0,
+  insightsCollectedCount: 5,
   treesDedicatedCount: 2,
-  improvementsCount: 0,
+  improvementsShippedCount: 0,
+  communityContributionsCount: 1,
 };
 
 export const fullStatForest: ForestProps = {
   ...defaultForest,
-  feedbackCount: 68,
-  rewardedFeedbackCount: 12,
+  insightsCollectedCount: 68,
   treesDedicatedCount: 25,
-  improvementsCount: 25,
+  improvementsShippedCount: 25,
+  communityContributionsCount: 12,
 };

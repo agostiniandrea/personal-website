@@ -14,19 +14,6 @@ import { useI18n } from "@lib/utils/i18n";
 
 import { ForestModal } from "./ForestModal";
 
-const LABEL_DEFAULTS = {
-  en: {
-    feedbackCountLabel: "feedback received",
-    rewardedFeedbackCountLabel: "feedback rewarded",
-    treesDedicatedCountLabel: "trees dedicated",
-  },
-  it: {
-    feedbackCountLabel: "feedback ricevuti",
-    rewardedFeedbackCountLabel: "feedback premiati",
-    treesDedicatedCountLabel: "alberi dedicati",
-  },
-};
-
 export interface ChangelogItem {
   date: string;
   description: string;
@@ -43,10 +30,14 @@ export interface ForestProps {
   heading?: string;
   subheading?: string;
   originItems?: OriginItem[];
-  feedbackCount?: number;
-  rewardedFeedbackCount?: number;
+  /** All feedback records, any source. */
+  insightsCollectedCount?: number;
+  /** Trees dedicated to real community feedback (sum where source=community). */
   treesDedicatedCount?: number;
-  improvementsCount?: number;
+  /** Records shipped as improvements (status=implemented), any source. */
+  improvementsShippedCount?: number;
+  /** Community records that earned trees (source=community, trees>0). */
+  communityContributionsCount?: number;
   treeCount?: number;
   treeCountTitle?: string;
   ctaHeading?: string;
@@ -57,10 +48,6 @@ export interface ForestProps {
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
-  feedbackCountLabel?: string;
-  rewardedFeedbackCountLabel?: string;
-  treesDedicatedCountLabel?: string;
-  improvementsCountLabel?: string;
   seasonCurrent?: number;
   seasonTarget?: number;
   seasonProjectLabel?: string;
@@ -220,11 +207,10 @@ const StatsGrid = styled.div<{ $count: number }>`
   display: grid;
   gap: 0.625rem;
   grid-template-columns: repeat(${({ $count }) => $count}, 1fr);
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     gap: ${({ theme }) => theme.space.xl};
-    /* -29% vs mobile: on desktop the strip sits closer to the related CTA card */
     margin-bottom: 2.5rem;
   }
 `;
@@ -293,7 +279,7 @@ const CtaDecor = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
-  padding-top: 0.25rem;
+  padding-top: 1.25rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
@@ -398,7 +384,7 @@ const SeasonHeader = styled.div`
   align-items: baseline;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 0.875rem;
 `;
 
 const SeasonLabel = styled.span`
@@ -446,10 +432,36 @@ const SeasonSublabel = styled.span`
   letter-spacing: 0.05em;
 `;
 
-const SeasonPct = styled.span`
-  color: ${({ theme }) => theme.colors.highlight};
+/* ── Community impact ── */
+
+const CommunityImpact = styled.div`
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+`;
+
+const CommunityTitle = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+`;
+
+const CommunityTrees = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: ${({ theme }) => theme.lineHeights.tight};
+`;
+
+const CommunityMeta = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 /* ── Season project panel ── */
@@ -649,25 +661,21 @@ const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
 const Forest: React.FC<ForestProps> = ({
   badge = "Growing in public",
   sectionLabel = "🌳 Forest",
-  heading = "This portfolio grows with your feedback.",
-  subheading = "Forest didn't start with this website. It started months earlier — a personal commitment to give something back. This page simply invites others to become part of that journey.",
+  heading,
+  subheading,
   originItems,
-  feedbackCount = 0,
-  rewardedFeedbackCount = 0,
+  insightsCollectedCount = 0,
   treesDedicatedCount = 0,
+  improvementsShippedCount = 0,
+  communityContributionsCount = 0,
   treeCount = 34,
-  treeCountTitle = "My Forest",
+  treeCountTitle,
   ctaHeading = "Help this portfolio grow.",
-  ctaBody = "Every meaningful suggestion plants two real trees — one dedicated to you, one matched by me. Together, we're growing this forest.",
+  ctaBody,
   ctaButtonLabel = "🌱 Plant a leaf",
-  seasonName = "Season One",
-  seasonCurrentLabel = "Trees planted through portfolio feedback",
   treeCountLabel = "Trees planted since May 2026",
-  treesLabel = "trees",
+  treesLabel,
   viewForestLabel = "View the living forest",
-  feedbackCountLabel,
-  rewardedFeedbackCountLabel,
-  treesDedicatedCountLabel,
   seasonTarget = 50,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
@@ -685,7 +693,6 @@ const Forest: React.FC<ForestProps> = ({
   const [modalOpen, setModalOpen] = useState(false);
   const { locale } = useRouter();
   const t = useI18n(locale);
-  const labelDefaults = locale === "it" ? LABEL_DEFAULTS.it : LABEL_DEFAULTS.en;
   const projectId =
     seasonProjectUrl?.split("/").filter(Boolean).pop() ?? "unknown";
   const hasStructuredStats =
@@ -702,36 +709,43 @@ const Forest: React.FC<ForestProps> = ({
       project_id: projectId,
     });
   };
-  const resolvedFeedbackCountLabel =
-    feedbackCountLabel ?? labelDefaults.feedbackCountLabel;
-  const resolvedTreesDedicatedCountLabel =
-    treesDedicatedCountLabel ?? labelDefaults.treesDedicatedCountLabel;
-  const resolvedRewardedFeedbackCountLabel =
-    rewardedFeedbackCountLabel ?? labelDefaults.rewardedFeedbackCountLabel;
+  const resolvedHeading = heading ?? t.forestHeading;
+  const resolvedSubheading = subheading ?? t.forestSubheading;
+  const resolvedCtaBody = ctaBody ?? t.forestCtaBody;
+  const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
+  const resolvedMyForestTitle = treeCountTitle ?? t.forestMyForestTitle;
 
-  const animFeedback = useAnimatedCounter(feedbackCount, inView);
+  const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
-  const animRewarded = useAnimatedCounter(rewardedFeedbackCount, inView);
+  const animImprovements = useAnimatedCounter(improvementsShippedCount, inView);
 
+  /* Progress tracks the whole forest toward the next milestone (not just the
+     community slice), so the bar reads 34/50, not 4/50. */
   const pct = Math.min(
-    seasonTarget > 0 ? (treesDedicatedCount / seasonTarget) * 100 : 0,
+    seasonTarget > 0 ? Math.round((treeCount / seasonTarget) * 100) : 0,
     100,
   );
+  const perContribution =
+    communityContributionsCount > 0
+      ? Math.round(treesDedicatedCount / communityContributionsCount)
+      : 0;
+  const hasCommunityImpact =
+    treesDedicatedCount > 0 && communityContributionsCount > 0;
   const visibleStats = [
     {
-      value: animFeedback,
-      label: resolvedFeedbackCountLabel,
-      active: feedbackCount > 0,
-    },
-    {
-      value: animRewarded,
-      label: resolvedRewardedFeedbackCountLabel,
-      active: rewardedFeedbackCount > 0,
+      value: animInsights,
+      label: t.forestStatInsights,
+      active: insightsCollectedCount > 0,
     },
     {
       value: animTrees,
-      label: resolvedTreesDedicatedCountLabel,
+      label: t.forestStatTrees,
       active: treesDedicatedCount > 0,
+    },
+    {
+      value: animImprovements,
+      label: t.forestStatImprovements,
+      active: improvementsShippedCount > 0,
     },
   ].filter((s) => s.active);
   const hasStats = visibleStats.length >= 2;
@@ -769,8 +783,8 @@ const Forest: React.FC<ForestProps> = ({
           )}
 
           <SectionLabel>{sectionLabel}</SectionLabel>
-          <SectionHeading>{heading}</SectionHeading>
-          <Subheading variant="large">{subheading}</Subheading>
+          <SectionHeading>{resolvedHeading}</SectionHeading>
+          <Subheading variant="large">{resolvedSubheading}</Subheading>
 
           <OriginBlock>
             {resolvedOriginItems.map((item) => (
@@ -797,15 +811,13 @@ const Forest: React.FC<ForestProps> = ({
           <CtaCard>
             <CtaContent>
               <CtaHeading>{ctaHeading}</CtaHeading>
-              <CtaBody>{ctaBody}</CtaBody>
+              <CtaBody>{resolvedCtaBody}</CtaBody>
               <PlantButton onClick={openFeedbackModal} aria-haspopup="dialog">
                 {ctaButtonLabel}
               </PlantButton>
             </CtaContent>
             <CtaDecor>
-              {treeCountTitle && (
-                <CtaDecorTitle>{treeCountTitle}</CtaDecorTitle>
-              )}
+              <CtaDecorTitle>{resolvedMyForestTitle}</CtaDecorTitle>
               <CtaDecorNumber>{treeCount}</CtaDecorNumber>
               <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
             </CtaDecor>
@@ -815,18 +827,32 @@ const Forest: React.FC<ForestProps> = ({
             <SeasonGrid>
               <div>
                 <SeasonHeader>
-                  <SeasonLabel>{seasonName}</SeasonLabel>
+                  <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                   <SeasonCount>
-                    {treesDedicatedCount} / {seasonTarget} {treesLabel}
+                    {treeCount} / {seasonTarget} {resolvedTreesLabel}
                   </SeasonCount>
                 </SeasonHeader>
                 <ProgressTrack>
                   <ProgressFill $pct={pct} $animate={inView} />
                 </ProgressTrack>
                 <SeasonMeta>
-                  <SeasonSublabel>{seasonCurrentLabel}</SeasonSublabel>
-                  <SeasonPct>{Math.round(pct)}%</SeasonPct>
+                  <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
                 </SeasonMeta>
+                {hasCommunityImpact && (
+                  <CommunityImpact data-testid="community-impact">
+                    <CommunityTitle>
+                      {t.forestCommunityImpactTitle}
+                    </CommunityTitle>
+                    <CommunityTrees>
+                      {t.forestCommunityTrees(treesDedicatedCount)}
+                    </CommunityTrees>
+                    <CommunityMeta>
+                      {t.forestContributions(communityContributionsCount)}
+                      {" · "}
+                      {t.forestCommunityPerContribution(perContribution)}
+                    </CommunityMeta>
+                  </CommunityImpact>
+                )}
               </div>
               {seasonProjectName && (
                 <ProjectPanel data-testid="season-project">
@@ -839,7 +865,7 @@ const Forest: React.FC<ForestProps> = ({
                   )}
                   {hasStructuredStats ? (
                     <ProjectStats data-testid="project-stats">
-                      {`${seasonProjectTreesCount} ${treesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
+                      {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
                       <Co2Unit>
                         {` · ${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
                         <sub>2</sub>

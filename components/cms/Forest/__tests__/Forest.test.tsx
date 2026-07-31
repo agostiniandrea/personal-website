@@ -56,9 +56,20 @@ describe("Forest", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the season progress label", () => {
+  it("renders the forest progress toward the next milestone", () => {
     renderWithTheme(<Forest {...defaultForest} />);
-    expect(screen.getByText(defaultForest.seasonName!)).toBeInTheDocument();
+    // treeCount 34 / seasonTarget 50 → 68%
+    expect(
+      screen.getByText("68% towards next milestone"),
+    ).toBeInTheDocument();
+  });
+
+  it("renders the community impact block from real community data", () => {
+    renderWithTheme(<Forest {...defaultForest} />);
+    const block = screen.getByTestId("community-impact");
+    expect(block).toHaveTextContent("4 trees grown through portfolio feedback");
+    expect(block).toHaveTextContent("2 meaningful contributions");
+    expect(block).toHaveTextContent("2 trees planted for each");
   });
 
   it("renders the Tree-Nation link", () => {
@@ -184,9 +195,9 @@ describe("Forest", () => {
       const { container } = renderWithTheme(
         <Forest
           {...defaultForest}
-          feedbackCount={0}
+          insightsCollectedCount={0}
           treesDedicatedCount={0}
-          improvementsCount={0}
+          improvementsShippedCount={0}
         />,
       );
       expect(getStatItems(container).length).toBe(0);
@@ -213,9 +224,9 @@ describe("Forest", () => {
         (item) => item.firstElementChild?.textContent,
       );
       expect(numbers).toEqual([
-        String(fullStatForest.feedbackCount),
-        String(fullStatForest.rewardedFeedbackCount),
+        String(fullStatForest.insightsCollectedCount),
         String(fullStatForest.treesDedicatedCount),
+        String(fullStatForest.improvementsShippedCount),
       ]);
     });
   });

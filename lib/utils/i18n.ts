@@ -12,11 +12,31 @@ const strings = {
     feedbackNudgeCta: "See how it grows",
     feedbackNudgeDismiss: "Dismiss feedback prompt",
     feedbackNudgeTitle: "Your feedback helps grow real trees.",
+    forestCommunityImpactTitle: "Community impact",
+    forestCommunityPerContribution: (perContribution: number) =>
+      `${perContribution} trees planted for each`,
+    forestCommunityTrees: (trees: number) =>
+      `${trees} trees grown through portfolio feedback`,
+    forestContributions: (count: number) =>
+      `${count} meaningful ${count === 1 ? "contribution" : "contributions"}`,
+    forestCtaBody:
+      "Every meaningful contribution can shape the portfolio. Community feedback grows a pair of real trees — one dedicated to you, one matched by me.",
+    forestHeading:
+      "This portfolio grows through feedback, research and iteration.",
     forestInlineCta: "Explore the Forest",
     forestInlineEyebrow: "Feedback with impact",
     forestInlineHeading: "Thoughtful feedback grows into real trees.",
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} trees planted through portfolio feedback · ${totalTrees} trees in my forest`,
+    forestMilestone: (pct: number) => `${pct}% towards next milestone`,
+    forestMyForestTitle: "My Forest",
+    forestProgressTitle: "Forest progress",
+    forestStatImprovements: "improvements shipped",
+    forestStatInsights: "insights collected",
+    forestStatTrees: "trees dedicated",
+    forestSubheading:
+      "Forest didn't start with this website — it began months earlier, as a personal commitment to give something back. Today it grows in three ways: community feedback, focused research, and my own iteration on the portfolio.",
+    forestTreesUnit: "trees",
     goTo: (label: string) => `Go to ${label}`,
     journeyNow: "Now",
     mainNavigation: "Main navigation",
@@ -62,11 +82,31 @@ const strings = {
     feedbackNudgeCta: "Scopri come cresce",
     feedbackNudgeDismiss: "Chiudi l'invito al feedback",
     feedbackNudgeTitle: "Il tuo feedback aiuta a far crescere alberi veri.",
+    forestCommunityImpactTitle: "Impatto della community",
+    forestCommunityPerContribution: (perContribution: number) =>
+      `${perContribution} alberi piantati per ciascuno`,
+    forestCommunityTrees: (trees: number) =>
+      `${trees} alberi cresciuti grazie ai feedback`,
+    forestContributions: (count: number) =>
+      `${count} ${count === 1 ? "contributo significativo" : "contributi significativi"}`,
+    forestCtaBody:
+      "Ogni contributo significativo può dare forma al portfolio. I feedback della community fanno crescere due alberi veri — uno dedicato a te, uno che aggiungo io.",
+    forestHeading:
+      "Questo portfolio cresce grazie a feedback, ricerca e iterazione.",
     forestInlineCta: "Esplora Forest",
     forestInlineEyebrow: "Feedback che lascia il segno",
     forestInlineHeading: "Ogni feedback fa crescere alberi veri.",
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} alberi piantati grazie ai feedback sul portfolio · ${totalTrees} alberi nella mia foresta`,
+    forestMilestone: (pct: number) => `${pct}% verso il prossimo traguardo`,
+    forestMyForestTitle: "La mia foresta",
+    forestProgressTitle: "Crescita della foresta",
+    forestStatImprovements: "migliorie realizzate",
+    forestStatInsights: "spunti raccolti",
+    forestStatTrees: "alberi dedicati",
+    forestSubheading:
+      "Forest non è nata con questo sito — è iniziata mesi prima, come impegno personale a restituire qualcosa. Oggi cresce in tre modi: i feedback della community, la ricerca mirata e la mia iterazione continua sul portfolio.",
+    forestTreesUnit: "alberi",
     goTo: (label: string) => `Vai a ${label}`,
     journeyNow: "Oggi",
     mainNavigation: "Navigazione principale",
