@@ -137,6 +137,10 @@ export default async function handler(
     github: github?.trim() || null,
     website: website?.trim() || null,
     public_acknowledgment: publicAcknowledgment === true,
+    // Everything submitted through the public form is, by definition, real
+    // community feedback. Internal insights are seeded separately and never
+    // pass through this endpoint.
+    source: "community",
     ip,
   });
 
