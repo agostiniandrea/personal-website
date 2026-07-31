@@ -7,9 +7,8 @@
  * Never prints secrets — only the project ref (host) is shown.
  * Run: node scripts/verify-forest-source-model.mjs
  */
-import { readFileSync } from "node:fs";
-
 import { createClient } from "@supabase/supabase-js";
+import { readFileSync } from "node:fs";
 
 // Minimal .env.local loader (no extra deps)
 try {
