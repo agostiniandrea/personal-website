@@ -12,6 +12,15 @@ create table if not exists public.feedback (
   website              text,
   public_acknowledgment boolean    not null default false,
   status               text        not null default 'pending',
+  -- Where the record came from. Public form submissions are always
+  -- 'community'; the other sources are internally-seeded improvement insights
+  -- (own review, research-assisted, or backed by real analytics) and never
+  -- grow trees. See supabase/migrations for the backfill.
+  source               text        not null default 'community',
+  -- Stable, human-readable key for idempotent internal seeds. Null for
+  -- community records; unique when present so re-running a seed is a no-op.
+  source_reference     text,
+  trees_planted        integer     not null default 0,
   ip                   text,
   created_at           timestamptz not null default now(),
 
@@ -20,8 +29,16 @@ create table if not exists public.feedback (
   ),
   constraint feedback_status_check check (
     status in ('pending', 'accepted', 'rejected', 'implemented')
+  ),
+  constraint feedback_source_check check (
+    source in ('community', 'self_review', 'research_assisted', 'analytics')
   )
 );
+
+-- Idempotency guard for internal seeds (community rows keep source_reference null)
+create unique index if not exists feedback_source_reference_key
+  on public.feedback (source_reference)
+  where source_reference is not null;
 
 -- Enable Row Level Security
 alter table public.feedback enable row level security;

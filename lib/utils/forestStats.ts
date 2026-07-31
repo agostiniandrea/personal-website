@@ -1,20 +1,38 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 export interface ForestImpactStats {
-  feedbackCount: number;
-  rewardedFeedbackCount: number;
+  /** Every record in the feedback table, whatever its source. */
+  insightsCollectedCount: number;
+  /** Trees dedicated to real community feedback only (sum of trees_planted
+      where source = 'community'). Internal insights never grow trees. */
   treesDedicatedCount: number;
+  /** Records shipped as improvements (status = 'implemented'), any source. */
+  improvementsShippedCount: number;
+  /** Community records that earned trees (source = 'community', trees > 0). */
+  communityContributionsCount: number;
 }
 
 export async function getForestImpactStats(
   supabase: SupabaseClient,
 ): Promise<ForestImpactStats> {
-  const [feedbackResult, plantedResult] = await Promise.all([
-    supabase.from("feedback").select("id", { count: "exact", head: true }),
-    supabase.from("feedback").select("trees_planted"),
-  ]);
+  const [insightsResult, communityResult, implementedResult] =
+    await Promise.all([
+      supabase.from("feedback").select("id", { count: "exact", head: true }),
+      supabase
+        .from("feedback")
+        .select("trees_planted")
+        .eq("source", "community"),
+      supabase
+        .from("feedback")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "implemented"),
+    ]);
 
-  const errors = [feedbackResult.error, plantedResult.error].filter(Boolean);
+  const errors = [
+    insightsResult.error,
+    communityResult.error,
+    implementedResult.error,
+  ].filter(Boolean);
   if (errors.length > 0) {
     throw new Error(
       `Forest statistics query failed: ${errors
@@ -23,14 +41,17 @@ export async function getForestImpactStats(
     );
   }
 
+  const communityRows = communityResult.data ?? [];
+
   return {
-    feedbackCount: feedbackResult.count ?? 0,
-    rewardedFeedbackCount: (plantedResult.data ?? []).filter(
-      (row) => Number(row.trees_planted) > 0,
-    ).length,
-    treesDedicatedCount: (plantedResult.data ?? []).reduce(
+    insightsCollectedCount: insightsResult.count ?? 0,
+    treesDedicatedCount: communityRows.reduce(
       (sum, row) => sum + (Number(row.trees_planted) || 0),
       0,
     ),
+    improvementsShippedCount: implementedResult.count ?? 0,
+    communityContributionsCount: communityRows.filter(
+      (row) => Number(row.trees_planted) > 0,
+    ).length,
   };
 }
