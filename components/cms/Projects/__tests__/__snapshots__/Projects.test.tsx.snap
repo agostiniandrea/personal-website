@@ -48,11 +48,6 @@ exports[`Projects renders correctly with a single item 1`] = `
   outline-offset: 2px;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -91,9 +86,14 @@ exports[`Projects renders correctly with a single item 1`] = `
   text-transform: uppercase;
 }
 
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
 .c5 {
-  margin: 0 0 3rem;
-  max-width: 600px;
+  margin: 0 0 2rem;
+  max-width: 640px;
 }
 
 .c7 {
@@ -289,9 +289,9 @@ exports[`Projects renders correctly with a single item 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
+@media (max-width: 899.99px) {
   .c5 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -527,11 +527,6 @@ exports[`Projects renders correctly with full project list 1`] = `
   outline-offset: 2px;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -570,9 +565,14 @@ exports[`Projects renders correctly with full project list 1`] = `
   text-transform: uppercase;
 }
 
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
 .c5 {
-  margin: 0 0 3rem;
-  max-width: 600px;
+  margin: 0 0 2rem;
+  max-width: 640px;
 }
 
 .c7 {
@@ -768,9 +768,9 @@ exports[`Projects renders correctly with full project list 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
+@media (max-width: 899.99px) {
   .c5 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
 

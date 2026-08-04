@@ -28,11 +28,6 @@ exports[`About renders correctly with all props 1`] = `
   line-height: 1.1;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -71,14 +66,19 @@ exports[`About renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
 .c5 {
   margin: 0 0 2rem;
-  max-width: 600px;
+  max-width: 640px;
 }
 
 .c7 {
   line-height: 1.7;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
   max-width: 680px;
 }
 
@@ -154,9 +154,15 @@ exports[`About renders correctly with all props 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
+@media (max-width: 899.99px) {
   .c5 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c7 {
+    margin-bottom: 1rem;
   }
 }
 
@@ -224,11 +230,6 @@ exports[`About renders correctly without optional tags 1`] = `
   line-height: 1.1;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -254,14 +255,19 @@ exports[`About renders correctly without optional tags 1`] = `
   text-transform: uppercase;
 }
 
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
 .c5 {
   margin: 0 0 2rem;
-  max-width: 600px;
+  max-width: 640px;
 }
 
 .c7 {
   line-height: 1.7;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
   max-width: 680px;
 }
 
@@ -337,9 +343,15 @@ exports[`About renders correctly without optional tags 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
+@media (max-width: 899.99px) {
   .c5 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c7 {
+    margin-bottom: 1rem;
   }
 }
 

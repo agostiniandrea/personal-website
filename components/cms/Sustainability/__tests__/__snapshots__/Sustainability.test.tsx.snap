@@ -26,11 +26,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
   line-height: 1.1;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -107,6 +102,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
 
 .c6 {
   display: none;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c8 {
@@ -235,20 +235,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c0 {
-    padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
-  }
-}
-
 @media (min-width: 900px) {
   .c2 {
     display: none;
@@ -270,6 +256,20 @@ exports[`Sustainability renders correctly with all props 1`] = `
 @media (min-width: 900px) {
   .c6 {
     display: block;
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 
@@ -608,11 +608,6 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   line-height: 1.1;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c3 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -676,6 +671,11 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 
 .c6 {
   display: none;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c8 {
@@ -794,20 +794,6 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c0 {
-    padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
-  }
-}
-
 @media (min-width: 900px) {
   .c2 {
     display: none;
@@ -829,6 +815,20 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 @media (min-width: 900px) {
   .c6 {
     display: block;
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 

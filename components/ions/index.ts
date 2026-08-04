@@ -7,6 +7,5 @@ export { default as Grid } from "./Grid";
 export { default as Heading } from "./Heading";
 export { default as Image } from "./Image";
 export { default as Link } from "./Link";
-export { default as Section } from "./Section";
 export { default as Skeleton } from "./Skeleton";
 export { default as Text } from "./Text";

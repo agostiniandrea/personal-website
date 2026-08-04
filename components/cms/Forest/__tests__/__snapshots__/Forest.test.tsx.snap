@@ -14,11 +14,6 @@ exports[`Forest renders correctly with all props 1`] = `
   grid-column: 2/auto;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c5 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -95,6 +90,11 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c50 svg {
   display: block;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -512,6 +512,12 @@ exports[`Forest renders correctly with all props 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c50:hover {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 1199.99px) {
   .c0 {
     padding-bottom: 2rem;
@@ -523,12 +529,6 @@ exports[`Forest renders correctly with all props 1`] = `
   .c0 {
     padding-bottom: 1.5rem;
     padding-top: 1.5rem;
-  }
-}
-
-@media (hover: hover) {
-  .c50:hover {
-    opacity: 1;
   }
 }
 
@@ -1079,11 +1079,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
   grid-column: 2/auto;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c5 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -1115,6 +1110,11 @@ exports[`Forest renders correctly with minimal props 1`] = `
   letter-spacing: 0.2em;
   margin: 0 0 1.25rem;
   text-transform: uppercase;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {

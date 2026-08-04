@@ -2,29 +2,14 @@ import { useRouter } from "next/router";
 
 import styled, { css, keyframes } from "styled-components";
 
-import { Box, Container, Heading, Section, Text } from "@components/ions";
-import { SectionLabel } from "@components/molecules";
+import { Box, Heading, Text } from "@components/ions";
+import { Section } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 
 import { type JourneyChapter, journeyData, type JourneyProps } from "./model";
 
-const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
-  }
-`;
-
-const Intro = styled(Text)`
-  line-height: ${({ theme }) => theme.lineHeights.loose};
-  margin-bottom: ${({ theme }) => theme.space["4xl"]};
-  max-width: 680px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
-  }
-`;
 
 const Timeline = styled.ol`
   list-style: none;
@@ -142,14 +127,10 @@ const Journey: React.FC<JourneyProps> = ({
   const { locale } = useRouter();
   const t = useI18n(locale);
   return (
-    <Section id="journey">
-      <Container>
-        {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
-        {heading && <SectionHeading size="section">{heading}</SectionHeading>}
-        {intro && <Intro variant="large">{intro}</Intro>}
-        <StorySegmentedControl />
+    <Section id="journey" eyebrow={sectionLabel} heading={heading} body={intro}>
+      <StorySegmentedControl />
 
-        <Timeline aria-label="Life journey timeline">
+      <Timeline aria-label="Life journey timeline">
           {chapters?.map((chapter) => (
             <TimelineItem key={chapter.city}>
               <DotColumn>
@@ -169,8 +150,7 @@ const Journey: React.FC<JourneyProps> = ({
               </ItemContent>
             </TimelineItem>
           ))}
-        </Timeline>
-      </Container>
+      </Timeline>
     </Section>
   );
 };
