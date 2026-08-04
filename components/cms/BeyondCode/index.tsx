@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Grid, Heading, Text } from "@components/ions";
+import { Container, Grid, Heading, Section, Text } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
@@ -37,8 +37,12 @@ const Card = styled.article`
   border-radius: ${({ theme }) => theme.radii.md};
   display: flex;
   flex-direction: column;
-  padding: ${({ theme }) => theme.space["3xl"]}
-    ${({ theme }) => theme.space["2xl"]};
+  padding: ${({ theme }) => theme.space["2xl"]}
+    ${({ theme }) => theme.space.xl};
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    padding: ${({ theme }) => theme.space.lg};
+  }
 `;
 
 const CategoryLabel = styled.h3`
@@ -76,12 +80,7 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
   const t = useI18n(locale);
 
   return (
-    <Box
-      as="section"
-      id="beyond-code"
-      py="3xl"
-      styles={`@media (max-width: ${BREAKPOINTS_BELOW.tablet}) { padding-top: 2rem; padding-bottom: 2rem; }`}
-    >
+    <Section id="beyond-code">
       <Container>
         <ExploreContext />
         <ContextEyebrow>{t.moreBeyondCodeTitle}</ContextEyebrow>
@@ -111,7 +110,7 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
           ))}
         </Grid>
       </Container>
-    </Box>
+    </Section>
   );
 };
 

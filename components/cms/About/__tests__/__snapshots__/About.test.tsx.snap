@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`About renders correctly with all props 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -31,6 +26,11 @@ exports[`About renders correctly with all props 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -80,19 +80,6 @@ exports[`About renders correctly with all props 1`] = `
   line-height: 1.7;
   margin-bottom: 2rem;
   max-width: 680px;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c0 {
-    padding-top: 0.5rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -150,6 +137,20 @@ exports[`About renders correctly with all props 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 
@@ -202,11 +203,6 @@ exports[`About renders correctly with all props 1`] = `
 `;
 
 exports[`About renders correctly without optional tags 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -226,6 +222,11 @@ exports[`About renders correctly without optional tags 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -262,19 +263,6 @@ exports[`About renders correctly without optional tags 1`] = `
   line-height: 1.7;
   margin-bottom: 2rem;
   max-width: 680px;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c0 {
-    padding-top: 0.5rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -332,6 +320,20 @@ exports[`About renders correctly without optional tags 1`] = `
 @media (min-width: 1200px) {
   .c4 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Box, Container, Flex, Heading, Text } from "@components/ions";
+import { Box, Container, Flex, Heading, Section, Text } from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
@@ -24,14 +24,6 @@ export interface ExperienceProps {
   intro?: string;
 }
 
-const Section = styled.section`
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: ${({ theme }) => theme.space["2xl"]};
-    padding-top: ${({ theme }) => theme.space["2xl"]};
-  }
-`;
-
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["2xl"]};
   max-width: 600px;
@@ -50,14 +42,23 @@ const List = styled.ol`
 `;
 
 const Item = styled.li`
-  border-top: 1px solid ${({ theme }) => theme.colors.main};
   display: grid;
   gap: ${({ theme }) => theme.space.lg};
   grid-template-columns: 1fr;
   padding: ${({ theme }) => theme.space["2xl"]} 0;
 
-  &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    padding: ${({ theme }) => theme.space.xl} 0;
+  }
+
+  /* First entry sits flush under the intro/control — no leading gap or bar.
+     Dividers appear only between entries, so the list isn't boxed in. */
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {

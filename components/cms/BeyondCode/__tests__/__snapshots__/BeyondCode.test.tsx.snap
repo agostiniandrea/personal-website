@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BeyondCode renders correctly with all props 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -31,6 +26,11 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c3 {
@@ -122,7 +122,7 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
 }
 
 .c14 {
@@ -148,13 +148,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -239,6 +232,20 @@ exports[`BeyondCode renders correctly with all props 1`] = `
   }
 }
 
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
 @media (min-width: 900px) {
   .c2 {
     display: none;
@@ -272,6 +279,12 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 @media (max-width: 1199.99px) {
   .c11 {
     margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 599.99px) {
+  .c13 {
+    padding: 1rem;
   }
 }
 
@@ -421,11 +434,6 @@ exports[`BeyondCode renders correctly with all props 1`] = `
 `;
 
 exports[`BeyondCode renders correctly without intro 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -451,6 +459,11 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c3 {
@@ -528,7 +541,7 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
 }
 
 .c12 {
@@ -554,13 +567,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -645,6 +651,20 @@ exports[`BeyondCode renders correctly without intro 1`] = `
   }
 }
 
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
 @media (min-width: 900px) {
   .c2 {
     display: none;
@@ -672,6 +692,12 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 @media (max-width: 1199.99px) {
   .c8 {
     margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 599.99px) {
+  .c11 {
+    padding: 1rem;
   }
 }
 
@@ -816,11 +842,6 @@ exports[`BeyondCode renders correctly without intro 1`] = `
 `;
 
 exports[`BeyondCode renders correctly without tags 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -846,6 +867,11 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c3 {
@@ -910,7 +936,7 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
 }
 
 .c12 {
@@ -927,13 +953,6 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   flex: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -1018,6 +1037,20 @@ exports[`BeyondCode renders correctly without tags 1`] = `
   }
 }
 
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
 @media (min-width: 900px) {
   .c2 {
     display: none;
@@ -1045,6 +1078,12 @@ exports[`BeyondCode renders correctly without tags 1`] = `
 @media (max-width: 1199.99px) {
   .c8 {
     margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 599.99px) {
+  .c11 {
+    padding: 1rem;
   }
 }
 

@@ -2,21 +2,13 @@ import { useRouter } from "next/router";
 
 import styled, { css, keyframes } from "styled-components";
 
-import { Box, Container, Heading, Text } from "@components/ions";
+import { Box, Container, Heading, Section, Text } from "@components/ions";
 import { SectionLabel } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
-import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
+import { BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 
 import { type JourneyChapter, journeyData, type JourneyProps } from "./model";
-
-const JourneySection = styled.section`
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: ${({ theme }) => theme.space["2xl"]};
-    padding-top: ${({ theme }) => theme.space["2xl"]};
-  }
-`;
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 ${({ theme }) => theme.space["2xl"]};
@@ -42,8 +34,12 @@ const Timeline = styled.ol`
 
 const TimelineItem = styled.li`
   align-items: start;
+  /* Marker column is exactly the dot's width so the dot sits flush with the
+     left edge of the heading/text; a small gap keeps the text from being
+     squeezed against the dot/connector line. Same on every viewport. */
+  column-gap: ${({ theme }) => theme.space.md};
   display: grid;
-  grid-template-columns: 2.5rem 1fr;
+  grid-template-columns: 0.75rem 1fr;
 
   &:not(:last-child) > div:first-child::after {
     background: linear-gradient(
@@ -103,12 +99,9 @@ const ItemContent = styled.div`
 `;
 
 const CityHeading = styled(Heading)`
+  /* Small gap below the city on every viewport, so the date sits a touch apart
+     (block on desktop too — inline was previously swallowing the margin). */
   margin: 0 0 0.375rem;
-
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    display: inline;
-    margin-right: ${({ theme }) => theme.space.lg};
-  }
 `;
 
 const CountryLabel = styled(Text)`
@@ -149,7 +142,7 @@ const Journey: React.FC<JourneyProps> = ({
   const { locale } = useRouter();
   const t = useI18n(locale);
   return (
-    <JourneySection id="journey">
+    <Section id="journey">
       <Container>
         {sectionLabel && <SectionLabel>{sectionLabel}</SectionLabel>}
         {heading && <SectionHeading size="section">{heading}</SectionHeading>}
@@ -178,7 +171,7 @@ const Journey: React.FC<JourneyProps> = ({
           ))}
         </Timeline>
       </Container>
-    </JourneySection>
+    </Section>
   );
 };
 

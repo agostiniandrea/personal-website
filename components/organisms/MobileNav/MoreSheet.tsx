@@ -154,9 +154,10 @@ const Sheet = styled.div<{ $closing: boolean }>`
   max-height: calc(100svh - 4rem);
   overscroll-behavior: contain;
   overflow-y: auto;
-  /* bottom padding clears the fixed tab bar the sheet slides behind — just a
-     small gap above the bar, not a big void */
-  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.xl}
+  /* Horizontal padding matches the page's 1rem mobile gutter so the sheet
+     content lines up with the sections behind it. Bottom padding clears the
+     fixed tab bar the sheet slides behind — just a small gap, not a big void. */
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.lg}
     calc(
       var(--mobile-nav-height) + env(safe-area-inset-bottom) +
         ${({ theme }) => theme.space.sm}
@@ -164,11 +165,6 @@ const Sheet = styled.div<{ $closing: boolean }>`
   position: fixed;
   right: 0;
   z-index: 301;
-
-  @media (max-width: 360px) {
-    padding-left: ${({ theme }) => theme.space.md};
-    padding-right: ${({ theme }) => theme.space.md};
-  }
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -182,7 +178,7 @@ const SheetHeader = styled.div`
   background: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.space.md};
+  margin-bottom: ${({ theme }) => theme.space.lg};
   position: sticky;
   top: 0;
   z-index: 1;
@@ -220,7 +216,9 @@ const ItemList = styled.ul`
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
   list-style: none;
-  margin: 0 0 ${({ theme }) => theme.space.xl};
+  /* Negative inline margin cancels the buttons' own padding so the icons line
+     up with the sheet title, while the hover background keeps its inset. */
+  margin: 0 -${({ theme }) => theme.space.sm} ${({ theme }) => theme.space.lg};
   padding: 0;
 `;
 
@@ -341,45 +339,14 @@ const CvLink = styled.a`
   }
 `;
 
-const LocaleRow = styled.div`
-  align-items: center;
-  display: flex;
-  gap: ${({ theme }) => theme.space.md};
-`;
-
-const LocaleLabel = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-`;
-
-const LocaleButton = styled.button<{ $active: boolean }>`
-  background: ${({ $active, theme }) =>
-    $active ? theme.colors.highlight : "transparent"};
-  border: 1px solid ${({ theme }) => theme.colors.highlight};
-  border-radius: ${({ theme }) => theme.radii.xs};
-  color: ${({ $active, theme }) =>
-    $active ? theme.colors.button_text : theme.colors.highlight};
-  cursor: pointer;
-  font-family: inherit;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  min-height: 44px;
-  min-width: 44px;
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.highlight};
-    outline-offset: 2px;
-  }
-`;
-
 const FooterInfo = styled.div`
   align-items: center;
   border-top: 1px solid rgba(128, 128, 128, 0.16);
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.sm};
-  margin-top: ${({ theme }) => theme.space.md};
-  padding-top: ${({ theme }) => theme.space.md};
+  /* Equal breathing room above (from the element before) and below the divider. */
+  padding-top: ${({ theme }) => theme.space.lg};
   text-align: center;
 `;
 
@@ -511,11 +478,6 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
 
   const closing = !isOpen;
 
-  const switchLocale = (next: "en" | "it") => {
-    if (next === localeKey) return;
-    router.push(router.asPath, router.asPath, { locale: next, scroll: false });
-  };
-
   return createPortal(
     <>
       <Backdrop
@@ -577,23 +539,6 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
             ↓ {t.moreDownloadCv}
           </CvLink>
         )}
-        <LocaleRow>
-          <LocaleLabel>{t.moreLanguage}</LocaleLabel>
-          <LocaleButton
-            $active={localeKey === "en"}
-            onClick={() => switchLocale("en")}
-            aria-pressed={localeKey === "en"}
-          >
-            EN
-          </LocaleButton>
-          <LocaleButton
-            $active={localeKey === "it"}
-            onClick={() => switchLocale("it")}
-            aria-pressed={localeKey === "it"}
-          >
-            IT
-          </LocaleButton>
-        </LocaleRow>
         {socialLinks && socialLinks.length > 0 && (
           <FooterInfo>
             <SocialRow>

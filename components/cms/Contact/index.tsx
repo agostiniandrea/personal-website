@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Box, Container, Flex, Heading, Link, Text } from "@components/ions";
+import { Container, Flex, Heading, Link, Section, Text } from "@components/ions";
 import { SectionLabel } from "@components/molecules";
 import { trackContactInteraction } from "@lib/utils/analytics";
 
@@ -40,7 +40,7 @@ const Contact: React.FC<ContactProps> = ({
   body,
   links,
 }) => (
-  <Box as="section" id="contact" my="4xl">
+  <Section id="contact">
     <Container>
       <SectionLabel>{sectionLabel}</SectionLabel>
       <SectionHeading>{heading}</SectionHeading>
@@ -59,7 +59,7 @@ const Contact: React.FC<ContactProps> = ({
         ))}
       </Flex>
     </Container>
-  </Box>
+  </Section>
 );
 
 export default Contact;

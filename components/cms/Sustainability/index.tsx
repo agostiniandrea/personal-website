@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Heading, Text } from "@components/ions";
+import { Box, Container, Heading, Section, Text } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
@@ -107,12 +107,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
   const t = useI18n(locale);
 
   return (
-    <Box
-      as="section"
-      id="sustainability"
-      py="3xl"
-      styles={`@media (max-width: ${BREAKPOINTS_BELOW.tablet}) { padding-top: 2rem; padding-bottom: 2rem; }`}
-    >
+    <Section id="sustainability">
       <Container>
         <ExploreContext />
         <ContextEyebrow>{t.moreSustainabilityTitle}</ContextEyebrow>
@@ -162,7 +157,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
           </Box>
         )}
       </Container>
-    </Box>
+    </Section>
   );
 };
 
