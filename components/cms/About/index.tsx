@@ -1,8 +1,5 @@
-import styled from "styled-components";
-
-import { Container, Flex, Heading, Section, Text } from "@components/ions";
-import { Badge, SectionLabel } from "@components/molecules";
-import { BREAKPOINTS_BELOW } from "@constants";
+import { Flex } from "@components/ions";
+import { Badge, Section } from "@components/molecules";
 
 export interface AboutProps {
   sectionLabel: string;
@@ -11,20 +8,6 @@ export interface AboutProps {
   location?: string;
   availability?: string;
 }
-
-const SectionHeading = styled(Heading)`
-  margin: 0 0 2rem;
-  max-width: 600px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1.5rem;
-  }
-`;
-
-const Bio = styled(Text)`
-  line-height: ${({ theme }) => theme.lineHeights.loose};
-  margin-bottom: ${({ theme }) => theme.space["2xl"]};
-  max-width: 680px;
-`;
 
 const About: React.FC<AboutProps> = ({
   sectionLabel,
@@ -36,21 +19,16 @@ const About: React.FC<AboutProps> = ({
   const tags = [location, availability].filter(Boolean) as string[];
 
   return (
-    <Section id="about">
-      <Container>
-        <SectionLabel>{sectionLabel}</SectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <Bio variant="large">{bio}</Bio>
-        {tags.length > 0 && (
-          <Flex gap="md" wrap="wrap">
-            {tags.map((tag) => (
-              <Badge key={tag} size="md">
-                {tag}
-              </Badge>
-            ))}
-          </Flex>
-        )}
-      </Container>
+    <Section id="about" eyebrow={sectionLabel} heading={heading} body={bio}>
+      {tags.length > 0 && (
+        <Flex gap="md" wrap="wrap">
+          {tags.map((tag) => (
+            <Badge key={tag} size="md">
+              {tag}
+            </Badge>
+          ))}
+        </Flex>
+      )}
     </Section>
   );
 };

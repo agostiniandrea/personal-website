@@ -22,11 +22,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   line-height: 1.1;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -50,6 +45,22 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   letter-spacing: 0.2em;
   margin: 0 0 1.25rem;
   text-transform: uppercase;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 640px;
+}
+
+.c7 {
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  max-width: 680px;
 }
 
 .c8 {
@@ -96,11 +107,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   outline-offset: -2px;
 }
 
-.c5 {
-  margin: 0 0 2rem;
-  max-width: 600px;
-}
-
 .c11 {
   display: flex;
   flex-direction: column;
@@ -144,12 +150,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0 0 1rem;
-}
-
-.c7 {
-  line-height: 1.7;
-  margin-bottom: 4rem;
-  max-width: 680px;
 }
 
 @media (min-width: 600px) {
@@ -224,6 +224,18 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   }
 }
 
+@media (max-width: 899.99px) {
+  .c5 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c7 {
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: 899.98px) {
   html[data-mobile-view="story"] .c8 {
     background: rgba(128, 128, 128, 0.12);
@@ -240,12 +252,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
-  .c5 {
-    margin-bottom: 1rem;
-  }
-}
-
 @media (max-width: 599.99px) {
   .c12 {
     padding: 1.5rem 0;
@@ -256,12 +262,6 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   .c12 {
     gap: 2rem;
     grid-template-columns: 200px 1fr;
-  }
-}
-
-@media (max-width: 1199.99px) {
-  .c7 {
-    margin-bottom: 1rem;
   }
 }
 
@@ -383,11 +383,6 @@ exports[`Experience renders correctly with all items 1`] = `
   line-height: 1.1;
 }
 
-.c0 {
-  padding-bottom: 3rem;
-  padding-top: 3rem;
-}
-
 .c2 {
   color: var(--color-paragraph);
   font-size: 1rem;
@@ -424,6 +419,22 @@ exports[`Experience renders correctly with all items 1`] = `
   letter-spacing: 0.2em;
   margin: 0 0 1.25rem;
   text-transform: uppercase;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+.c5 {
+  margin: 0 0 2rem;
+  max-width: 640px;
+}
+
+.c7 {
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  max-width: 680px;
 }
 
 .c8 {
@@ -468,11 +479,6 @@ exports[`Experience renders correctly with all items 1`] = `
 .c10:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: -2px;
-}
-
-.c5 {
-  margin: 0 0 2rem;
-  max-width: 600px;
 }
 
 .c11 {
@@ -524,12 +530,6 @@ exports[`Experience renders correctly with all items 1`] = `
   font-size: 0.875rem;
   line-height: 1.6;
   margin: 0 0 1rem;
-}
-
-.c7 {
-  line-height: 1.7;
-  margin-bottom: 4rem;
-  max-width: 680px;
 }
 
 @media (min-width: 600px) {
@@ -604,6 +604,18 @@ exports[`Experience renders correctly with all items 1`] = `
   }
 }
 
+@media (max-width: 899.99px) {
+  .c5 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c7 {
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: 899.98px) {
   html[data-mobile-view="story"] .c8 {
     background: rgba(128, 128, 128, 0.12);
@@ -620,12 +632,6 @@ exports[`Experience renders correctly with all items 1`] = `
   }
 }
 
-@media (max-width: 1199.99px) {
-  .c5 {
-    margin-bottom: 1rem;
-  }
-}
-
 @media (max-width: 599.99px) {
   .c12 {
     padding: 1.5rem 0;
@@ -636,12 +642,6 @@ exports[`Experience renders correctly with all items 1`] = `
   .c12 {
     gap: 2rem;
     grid-template-columns: 200px 1fr;
-  }
-}
-
-@media (max-width: 1199.99px) {
-  .c7 {
-    margin-bottom: 1rem;
   }
 }
 

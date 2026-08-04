@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Heading, Section } from "@components/ions";
+import { Box, Heading } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
   ContextSubtitle,
   DesktopSectionLabel,
   ExploreContext,
+  Section,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
@@ -76,13 +77,12 @@ const Skills: React.FC<SkillsProps> = ({
 
   return (
     <Section id="skills">
-      <Container>
-        <ExploreContext />
-        <ContextEyebrow>{t.moreSkillsTitle}</ContextEyebrow>
-        <DesktopSectionLabel>{sectionLabel}</DesktopSectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ContextSubtitle>{t.moreSkillsSubtitle}</ContextSubtitle>
-        <Grid>
+      <ExploreContext />
+      <ContextEyebrow>{t.moreSkillsTitle}</ContextEyebrow>
+      <DesktopSectionLabel>{sectionLabel}</DesktopSectionLabel>
+      <SectionHeading>{heading}</SectionHeading>
+      <ContextSubtitle>{t.moreSkillsSubtitle}</ContextSubtitle>
+      <Grid>
           {categories.map((category) => (
             <Box key={category.title}>
               <CategoryTitle>{category.title}</CategoryTitle>
@@ -96,7 +96,6 @@ const Skills: React.FC<SkillsProps> = ({
             </Box>
           ))}
         </Grid>
-      </Container>
     </Section>
   );
 };

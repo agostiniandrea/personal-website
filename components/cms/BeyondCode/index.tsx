@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Container, Grid, Heading, Section, Text } from "@components/ions";
+import { Grid, Heading, Text } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
   ContextSubtitle,
   DesktopSectionLabel,
   ExploreContext,
+  Section,
 } from "@components/molecules";
 import { BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
@@ -81,15 +82,12 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
 
   return (
     <Section id="beyond-code">
-      <Container>
-        <ExploreContext />
-        <ContextEyebrow>{t.moreBeyondCodeTitle}</ContextEyebrow>
-        <DesktopSectionLabel aria-hidden="true">
-          {sectionLabel}
-        </DesktopSectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ContextSubtitle>{t.moreBeyondCodeSubtitle}</ContextSubtitle>
-        {intro && <Intro variant="large">{intro}</Intro>}
+      <ExploreContext />
+      <ContextEyebrow>{t.moreBeyondCodeTitle}</ContextEyebrow>
+      <DesktopSectionLabel aria-hidden="true">{sectionLabel}</DesktopSectionLabel>
+      <SectionHeading>{heading}</SectionHeading>
+      <ContextSubtitle>{t.moreBeyondCodeSubtitle}</ContextSubtitle>
+      {intro && <Intro variant="large">{intro}</Intro>}
         <Grid columns={[1, undefined, 2, 4]} gap="xl">
           {items.map((item) => (
             <Card key={item.category}>
@@ -109,7 +107,6 @@ const BeyondCode: React.FC<BeyondCodeProps> = ({
             </Card>
           ))}
         </Grid>
-      </Container>
     </Section>
   );
 };
