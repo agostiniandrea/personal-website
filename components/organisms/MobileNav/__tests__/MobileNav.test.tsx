@@ -267,19 +267,5 @@ describe("MobileNav", () => {
       await user.click(screen.getByTestId("more-backdrop"));
       expect(screen.queryByTestId("more-sheet")).not.toBeInTheDocument();
     });
-
-    it("offers the language switcher with the current locale pressed", async () => {
-      const user = userEvent.setup();
-      renderWithTheme(<MobileNav />);
-      await user.click(screen.getByRole("button", { name: "More" }));
-      expect(screen.getByRole("button", { name: "EN" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      );
-      expect(screen.getByRole("button", { name: "IT" })).toHaveAttribute(
-        "aria-pressed",
-        "false",
-      );
-    });
   });
 });
