@@ -291,12 +291,13 @@ test.describe("mobile app navigation accessibility", () => {
         })
         .toBeGreaterThanOrEqual(567);
       /* On short viewports the sheet scrolls internally; once its bottom is
-         reached, the padding keeps every control clear of the tab bar. */
-      const itButton = dialog.getByRole("button", { name: "IT", exact: true });
-      await itButton.scrollIntoViewIfNeeded();
-      const lastControl = await itButton.boundingBox();
-      expect(lastControl).not.toBeNull();
-      expect(lastControl!.y + lastControl!.height).toBeLessThanOrEqual(
+         reached, the padding keeps every control clear of the tab bar. The last
+         control is the final social link in the footer-info block. */
+      const lastControl = dialog.getByRole("link", { name: "Email" });
+      await lastControl.scrollIntoViewIfNeeded();
+      const lastBounds = await lastControl.boundingBox();
+      expect(lastBounds).not.toBeNull();
+      expect(lastBounds!.y + lastBounds!.height).toBeLessThanOrEqual(
         navTop + 1,
       );
       const bounds = await dialog.boundingBox();
