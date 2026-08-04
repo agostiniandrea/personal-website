@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Projects renders correctly with a single item 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -51,6 +46,11 @@ exports[`Projects renders correctly with a single item 1`] = `
 .c17:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -151,7 +151,7 @@ exports[`Projects renders correctly with a single item 1`] = `
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .c12 {
@@ -185,13 +185,6 @@ exports[`Projects renders correctly with a single item 1`] = `
   content: "";
   inset: 0;
   position: absolute;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -283,6 +276,20 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 @media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1.5rem;
   }
@@ -296,6 +303,12 @@ exports[`Projects renders correctly with a single item 1`] = `
 
   .c7:hover::before {
     opacity: 1;
+  }
+}
+
+@media (max-width: 599.99px) {
+  .c11 {
+    padding: 1rem;
   }
 }
 
@@ -467,11 +480,6 @@ exports[`Projects renders correctly with a single item 1`] = `
 `;
 
 exports[`Projects renders correctly with full project list 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -517,6 +525,11 @@ exports[`Projects renders correctly with full project list 1`] = `
 .c17:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -617,7 +630,7 @@ exports[`Projects renders correctly with full project list 1`] = `
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .c12 {
@@ -651,13 +664,6 @@ exports[`Projects renders correctly with full project list 1`] = `
   content: "";
   inset: 0;
   position: absolute;
-}
-
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
 }
 
 @media (min-width: 600px) {
@@ -749,6 +755,20 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 @media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 1199.99px) {
   .c5 {
     margin-bottom: 1.5rem;
   }
@@ -762,6 +782,12 @@ exports[`Projects renders correctly with full project list 1`] = `
 
   .c7:hover::before {
     opacity: 1;
+  }
+}
+
+@media (max-width: 599.99px) {
+  .c11 {
+    padding: 1rem;
   }
 }
 

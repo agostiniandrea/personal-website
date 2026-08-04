@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Contact renders correctly with a single link 1`] = `
-.c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -44,6 +39,11 @@ exports[`Contact renders correctly with a single link 1`] = `
 .c9:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -148,6 +148,20 @@ exports[`Contact renders correctly with a single link 1`] = `
 @media (hover: hover) {
   .c9:hover {
     color: var(--color-tertiary);
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 
@@ -193,11 +207,6 @@ exports[`Contact renders correctly with a single link 1`] = `
 `;
 
 exports[`Contact renders correctly with all links 1`] = `
-.c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -236,6 +245,11 @@ exports[`Contact renders correctly with all links 1`] = `
 .c9:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c2 {
@@ -340,6 +354,20 @@ exports[`Contact renders correctly with all links 1`] = `
 @media (hover: hover) {
   .c9:hover {
     color: var(--color-tertiary);
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 

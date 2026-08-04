@@ -50,6 +50,10 @@ const Section = styled.section`
       var(--site-header-height) + ${({ theme }) => theme.space["2xl"]}
     );
   }
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    padding: ${({ theme }) => theme.space["xl"]} 0;
+  }
 `;
 
 const HeroGrid = styled.div`

@@ -306,6 +306,12 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   }
 }
 
+@media (max-width: 599.99px) {
+  .c0 {
+    padding: 1.5rem 0;
+  }
+}
+
 @media (min-width: 900px) {
   .c2 {
     align-items: center;
@@ -870,6 +876,12 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
     box-sizing: border-box;
     min-height: 100svh;
     padding-bottom: calc(       var(--site-header-height) + 2rem     );
+  }
+}
+
+@media (max-width: 599.99px) {
+  .c0 {
+    padding: 1.5rem 0;
   }
 }
 
