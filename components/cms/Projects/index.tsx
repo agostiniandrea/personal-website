@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import {
-  Box,
   Container,
   Flex,
   Grid,
   Heading,
   Image,
   Link,
+  Section,
   Text,
 } from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
@@ -126,7 +126,11 @@ const CardBody = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: ${({ theme }) => theme.space["2xl"]};
+  padding: ${({ theme }) => theme.space.xl};
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    padding: ${({ theme }) => theme.space.lg};
+  }
 `;
 
 const CardTitle = styled(Heading).attrs({ size: "card", as: "h3" })`
@@ -170,12 +174,7 @@ const Projects: React.FC<ProjectsProps> = ({
   const { locale = "en" } = useRouter();
   const t = useI18n(locale);
   return (
-    <Box
-      as="section"
-      id="projects"
-      py="3xl"
-      styles={`@media (max-width: ${BREAKPOINTS_BELOW.tablet}) { padding-top: 2rem; padding-bottom: 2rem; }`}
-    >
+    <Section id="projects">
       <Container>
         <SectionLabel>{sectionLabel}</SectionLabel>
         <SectionHeading>{heading}</SectionHeading>
@@ -235,7 +234,7 @@ const Projects: React.FC<ProjectsProps> = ({
           ))}
         </ProjectsGrid>
       </Container>
-    </Box>
+    </Section>
   );
 };
 

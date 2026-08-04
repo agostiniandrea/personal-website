@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sustainability renders correctly with all props 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c19 {
   margin-top: 0.5rem;
 }
@@ -29,6 +24,11 @@ exports[`Sustainability renders correctly with all props 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c3 {
@@ -177,13 +177,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
   margin: 0;
 }
 
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-}
-
 @media (min-width: 600px) {
   .c1 {
     column-gap: calc(24px);
@@ -239,6 +232,20 @@ exports[`Sustainability renders correctly with all props 1`] = `
 @media (min-width: 1200px) {
   .c7 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 
@@ -580,11 +587,6 @@ exports[`Sustainability renders correctly with all props 1`] = `
 `;
 
 exports[`Sustainability renders correctly with minimal props 1`] = `
-.c0 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -604,6 +606,11 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   font-weight: 700;
   font-size: 2rem;
   line-height: 1.1;
+}
+
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c3 {
@@ -729,13 +736,6 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
   margin: 0;
 }
 
-@media (max-width: 1199.99px) {
-  .c0 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-}
-
 @media (min-width: 600px) {
   .c1 {
     column-gap: calc(24px);
@@ -791,6 +791,20 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 @media (min-width: 1200px) {
   .c7 {
     font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 

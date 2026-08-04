@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Box, Container, Flex, Heading, Text } from "@components/ions";
+import { Container, Flex, Heading, Section, Text } from "@components/ions";
 import { Badge, SectionLabel } from "@components/molecules";
 import { BREAKPOINTS_BELOW } from "@constants";
 
@@ -36,20 +36,7 @@ const About: React.FC<AboutProps> = ({
   const tags = [location, availability].filter(Boolean) as string[];
 
   return (
-    <Box
-      as="section"
-      id="about"
-      py="3xl"
-      styles={`
-        @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-          padding-bottom: 2rem;
-          padding-top: 2rem;
-        }
-        @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
-          padding-top: 0.5rem;
-        }
-      `}
-    >
+    <Section id="about">
       <Container>
         <SectionLabel>{sectionLabel}</SectionLabel>
         <SectionHeading>{heading}</SectionHeading>
@@ -64,7 +51,7 @@ const About: React.FC<AboutProps> = ({
           </Flex>
         )}
       </Container>
-    </Box>
+    </Section>
   );
 };
 

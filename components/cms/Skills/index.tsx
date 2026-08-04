@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Heading } from "@components/ions";
+import { Box, Container, Heading, Section } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
@@ -23,14 +23,6 @@ export interface SkillsProps {
   heading: string;
   categories: SkillCategory[];
 }
-
-const Section = styled.section`
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-  }
-`;
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
