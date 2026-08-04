@@ -2,17 +2,8 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import {
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Image,
-  Link,
-  Section,
-  Text,
-} from "@components/ions";
-import { Badge, SectionLabel } from "@components/molecules";
+import { Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
+import { Badge, Section } from "@components/molecules";
 import { BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
@@ -39,14 +30,6 @@ export interface ProjectsProps {
   heading: string;
   items: ProjectItem[];
 }
-
-const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["3xl"]};
-  max-width: 600px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: 1.5rem;
-  }
-`;
 
 const ProjectsGrid = styled(Grid)``;
 
@@ -174,11 +157,8 @@ const Projects: React.FC<ProjectsProps> = ({
   const { locale = "en" } = useRouter();
   const t = useI18n(locale);
   return (
-    <Section id="projects">
-      <Container>
-        <SectionLabel>{sectionLabel}</SectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="xl">
+    <Section id="projects" eyebrow={sectionLabel} heading={heading}>
+      <ProjectsGrid columns={[1, undefined, 2, undefined, 3]} gap="xl">
           {items.map((item) => (
             <Card key={item.title}>
               <ImageSlot>
@@ -233,7 +213,6 @@ const Projects: React.FC<ProjectsProps> = ({
             </Card>
           ))}
         </ProjectsGrid>
-      </Container>
     </Section>
   );
 };

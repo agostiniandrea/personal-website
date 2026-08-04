@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Heading, Section, Text } from "@components/ions";
+import { Box, Heading, Text } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
   ContextSubtitle,
   DesktopSectionLabel,
   ExploreContext,
+  Section,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
@@ -108,15 +109,12 @@ const Sustainability: React.FC<SustainabilityProps> = ({
 
   return (
     <Section id="sustainability">
-      <Container>
-        <ExploreContext />
-        <ContextEyebrow>{t.moreSustainabilityTitle}</ContextEyebrow>
-        <DesktopSectionLabel aria-hidden="true">
-          {sectionLabel}
-        </DesktopSectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ContextSubtitle>{t.moreSustainabilitySubtitle}</ContextSubtitle>
-        <Intro variant="large">{intro}</Intro>
+      <ExploreContext />
+      <ContextEyebrow>{t.moreSustainabilityTitle}</ContextEyebrow>
+      <DesktopSectionLabel aria-hidden="true">{sectionLabel}</DesktopSectionLabel>
+      <SectionHeading>{heading}</SectionHeading>
+      <ContextSubtitle>{t.moreSustainabilitySubtitle}</ContextSubtitle>
+      <Intro variant="large">{intro}</Intro>
 
         {values.length > 0 && (
           <Box>
@@ -156,7 +154,6 @@ const Sustainability: React.FC<SustainabilityProps> = ({
             </VolunteeringList>
           </Box>
         )}
-      </Container>
     </Section>
   );
 };

@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 
 import styled, { keyframes } from "styled-components";
 
-import { Container, Section, Text } from "@components/ions";
-import { Badge, InfoTooltip, SectionLabel } from "@components/molecules";
+import { Text } from "@components/ions";
+import { Badge, InfoTooltip, Section, SectionLabel } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
@@ -792,8 +792,7 @@ const Forest: React.FC<ForestProps> = ({
   return (
     <>
       <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
-        <Container>
-          {badge && (
+        {badge && (
             <BadgeWrap>
               <BadgeDot aria-hidden="true" />
               <BadgeLabel>{badge}</BadgeLabel>
@@ -1000,7 +999,6 @@ const Forest: React.FC<ForestProps> = ({
               </TimelineSection>
             </>
           )}
-        </Container>
       </Section>
 
       <ForestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />

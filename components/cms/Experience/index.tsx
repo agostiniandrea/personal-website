@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { Box, Container, Flex, Heading, Section, Text } from "@components/ions";
-import { Badge, SectionLabel } from "@components/molecules";
+import { Box, Flex, Heading, Text } from "@components/ions";
+import { Badge, Section } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 
@@ -23,14 +23,6 @@ export interface ExperienceProps {
   items: ExperienceItem[];
   intro?: string;
 }
-
-const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
-  max-width: 600px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
-  }
-`;
 
 const List = styled.ol`
   display: flex;
@@ -94,30 +86,20 @@ const Description = styled(Text)`
   margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
-const Intro = styled(Text)`
-  line-height: ${({ theme }) => theme.lineHeights.loose};
-  margin-bottom: ${({ theme }) => theme.space["4xl"]};
-  max-width: 680px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
-  }
-`;
-
 const Experience: React.FC<ExperienceProps> = ({
   sectionLabel,
   heading,
   intro = DEFAULT_EXPERIENCE_INTRO,
   items,
 }) => (
-  <Section id="experience">
-    <Container>
-      <SectionLabel>{sectionLabel}</SectionLabel>
-      <SectionHeading>{heading}</SectionHeading>
-      {/* mirrors Journey's intro so the segmented control sits at the same
-          height when switching between the two story sub-views */}
-      {intro && <Intro variant="large">{intro}</Intro>}
-      <StorySegmentedControl />
-      <List>
+  <Section
+    id="experience"
+    eyebrow={sectionLabel}
+    heading={heading}
+    body={intro}
+  >
+    <StorySegmentedControl />
+    <List>
         {items.map((item) => (
           <Item key={`${item.company}-${item.role}`}>
             <Box>
@@ -141,7 +123,6 @@ const Experience: React.FC<ExperienceProps> = ({
           </Item>
         ))}
       </List>
-    </Container>
   </Section>
 );
 
