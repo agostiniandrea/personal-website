@@ -66,18 +66,21 @@ const VolunteeringItem = styled.li`
   grid-template-columns: 1fr;
   padding: ${({ theme }) => theme.space.xl} 0;
 
-  /* Same rhythm as the Experience list: flush under its sub-heading, dividers
-     between entries, and a closing rule so the end of the list is explicit. */
+  /* Rules only between entries — none under the sub-heading, none at the end.
+     The first entry keeps a small top padding: the sub-heading's own 1.5rem
+     margin does most of the work, so a full one here would over-space it. */
   &:first-child {
-    padding-top: 0;
+    padding-top: ${({ theme }) => theme.space.sm};
   }
 
   &:not(:first-child) {
     border-top: 1px solid ${({ theme }) => theme.colors.main};
   }
 
-  &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    &:last-child {
+      padding-bottom: 0;
+    }
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
