@@ -41,22 +41,23 @@ const Item = styled.li`
 
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
     padding: ${({ theme }) => theme.space.xl} 0;
+
+    /* The section's own bottom padding already closes the list on phones, so
+       the last entry would otherwise stack two gaps before the tab bar. */
+    &:last-child {
+      padding-bottom: 0;
+    }
   }
 
-  /* The first entry sits flush under the intro/control — a rule there would
-     detach the list from its heading. The closing rule stays, though: it marks
-     where the list ends, which matters most on phones where the last entry is
-     followed only by the fixed tab bar. */
+  /* Rules sit only between entries: one under the heading would detach the list
+     from it, and one at the end would float just above the fixed tab bar.
+     Whitespace closes the list instead. */
   &:first-child {
     padding-top: 0;
   }
 
   &:not(:first-child) {
     border-top: 1px solid ${({ theme }) => theme.colors.main};
-  }
-
-  &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {

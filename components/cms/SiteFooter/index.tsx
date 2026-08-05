@@ -117,6 +117,13 @@ const Tagline = styled(Text)`
   max-width: 36ch;
 `;
 
+/* Each CMS line is its own block, so `balance` can even out its wrap instead of
+   dropping a single word onto a line of its own. */
+const TaglineLine = styled.span`
+  display: block;
+  text-wrap: balance;
+`;
+
 const CarbonWrapper = styled.div`
   opacity: 0.7;
   transform: scale(0.9);
@@ -178,11 +185,8 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         <TaglineCol>
           {tagline && (
             <Tagline variant="small">
-              {tagline.split("\n").map((line, i, arr) => (
-                <span key={i}>
-                  {line}
-                  {i < arr.length - 1 && <br />}
-                </span>
+              {tagline.split("\n").map((line, i) => (
+                <TaglineLine key={i}>{line}</TaglineLine>
               ))}
             </Tagline>
           )}
