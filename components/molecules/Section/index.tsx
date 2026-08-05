@@ -50,12 +50,25 @@ const StyledSection = styled.section.withConfig({
   ${({ $styles }) => $styles}
 `;
 
-const Title = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
+/* A body paragraph carries 7px of half-leading above its first line (20px text
+   on a 34px line, at every breakpoint), which reads as extra space under the
+   heading. Sections without a body have no such leading, so the same margin
+   would look 7px tighter — add it back to keep the optical rhythm identical. */
+const LEADING_COMPENSATION = "0.4375rem";
+
+const Title = styled(Heading)<{ $compensateLeading: boolean }>`
+  margin: 0 0
+    ${({ $compensateLeading, theme }) =>
+      $compensateLeading
+        ? `calc(${theme.space["2xl"]} + ${LEADING_COMPENSATION})`
+        : theme.space["2xl"]};
   max-width: 640px;
 
   @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
+    margin-bottom: ${({ $compensateLeading, theme }) =>
+      $compensateLeading
+        ? `calc(${theme.space.lg} + ${LEADING_COMPENSATION})`
+        : theme.space.lg};
   }
 `;
 
@@ -93,7 +106,11 @@ const Section = forwardRef<HTMLElement, SectionProps>(
     >
       <Container>
         {eyebrow && <SectionLabel>{eyebrow}</SectionLabel>}
-        {heading && <Title size={headingSize}>{heading}</Title>}
+        {heading && (
+          <Title size={headingSize} $compensateLeading={!body}>
+            {heading}
+          </Title>
+        )}
         {body && <Body variant="large">{body}</Body>}
         {children}
       </Container>
