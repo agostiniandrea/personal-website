@@ -43,14 +43,20 @@ const Item = styled.li`
     padding: ${({ theme }) => theme.space.xl} 0;
   }
 
-  /* First entry sits flush under the intro/control — no leading gap or bar.
-     Dividers appear only between entries, so the list isn't boxed in. */
+  /* The first entry sits flush under the intro/control — a rule there would
+     detach the list from its heading. The closing rule stays, though: it marks
+     where the list ends, which matters most on phones where the last entry is
+     followed only by the fixed tab bar. */
   &:first-child {
     padding-top: 0;
   }
 
   &:not(:first-child) {
     border-top: 1px solid ${({ theme }) => theme.colors.main};
+  }
+
+  &:last-child {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {

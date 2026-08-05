@@ -131,6 +131,10 @@ exports[`Experience renders correctly with a single item and no tags 1`] = `
   border-top: 1px solid var(--color-main);
 }
 
+.c12:last-child {
+  border-bottom: 1px solid var(--color-main);
+}
+
 .c13 {
   font-size: 0.75rem;
   margin: 0 0 0.25rem;
@@ -503,6 +507,10 @@ exports[`Experience renders correctly with all items 1`] = `
 
 .c12:not(:first-child) {
   border-top: 1px solid var(--color-main);
+}
+
+.c12:last-child {
+  border-bottom: 1px solid var(--color-main);
 }
 
 .c13 {

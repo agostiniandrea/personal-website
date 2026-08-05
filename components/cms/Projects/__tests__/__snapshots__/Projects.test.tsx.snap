@@ -92,7 +92,7 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c5 {
-  margin: 0 0 2rem;
+  margin: 0 0 calc(2rem + 0.4375rem);
   max-width: 640px;
 }
 
@@ -291,7 +291,7 @@ exports[`Projects renders correctly with a single item 1`] = `
 
 @media (max-width: 899.99px) {
   .c5 {
-    margin-bottom: 1rem;
+    margin-bottom: calc(1rem + 0.4375rem);
   }
 }
 
@@ -571,7 +571,7 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c5 {
-  margin: 0 0 2rem;
+  margin: 0 0 calc(2rem + 0.4375rem);
   max-width: 640px;
 }
 
@@ -770,7 +770,7 @@ exports[`Projects renders correctly with full project list 1`] = `
 
 @media (max-width: 899.99px) {
   .c5 {
-    margin-bottom: 1rem;
+    margin-bottom: calc(1rem + 0.4375rem);
   }
 }
 
