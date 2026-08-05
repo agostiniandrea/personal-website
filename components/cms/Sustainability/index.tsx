@@ -61,11 +61,20 @@ const VolunteeringList = styled.ol`
 `;
 
 const VolunteeringItem = styled.li`
-  border-top: 1px solid ${({ theme }) => theme.colors.main};
   display: grid;
   gap: ${({ theme }) => theme.space.lg};
   grid-template-columns: 1fr;
   padding: ${({ theme }) => theme.space.xl} 0;
+
+  /* Same rhythm as the Experience list: flush under its sub-heading, dividers
+     between entries, and a closing rule so the end of the list is explicit. */
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.main};
+  }
 
   &:last-child {
     border-bottom: 1px solid ${({ theme }) => theme.colors.main};
