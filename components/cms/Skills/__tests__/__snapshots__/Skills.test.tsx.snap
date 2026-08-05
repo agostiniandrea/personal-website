@@ -80,7 +80,8 @@ exports[`Skills renders correctly with a single category 1`] = `
 }
 
 .c0 {
-  padding: 3rem 0;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c8 {
@@ -200,6 +201,13 @@ exports[`Skills renders correctly with a single category 1`] = `
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 
@@ -372,7 +380,8 @@ exports[`Skills renders correctly with all categories 1`] = `
 }
 
 .c0 {
-  padding: 3rem 0;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .c8 {
@@ -492,6 +501,13 @@ exports[`Skills renders correctly with all categories 1`] = `
   .c0 {
     padding-bottom: 2rem;
     padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 

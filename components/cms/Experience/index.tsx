@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { Box, Container, Flex, Heading, Text } from "@components/ions";
-import { Badge, SectionLabel } from "@components/molecules";
+import { Box, Flex, Heading, Text } from "@components/ions";
+import { Badge, Section } from "@components/molecules";
 import StorySegmentedControl from "@components/organisms/MobileNav/StorySegmentedControl";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 
@@ -24,22 +24,6 @@ export interface ExperienceProps {
   intro?: string;
 }
 
-const Section = styled.section`
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: ${({ theme }) => theme.space["2xl"]};
-    padding-top: ${({ theme }) => theme.space["2xl"]};
-  }
-`;
-
-const SectionHeading = styled(Heading)`
-  margin: 0 0 ${({ theme }) => theme.space["2xl"]};
-  max-width: 600px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
-  }
-`;
-
 const List = styled.ol`
   display: flex;
   flex-direction: column;
@@ -50,14 +34,30 @@ const List = styled.ol`
 `;
 
 const Item = styled.li`
-  border-top: 1px solid ${({ theme }) => theme.colors.main};
   display: grid;
   gap: ${({ theme }) => theme.space.lg};
   grid-template-columns: 1fr;
   padding: ${({ theme }) => theme.space["2xl"]} 0;
 
-  &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    padding: ${({ theme }) => theme.space.xl} 0;
+
+    /* The section's own bottom padding already closes the list on phones, so
+       the last entry would otherwise stack two gaps before the tab bar. */
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  /* Rules sit only between entries: one under the heading would detach the list
+     from it, and one at the end would float just above the fixed tab bar.
+     Whitespace closes the list instead. */
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.main};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -93,30 +93,20 @@ const Description = styled(Text)`
   margin: 0 0 ${({ theme }) => theme.space.lg};
 `;
 
-const Intro = styled(Text)`
-  line-height: ${({ theme }) => theme.lineHeights.loose};
-  margin-bottom: ${({ theme }) => theme.space["4xl"]};
-  max-width: 680px;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    margin-bottom: ${({ theme }) => theme.space.lg};
-  }
-`;
-
 const Experience: React.FC<ExperienceProps> = ({
   sectionLabel,
   heading,
   intro = DEFAULT_EXPERIENCE_INTRO,
   items,
 }) => (
-  <Section id="experience">
-    <Container>
-      <SectionLabel>{sectionLabel}</SectionLabel>
-      <SectionHeading>{heading}</SectionHeading>
-      {/* mirrors Journey's intro so the segmented control sits at the same
-          height when switching between the two story sub-views */}
-      {intro && <Intro variant="large">{intro}</Intro>}
-      <StorySegmentedControl />
-      <List>
+  <Section
+    id="experience"
+    eyebrow={sectionLabel}
+    heading={heading}
+    body={intro}
+  >
+    <StorySegmentedControl />
+    <List>
         {items.map((item) => (
           <Item key={`${item.company}-${item.role}`}>
             <Box>
@@ -140,7 +130,6 @@ const Experience: React.FC<ExperienceProps> = ({
           </Item>
         ))}
       </List>
-    </Container>
   </Section>
 );
 

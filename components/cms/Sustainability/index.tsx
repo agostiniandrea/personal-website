@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Heading, Text } from "@components/ions";
+import { Box, Heading, Text } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
   ContextSubtitle,
   DesktopSectionLabel,
   ExploreContext,
+  Section,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
@@ -60,14 +61,26 @@ const VolunteeringList = styled.ol`
 `;
 
 const VolunteeringItem = styled.li`
-  border-top: 1px solid ${({ theme }) => theme.colors.main};
   display: grid;
   gap: ${({ theme }) => theme.space.lg};
   grid-template-columns: 1fr;
   padding: ${({ theme }) => theme.space.xl} 0;
 
-  &:last-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
+  /* Rules only between entries — none under the sub-heading, none at the end.
+     The first entry keeps a small top padding: the sub-heading's own 1.5rem
+     margin does most of the work, so a full one here would over-space it. */
+  &:first-child {
+    padding-top: ${({ theme }) => theme.space.sm};
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid ${({ theme }) => theme.colors.main};
+  }
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    &:last-child {
+      padding-bottom: 0;
+    }
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -107,21 +120,13 @@ const Sustainability: React.FC<SustainabilityProps> = ({
   const t = useI18n(locale);
 
   return (
-    <Box
-      as="section"
-      id="sustainability"
-      py="3xl"
-      styles={`@media (max-width: ${BREAKPOINTS_BELOW.tablet}) { padding-top: 2rem; padding-bottom: 2rem; }`}
-    >
-      <Container>
-        <ExploreContext />
-        <ContextEyebrow>{t.moreSustainabilityTitle}</ContextEyebrow>
-        <DesktopSectionLabel aria-hidden="true">
-          {sectionLabel}
-        </DesktopSectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ContextSubtitle>{t.moreSustainabilitySubtitle}</ContextSubtitle>
-        <Intro variant="large">{intro}</Intro>
+    <Section id="sustainability">
+      <ExploreContext />
+      <ContextEyebrow>{t.moreSustainabilityTitle}</ContextEyebrow>
+      <DesktopSectionLabel aria-hidden="true">{sectionLabel}</DesktopSectionLabel>
+      <SectionHeading>{heading}</SectionHeading>
+      <ContextSubtitle>{t.moreSustainabilitySubtitle}</ContextSubtitle>
+      <Intro variant="large">{intro}</Intro>
 
         {values.length > 0 && (
           <Box>
@@ -161,8 +166,7 @@ const Sustainability: React.FC<SustainabilityProps> = ({
             </VolunteeringList>
           </Box>
         )}
-      </Container>
-    </Box>
+    </Section>
   );
 };
 

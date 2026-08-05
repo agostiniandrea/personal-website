@@ -2,13 +2,14 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { Box, Container, Heading } from "@components/ions";
+import { Box, Heading } from "@components/ions";
 import {
   Badge,
   ContextEyebrow,
   ContextSubtitle,
   DesktopSectionLabel,
   ExploreContext,
+  Section,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
@@ -23,14 +24,6 @@ export interface SkillsProps {
   heading: string;
   categories: SkillCategory[];
 }
-
-const Section = styled.section`
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-  }
-`;
 
 const SectionHeading = styled(Heading)`
   margin: 0 0 3rem;
@@ -84,13 +77,12 @@ const Skills: React.FC<SkillsProps> = ({
 
   return (
     <Section id="skills">
-      <Container>
-        <ExploreContext />
-        <ContextEyebrow>{t.moreSkillsTitle}</ContextEyebrow>
-        <DesktopSectionLabel>{sectionLabel}</DesktopSectionLabel>
-        <SectionHeading>{heading}</SectionHeading>
-        <ContextSubtitle>{t.moreSkillsSubtitle}</ContextSubtitle>
-        <Grid>
+      <ExploreContext />
+      <ContextEyebrow>{t.moreSkillsTitle}</ContextEyebrow>
+      <DesktopSectionLabel>{sectionLabel}</DesktopSectionLabel>
+      <SectionHeading>{heading}</SectionHeading>
+      <ContextSubtitle>{t.moreSkillsSubtitle}</ContextSubtitle>
+      <Grid>
           {categories.map((category) => (
             <Box key={category.title}>
               <CategoryTitle>{category.title}</CategoryTitle>
@@ -104,7 +96,6 @@ const Skills: React.FC<SkillsProps> = ({
             </Box>
           ))}
         </Grid>
-      </Container>
     </Section>
   );
 };

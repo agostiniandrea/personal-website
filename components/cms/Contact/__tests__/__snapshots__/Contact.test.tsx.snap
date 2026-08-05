@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Contact renders correctly with a single link 1`] = `
-.c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -71,20 +66,25 @@ exports[`Contact renders correctly with a single link 1`] = `
   text-transform: uppercase;
 }
 
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
 .c5 {
   margin: 0 0 2rem;
-  max-width: 600px;
+  max-width: 640px;
+}
+
+.c7 {
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  max-width: 680px;
 }
 
 .c10 {
   font-size: 1rem;
   font-weight: 700;
-}
-
-.c7 {
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 600px;
 }
 
 @media (min-width: 600px) {
@@ -148,6 +148,32 @@ exports[`Contact renders correctly with a single link 1`] = `
 @media (hover: hover) {
   .c9:hover {
     color: var(--color-tertiary);
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c5 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c7 {
+    margin-bottom: 1rem;
   }
 }
 
@@ -193,11 +219,6 @@ exports[`Contact renders correctly with a single link 1`] = `
 `;
 
 exports[`Contact renders correctly with all links 1`] = `
-.c0 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-
 .c1 {
   display: grid;
   min-height: auto;
@@ -263,20 +284,25 @@ exports[`Contact renders correctly with all links 1`] = `
   text-transform: uppercase;
 }
 
+.c0 {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
 .c5 {
   margin: 0 0 2rem;
-  max-width: 600px;
+  max-width: 640px;
+}
+
+.c7 {
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  max-width: 680px;
 }
 
 .c10 {
   font-size: 1rem;
   font-weight: 700;
-}
-
-.c7 {
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 600px;
 }
 
 @media (min-width: 600px) {
@@ -340,6 +366,32 @@ exports[`Contact renders correctly with all links 1`] = `
 @media (hover: hover) {
   .c9:hover {
     color: var(--color-tertiary);
+  }
+}
+
+@media (max-width: 1199.99px) {
+  .c0 {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c5 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c7 {
+    margin-bottom: 1rem;
   }
 }
 

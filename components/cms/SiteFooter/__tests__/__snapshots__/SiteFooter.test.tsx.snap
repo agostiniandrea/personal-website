@@ -435,13 +435,18 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   max-width: 36ch;
 }
 
+.c17 {
+  display: block;
+  text-wrap: balance;
+}
+
 .c9 {
   opacity: 0.7;
   transform: scale(0.9);
   transform-origin: center center;
 }
 
-.c17 {
+.c18 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -563,7 +568,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c17 {
+  .c18 {
     align-items: flex-end;
   }
 }
@@ -650,13 +655,15 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           <p
             class="c15 c16"
           >
-            <span>
+            <span
+              class="c17"
+            >
               Building for the web, one component at a time. Based in Bangkok.
             </span>
           </p>
         </div>
         <div
-          class="c17"
+          class="c18"
         >
           <p
             class="c15"

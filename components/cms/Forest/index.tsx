@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 
 import styled, { keyframes } from "styled-components";
 
-import { Container, Text } from "@components/ions";
-import { Badge, InfoTooltip, SectionLabel } from "@components/molecules";
+import { Text } from "@components/ions";
+import { Badge, InfoTooltip, Section, SectionLabel } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
@@ -137,15 +137,6 @@ const BadgeLabel = styled.span`
 
 /* ── Layout ── */
 
-const Section = styled.section`
-  padding: ${({ theme }) => theme.space["3xl"]} 0;
-  position: relative;
-
-  @media (max-width: ${BREAKPOINTS_BELOW.tablet}) {
-    padding: ${({ theme }) => theme.space["2xl"]} 0;
-  }
-`;
-
 const ImpactAnchor = styled.div`
   scroll-margin-top: 6rem;
 `;
@@ -207,7 +198,7 @@ const StatsGrid = styled.div<{ $count: number }>`
   display: grid;
   gap: 0.625rem;
   grid-template-columns: repeat(${({ $count }) => $count}, 1fr);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     gap: ${({ theme }) => theme.space.xl};
@@ -258,6 +249,12 @@ const CtaCard = styled.div`
   gap: ${({ theme }) => theme.space["2xl"]};
   margin-bottom: 2.5rem;
   padding: ${({ theme }) => theme.space["2xl"]};
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    gap: ${({ theme }) => theme.space.xl};
+    margin-bottom: 1.5rem;
+    padding: ${({ theme }) => theme.space.lg};
+  }
 
   /* matches the breakpoint the rest of the Forest section switches at, so the
      card fills the row instead of stacking with empty space beside it */
@@ -378,6 +375,11 @@ const SeasonCard = styled.div`
   border-radius: 1rem;
   margin-bottom: 2rem;
   padding: ${({ theme }) => theme.space.xl} 1.75rem;
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    margin-bottom: 1.5rem;
+    padding: ${({ theme }) => theme.space.lg};
+  }
 `;
 
 const SeasonHeader = styled.div`
@@ -516,10 +518,19 @@ const ProjectStats = styled.span`
   color: ${({ theme }) => theme.colors.headline};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+
+  /* On phones the line is too long to sit inline, so the CO₂ metric drops to
+     its own row — without a leading "·" orphaning the start of the line. */
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
 `;
 
-/* The CO₂ metric wraps as one unit (or takes its own row) so neither the
-   subscript nor the "lifetime estimate" suffix is ever orphaned */
+/* The CO₂ metric wraps as one unit so neither the subscript nor the "lifetime
+   estimate" suffix is ever orphaned. */
 const Co2Unit = styled.span`
   display: inline-block;
   white-space: nowrap;
@@ -527,6 +538,13 @@ const Co2Unit = styled.span`
   sub {
     font-size: 0.7em;
     line-height: 1;
+  }
+`;
+
+/* The "·" separator before the CO₂ metric — hidden once it drops to its own row. */
+const Co2Sep = styled.span`
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    display: none;
   }
 `;
 
@@ -774,8 +792,7 @@ const Forest: React.FC<ForestProps> = ({
   return (
     <>
       <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
-        <Container>
-          {badge && (
+        {badge && (
             <BadgeWrap>
               <BadgeDot aria-hidden="true" />
               <BadgeLabel>{badge}</BadgeLabel>
@@ -865,9 +882,12 @@ const Forest: React.FC<ForestProps> = ({
                   )}
                   {hasStructuredStats ? (
                     <ProjectStats data-testid="project-stats">
-                      {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
+                      <span>
+                        {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
+                      </span>
                       <Co2Unit>
-                        {` · ${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
+                        <Co2Sep>{" · "}</Co2Sep>
+                        {`${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
                         <sub>2</sub>
                         {` ${t.co2LifetimeSuffix}`}
                         <InfoTooltip
@@ -979,7 +999,6 @@ const Forest: React.FC<ForestProps> = ({
               </TimelineSection>
             </>
           )}
-        </Container>
       </Section>
 
       <ForestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
