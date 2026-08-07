@@ -19,6 +19,9 @@ const BackButton = styled.button`
   font-family: ${({ theme }) => theme.fontFamilies.default};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  /* Same gap as every other icon+label pair; this one kept the icon flush
+     against the word because the button was missed in the sweep. */
+  gap: 0.375rem;
   margin: 0 0 ${({ theme }) => theme.space.xl};
   min-height: 44px;
   padding: 0;
