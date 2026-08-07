@@ -3,6 +3,15 @@ import { createPortal } from "react-dom";
 
 import { useRouter } from "next/router";
 
+import {
+  ArrowDown,
+  Briefcase,
+  ChevronRight,
+  Crosshair,
+  Globe,
+  Leaf,
+  X,
+} from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Link } from "@components/ions";
@@ -280,45 +289,24 @@ const Chevron = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.lg};
 `;
 
-const ItemIcon = ({ destination }: { destination: MoreDestination }) => (
-  <ItemIconWrap aria-hidden="true">
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {destination === "skills" && (
-        <>
-          <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
-          <circle cx="12" cy="12" r="4" />
-        </>
-      )}
-      {destination === "experience" && (
-        <>
-          <rect x="3" y="7" width="18" height="13" rx="2" />
-          <path d="M8 7V5h8v2M3 12h18" />
-        </>
-      )}
-      {destination === "sustainability" && (
-        <>
-          <path d="M19 3C10 4 5 9 5 17c5 0 11-2 14-14Z" />
-          <path d="M5 21c2-6 6-10 12-14" />
-        </>
-      )}
-      {destination === "beyond-code" && (
-        <>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
-        </>
-      )}
-    </svg>
-  </ItemIconWrap>
-);
+const DESTINATION_ICONS: Record<
+  MoreDestination,
+  React.ComponentType<{ size?: number; strokeWidth?: number }>
+> = {
+  "beyond-code": Globe,
+  experience: Briefcase,
+  skills: Crosshair,
+  sustainability: Leaf,
+};
+
+const ItemIcon = ({ destination }: { destination: MoreDestination }) => {
+  const Glyph = DESTINATION_ICONS[destination];
+  return (
+    <ItemIconWrap aria-hidden="true">
+      <Glyph size={20} strokeWidth={1.8} />
+    </ItemIconWrap>
+  );
+};
 
 const CvLink = styled.a`
   align-items: center;
@@ -499,7 +487,7 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
         <SheetHeader>
           <SheetTitle>{t.moreTitle}</SheetTitle>
           <CloseButton onClick={onClose} aria-label={t.closeMenu}>
-            ✕
+            <X size={18} strokeWidth={2} />
           </CloseButton>
         </SheetHeader>
         <ItemList>
@@ -522,7 +510,9 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
                     {ITEM_META[destination].subtitle[localeKey]}
                   </ItemSubtitle>
                 </ItemCopy>
-                <Chevron aria-hidden="true">›</Chevron>
+                <Chevron aria-hidden="true">
+                  <ChevronRight size={18} strokeWidth={2} />
+                </Chevron>
               </ItemButton>
             </li>
           ))}
@@ -536,7 +526,8 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
               trackEvent("cv_downloaded", { locale: router.locale ?? "en" })
             }
           >
-            ↓ {t.moreDownloadCv}
+            <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
+            {t.moreDownloadCv}
           </CvLink>
         )}
         {socialLinks && socialLinks.length > 0 && (

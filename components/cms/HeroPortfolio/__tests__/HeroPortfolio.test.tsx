@@ -125,9 +125,9 @@ describe("HeroPortfolio", () => {
       expect(cvLink).toHaveStyleRule("display", "inline-flex");
       expect(cvLink).toHaveStyleRule("min-height", "44px");
       expect(cvLink).toHaveStyleRule("width", "fit-content");
-      expect(cvLink.querySelector('[aria-hidden="true"]')).toHaveTextContent(
-        "↓",
-      );
+      const arrow = cvLink.querySelector('svg[aria-hidden="true"]');
+      expect(arrow).not.toBeNull();
+      expect(arrow).toHaveClass("lucide-arrow-down");
       expect(cvLink.lastElementChild).toHaveTextContent(label);
     },
   );

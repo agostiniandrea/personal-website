@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import { ArrowUp } from "lucide-react";
 import styled from "styled-components";
 
 import { BREAKPOINTS_BELOW } from "@constants";
@@ -98,21 +99,7 @@ const ScrollToTop: React.FC = () => {
       aria-label={t.scrollToTop}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M8 13V3M8 3L3 8M8 3l5 5"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <ArrowUp size={16} strokeWidth={1.75} aria-hidden="true" />
     </Button>
   );
 };

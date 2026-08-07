@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import { ArrowLeft } from "lucide-react";
 import styled from "styled-components";
 
 import { BREAKPOINTS } from "@constants";
@@ -62,7 +63,8 @@ const ExploreContext: React.FC = () => {
       type="button"
       onClick={() => window.dispatchEvent(new Event(OPEN_MOBILE_EXPLORE_EVENT))}
     >
-      {`← ${t.moreTitle}`}
+      <ArrowLeft size={15} strokeWidth={2} aria-hidden="true" />
+      {t.moreTitle}
     </BackButton>
   );
 };

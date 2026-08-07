@@ -10,6 +10,7 @@ export {
   default as ExploreContext,
 } from "./ExploreContext";
 export { default as FeedbackNudge } from "./FeedbackNudge";
+export { ArrowIcon, LeafIcon, TreeIcon } from "./ForestIcons";
 export { default as ForestTeaser } from "./ForestTeaser";
 export { default as HeadingBox } from "./HeadingBox";
 export { default as InfoTooltip } from "./InfoTooltip";

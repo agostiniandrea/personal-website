@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import { ArrowUpRight } from "lucide-react";
 import styled from "styled-components";
 
 import { Flex, Grid, Heading, Image, Link, Text } from "@components/ions";
@@ -134,6 +135,9 @@ const StatusTag = styled.span`
 `;
 
 const CardLink = styled(Link)`
+  align-items: center;
+  display: inline-flex;
+  gap: 0.375rem;
   align-self: flex-start;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -146,6 +150,12 @@ const CardLink = styled(Link)`
     content: "";
     inset: 0;
     position: absolute;
+  }
+
+  /* The trailing glyph is geometrically centred already; a diagonal arrow just
+     reads as lifted next to lowercase text, so nudge it optically. */
+  svg {
+    transform: translateY(1px);
   }
 `;
 
@@ -202,7 +212,8 @@ const Projects: React.FC<ProjectsProps> = ({
                       trackEvent("project_opened", { project_name: item.title })
                     }
                   >
-                    {item.urlLabel ?? "View project →"}
+                    {item.urlLabel ?? "View project"}
+                    <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
                   </CardLink>
                 ) : item.status ? (
                   <StatusTag>

@@ -71,8 +71,8 @@ exports[`Projects renders correctly with a single item 1`] = `
   border-radius: 9999px;
   color: var(--color-paragraph);
   cursor: default;
-  display: inline-block;
   user-select: none;
+  display: inline-block;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
@@ -172,6 +172,9 @@ exports[`Projects renders correctly with a single item 1`] = `
 }
 
 .c18 {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.375rem;
   align-self: flex-start;
   font-size: 0.875rem;
   font-weight: 700;
@@ -185,6 +188,10 @@ exports[`Projects renders correctly with a single item 1`] = `
   content: "";
   inset: 0;
   position: absolute;
+}
+
+.c18 svg {
+  transform: translateY(1px);
 }
 
 @media (min-width: 600px) {
@@ -403,7 +410,27 @@ exports[`Projects renders correctly with a single item 1`] = `
               rel="noopener noreferrer"
               target="_blank"
             >
-              View project →
+              View project
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-arrow-up-right"
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 7h10v10"
+                />
+                <path
+                  d="M7 17 17 7"
+                />
+              </svg>
             </a>
           </div>
         </article>
@@ -550,8 +577,8 @@ exports[`Projects renders correctly with full project list 1`] = `
   border-radius: 9999px;
   color: var(--color-paragraph);
   cursor: default;
-  display: inline-block;
   user-select: none;
+  display: inline-block;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
@@ -651,6 +678,9 @@ exports[`Projects renders correctly with full project list 1`] = `
 }
 
 .c18 {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.375rem;
   align-self: flex-start;
   font-size: 0.875rem;
   font-weight: 700;
@@ -664,6 +694,10 @@ exports[`Projects renders correctly with full project list 1`] = `
   content: "";
   inset: 0;
   position: absolute;
+}
+
+.c18 svg {
+  transform: translateY(1px);
 }
 
 @media (min-width: 600px) {
@@ -882,7 +916,27 @@ exports[`Projects renders correctly with full project list 1`] = `
               rel="noopener noreferrer"
               target="_blank"
             >
-              View project →
+              View project
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-arrow-up-right"
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 7h10v10"
+                />
+                <path
+                  d="M7 17 17 7"
+                />
+              </svg>
             </a>
           </div>
         </article>
@@ -1022,7 +1076,27 @@ exports[`Projects renders correctly with full project list 1`] = `
               rel="noopener noreferrer"
               target="_blank"
             >
-              View project →
+              View project
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-arrow-up-right"
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 7h10v10"
+                />
+                <path
+                  d="M7 17 17 7"
+                />
+              </svg>
             </a>
           </div>
         </article>
@@ -1228,7 +1302,27 @@ exports[`Projects renders correctly with full project list 1`] = `
               rel="noopener noreferrer"
               target="_blank"
             >
-              View project →
+              View project
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-arrow-up-right"
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 7h10v10"
+                />
+                <path
+                  d="M7 17 17 7"
+                />
+              </svg>
             </a>
           </div>
         </article>

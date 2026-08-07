@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import { ArrowRight, X } from "lucide-react";
 import styled from "styled-components";
 
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
@@ -87,6 +88,9 @@ const Close = styled.button`
 `;
 
 const Cta = styled.button`
+  align-items: center;
+  display: inline-flex;
+  gap: 0.375rem;
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
   font-family: inherit;
@@ -94,6 +98,12 @@ const Cta = styled.button`
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   margin-top: ${({ theme }) => theme.space.sm};
   padding: 0;
+
+  /* The trailing glyph is geometrically centred already; a diagonal arrow just
+     reads as lifted next to lowercase text, so nudge it optically. */
+  svg {
+    transform: translateY(1px);
+  }
 `;
 
 export interface MobileFeedbackNudgeProps {
@@ -252,10 +262,13 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
             {t.mobileFeedbackNudgeTitle}
           </Title>
           <Body>{t.mobileFeedbackNudgeBody}</Body>
-          <Cta onClick={navigate}>{t.mobileFeedbackNudgeCta} →</Cta>
+          <Cta onClick={navigate}>
+            {t.mobileFeedbackNudgeCta}
+            <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+          </Cta>
         </Copy>
         <Close aria-label={t.mobileFeedbackNudgeDismiss} onClick={dismiss}>
-          ✕
+          <X size={16} strokeWidth={2} aria-hidden="true" />
         </Close>
       </Header>
     </Card>

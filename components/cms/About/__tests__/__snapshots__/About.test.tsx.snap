@@ -51,8 +51,10 @@ exports[`About renders correctly with all props 1`] = `
   border-radius: 9999px;
   color: var(--color-paragraph);
   cursor: default;
-  display: inline-block;
   user-select: none;
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
 }
@@ -195,11 +197,53 @@ exports[`About renders correctly with all props 1`] = `
         <span
           class="c9"
         >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-map-pin"
+            fill="none"
+            height="15"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="15"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+            />
+            <circle
+              cx="12"
+              cy="10"
+              r="3"
+            />
+          </svg>
           📍 Bangkok, Thailand
         </span>
         <span
           class="c9"
         >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-badge-check"
+            fill="none"
+            height="15"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="15"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+            />
+            <path
+              d="m9 12 2 2 4-4"
+            />
+          </svg>
           💼 Currently with capacity for new projects
         </span>
       </div>

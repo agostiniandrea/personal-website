@@ -9,10 +9,14 @@ interface BadgeProps {
   size?: "sm" | "md";
   className?: string;
   as?: "span" | "li";
+  /* Optional leading icon. Badges that carry one switch to a flex row so the
+     glyph centres against the label instead of sitting on the baseline. */
+  icon?: React.ReactNode;
 }
 
 interface StyledBadgeProps {
   $size: "sm" | "md";
+  $hasIcon: boolean;
 }
 
 /* Passive tag: never suggest interactivity (no pointer cursor, no mobile
@@ -24,8 +28,16 @@ const StyledBadge = styled(Text)<StyledBadgeProps>`
   border-radius: ${({ theme }) => theme.radii.full};
   color: ${({ theme }) => theme.colors.paragraph};
   cursor: default;
-  display: inline-block;
   user-select: none;
+
+  ${({ $hasIcon }) =>
+    $hasIcon
+      ? `
+    align-items: center;
+    display: inline-flex;
+    gap: 0.4rem;
+  `
+      : "display: inline-block;"}
 
   ${({ $size, theme }) =>
     $size === "sm"
@@ -44,9 +56,16 @@ const Badge: React.FC<BadgeProps> = ({
   size = "md",
   className,
   as = "span",
+  icon,
 }) => {
   return (
-    <StyledBadge $size={size} as={as} className={className}>
+    <StyledBadge
+      $hasIcon={Boolean(icon)}
+      $size={size}
+      as={as}
+      className={className}
+    >
+      {icon}
       {children}
     </StyledBadge>
   );

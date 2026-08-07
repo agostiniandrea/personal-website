@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import { ArrowRight, X } from "lucide-react";
 import styled from "styled-components";
 
 import { BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent, trackOnce } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
+
+import { LeafIcon } from "../ForestIcons";
 
 const Card = styled.aside<{ $visible: boolean }>`
   background: color-mix(
@@ -90,6 +93,9 @@ const Close = styled.button`
 `;
 
 const Cta = styled.button`
+  align-items: center;
+  display: inline-flex;
+  gap: 0.375rem;
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
   font-family: inherit;
@@ -98,6 +104,12 @@ const Cta = styled.button`
   margin-left: 52px;
   margin-top: ${({ theme }) => theme.space.md};
   padding: 0;
+
+  /* The trailing glyph is geometrically centred already; a diagonal arrow just
+     reads as lifted next to lowercase text, so nudge it optically. */
+  svg {
+    transform: translateY(1px);
+  }
 `;
 
 const notifyVisibility = (visible: boolean) => {
@@ -235,7 +247,9 @@ const FeedbackNudge: React.FC = () => {
       data-testid="feedback-nudge"
     >
       <Header>
-        <Icon aria-hidden="true">🌱</Icon>
+        <Icon>
+          <LeafIcon size={20} />
+        </Icon>
         <Copy>
           <Title>{t.feedbackNudgeTitle}</Title>
           <Body>{t.feedbackNudgeBody}</Body>
@@ -250,10 +264,13 @@ const FeedbackNudge: React.FC = () => {
             setDismissed(true);
           }}
         >
-          ✕
+          <X size={16} strokeWidth={2} aria-hidden="true" />
         </Close>
       </Header>
-      <Cta onClick={openForest}>{t.feedbackNudgeCta} →</Cta>
+      <Cta onClick={openForest}>
+        {t.feedbackNudgeCta}
+        <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+      </Cta>
     </Card>
   );
 };
