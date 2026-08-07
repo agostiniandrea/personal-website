@@ -78,10 +78,13 @@ const seededSlugs = rows
   .sort();
 
 console.log("\nRecords by source:", bySource);
+/* No hard-coded expected values: they were the July migration's one-off check
+   and went stale the moment the next batch of insights landed, which made the
+   script report a false mismatch. The counters are read from the live rows. */
 console.log("\nDerived counters (what the Forest UI shows):");
-console.log(`  insightsCollected      = ${rows.length}   (target 10)`);
-console.log(`  treesDedicated         = ${treesDedicated}    (target 4)`);
-console.log(`  improvementsShipped    = ${improvementsShipped}    (target 8)`);
-console.log(`  communityContributions = ${communityContributions}    (target 2)`);
+console.log(`  insightsCollected      = ${rows.length}`);
+console.log(`  treesDedicated         = ${treesDedicated}`);
+console.log(`  improvementsShipped    = ${improvementsShipped}`);
+console.log(`  communityContributions = ${communityContributions}`);
 console.log(`\nSeeded internal slugs (${seededSlugs.length}):`);
 seededSlugs.forEach((s) => console.log(`  - ${s}`));
