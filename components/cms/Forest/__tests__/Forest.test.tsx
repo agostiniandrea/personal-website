@@ -75,7 +75,7 @@ describe("Forest", () => {
   it("renders the Tree-Nation link", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     expect(
-      screen.getByRole("link", { name: /View the living forest/i }),
+      screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
     ).toHaveAttribute(
       "href",
       "https://tree-nation.com/profile/andrea-agostini-103769",

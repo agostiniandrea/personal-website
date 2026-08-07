@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import { ArrowDown, ChevronDown } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Box, Container, Heading, Image, Link, Text } from "@components/ions";
@@ -491,7 +492,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                     trackEvent("cv_downloaded", { locale: locale ?? "en" })
                   }
                 >
-                  <span aria-hidden="true">↓</span>
+                  <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
                   <span>{cvDownloadLabel}</span>
                 </CvLink>
               )}
@@ -503,19 +504,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
           onClick={scrollDown}
           aria-label={t.scrollDown}
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
+          <ChevronDown size={24} strokeWidth={2} aria-hidden="true" />
         </ScrollHint>
       </Section>
     </>

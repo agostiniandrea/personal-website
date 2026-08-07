@@ -17,7 +17,7 @@ export const defaultProjects: ProjectsProps = {
         "Storybook",
       ],
       url: "https://www.7mesh.com/",
-      urlLabel: "View project →",
+      urlLabel: "View project",
     },
     {
       title: "Compass",
@@ -45,7 +45,7 @@ export const defaultProjects: ProjectsProps = {
         "Klaviyo",
       ],
       url: "https://www.nestdesigns.com/",
-      urlLabel: "View project →",
+      urlLabel: "View project",
     },
     {
       title: "leggings.com",
@@ -74,7 +74,7 @@ export const defaultProjects: ProjectsProps = {
         "Built and maintained the Build & Price vehicle configurator for FCA Group's North American brand sites — Chrysler, Dodge, Jeep, Ram, Fiat and Alfa Romeo. Nearly three years of feature development on a high-traffic consumer tool with real-time pricing and availability.",
       tags: ["React", "Redux", "JavaScript", "Webpack", "Node.js"],
       url: "https://www.ramtrucks.com/en/lineup/?app=bmo&",
-      urlLabel: "View project →",
+      urlLabel: "View project",
     },
   ],
 };

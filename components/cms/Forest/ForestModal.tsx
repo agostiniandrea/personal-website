@@ -3,15 +3,16 @@ import { createPortal } from "react-dom";
 
 import { useRouter } from "next/router";
 
+import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
+import { LeafIcon, TreeIcon } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 
 const copy = {
   en: {
     ariaLabel: "Share feedback",
-    close: "✕",
     closeAriaLabel: "Close",
     s1Title: "Help this portfolio grow.",
     s1Body:
@@ -37,9 +38,9 @@ const copy = {
     errorMsg:
       "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
     sending: "Sending…",
-    send: "🌱 Send",
-    continue: "Continue →",
-    back: "← Back",
+    send: "Send",
+    continue: "Continue",
+    back: "Back",
     s5Title: "Thank you.",
     s5Body:
       "Your leaf has been received. I'll personally read every submission.",
@@ -52,7 +53,6 @@ const copy = {
   },
   it: {
     ariaLabel: "Invia feedback",
-    close: "✕",
     closeAriaLabel: "Chiudi",
     s1Title: "Aiuta questo portfolio a crescere.",
     s1Body:
@@ -79,9 +79,9 @@ const copy = {
     errorMsg:
       "Qualcosa è andato storto. Riprova oppure scrivimi a a.agostini92@gmail.com",
     sending: "Invio in corso…",
-    send: "🌱 Invia",
-    continue: "Continua →",
-    back: "← Indietro",
+    send: "Invia",
+    continue: "Continua",
+    back: "Indietro",
     s5Title: "Grazie.",
     s5Body:
       "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
@@ -319,8 +319,8 @@ const StepWrap = styled.div`
 /* ── Typography ── */
 
 const Icon = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes["3xl"]};
-  line-height: ${({ theme }) => theme.lineHeights.tight};
+  color: ${({ theme }) => theme.colors.highlight};
+  line-height: 0;
   margin-bottom: 1.25rem;
 `;
 
@@ -504,6 +504,10 @@ const BtnRow = styled.div`
 `;
 
 const BackBtn = styled.button`
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  justify-content: center;
   background: none;
   border: none;
   color: ${({ theme }) => theme.colors.paragraph};
@@ -577,8 +581,9 @@ const Leaves = styled.div`
 const Leaf = styled.span<{ $delay: number; $drift: string }>`
   --drift: ${({ $drift }) => $drift};
   animation: ${leafFall} 1.3s ease-out ${({ $delay }) => $delay}s both;
-  font-size: ${({ theme }) => theme.fontSizes.xl};
+  color: ${({ theme }) => theme.colors.highlight};
   left: 50%;
+  line-height: 0;
   position: absolute;
   top: 0;
 `;
@@ -622,6 +627,20 @@ export const ForestModal: React.FC<ForestModalProps> = ({
   const firstFocusRef = useRef<HTMLButtonElement>(null);
   const { locale } = useRouter();
   const t = locale === "it" ? copy.it : copy.en;
+  /* The step buttons repeat across every step, so their label + arrow pairing
+     is built once here rather than at each of the six call sites. */
+  const continueLabel = (
+    <>
+      {t.continue}
+      <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+    </>
+  );
+  const backLabel = (
+    <>
+      <ArrowLeft size={15} strokeWidth={2} aria-hidden="true" />
+      {t.back}
+    </>
+  );
 
   const fieldErrors = getFieldErrors(data);
   const canSubmit = !hasFieldErrors(fieldErrors) && !submitting;
@@ -721,17 +740,19 @@ export const ForestModal: React.FC<ForestModalProps> = ({
             <div style={{ flex: 1 }} />
           )}
           <CloseBtn onClick={onClose} aria-label={t.closeAriaLabel}>
-            {t.close}
+            <X size={18} strokeWidth={2} aria-hidden="true" />
           </CloseBtn>
         </ModalHeader>
 
         {step === 1 && (
           <StepWrap key="s1">
-            <Icon aria-hidden="true">🌳</Icon>
+            <Icon>
+              <TreeIcon size={40} />
+            </Icon>
             <Title>{t.s1Title}</Title>
             <Body>{t.s1Body}</Body>
             <PrimaryBtn ref={firstFocusRef} onClick={next} type="button">
-              {t.continue}
+              {continueLabel}
             </PrimaryBtn>
           </StepWrap>
         )}
@@ -754,7 +775,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
             </CatGrid>
             <BtnRow>
               <BackBtn onClick={back} type="button">
-                {t.back}
+                {backLabel}
               </BackBtn>
               <PrimaryBtn
                 ref={firstFocusRef}
@@ -762,7 +783,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
                 disabled={!data.category}
                 type="button"
               >
-                {t.continue}
+                {continueLabel}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -782,14 +803,14 @@ export const ForestModal: React.FC<ForestModalProps> = ({
             />
             <BtnRow>
               <BackBtn onClick={back} type="button">
-                {t.back}
+                {backLabel}
               </BackBtn>
               <PrimaryBtn
                 onClick={next}
                 disabled={data.message.trim().length < 10}
                 type="button"
               >
-                {t.continue}
+                {continueLabel}
               </PrimaryBtn>
             </BtnRow>
           </StepWrap>
@@ -921,7 +942,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
             {error && <ErrorMsg role="alert">{t.errorMsg}</ErrorMsg>}
             <BtnRow>
               <BackBtn onClick={back} type="button">
-                {t.back}
+                {backLabel}
               </BackBtn>
               <PrimaryBtn onClick={submit} disabled={!canSubmit} type="button">
                 {submitting ? t.sending : t.send}
@@ -935,7 +956,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
             <Leaves aria-hidden="true">
               {LEAVES.map(({ delay, drift }, i) => (
                 <Leaf key={i} $delay={delay} $drift={drift}>
-                  🍃
+                  <LeafIcon size={18} />
                 </Leaf>
               ))}
             </Leaves>
