@@ -3,22 +3,22 @@ import { ForestProps, OriginItem } from "./index";
 export const defaultOriginItems: OriginItem[] = [
   {
     date: "May 2026",
-    text: "🌱  Started planting trees every month — a personal commitment, before any portfolio.",
+    text: "Started planting trees every month — a personal commitment, before any portfolio.",
   },
   {
     date: "July 2026",
-    text: "🌳  Forest was born. The portfolio invites others to become part of that journey.",
+    text: "Forest was born. The portfolio invites others to become part of that journey.",
   },
   {
     date: "Today",
-    text: "→  Every meaningful contribution can shape the portfolio — community feedback grows a pair of real trees.",
+    text: "Every meaningful contribution can shape the portfolio — community feedback grows a pair of real trees.",
   },
 ];
 
 export const defaultForest: ForestProps = {
   originItems: defaultOriginItems,
   badge: "Growing in public",
-  sectionLabel: "🌳 Forest",
+  sectionLabel: "Forest",
   heading: "This portfolio grows through feedback, research and iteration.",
   subheading:
     "Forest didn't start with this website — it began months earlier, as a personal commitment to give something back. Today it grows in three ways: community feedback, focused research, and my own iteration on the portfolio.",
@@ -31,7 +31,7 @@ export const defaultForest: ForestProps = {
   ctaHeading: "Help this portfolio grow.",
   ctaBody:
     "Every meaningful contribution can shape the portfolio. Community feedback grows a pair of real trees — one dedicated to you, one matched by me.",
-  ctaButtonLabel: "🌱 Plant a leaf",
+  ctaButtonLabel: "Plant your feedback",
   treeCountLabel: "Trees planted since May 2026",
   viewForestLabel: "View the living forest",
   seasonTarget: 50,

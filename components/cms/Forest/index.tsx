@@ -2,10 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import { ArrowUpRight, TreeDeciduous } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Text } from "@components/ions";
-import { Badge, InfoTooltip, Section, SectionLabel } from "@components/molecules";
+import {
+  ArrowIcon,
+  Badge,
+  InfoTooltip,
+  LeafIcon,
+  Section,
+  SectionLabel,
+  TreeIcon,
+} from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
@@ -84,6 +93,12 @@ function useAnimatedCounter(target: number, inView: boolean) {
   }, [inView, target]);
 
   return count;
+}
+
+/* Some CMS labels still start with an emoji; the icon components replace it, so
+   strip it rather than render both. Harmless once the copy is emoji-free. */
+function withoutLeadingEmoji(label: string): string {
+  return label.replace(/^[\p{Extended_Pictographic}️\s]+/u, "");
 }
 
 function relativeTime(dateStr: string): string {
@@ -184,6 +199,19 @@ const OriginDate = styled.span`
   text-transform: uppercase;
   white-space: nowrap;
   width: 110px;
+`;
+
+/* Fixed width so every step's copy starts on the same vertical line, and a box
+   as tall as one line of that copy so the glyph centres against the first line
+   at any font size — rather than being nudged by a hand-picked offset. */
+const OriginMarker = styled.span`
+  align-items: center;
+  color: ${({ theme }) => theme.colors.highlight};
+  display: flex;
+  flex: 0 0 16px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  height: ${({ theme }) => theme.lineHeights.normal}em;
+  justify-content: center;
 `;
 
 const OriginText = styled.span`
@@ -589,21 +617,46 @@ const ProjectLink = styled.a`
 
 /* ── View forest link ── */
 
-const TreeNationNote = styled(Text)`
+/* Trust seal linking to the public Tree-Nation profile. Drawn inline so it costs
+   no extra request — the point of the badge is credibility, not third-party JS. */
+const VerifiedBadge = styled.a`
+  align-items: center;
+  border: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 30)};
+  border-radius: 999px;
   color: ${({ theme }) => theme.colors.paragraph};
-  margin-bottom: 0;
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  gap: ${({ theme }) => theme.space.sm};
+  padding: 0.4rem 0.875rem;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+  width: fit-content;
 
-  a {
-    color: ${({ theme }) => theme.colors.highlight};
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-
-    @media (hover: hover) {
-      &:hover {
-        opacity: 0.75;
-      }
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => alpha(theme.colors.highlight, 6)};
+      border-color: ${({ theme }) => alpha(theme.colors.highlight, 60)};
     }
   }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+  }
+`;
+
+/* The badge points at the forest itself, so it carries the tree — the leaf is
+   reserved for a single contribution. */
+const VerifiedTree = styled(TreeDeciduous)`
+  color: ${({ theme }) => theme.colors.highlight};
+  flex-shrink: 0;
+`;
+
+const VerifiedArrow = styled(ArrowUpRight)`
+  color: ${({ theme }) => theme.colors.highlight};
+  flex-shrink: 0;
 `;
 
 /* ── Timeline ── */
@@ -611,9 +664,12 @@ const TreeNationNote = styled(Text)`
 const TimelineSection = styled.div``;
 
 const TimelineHeading = styled.p`
+  align-items: center;
   color: ${({ theme }) => theme.colors.paragraph};
+  display: flex;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
+  gap: 0.4rem;
   letter-spacing: 0.15em;
   margin: 0 0 1.25rem;
   text-transform: uppercase;
@@ -662,15 +718,15 @@ const Divider = styled.div`
 const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
   {
     date: "May 2026",
-    text: "🌱  Started planting trees every month — a personal commitment, before any portfolio.",
+    text: "Started planting trees every month — a personal commitment, before any portfolio.",
   },
   {
     date: "July 2026",
-    text: "🌳  Forest was born. The portfolio invites others to become part of that journey.",
+    text: "Forest was born. The portfolio invites others to become part of that journey.",
   },
   {
     date: "Today",
-    text: "→  Every meaningful suggestion grows a pair of trees — one for you, one matched by me.",
+    text: "Every meaningful suggestion grows a pair of trees — one for you, one matched by me.",
   },
 ];
 
@@ -693,7 +749,6 @@ const Forest: React.FC<ForestProps> = ({
   ctaButtonLabel = "🌱 Plant a leaf",
   treeCountLabel = "Trees planted since May 2026",
   treesLabel,
-  viewForestLabel = "View the living forest",
   seasonTarget = 50,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
@@ -799,17 +854,30 @@ const Forest: React.FC<ForestProps> = ({
             </BadgeWrap>
           )}
 
-          <SectionLabel>{sectionLabel}</SectionLabel>
+          <SectionLabel>{withoutLeadingEmoji(sectionLabel)}</SectionLabel>
           <SectionHeading>{resolvedHeading}</SectionHeading>
           <Subheading variant="large">{resolvedSubheading}</Subheading>
 
           <OriginBlock>
-            {resolvedOriginItems.map((item) => (
-              <OriginItem key={item.date}>
-                <OriginDate>{item.date}</OriginDate>
-                <OriginText>{item.text}</OriginText>
-              </OriginItem>
-            ))}
+            {resolvedOriginItems.map((item, i) => {
+              /* The markers carry the story: it starts as a sprout, becomes a
+                 tree, and the last step points forward because it's ongoing. */
+              const Marker =
+                i === resolvedOriginItems.length - 1
+                  ? ArrowIcon
+                  : i === 0
+                    ? LeafIcon
+                    : TreeIcon;
+              return (
+                <OriginItem key={item.date}>
+                  <OriginDate>{item.date}</OriginDate>
+                  <OriginMarker>
+                    <Marker size={16} />
+                  </OriginMarker>
+                  <OriginText>{withoutLeadingEmoji(item.text)}</OriginText>
+                </OriginItem>
+              );
+            })}
           </OriginBlock>
 
           <ImpactAnchor id="forest-impact" />
@@ -830,7 +898,8 @@ const Forest: React.FC<ForestProps> = ({
               <CtaHeading>{ctaHeading}</CtaHeading>
               <CtaBody>{resolvedCtaBody}</CtaBody>
               <PlantButton onClick={openFeedbackModal} aria-haspopup="dialog">
-                {ctaButtonLabel}
+                <LeafIcon size={17} />
+                {withoutLeadingEmoji(ctaButtonLabel)}
               </PlantButton>
             </CtaContent>
             <CtaDecor>
@@ -923,25 +992,12 @@ const Forest: React.FC<ForestProps> = ({
                           rel="noopener noreferrer"
                         >
                           {seasonProjectLinkLabel}
-                          <svg
-                            width="11"
-                            height="11"
-                            viewBox="0 0 11 11"
-                            fill="none"
+                          <ArrowUpRight
+                            size={11}
+                            strokeWidth={2}
                             aria-hidden="true"
-                            style={{
-                              display: "inline-block",
-                              marginLeft: "0.25rem",
-                            }}
-                          >
-                            <path
-                              d="M2 9L9 2M9 2H4M9 2V7"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
+                            style={{ marginLeft: "0.25rem" }}
+                          />
                         </ProjectLink>
                       )}
                     </ProjectFooter>
@@ -951,43 +1007,24 @@ const Forest: React.FC<ForestProps> = ({
             </SeasonGrid>
           </SeasonCard>
 
-          <TreeNationNote variant="small">
-            <a
-              href="https://tree-nation.com/profile/andrea-agostini-103769"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {viewForestLabel}
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 11 11"
-                fill="none"
-                aria-hidden="true"
-                style={{
-                  display: "inline-block",
-                  marginLeft: "0.25rem",
-                  verticalAlign: "middle",
-                  position: "relative",
-                  top: "-1px",
-                }}
-              >
-                <path
-                  d="M2 9L9 2M9 2H4M9 2V7"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </TreeNationNote>
+          <VerifiedBadge
+            href="https://tree-nation.com/profile/andrea-agostini-103769"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
+            {t.forestVerifiedLabel}
+            <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
+          </VerifiedBadge>
 
           {changelogItems.length > 0 && (
             <>
               <Divider />
               <TimelineSection>
-                <TimelineHeading>🌱 Latest leaves</TimelineHeading>
+                <TimelineHeading>
+                  <LeafIcon size={13} />
+                  Latest leaves
+                </TimelineHeading>
                 <TimelineList>
                   {changelogItems.map((item, i) => (
                     <TimelineItem key={i}>
