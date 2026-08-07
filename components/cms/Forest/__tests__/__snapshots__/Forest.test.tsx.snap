@@ -456,6 +456,7 @@ exports[`Forest renders correctly with all props 1`] = `
   flex-shrink: 0;
   font-size: 0.875rem;
   font-weight: 600;
+  gap: 0.25rem;
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
@@ -1146,7 +1147,6 @@ exports[`Forest renders correctly with all props 1`] = `
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  style="margin-left: 0.25rem;"
                   viewBox="0 0 24 24"
                   width="11"
                   xmlns="http://www.w3.org/2000/svg"
