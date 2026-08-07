@@ -410,8 +410,8 @@ exports[`Experience renders correctly with all items 1`] = `
   border-radius: 9999px;
   color: var(--color-paragraph);
   cursor: default;
-  display: inline-block;
   user-select: none;
+  display: inline-block;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
