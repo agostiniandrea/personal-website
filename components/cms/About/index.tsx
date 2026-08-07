@@ -1,3 +1,5 @@
+import { BadgeCheck, MapPin } from "lucide-react";
+
 import { Flex } from "@components/ions";
 import { Badge, Section } from "@components/molecules";
 
@@ -16,15 +18,20 @@ const About: React.FC<AboutProps> = ({
   location,
   availability,
 }) => {
-  const tags = [location, availability].filter(Boolean) as string[];
+  /* Each tag keeps its own icon: unlike the skill badges elsewhere, these two
+     say different kinds of thing (where I am, whether I'm available). */
+  const tags = [
+    { icon: <MapPin size={15} strokeWidth={2} />, label: location },
+    { icon: <BadgeCheck size={15} strokeWidth={2} />, label: availability },
+  ].filter((tag) => Boolean(tag.label));
 
   return (
     <Section id="about" eyebrow={sectionLabel} heading={heading} body={bio}>
       {tags.length > 0 && (
         <Flex gap="md" wrap="wrap">
           {tags.map((tag) => (
-            <Badge key={tag} size="md">
-              {tag}
+            <Badge key={tag.label} size="md" icon={tag.icon}>
+              {tag.label}
             </Badge>
           ))}
         </Flex>

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import { ArrowRight, Leaf as LeafGlyph } from "lucide-react";
 import styled from "styled-components";
 
 import { Container } from "@components/ions";
@@ -62,10 +63,8 @@ const Eyebrow = styled.p`
   text-transform: uppercase;
 `;
 
-const Sprout = styled.svg`
+const Sprout = styled(LeafGlyph)`
   flex: 0 0 22px;
-  height: 22px;
-  width: 22px;
 `;
 
 const Heading = styled.h2`
@@ -73,7 +72,9 @@ const Heading = styled.h2`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: clamp(3.25rem, 3.5vw, 4rem);
   line-height: ${({ theme }) => theme.lineHeights.tight};
-  margin-bottom: ${({ theme }) => theme.space.md};
+  /* Sized against the heading, not the small print: 12px under a ~56px title
+     read far tighter than the rhythm the rest of the page settled on. */
+  margin-bottom: ${({ theme }) => theme.space.xl};
 `;
 
 const Metric = styled.p`
@@ -83,6 +84,9 @@ const Metric = styled.p`
 `;
 
 const Cta = styled.button`
+  align-items: center;
+  display: inline-flex;
+  gap: 0.375rem;
   color: ${({ theme }) => theme.colors.highlight};
   cursor: pointer;
   font-family: inherit;
@@ -92,6 +96,12 @@ const Cta = styled.button`
 
   &:focus-visible {
     outline-color: ${({ theme }) => theme.colors.headline};
+  }
+
+  /* The trailing glyph is geometrically centred already; a diagonal arrow just
+     reads as lifted next to lowercase text, so nudge it optically. */
+  svg {
+    transform: translateY(1px);
   }
 `;
 
@@ -146,33 +156,17 @@ const ForestTeaser: React.FC<ForestTeaserProps> = ({
         <Panel data-testid="forest-teaser-panel">
           <Copy data-testid="forest-teaser-copy">
             <Eyebrow>
-              <Sprout viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M12 21V10"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M12 12C8.3 12 5.5 9.7 5 6c3.9-.2 6.4 1.6 7 6Z"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 10c.7-4.4 3.2-6.6 7-6.9-.1 3.9-2.6 6.7-7 6.9Z"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinejoin="round"
-                />
-              </Sprout>
+              <Sprout size={22} strokeWidth={1.7} aria-hidden="true" />
               {t.forestInlineEyebrow}
             </Eyebrow>
             <Heading id="forest-teaser-heading">
               {t.forestInlineHeading}
             </Heading>
             <Metric>{t.forestInlineMetric(feedbackTrees, totalTrees)}</Metric>
-            <Cta onClick={openForest}>{t.forestInlineCta} →</Cta>
+            <Cta onClick={openForest}>
+              {t.forestInlineCta}
+              <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+            </Cta>
           </Copy>
           <Artwork aria-hidden="true" data-testid="forest-teaser-artwork" />
         </Panel>

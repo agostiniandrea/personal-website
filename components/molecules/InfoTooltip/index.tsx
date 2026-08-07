@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 
+import { Info } from "lucide-react";
 import styled from "styled-components";
 
 /* Compact, accessible clarification popover: hover/focus open it on
@@ -176,20 +177,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
         onFocus={() => show(false)}
         onBlur={() => hide()}
       >
-        <svg
-          width="17"
-          height="17"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="9.5" />
-          <path d="M12 11v6" />
-          <path d="M12 7.5v.5" />
-        </svg>
+        <Info size={17} strokeWidth={1.75} aria-hidden="true" />
       </TriggerButton>
       {open && (
         <Bubble
