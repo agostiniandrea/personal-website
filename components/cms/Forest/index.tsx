@@ -600,6 +600,8 @@ const ProjectLink = styled.a`
   flex-shrink: 0;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  /* Tighter than the usual 0.375rem because this arrow is 11px, not 14-16. */
+  gap: 0.25rem;
   text-decoration: none;
   transition: opacity 0.2s ease;
 
@@ -1002,7 +1004,6 @@ const Forest: React.FC<ForestProps> = ({
                             size={11}
                             strokeWidth={2}
                             aria-hidden="true"
-                            style={{ marginLeft: "0.25rem" }}
                           />
                         </ProjectLink>
                       )}

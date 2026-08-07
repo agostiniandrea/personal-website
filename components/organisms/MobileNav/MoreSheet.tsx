@@ -316,6 +316,7 @@ const CvLink = styled.a`
   display: flex;
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  gap: 0.375rem;
   justify-content: center;
   margin-bottom: ${({ theme }) => theme.space.lg};
   min-height: 44px;
