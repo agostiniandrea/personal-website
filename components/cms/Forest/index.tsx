@@ -746,7 +746,7 @@ const Forest: React.FC<ForestProps> = ({
   treeCountTitle,
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
-  ctaButtonLabel = "🌱 Plant a leaf",
+  ctaButtonLabel = "Plant your feedback",
   treeCountLabel = "Trees planted since May 2026",
   treesLabel,
   seasonTarget = 50,
@@ -897,7 +897,13 @@ const Forest: React.FC<ForestProps> = ({
             <CtaContent>
               <CtaHeading>{ctaHeading}</CtaHeading>
               <CtaBody>{resolvedCtaBody}</CtaBody>
-              <PlantButton onClick={openFeedbackModal} aria-haspopup="dialog">
+              {/* The label is CMS copy and changes freely, so the tests hook
+                  onto this id rather than onto the words. */}
+              <PlantButton
+                onClick={openFeedbackModal}
+                aria-haspopup="dialog"
+                data-testid="plant-feedback"
+              >
                 <LeafIcon size={17} />
                 {withoutLeadingEmoji(ctaButtonLabel)}
               </PlantButton>

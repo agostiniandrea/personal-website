@@ -12,7 +12,7 @@ const sendBtn = (page: Page) =>
 async function reachStep4(page: Page) {
   await page.goto("/");
   await page.locator("#forest").scrollIntoViewIfNeeded();
-  await page.getByRole("button", { name: /leave a leaf/i }).click();
+  await page.getByTestId("plant-feedback").click();
   await expect(feedbackDialog(page)).toBeVisible();
   // Step 1 → 2
   await feedbackDialog(page)

@@ -42,7 +42,7 @@ test.describe("mobile hero CV tertiary CTA", () => {
       expect(measurements.borderBottomWidth).toBe("1px");
       expect(measurements.height).toBeGreaterThanOrEqual(44);
       expect(measurements.width).toBeLessThan(measurements.parentWidth);
-      await expect(link.locator('[aria-hidden="true"]')).toHaveText("↓");
+      await expect(link.locator("svg.lucide-arrow-down")).toBeVisible();
     });
   }
 });

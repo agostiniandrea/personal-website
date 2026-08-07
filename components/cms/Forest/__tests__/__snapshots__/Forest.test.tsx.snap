@@ -927,6 +927,7 @@ exports[`Forest renders correctly with all props 1`] = `
           <button
             aria-haspopup="dialog"
             class="c25"
+            data-testid="plant-feedback"
           >
             <svg
               aria-hidden="true"
@@ -1846,6 +1847,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
           <button
             aria-haspopup="dialog"
             class="c20"
+            data-testid="plant-feedback"
           >
             <svg
               aria-hidden="true"
@@ -1867,7 +1869,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
                 d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"
               />
             </svg>
-            Plant a leaf
+            Plant your feedback
           </button>
         </div>
         <div
