@@ -17,7 +17,7 @@ import {
   TSiteHeaderData,
 } from "@lib/utils/cms";
 import { getForestImpactStats } from "@lib/utils/forestStats";
-import { getForestCounts } from "@lib/utils/treeNation";
+import { getForestData } from "@lib/utils/treeNation";
 
 type THomepage = {
   page: TPageFields;
@@ -54,22 +54,33 @@ export async function getStaticProps({
       process.env.SUPABASE_SERVICE_ROLE_KEY,
     );
 
-    const [impactStats, forestCounts] = await Promise.all([
+    const forestModule = page.modules.find((m) => m.type === MODULES.FOREST);
+    /* The featured project and its species are authored in Contentful; the
+       slug in its URL is what ties them to Tree-Nation's own records. */
+    const featuredUrl = String(forestModule?.fields?.seasonProjectUrl ?? "");
+    const featured = {
+      projectSlug: featuredUrl.split("/").filter(Boolean).pop(),
+      speciesNames: (forestModule?.fields?.seasonProjectSpecies ??
+        []) as string[],
+    };
+
+    const [impactStats, forestData] = await Promise.all([
       getForestImpactStats(supabase),
-      getForestCounts(supabase),
+      getForestData(supabase, featured),
     ]);
 
-    const forestModule = page.modules.find((m) => m.type === MODULES.FOREST);
     if (forestModule) {
       forestModule.fields = {
         ...forestModule.fields,
         ...impactStats,
         // Verified Tree-Nation total wins; the Contentful treeCount stays as
         // the fallback when no sync has ever succeeded
-        ...(forestCounts.total !== null && { treeCount: forestCounts.total }),
-        ...(forestCounts.month !== null && {
-          monthTreeCount: forestCounts.month,
+        ...(forestData.total !== null && { treeCount: forestData.total }),
+        ...(forestData.month !== null && {
+          monthTreeCount: forestData.month,
         }),
+        forestProjects: forestData.projects,
+        forestSpecies: forestData.species,
       };
     }
   } catch (err) {
