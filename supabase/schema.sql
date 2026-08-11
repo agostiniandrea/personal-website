@@ -70,14 +70,19 @@ create policy "Authenticated users can update feedback"
 -- from Tree-Nation at most once per 24h and serves the cached values in
 -- between, so a slow or unavailable Tree-Nation never blocks a page build.
 --
--- month_count is nullable: it is secondary to the total, so a failed month
--- fetch stores null rather than discarding a good total.
+-- Everything but tree_count is nullable: the enrichments are secondary, so a
+-- failed fetch of any one stores null rather than discarding a good total.
 -- ---------------------------------------------------------------------------
 
 create table if not exists public.forest_sync (
   id          text        primary key,
   tree_count  integer     not null,
   month_count integer,
+  -- Cached projection of Tree-Nation's per-project breakdown: read and
+  -- replaced whole, never queried by field, so jsonb rather than a child table.
+  projects    jsonb,
+  -- Species detail for the featured project, resolved from the CMS names.
+  species     jsonb,
   synced_at   timestamptz not null default now()
 );
 

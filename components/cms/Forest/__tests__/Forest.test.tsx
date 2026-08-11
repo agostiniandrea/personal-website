@@ -102,12 +102,124 @@ describe("Forest", () => {
     });
   });
 
-  it("keeps the community figures and their project in one column", () => {
-    renderWithTheme(<Forest {...defaultForest} />);
-    // The card splits by whose forest it is: progress on the left is mine, the
-    // community's trees and the project they went into belong together.
-    expect(screen.getByTestId("community-impact").parentElement).toBe(
-      screen.getByTestId("season-project").parentElement,
+  describe("species detail", () => {
+    const species = [
+      {
+        label: "Sengon",
+        scientific: "Paraserianthes falcataria",
+        category: "Fast-growing",
+        origin: "Native",
+        co2Kg: 400,
+      },
+    ];
+
+    it("says what a species is instead of only naming it", () => {
+      renderWithTheme(<Forest {...defaultForest} forestSpecies={species} />);
+      const block = screen.getByTestId("species-detail");
+      expect(block).toHaveTextContent("Sengon");
+      expect(block).toHaveTextContent("Paraserianthes falcataria");
+      expect(block).toHaveTextContent("fast-growing, native");
+      expect(block).toHaveTextContent("400 kg CO₂ over its life");
+    });
+
+    it("keeps the plain name badges when Tree-Nation told us nothing", () => {
+      renderWithTheme(<Forest {...defaultForest} forestSpecies={[]} />);
+      expect(screen.queryByTestId("species-detail")).not.toBeInTheDocument();
+      // The CMS names still render, so the card never loses its species.
+      expect(
+        screen.getByText(defaultForest.seasonProjectSpecies![0]),
+      ).toBeInTheDocument();
+    });
+
+    it("omits the CO₂ figure when Tree-Nation has none", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          forestSpecies={[{ ...species[0], co2Kg: 0 }]}
+        />,
+      );
+      expect(screen.getByTestId("species-detail")).not.toHaveTextContent("kg");
+    });
+  });
+
+  describe("where the forest grows", () => {
+    const projects = [
+      { id: 568, name: "Plant to Stop Poverty", slug: "pstp", country: "TZ", trees: 22 },
+      { id: 450, name: "Bore", slug: "bore", country: "KE", trees: 5 },
+    ];
+
+    it("lists each project with its tree count and country name", () => {
+      renderWithTheme(<Forest {...defaultForest} forestProjects={projects} />);
+      const block = screen.getByTestId("forest-spread");
+      expect(block).toHaveTextContent("22");
+      expect(block).toHaveTextContent("Plant to Stop Poverty");
+      // The API gives ISO codes; the UI resolves them for the active locale.
+      expect(block).toHaveTextContent("Tanzania");
+      expect(block).toHaveTextContent("Kenya");
+    });
+
+    it("does not repeat a country the project name already carries", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          forestProjects={[
+            {
+              id: 692,
+              name: "Community Reforestation in Indonesia",
+              slug: "cri",
+              country: "ID",
+              trees: 5,
+            },
+          ]}
+        />,
+      );
+      const block = screen.getByTestId("forest-spread");
+      expect(block).toHaveTextContent("Community Reforestation in Indonesia");
+      expect(block.textContent?.match(/Indonesia/g)).toHaveLength(1);
+    });
+
+    it("is omitted when Tree-Nation gave us nothing", () => {
+      renderWithTheme(<Forest {...defaultForest} forestProjects={[]} />);
+      expect(screen.queryByTestId("forest-spread")).not.toBeInTheDocument();
+    });
+
+    it("falls back to the raw code for an unknown country", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          forestProjects={[
+            { id: 101, name: "Somewhere", slug: "s", country: "", trees: 1 },
+          ]}
+        />,
+      );
+      expect(screen.getByTestId("forest-spread")).toHaveTextContent("Somewhere");
+    });
+  });
+
+  it("places the four blocks so each column tells one story", () => {
+    renderWithTheme(
+      <Forest
+        {...defaultForest}
+        forestProjects={[
+          { id: 450, name: "Bore", slug: "bore", country: "KE", trees: 5 },
+        ]}
+      />,
+    );
+    // One 2x2 grid: mine on the left, the community's on the right, and the
+    // two lower blocks share a row so their top rules line up.
+    expect(screen.getByTestId("forest-spread")).toHaveStyleRule(
+      "grid-area",
+      "spread",
+    );
+    // The community wrapper dissolves (display: contents) so its three lines
+    // can take grid rows of their own, facing the progress rows opposite.
+    expect(screen.getByTestId("community-impact")).toHaveStyleRule(
+      "display",
+      "contents",
+    );
+    expect(screen.getByTestId("season-project")).toHaveStyleRule(
+      "grid-area",
+      "project",
     );
   });
 
