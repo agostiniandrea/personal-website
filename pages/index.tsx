@@ -17,7 +17,7 @@ import {
   TSiteHeaderData,
 } from "@lib/utils/cms";
 import { getForestImpactStats } from "@lib/utils/forestStats";
-import { getForestTreeCount } from "@lib/utils/treeNation";
+import { getForestCounts } from "@lib/utils/treeNation";
 
 type THomepage = {
   page: TPageFields;
@@ -54,9 +54,9 @@ export async function getStaticProps({
       process.env.SUPABASE_SERVICE_ROLE_KEY,
     );
 
-    const [impactStats, liveTreeCount] = await Promise.all([
+    const [impactStats, forestCounts] = await Promise.all([
       getForestImpactStats(supabase),
-      getForestTreeCount(supabase),
+      getForestCounts(supabase),
     ]);
 
     const forestModule = page.modules.find((m) => m.type === MODULES.FOREST);
@@ -66,7 +66,10 @@ export async function getStaticProps({
         ...impactStats,
         // Verified Tree-Nation total wins; the Contentful treeCount stays as
         // the fallback when no sync has ever succeeded
-        ...(liveTreeCount !== null && { treeCount: liveTreeCount }),
+        ...(forestCounts.total !== null && { treeCount: forestCounts.total }),
+        ...(forestCounts.month !== null && {
+          monthTreeCount: forestCounts.month,
+        }),
       };
     }
   } catch (err) {

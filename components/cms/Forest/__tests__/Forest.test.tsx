@@ -79,6 +79,16 @@ describe("Forest", () => {
       expect(screen.getByText("10% towards next milestone")).toBeInTheDocument();
     });
 
+    it("shows the monthly pulse only when trees landed this month", () => {
+      const { rerender } = renderWithTheme(<Forest {...defaultForest} />);
+      expect(screen.queryByTestId("month-pulse")).not.toBeInTheDocument();
+
+      rerender(<Forest {...defaultForest} monthTreeCount={8} />);
+      expect(screen.getByTestId("month-pulse")).toHaveTextContent(
+        "+8 this month",
+      );
+    });
+
     it("never reports negative progress when the baseline exceeds the count", () => {
       renderWithTheme(
         <Forest

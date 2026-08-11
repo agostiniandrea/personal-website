@@ -62,3 +62,24 @@ create policy "Authenticated users can update feedback"
   for update
   to authenticated
   using (true);
+
+-- ---------------------------------------------------------------------------
+-- Tree-Nation counter cache
+--
+-- Holds a single row (id = 'tree-nation'). The site reads its forest totals
+-- from Tree-Nation at most once per 24h and serves the cached values in
+-- between, so a slow or unavailable Tree-Nation never blocks a page build.
+--
+-- month_count is nullable: it is secondary to the total, so a failed month
+-- fetch stores null rather than discarding a good total.
+-- ---------------------------------------------------------------------------
+
+create table if not exists public.forest_sync (
+  id          text        primary key,
+  tree_count  integer     not null,
+  month_count integer,
+  synced_at   timestamptz not null default now()
+);
+
+-- Written only by the server (service role); never exposed to anon.
+alter table public.forest_sync enable row level security;
