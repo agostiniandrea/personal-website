@@ -64,6 +64,44 @@ describe("Forest", () => {
     ).toBeInTheDocument();
   });
 
+  describe("season progress", () => {
+    it("counts from the season baseline, not from an empty forest", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          treeCount={60}
+          seasonBaseline={50}
+          seasonTarget={100}
+        />,
+      );
+      // 60 planted overall, 50 of them before this season opened → 10 of 100
+      expect(screen.getByText("10 / 100 trees")).toBeInTheDocument();
+      expect(screen.getByText("10% towards next milestone")).toBeInTheDocument();
+    });
+
+    it("never reports negative progress when the baseline exceeds the count", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          treeCount={40}
+          seasonBaseline={50}
+          seasonTarget={100}
+        />,
+      );
+      expect(screen.getByText("0 / 100 trees")).toBeInTheDocument();
+    });
+
+    it("shows the community goal only once a target is set", () => {
+      const { rerender } = renderWithTheme(<Forest {...defaultForest} />);
+      expect(screen.queryByTestId("community-goal")).not.toBeInTheDocument();
+
+      rerender(<Forest {...defaultForest} seasonCommunityTarget={10} />);
+      expect(screen.getByTestId("community-goal")).toHaveTextContent(
+        "4 of 10 trees from feedback this season",
+      );
+    });
+  });
+
   it("renders the community impact block from real community data", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     const block = screen.getByTestId("community-impact");

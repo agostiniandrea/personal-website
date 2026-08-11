@@ -53,12 +53,17 @@ export interface ForestProps {
   ctaBody?: string;
   ctaButtonLabel?: string;
   seasonName?: string;
-  seasonCurrentLabel?: string;
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
-  seasonCurrent?: number;
   seasonTarget?: number;
+  /** Forest size when the season opened. Progress counts from here, so the bar
+      measures the season rather than the whole forest. Season One started from
+      an empty forest, hence the 0 default. */
+  seasonBaseline?: number;
+  /** Trees the season aims to earn from community feedback — the slice that
+      cannot be bought, so it is tracked apart from the total. */
+  seasonCommunityTarget?: number;
   seasonProjectLabel?: string;
   seasonProjectName?: string;
   seasonProjectMeta?: string;
@@ -494,6 +499,15 @@ const CommunityMeta = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
+/* The season's community goal. Set apart from the meta line above because it
+   is the one number on this card that cannot be bought — it only moves when
+   someone actually sends feedback. */
+const CommunityGoal = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
 /* ── Season project panel ── */
 
 const SeasonGrid = styled.div`
@@ -752,6 +766,8 @@ const Forest: React.FC<ForestProps> = ({
   treeCountLabel = "Trees planted since May 2026",
   treesLabel,
   seasonTarget = 50,
+  seasonBaseline = 0,
+  seasonCommunityTarget = 0,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
   seasonProjectMeta,
@@ -794,10 +810,14 @@ const Forest: React.FC<ForestProps> = ({
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
   const animImprovements = useAnimatedCounter(improvementsShippedCount, inView);
 
-  /* Progress tracks the whole forest toward the next milestone (not just the
-     community slice), so the bar reads 34/50, not 4/50. */
+  /* Progress measures the season, not the whole forest: a season target is
+     trees planted since it opened, so it stays comparable between seasons
+     instead of turning into a running total nobody can miss. Season One
+     opened on an empty forest, so its baseline is 0 and it reads the same as
+     before. */
+  const seasonProgress = Math.max(treeCount - seasonBaseline, 0);
   const pct = Math.min(
-    seasonTarget > 0 ? Math.round((treeCount / seasonTarget) * 100) : 0,
+    seasonTarget > 0 ? Math.round((seasonProgress / seasonTarget) * 100) : 0,
     100,
   );
   const perContribution =
@@ -923,7 +943,7 @@ const Forest: React.FC<ForestProps> = ({
                 <SeasonHeader>
                   <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                   <SeasonCount>
-                    {treeCount} / {seasonTarget} {resolvedTreesLabel}
+                    {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
                   </SeasonCount>
                 </SeasonHeader>
                 <ProgressTrack>
@@ -945,6 +965,14 @@ const Forest: React.FC<ForestProps> = ({
                       {" · "}
                       {t.forestCommunityPerContribution(perContribution)}
                     </CommunityMeta>
+                    {seasonCommunityTarget > 0 && (
+                      <CommunityGoal data-testid="community-goal">
+                        {t.forestCommunityGoal(
+                          treesDedicatedCount,
+                          seasonCommunityTarget,
+                        )}
+                      </CommunityGoal>
+                    )}
                   </CommunityImpact>
                 )}
               </div>
