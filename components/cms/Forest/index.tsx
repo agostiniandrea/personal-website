@@ -48,17 +48,21 @@ export interface ForestProps {
   /** Community records that earned trees (source=community, trees>0). */
   communityContributionsCount?: number;
   treeCount?: number;
+  /** Trees planted in the current calendar month, live from Tree-Nation. */
+  monthTreeCount?: number;
   treeCountTitle?: string;
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
   seasonName?: string;
-  seasonCurrentLabel?: string;
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
-  seasonCurrent?: number;
   seasonTarget?: number;
+  /** Forest size when the season opened. Progress counts from here, so the bar
+      measures the season rather than the whole forest. Season One started from
+      an empty forest, hence the 0 default. */
+  seasonBaseline?: number;
   seasonProjectLabel?: string;
   seasonProjectName?: string;
   seasonProjectMeta?: string;
@@ -450,6 +454,14 @@ const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
   width: ${({ $animate, $pct }) => ($animate ? `${Math.max($pct, 2)}%` : "2%")};
 `;
 
+/* Sits with the progress meta rather than the counters above: it is a sign of
+   life for the bar ("still moving"), not another headline figure. */
+const SeasonPulse = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
 const SeasonMeta = styled.div`
   align-items: center;
   display: flex;
@@ -521,10 +533,12 @@ const ProjectPanel = styled.div`
   }
 `;
 
+/* Same eyebrow treatment as CommunityTitle: both label their own block at the
+   same level inside this card, so a lighter weight here read as an accident. */
 const ProjectLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
   text-transform: uppercase;
 `;
@@ -745,6 +759,7 @@ const Forest: React.FC<ForestProps> = ({
   improvementsShippedCount = 0,
   communityContributionsCount = 0,
   treeCount = 34,
+  monthTreeCount = 0,
   treeCountTitle,
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
@@ -752,6 +767,7 @@ const Forest: React.FC<ForestProps> = ({
   treeCountLabel = "Trees planted since May 2026",
   treesLabel,
   seasonTarget = 50,
+  seasonBaseline = 0,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
   seasonProjectMeta,
@@ -794,10 +810,14 @@ const Forest: React.FC<ForestProps> = ({
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
   const animImprovements = useAnimatedCounter(improvementsShippedCount, inView);
 
-  /* Progress tracks the whole forest toward the next milestone (not just the
-     community slice), so the bar reads 34/50, not 4/50. */
+  /* Progress measures the season, not the whole forest: a season target is
+     trees planted since it opened, so it stays comparable between seasons
+     instead of turning into a running total nobody can miss. Season One
+     opened on an empty forest, so its baseline is 0 and it reads the same as
+     before. */
+  const seasonProgress = Math.max(treeCount - seasonBaseline, 0);
   const pct = Math.min(
-    seasonTarget > 0 ? Math.round((treeCount / seasonTarget) * 100) : 0,
+    seasonTarget > 0 ? Math.round((seasonProgress / seasonTarget) * 100) : 0,
     100,
   );
   const perContribution =
@@ -923,7 +943,7 @@ const Forest: React.FC<ForestProps> = ({
                 <SeasonHeader>
                   <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                   <SeasonCount>
-                    {treeCount} / {seasonTarget} {resolvedTreesLabel}
+                    {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
                   </SeasonCount>
                 </SeasonHeader>
                 <ProgressTrack>
@@ -931,6 +951,14 @@ const Forest: React.FC<ForestProps> = ({
                 </ProgressTrack>
                 <SeasonMeta>
                   <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
+                  {/* Hidden at zero: on the 1st of a month "+0 this month"
+                      reads as a dead site, and the total still tells the
+                      story. */}
+                  {monthTreeCount > 0 && (
+                    <SeasonPulse data-testid="month-pulse">
+                      {t.forestThisMonth(monthTreeCount)}
+                    </SeasonPulse>
+                  )}
                 </SeasonMeta>
                 {hasCommunityImpact && (
                   <CommunityImpact data-testid="community-impact">

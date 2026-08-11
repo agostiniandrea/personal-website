@@ -36,6 +36,7 @@ const strings = {
     forestStatTrees: "trees dedicated",
     forestSubheading:
       "Forest didn't start with this website — it began months earlier, as a personal commitment to give something back. Today it grows in three ways: community feedback, focused research, and my own iteration on the portfolio.",
+    forestThisMonth: (count: number) => `+${count} this month`,
     forestTreesUnit: "trees",
     forestVerifiedLabel: "View the forest on Tree-Nation",
     goTo: (label: string) => `Go to ${label}`,
@@ -107,6 +108,7 @@ const strings = {
     forestStatTrees: "alberi dedicati",
     forestSubheading:
       "Forest non è nata con questo sito — è iniziata mesi prima, come impegno personale a restituire qualcosa. Oggi cresce in tre modi: i feedback della community, la ricerca mirata e la mia iterazione continua sul portfolio.",
+    forestThisMonth: (count: number) => `+${count} questo mese`,
     forestTreesUnit: "alberi",
     forestVerifiedLabel: "Vedi la foresta su Tree-Nation",
     goTo: (label: string) => `Vai a ${label}`,
