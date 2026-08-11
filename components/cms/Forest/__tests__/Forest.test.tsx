@@ -89,6 +89,21 @@ describe("Forest", () => {
       );
     });
 
+    it("stops the count at the target once the season is met", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          treeCount={103}
+          seasonBaseline={50}
+          seasonTarget={50}
+        />,
+      );
+      // 53 planted this season against a target of 50: the bar is full and the
+      // count says so, rather than reading past its own goal.
+      expect(screen.getByText("50 / 50 trees")).toBeInTheDocument();
+      expect(screen.getByText("100% towards next milestone")).toBeInTheDocument();
+    });
+
     it("never reports negative progress when the baseline exceeds the count", () => {
       renderWithTheme(
         <Forest
