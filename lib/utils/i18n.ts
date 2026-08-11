@@ -29,7 +29,6 @@ const strings = {
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} trees planted through portfolio feedback · ${totalTrees} trees in my forest`,
     forestMilestone: (pct: number) => `${pct}% towards next milestone`,
-    forestMyForestTitle: "My Forest",
     forestProgressTitle: "My forest",
     forestSpeciesCo2: (kg: number) => `${kg} kg CO\u2082 over its life`,
     /* Tree-Nation answers in English ("Fast-growing", "Native"); the map keeps
@@ -107,7 +106,6 @@ const strings = {
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} alberi piantati grazie ai feedback sul portfolio · ${totalTrees} alberi nella mia foresta`,
     forestMilestone: (pct: number) => `${pct}% verso il prossimo traguardo`,
-    forestMyForestTitle: "La mia foresta",
     forestProgressTitle: "La mia foresta",
     forestSpeciesCo2: (kg: number) => `${kg} kg di CO\u2082 in tutta la vita`,
     forestSpeciesKind: (category: string, origin: string) => {

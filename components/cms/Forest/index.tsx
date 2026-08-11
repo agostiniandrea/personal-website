@@ -55,7 +55,6 @@ export interface ForestProps {
   forestProjects?: ForestProject[];
   /** Detail for the species named on the featured project's card. */
   forestSpecies?: ForestSpecies[];
-  treeCountTitle?: string;
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
@@ -367,15 +366,6 @@ const CtaDecor = styled.div`
     text-align: right;
     width: 260px;
   }
-`;
-
-const CtaDecorTitle = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  letter-spacing: 0.15em;
-  margin-bottom: 0.25rem;
-  text-transform: uppercase;
 `;
 
 const CtaDecorNumber = styled.span`
@@ -966,7 +956,6 @@ const Forest: React.FC<ForestProps> = ({
   monthTreeCount = 0,
   forestProjects = [],
   forestSpecies = [],
-  treeCountTitle,
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
   ctaButtonLabel = "Plant your feedback",
@@ -1010,7 +999,6 @@ const Forest: React.FC<ForestProps> = ({
   const resolvedSubheading = subheading ?? t.forestSubheading;
   const resolvedCtaBody = ctaBody ?? t.forestCtaBody;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
-  const resolvedMyForestTitle = treeCountTitle ?? t.forestMyForestTitle;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -1137,7 +1125,10 @@ const Forest: React.FC<ForestProps> = ({
             </PlantButton>
           </CtaContent>
           <CtaDecor>
-            <CtaDecorTitle>{resolvedMyForestTitle}</CtaDecorTitle>
+            {/* No eyebrow: the caption below already names the number, and
+                "My forest" belongs to the progress panel underneath, where it
+                pairs with "Community impact". Repeating it here read as a
+                duplicate once the two cards stacked on phones. */}
             <CtaDecorNumber>{treeCount}</CtaDecorNumber>
             <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
           </CtaDecor>

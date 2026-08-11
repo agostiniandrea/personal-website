@@ -27,7 +27,6 @@ export const defaultForest: ForestProps = {
   improvementsShippedCount: 8,
   communityContributionsCount: 2,
   treeCount: 34,
-  treeCountTitle: "My Forest",
   ctaHeading: "Help this portfolio grow.",
   ctaBody:
     "Every meaningful contribution can shape the portfolio. Community feedback grows a pair of real trees — one dedicated to you, one matched by me.",
