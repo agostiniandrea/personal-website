@@ -102,6 +102,15 @@ describe("Forest", () => {
     });
   });
 
+  it("keeps the community figures and their project in one column", () => {
+    renderWithTheme(<Forest {...defaultForest} />);
+    // The card splits by whose forest it is: progress on the left is mine, the
+    // community's trees and the project they went into belong together.
+    expect(screen.getByTestId("community-impact").parentElement).toBe(
+      screen.getByTestId("season-project").parentElement,
+    );
+  });
+
   it("renders the community impact block from real community data", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     const block = screen.getByTestId("community-impact");

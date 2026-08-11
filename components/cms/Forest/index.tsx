@@ -477,12 +477,9 @@ const SeasonSublabel = styled.span`
 /* ── Community impact ── */
 
 const CommunityImpact = styled.div`
-  border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
 `;
 
 const CommunityTitle = styled.span`
@@ -518,6 +515,28 @@ const SeasonGrid = styled.div`
   }
 `;
 
+/* The card splits by whose forest it is: the left column is mine — the goal I
+   set and fund — and this one is the community's, from the trees their
+   feedback grew down to the project those trees went into. The divider moved
+   here from ProjectPanel because it now separates the two columns, not the
+   project from everything else. */
+const CommunityColumn = styled.div`
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.xl};
+  padding-top: ${({ theme }) => theme.space.xl};
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    border-left: 1px solid rgba(128, 128, 128, 0.12);
+    border-top: none;
+    padding-left: ${({ theme }) => theme.space["2xl"]};
+    padding-top: 0;
+  }
+`;
+
+/* Sits under the community figures now, so it keeps a separator of its own at
+   every width rather than only when the columns stack. */
 const ProjectPanel = styled.div`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
@@ -525,10 +544,8 @@ const ProjectPanel = styled.div`
   gap: ${({ theme }) => theme.space.sm};
   padding-top: ${({ theme }) => theme.space.xl};
 
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    border-left: 1px solid rgba(128, 128, 128, 0.12);
+  &:first-child {
     border-top: none;
-    padding-left: ${({ theme }) => theme.space["2xl"]};
     padding-top: 0;
   }
 `;
@@ -870,96 +887,99 @@ const Forest: React.FC<ForestProps> = ({
     <>
       <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
         {badge && (
-            <BadgeWrap>
-              <BadgeDot aria-hidden="true" />
-              <BadgeLabel>{badge}</BadgeLabel>
-            </BadgeWrap>
-          )}
+          <BadgeWrap>
+            <BadgeDot aria-hidden="true" />
+            <BadgeLabel>{badge}</BadgeLabel>
+          </BadgeWrap>
+        )}
 
-          <SectionLabel>{withoutLeadingEmoji(sectionLabel)}</SectionLabel>
-          <SectionHeading>{resolvedHeading}</SectionHeading>
-          <Subheading variant="large">{resolvedSubheading}</Subheading>
+        <SectionLabel>{withoutLeadingEmoji(sectionLabel)}</SectionLabel>
+        <SectionHeading>{resolvedHeading}</SectionHeading>
+        <Subheading variant="large">{resolvedSubheading}</Subheading>
 
-          <OriginBlock>
-            {resolvedOriginItems.map((item, i) => {
-              /* The markers carry the story: it starts as a sprout, becomes a
+        <OriginBlock>
+          {resolvedOriginItems.map((item, i) => {
+            /* The markers carry the story: it starts as a sprout, becomes a
                  tree, and the last step points forward because it's ongoing. */
-              const Marker =
-                i === resolvedOriginItems.length - 1
-                  ? ArrowIcon
-                  : i === 0
-                    ? LeafIcon
-                    : TreeIcon;
-              return (
-                <OriginItem key={item.date}>
-                  <OriginDate>{item.date}</OriginDate>
-                  <OriginMarker>
-                    <Marker size={16} />
-                  </OriginMarker>
-                  <OriginText>{withoutLeadingEmoji(item.text)}</OriginText>
-                </OriginItem>
-              );
-            })}
-          </OriginBlock>
+            const Marker =
+              i === resolvedOriginItems.length - 1
+                ? ArrowIcon
+                : i === 0
+                  ? LeafIcon
+                  : TreeIcon;
+            return (
+              <OriginItem key={item.date}>
+                <OriginDate>{item.date}</OriginDate>
+                <OriginMarker>
+                  <Marker size={16} />
+                </OriginMarker>
+                <OriginText>{withoutLeadingEmoji(item.text)}</OriginText>
+              </OriginItem>
+            );
+          })}
+        </OriginBlock>
 
-          <ImpactAnchor id="forest-impact" />
+        <ImpactAnchor id="forest-impact" />
 
-          {hasStats && (
-            <StatsGrid $count={visibleStats.length}>
-              {visibleStats.map((s) => (
-                <StatItem key={s.label} data-testid="stat-item">
-                  <StatNumber>{s.value}</StatNumber>
-                  <StatLabel variant="small">{s.label}</StatLabel>
-                </StatItem>
-              ))}
-            </StatsGrid>
-          )}
+        {hasStats && (
+          <StatsGrid $count={visibleStats.length}>
+            {visibleStats.map((s) => (
+              <StatItem key={s.label} data-testid="stat-item">
+                <StatNumber>{s.value}</StatNumber>
+                <StatLabel variant="small">{s.label}</StatLabel>
+              </StatItem>
+            ))}
+          </StatsGrid>
+        )}
 
-          <CtaCard>
-            <CtaContent>
-              <CtaHeading>{ctaHeading}</CtaHeading>
-              <CtaBody>{resolvedCtaBody}</CtaBody>
-              {/* The label is CMS copy and changes freely, so the tests hook
+        <CtaCard>
+          <CtaContent>
+            <CtaHeading>{ctaHeading}</CtaHeading>
+            <CtaBody>{resolvedCtaBody}</CtaBody>
+            {/* The label is CMS copy and changes freely, so the tests hook
                   onto this id rather than onto the words. */}
-              <PlantButton
-                onClick={openFeedbackModal}
-                aria-haspopup="dialog"
-                data-testid="plant-feedback"
-              >
-                <LeafIcon size={17} />
-                {withoutLeadingEmoji(ctaButtonLabel)}
-              </PlantButton>
-            </CtaContent>
-            <CtaDecor>
-              <CtaDecorTitle>{resolvedMyForestTitle}</CtaDecorTitle>
-              <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-              <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
-            </CtaDecor>
-          </CtaCard>
+            <PlantButton
+              onClick={openFeedbackModal}
+              aria-haspopup="dialog"
+              data-testid="plant-feedback"
+            >
+              <LeafIcon size={17} />
+              {withoutLeadingEmoji(ctaButtonLabel)}
+            </PlantButton>
+          </CtaContent>
+          <CtaDecor>
+            <CtaDecorTitle>{resolvedMyForestTitle}</CtaDecorTitle>
+            <CtaDecorNumber>{treeCount}</CtaDecorNumber>
+            <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
+          </CtaDecor>
+        </CtaCard>
 
-          <SeasonCard>
-            <SeasonGrid>
-              <div>
-                <SeasonHeader>
-                  <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
-                  <SeasonCount>
-                    {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
-                  </SeasonCount>
-                </SeasonHeader>
-                <ProgressTrack>
-                  <ProgressFill $pct={pct} $animate={inView} />
-                </ProgressTrack>
-                <SeasonMeta>
-                  <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
-                  {/* Hidden at zero: on the 1st of a month "+0 this month"
+        <SeasonCard>
+          <SeasonGrid>
+            <div>
+              <SeasonHeader>
+                <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
+                <SeasonCount>
+                  {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
+                </SeasonCount>
+              </SeasonHeader>
+              <ProgressTrack>
+                <ProgressFill $pct={pct} $animate={inView} />
+              </ProgressTrack>
+              <SeasonMeta>
+                <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
+                {/* Hidden at zero: on the 1st of a month "+0 this month"
                       reads as a dead site, and the total still tells the
                       story. */}
-                  {monthTreeCount > 0 && (
-                    <SeasonPulse data-testid="month-pulse">
-                      {t.forestThisMonth(monthTreeCount)}
-                    </SeasonPulse>
-                  )}
-                </SeasonMeta>
+                {monthTreeCount > 0 && (
+                  <SeasonPulse data-testid="month-pulse">
+                    {t.forestThisMonth(monthTreeCount)}
+                  </SeasonPulse>
+                )}
+              </SeasonMeta>
+            </div>
+            {(hasCommunityImpact || seasonProjectName) && (
+              <CommunityColumn>
                 {hasCommunityImpact && (
                   <CommunityImpact data-testid="community-impact">
                     <CommunityTitle>
@@ -975,102 +995,103 @@ const Forest: React.FC<ForestProps> = ({
                     </CommunityMeta>
                   </CommunityImpact>
                 )}
-              </div>
-              {seasonProjectName && (
-                <ProjectPanel data-testid="season-project">
-                  {seasonProjectLabel && (
-                    <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
-                  )}
-                  <ProjectName>{seasonProjectName}</ProjectName>
-                  {seasonProjectMeta && (
-                    <ProjectMeta>{seasonProjectMeta}</ProjectMeta>
-                  )}
-                  {hasStructuredStats ? (
-                    <ProjectStats data-testid="project-stats">
-                      <span>
-                        {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
-                      </span>
-                      <Co2Unit>
-                        <Co2Sep>{" · "}</Co2Sep>
-                        {`${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
-                        <sub>2</sub>
-                        {` ${t.co2LifetimeSuffix}`}
-                        <InfoTooltip
-                          ariaLabel={t.co2TooltipLabel}
-                          onOpen={onCo2TooltipOpen}
-                        >
-                          {t.co2TooltipBody}
-                        </InfoTooltip>
-                      </Co2Unit>
-                    </ProjectStats>
-                  ) : (
-                    seasonProjectStats && (
+                {seasonProjectName && (
+                  <ProjectPanel data-testid="season-project">
+                    {seasonProjectLabel && (
+                      <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
+                    )}
+                    <ProjectName>{seasonProjectName}</ProjectName>
+                    {seasonProjectMeta && (
+                      <ProjectMeta>{seasonProjectMeta}</ProjectMeta>
+                    )}
+                    {hasStructuredStats ? (
                       <ProjectStats data-testid="project-stats">
-                        {seasonProjectStats}
+                        <span>
+                          {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
+                        </span>
+                        <Co2Unit>
+                          <Co2Sep>{" · "}</Co2Sep>
+                          {`${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
+                          <sub>2</sub>
+                          {` ${t.co2LifetimeSuffix}`}
+                          <InfoTooltip
+                            ariaLabel={t.co2TooltipLabel}
+                            onOpen={onCo2TooltipOpen}
+                          >
+                            {t.co2TooltipBody}
+                          </InfoTooltip>
+                        </Co2Unit>
                       </ProjectStats>
-                    )
-                  )}
-                  {(seasonProjectSpecies.length > 0 || seasonProjectUrl) && (
-                    <ProjectFooter>
-                      {seasonProjectSpecies.length > 0 && (
-                        <SpeciesList>
-                          {seasonProjectSpecies.map((species) => (
-                            <Badge key={species} as="li" size="sm">
-                              {species}
-                            </Badge>
-                          ))}
-                        </SpeciesList>
-                      )}
-                      {seasonProjectUrl && (
-                        <ProjectLink
-                          href={seasonProjectUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {seasonProjectLinkLabel}
-                          <ArrowUpRight
-                            size={11}
-                            strokeWidth={2}
-                            aria-hidden="true"
-                          />
-                        </ProjectLink>
-                      )}
-                    </ProjectFooter>
-                  )}
-                </ProjectPanel>
-              )}
-            </SeasonGrid>
-          </SeasonCard>
+                    ) : (
+                      seasonProjectStats && (
+                        <ProjectStats data-testid="project-stats">
+                          {seasonProjectStats}
+                        </ProjectStats>
+                      )
+                    )}
+                    {(seasonProjectSpecies.length > 0 || seasonProjectUrl) && (
+                      <ProjectFooter>
+                        {seasonProjectSpecies.length > 0 && (
+                          <SpeciesList>
+                            {seasonProjectSpecies.map((species) => (
+                              <Badge key={species} as="li" size="sm">
+                                {species}
+                              </Badge>
+                            ))}
+                          </SpeciesList>
+                        )}
+                        {seasonProjectUrl && (
+                          <ProjectLink
+                            href={seasonProjectUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {seasonProjectLinkLabel}
+                            <ArrowUpRight
+                              size={11}
+                              strokeWidth={2}
+                              aria-hidden="true"
+                            />
+                          </ProjectLink>
+                        )}
+                      </ProjectFooter>
+                    )}
+                  </ProjectPanel>
+                )}
+              </CommunityColumn>
+            )}
+          </SeasonGrid>
+        </SeasonCard>
 
-          <VerifiedBadge
-            href="https://tree-nation.com/profile/andrea-agostini-103769"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
-            {t.forestVerifiedLabel}
-            <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
-          </VerifiedBadge>
+        <VerifiedBadge
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
+          {t.forestVerifiedLabel}
+          <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
+        </VerifiedBadge>
 
-          {changelogItems.length > 0 && (
-            <>
-              <Divider />
-              <TimelineSection>
-                <TimelineHeading>
-                  <LeafIcon size={13} />
-                  Latest leaves
-                </TimelineHeading>
-                <TimelineList>
-                  {changelogItems.map((item, i) => (
-                    <TimelineItem key={i}>
-                      <TimelineDate>{relativeTime(item.date)}</TimelineDate>
-                      <TimelineText>{item.description}</TimelineText>
-                    </TimelineItem>
-                  ))}
-                </TimelineList>
-              </TimelineSection>
-            </>
-          )}
+        {changelogItems.length > 0 && (
+          <>
+            <Divider />
+            <TimelineSection>
+              <TimelineHeading>
+                <LeafIcon size={13} />
+                Latest leaves
+              </TimelineHeading>
+              <TimelineList>
+                {changelogItems.map((item, i) => (
+                  <TimelineItem key={i}>
+                    <TimelineDate>{relativeTime(item.date)}</TimelineDate>
+                    <TimelineText>{item.description}</TimelineText>
+                  </TimelineItem>
+                ))}
+              </TimelineList>
+            </TimelineSection>
+          </>
+        )}
       </Section>
 
       <ForestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
