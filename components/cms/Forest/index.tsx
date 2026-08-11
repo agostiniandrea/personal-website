@@ -1010,6 +1010,11 @@ const Forest: React.FC<ForestProps> = ({
      opened on an empty forest, so its baseline is 0 and it reads the same as
      before. */
   const seasonProgress = Math.max(treeCount - seasonBaseline, 0);
+  /* A season keeps growing after its target is met — the forest does not pause
+     while I get round to opening the next one — so the count stops at the
+     target rather than reading "53 / 50 trees" beside a full bar. Nothing is
+     hidden: the real total is the headline figure two panels up. */
+  const seasonShown = Math.min(seasonProgress, seasonTarget);
   const pct = Math.min(
     seasonTarget > 0 ? Math.round((seasonProgress / seasonTarget) * 100) : 0,
     100,
@@ -1140,7 +1145,7 @@ const Forest: React.FC<ForestProps> = ({
               <SeasonHeader>
                 <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                 <SeasonCount>
-                  {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
+                  {seasonShown} / {seasonTarget} {resolvedTreesLabel}
                 </SeasonCount>
               </SeasonHeader>
               <ProgressTrack>
