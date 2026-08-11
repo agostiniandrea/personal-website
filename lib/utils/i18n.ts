@@ -12,8 +12,6 @@ const strings = {
     feedbackNudgeCta: "See how it grows",
     feedbackNudgeDismiss: "Dismiss feedback prompt",
     feedbackNudgeTitle: "Your feedback helps grow real trees.",
-    forestCommunityGoal: (trees: number, target: number) =>
-      `${trees} of ${target} trees from feedback this season`,
     forestCommunityImpactTitle: "Community impact",
     forestCommunityPerContribution: (perContribution: number) =>
       `${perContribution} trees planted for each`,
@@ -85,8 +83,6 @@ const strings = {
     feedbackNudgeCta: "Scopri come cresce",
     feedbackNudgeDismiss: "Chiudi l'invito al feedback",
     feedbackNudgeTitle: "Il tuo feedback aiuta a far crescere alberi veri.",
-    forestCommunityGoal: (trees: number, target: number) =>
-      `${trees} di ${target} alberi da feedback in questa stagione`,
     forestCommunityImpactTitle: "Impatto della community",
     forestCommunityPerContribution: (perContribution: number) =>
       `${perContribution} alberi piantati per ciascuno`,
