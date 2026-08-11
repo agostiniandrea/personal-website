@@ -153,6 +153,12 @@ const GROUP_GAP_TOPUP = "0.5rem";
 /* One step wider than ROW_GAP: the link is an action, not another line of
    detail, so it should not sit at the same pace as the rows above it. */
 const ACTION_GAP = "1.25rem";
+/* The air a horizontal rule needs on each side. The rule is a block's
+   border-top, so its space below comes from padding while its space above is
+   the grid's row-gap — deriving the margin from the difference is what keeps
+   the two equal, rather than two numbers that happen to match today. */
+const DIVIDER_SPACE = "1.5rem";
+const DIVIDER_MARGIN = `calc(${DIVIDER_SPACE} - ${ROW_GAP})`;
 
 /* ── Animations ── */
 
@@ -529,10 +535,12 @@ const CommunityTitle = styled.span`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   color: ${({ theme }) => theme.colors.paragraph};
   grid-area: chead;
-  padding-top: ${({ theme }) => theme.space.xl};
+  margin-top: ${DIVIDER_MARGIN};
+  padding-top: ${DIVIDER_SPACE};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border-top: none;
+    margin-top: 0;
     padding-top: 0;
   }
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -566,7 +574,8 @@ const ForestSpread = styled.div`
   flex-direction: column;
   gap: ${LABEL_GAP};
   grid-area: spread;
-  padding-top: ${({ theme }) => theme.space.xl};
+  margin-top: ${DIVIDER_MARGIN};
+  padding-top: ${DIVIDER_SPACE};
 `;
 
 const SpreadTitle = styled.span`
@@ -683,7 +692,8 @@ const ProjectPanel = styled.div`
   flex-direction: column;
   gap: ${LABEL_GAP};
   grid-area: project;
-  padding-top: ${({ theme }) => theme.space.xl};
+  margin-top: ${DIVIDER_MARGIN};
+  padding-top: ${DIVIDER_SPACE};
 `;
 
 /* Same eyebrow treatment as CommunityTitle: both label their own block at the
