@@ -20,6 +20,7 @@ import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
 import { formatCo2Tonnes } from "@lib/utils/formatCo2";
 import { useI18n } from "@lib/utils/i18n";
+import type { ForestProject, ForestSpecies } from "@lib/utils/treeNation";
 
 import { ForestModal } from "./ForestModal";
 
@@ -50,7 +51,10 @@ export interface ForestProps {
   treeCount?: number;
   /** Trees planted in the current calendar month, live from Tree-Nation. */
   monthTreeCount?: number;
-  treeCountTitle?: string;
+  /** The projects the forest is spread across, live from Tree-Nation. */
+  forestProjects?: ForestProject[];
+  /** Detail for the species named on the featured project's card. */
+  forestSpecies?: ForestSpecies[];
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
@@ -105,6 +109,24 @@ function withoutLeadingEmoji(label: string): string {
   return label.replace(/^[\p{Extended_Pictographic}️\s]+/u, "");
 }
 
+/* Intl.DisplayNames is not free to construct, and the list re-renders on every
+   count-up frame — one instance per locale, reused. */
+const countryNames = new Map<string, Intl.DisplayNames>();
+function countryName(code: string, locale: string): string {
+  if (!code) return "";
+  let names = countryNames.get(locale);
+  if (!names) {
+    names = new Intl.DisplayNames([locale], { type: "region" });
+    countryNames.set(locale, names);
+  }
+  /* Unknown or malformed codes resolve to themselves rather than throwing. */
+  try {
+    return names.of(code) ?? code;
+  } catch {
+    return code;
+  }
+}
+
 function relativeTime(dateStr: string): string {
   const days = Math.floor(
     (Date.now() - new Date(dateStr).getTime()) / 86_400_000,
@@ -116,6 +138,30 @@ function relativeTime(dateStr: string): string {
   if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
   return `${Math.floor(days / 30)} months ago`;
 }
+
+/* One vertical rhythm for the whole season card. Four different gaps had grown
+   in it — 0.875rem in the progress block, 0.625 in the project list, 0.5 in the
+   project panel, 0.375 in the community figures — which is what made the two
+   halves read as unrelated. A label hugs the thing it names; separate groups of
+   information sit one step further apart. */
+const LABEL_GAP = "0.375rem";
+/* The rhythm the progress rows already used, now shared by every grid row. */
+const ROW_GAP = "0.875rem";
+/* Added on top of LABEL_GAP to reach the 0.875rem the progress rows use. */
+const GROUP_GAP_TOPUP = "0.5rem";
+/* One step wider than ROW_GAP: the link is an action, not another line of
+   detail, so it should not sit at the same pace as the rows above it. */
+const ACTION_GAP = "1.25rem";
+/* The air a horizontal rule needs on each side. One value at every breakpoint,
+   matching the 16px the rest of the page aligns on, and comfortably inside the
+   card's own padding so the container still reads wider than its contents.
+
+   The rule is a block's border-top, so its space below comes from padding
+   while its space above is the grid's row-gap — taking the margin from the
+   difference is what keeps the two sides equal, rather than two numbers that
+   happen to agree today. */
+const DIVIDER_SPACE = "1rem";
+const DIVIDER_MARGIN = `calc(${DIVIDER_SPACE} - ${ROW_GAP})`;
 
 /* ── Animations ── */
 
@@ -322,15 +368,6 @@ const CtaDecor = styled.div`
   }
 `;
 
-const CtaDecorTitle = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  letter-spacing: 0.15em;
-  margin-bottom: 0.25rem;
-  text-transform: uppercase;
-`;
-
 const CtaDecorNumber = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -417,8 +454,8 @@ const SeasonCard = styled.div`
 const SeasonHeader = styled.div`
   align-items: baseline;
   display: flex;
+  grid-area: phead;
   justify-content: space-between;
-  margin-bottom: 0.875rem;
 `;
 
 const SeasonLabel = styled.span`
@@ -436,9 +473,15 @@ const SeasonCount = styled.span`
 const ProgressTrack = styled.div`
   background: ${({ theme }) => alpha(theme.colors.highlight, 10)};
   border-radius: 999px;
+  grid-area: pbar;
   height: 8px;
-  margin-bottom: 0.875rem;
   overflow: hidden;
+
+  /* The bar is 8px against a row sized by the heading opposite, so it centres
+     rather than clinging to the top of its row. */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    align-self: center;
+  }
 `;
 
 const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
@@ -465,6 +508,7 @@ const SeasonPulse = styled.span`
 const SeasonMeta = styled.div`
   align-items: center;
   display: flex;
+  grid-area: pmeta;
   justify-content: space-between;
 `;
 
@@ -477,16 +521,22 @@ const SeasonSublabel = styled.span`
 /* ── Community impact ── */
 
 const CommunityImpact = styled.div`
-  border-top: 1px solid rgba(128, 128, 128, 0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
+  display: contents;
 `;
 
 const CommunityTitle = styled.span`
+  /* Carries the stacked-layout separator the dissolved wrapper used to hold. */
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
   color: ${({ theme }) => theme.colors.paragraph};
+  grid-area: chead;
+  margin-top: ${DIVIDER_MARGIN};
+  padding-top: ${DIVIDER_SPACE};
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
@@ -495,6 +545,7 @@ const CommunityTitle = styled.span`
 
 const CommunityTrees = styled.span`
   color: ${({ theme }) => theme.colors.headline};
+  grid-area: ctitle;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -504,33 +555,139 @@ const CommunityTrees = styled.span`
 const CommunityMeta = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.sm};
+  grid-area: cmeta;
+`;
+
+/* ── Where the forest grows ── */
+
+/* Takes the separator CommunityImpact used to carry: it now sits under the
+   progress block, which is what that rule was always dividing. */
+const ForestSpread = styled.div`
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: ${LABEL_GAP};
+  grid-area: spread;
+  margin-top: ${DIVIDER_MARGIN};
+  padding-top: ${DIVIDER_SPACE};
+`;
+
+const SpreadTitle = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+`;
+
+const SpreadList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+`;
+
+const SpreadRow = styled.li`
+  align-items: baseline;
+  display: flex;
+  gap: ${({ theme }) => theme.space.md};
+`;
+
+/* Tabular figures and a fixed box so the project names start on one line
+   however wide the counts get. */
+const SpreadCount = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
+  flex: 0 0 1.75rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-variant-numeric: tabular-nums;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  text-align: right;
+`;
+
+const SpreadName = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  line-height: ${({ theme }) => theme.lineHeights.normal};
+`;
+
+const SpreadCountry = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  white-space: nowrap;
 `;
 
 /* ── Season project panel ── */
 
+/* One 2x2 grid rather than two independently stacked columns. The two lower
+   blocks share a grid row, so their top rules start at the same y whatever the
+   blocks above them contain — padding tweaks would only hold until a string
+   changed length.
+
+   The areas also let the stacked order differ from the source order: on one
+   column each side's story stays together (progress → spread, then community →
+   project) instead of interleaving the two. */
 const SeasonGrid = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.space.xl};
+  grid-template-areas:
+    "phead"
+    "pbar"
+    "pmeta"
+    "spread"
+    "chead"
+    "ctitle"
+    "cmeta"
+    "project";
+  row-gap: ${ROW_GAP};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    gap: ${({ theme }) => theme.space["2xl"]};
+    align-items: start;
+    column-gap: ${({ theme }) => theme.space["2xl"]};
+    /* Every row is shared by both columns, so each line on the left starts at
+       the same y as the one facing it — the only way this holds when a string
+       changes length. The price is one rhythm for both sides, which is the
+       harmony we wanted anyway. */
+    grid-template-areas:
+      "phead  chead"
+      "pbar   ctitle"
+      "pmeta  cmeta"
+      "spread project";
     grid-template-columns: 1fr 1fr;
+    position: relative;
+
+    /* The column rule spans the whole card instead of hanging off one child,
+       so it no longer stops short when the columns differ in height. */
+    &::before {
+      background: rgba(128, 128, 128, 0.12);
+      bottom: 0;
+      content: "";
+      left: 50%;
+      position: absolute;
+      top: 0;
+      width: 1px;
+    }
   }
 `;
 
+/* Dissolves into the grid: the box would otherwise stack its own children and
+   defeat the shared rows, but keeping the element preserves the markup. */
+const ProgressBlock = styled.div`
+  display: contents;
+`;
+
+/* The card splits by whose forest it is: the left column is mine — the goal I
+   set and fund — and this one is the community's, from the trees their
+   feedback grew down to the project those trees went into. The divider moved
+   here from ProjectPanel because it now separates the two columns, not the
+   project from everything else. */
+/* Shares the lower grid row with ForestSpread, so the two top rules line up. */
 const ProjectPanel = styled.div`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.space.sm};
-  padding-top: ${({ theme }) => theme.space.xl};
-
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    border-left: 1px solid rgba(128, 128, 128, 0.12);
-    border-top: none;
-    padding-left: ${({ theme }) => theme.space["2xl"]};
-    padding-top: 0;
-  }
+  gap: ${LABEL_GAP};
+  grid-area: project;
+  margin-top: ${DIVIDER_MARGIN};
+  padding-top: ${DIVIDER_SPACE};
 `;
 
 /* Same eyebrow treatment as CommunityTitle: both label their own block at the
@@ -558,6 +715,7 @@ const ProjectMeta = styled.span`
 
 const ProjectStats = styled.span`
   color: ${({ theme }) => theme.colors.headline};
+  margin-top: ${GROUP_GAP_TOPUP};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 
@@ -584,18 +742,25 @@ const Co2Unit = styled.span`
 `;
 
 /* The "·" separator before the CO₂ metric — hidden once it drops to its own row. */
+/* The separator lives at the start of an inline-block, whose leading
+   whitespace the browser drops — "2 species· 1.5 t" without this. */
 const Co2Sep = styled.span`
+  white-space: pre;
+
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
     display: none;
   }
 `;
 
+/* The species were pills on one line, so the link could sit opposite them.
+   Now each species is a stacked multi-line row and a link pinned to the far
+   right reads as detached from the block it belongs to — so it drops below. */
 const ProjectFooter = styled.div`
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
-  gap: ${({ theme }) => theme.space.lg};
-  justify-content: space-between;
-  margin-top: ${({ theme }) => theme.space.xs};
+  flex-direction: column;
+  gap: ${ACTION_GAP};
+  margin-top: ${GROUP_GAP_TOPUP};
 `;
 
 const SpeciesList = styled.ul`
@@ -605,6 +770,35 @@ const SpeciesList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+`;
+
+/* A bare "Sengon" tells a reader nothing, so each species gets its botanical
+   name, what kind of tree it is and what it captures — all from Tree-Nation,
+   never authored by hand. Stacked rather than inline because three facts do
+   not survive being crammed onto a pill. */
+const SpeciesDetailList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: ${LABEL_GAP};
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const SpeciesRow = styled.li`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  line-height: ${({ theme }) => theme.lineHeights.normal};
+`;
+
+const SpeciesLabel = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
+const SpeciesLatin = styled.span`
+  font-style: italic;
 `;
 
 const ProjectLink = styled.a`
@@ -760,7 +954,8 @@ const Forest: React.FC<ForestProps> = ({
   communityContributionsCount = 0,
   treeCount = 34,
   monthTreeCount = 0,
-  treeCountTitle,
+  forestProjects = [],
+  forestSpecies = [],
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
   ctaButtonLabel = "Plant your feedback",
@@ -804,7 +999,6 @@ const Forest: React.FC<ForestProps> = ({
   const resolvedSubheading = subheading ?? t.forestSubheading;
   const resolvedCtaBody = ctaBody ?? t.forestCtaBody;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
-  const resolvedMyForestTitle = treeCountTitle ?? t.forestMyForestTitle;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -870,149 +1064,194 @@ const Forest: React.FC<ForestProps> = ({
     <>
       <Section id="forest" ref={sectionRef as React.RefObject<HTMLElement>}>
         {badge && (
-            <BadgeWrap>
-              <BadgeDot aria-hidden="true" />
-              <BadgeLabel>{badge}</BadgeLabel>
-            </BadgeWrap>
-          )}
+          <BadgeWrap>
+            <BadgeDot aria-hidden="true" />
+            <BadgeLabel>{badge}</BadgeLabel>
+          </BadgeWrap>
+        )}
 
-          <SectionLabel>{withoutLeadingEmoji(sectionLabel)}</SectionLabel>
-          <SectionHeading>{resolvedHeading}</SectionHeading>
-          <Subheading variant="large">{resolvedSubheading}</Subheading>
+        <SectionLabel>{withoutLeadingEmoji(sectionLabel)}</SectionLabel>
+        <SectionHeading>{resolvedHeading}</SectionHeading>
+        <Subheading variant="large">{resolvedSubheading}</Subheading>
 
-          <OriginBlock>
-            {resolvedOriginItems.map((item, i) => {
-              /* The markers carry the story: it starts as a sprout, becomes a
+        <OriginBlock>
+          {resolvedOriginItems.map((item, i) => {
+            /* The markers carry the story: it starts as a sprout, becomes a
                  tree, and the last step points forward because it's ongoing. */
-              const Marker =
-                i === resolvedOriginItems.length - 1
-                  ? ArrowIcon
-                  : i === 0
-                    ? LeafIcon
-                    : TreeIcon;
-              return (
-                <OriginItem key={item.date}>
-                  <OriginDate>{item.date}</OriginDate>
-                  <OriginMarker>
-                    <Marker size={16} />
-                  </OriginMarker>
-                  <OriginText>{withoutLeadingEmoji(item.text)}</OriginText>
-                </OriginItem>
-              );
-            })}
-          </OriginBlock>
+            const Marker =
+              i === resolvedOriginItems.length - 1
+                ? ArrowIcon
+                : i === 0
+                  ? LeafIcon
+                  : TreeIcon;
+            return (
+              <OriginItem key={item.date}>
+                <OriginDate>{item.date}</OriginDate>
+                <OriginMarker>
+                  <Marker size={16} />
+                </OriginMarker>
+                <OriginText>{withoutLeadingEmoji(item.text)}</OriginText>
+              </OriginItem>
+            );
+          })}
+        </OriginBlock>
 
-          <ImpactAnchor id="forest-impact" />
+        <ImpactAnchor id="forest-impact" />
 
-          {hasStats && (
-            <StatsGrid $count={visibleStats.length}>
-              {visibleStats.map((s) => (
-                <StatItem key={s.label} data-testid="stat-item">
-                  <StatNumber>{s.value}</StatNumber>
-                  <StatLabel variant="small">{s.label}</StatLabel>
-                </StatItem>
-              ))}
-            </StatsGrid>
-          )}
+        {hasStats && (
+          <StatsGrid $count={visibleStats.length}>
+            {visibleStats.map((s) => (
+              <StatItem key={s.label} data-testid="stat-item">
+                <StatNumber>{s.value}</StatNumber>
+                <StatLabel variant="small">{s.label}</StatLabel>
+              </StatItem>
+            ))}
+          </StatsGrid>
+        )}
 
-          <CtaCard>
-            <CtaContent>
-              <CtaHeading>{ctaHeading}</CtaHeading>
-              <CtaBody>{resolvedCtaBody}</CtaBody>
-              {/* The label is CMS copy and changes freely, so the tests hook
+        <CtaCard>
+          <CtaContent>
+            <CtaHeading>{ctaHeading}</CtaHeading>
+            <CtaBody>{resolvedCtaBody}</CtaBody>
+            {/* The label is CMS copy and changes freely, so the tests hook
                   onto this id rather than onto the words. */}
-              <PlantButton
-                onClick={openFeedbackModal}
-                aria-haspopup="dialog"
-                data-testid="plant-feedback"
-              >
-                <LeafIcon size={17} />
-                {withoutLeadingEmoji(ctaButtonLabel)}
-              </PlantButton>
-            </CtaContent>
-            <CtaDecor>
-              <CtaDecorTitle>{resolvedMyForestTitle}</CtaDecorTitle>
-              <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-              <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
-            </CtaDecor>
-          </CtaCard>
+            <PlantButton
+              onClick={openFeedbackModal}
+              aria-haspopup="dialog"
+              data-testid="plant-feedback"
+            >
+              <LeafIcon size={17} />
+              {withoutLeadingEmoji(ctaButtonLabel)}
+            </PlantButton>
+          </CtaContent>
+          <CtaDecor>
+            {/* No eyebrow: the caption below already names the number, and
+                "My forest" belongs to the progress panel underneath, where it
+                pairs with "Community impact". Repeating it here read as a
+                duplicate once the two cards stacked on phones. */}
+            <CtaDecorNumber>{treeCount}</CtaDecorNumber>
+            <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
+          </CtaDecor>
+        </CtaCard>
 
-          <SeasonCard>
-            <SeasonGrid>
-              <div>
-                <SeasonHeader>
-                  <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
-                  <SeasonCount>
-                    {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
-                  </SeasonCount>
-                </SeasonHeader>
-                <ProgressTrack>
-                  <ProgressFill $pct={pct} $animate={inView} />
-                </ProgressTrack>
-                <SeasonMeta>
-                  <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
-                  {/* Hidden at zero: on the 1st of a month "+0 this month"
+        <SeasonCard>
+          <SeasonGrid>
+            <ProgressBlock>
+              <SeasonHeader>
+                <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
+                <SeasonCount>
+                  {seasonProgress} / {seasonTarget} {resolvedTreesLabel}
+                </SeasonCount>
+              </SeasonHeader>
+              <ProgressTrack>
+                <ProgressFill $pct={pct} $animate={inView} />
+              </ProgressTrack>
+              <SeasonMeta>
+                <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
+                {/* Hidden at zero: on the 1st of a month "+0 this month"
                       reads as a dead site, and the total still tells the
                       story. */}
-                  {monthTreeCount > 0 && (
-                    <SeasonPulse data-testid="month-pulse">
-                      {t.forestThisMonth(monthTreeCount)}
-                    </SeasonPulse>
-                  )}
-                </SeasonMeta>
-                {hasCommunityImpact && (
-                  <CommunityImpact data-testid="community-impact">
-                    <CommunityTitle>
-                      {t.forestCommunityImpactTitle}
-                    </CommunityTitle>
-                    <CommunityTrees>
-                      {t.forestCommunityTrees(treesDedicatedCount)}
-                    </CommunityTrees>
-                    <CommunityMeta>
-                      {t.forestContributions(communityContributionsCount)}
-                      {" · "}
-                      {t.forestCommunityPerContribution(perContribution)}
-                    </CommunityMeta>
-                  </CommunityImpact>
+                {monthTreeCount > 0 && (
+                  <SeasonPulse data-testid="month-pulse">
+                    {t.forestThisMonth(monthTreeCount)}
+                  </SeasonPulse>
                 )}
-              </div>
-              {seasonProjectName && (
-                <ProjectPanel data-testid="season-project">
-                  {seasonProjectLabel && (
-                    <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
-                  )}
-                  <ProjectName>{seasonProjectName}</ProjectName>
-                  {seasonProjectMeta && (
-                    <ProjectMeta>{seasonProjectMeta}</ProjectMeta>
-                  )}
-                  {hasStructuredStats ? (
+              </SeasonMeta>
+            </ProgressBlock>
+            {forestProjects.length > 0 && (
+              <ForestSpread data-testid="forest-spread">
+                <SpreadTitle>{t.forestSpreadTitle}</SpreadTitle>
+                <SpreadList>
+                  {forestProjects.map((project) => (
+                    <SpreadRow key={project.slug || project.name}>
+                      <SpreadCount>{project.trees}</SpreadCount>
+                      <SpreadName>
+                        {project.name}
+                        {(() => {
+                          const country = countryName(
+                            project.country,
+                            locale ?? "en",
+                          );
+                          /* Several project names end in their country
+                               ("Community Reforestation in Indonesia"), where
+                               repeating it reads as a stutter. */
+                          return country && !project.name.includes(country) ? (
+                            <SpreadCountry> {country}</SpreadCountry>
+                          ) : null;
+                        })()}
+                      </SpreadName>
+                    </SpreadRow>
+                  ))}
+                </SpreadList>
+              </ForestSpread>
+            )}
+            {hasCommunityImpact && (
+              <CommunityImpact data-testid="community-impact">
+                <CommunityTitle>{t.forestCommunityImpactTitle}</CommunityTitle>
+                <CommunityTrees>
+                  {t.forestCommunityTrees(treesDedicatedCount)}
+                </CommunityTrees>
+                <CommunityMeta>
+                  {t.forestContributions(communityContributionsCount)}
+                  {" · "}
+                  {t.forestCommunityPerContribution(perContribution)}
+                </CommunityMeta>
+              </CommunityImpact>
+            )}
+            {seasonProjectName && (
+              <ProjectPanel data-testid="season-project">
+                {seasonProjectLabel && (
+                  <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
+                )}
+                <ProjectName>{seasonProjectName}</ProjectName>
+                {seasonProjectMeta && (
+                  <ProjectMeta>{seasonProjectMeta}</ProjectMeta>
+                )}
+                {hasStructuredStats ? (
+                  <ProjectStats data-testid="project-stats">
+                    <span>
+                      {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
+                    </span>
+                    <Co2Unit>
+                      <Co2Sep>{" · "}</Co2Sep>
+                      {`${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
+                      <sub>2</sub>
+                      {` ${t.co2LifetimeSuffix}`}
+                      <InfoTooltip
+                        ariaLabel={t.co2TooltipLabel}
+                        onOpen={onCo2TooltipOpen}
+                      >
+                        {t.co2TooltipBody}
+                      </InfoTooltip>
+                    </Co2Unit>
+                  </ProjectStats>
+                ) : (
+                  seasonProjectStats && (
                     <ProjectStats data-testid="project-stats">
-                      <span>
-                        {`${seasonProjectTreesCount} ${resolvedTreesLabel} · ${seasonProjectSpecies.length} ${t.speciesLabel}`}
-                      </span>
-                      <Co2Unit>
-                        <Co2Sep>{" · "}</Co2Sep>
-                        {`${formatCo2Tonnes(seasonProjectCo2Kg!, locale)} CO`}
-                        <sub>2</sub>
-                        {` ${t.co2LifetimeSuffix}`}
-                        <InfoTooltip
-                          ariaLabel={t.co2TooltipLabel}
-                          onOpen={onCo2TooltipOpen}
-                        >
-                          {t.co2TooltipBody}
-                        </InfoTooltip>
-                      </Co2Unit>
+                      {seasonProjectStats}
                     </ProjectStats>
-                  ) : (
-                    seasonProjectStats && (
-                      <ProjectStats data-testid="project-stats">
-                        {seasonProjectStats}
-                      </ProjectStats>
-                    )
-                  )}
-                  {(seasonProjectSpecies.length > 0 || seasonProjectUrl) && (
-                    <ProjectFooter>
-                      {seasonProjectSpecies.length > 0 && (
+                  )
+                )}
+                {(seasonProjectSpecies.length > 0 || seasonProjectUrl) && (
+                  <ProjectFooter>
+                    {forestSpecies.length > 0 ? (
+                      <SpeciesDetailList data-testid="species-detail">
+                        {forestSpecies.map((species) => (
+                          <SpeciesRow key={species.label}>
+                            <SpeciesLabel>{species.label}</SpeciesLabel>{" "}
+                            <SpeciesLatin>{species.scientific}</SpeciesLatin>
+                            {" · "}
+                            {t.forestSpeciesKind(
+                              species.category,
+                              species.origin,
+                            )}
+                            {species.co2Kg > 0 &&
+                              ` · ${t.forestSpeciesCo2(species.co2Kg)}`}
+                          </SpeciesRow>
+                        ))}
+                      </SpeciesDetailList>
+                    ) : (
+                      seasonProjectSpecies.length > 0 && (
                         <SpeciesList>
                           {seasonProjectSpecies.map((species) => (
                             <Badge key={species} as="li" size="sm">
@@ -1020,57 +1259,58 @@ const Forest: React.FC<ForestProps> = ({
                             </Badge>
                           ))}
                         </SpeciesList>
-                      )}
-                      {seasonProjectUrl && (
-                        <ProjectLink
-                          href={seasonProjectUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {seasonProjectLinkLabel}
-                          <ArrowUpRight
-                            size={11}
-                            strokeWidth={2}
-                            aria-hidden="true"
-                          />
-                        </ProjectLink>
-                      )}
-                    </ProjectFooter>
-                  )}
-                </ProjectPanel>
-              )}
-            </SeasonGrid>
-          </SeasonCard>
+                      )
+                    )}
+                    {seasonProjectUrl && (
+                      <ProjectLink
+                        href={seasonProjectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {seasonProjectLinkLabel}
+                        <ArrowUpRight
+                          size={11}
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                      </ProjectLink>
+                    )}
+                  </ProjectFooter>
+                )}
+              </ProjectPanel>
+            )}
+          </SeasonGrid>
+        </SeasonCard>
 
-          <VerifiedBadge
-            href="https://tree-nation.com/profile/andrea-agostini-103769"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
-            {t.forestVerifiedLabel}
-            <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
-          </VerifiedBadge>
+        <VerifiedBadge
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
+          {t.forestVerifiedLabel}
+          <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
+        </VerifiedBadge>
 
-          {changelogItems.length > 0 && (
-            <>
-              <Divider />
-              <TimelineSection>
-                <TimelineHeading>
-                  <LeafIcon size={13} />
-                  Latest leaves
-                </TimelineHeading>
-                <TimelineList>
-                  {changelogItems.map((item, i) => (
-                    <TimelineItem key={i}>
-                      <TimelineDate>{relativeTime(item.date)}</TimelineDate>
-                      <TimelineText>{item.description}</TimelineText>
-                    </TimelineItem>
-                  ))}
-                </TimelineList>
-              </TimelineSection>
-            </>
-          )}
+        {changelogItems.length > 0 && (
+          <>
+            <Divider />
+            <TimelineSection>
+              <TimelineHeading>
+                <LeafIcon size={13} />
+                Latest leaves
+              </TimelineHeading>
+              <TimelineList>
+                {changelogItems.map((item, i) => (
+                  <TimelineItem key={i}>
+                    <TimelineDate>{relativeTime(item.date)}</TimelineDate>
+                    <TimelineText>{item.description}</TimelineText>
+                  </TimelineItem>
+                ))}
+              </TimelineList>
+            </TimelineSection>
+          </>
+        )}
       </Section>
 
       <ForestModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />

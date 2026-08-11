@@ -29,8 +29,13 @@ const strings = {
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} trees planted through portfolio feedback · ${totalTrees} trees in my forest`,
     forestMilestone: (pct: number) => `${pct}% towards next milestone`,
-    forestMyForestTitle: "My Forest",
-    forestProgressTitle: "Forest progress",
+    forestProgressTitle: "My forest",
+    forestSpeciesCo2: (kg: number) => `${kg} kg CO\u2082 over its life`,
+    /* Tree-Nation answers in English ("Fast-growing", "Native"); the map keeps
+       the Italian copy honest instead of printing the API's words verbatim. */
+    forestSpeciesKind: (category: string, origin: string) =>
+      [category.toLowerCase(), origin.toLowerCase()].filter(Boolean).join(", "),
+    forestSpreadTitle: "Where the forest grows",
     forestStatImprovements: "improvements shipped",
     forestStatInsights: "insights collected",
     forestStatTrees: "trees dedicated",
@@ -101,8 +106,22 @@ const strings = {
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} alberi piantati grazie ai feedback sul portfolio · ${totalTrees} alberi nella mia foresta`,
     forestMilestone: (pct: number) => `${pct}% verso il prossimo traguardo`,
-    forestMyForestTitle: "La mia foresta",
-    forestProgressTitle: "Crescita della foresta",
+    forestProgressTitle: "La mia foresta",
+    forestSpeciesCo2: (kg: number) => `${kg} kg di CO\u2082 in tutta la vita`,
+    forestSpeciesKind: (category: string, origin: string) => {
+      const words: Record<string, string> = {
+        "fast-growing": "crescita rapida",
+        agroforestry: "agroforestale",
+        fruit: "da frutto",
+        medicinal: "medicinale",
+        native: "autoctona",
+        introduced: "introdotta",
+        nutritional: "alimentare",
+      };
+      const say = (w: string) => words[w.toLowerCase()] ?? w.toLowerCase();
+      return [category, origin].filter(Boolean).map(say).join(", ");
+    },
+    forestSpreadTitle: "Dove cresce la foresta",
     forestStatImprovements: "migliorie realizzate",
     forestStatInsights: "spunti raccolti",
     forestStatTrees: "alberi dedicati",
