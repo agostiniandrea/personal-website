@@ -38,7 +38,7 @@ const strings = {
     forestSpreadTitle: "Where the forest grows",
     forestStatImprovements: "improvements shipped",
     forestStatInsights: "insights collected",
-    forestStatTrees: "trees dedicated",
+    forestStatTrees: "trees planted through feedback",
     forestSubheading:
       "Forest didn't start with this website — it began months earlier, as a personal commitment to give something back. Today it grows in three ways: community feedback, focused research, and my own iteration on the portfolio.",
     forestThisMonth: (count: number) => `+${count} this month`,
@@ -124,7 +124,7 @@ const strings = {
     forestSpreadTitle: "Dove cresce la foresta",
     forestStatImprovements: "migliorie realizzate",
     forestStatInsights: "spunti raccolti",
-    forestStatTrees: "alberi dedicati",
+    forestStatTrees: "alberi piantati grazie ai feedback",
     forestSubheading:
       "Forest non è nata con questo sito — è iniziata mesi prima, come impegno personale a restituire qualcosa. Oggi cresce in tre modi: i feedback della community, la ricerca mirata e la mia iterazione continua sul portfolio.",
     forestThisMonth: (count: number) => `+${count} questo mese`,
