@@ -48,6 +48,8 @@ export interface ForestProps {
   /** Community records that earned trees (source=community, trees>0). */
   communityContributionsCount?: number;
   treeCount?: number;
+  /** Trees planted in the current calendar month, live from Tree-Nation. */
+  monthTreeCount?: number;
   treeCountTitle?: string;
   ctaHeading?: string;
   ctaBody?: string;
@@ -452,6 +454,14 @@ const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
   width: ${({ $animate, $pct }) => ($animate ? `${Math.max($pct, 2)}%` : "2%")};
 `;
 
+/* Sits with the progress meta rather than the counters above: it is a sign of
+   life for the bar ("still moving"), not another headline figure. */
+const SeasonPulse = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
 const SeasonMeta = styled.div`
   align-items: center;
   display: flex;
@@ -749,6 +759,7 @@ const Forest: React.FC<ForestProps> = ({
   improvementsShippedCount = 0,
   communityContributionsCount = 0,
   treeCount = 34,
+  monthTreeCount = 0,
   treeCountTitle,
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
@@ -940,6 +951,14 @@ const Forest: React.FC<ForestProps> = ({
                 </ProgressTrack>
                 <SeasonMeta>
                   <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
+                  {/* Hidden at zero: on the 1st of a month "+0 this month"
+                      reads as a dead site, and the total still tells the
+                      story. */}
+                  {monthTreeCount > 0 && (
+                    <SeasonPulse data-testid="month-pulse">
+                      {t.forestThisMonth(monthTreeCount)}
+                    </SeasonPulse>
+                  )}
                 </SeasonMeta>
                 {hasCommunityImpact && (
                   <CommunityImpact data-testid="community-impact">
