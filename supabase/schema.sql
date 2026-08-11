@@ -83,6 +83,10 @@ create table if not exists public.forest_sync (
   projects    jsonb,
   -- Species detail for the featured project, resolved from the CMS names.
   species     jsonb,
+  -- Two clocks: the counters follow the page's ISR cadence, while projects and
+  -- species stay on a daily window because they barely move and cost far more
+  -- to resolve.
+  counters_synced_at timestamptz,
   synced_at   timestamptz not null default now()
 );
 
