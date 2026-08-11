@@ -102,6 +102,14 @@ describe("Forest", () => {
     });
   });
 
+  it("names the forest total only once, in the panel that tracks it", () => {
+    renderWithTheme(<Forest {...defaultForest} />);
+    // The CTA card shows the number under its own caption; "My forest" belongs
+    // to the progress panel, where it pairs with "Community impact". Both on
+    // one narrow screen read as a duplicate.
+    expect(screen.getAllByText(/my forest/i)).toHaveLength(1);
+  });
+
   describe("species detail", () => {
     const species = [
       {
