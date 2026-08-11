@@ -61,9 +61,6 @@ export interface ForestProps {
       measures the season rather than the whole forest. Season One started from
       an empty forest, hence the 0 default. */
   seasonBaseline?: number;
-  /** Trees the season aims to earn from community feedback — the slice that
-      cannot be bought, so it is tracked apart from the total. */
-  seasonCommunityTarget?: number;
   seasonProjectLabel?: string;
   seasonProjectName?: string;
   seasonProjectMeta?: string;
@@ -499,15 +496,6 @@ const CommunityMeta = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
-/* The season's community goal. Set apart from the meta line above because it
-   is the one number on this card that cannot be bought — it only moves when
-   someone actually sends feedback. */
-const CommunityGoal = styled.span`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-`;
-
 /* ── Season project panel ── */
 
 const SeasonGrid = styled.div`
@@ -535,10 +523,12 @@ const ProjectPanel = styled.div`
   }
 `;
 
+/* Same eyebrow treatment as CommunityTitle: both label their own block at the
+   same level inside this card, so a lighter weight here read as an accident. */
 const ProjectLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.12em;
   text-transform: uppercase;
 `;
@@ -767,7 +757,6 @@ const Forest: React.FC<ForestProps> = ({
   treesLabel,
   seasonTarget = 50,
   seasonBaseline = 0,
-  seasonCommunityTarget = 0,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
   seasonProjectMeta,
@@ -965,14 +954,6 @@ const Forest: React.FC<ForestProps> = ({
                       {" · "}
                       {t.forestCommunityPerContribution(perContribution)}
                     </CommunityMeta>
-                    {seasonCommunityTarget > 0 && (
-                      <CommunityGoal data-testid="community-goal">
-                        {t.forestCommunityGoal(
-                          treesDedicatedCount,
-                          seasonCommunityTarget,
-                        )}
-                      </CommunityGoal>
-                    )}
                   </CommunityImpact>
                 )}
               </div>

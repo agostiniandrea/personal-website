@@ -90,16 +90,6 @@ describe("Forest", () => {
       );
       expect(screen.getByText("0 / 100 trees")).toBeInTheDocument();
     });
-
-    it("shows the community goal only once a target is set", () => {
-      const { rerender } = renderWithTheme(<Forest {...defaultForest} />);
-      expect(screen.queryByTestId("community-goal")).not.toBeInTheDocument();
-
-      rerender(<Forest {...defaultForest} seasonCommunityTarget={10} />);
-      expect(screen.getByTestId("community-goal")).toHaveTextContent(
-        "4 of 10 trees from feedback this season",
-      );
-    });
   });
 
   it("renders the community impact block from real community data", () => {
