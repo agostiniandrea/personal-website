@@ -153,11 +153,15 @@ const GROUP_GAP_TOPUP = "0.5rem";
 /* One step wider than ROW_GAP: the link is an action, not another line of
    detail, so it should not sit at the same pace as the rows above it. */
 const ACTION_GAP = "1.25rem";
-/* The air a horizontal rule needs on each side. The rule is a block's
-   border-top, so its space below comes from padding while its space above is
-   the grid's row-gap — deriving the margin from the difference is what keeps
-   the two equal, rather than two numbers that happen to match today. */
-const DIVIDER_SPACE = "1.5rem";
+/* The air a horizontal rule needs on each side. One value at every breakpoint,
+   matching the 16px the rest of the page aligns on, and comfortably inside the
+   card's own padding so the container still reads wider than its contents.
+
+   The rule is a block's border-top, so its space below comes from padding
+   while its space above is the grid's row-gap — taking the margin from the
+   difference is what keeps the two sides equal, rather than two numbers that
+   happen to agree today. */
+const DIVIDER_SPACE = "1rem";
 const DIVIDER_MARGIN = `calc(${DIVIDER_SPACE} - ${ROW_GAP})`;
 
 /* ── Animations ── */
