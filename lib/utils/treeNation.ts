@@ -5,7 +5,14 @@ export const TREE_NATION_FOREST_SLUG = "andrea-agostini-103769";
 const TREE_NATION_PROFILE_ID = 941526;
 
 const SYNC_ROW_ID = "tree-nation";
-const STALE_AFTER_MS = 24 * 60 * 60 * 1000;
+/* Two clocks, because the two halves of this data move at different speeds.
+   The counters are the section's headline figures and change the moment a tree
+   lands, so they follow the page's own ISR cadence — a day-old total meant the
+   site missed the exact moment the forest hit its season target. The projects a
+   forest sits in and their species change rarely, and resolving species costs
+   one request per species, so those stay on a daily window. */
+const COUNTERS_STALE_AFTER_MS = 60 * 60 * 1000;
+const ENRICHMENT_STALE_AFTER_MS = 24 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 8000;
 
 interface ForestSyncRow {
@@ -14,6 +21,9 @@ interface ForestSyncRow {
   month_count: number | null;
   projects: ForestProject[] | null;
   species: ForestSpecies[] | null;
+  /** When the counters were last read. Null on rows written before the split. */
+  counters_synced_at: string | null;
+  /** When the projects and species were last resolved. */
   synced_at: string;
 }
 
@@ -206,10 +216,15 @@ function sameCalendarMonth(a: Date, b: Date): boolean {
 }
 
 /**
- * Returns the verified Tree-Nation figures, syncing at most once per 24h
- * window. Falls back to the last synced values when Tree-Nation is
- * unavailable, and to null when nothing has ever been synced — callers should
- * then keep their own fallback (the Contentful treeCount).
+ * Returns the verified Tree-Nation figures.
+ *
+ * The counters and the enrichments refresh on separate clocks: a stale total
+ * is the one thing visitors would notice, while the projects and species cost
+ * far more to fetch and barely move. Each half degrades on its own — a failure
+ * on one keeps serving the last good values for it without touching the other.
+ *
+ * Returns nulls when nothing has ever been synced; callers keep their own
+ * fallback (the Contentful treeCount).
  */
 export async function getForestData(
   supabase: SupabaseClient,
@@ -222,7 +237,9 @@ export async function getForestData(
   try {
     const { data } = await supabase
       .from("forest_sync")
-      .select("id, tree_count, month_count, projects, species, synced_at")
+      .select(
+        "id, tree_count, month_count, projects, species, counters_synced_at, synced_at",
+      )
       .eq("id", SYNC_ROW_ID)
       .maybeSingle();
     lastKnown = data ?? null;
@@ -231,92 +248,87 @@ export async function getForestData(
   }
 
   const now = new Date();
-  const syncedAt = lastKnown ? new Date(lastKnown.synced_at) : null;
-  /* The monthly figure resets on the 1st, so a cached value from a previous
-     month is wrong however recently it was written — a sync inside the 24h
-     window on 31 Aug would otherwise still be served on 1 Sep. */
-  const isFresh =
-    syncedAt !== null &&
-    now.getTime() - syncedAt.getTime() < STALE_AFTER_MS &&
-    sameCalendarMonth(syncedAt, now);
+  const countersAt = lastKnown?.counters_synced_at
+    ? new Date(lastKnown.counters_synced_at)
+    : null;
+  const enrichedAt = lastKnown?.synced_at ? new Date(lastKnown.synced_at) : null;
 
-  if (lastKnown && isFresh) {
-    return {
-      total: lastKnown.tree_count,
-      month: lastKnown.month_count,
-      projects: lastKnown.projects ?? [],
-      species: lastKnown.species ?? [],
-    };
-  }
+  /* The monthly figure resets on the 1st, so a value from a previous month is
+     wrong however recently it was written. */
+  const countersFresh =
+    countersAt !== null &&
+    now.getTime() - countersAt.getTime() < COUNTERS_STALE_AFTER_MS &&
+    sameCalendarMonth(countersAt, now);
+  const enrichmentFresh =
+    enrichedAt !== null &&
+    now.getTime() - enrichedAt.getTime() < ENRICHMENT_STALE_AFTER_MS;
 
-  try {
-    /* One failed source must not discard the others: the total is what the
-       section is built on, the month and the project list are enrichments. */
-    const [totalResult, monthResult, projectsResult] = await Promise.allSettled(
-      [
-        fetchCounter("tree_counter"),
-        fetchCounter("tree_counter/month"),
-        fetchProjects(now),
-      ],
-    );
-    if (totalResult.status === "rejected") throw totalResult.reason;
+  let total = lastKnown?.tree_count ?? null;
+  let month =
+    countersAt && sameCalendarMonth(countersAt, now)
+      ? (lastKnown?.month_count ?? null)
+      : null;
+  let projects = lastKnown?.projects ?? [];
+  let species = lastKnown?.species ?? [];
 
-    const total = totalResult.value;
-    const month = monthResult.status === "fulfilled" ? monthResult.value : null;
+  /* Only what actually refreshed is written back, so one half going stale
+     never overwrites the other with older values. */
+  const patch: Record<string, unknown> = {};
+
+  if (!countersFresh) {
+    const [totalResult, monthResult] = await Promise.allSettled([
+      fetchCounter("tree_counter"),
+      fetchCounter("tree_counter/month"),
+    ]);
+    if (totalResult.status === "fulfilled") {
+      total = totalResult.value;
+      month = monthResult.status === "fulfilled" ? monthResult.value : null;
+      patch.tree_count = total;
+      patch.month_count = month;
+      patch.counters_synced_at = now.toISOString();
+    } else {
+      console.error("Tree-Nation counter failed:", totalResult.reason);
+    }
     if (monthResult.status === "rejected") {
       console.error("Tree-Nation month counter failed:", monthResult.reason);
     }
-    /* A failed project fetch keeps the last good list rather than blanking the
-       block — the projects a forest sits in do not change often, so a stale
-       list is far closer to the truth than none. */
-    const projects =
-      projectsResult.status === "fulfilled"
-        ? projectsResult.value
-        : (lastKnown?.projects ?? []);
-    if (projectsResult.status === "rejected") {
-      console.error("Tree-Nation impact fetch failed:", projectsResult.reason);
-    }
-
-    /* Depends on the project list, so it runs after rather than beside it. */
-    let species = lastKnown?.species ?? [];
-    const featuredProject = featured?.projectSlug
-      ? projects.find((p) => p.slug === featured.projectSlug)
-      : undefined;
-    if (featuredProject && featured?.speciesNames?.length) {
-      try {
-        species = await fetchSpecies(
-          featuredProject.id,
-          featured.speciesNames,
-        );
-      } catch (err) {
-        console.error("Tree-Nation species fetch failed:", err);
-      }
-    }
-
-    const { error } = await supabase.from("forest_sync").upsert({
-      id: SYNC_ROW_ID,
-      tree_count: total,
-      month_count: month,
-      projects,
-      species,
-      synced_at: now.toISOString(),
-    });
-    if (error) console.error("forest_sync upsert failed:", error.message);
-    return { total, month, projects, species };
-  } catch (err) {
-    console.error("Tree-Nation sync failed, using last known value:", err);
-    if (!lastKnown)
-      return { total: null, month: null, projects: [], species: [] };
-    /* A stale row still carries a usable total, but its month figure is only
-       meaningful while we are still in that month. */
-    return {
-      total: lastKnown.tree_count,
-      month:
-        syncedAt && sameCalendarMonth(syncedAt, now)
-          ? lastKnown.month_count
-          : null,
-      projects: lastKnown.projects ?? [],
-      species: lastKnown.species ?? [],
-    };
   }
+
+  if (!enrichmentFresh) {
+    try {
+      projects = await fetchProjects(now);
+      /* Depends on the project list, so it runs after rather than beside it. */
+      const featuredProject = featured?.projectSlug
+        ? projects.find((p) => p.slug === featured.projectSlug)
+        : undefined;
+      if (featuredProject && featured?.speciesNames?.length) {
+        try {
+          species = await fetchSpecies(
+            featuredProject.id,
+            featured.speciesNames,
+          );
+        } catch (err) {
+          console.error("Tree-Nation species fetch failed:", err);
+        }
+      }
+      patch.projects = projects;
+      patch.species = species;
+      patch.synced_at = now.toISOString();
+    } catch (err) {
+      /* Keeps the last good list rather than blanking the block: the projects
+         a forest sits in do not change often, so stale beats absent. */
+      console.error("Tree-Nation impact fetch failed:", err);
+    }
+  }
+
+  /* tree_count is NOT NULL, so a first-ever insert cannot be written without
+     one — with no total there is nothing worth persisting anyway. */
+  if (Object.keys(patch).length > 0 && total !== null) {
+    const { error } = await supabase
+      .from("forest_sync")
+      .upsert({ id: SYNC_ROW_ID, tree_count: total, ...patch });
+    if (error) console.error("forest_sync upsert failed:", error.message);
+  }
+
+  return { total, month, projects, species };
 }
