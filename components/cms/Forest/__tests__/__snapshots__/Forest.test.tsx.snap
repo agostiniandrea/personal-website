@@ -373,6 +373,7 @@ exports[`Forest renders correctly with all props 1`] = `
   color: var(--color-paragraph);
   font-size: 0.875rem;
   grid-area: cmeta;
+  text-wrap: balance;
 }
 
 .c30 {
@@ -1054,7 +1055,7 @@ exports[`Forest renders correctly with all props 1`] = `
               class="c42"
             >
               2 meaningful contributions
-               · 
+               · 
               2 trees planted for each
             </span>
           </div>

@@ -145,6 +145,15 @@ describe("Forest", () => {
       expect(block).toHaveTextContent("400 kg CO₂ over its life");
     });
 
+    it("keeps each separator with the clause it closes", () => {
+      renderWithTheme(<Forest {...defaultForest} forestSpecies={species} />);
+      // A narrow screen was breaking before the "·", opening a line with it.
+      // The non-breaking space ties it to the text on its left.
+      const text = screen.getByTestId("species-detail").textContent ?? "";
+      expect(text).toContain("\u00a0·");
+      expect(text).not.toMatch(/\s\u0020·/);
+    });
+
     it("keeps the plain name badges when Tree-Nation told us nothing", () => {
       renderWithTheme(<Forest {...defaultForest} forestSpecies={[]} />);
       expect(screen.queryByTestId("species-detail")).not.toBeInTheDocument();
