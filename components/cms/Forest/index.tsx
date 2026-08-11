@@ -552,10 +552,14 @@ const CommunityTrees = styled.span`
   line-height: ${({ theme }) => theme.lineHeights.tight};
 `;
 
+/* Two lines on a phone, where the default break left "each" alone on the
+   second. A non-breaking space keeps the separator with the clause it closes,
+   and balance evens what is left. */
 const CommunityMeta = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   grid-area: cmeta;
+  text-wrap: balance;
 `;
 
 /* ── Where the forest grows ── */
@@ -785,10 +789,14 @@ const SpeciesDetailList = styled.ul`
   padding: 0;
 `;
 
+/* Three facts joined by separators, which on a narrow screen wrapped so a "·"
+   opened a line. Pretty rather than balance: these run to three lines and the
+   goal is only to keep the last one from being a stray word. */
 const SpeciesRow = styled.li`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: ${({ theme }) => theme.lineHeights.normal};
+  text-wrap: pretty;
 `;
 
 const SpeciesLabel = styled.span`
@@ -1198,7 +1206,7 @@ const Forest: React.FC<ForestProps> = ({
                 </CommunityTrees>
                 <CommunityMeta>
                   {t.forestContributions(communityContributionsCount)}
-                  {" · "}
+                  {"\u00a0· "}
                   {t.forestCommunityPerContribution(perContribution)}
                 </CommunityMeta>
               </CommunityImpact>
@@ -1245,13 +1253,13 @@ const Forest: React.FC<ForestProps> = ({
                           <SpeciesRow key={species.label}>
                             <SpeciesLabel>{species.label}</SpeciesLabel>{" "}
                             <SpeciesLatin>{species.scientific}</SpeciesLatin>
-                            {" · "}
+                            {"\u00a0· "}
                             {t.forestSpeciesKind(
                               species.category,
                               species.origin,
                             )}
                             {species.co2Kg > 0 &&
-                              ` · ${t.forestSpeciesCo2(species.co2Kg)}`}
+                              `\u00a0· ${t.forestSpeciesCo2(species.co2Kg)}`}
                           </SpeciesRow>
                         ))}
                       </SpeciesDetailList>
