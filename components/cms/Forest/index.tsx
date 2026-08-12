@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { ArrowUpRight, TreeDeciduous } from "lucide-react";
+import { ArrowUpRight, CircleCheck, TreeDeciduous } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Text } from "@components/ions";
@@ -518,6 +518,19 @@ const SeasonSublabel = styled.span`
   letter-spacing: 0.05em;
 `;
 
+/* Reaching the target is the one moment this panel has something to celebrate,
+   and it was announcing it in the same muted grey as every other day. Highlight
+   and a mark, so it reads as an event rather than a reading. */
+const SeasonReached = styled.span`
+  align-items: center;
+  color: ${({ theme }) => theme.colors.highlight};
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  gap: 0.375rem;
+  letter-spacing: 0.05em;
+`;
+
 /* ── Community impact ── */
 
 const CommunityImpact = styled.div`
@@ -960,6 +973,7 @@ const Forest: React.FC<ForestProps> = ({
   treesDedicatedCount = 0,
   improvementsShippedCount = 0,
   communityContributionsCount = 0,
+  seasonName,
   treeCount = 34,
   monthTreeCount = 0,
   forestProjects = [],
@@ -1160,7 +1174,18 @@ const Forest: React.FC<ForestProps> = ({
                 <ProgressFill $pct={pct} $animate={inView} />
               </ProgressTrack>
               <SeasonMeta>
-                <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
+                {pct >= 100 ? (
+                  <SeasonReached data-testid="season-reached">
+                    <CircleCheck
+                      size={14}
+                      strokeWidth={2.25}
+                      aria-hidden="true"
+                    />
+                    {t.forestMilestoneReached(seasonName)}
+                  </SeasonReached>
+                ) : (
+                  <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
+                )}
                 {/* Hidden at zero: on the 1st of a month "+0 this month"
                       reads as a dead site, and the total still tells the
                       story. */}

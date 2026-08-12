@@ -89,6 +89,51 @@ describe("Forest", () => {
       );
     });
 
+    it("celebrates the target instead of reporting 100%", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          seasonName="Season One"
+          treeCount={50}
+          seasonBaseline={0}
+          seasonTarget={50}
+        />,
+      );
+      // The one moment this panel has something to announce, so it names the
+      // season rather than repeating a percentage that has stopped moving.
+      expect(screen.getByTestId("season-reached")).toHaveTextContent(
+        "Season One complete",
+      );
+      expect(
+        screen.queryByText(/towards next milestone/),
+      ).not.toBeInTheDocument();
+    });
+
+    it("falls back to a generic line when the season has no name", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          seasonName={undefined}
+          treeCount={50}
+          seasonBaseline={0}
+          seasonTarget={50}
+        />,
+      );
+      expect(screen.getByTestId("season-reached")).toHaveTextContent(
+        "Milestone reached",
+      );
+    });
+
+    it("still reports progress while the target is out of reach", () => {
+      renderWithTheme(
+        <Forest {...defaultForest} treeCount={47} seasonTarget={50} />,
+      );
+      expect(screen.queryByTestId("season-reached")).not.toBeInTheDocument();
+      expect(
+        screen.getByText("94% towards next milestone"),
+      ).toBeInTheDocument();
+    });
+
     it("stops the count at the target once the season is met", () => {
       renderWithTheme(
         <Forest
@@ -101,7 +146,9 @@ describe("Forest", () => {
       // 53 planted this season against a target of 50: the bar is full and the
       // count says so, rather than reading past its own goal.
       expect(screen.getByText("50 / 50 trees")).toBeInTheDocument();
-      expect(screen.getByText("100% towards next milestone")).toBeInTheDocument();
+      // Past the target the panel celebrates rather than reporting a figure
+      // that has stopped moving.
+      expect(screen.getByTestId("season-reached")).toBeInTheDocument();
     });
 
     it("never reports negative progress when the baseline exceeds the count", () => {
