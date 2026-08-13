@@ -57,11 +57,48 @@ const nextConfig = {
   },
   turbopack: {},
   async redirects() {
+    /* The site is one page, but its sections were once reachable as paths and
+       Google still has some of them. Three redirected and the rest answered
+       404, which is why Search Console reported both a redirect and a
+       not-found reason for the same class of URL.
+
+       Every section now lands on its own anchor rather than the top of the
+       page, so an old link still takes you where it promised.
+
+       Deliberately temporary: /projects and friends are exactly the paths a
+       future case-study page would claim, and a permanent redirect sits in
+       browser caches long after the config changes. Google not indexing them
+       is the wanted outcome either way. */
+    const sections = [
+      "about",
+      "beyond-code",
+      "experience",
+      "forest",
+      "journey",
+      "projects",
+      "skills",
+      "sustainability",
+    ].map((id) => ({
+      source: `/${id}`,
+      destination: `/#${id}`,
+      permanent: false,
+    }));
+
     return [
+      ...sections,
       { source: "/contact", destination: "/", permanent: true },
-      { source: "/projects", destination: "/", permanent: false },
-      { source: "/skills", destination: "/", permanent: false },
-      { source: "/experience", destination: "/", permanent: false },
+      /* The Pages Router answers /index as well as /, with byte-identical
+         output. No `locale: false` here: Next normalises an incoming path to
+         the locale-prefixed form before matching, so the unprefixed source
+         never fires.
+
+         /en is the other duplicate and is deliberately NOT redirected. Next's
+         i18n serves the default locale at / while representing it internally
+         as /en, so a redirect on /en catches the home page itself and loops it
+         onto itself — verified, it 308s / to / forever. Fixing it would take
+         middleware on every request to inspect the raw URL, which is a real
+         cost for a duplicate the canonical tag already resolves. */
+      { source: "/index", destination: "/", permanent: true },
     ];
   },
   async headers() {
