@@ -19,7 +19,7 @@ const config: Config.InitialOptions = {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     "^styled-components$": "<rootDir>/node_modules/styled-components",
   },
-  testMatch: ["**/components/**/*.test.tsx"],
+  testMatch: ["**/components/**/*.test.tsx", "**/lib/**/*.test.ts"],
   transform: {
     "^.+\\.(ts|tsx)$": [
       "ts-jest",

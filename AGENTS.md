@@ -173,6 +173,38 @@ while the More sheet is open.
 When testing: any run that touches Forest or the teaser kills the desktop
 nudge for that session — use a private window to see it again.
 
+### Prolific usability study
+
+Recruited participants reach the site through a Prolific link carrying
+`PROLIFIC_PID`, `STUDY_ID` and `SESSION_ID`. The rule that governs every
+decision here: **an ordinary visitor must see exactly the site that shipped
+before the study existed.** No banner, no notice, no changed copy.
+
+- `lib/utils/prolific.ts` owns it. `useProlificCapture()` (mounted in
+  `_app.tsx`) reads the parameters once after hydration into `sessionStorage`
+  — never `localStorage`, so a participant id cannot resurface on a genuine
+  visit later. The homepage is prerendered, so the query string is invisible
+  server-side; capture is necessarily client-side.
+- The parameters stay in the address bar. Every internal navigation already
+  carries `window.location.search` forward (`MobileNav`'s `routeWithHash`,
+  `SiteHeader`'s logo handler), so they survive the whole visit.
+- `ForestModal` attaches the ids to the feedback POST and, on success, swaps
+  its Close button for a link back to Prolific. That link exists only when
+  `NEXT_PUBLIC_PROLIFIC_COMPLETION_URL` is set — unset it when no study is
+  running and the study code is inert.
+- `/api/feedback` stores those rows as `source = 'usability_study'` and
+  de-duplicates them by Prolific submission instead of by IP. The IP cooldown
+  stays for the public form, but it would reject a second participant sharing
+  a carrier NAT or VPN exit, which is a dead end mid-study.
+- Study rows are excluded from the published Forest counters
+  (`lib/utils/forestStats.ts`) and never grow trees: solicited, paid feedback
+  is not a community insight. If a study finding ships, log it as an internal
+  insight like any other improvement.
+- The pid is never rendered anywhere, and is never sent to GA or Clarity.
+- Schema changes live in `supabase/migrations/20260814_prolific_study.sql` and
+  must be pasted into the Supabase SQL editor by hand — the REST service key
+  cannot issue DDL.
+
 ### Observability
 
 - **Sentry**: server + edge config in `sentry.server.config.ts` / `sentry.edge.config.ts`, wired via `instrumentation.ts`
