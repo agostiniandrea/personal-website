@@ -61,6 +61,12 @@ const TriggerButton = styled.button`
 
   svg {
     display: block;
+    /* The vertical-align above centres the button on half the x-height, but
+       the metric lines this sits in read on their capitals and digits
+       ("1.5 t CO2"), whose optical centre is higher. Measured against the
+       cap-height band the glyph landed 1.27px low, so it comes back up by one.
+       The 44px touch target stays where it is. */
+    transform: translateY(-1px);
   }
 `;
 
