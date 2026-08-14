@@ -11,8 +11,17 @@ const SYNC_ROW_ID = "tree-nation";
    site missed the exact moment the forest hit its season target. The projects a
    forest sits in and their species change rarely, and resolving species costs
    one request per species, so those stay on a daily window. */
+/* The counters and the per-project breakdown come from two independent
+   endpoints and are meant to agree: the projects must sum to the total, which
+   is what makes the section verifiable. Refreshing them on different clocks
+   broke that — the total moved hourly while the breakdown sat a day behind, so
+   the page showed 56 trees above a list adding up to 51. They now share one
+   clock, which costs a single extra request per hour.
+
+   Species stay on the slow clock: they cost one request each, and a species
+   list genuinely does not change. */
 const COUNTERS_STALE_AFTER_MS = 60 * 60 * 1000;
-const ENRICHMENT_STALE_AFTER_MS = 24 * 60 * 60 * 1000;
+const SPECIES_STALE_AFTER_MS = 24 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 8000;
 
 interface ForestSyncRow {
@@ -218,10 +227,11 @@ function sameCalendarMonth(a: Date, b: Date): boolean {
 /**
  * Returns the verified Tree-Nation figures.
  *
- * The counters and the enrichments refresh on separate clocks: a stale total
- * is the one thing visitors would notice, while the projects and species cost
- * far more to fetch and barely move. Each half degrades on its own — a failure
- * on one keeps serving the last good values for it without touching the other.
+ * Two clocks, split by cost rather than by kind: the counters and the project
+ * breakdown refresh together every hour because they have to agree with each
+ * other, while the species detail refreshes daily because it costs a request
+ * per species and never moves. Each half degrades on its own — a failure on one
+ * keeps serving the last good values for it without touching the other.
  *
  * Returns nulls when nothing has ever been synced; callers keep their own
  * fallback (the Contentful treeCount).
@@ -251,7 +261,7 @@ export async function getForestData(
   const countersAt = lastKnown?.counters_synced_at
     ? new Date(lastKnown.counters_synced_at)
     : null;
-  const enrichedAt = lastKnown?.synced_at ? new Date(lastKnown.synced_at) : null;
+  const speciesAt = lastKnown?.synced_at ? new Date(lastKnown.synced_at) : null;
 
   /* The monthly figure resets on the 1st, so a value from a previous month is
      wrong however recently it was written. */
@@ -259,9 +269,9 @@ export async function getForestData(
     countersAt !== null &&
     now.getTime() - countersAt.getTime() < COUNTERS_STALE_AFTER_MS &&
     sameCalendarMonth(countersAt, now);
-  const enrichmentFresh =
-    enrichedAt !== null &&
-    now.getTime() - enrichedAt.getTime() < ENRICHMENT_STALE_AFTER_MS;
+  const speciesFresh =
+    speciesAt !== null &&
+    now.getTime() - speciesAt.getTime() < SPECIES_STALE_AFTER_MS;
 
   let total = lastKnown?.tree_count ?? null;
   let month =
@@ -292,32 +302,35 @@ export async function getForestData(
     if (monthResult.status === "rejected") {
       console.error("Tree-Nation month counter failed:", monthResult.reason);
     }
-  }
 
-  if (!enrichmentFresh) {
+    /* Refreshed beside the counters so the breakdown always sums to the total
+       the page just showed. A failure here leaves counters_synced_at written,
+       so the retry waits for the next cycle — an hour of extra staleness on a
+       list that barely moves, against re-fetching it on every single request. */
     try {
       projects = await fetchProjects(now);
-      /* Depends on the project list, so it runs after rather than beside it. */
-      const featuredProject = featured?.projectSlug
-        ? projects.find((p) => p.slug === featured.projectSlug)
-        : undefined;
-      if (featuredProject && featured?.speciesNames?.length) {
-        try {
-          species = await fetchSpecies(
-            featuredProject.id,
-            featured.speciesNames,
-          );
-        } catch (err) {
-          console.error("Tree-Nation species fetch failed:", err);
-        }
-      }
       patch.projects = projects;
-      patch.species = species;
-      patch.synced_at = now.toISOString();
     } catch (err) {
       /* Keeps the last good list rather than blanking the block: the projects
          a forest sits in do not change often, so stale beats absent. */
       console.error("Tree-Nation impact fetch failed:", err);
+    }
+  }
+
+  if (!speciesFresh) {
+    /* Resolved against whichever project list we hold — freshly fetched above,
+       or the cached one when the counters were still fresh. */
+    const featuredProject = featured?.projectSlug
+      ? projects.find((p) => p.slug === featured.projectSlug)
+      : undefined;
+    if (featuredProject && featured?.speciesNames?.length) {
+      try {
+        species = await fetchSpecies(featuredProject.id, featured.speciesNames);
+        patch.species = species;
+        patch.synced_at = now.toISOString();
+      } catch (err) {
+        console.error("Tree-Nation species fetch failed:", err);
+      }
     }
   }
 
