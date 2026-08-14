@@ -573,6 +573,20 @@ const CommunityMeta = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   grid-area: cmeta;
   text-wrap: balance;
+
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+/* The separator only earns its place while both halves share a line. On a phone
+   the meta wraps anyway, which left a "·" dangling at the end of the first
+   line — so below `mobile` the halves stack and it goes away. */
+const CommunityMetaSeparator = styled.span`
+  @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
+    display: none;
+  }
 `;
 
 /* ── Where the forest grows ── */
@@ -1230,9 +1244,15 @@ const Forest: React.FC<ForestProps> = ({
                   {t.forestCommunityTrees(treesDedicatedCount)}
                 </CommunityTrees>
                 <CommunityMeta>
-                  {t.forestContributions(communityContributionsCount)}
-                  {"\u00a0· "}
-                  {t.forestCommunityPerContribution(perContribution)}
+                  <span>
+                    {t.forestContributions(communityContributionsCount)}
+                  </span>
+                  <CommunityMetaSeparator aria-hidden="true">
+                    {"\u00a0·\u00a0"}
+                  </CommunityMetaSeparator>
+                  <span>
+                    {t.forestCommunityPerContribution(perContribution)}
+                  </span>
                 </CommunityMeta>
               </CommunityImpact>
             )}
