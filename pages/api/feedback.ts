@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { createClient } from "@supabase/supabase-js";
 
+import { isValidProlificId, ProlificSession } from "@lib/utils/prolific";
+
 const ALLOWED_CATEGORIES = [
   "UX",
   "Accessibility",
@@ -14,12 +16,32 @@ const ALLOWED_CATEGORIES = [
 
 const COOLDOWN_HOURS = 24;
 
+/* Study submissions are de-duplicated by Prolific submission rather than by
+   IP, which on its own would let forged parameters insert without limit. This
+   cap restores a ceiling while staying far above any real cohort sharing one
+   NAT, so it can never be what blocks a participant. */
+const STUDY_SUBMISSIONS_PER_IP = 10;
+
 type Response = { success: true } | { error: string };
 
 function getIp(req: NextApiRequest): string {
   const forwarded = req.headers["x-forwarded-for"];
   if (typeof forwarded === "string") return forwarded.split(",")[0].trim();
   return req.socket.remoteAddress ?? "unknown";
+}
+
+/* A recruited study participant sends the ids the study link carried. Read
+   defensively: this is a public endpoint, so anything shaped wrong is dropped
+   rather than trusted, and a submission without a valid pid stays an ordinary
+   community one. */
+function readProlificSession(body: unknown): ProlificSession | null {
+  const raw = (body as { prolific?: Partial<ProlificSession> } | null)?.prolific;
+  if (!raw || !isValidProlificId(raw.prolificPid)) return null;
+  return {
+    prolificPid: raw.prolificPid,
+    ...(isValidProlificId(raw.studyId) && { studyId: raw.studyId }),
+    ...(isValidProlificId(raw.sessionId) && { sessionId: raw.sessionId }),
+  };
 }
 
 export default async function handler(
@@ -111,21 +133,64 @@ export default async function handler(
 
   const supabase = createClient(supabaseUrl, supabaseKey);
   const ip = getIp(req);
-
-  // IP cooldown — 1 submission per IP per 24h
+  const prolific = readProlificSession(req.body);
   const since = new Date(
     Date.now() - COOLDOWN_HOURS * 60 * 60 * 1000,
   ).toISOString();
-  const { count } = await supabase
-    .from("feedback")
-    .select("id", { count: "exact", head: true })
-    .eq("ip", ip)
-    .gte("created_at", since);
 
-  if (count && count > 0) {
-    return res.status(429).json({
-      error: "You've already submitted feedback recently. Thank you!",
-    });
+  if (prolific) {
+    /* Study participants are de-duplicated by their Prolific submission, not
+       by IP: they are strangers to one another and can easily share an exit
+       address (carrier NAT, VPN, campus gateway), and the cooldown below would
+       reject the second one with no way through — a dead end mid-study. */
+    let dedupe = supabase
+      .from("feedback")
+      .select("id", { count: "exact", head: true });
+
+    if (prolific.sessionId) {
+      dedupe = dedupe.eq("prolific_session_id", prolific.sessionId);
+    } else {
+      /* No submission id in the link: one per participant per study, so a
+         later study can still recruit the same people. */
+      dedupe = dedupe.eq("prolific_pid", prolific.prolificPid);
+      if (prolific.studyId) {
+        dedupe = dedupe.eq("prolific_study_id", prolific.studyId);
+      }
+    }
+
+    const [{ count }, { count: fromThisIp }] = await Promise.all([
+      dedupe,
+      supabase
+        .from("feedback")
+        .select("id", { count: "exact", head: true })
+        .eq("ip", ip)
+        .gte("created_at", since),
+    ]);
+
+    if (count && count > 0) {
+      return res.status(429).json({
+        error: "This submission has already been recorded. Thank you!",
+      });
+    }
+
+    if (fromThisIp && fromThisIp >= STUDY_SUBMISSIONS_PER_IP) {
+      return res.status(429).json({
+        error: "Too many submissions from this connection. Please email me.",
+      });
+    }
+  } else {
+    // IP cooldown — 1 submission per IP per 24h
+    const { count } = await supabase
+      .from("feedback")
+      .select("id", { count: "exact", head: true })
+      .eq("ip", ip)
+      .gte("created_at", since);
+
+    if (count && count > 0) {
+      return res.status(429).json({
+        error: "You've already submitted feedback recently. Thank you!",
+      });
+    }
   }
 
   const { error } = await supabase.from("feedback").insert({
@@ -137,10 +202,15 @@ export default async function handler(
     github: github?.trim() || null,
     website: website?.trim() || null,
     public_acknowledgment: publicAcknowledgment === true,
-    // Everything submitted through the public form is, by definition, real
-    // community feedback. Internal insights are seeded separately and never
-    // pass through this endpoint.
-    source: "community",
+    /* An unsolicited submission through the public form is, by definition,
+       real community feedback. A recruited participant's is not — it was paid
+       for and asked for — so it gets its own source, stays out of the public
+       Forest counters (see lib/utils/forestStats.ts) and grows no trees.
+       Internal insights are seeded separately and never pass through here. */
+    source: prolific ? "usability_study" : "community",
+    prolific_pid: prolific?.prolificPid ?? null,
+    prolific_study_id: prolific?.studyId ?? null,
+    prolific_session_id: prolific?.sessionId ?? null,
     ip,
   });
 
@@ -149,15 +219,20 @@ export default async function handler(
     return res.status(500).json({ error: "Failed to save feedback" });
   }
 
-  const revalidationResults = await Promise.allSettled([
-    res.revalidate("/"),
-    res.revalidate("/it"),
-  ]);
-  revalidationResults.forEach((result) => {
-    if (result.status === "rejected") {
-      console.error("Forest statistics revalidation failed:", result.reason);
-    }
-  });
+  /* Study submissions move none of the published figures, so there is nothing
+     to rebuild for them — and a whole cohort submitting would otherwise
+     re-run every page's data fetching for no visible change. */
+  if (!prolific) {
+    const revalidationResults = await Promise.allSettled([
+      res.revalidate("/"),
+      res.revalidate("/it"),
+    ]);
+    revalidationResults.forEach((result) => {
+      if (result.status === "rejected") {
+        console.error("Forest statistics revalidation failed:", result.reason);
+      }
+    });
+  }
 
   return res.status(200).json({ success: true });
 }

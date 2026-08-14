@@ -17,6 +17,7 @@ import {
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
 import { useI18n } from "@lib/utils/i18n";
+import { useProlificCapture } from "@lib/utils/prolific";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
@@ -54,6 +55,10 @@ const SkipLink = styled.a`
 export default function App({ Component, pageProps, router }: AppProps) {
   const [gaConsent, setGaConsent] = useState(false);
   const t = useI18n(router.locale);
+
+  /* Reads the Prolific study parameters once, if they are there. Renders
+     nothing and leaves the page identical for everyone else. */
+  useProlificCapture();
 
   useEffect(() => {
     if (localStorage.getItem("cookie-consent") === "accepted") {
