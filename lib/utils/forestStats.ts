@@ -1,5 +1,12 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+/* Feedback recruited and paid for through a usability study is not an insight
+   the site earned, so none of the published figures count it. If a study
+   finding does ship, it gets logged as an internal insight the same way every
+   other improvement does — that keeps one record per visible outcome instead
+   of counting the study row in one figure and not the other. */
+const EXCLUDED_SOURCE = "usability_study";
+
 export interface ForestImpactStats {
   /** Every record in the feedback table, whatever its source. */
   insightsCollectedCount: number;
@@ -17,7 +24,10 @@ export async function getForestImpactStats(
 ): Promise<ForestImpactStats> {
   const [insightsResult, communityResult, implementedResult] =
     await Promise.all([
-      supabase.from("feedback").select("id", { count: "exact", head: true }),
+      supabase
+        .from("feedback")
+        .select("id", { count: "exact", head: true })
+        .neq("source", EXCLUDED_SOURCE),
       supabase
         .from("feedback")
         .select("trees_planted")
@@ -25,7 +35,8 @@ export async function getForestImpactStats(
       supabase
         .from("feedback")
         .select("id", { count: "exact", head: true })
-        .eq("status", "implemented"),
+        .eq("status", "implemented")
+        .neq("source", EXCLUDED_SOURCE),
     ]);
 
   const errors = [

@@ -9,6 +9,10 @@ import styled, { keyframes } from "styled-components";
 import { LeafIcon, TreeIcon } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
+import {
+  getProlificCompletionUrl,
+  getProlificSession,
+} from "@lib/utils/prolific";
 
 const copy = {
   en: {
@@ -45,6 +49,7 @@ const copy = {
     s5Body:
       "Your leaf has been received. I'll personally read every submission.",
     s5Close: "Close",
+    s5ReturnToProlific: "Return to Prolific",
     errName: "Name must be under 100 characters.",
     errEmail: "Please enter a valid email address.",
     errLinkedin: "Must be a valid LinkedIn profile URL.",
@@ -86,6 +91,7 @@ const copy = {
     s5Body:
       "La tua foglia è stata ricevuta. Leggerò personalmente ogni messaggio.",
     s5Close: "Chiudi",
+    s5ReturnToProlific: "Torna a Prolific",
     errName: "Il nome non può superare i 100 caratteri.",
     errEmail: "Inserisci un indirizzo email valido.",
     errLinkedin: "Inserisci un URL di profilo LinkedIn valido.",
@@ -624,6 +630,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  /* Set only for a recruited study participant, and only once their feedback
+     is safely stored — it is their way back to Prolific to be paid. Null for
+     every ordinary visitor, so the success step is unchanged for them. */
+  const [completionUrl, setCompletionUrl] = useState<string | null>(null);
   const firstFocusRef = useRef<HTMLButtonElement>(null);
   const { locale } = useRouter();
   const t = locale === "it" ? copy.it : copy.en;
@@ -653,6 +663,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
       setData(EMPTY);
       setTouched({});
       setError(null);
+      setCompletionUrl(null);
     }
   }, [isOpen]);
 
@@ -697,10 +708,14 @@ export const ForestModal: React.FC<ForestModalProps> = ({
     setSubmitting(true);
     setError(null);
     try {
+      /* Present only when the visit began on a Prolific study link. The ids
+         travel with the submission so the feedback can be matched to a paid
+         participant; they are never shown anywhere. */
+      const prolific = getProlificSession();
       const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(prolific ? { ...data, prolific } : data),
       });
       if (!res.ok) throw new Error();
       trackEvent("feedback_submitted", {
@@ -709,6 +724,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
       });
       localStorage.setItem("forest-feedback-submitted", "true");
       window.dispatchEvent(new Event("feedback-submitted"));
+      if (prolific) setCompletionUrl(getProlificCompletionUrl());
       setStep(5);
     } catch {
       setError(t.errorMsg);
@@ -962,9 +978,23 @@ export const ForestModal: React.FC<ForestModalProps> = ({
             </Leaves>
             <SuccessTitle>{t.s5Title}</SuccessTitle>
             <SuccessBody>{t.s5Body}</SuccessBody>
-            <PrimaryBtn onClick={onClose} type="button">
-              {t.s5Close}
-            </PrimaryBtn>
+            {/* A study participant leaves for Prolific to have the submission
+                credited; everyone else just closes the dialog. Same slot, so
+                the step looks the same either way. */}
+            {completionUrl ? (
+              <PrimaryBtn
+                as="a"
+                data-testid="prolific-complete"
+                href={completionUrl}
+              >
+                {t.s5ReturnToProlific}
+                <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+              </PrimaryBtn>
+            ) : (
+              <PrimaryBtn onClick={onClose} type="button">
+                {t.s5Close}
+              </PrimaryBtn>
+            )}
           </SuccessWrap>
         )}
       </Card>

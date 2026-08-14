@@ -425,6 +425,99 @@ describe("Forest", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
+  describe("Prolific usability study", () => {
+    const COMPLETION_URL =
+      "https://app.prolific.com/submissions/complete?cc=ABC123";
+    const SESSION = {
+      prolificPid: "5f2a1b9c4d3e2f1a0b9c8d7e",
+      studyId: "60d5f8a2b1c3d4e5f6a7b8c9",
+      sessionId: "70e6a9b3c2d4e5f6a7b8c9d0",
+    };
+    const originalUrl = process.env.NEXT_PUBLIC_PROLIFIC_COMPLETION_URL;
+    let fetchMock: jest.Mock;
+
+    /* Walks the whole four-step form, which is the only way to reach the
+       success step where the return link lives. */
+    const submitFeedback = async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<Forest {...defaultForest} />);
+      await user.click(
+        screen.getByRole("button", { name: defaultForest.ctaButtonLabel }),
+      );
+      await user.click(screen.getByRole("button", { name: /continue/i }));
+      await user.click(screen.getByRole("button", { name: "UX" }));
+      await user.click(screen.getByRole("button", { name: /continue/i }));
+      await user.type(
+        screen.getByLabelText("Your feedback"),
+        "The navigation was clear enough to follow.",
+      );
+      await user.click(screen.getByRole("button", { name: /continue/i }));
+      await user.click(screen.getByRole("button", { name: "Send" }));
+    };
+
+    const submittedBody = () =>
+      JSON.parse(fetchMock.mock.calls[0][1].body as string);
+
+    /* The header ✕ is also named "Close", so the success step's own button is
+       the one carrying that as visible text rather than as a label. */
+    const successCloseButton = () =>
+      screen
+        .getAllByRole("button", { name: "Close" })
+        .find((button) => button.textContent === "Close");
+
+    beforeEach(() => {
+      sessionStorage.clear();
+      localStorage.clear();
+      fetchMock = jest.fn().mockResolvedValue({ ok: true });
+      global.fetch = fetchMock as unknown as typeof fetch;
+      process.env.NEXT_PUBLIC_PROLIFIC_COMPLETION_URL = COMPLETION_URL;
+    });
+
+    afterEach(() => {
+      process.env.NEXT_PUBLIC_PROLIFIC_COMPLETION_URL = originalUrl;
+    });
+
+    it("sends the participant identifiers and offers the way back", async () => {
+      sessionStorage.setItem("prolific-session", JSON.stringify(SESSION));
+      await submitFeedback();
+
+      expect(submittedBody().prolific).toEqual(SESSION);
+
+      const returnLink = screen.getByTestId("prolific-complete");
+      expect(returnLink).toHaveAttribute("href", COMPLETION_URL);
+      expect(returnLink).toHaveTextContent("Return to Prolific");
+      expect(successCloseButton()).toBeUndefined();
+    });
+
+    it("never leaks the identifiers into the page", async () => {
+      sessionStorage.setItem("prolific-session", JSON.stringify(SESSION));
+      await submitFeedback();
+
+      expect(document.body.textContent).not.toContain(SESSION.prolificPid);
+    });
+
+    /* The whole point of requirement 3: an ordinary visitor's experience is
+       byte-for-byte the one that shipped before the study existed. */
+    it("leaves an ordinary submission untouched", async () => {
+      await submitFeedback();
+
+      expect(submittedBody().prolific).toBeUndefined();
+      expect(successCloseButton()).toBeInTheDocument();
+      expect(
+        screen.queryByTestId("prolific-complete"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("shows no return link when no study is configured", async () => {
+      delete process.env.NEXT_PUBLIC_PROLIFIC_COMPLETION_URL;
+      sessionStorage.setItem("prolific-session", JSON.stringify(SESSION));
+      await submitFeedback();
+
+      expect(submittedBody().prolific).toEqual(SESSION);
+      expect(successCloseButton()).toBeInTheDocument();
+    });
+  });
+
   describe("stats section visibility", () => {
     const getStatItems = (container: HTMLElement) =>
       container.querySelectorAll("[data-testid='stat-item']");
