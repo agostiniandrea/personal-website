@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { createClient } from "@supabase/supabase-js";
 
+import { FEEDBACK_MESSAGE_MIN_LENGTH } from "@constants";
 import { isValidProlificId, ProlificSession } from "@lib/utils/prolific";
 
 const ALLOWED_CATEGORIES = [
@@ -73,7 +74,11 @@ export default async function handler(
     return res.status(400).json({ error: "Invalid or missing category" });
   }
 
-  if (!message || typeof message !== "string" || message.trim().length < 10) {
+  if (
+    !message ||
+    typeof message !== "string" ||
+    message.trim().length < FEEDBACK_MESSAGE_MIN_LENGTH
+  ) {
     return res.status(400).json({ error: "Message is too short" });
   }
 
