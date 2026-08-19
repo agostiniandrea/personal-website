@@ -60,7 +60,7 @@ test("modal closes on Escape key", async ({ page }) => {
   await expect(feedbackDialog(page)).not.toBeVisible();
 });
 
-test("step 3 Continue is disabled until 10+ characters are typed", async ({
+test("step 3 Continue is disabled until 20+ characters are typed", async ({
   page,
 }) => {
   await openModal(page);
@@ -72,11 +72,16 @@ test("step 3 Continue is disabled until 10+ characters are typed", async ({
   // Step 3: Continue should be disabled with no text
   const continueBtn = page.getByRole("button", { name: /continue/i });
   await expect(continueBtn).toBeDisabled();
-  // Type fewer than 10 chars — still disabled
   await page.getByLabel(/your feedback/i).fill("short");
   await expect(continueBtn).toBeDisabled();
-  // Type 10+ chars — enabled
-  await page.getByLabel(/your feedback/i).fill("long enough message here");
+  /* 12 characters: the two-word compliment the gate exists to stop. It passed
+     under the old 10-character floor, which is what makes this the case that
+     actually pins the threshold. */
+  await page.getByLabel(/your feedback/i).fill("good website");
+  await expect(continueBtn).toBeDisabled();
+  /* 24 characters: a terse but genuinely useful report, the kind a higher floor
+     would have turned away. */
+  await page.getByLabel(/your feedback/i).fill("font too small on mobile");
   await expect(continueBtn).toBeEnabled();
 });
 
