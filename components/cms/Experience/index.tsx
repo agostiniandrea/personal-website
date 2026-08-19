@@ -57,7 +57,7 @@ const Item = styled.li`
   }
 
   &:not(:first-child) {
-    border-top: 1px solid ${({ theme }) => theme.colors.main};
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {

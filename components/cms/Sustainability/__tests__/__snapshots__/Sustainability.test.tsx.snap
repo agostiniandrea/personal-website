@@ -160,7 +160,7 @@ exports[`Sustainability renders correctly with all props 1`] = `
 }
 
 .c16:not(:first-child) {
-  border-top: 1px solid var(--color-main);
+  border-top: 1px solid var(--color-border);
 }
 
 .c17 {
@@ -749,7 +749,7 @@ exports[`Sustainability renders correctly with minimal props 1`] = `
 }
 
 .c15:not(:first-child) {
-  border-top: 1px solid var(--color-main);
+  border-top: 1px solid var(--color-border);
 }
 
 .c16 {
