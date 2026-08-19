@@ -18,6 +18,10 @@ export default tseslint.config(
       "dist/**/*",
       "build/**/*",
       ".yarn/**/*",
+      /* Agent sessions create git worktrees here — a second, complete copy of
+         the tree. Without this, eslint lints both and reports a parsing error
+         on every file, because two candidate tsconfigRootDirs are in play. */
+      ".claude/**/*",
       "next-env.d.ts",
     ],
   },
