@@ -12,10 +12,10 @@ const strings = {
     feedbackNudgeCta: "See how it grows",
     feedbackNudgeDismiss: "Dismiss feedback prompt",
     feedbackNudgeTitle: "Your feedback helps grow real trees.",
-    forestCommunityImpactTitle: "Community impact",
-    forestCommunityPerContribution: (perContribution: number) =>
+    forestFeedbackImpactTitle: "Feedback impact",
+    forestPerContribution: (perContribution: number) =>
       `${perContribution} trees planted for each`,
-    forestCommunityTrees: (trees: number) =>
+    forestFeedbackTrees: (trees: number) =>
       `${trees} trees grown through portfolio feedback`,
     forestContributions: (count: number) =>
       `${count} meaningful ${count === 1 ? "contribution" : "contributions"}`,
@@ -93,10 +93,10 @@ const strings = {
     feedbackNudgeCta: "Scopri come cresce",
     feedbackNudgeDismiss: "Chiudi l'invito al feedback",
     feedbackNudgeTitle: "Il tuo feedback aiuta a far crescere alberi veri.",
-    forestCommunityImpactTitle: "Impatto della community",
-    forestCommunityPerContribution: (perContribution: number) =>
+    forestFeedbackImpactTitle: "Impatto dei feedback",
+    forestPerContribution: (perContribution: number) =>
       `${perContribution} alberi piantati per ciascuno`,
-    forestCommunityTrees: (trees: number) =>
+    forestFeedbackTrees: (trees: number) =>
       `${trees} alberi cresciuti grazie ai feedback`,
     forestContributions: (count: number) =>
       `${count} ${count === 1 ? "contributo significativo" : "contributi significativi"}`,

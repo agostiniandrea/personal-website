@@ -30,7 +30,7 @@ export const SeasonComplete: Story = {
     insightsCollectedCount: 68,
     treesDedicatedCount: 25,
     improvementsShippedCount: 25,
-    communityContributionsCount: 12,
+    contributionsCount: 12,
     seasonTarget: 25,
   },
 };
@@ -39,7 +39,7 @@ export const EarlySeason: Story = {
   args: {
     ...defaultForest,
     treesDedicatedCount: 2,
-    communityContributionsCount: 1,
+    contributionsCount: 1,
     seasonTarget: 25,
     insightsCollectedCount: 3,
     improvementsShippedCount: 1,

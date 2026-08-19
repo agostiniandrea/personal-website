@@ -1,47 +1,46 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-/* Feedback recruited and paid for through a usability study is not an insight
-   the site earned, so none of the published figures count it. If a study
-   finding does ship, it gets logged as an internal insight the same way every
-   other improvement does — that keeps one record per visible outcome instead
-   of counting the study row in one figure and not the other. */
-const EXCLUDED_SOURCE = "usability_study";
+/* Junk, spam and empty submissions are the only thing the published figures
+   leave out. Everything else counts, whatever its provenance: a recruited
+   participant paid to look at the site still gave an insight that changes it,
+   and "insights collected" never claimed the insights were unsolicited. The
+   figure that does make that claim is the contribution count below. */
+const REJECTED_STATUS = "rejected";
 
 export interface ForestImpactStats {
-  /** Every record in the feedback table, whatever its source. */
+  /** Every genuine record in the feedback table — anything not rejected. */
   insightsCollectedCount: number;
-  /** Trees dedicated to real community feedback only (sum of trees_planted
-      where source = 'community'). Internal insights never grow trees. */
+  /** Trees dedicated to feedback, whoever gave it. Internal insights never
+      grow trees, so the trees themselves are what identifies the rows. */
   treesDedicatedCount: number;
-  /** Records shipped as improvements (status = 'implemented'), any source. */
+  /** Records shipped as improvements (status = 'implemented'). */
   improvementsShippedCount: number;
-  /** Community records that earned trees (source = 'community', trees > 0). */
-  communityContributionsCount: number;
+  /** Records that earned trees. Paired with treesDedicatedCount to state the
+      ratio, so the two must always filter on the same condition. */
+  contributionsCount: number;
 }
 
 export async function getForestImpactStats(
   supabase: SupabaseClient,
 ): Promise<ForestImpactStats> {
-  const [insightsResult, communityResult, implementedResult] =
-    await Promise.all([
-      supabase
-        .from("feedback")
-        .select("id", { count: "exact", head: true })
-        .neq("source", EXCLUDED_SOURCE),
-      supabase
-        .from("feedback")
-        .select("trees_planted")
-        .eq("source", "community"),
-      supabase
-        .from("feedback")
-        .select("id", { count: "exact", head: true })
-        .eq("status", "implemented")
-        .neq("source", EXCLUDED_SOURCE),
-    ]);
+  const [insightsResult, rewardedResult, implementedResult] = await Promise.all([
+    supabase
+      .from("feedback")
+      .select("id", { count: "exact", head: true })
+      .neq("status", REJECTED_STATUS),
+    /* Trees, not source, is the condition: it is the only thing that marks a
+       piece of feedback as one Andrea chose to reward. Changing this without
+       changing the count below would make the ratio in "Feedback impact" lie. */
+    supabase.from("feedback").select("trees_planted").gt("trees_planted", 0),
+    supabase
+      .from("feedback")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "implemented"),
+  ]);
 
   const errors = [
     insightsResult.error,
-    communityResult.error,
+    rewardedResult.error,
     implementedResult.error,
   ].filter(Boolean);
   if (errors.length > 0) {
@@ -52,17 +51,15 @@ export async function getForestImpactStats(
     );
   }
 
-  const communityRows = communityResult.data ?? [];
+  const rewardedRows = rewardedResult.data ?? [];
 
   return {
     insightsCollectedCount: insightsResult.count ?? 0,
-    treesDedicatedCount: communityRows.reduce(
+    treesDedicatedCount: rewardedRows.reduce(
       (sum, row) => sum + (Number(row.trees_planted) || 0),
       0,
     ),
     improvementsShippedCount: implementedResult.count ?? 0,
-    communityContributionsCount: communityRows.filter(
-      (row) => Number(row.trees_planted) > 0,
-    ).length,
+    contributionsCount: rewardedRows.length,
   };
 }
