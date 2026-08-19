@@ -25,7 +25,7 @@ export const defaultForest: ForestProps = {
   insightsCollectedCount: 10,
   treesDedicatedCount: 4,
   improvementsShippedCount: 8,
-  communityContributionsCount: 2,
+  contributionsCount: 2,
   treeCount: 34,
   ctaHeading: "Help this portfolio grow.",
   ctaBody:
@@ -54,7 +54,7 @@ export const oneStatForest: ForestProps = {
   insightsCollectedCount: 1,
   treesDedicatedCount: 0,
   improvementsShippedCount: 0,
-  communityContributionsCount: 0,
+  contributionsCount: 0,
 };
 
 export const twoStatForest: ForestProps = {
@@ -62,7 +62,7 @@ export const twoStatForest: ForestProps = {
   insightsCollectedCount: 5,
   treesDedicatedCount: 2,
   improvementsShippedCount: 0,
-  communityContributionsCount: 1,
+  contributionsCount: 1,
 };
 
 export const fullStatForest: ForestProps = {
@@ -70,5 +70,5 @@ export const fullStatForest: ForestProps = {
   insightsCollectedCount: 68,
   treesDedicatedCount: 25,
   improvementsShippedCount: 25,
-  communityContributionsCount: 12,
+  contributionsCount: 12,
 };
