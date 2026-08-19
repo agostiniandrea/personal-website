@@ -167,7 +167,7 @@ describe("Forest", () => {
   it("names the forest total only once, in the panel that tracks it", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     // The CTA card shows the number under its own caption; "My forest" belongs
-    // to the progress panel, where it pairs with "Community impact". Both on
+    // to the progress panel, where it pairs with "Feedback impact". Both on
     // one narrow screen read as a duplicate.
     expect(screen.getAllByText(/my forest/i)).toHaveLength(1);
   });
@@ -292,7 +292,7 @@ describe("Forest", () => {
     );
     // The community wrapper dissolves (display: contents) so its three lines
     // can take grid rows of their own, facing the progress rows opposite.
-    expect(screen.getByTestId("community-impact")).toHaveStyleRule(
+    expect(screen.getByTestId("feedback-impact")).toHaveStyleRule(
       "display",
       "contents",
     );
@@ -304,7 +304,7 @@ describe("Forest", () => {
 
   it("renders the community impact block from real community data", () => {
     renderWithTheme(<Forest {...defaultForest} />);
-    const block = screen.getByTestId("community-impact");
+    const block = screen.getByTestId("feedback-impact");
     expect(block).toHaveTextContent("4 trees grown through portfolio feedback");
     expect(block).toHaveTextContent("2 meaningful contributions");
     expect(block).toHaveTextContent("2 trees planted for each");

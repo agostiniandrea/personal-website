@@ -47,7 +47,7 @@ export interface ForestProps {
   /** Records shipped as improvements (status=implemented), any source. */
   improvementsShippedCount?: number;
   /** Community records that earned trees (source=community, trees>0). */
-  communityContributionsCount?: number;
+  contributionsCount?: number;
   treeCount?: number;
   /** Trees planted in the current calendar month, live from Tree-Nation. */
   monthTreeCount?: number;
@@ -531,13 +531,13 @@ const SeasonReached = styled.span`
   letter-spacing: 0.05em;
 `;
 
-/* ── Community impact ── */
+/* ── Feedback impact ── */
 
-const CommunityImpact = styled.div`
+const FeedbackImpact = styled.div`
   display: contents;
 `;
 
-const CommunityTitle = styled.span`
+const FeedbackTitle = styled.span`
   /* Carries the stacked-layout separator the dissolved wrapper used to hold. */
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   color: ${({ theme }) => theme.colors.paragraph};
@@ -556,7 +556,7 @@ const CommunityTitle = styled.span`
   text-transform: uppercase;
 `;
 
-const CommunityTrees = styled.span`
+const FeedbackTrees = styled.span`
   color: ${({ theme }) => theme.colors.headline};
   grid-area: ctitle;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -568,7 +568,7 @@ const CommunityTrees = styled.span`
 /* Two lines on a phone, where the default break left "each" alone on the
    second. A non-breaking space keeps the separator with the clause it closes,
    and balance evens what is left. */
-const CommunityMeta = styled.span`
+const FeedbackMeta = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   grid-area: cmeta;
@@ -583,7 +583,7 @@ const CommunityMeta = styled.span`
 /* The separator only earns its place while both halves share a line. On a phone
    the meta wraps anyway, which left a "·" dangling at the end of the first
    line — so below `mobile` the halves stack and it goes away. */
-const CommunityMetaSeparator = styled.span`
+const FeedbackMetaSeparator = styled.span`
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
     display: none;
   }
@@ -591,7 +591,7 @@ const CommunityMetaSeparator = styled.span`
 
 /* ── Where the forest grows ── */
 
-/* Takes the separator CommunityImpact used to carry: it now sits under the
+/* Takes the separator FeedbackImpact used to carry: it now sits under the
    progress block, which is what that rule was always dividing. */
 const ForestSpread = styled.div`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
@@ -721,7 +721,7 @@ const ProjectPanel = styled.div`
   padding-top: ${DIVIDER_SPACE};
 `;
 
-/* Same eyebrow treatment as CommunityTitle: both label their own block at the
+/* Same eyebrow treatment as FeedbackTitle: both label their own block at the
    same level inside this card, so a lighter weight here read as an accident. */
 const ProjectLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
@@ -986,7 +986,7 @@ const Forest: React.FC<ForestProps> = ({
   insightsCollectedCount = 0,
   treesDedicatedCount = 0,
   improvementsShippedCount = 0,
-  communityContributionsCount = 0,
+  contributionsCount = 0,
   seasonName,
   treeCount = 34,
   monthTreeCount = 0,
@@ -1056,11 +1056,11 @@ const Forest: React.FC<ForestProps> = ({
     100,
   );
   const perContribution =
-    communityContributionsCount > 0
-      ? Math.round(treesDedicatedCount / communityContributionsCount)
+    contributionsCount > 0
+      ? Math.round(treesDedicatedCount / contributionsCount)
       : 0;
-  const hasCommunityImpact =
-    treesDedicatedCount > 0 && communityContributionsCount > 0;
+  const hasFeedbackImpact =
+    treesDedicatedCount > 0 && contributionsCount > 0;
   const visibleStats = [
     {
       value: animInsights,
@@ -1168,7 +1168,7 @@ const Forest: React.FC<ForestProps> = ({
           <CtaDecor>
             {/* No eyebrow: the caption below already names the number, and
                 "My forest" belongs to the progress panel underneath, where it
-                pairs with "Community impact". Repeating it here read as a
+                pairs with "Feedback impact". Repeating it here read as a
                 duplicate once the two cards stacked on phones. */}
             <CtaDecorNumber>{treeCount}</CtaDecorNumber>
             <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
@@ -1237,24 +1237,24 @@ const Forest: React.FC<ForestProps> = ({
                 </SpreadList>
               </ForestSpread>
             )}
-            {hasCommunityImpact && (
-              <CommunityImpact data-testid="community-impact">
-                <CommunityTitle>{t.forestCommunityImpactTitle}</CommunityTitle>
-                <CommunityTrees>
-                  {t.forestCommunityTrees(treesDedicatedCount)}
-                </CommunityTrees>
-                <CommunityMeta>
+            {hasFeedbackImpact && (
+              <FeedbackImpact data-testid="feedback-impact">
+                <FeedbackTitle>{t.forestFeedbackImpactTitle}</FeedbackTitle>
+                <FeedbackTrees>
+                  {t.forestFeedbackTrees(treesDedicatedCount)}
+                </FeedbackTrees>
+                <FeedbackMeta>
                   <span>
-                    {t.forestContributions(communityContributionsCount)}
+                    {t.forestContributions(contributionsCount)}
                   </span>
-                  <CommunityMetaSeparator aria-hidden="true">
+                  <FeedbackMetaSeparator aria-hidden="true">
                     {"\u00a0·\u00a0"}
-                  </CommunityMetaSeparator>
+                  </FeedbackMetaSeparator>
                   <span>
-                    {t.forestCommunityPerContribution(perContribution)}
+                    {t.forestPerContribution(perContribution)}
                   </span>
-                </CommunityMeta>
-              </CommunityImpact>
+                </FeedbackMeta>
+              </FeedbackImpact>
             )}
             {seasonProjectName && (
               <ProjectPanel data-testid="season-project">
