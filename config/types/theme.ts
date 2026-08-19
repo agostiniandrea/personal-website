@@ -10,6 +10,7 @@ declare module "styled-components" {
       button_text: string;
       stroke: string;
       main: string;
+      border: string;
       highlight: string;
       secondary: string;
       tertiary: string;

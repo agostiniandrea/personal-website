@@ -9,6 +9,10 @@ export const colors = {
   // illustration
   stroke: "var(--color-stroke)",
   main: "var(--color-main)",
+  /* Section dividers only. Kept apart from `main`, which the body inherits as
+     its text colour — a value quiet enough for a 1px rule is unreadable as
+     text, and a value readable as text draws a heavy line. */
+  border: "var(--color-border)",
   highlight: "var(--color-highlight)",
   secondary: "var(--color-secondary)",
   tertiary: "var(--color-tertiary)",

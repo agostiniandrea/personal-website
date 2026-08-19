@@ -34,7 +34,7 @@ const Intro = styled(Text)`
 `;
 
 const Card = styled.article`
-  border: 1px solid ${({ theme }) => theme.colors.main};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.radii.md};
   display: flex;
   flex-direction: column;
