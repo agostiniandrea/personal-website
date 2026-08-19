@@ -67,8 +67,7 @@ const GlobalStyle = createGlobalStyle`
   @media (prefers-color-scheme: light) {
     :root {
       --artwork-opacity: 0.35;
-      --artwork-opacity: 0.35;
-    --color-background: #f5f5fa;
+      --color-background: #f5f5fa;
       --color-headline: #0a0a0f;
       --color-paragraph: #5e5e72;
       --color-button: #0f766e;
