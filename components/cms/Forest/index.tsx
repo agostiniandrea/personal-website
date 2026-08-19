@@ -18,6 +18,10 @@ import {
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
+import {
+  lastMilestoneReached,
+  nextMilestoneAfter,
+} from "@lib/utils/forestMilestones";
 import { formatCo2Tonnes } from "@lib/utils/formatCo2";
 import { useI18n } from "@lib/utils/i18n";
 import type { ForestProject, ForestSpecies } from "@lib/utils/treeNation";
@@ -40,13 +44,13 @@ export interface ForestProps {
   heading?: string;
   subheading?: string;
   originItems?: OriginItem[];
-  /** All feedback records, any source. */
+  /** Every genuine feedback record — anything not rejected. */
   insightsCollectedCount?: number;
-  /** Trees dedicated to real community feedback (sum where source=community). */
+  /** Trees dedicated to rewarded feedback (sum where trees_planted > 0). */
   treesDedicatedCount?: number;
-  /** Records shipped as improvements (status=implemented), any source. */
+  /** Records shipped as improvements (status=implemented). */
   improvementsShippedCount?: number;
-  /** Community records that earned trees (source=community, trees>0). */
+  /** Records that earned trees. Pairs with treesDedicatedCount as a ratio. */
   contributionsCount?: number;
   treeCount?: number;
   /** Trees planted in the current calendar month, live from Tree-Nation. */
@@ -58,15 +62,9 @@ export interface ForestProps {
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
-  seasonName?: string;
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
-  seasonTarget?: number;
-  /** Forest size when the season opened. Progress counts from here, so the bar
-      measures the season rather than the whole forest. Season One started from
-      an empty forest, hence the 0 default. */
-  seasonBaseline?: number;
   seasonProjectLabel?: string;
   seasonProjectName?: string;
   seasonProjectMeta?: string;
@@ -987,7 +985,6 @@ const Forest: React.FC<ForestProps> = ({
   treesDedicatedCount = 0,
   improvementsShippedCount = 0,
   contributionsCount = 0,
-  seasonName,
   treeCount = 34,
   monthTreeCount = 0,
   forestProjects = [],
@@ -997,8 +994,6 @@ const Forest: React.FC<ForestProps> = ({
   ctaButtonLabel = "Plant your feedback",
   treeCountLabel = "Trees planted since May 2026",
   treesLabel,
-  seasonTarget = 50,
-  seasonBaseline = 0,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
   seasonProjectMeta,
@@ -1040,21 +1035,9 @@ const Forest: React.FC<ForestProps> = ({
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
   const animImprovements = useAnimatedCounter(improvementsShippedCount, inView);
 
-  /* Progress measures the season, not the whole forest: a season target is
-     trees planted since it opened, so it stays comparable between seasons
-     instead of turning into a running total nobody can miss. Season One
-     opened on an empty forest, so its baseline is 0 and it reads the same as
-     before. */
-  const seasonProgress = Math.max(treeCount - seasonBaseline, 0);
-  /* A season keeps growing after its target is met — the forest does not pause
-     while I get round to opening the next one — so the count stops at the
-     target rather than reading "53 / 50 trees" beside a full bar. Nothing is
-     hidden: the real total is the headline figure two panels up. */
-  const seasonShown = Math.min(seasonProgress, seasonTarget);
-  const pct = Math.min(
-    seasonTarget > 0 ? Math.round((seasonProgress / seasonTarget) * 100) : 0,
-    100,
-  );
+  const nextMilestone = nextMilestoneAfter(treeCount);
+  const lastMilestone = lastMilestoneReached(treeCount);
+  const pct = Math.min(Math.round((treeCount / nextMilestone) * 100), 100);
   const perContribution =
     contributionsCount > 0
       ? Math.round(treesDedicatedCount / contributionsCount)
@@ -1181,21 +1164,25 @@ const Forest: React.FC<ForestProps> = ({
               <SeasonHeader>
                 <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                 <SeasonCount>
-                  {seasonShown} / {seasonTarget} {resolvedTreesLabel}
+                  {treeCount} / {nextMilestone} {resolvedTreesLabel}
                 </SeasonCount>
               </SeasonHeader>
               <ProgressTrack>
                 <ProgressFill $pct={pct} $animate={inView} />
               </ProgressTrack>
               <SeasonMeta>
-                {pct >= 100 ? (
-                  <SeasonReached data-testid="season-reached">
+                {/* The badge and the percentage both belong here, and both are
+                    true at once past the first rung: one says where the forest
+                    got to, the other how far to the next. The badge wins the
+                    slot because a milestone is the thing worth reading. */}
+                {lastMilestone !== null ? (
+                  <SeasonReached data-testid="milestone-reached">
                     <CircleCheck
                       size={14}
                       strokeWidth={2.25}
                       aria-hidden="true"
                     />
-                    {t.forestMilestoneReached(seasonName)}
+                    {t.forestMilestonePassed(lastMilestone)}
                   </SeasonReached>
                 ) : (
                   <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
