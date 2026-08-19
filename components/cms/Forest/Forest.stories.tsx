@@ -31,7 +31,6 @@ export const SeasonComplete: Story = {
     treesDedicatedCount: 25,
     improvementsShippedCount: 25,
     contributionsCount: 12,
-    seasonTarget: 25,
   },
 };
 
@@ -40,7 +39,6 @@ export const EarlySeason: Story = {
     ...defaultForest,
     treesDedicatedCount: 2,
     contributionsCount: 1,
-    seasonTarget: 25,
     insightsCollectedCount: 3,
     improvementsShippedCount: 1,
     changelogItems: [

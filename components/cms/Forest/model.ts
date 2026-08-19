@@ -33,7 +33,6 @@ export const defaultForest: ForestProps = {
   ctaButtonLabel: "Plant your feedback",
   treeCountLabel: "Trees planted since May 2026",
   viewForestLabel: "View the living forest",
-  seasonTarget: 50,
   seasonProjectLabel: "Season One project",
   seasonProjectName: "Community Reforestation in Indonesia",
   seasonProjectMeta: "Indonesia · Tropical community reforestation",
