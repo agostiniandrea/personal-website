@@ -58,27 +58,11 @@ describe("Forest", () => {
 
   it("renders the forest progress toward the next milestone", () => {
     renderWithTheme(<Forest {...defaultForest} />);
-    // treeCount 34 / seasonTarget 50 → 68%
-    expect(
-      screen.getByText("68% towards next milestone"),
-    ).toBeInTheDocument();
+    // treeCount 34, so the first rung at 50 is still ahead → 68%
+    expect(screen.getByText("68% towards next milestone")).toBeInTheDocument();
   });
 
-  describe("season progress", () => {
-    it("counts from the season baseline, not from an empty forest", () => {
-      renderWithTheme(
-        <Forest
-          {...defaultForest}
-          treeCount={60}
-          seasonBaseline={50}
-          seasonTarget={100}
-        />,
-      );
-      // 60 planted overall, 50 of them before this season opened → 10 of 100
-      expect(screen.getByText("10 / 100 trees")).toBeInTheDocument();
-      expect(screen.getByText("10% towards next milestone")).toBeInTheDocument();
-    });
-
+  describe("milestone ladder", () => {
     it("shows the monthly pulse only when trees landed this month", () => {
       const { rerender } = renderWithTheme(<Forest {...defaultForest} />);
       expect(screen.queryByTestId("month-pulse")).not.toBeInTheDocument();
@@ -89,85 +73,74 @@ describe("Forest", () => {
       );
     });
 
-    it("celebrates the target instead of reporting 100%", () => {
-      renderWithTheme(
-        <Forest
-          {...defaultForest}
-          seasonName="Season One"
-          treeCount={50}
-          seasonBaseline={0}
-          seasonTarget={50}
-        />,
+    it("counts towards the first rung before it is reached", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={34} />);
+      expect(screen.getByText("34 / 50 trees")).toBeInTheDocument();
+      expect(screen.queryByTestId("milestone-reached")).not.toBeInTheDocument();
+    });
+
+    /* Landing exactly on a rung advances past it rather than pinning the bar at
+       100% — the forest does not pause, and a full bar that never empties stops
+       reporting anything. */
+    it("advances the moment a rung is reached", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={50} />);
+      expect(screen.getByText("50 / 100 trees")).toBeInTheDocument();
+      expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
+        "50 trees reached",
       );
-      // The one moment this panel has something to announce, so it names the
-      // season rather than repeating a percentage that has stopped moving.
-      expect(screen.getByTestId("season-reached")).toHaveTextContent(
-        "Season One complete",
+    });
+
+    it("keeps the badge while climbing to the next rung", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={83} />);
+      expect(screen.getByText("83 / 100 trees")).toBeInTheDocument();
+      expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
+        "50 trees reached",
       );
+    });
+
+    /* The step is 100 from the second rung on, so the ladder needs no list and
+       nothing to maintain when one falls. */
+    it("steps by a hundred past the first rung", () => {
+      const { rerender } = renderWithTheme(
+        <Forest {...defaultForest} treeCount={100} />,
+      );
+      expect(screen.getByText("100 / 200 trees")).toBeInTheDocument();
+      expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
+        "100 trees reached",
+      );
+
+      rerender(<Forest {...defaultForest} treeCount={1_240} />);
+      expect(screen.getByText("1240 / 1300 trees")).toBeInTheDocument();
+      expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
+        "1200 trees reached",
+      );
+    });
+
+    it("reports the percentage only while no rung has fallen", () => {
+      const { rerender } = renderWithTheme(
+        <Forest {...defaultForest} treeCount={47} />,
+      );
+      expect(screen.getByText("94% towards next milestone")).toBeInTheDocument();
+
+      // Past the first rung the badge takes the slot: a milestone outranks a
+      // percentage that will reset anyway.
+      rerender(<Forest {...defaultForest} treeCount={60} />);
       expect(
         screen.queryByText(/towards next milestone/),
       ).not.toBeInTheDocument();
     });
 
-    it("falls back to a generic line when the season has no name", () => {
-      renderWithTheme(
-        <Forest
-          {...defaultForest}
-          seasonName={undefined}
-          treeCount={50}
-          seasonBaseline={0}
-          seasonTarget={50}
-        />,
-      );
-      expect(screen.getByTestId("season-reached")).toHaveTextContent(
-        "Milestone reached",
-      );
-    });
-
-    it("still reports progress while the target is out of reach", () => {
-      renderWithTheme(
-        <Forest {...defaultForest} treeCount={47} seasonTarget={50} />,
-      );
-      expect(screen.queryByTestId("season-reached")).not.toBeInTheDocument();
-      expect(
-        screen.getByText("94% towards next milestone"),
-      ).toBeInTheDocument();
-    });
-
-    it("stops the count at the target once the season is met", () => {
-      renderWithTheme(
-        <Forest
-          {...defaultForest}
-          treeCount={103}
-          seasonBaseline={50}
-          seasonTarget={50}
-        />,
-      );
-      // 53 planted this season against a target of 50: the bar is full and the
-      // count says so, rather than reading past its own goal.
-      expect(screen.getByText("50 / 50 trees")).toBeInTheDocument();
-      // Past the target the panel celebrates rather than reporting a figure
-      // that has stopped moving.
-      expect(screen.getByTestId("season-reached")).toBeInTheDocument();
-    });
-
-    it("never reports negative progress when the baseline exceeds the count", () => {
-      renderWithTheme(
-        <Forest
-          {...defaultForest}
-          treeCount={40}
-          seasonBaseline={50}
-          seasonTarget={100}
-        />,
-      );
-      expect(screen.getByText("0 / 100 trees")).toBeInTheDocument();
+    it("survives an empty forest", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={0} />);
+      expect(screen.getByText("0 / 50 trees")).toBeInTheDocument();
+      expect(screen.queryByTestId("milestone-reached")).not.toBeInTheDocument();
     });
   });
 
   it("names the forest total only once, in the panel that tracks it", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     // The CTA card shows the number under its own caption; "My forest" belongs
-    // to the progress panel, where it pairs with "Community impact". Both on
+    // to the progress panel, where it pairs with "Feedback impact". Both on
     // one narrow screen read as a duplicate.
     expect(screen.getAllByText(/my forest/i)).toHaveLength(1);
   });
@@ -292,7 +265,7 @@ describe("Forest", () => {
     );
     // The community wrapper dissolves (display: contents) so its three lines
     // can take grid rows of their own, facing the progress rows opposite.
-    expect(screen.getByTestId("community-impact")).toHaveStyleRule(
+    expect(screen.getByTestId("feedback-impact")).toHaveStyleRule(
       "display",
       "contents",
     );
@@ -304,7 +277,7 @@ describe("Forest", () => {
 
   it("renders the community impact block from real community data", () => {
     renderWithTheme(<Forest {...defaultForest} />);
-    const block = screen.getByTestId("community-impact");
+    const block = screen.getByTestId("feedback-impact");
     expect(block).toHaveTextContent("4 trees grown through portfolio feedback");
     expect(block).toHaveTextContent("2 meaningful contributions");
     expect(block).toHaveTextContent("2 trees planted for each");

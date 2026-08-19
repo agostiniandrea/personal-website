@@ -1053,12 +1053,12 @@ exports[`Forest renders correctly with all props 1`] = `
           </div>
           <div
             class="c39"
-            data-testid="community-impact"
+            data-testid="feedback-impact"
           >
             <span
               class="c40"
             >
-              Community impact
+              Feedback impact
             </span>
             <span
               class="c41"

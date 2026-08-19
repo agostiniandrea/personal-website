@@ -35,9 +35,6 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Set Yarn version
-        run: corepack prepare yarn@4.9.1 --activate
-
       - name: Install dependencies
         run: yarn install
 
@@ -66,16 +63,65 @@ jobs:
       - name: Run Lighthouse CI (mobile)
         run: npx lhci autorun --config=.lighthouserc.mobile.json
 
-      - name: Install Playwright browsers
-        run: npx playwright install chromium --with-deps
+  e2e:
+    name: E2E
+    runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.actor, 'dependabot') }}
+    # The official image ships Chromium and every system library it needs, so
+    # nothing is installed at run time. `playwright install --with-deps` used to
+    # do that here, and its apt phase is where the runs went to die: when the
+    # Azure Ubuntu mirror is unreachable, apt retries each index on a long
+    # timeout before falling back to the public archive. One run spent 36
+    # minutes in that loop. Keep this tag in step with @playwright/test.
+    container: mcr.microsoft.com/playwright:v1.61.1-noble
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      # The image carries an older Node than this project's engines field
+      # allows, so the toolchain still comes from setup-node.
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "yarn"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install
+
+      # Playwright's own webServer is disabled under CI, and the server used to
+      # come from the Lighthouse step in the single job this was split out of.
+      # In its own job it has to build and serve for itself.
+      - name: Build
+        run: yarn build:compile
+        env:
+          NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
 
       - name: Run E2E tests
-        run: yarn e2e
+        run: |
+          yarn start &
+          npx wait-on http://localhost:3000 --timeout 60000
+          yarn e2e
         env:
           CI: true
 
+  auto-merge:
+    name: Auto-merge
+    runs-on: ubuntu-latest
+    needs: [test-and-lint, e2e]
+    if: ${{ success() && !startsWith(github.actor, 'dependabot') }}
+
+    steps:
       - name: Auto-merge PR
-        if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge --squash --delete-branch --auto "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}"

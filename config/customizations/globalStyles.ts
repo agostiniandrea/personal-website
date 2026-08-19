@@ -50,10 +50,16 @@ const GlobalStyle = createGlobalStyle`
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
-    --color-button: #0d9488;
+    /* Darkened from #0d9488: white on that only reached 3.74:1, and button
+       labels are 16px bold — not large text, so AA asks for 4.5. */
+    --color-button: #0b7f74;
     --color-button-text: #ffffff;
     --color-stroke: #0f2a28;
     --color-main: #a0a0b0;
+    /* Section dividers. Their own token because --color-main is the body text
+       colour, and one value cannot serve both: text needs contrast, a divider
+       needs to stay quiet. */
+    --color-border: #a0a0b0;
     --color-highlight: #2dd4bf;
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
@@ -67,14 +73,16 @@ const GlobalStyle = createGlobalStyle`
   @media (prefers-color-scheme: light) {
     :root {
       --artwork-opacity: 0.35;
-      --artwork-opacity: 0.35;
-    --color-background: #f5f5fa;
+      --color-background: #f5f5fa;
       --color-headline: #0a0a0f;
       --color-paragraph: #5e5e72;
       --color-button: #0f766e;
       --color-button-text: #ffffff;
       --color-stroke: #c8e6e4;
-      --color-main: #c0c0d4;
+      /* Was #c0c0d4, which is the body text colour at 1.65:1 on this ground —
+         unreadable for anything that does not set its own colour. */
+      --color-main: #5e5e72;
+      --color-border: #9a9ab0;
       --color-highlight: #0f766e;
       --color-secondary: #0a0a0f;
       --color-tertiary: #0f766e;
@@ -94,7 +102,8 @@ const GlobalStyle = createGlobalStyle`
     --color-button: #0f766e;
     --color-button-text: #ffffff;
     --color-stroke: #c8e6e4;
-    --color-main: #c0c0d4;
+    --color-main: #5e5e72;
+    --color-border: #9a9ab0;
     --color-highlight: #0f766e;
     --color-secondary: #0a0a0f;
     --color-tertiary: #0f766e;
@@ -110,10 +119,11 @@ const GlobalStyle = createGlobalStyle`
     --color-background: #0a0a0f;
     --color-headline: #ffffff;
     --color-paragraph: #a0a0b0;
-    --color-button: #0d9488;
+    --color-button: #0b7f74;
     --color-button-text: #ffffff;
     --color-stroke: #0f2a28;
     --color-main: #a0a0b0;
+    --color-border: #a0a0b0;
     --color-highlight: #2dd4bf;
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;

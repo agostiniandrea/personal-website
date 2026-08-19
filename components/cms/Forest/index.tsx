@@ -18,6 +18,10 @@ import {
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
+import {
+  lastMilestoneReached,
+  nextMilestoneAfter,
+} from "@lib/utils/forestMilestones";
 import { formatCo2Tonnes } from "@lib/utils/formatCo2";
 import { useI18n } from "@lib/utils/i18n";
 import type { ForestProject, ForestSpecies } from "@lib/utils/treeNation";
@@ -40,14 +44,14 @@ export interface ForestProps {
   heading?: string;
   subheading?: string;
   originItems?: OriginItem[];
-  /** All feedback records, any source. */
+  /** Every genuine feedback record — anything not rejected. */
   insightsCollectedCount?: number;
-  /** Trees dedicated to real community feedback (sum where source=community). */
+  /** Trees dedicated to rewarded feedback (sum where trees_planted > 0). */
   treesDedicatedCount?: number;
-  /** Records shipped as improvements (status=implemented), any source. */
+  /** Records shipped as improvements (status=implemented). */
   improvementsShippedCount?: number;
-  /** Community records that earned trees (source=community, trees>0). */
-  communityContributionsCount?: number;
+  /** Records that earned trees. Pairs with treesDedicatedCount as a ratio. */
+  contributionsCount?: number;
   treeCount?: number;
   /** Trees planted in the current calendar month, live from Tree-Nation. */
   monthTreeCount?: number;
@@ -58,15 +62,9 @@ export interface ForestProps {
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
-  seasonName?: string;
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
-  seasonTarget?: number;
-  /** Forest size when the season opened. Progress counts from here, so the bar
-      measures the season rather than the whole forest. Season One started from
-      an empty forest, hence the 0 default. */
-  seasonBaseline?: number;
   seasonProjectLabel?: string;
   seasonProjectName?: string;
   seasonProjectMeta?: string;
@@ -531,13 +529,13 @@ const SeasonReached = styled.span`
   letter-spacing: 0.05em;
 `;
 
-/* ── Community impact ── */
+/* ── Feedback impact ── */
 
-const CommunityImpact = styled.div`
+const FeedbackImpact = styled.div`
   display: contents;
 `;
 
-const CommunityTitle = styled.span`
+const FeedbackTitle = styled.span`
   /* Carries the stacked-layout separator the dissolved wrapper used to hold. */
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   color: ${({ theme }) => theme.colors.paragraph};
@@ -556,7 +554,7 @@ const CommunityTitle = styled.span`
   text-transform: uppercase;
 `;
 
-const CommunityTrees = styled.span`
+const FeedbackTrees = styled.span`
   color: ${({ theme }) => theme.colors.headline};
   grid-area: ctitle;
   font-family: ${({ theme }) => theme.fontFamilies.heading};
@@ -568,7 +566,7 @@ const CommunityTrees = styled.span`
 /* Two lines on a phone, where the default break left "each" alone on the
    second. A non-breaking space keeps the separator with the clause it closes,
    and balance evens what is left. */
-const CommunityMeta = styled.span`
+const FeedbackMeta = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   grid-area: cmeta;
@@ -583,7 +581,7 @@ const CommunityMeta = styled.span`
 /* The separator only earns its place while both halves share a line. On a phone
    the meta wraps anyway, which left a "·" dangling at the end of the first
    line — so below `mobile` the halves stack and it goes away. */
-const CommunityMetaSeparator = styled.span`
+const FeedbackMetaSeparator = styled.span`
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
     display: none;
   }
@@ -591,7 +589,7 @@ const CommunityMetaSeparator = styled.span`
 
 /* ── Where the forest grows ── */
 
-/* Takes the separator CommunityImpact used to carry: it now sits under the
+/* Takes the separator FeedbackImpact used to carry: it now sits under the
    progress block, which is what that rule was always dividing. */
 const ForestSpread = styled.div`
   border-top: 1px solid rgba(128, 128, 128, 0.12);
@@ -721,7 +719,7 @@ const ProjectPanel = styled.div`
   padding-top: ${DIVIDER_SPACE};
 `;
 
-/* Same eyebrow treatment as CommunityTitle: both label their own block at the
+/* Same eyebrow treatment as FeedbackTitle: both label their own block at the
    same level inside this card, so a lighter weight here read as an accident. */
 const ProjectLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
@@ -986,8 +984,7 @@ const Forest: React.FC<ForestProps> = ({
   insightsCollectedCount = 0,
   treesDedicatedCount = 0,
   improvementsShippedCount = 0,
-  communityContributionsCount = 0,
-  seasonName,
+  contributionsCount = 0,
   treeCount = 34,
   monthTreeCount = 0,
   forestProjects = [],
@@ -997,8 +994,6 @@ const Forest: React.FC<ForestProps> = ({
   ctaButtonLabel = "Plant your feedback",
   treeCountLabel = "Trees planted since May 2026",
   treesLabel,
-  seasonTarget = 50,
-  seasonBaseline = 0,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
   seasonProjectMeta,
@@ -1040,27 +1035,15 @@ const Forest: React.FC<ForestProps> = ({
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
   const animImprovements = useAnimatedCounter(improvementsShippedCount, inView);
 
-  /* Progress measures the season, not the whole forest: a season target is
-     trees planted since it opened, so it stays comparable between seasons
-     instead of turning into a running total nobody can miss. Season One
-     opened on an empty forest, so its baseline is 0 and it reads the same as
-     before. */
-  const seasonProgress = Math.max(treeCount - seasonBaseline, 0);
-  /* A season keeps growing after its target is met — the forest does not pause
-     while I get round to opening the next one — so the count stops at the
-     target rather than reading "53 / 50 trees" beside a full bar. Nothing is
-     hidden: the real total is the headline figure two panels up. */
-  const seasonShown = Math.min(seasonProgress, seasonTarget);
-  const pct = Math.min(
-    seasonTarget > 0 ? Math.round((seasonProgress / seasonTarget) * 100) : 0,
-    100,
-  );
+  const nextMilestone = nextMilestoneAfter(treeCount);
+  const lastMilestone = lastMilestoneReached(treeCount);
+  const pct = Math.min(Math.round((treeCount / nextMilestone) * 100), 100);
   const perContribution =
-    communityContributionsCount > 0
-      ? Math.round(treesDedicatedCount / communityContributionsCount)
+    contributionsCount > 0
+      ? Math.round(treesDedicatedCount / contributionsCount)
       : 0;
-  const hasCommunityImpact =
-    treesDedicatedCount > 0 && communityContributionsCount > 0;
+  const hasFeedbackImpact =
+    treesDedicatedCount > 0 && contributionsCount > 0;
   const visibleStats = [
     {
       value: animInsights,
@@ -1168,7 +1151,7 @@ const Forest: React.FC<ForestProps> = ({
           <CtaDecor>
             {/* No eyebrow: the caption below already names the number, and
                 "My forest" belongs to the progress panel underneath, where it
-                pairs with "Community impact". Repeating it here read as a
+                pairs with "Feedback impact". Repeating it here read as a
                 duplicate once the two cards stacked on phones. */}
             <CtaDecorNumber>{treeCount}</CtaDecorNumber>
             <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
@@ -1181,21 +1164,25 @@ const Forest: React.FC<ForestProps> = ({
               <SeasonHeader>
                 <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                 <SeasonCount>
-                  {seasonShown} / {seasonTarget} {resolvedTreesLabel}
+                  {treeCount} / {nextMilestone} {resolvedTreesLabel}
                 </SeasonCount>
               </SeasonHeader>
               <ProgressTrack>
                 <ProgressFill $pct={pct} $animate={inView} />
               </ProgressTrack>
               <SeasonMeta>
-                {pct >= 100 ? (
-                  <SeasonReached data-testid="season-reached">
+                {/* The badge and the percentage both belong here, and both are
+                    true at once past the first rung: one says where the forest
+                    got to, the other how far to the next. The badge wins the
+                    slot because a milestone is the thing worth reading. */}
+                {lastMilestone !== null ? (
+                  <SeasonReached data-testid="milestone-reached">
                     <CircleCheck
                       size={14}
                       strokeWidth={2.25}
                       aria-hidden="true"
                     />
-                    {t.forestMilestoneReached(seasonName)}
+                    {t.forestMilestonePassed(lastMilestone)}
                   </SeasonReached>
                 ) : (
                   <SeasonSublabel>{t.forestMilestone(pct)}</SeasonSublabel>
@@ -1237,24 +1224,24 @@ const Forest: React.FC<ForestProps> = ({
                 </SpreadList>
               </ForestSpread>
             )}
-            {hasCommunityImpact && (
-              <CommunityImpact data-testid="community-impact">
-                <CommunityTitle>{t.forestCommunityImpactTitle}</CommunityTitle>
-                <CommunityTrees>
-                  {t.forestCommunityTrees(treesDedicatedCount)}
-                </CommunityTrees>
-                <CommunityMeta>
+            {hasFeedbackImpact && (
+              <FeedbackImpact data-testid="feedback-impact">
+                <FeedbackTitle>{t.forestFeedbackImpactTitle}</FeedbackTitle>
+                <FeedbackTrees>
+                  {t.forestFeedbackTrees(treesDedicatedCount)}
+                </FeedbackTrees>
+                <FeedbackMeta>
                   <span>
-                    {t.forestContributions(communityContributionsCount)}
+                    {t.forestContributions(contributionsCount)}
                   </span>
-                  <CommunityMetaSeparator aria-hidden="true">
+                  <FeedbackMetaSeparator aria-hidden="true">
                     {"\u00a0·\u00a0"}
-                  </CommunityMetaSeparator>
+                  </FeedbackMetaSeparator>
                   <span>
-                    {t.forestCommunityPerContribution(perContribution)}
+                    {t.forestPerContribution(perContribution)}
                   </span>
-                </CommunityMeta>
-              </CommunityImpact>
+                </FeedbackMeta>
+              </FeedbackImpact>
             )}
             {seasonProjectName && (
               <ProjectPanel data-testid="season-project">

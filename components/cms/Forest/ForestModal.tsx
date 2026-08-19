@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { LeafIcon, TreeIcon } from "@components/molecules";
-import { BREAKPOINTS } from "@constants";
+import { BREAKPOINTS, FEEDBACK_MESSAGE_MIN_LENGTH } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import {
   getProlificCompletionUrl,
@@ -823,7 +823,9 @@ export const ForestModal: React.FC<ForestModalProps> = ({
               </BackBtn>
               <PrimaryBtn
                 onClick={next}
-                disabled={data.message.trim().length < 10}
+                disabled={
+                  data.message.trim().length < FEEDBACK_MESSAGE_MIN_LENGTH
+                }
                 type="button"
               >
                 {continueLabel}

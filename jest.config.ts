@@ -20,6 +20,11 @@ const config: Config.InitialOptions = {
     "^styled-components$": "<rootDir>/node_modules/styled-components",
   },
   testMatch: ["**/components/**/*.test.tsx", "**/lib/**/*.test.ts"],
+  /* Agent sessions create git worktrees under .claude — a second copy of the
+     whole tree. Its test files match the patterns above, so jest would run
+     every suite twice, and the copy's stale tests resolve `@lib/*` back to
+     THIS tree through moduleNameMapper: old assertions against new source. */
+  testPathIgnorePatterns: ["/node_modules/", "/\\.claude/"],
   transform: {
     "^.+\\.(ts|tsx)$": [
       "ts-jest",

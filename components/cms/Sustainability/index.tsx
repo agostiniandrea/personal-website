@@ -74,7 +74,7 @@ const VolunteeringItem = styled.li`
   }
 
   &:not(:first-child) {
-    border-top: 1px solid ${({ theme }) => theme.colors.main};
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
 
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {

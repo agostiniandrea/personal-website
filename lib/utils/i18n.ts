@@ -12,10 +12,10 @@ const strings = {
     feedbackNudgeCta: "See how it grows",
     feedbackNudgeDismiss: "Dismiss feedback prompt",
     feedbackNudgeTitle: "Your feedback helps grow real trees.",
-    forestCommunityImpactTitle: "Community impact",
-    forestCommunityPerContribution: (perContribution: number) =>
+    forestFeedbackImpactTitle: "Feedback impact",
+    forestPerContribution: (perContribution: number) =>
       `${perContribution} trees planted for each`,
-    forestCommunityTrees: (trees: number) =>
+    forestFeedbackTrees: (trees: number) =>
       `${trees} trees grown through portfolio feedback`,
     forestContributions: (count: number) =>
       `${count} meaningful ${count === 1 ? "contribution" : "contributions"}`,
@@ -29,10 +29,9 @@ const strings = {
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} trees planted through portfolio feedback · ${totalTrees} trees in my forest`,
     forestMilestone: (pct: number) => `${pct}% towards next milestone`,
-    /* Names the season when the CMS gives one, so the line says which goal was
-       met rather than announcing an anonymous milestone. */
-    forestMilestoneReached: (season?: string) =>
-      season ? `${season} complete` : "Milestone reached",
+    /* States the rung rather than a season name: the ladder advances on its own
+       now, so the number is the only thing that identifies which goal fell. */
+    forestMilestonePassed: (milestone: number) => `${milestone} trees reached`,
     forestProgressTitle: "My forest",
     forestSpeciesCo2: (kg: number) => `${kg} kg CO\u2082 over its life`,
     /* Tree-Nation answers in English ("Fast-growing", "Native"); the map keeps
@@ -93,10 +92,10 @@ const strings = {
     feedbackNudgeCta: "Scopri come cresce",
     feedbackNudgeDismiss: "Chiudi l'invito al feedback",
     feedbackNudgeTitle: "Il tuo feedback aiuta a far crescere alberi veri.",
-    forestCommunityImpactTitle: "Impatto della community",
-    forestCommunityPerContribution: (perContribution: number) =>
+    forestFeedbackImpactTitle: "Impatto dei feedback",
+    forestPerContribution: (perContribution: number) =>
       `${perContribution} alberi piantati per ciascuno`,
-    forestCommunityTrees: (trees: number) =>
+    forestFeedbackTrees: (trees: number) =>
       `${trees} alberi cresciuti grazie ai feedback`,
     forestContributions: (count: number) =>
       `${count} ${count === 1 ? "contributo significativo" : "contributi significativi"}`,
@@ -110,8 +109,8 @@ const strings = {
     forestInlineMetric: (feedbackTrees: number, totalTrees: number) =>
       `${feedbackTrees} alberi piantati grazie ai feedback sul portfolio · ${totalTrees} alberi nella mia foresta`,
     forestMilestone: (pct: number) => `${pct}% verso il prossimo traguardo`,
-    forestMilestoneReached: (season?: string) =>
-      season ? `${season} completata` : "Traguardo raggiunto",
+    forestMilestonePassed: (milestone: number) =>
+      `${milestone} alberi raggiunti`,
     forestProgressTitle: "La mia foresta",
     forestSpeciesCo2: (kg: number) => `${kg} kg di CO\u2082 in tutta la vita`,
     forestSpeciesKind: (category: string, origin: string) => {
