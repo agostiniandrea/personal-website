@@ -196,10 +196,21 @@ before the study existed.** No banner, no notice, no changed copy.
   de-duplicates them by Prolific submission instead of by IP. The IP cooldown
   stays for the public form, but it would reject a second participant sharing
   a carrier NAT or VPN exit, which is a dead end mid-study.
-- Study rows are excluded from the published Forest counters
-  (`lib/utils/forestStats.ts`) and never grow trees: solicited, paid feedback
-  is not a community insight. If a study finding ships, log it as an internal
-  insight like any other improvement.
+- Study rows **are** counted in the published Forest figures
+  (`lib/utils/forestStats.ts`). They were excluded until v1.24.0, on the
+  reasoning that solicited, paid feedback is not a community insight; the
+  exclusion was dropped because "insights collected" never claimed the
+  insights were unsolicited, and a recruited participant who changes the site
+  still changed it. Rejected rows are the only thing the figures leave out.
+- **Trees are not tied to `source`.** The condition everywhere is
+  `trees_planted > 0`: an award marks feedback that was chosen to be rewarded,
+  whatever its provenance, and it is a separate decision from whether the
+  suggestion ships (`status`). Six study rows carry trees today alongside the
+  three community ones. `treesDedicatedCount` and `contributionsCount` must
+  always filter on the same condition, or the ratio in "Feedback impact" lies.
+- The claim that survives is narrower than it looks: the published count says
+  how many insights arrived and how many earned trees, not that any of them
+  were unpaid. Do not add copy that says otherwise.
 - The pid is never rendered anywhere, and is never sent to GA or Clarity.
 - Schema changes live in `supabase/migrations/20260814_prolific_study.sql` and
   must be pasted into the Supabase SQL editor by hand — the REST service key

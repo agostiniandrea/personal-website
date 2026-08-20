@@ -79,6 +79,10 @@ const strings = {
     tabMore: "More",
     tabStory: "Story",
     tabWork: "Work",
+    themeDark: "Dark",
+    themeLight: "Light",
+    themeSystem: "System",
+    themeToggleLabel: "Colour theme",
     viewProject: (title: string) => `View project: ${title}`,
   },
   it: {
@@ -168,6 +172,10 @@ const strings = {
     tabMore: "Altro",
     tabStory: "Percorso",
     tabWork: "Progetti",
+    themeDark: "Scuro",
+    themeLight: "Chiaro",
+    themeSystem: "Sistema",
+    themeToggleLabel: "Tema colori",
     viewProject: (title: string) => `Vedi progetto: ${title}`,
   },
 } as const;
