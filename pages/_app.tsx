@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 
 import { Head } from "@components/atoms";
+/* TEMPORARY: section-divider lab */
+import DividerLab from "@components/dev/DividerLab";
 import {
   AnalyticsScripts,
   CookieBanner,
@@ -16,6 +18,8 @@ import {
 } from "@components/molecules";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
+/* TEMPORARY: section-divider lab */
+import { DividerLabProvider } from "@lib/utils/dividerLab";
 import { useI18n } from "@lib/utils/i18n";
 import { useProlificCapture } from "@lib/utils/prolific";
 
@@ -75,6 +79,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       style={{ display: "contents" }}
     >
       <ThemeProvider theme={theme}>
+        <DividerLabProvider>
         <SkipLink href="#main-content">{t.skipToMainContent}</SkipLink>
         <GlobalStyle />
         <Head />
@@ -88,6 +93,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
           clarityId={CLARITY_ID}
           hasConsent={gaConsent}
         />
+        <DividerLab />
+        </DividerLabProvider>
       </ThemeProvider>
     </div>
   );
