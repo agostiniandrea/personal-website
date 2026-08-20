@@ -11,6 +11,7 @@ import { ServerStyleSheet } from "styled-components";
 
 import { colors } from "@config/customizations/colors";
 import { PRE_HYDRATION_VIEW_SCRIPT } from "@lib/utils/mobileNav";
+import { PRE_HYDRATION_THEME_SCRIPT } from "@lib/utils/theme";
 
 type MyDocumentProps = DocumentInitialProps & { locale: string };
 
@@ -53,6 +54,11 @@ export default class MyDocument extends Document<MyDocumentProps> {
           />
         </Head>
         <body>
+          {/* Restores an explicit theme choice before first paint, so forcing
+              light on a dark OS never flashes the dark background */}
+          <script
+            dangerouslySetInnerHTML={{ __html: PRE_HYDRATION_THEME_SCRIPT }}
+          />
           {/* Resolves the active mobile view from the hash before first paint
               so deep links (e.g. /#forest) never flash the Home tab */}
           <script
