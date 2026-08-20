@@ -76,6 +76,58 @@ const DividerStyles = createGlobalStyle`
       opacity: 0.3;
       width: 6px;
     }
+
+    /* 5 · Soft gradient — the accent green pulled most of the way toward the
+       neutral border colour, so it reads as a change of air rather than as a
+       coloured rule, and faded to nothing at both ends so no hard line ever
+       crosses the page. Height stays 1px and the margins net to zero, so the
+       sections do not grow. */
+    html[data-divider="gradient"]
+      main#main-content
+      > section[id]:not(#hero)::before {
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(
+            in srgb,
+            ${({ theme }) => theme.colors.highlight} 38%,
+            ${({ theme }) => theme.colors.border}
+          )
+          50%,
+        transparent 100%
+      );
+      content: "";
+      display: block;
+      height: 1px;
+      margin: calc(var(--dv-offset) * -1) 0 calc(var(--dv-offset) - 1px);
+      opacity: 0.55;
+    }
+
+    /* 6 · Soft organic wave — the same desaturated colour, painted through an
+       SVG mask rather than a background image so the curve follows the theme
+       instead of baking a colour into a data URI. The box is 28px tall but is
+       pulled up by half of that on top of the usual offset, so its midline
+       lands on the section boundary and the height still nets to zero. */
+    html[data-divider="wave"]
+      main#main-content
+      > section[id]:not(#hero)::before {
+      background: color-mix(
+        in srgb,
+        ${({ theme }) => theme.colors.highlight} 38%,
+        ${({ theme }) => theme.colors.border}
+      );
+      content: "";
+      display: block;
+      height: 28px;
+      margin: calc(var(--dv-offset) * -1 - 14px) 0 calc(var(--dv-offset) - 14px);
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 28' preserveAspectRatio='none'%3E%3Cpath d='M0 14 C 320 5, 560 23, 840 14 S 1080 6, 1200 14' fill='none' stroke='white' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+      mask-repeat: no-repeat;
+      mask-size: 100% 100%;
+      opacity: 0.5;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 28' preserveAspectRatio='none'%3E%3Cpath d='M0 14 C 320 5, 560 23, 840 14 S 1080 6, 1200 14' fill='none' stroke='white' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+    }
   }
 `;
 

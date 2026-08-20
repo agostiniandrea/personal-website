@@ -21,15 +21,19 @@ export const DIVIDER_VARIANTS = [
   "subtle",
   "container",
   "signature",
+  "gradient",
+  "wave",
 ] as const;
 
 export type DividerVariant = (typeof DIVIDER_VARIANTS)[number];
 
 export const DIVIDER_LABELS: Record<DividerVariant, string> = {
   container: "3 · Linea del container",
+  gradient: "5 · Soft gradient",
   none: "1 · Nessun divider",
   signature: "4 · Signature (pallino)",
   subtle: "2 · Linea tenue",
+  wave: "6 · Soft organic wave",
 };
 
 const STORAGE_KEY = "section-divider-lab";
