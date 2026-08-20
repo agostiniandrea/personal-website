@@ -26,6 +26,12 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   align-items: center;
 }
 
+.c9 {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
 .c4 {
   color: var(--color-highlight);
   font-size: 1rem;
@@ -37,6 +43,47 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 .c4:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c11 {
+  position: relative;
+}
+
+.c12 {
+  align-items: center;
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--color-headline) 20%, transparent);
+  border-radius: 4px;
+  color: var(--color-headline);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem 0.625rem;
+  transition: all 0.2s ease;
+}
+
+.c12 svg {
+  height: 18px;
+  width: 18px;
+}
+
+.c12:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c13 {
+  align-items: center;
+  display: none;
+  justify-content: center;
+}
+
+html[data-theme="light"] .c13[data-icon="light"],
+html[data-theme="dark"] .c13[data-icon="dark"],
+html:not([data-theme]) .c13[data-icon="system"] {
+  display: flex;
 }
 
 .c0 {
@@ -86,6 +133,472 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
+}
+
+.c10 {
+  align-items: center;
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--color-headline) 20%, transparent);
+  border-radius: 4px;
+  color: var(--color-headline);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem 0.625rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.c10:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+@media (min-width: 600px) {
+  .c1 {
+    column-gap: calc(24px);
+    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .c1 {
+    column-gap: calc(36px);
+    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 {
+    column-gap: calc(81px);
+    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 {
+    column-gap: calc(121.5px);
+    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
+  }
+}
+
+@media (min-width: 600px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (min-width: 1536px) {
+  .c1 >* {
+    grid-column: 2/auto;
+  }
+}
+
+@media (hover: hover) {
+  .c4:hover {
+    color: var(--color-tertiary);
+  }
+}
+
+@media (hover: hover) {
+  .c12:hover {
+    background: color-mix(         in srgb,         var(--color-headline) 5%,         transparent       );
+    border-color: color-mix(         in srgb,         var(--color-headline) 40%,         transparent       );
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c12 {
+    border-color: color-mix(       in srgb,       var(--color-headline) 22%,       transparent     );
+    border-radius: 6px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+    width: 36px;
+  }
+
+  .c12 svg {
+    height: 16px;
+    width: 16px;
+  }
+
+  .c12:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c0 {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c3 {
+    height: var(--site-header-height);
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c5 {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 900px) {
+  .c7 {
+    display: flex;
+  }
+}
+
+@media (hover: hover) {
+  .c8:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (hover: hover) {
+  .c10:hover {
+    background: color-mix(         in srgb,         var(--color-headline) 5%,         transparent       );
+    border-color: color-mix(         in srgb,         var(--color-headline) 40%,         transparent       );
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c10 {
+    border-color: color-mix(       in srgb,       var(--color-headline) 22%,       transparent     );
+    border-radius: 6px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+    width: 36px;
+  }
+
+  .c10:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
+<div>
+  <header
+    class="c0"
+  >
+    <section
+      class="c1"
+    >
+      <div
+        class="c2 c3"
+      >
+        <a
+          class="c4 c5"
+          href="/"
+        >
+          Andrea Agostini
+        </a>
+        <div
+          class="c6"
+        >
+          <nav
+            aria-label="Main navigation"
+            class="c7"
+          >
+            <a
+              class="c4 c8"
+              href="#projects"
+            >
+              Projects
+            </a>
+            <a
+              class="c4 c8"
+              href="#skills"
+            >
+              Skills
+            </a>
+            <a
+              class="c4 c8"
+              href="#experience"
+            >
+              Experience
+            </a>
+            <a
+              class="c4 c8"
+              href="#contact"
+            >
+              Contact
+            </a>
+          </nav>
+          <div
+            class="c9"
+          >
+            <button
+              aria-label="Switch to Italian"
+              class="c10"
+            >
+              IT
+            </button>
+            <div
+              class="c11"
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="Colour theme: System"
+                class="c12"
+                type="button"
+              >
+                <span
+                  aria-hidden="true"
+                  class="c13"
+                  data-icon="light"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-sun"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="4"
+                    />
+                    <path
+                      d="M12 2v2"
+                    />
+                    <path
+                      d="M12 20v2"
+                    />
+                    <path
+                      d="m4.93 4.93 1.41 1.41"
+                    />
+                    <path
+                      d="m17.66 17.66 1.41 1.41"
+                    />
+                    <path
+                      d="M2 12h2"
+                    />
+                    <path
+                      d="M20 12h2"
+                    />
+                    <path
+                      d="m6.34 17.66-1.41 1.41"
+                    />
+                    <path
+                      d="m19.07 4.93-1.41 1.41"
+                    />
+                  </svg>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="c13"
+                  data-icon="system"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-monitor"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      width="20"
+                      x="2"
+                      y="3"
+                    />
+                    <line
+                      x1="8"
+                      x2="16"
+                      y1="21"
+                      y2="21"
+                    />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="17"
+                      y2="21"
+                    />
+                  </svg>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="c13"
+                  data-icon="dark"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-moon"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+</div>
+`;
+
+exports[`SiteHeader renders correctly with no nav links 1`] = `
+.c1 {
+  display: grid;
+  min-height: auto;
+  position: relative;
+  width: 100%;
+  column-gap: 16px;
+  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
+}
+
+.c1 >* {
+  grid-column: 2/auto;
+}
+
+.c2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c6 {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.c8 {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.c4 {
+  color: var(--color-highlight);
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.c4:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
+.c10 {
+  position: relative;
+}
+
+.c11 {
+  align-items: center;
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--color-headline) 20%, transparent);
+  border-radius: 4px;
+  color: var(--color-headline);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem 0.625rem;
+  transition: all 0.2s ease;
+}
+
+.c11 svg {
+  height: 18px;
+  width: 18px;
+}
+
+.c11:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c12 {
+  align-items: center;
+  display: none;
+  justify-content: center;
+}
+
+html[data-theme="light"] .c12[data-icon="light"],
+html[data-theme="dark"] .c12[data-icon="dark"],
+html:not([data-theme]) .c12[data-icon="system"] {
+  display: flex;
+}
+
+.c0 {
+  background: var(--color-background);
+  border-bottom: 1px solid transparent;
+  box-sizing: border-box;
+  box-shadow: none;
+  height: var(--site-header-height);
+  left: 0;
+  padding: 0.75rem 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: border-color 0.3s ease,box-shadow 0.3s ease;
+  width: 100%;
+  z-index: 100;
+}
+
+.c5 {
+  color: var(--color-headline);
+  cursor: pointer;
+  font-family: var(--font-space-grotesk),sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.c7 {
+  align-items: center;
+  display: none;
+  gap: 2rem;
 }
 
 .c9 {
@@ -164,6 +677,35 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c11:hover {
+    background: color-mix(         in srgb,         var(--color-headline) 5%,         transparent       );
+    border-color: color-mix(         in srgb,         var(--color-headline) 40%,         transparent       );
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c11 {
+    border-color: color-mix(       in srgb,       var(--color-headline) 22%,       transparent     );
+    border-radius: 6px;
+    height: 36px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+    width: 36px;
+  }
+
+  .c11 svg {
+    height: 16px;
+    width: 16px;
+  }
+
+  .c11:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+  }
+}
+
 @media (max-width: 899.99px) {
   .c0 {
     box-shadow: none;
@@ -187,12 +729,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
 @media (min-width: 900px) {
   .c7 {
     display: flex;
-  }
-}
-
-@media (hover: hover) {
-  .c8:hover::after {
-    transform: scaleX(1);
   }
 }
 
@@ -234,263 +770,6 @@ exports[`SiteHeader renders correctly with all nav links 1`] = `
           class="c4 c5"
           href="/"
         >
-          Andrea Agostini
-        </a>
-        <div
-          class="c6"
-        >
-          <nav
-            aria-label="Main navigation"
-            class="c7"
-          >
-            <a
-              class="c4 c8"
-              href="#projects"
-            >
-              Projects
-            </a>
-            <a
-              class="c4 c8"
-              href="#skills"
-            >
-              Skills
-            </a>
-            <a
-              class="c4 c8"
-              href="#experience"
-            >
-              Experience
-            </a>
-            <a
-              class="c4 c8"
-              href="#contact"
-            >
-              Contact
-            </a>
-          </nav>
-          <button
-            aria-label="Switch to Italian"
-            class="c9"
-          >
-            IT
-          </button>
-        </div>
-      </div>
-    </section>
-  </header>
-</div>
-`;
-
-exports[`SiteHeader renders correctly with no nav links 1`] = `
-.c1 {
-  display: grid;
-  min-height: auto;
-  position: relative;
-  width: 100%;
-  column-gap: 16px;
-  grid-template-columns: 1fr min(1440px, 100% - 32px) 1fr;
-}
-
-.c1 >* {
-  grid-column: 2/auto;
-}
-
-.c2 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.c6 {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.c4 {
-  color: var(--color-highlight);
-  font-size: 1rem;
-  line-height: 1;
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-}
-
-.c4:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 2px;
-}
-
-.c0 {
-  background: var(--color-background);
-  border-bottom: 1px solid transparent;
-  box-sizing: border-box;
-  box-shadow: none;
-  height: var(--site-header-height);
-  left: 0;
-  padding: 0.75rem 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  transition: border-color 0.3s ease,box-shadow 0.3s ease;
-  width: 100%;
-  z-index: 100;
-}
-
-.c5 {
-  color: var(--color-headline);
-  cursor: pointer;
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.c7 {
-  align-items: center;
-  display: none;
-  gap: 2rem;
-}
-
-.c8 {
-  align-items: center;
-  background: none;
-  border: 1px solid color-mix(in srgb, var(--color-headline) 20%, transparent);
-  border-radius: 4px;
-  color: var(--color-headline);
-  cursor: pointer;
-  display: flex;
-  font-size: 0.75rem;
-  font-weight: 700;
-  justify-content: center;
-  letter-spacing: 0.08em;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0.25rem 0.625rem;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
-}
-
-.c8:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-@media (min-width: 600px) {
-  .c1 {
-    column-gap: calc(24px);
-    grid-template-columns: 1fr min(1440px, 100% - 48px) 1fr;
-  }
-}
-
-@media (min-width: 900px) {
-  .c1 {
-    column-gap: calc(36px);
-    grid-template-columns: 1fr min(1440px, 100% - 72px) 1fr;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 {
-    column-gap: calc(81px);
-    grid-template-columns: 1fr min(1440px, 100% - 162px) 1fr;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 {
-    column-gap: calc(121.5px);
-    grid-template-columns: 1fr min(1440px, 100% - 243px) 1fr;
-  }
-}
-
-@media (min-width: 600px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 1536px) {
-  .c1 >* {
-    grid-column: 2/auto;
-  }
-}
-
-@media (hover: hover) {
-  .c4:hover {
-    color: var(--color-tertiary);
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c0 {
-    box-shadow: none;
-    padding: 0;
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c3 {
-    height: var(--site-header-height);
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c5 {
-    font-size: 18px;
-    white-space: nowrap;
-  }
-}
-
-@media (min-width: 900px) {
-  .c7 {
-    display: flex;
-  }
-}
-
-@media (hover: hover) {
-  .c8:hover {
-    background: color-mix(         in srgb,         var(--color-headline) 5%,         transparent       );
-    border-color: color-mix(         in srgb,         var(--color-headline) 40%,         transparent       );
-  }
-}
-
-@media (max-width: 899.99px) {
-  .c8 {
-    border-color: color-mix(       in srgb,       var(--color-headline) 22%,       transparent     );
-    border-radius: 6px;
-    height: 36px;
-    min-height: 36px;
-    min-width: 36px;
-    padding: 0;
-    width: 36px;
-  }
-
-  .c8:focus-visible {
-    border-color: var(--color-highlight);
-    color: var(--color-highlight);
-  }
-}
-
-<div>
-  <header
-    class="c0"
-  >
-    <section
-      class="c1"
-    >
-      <div
-        class="c2 c3"
-      >
-        <a
-          class="c4 c5"
-          href="/"
-        >
           AA
         </a>
         <div
@@ -500,12 +779,139 @@ exports[`SiteHeader renders correctly with no nav links 1`] = `
             aria-label="Main navigation"
             class="c7"
           />
-          <button
-            aria-label="Switch to Italian"
+          <div
             class="c8"
           >
-            IT
-          </button>
+            <button
+              aria-label="Switch to Italian"
+              class="c9"
+            >
+              IT
+            </button>
+            <div
+              class="c10"
+            >
+              <button
+                aria-expanded="false"
+                aria-haspopup="menu"
+                aria-label="Colour theme: System"
+                class="c11"
+                type="button"
+              >
+                <span
+                  aria-hidden="true"
+                  class="c12"
+                  data-icon="light"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-sun"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="4"
+                    />
+                    <path
+                      d="M12 2v2"
+                    />
+                    <path
+                      d="M12 20v2"
+                    />
+                    <path
+                      d="m4.93 4.93 1.41 1.41"
+                    />
+                    <path
+                      d="m17.66 17.66 1.41 1.41"
+                    />
+                    <path
+                      d="M2 12h2"
+                    />
+                    <path
+                      d="M20 12h2"
+                    />
+                    <path
+                      d="m6.34 17.66-1.41 1.41"
+                    />
+                    <path
+                      d="m19.07 4.93-1.41 1.41"
+                    />
+                  </svg>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="c12"
+                  data-icon="system"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-monitor"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      width="20"
+                      x="2"
+                      y="3"
+                    />
+                    <line
+                      x1="8"
+                      x2="16"
+                      y1="21"
+                      y2="21"
+                    />
+                    <line
+                      x1="12"
+                      x2="12"
+                      y1="17"
+                      y2="21"
+                    />
+                  </svg>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="c12"
+                  data-icon="dark"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-moon"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
