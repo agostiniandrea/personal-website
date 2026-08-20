@@ -1,3 +1,5 @@
+import { ThemeChoice } from "@lib/utils/theme";
+
 export const ANALYTICS_HOSTS = [
   "agostiniandrea.dev",
   "www.agostiniandrea.dev",
@@ -81,6 +83,10 @@ interface AnalyticsEventParams {
   };
   story_experience_view: Record<string, never>;
   story_journey_view: Record<string, never>;
+  theme_changed: {
+    locale: string;
+    theme: ThemeChoice;
+  };
 }
 
 /* Single sink for both GA and Clarity custom events; callers guard against

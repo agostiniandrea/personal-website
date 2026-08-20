@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { Container, Flex, Link } from "@components/ions";
+import { ThemeMenu } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
 import { sectionRankFromUrl } from "@lib/utils/sectionOrder";
@@ -300,12 +301,17 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
               </DesktopNav>
               {/* Visible at every width: mobile navigation lives in the bottom
                   tab bar, but the language switch stays in the header */}
-              <LocaleButton
-                onClick={switchLocale}
-                aria-label={t.switchToLocale(nextLocaleName)}
-              >
-                {nextLocale.toUpperCase()}
-              </LocaleButton>
+              {/* Language and theme are one pair of site preferences, so they
+                  sit closer to each other than to the navigation. */}
+              <Flex alignItems="center" gap="md">
+                <LocaleButton
+                  onClick={switchLocale}
+                  aria-label={t.switchToLocale(nextLocaleName)}
+                >
+                  {nextLocale.toUpperCase()}
+                </LocaleButton>
+                <ThemeMenu />
+              </Flex>
             </Flex>
           </HeaderRow>
         </Container>

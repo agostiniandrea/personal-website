@@ -94,8 +94,15 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  /* Storybook theme toggle — mirrors prefers-color-scheme via data-theme attribute */
+  /* Explicit visitor choice (and the Storybook toggle) — mirrors
+     prefers-color-scheme via the data-theme attribute. Higher specificity than
+     both the bare :root and the media-query :root, so it wins in either
+     direction: light on a dark system and dark on a light one. */
   :root[data-theme="light"] {
+    /* Was missing while these blocks only served Storybook, where nobody ever
+       forced light on a dark OS. Without it that visitor keeps the dark 0.22
+       and the artwork reads washed out on a light ground. */
+    --artwork-opacity: 0.35;
     --color-background: #f5f5fa;
     --color-headline: #0a0a0f;
     --color-paragraph: #5e5e72;
