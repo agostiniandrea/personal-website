@@ -216,6 +216,34 @@ before the study existed.** No banner, no notice, no changed copy.
   must be pasted into the Supabase SQL editor by hand — the REST service key
   cannot issue DDL.
 
+### Forest data and its fallbacks
+
+Every figure in the Forest section is derived, never typed by hand. Two
+independent sources have to agree: the Tree-Nation counter and the per-project
+breakdown must sum to the same total. If they diverge, do not trust either.
+
+The tree count resolves through three tiers, and only the first two are ever
+really used:
+
+1. **`forest_sync` in Supabase** — the cache, and where `total` always starts.
+   It keeps two clocks: counters refresh hourly (matching ISR), projects and
+   species every 24h, because each species costs a request. Each half degrades
+   on its own and only what refreshed is written back.
+2. **The Tree-Nation API** — queried only when the cached counters are stale.
+   If the call fails, the cached value stands. The monthly counter also has to
+   be from the current calendar month, since it resets on the 1st.
+3. **`treeCount` in Contentful** — reached only when `total` is `null`, which
+   means `forest_sync` has never been written at all. It is a cold-start seed,
+   not the source of truth, and that cold start has already happened. Keep it
+   roughly current so a fresh database does not open on a wrong number, but do
+   not mistake it for what the site displays — it almost never is.
+
+**Publishing any entry triggers a production deploy.** A Contentful webhook on
+`Entry.publish` / `Entry.unpublish` calls a Vercel deploy hook. That rules out
+having the site write verified figures back into the CMS on every sync: it
+would turn each tree bought into a rebuild. The self-healing store already
+exists, and it is `forest_sync`.
+
 ### Observability
 
 - **Sentry**: server + edge config in `sentry.server.config.ts` / `sentry.edge.config.ts`, wired via `instrumentation.ts`
