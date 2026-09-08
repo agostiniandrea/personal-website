@@ -106,8 +106,16 @@ interface ImpactProject {
 }
 
 /* Undocumented endpoint — it is what tree-nation.com's own profile page calls,
-   so it can change without notice. Everything downstream is written to survive
-   that: the result is cached, and a failure keeps serving the last good list.
+   so it can change without notice. It already has: this used to live at
+   /impactPeriods and moved behind /bff/impactPeriods (same shape, same
+   params) at some point before 2026-09-08, which is what caused the
+   breakdown below to silently stop matching the headline total — the fetch
+   404'd, the catch block kept serving the last list fetched before the
+   move, and nothing surfaced the drift. Everything downstream is still
+   written to survive a broken endpoint (cached, fails soft to the last good
+   list) — that part of the design was right, it just had no way to tell
+   "stale" from "permanently wrong" for the caller. See
+   `PROJECTS_DIVERGED_FROM_TOTAL` below for the fix to that gap.
 
    `to` is required. Without it the endpoint answers 200 with an empty
    aggregate instead of an error, so an empty list is treated as a failure
@@ -118,7 +126,7 @@ async function fetchProjects(now: Date): Promise<ForestProject[]> {
   try {
     const to = `${now.toISOString().slice(0, 10)} 23:59:59`;
     const res = await fetch(
-      `https://tree-nation.com/impactPeriods?profile_id=${TREE_NATION_PROFILE_ID}` +
+      `https://tree-nation.com/bff/impactPeriods?profile_id=${TREE_NATION_PROFILE_ID}` +
         `&to=${encodeURIComponent(to)}`,
       {
         headers: { Accept: "application/json", "X-API-VERSION": "1" },
@@ -310,6 +318,22 @@ export async function getForestData(
     try {
       projects = await fetchProjects(now);
       patch.projects = projects;
+      /* A fetch can succeed and still not add up: Tree-Nation restructuring
+         the endpoint again, a project silently dropped from the aggregate, a
+         partial response — none of those throw, so the catch below can't see
+         them. This is the check that would have caught the /impactPeriods ->
+         /bff/impactPeriods move immediately instead of leaving the breakdown
+         quietly wrong until someone counted by hand. */
+      if (total !== null) {
+        const projectsSum = projects.reduce((sum, p) => sum + p.trees, 0);
+        if (projectsSum !== total) {
+          console.error(
+            `PROJECTS_DIVERGED_FROM_TOTAL: breakdown sums to ${projectsSum} but the ` +
+              `counter says ${total} (off by ${total - projectsSum}). Tree-Nation's ` +
+              `/bff/impactPeriods response no longer matches /tree_counter.`,
+          );
+        }
+      }
     } catch (err) {
       /* Keeps the last good list rather than blanking the block: the projects
          a forest sits in do not change often, so stale beats absent. */
