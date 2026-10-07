@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`SiteFooter renders correctly with no social links 1`] = `
 .c1 {
@@ -292,6 +292,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
         >
           <p
             class="c14"
+            style="color: var(--color-paragraph);"
           >
             © 
             2026
@@ -667,6 +668,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         >
           <p
             class="c15"
+            style="color: var(--color-paragraph);"
           >
             © 
             2026

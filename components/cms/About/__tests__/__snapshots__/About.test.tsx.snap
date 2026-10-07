@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`About renders correctly with all props 1`] = `
 .c1 {
@@ -226,7 +226,7 @@ exports[`About renders correctly with all props 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="lucide lucide-badge-check"
+            class="lucide lucide-badge-check lucide-verified"
             fill="none"
             height="15"
             stroke="currentColor"
@@ -241,7 +241,7 @@ exports[`About renders correctly with all props 1`] = `
               d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
             />
             <path
-              d="m9 12 2 2 4-4"
+              d="m16 9-5.5 5.5L8 12"
             />
           </svg>
           💼 Currently with capacity for new projects
