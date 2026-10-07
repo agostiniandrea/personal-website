@@ -1045,7 +1045,8 @@ const Forest: React.FC<ForestProps> = ({
   const resolvedSubheading = subheading ?? t.forestSubheading;
   const resolvedCtaBody = ctaBody ?? t.forestCtaBody;
   /* TEMPORARY CAMPAIGN (Oct 7–10, 2026) — see lib/utils/forestCampaign.ts.
-     While active, its copy wins over the Contentful ctaHeading / ctaBody. The
+     While active, its copy wins over the Contentful ctaHeading / ctaBody /
+     ctaButtonLabel. The
      tree total itself is never altered, only shown against the campaign goal. */
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
   const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
@@ -1177,7 +1178,9 @@ const Forest: React.FC<ForestProps> = ({
               data-testid="plant-feedback"
             >
               <LeafIcon size={17} />
-              {withoutLeadingEmoji(ctaButtonLabel)}
+              {withoutLeadingEmoji(
+                campaign ? campaign.ctaLabel : ctaButtonLabel,
+              )}
             </PlantButton>
             {campaign && (
               <CampaignNote data-testid="campaign-anniversary">

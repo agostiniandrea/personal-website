@@ -10,7 +10,7 @@
  *      "TEMPORARY CAMPAIGN" in components/cms/Forest/index.tsx.
  *
  * While `enabled` is true, the copy below WINS over the Contentful values
- * (`ctaHeading`, `ctaBody`) of the Forest module. Contentful itself is not
+ * (`ctaHeading`, `ctaBody`, `ctaButtonLabel`) of the Forest module. Contentful itself is not
  * touched. Nothing else changes: the tree total still comes from Tree-Nation
  * (Supabase cache, Contentful fallback), and the regular milestone ladder in
  * forestMilestones.ts keeps its 50 / 100 / 200 / 300 progression everywhere
@@ -29,6 +29,8 @@ export interface CampaignCopy {
   heading: string;
   /** Replaces the hero body (`ctaBody`); one entry per paragraph. */
   body: readonly string[];
+  /** Replaces the hero button label (`ctaButtonLabel`). */
+  ctaLabel: string;
   /** The secondary anniversary line under the CTA button. */
   anniversary: string;
   /** Countdown beside the progress bar. */
@@ -51,6 +53,7 @@ export const FOREST_CAMPAIGN = {
         "I'm celebrating one year in Thailand on October 10th — and I'm growing this Forest to 200 trees.",
         "Since May, meaningful feedback from people exploring this portfolio has helped turn conversations into real trees.",
       ],
+      ctaLabel: "Plant your feedback",
       anniversary: "One year in Thailand · October 10, 2025 → October 10, 2026",
       treesToGo: (remaining: number) =>
         `${remaining} ${remaining === 1 ? "tree" : "trees"} to go`,
@@ -62,6 +65,7 @@ export const FOREST_CAMPAIGN = {
         "Il 10 ottobre festeggio un anno in Thailandia — e sto facendo crescere questa Forest fino a 200 alberi.",
         "Da maggio, i feedback utili di chi esplora questo portfolio hanno contribuito a trasformare le conversazioni in alberi veri.",
       ],
+      ctaLabel: "Pianta il tuo feedback",
       anniversary: "Un anno in Thailandia · 10 ottobre 2025 → 10 ottobre 2026",
       treesToGo: (remaining: number) =>
         remaining === 1 ? "Manca 1 albero" : `Mancano ${remaining} alberi`,

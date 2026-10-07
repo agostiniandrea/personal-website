@@ -588,7 +588,7 @@ describe("Forest — 200-tree campaign", () => {
     jest.restoreAllMocks();
   });
 
-  it("replaces the hero copy and keeps the existing button", () => {
+  it("replaces the hero copy and localises the button", () => {
     renderWithTheme(<Forest {...defaultForest} treeCount={179} />);
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
       "Help this Forest reach 200 trees.",
@@ -604,7 +604,7 @@ describe("Forest — 200-tree campaign", () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: defaultForest.ctaButtonLabel }),
+      screen.getByRole("button", { name: "Plant your feedback" }),
     ).toBeInTheDocument();
   });
 
@@ -618,10 +618,18 @@ describe("Forest — 200-tree campaign", () => {
   });
 
   it("wins over the Contentful heading and body while active", () => {
-    const cms = { ctaHeading: "CMS heading", ctaBody: "CMS body copy" };
+    const cms = {
+      ctaHeading: "CMS heading",
+      ctaBody: "CMS body copy",
+      ctaButtonLabel: "CMS button",
+    };
     renderWithTheme(<Forest {...defaultForest} {...cms} treeCount={179} />);
     expect(screen.queryByText("CMS heading")).not.toBeInTheDocument();
     expect(screen.queryByText("CMS body copy")).not.toBeInTheDocument();
+    expect(screen.queryByText("CMS button")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Plant your feedback" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
       "Help this Forest reach 200 trees.",
     );
@@ -629,12 +637,19 @@ describe("Forest — 200-tree campaign", () => {
 
   it("hands the hero back to Contentful once the campaign is off", () => {
     jest.replaceProperty(FOREST_CAMPAIGN, "enabled", false);
-    const cms = { ctaHeading: "CMS heading", ctaBody: "CMS body copy" };
+    const cms = {
+      ctaHeading: "CMS heading",
+      ctaBody: "CMS body copy",
+      ctaButtonLabel: "CMS button",
+    };
     renderWithTheme(<Forest {...defaultForest} {...cms} treeCount={179} />);
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
       "CMS heading",
     );
     expect(screen.getByText("CMS body copy")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "CMS button" }),
+    ).toBeInTheDocument();
     expect(
       screen.queryByTestId("campaign-anniversary"),
     ).not.toBeInTheDocument();
@@ -712,6 +727,13 @@ describe("Forest — 200-tree campaign", () => {
     expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(
       "Mancano 21 alberi",
     );
+    expect(
+      screen.getByRole("button", { name: "Pianta il tuo feedback" }),
+    ).toBeInTheDocument();
+    // Contentful's (English) label must not leak into the Italian campaign.
+    expect(
+      screen.queryByRole("button", { name: "Plant your feedback" }),
+    ).not.toBeInTheDocument();
 
     rerender(<Forest {...defaultForest} treeCount={199} />);
     expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(
