@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { FOREST_CAMPAIGN } from "@lib/utils/forestCampaign";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import Forest from "../index";
@@ -23,6 +24,13 @@ const mockUseRouter = useRouter as jest.Mock;
 describe("Forest", () => {
   beforeEach(() => {
     mockUseRouter.mockReturnValue({ locale: "en" });
+    // The regular behaviour is covered with the temporary campaign switched
+    // off; the campaign has its own describe block at the bottom of the file.
+    jest.replaceProperty(FOREST_CAMPAIGN, "enabled", false);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it("renders correctly with all props", () => {
@@ -120,7 +128,9 @@ describe("Forest", () => {
       const { rerender } = renderWithTheme(
         <Forest {...defaultForest} treeCount={47} />,
       );
-      expect(screen.getByText("94% towards next milestone")).toBeInTheDocument();
+      expect(
+        screen.getByText("94% towards next milestone"),
+      ).toBeInTheDocument();
 
       // Past the first rung the badge takes the slot: a milestone outranks a
       // percentage that will reset anyway.
@@ -134,6 +144,31 @@ describe("Forest", () => {
       renderWithTheme(<Forest {...defaultForest} treeCount={0} />);
       expect(screen.getByText("0 / 50 trees")).toBeInTheDocument();
       expect(screen.queryByTestId("milestone-reached")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("tree count label", () => {
+    it("keeps the English text without a CMS override", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+      expect(
+        screen.getByText("Trees planted since May 2026"),
+      ).toBeInTheDocument();
+    });
+
+    it("is localised in Italian without a CMS override", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+      expect(
+        screen.getByText("Alberi piantati da maggio 2026"),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText("Trees planted since May 2026"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("still lets an explicit CMS label win", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel="CMS label" />);
+      expect(screen.getByText("CMS label")).toBeInTheDocument();
     });
   });
 
@@ -196,7 +231,13 @@ describe("Forest", () => {
 
   describe("where the forest grows", () => {
     const projects = [
-      { id: 568, name: "Plant to Stop Poverty", slug: "pstp", country: "TZ", trees: 22 },
+      {
+        id: 568,
+        name: "Plant to Stop Poverty",
+        slug: "pstp",
+        country: "TZ",
+        trees: 22,
+      },
       { id: 450, name: "Bore", slug: "bore", country: "KE", trees: 5 },
     ];
 
@@ -244,7 +285,9 @@ describe("Forest", () => {
           ]}
         />,
       );
-      expect(screen.getByTestId("forest-spread")).toHaveTextContent("Somewhere");
+      expect(screen.getByTestId("forest-spread")).toHaveTextContent(
+        "Somewhere",
+      );
     });
   });
 
@@ -476,9 +519,7 @@ describe("Forest", () => {
 
       expect(submittedBody().prolific).toBeUndefined();
       expect(successCloseButton()).toBeInTheDocument();
-      expect(
-        screen.queryByTestId("prolific-complete"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByTestId("prolific-complete")).not.toBeInTheDocument();
     });
 
     it("shows no return link when no study is configured", async () => {
@@ -533,5 +574,175 @@ describe("Forest", () => {
         String(fullStatForest.improvementsShippedCount),
       ]);
     });
+  });
+});
+
+/* TEMPORARY CAMPAIGN (Oct 7–10, 2026) — delete with lib/utils/forestCampaign.ts */
+describe("Forest — 200-tree campaign", () => {
+  beforeEach(() => {
+    mockUseRouter.mockReturnValue({ locale: "en" });
+    jest.replaceProperty(FOREST_CAMPAIGN, "enabled", true);
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("replaces the hero copy and localises the button", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={179} />);
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
+      "Help this Forest reach 200 trees.",
+    );
+    expect(
+      screen.getByText(
+        "I'm celebrating one year in Thailand on October 10th — and I'm growing this Forest to 200 trees.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Since May, meaningful feedback from people exploring this portfolio has helped turn conversations into real trees.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Plant your feedback" }),
+    ).toBeInTheDocument();
+  });
+
+  it("shows the anniversary as a quiet line without dating the Forest", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={179} />);
+    expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
+      "One year in Thailand · October 10, 2025 → October 10, 2026",
+    );
+    // The Forest began in May 2026; the label must keep saying so.
+    expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
+  });
+
+  it("wins over the Contentful heading and body while active", () => {
+    const cms = {
+      ctaHeading: "CMS heading",
+      ctaBody: "CMS body copy",
+      ctaButtonLabel: "CMS button",
+    };
+    renderWithTheme(<Forest {...defaultForest} {...cms} treeCount={179} />);
+    expect(screen.queryByText("CMS heading")).not.toBeInTheDocument();
+    expect(screen.queryByText("CMS body copy")).not.toBeInTheDocument();
+    expect(screen.queryByText("CMS button")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Plant your feedback" }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
+      "Help this Forest reach 200 trees.",
+    );
+  });
+
+  it("hands the hero back to Contentful once the campaign is off", () => {
+    jest.replaceProperty(FOREST_CAMPAIGN, "enabled", false);
+    const cms = {
+      ctaHeading: "CMS heading",
+      ctaBody: "CMS body copy",
+      ctaButtonLabel: "CMS button",
+    };
+    renderWithTheme(<Forest {...defaultForest} {...cms} treeCount={179} />);
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
+      "CMS heading",
+    );
+    expect(screen.getByText("CMS body copy")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "CMS button" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("campaign-anniversary"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText("179 / 200 trees")).toBeInTheDocument();
+  });
+
+  it.each([
+    [179, "21 trees to go"],
+    [181, "19 trees to go"],
+    [199, "1 tree to go"],
+  ])("counts down at %i trees", (count, label) => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={count} />);
+    expect(screen.getByText(`${count} / 200 trees`)).toBeInTheDocument();
+    expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(label);
+    expect(screen.queryByTestId("campaign-reached")).not.toBeInTheDocument();
+    // The regular ladder badge would read "100 trees reached" here.
+    expect(screen.queryByTestId("milestone-reached")).not.toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toHaveAttribute(
+      "aria-valuenow",
+      String(count),
+    );
+    expect(screen.getByRole("progressbar")).toHaveAttribute(
+      "aria-valuemax",
+      "200",
+    );
+  });
+
+  it.each([200, 205, 1_240])(
+    "shows the calm completed state at %i trees",
+    (count) => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={count} />);
+      expect(screen.getByText("200 / 200 trees")).toBeInTheDocument();
+      expect(screen.queryByText(/\/ 300/)).not.toBeInTheDocument();
+      expect(screen.getByTestId("campaign-reached")).toHaveTextContent(
+        "200 trees reached.",
+      );
+      expect(screen.queryByTestId("campaign-to-go")).not.toBeInTheDocument();
+      expect(screen.queryByText(/to go/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/-\d/)).not.toBeInTheDocument();
+      expect(screen.getByRole("progressbar")).toHaveAttribute(
+        "aria-valuenow",
+        "200",
+      );
+      // The real Tree-Nation total stays visible and untouched.
+      expect(screen.getByText(String(count))).toBeInTheDocument();
+    },
+  );
+
+  it("keeps the monthly pulse and the Feedback Impact card as they are", () => {
+    renderWithTheme(
+      <Forest {...defaultForest} treeCount={179} monthTreeCount={8} />,
+    );
+    expect(screen.getByTestId("month-pulse")).toHaveTextContent(
+      "+8 this month",
+    );
+    expect(screen.getByTestId("feedback-impact")).toBeInTheDocument();
+  });
+
+  it("speaks Italian, with the right singular", () => {
+    mockUseRouter.mockReturnValue({ locale: "it" });
+    const { rerender } = renderWithTheme(
+      <Forest {...defaultForest} treeCount={179} />,
+    );
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
+      "Aiuta Forest a raggiungere 200 alberi.",
+    );
+    expect(
+      screen.getByText(
+        "Da maggio, i feedback utili di chi esplora questo portfolio hanno contribuito a trasformare le conversazioni in alberi veri.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
+      "Un anno in Thailandia · 10 ottobre 2025 → 10 ottobre 2026",
+    );
+    expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(
+      "Mancano 21 alberi",
+    );
+    expect(
+      screen.getByRole("button", { name: "Pianta il tuo feedback" }),
+    ).toBeInTheDocument();
+    // Contentful's (English) label must not leak into the Italian campaign.
+    expect(
+      screen.queryByRole("button", { name: "Plant your feedback" }),
+    ).not.toBeInTheDocument();
+
+    rerender(<Forest {...defaultForest} treeCount={199} />);
+    expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(
+      "Manca 1 albero",
+    );
+
+    rerender(<Forest {...defaultForest} treeCount={200} />);
+    expect(screen.getByTestId("campaign-reached")).toHaveTextContent(
+      "200 alberi raggiunti.",
+    );
   });
 });
