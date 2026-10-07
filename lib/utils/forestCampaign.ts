@@ -60,7 +60,7 @@ export const FOREST_CAMPAIGN = {
       heading: "Aiuta Forest a raggiungere 200 alberi.",
       body: [
         "Il 10 ottobre festeggio un anno in Thailandia — e sto facendo crescere questa Forest fino a 200 alberi.",
-        "Da maggio, i feedback utili di chi esplora questo portfolio hanno trasformato le conversazioni in alberi veri.",
+        "Da maggio, i feedback utili di chi esplora questo portfolio hanno contribuito a trasformare le conversazioni in alberi veri.",
       ],
       anniversary: "Un anno in Thailandia · 10 ottobre 2025 → 10 ottobre 2026",
       treesToGo: (remaining: number) =>

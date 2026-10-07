@@ -701,6 +701,11 @@ describe("Forest — 200-tree campaign", () => {
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
       "Aiuta Forest a raggiungere 200 alberi.",
     );
+    expect(
+      screen.getByText(
+        "Da maggio, i feedback utili di chi esplora questo portfolio hanno contribuito a trasformare le conversazioni in alberi veri.",
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
       "Un anno in Thailandia · 10 ottobre 2025 → 10 ottobre 2026",
     );
