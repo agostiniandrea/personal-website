@@ -1007,7 +1007,7 @@ const Forest: React.FC<ForestProps> = ({
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
   ctaButtonLabel = "Plant your feedback",
-  treeCountLabel = "Trees planted since May 2026",
+  treeCountLabel,
   treesLabel,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
@@ -1050,6 +1050,7 @@ const Forest: React.FC<ForestProps> = ({
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
   const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
+  const resolvedTreeCountLabel = treeCountLabel ?? t.forestTreeCountLabel;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -1190,7 +1191,7 @@ const Forest: React.FC<ForestProps> = ({
                 pairs with "Feedback impact". Repeating it here read as a
                 duplicate once the two cards stacked on phones. */}
             <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-            <CtaDecorLabel>{treeCountLabel}</CtaDecorLabel>
+            <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
           </CtaDecor>
         </CtaCard>
 

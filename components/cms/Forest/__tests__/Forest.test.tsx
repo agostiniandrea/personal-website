@@ -147,6 +147,31 @@ describe("Forest", () => {
     });
   });
 
+  describe("tree count label", () => {
+    it("keeps the English text without a CMS override", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+      expect(
+        screen.getByText("Trees planted since May 2026"),
+      ).toBeInTheDocument();
+    });
+
+    it("is localised in Italian without a CMS override", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+      expect(
+        screen.getByText("Alberi piantati da maggio 2026"),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText("Trees planted since May 2026"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("still lets an explicit CMS label win", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel="CMS label" />);
+      expect(screen.getByText("CMS label")).toBeInTheDocument();
+    });
+  });
+
   it("names the forest total only once, in the panel that tracks it", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     // The CTA card shows the number under its own caption; "My forest" belongs
