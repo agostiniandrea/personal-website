@@ -57,7 +57,7 @@ export const FOREST_CAMPAIGN = {
       goalReached: (goal: number) => `${goal} trees reached.`,
     },
     it: {
-      heading: "Aiuta questa Forest a raggiungere 200 alberi.",
+      heading: "Aiuta Forest a raggiungere 200 alberi.",
       body: [
         "Il 10 ottobre festeggio un anno in Thailandia — e sto facendo crescere questa Forest fino a 200 alberi.",
         "Da maggio, i feedback utili di chi esplora questo portfolio hanno trasformato le conversazioni in alberi veri.",

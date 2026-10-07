@@ -699,7 +699,7 @@ describe("Forest — 200-tree campaign", () => {
       <Forest {...defaultForest} treeCount={179} />,
     );
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
-      "Aiuta questa Forest a raggiungere 200 alberi.",
+      "Aiuta Forest a raggiungere 200 alberi.",
     );
     expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
       "Un anno in Thailandia · 10 ottobre 2025 → 10 ottobre 2026",
