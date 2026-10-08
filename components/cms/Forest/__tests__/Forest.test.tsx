@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { FOREST_CAMPAIGN } from "@lib/utils/forestCampaign";
@@ -169,6 +169,57 @@ describe("Forest", () => {
     it("still lets an explicit CMS label win", () => {
       renderWithTheme(<Forest {...defaultForest} treeCountLabel="CMS label" />);
       expect(screen.getByText("CMS label")).toBeInTheDocument();
+    });
+  });
+
+  describe("hero metric", () => {
+    const heroOf = () =>
+      screen.getByText(defaultForest.treeCountLabel!).parentElement!;
+
+    it("makes the tree count the centrepiece of the intro, with its caption", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={183} />);
+      const hero = heroOf();
+      expect(hero).toHaveTextContent("183");
+      expect(hero).toHaveTextContent(defaultForest.treeCountLabel!);
+    });
+
+    it("reads the same count against the next goal, without a second progressbar", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={34} />);
+      expect(heroOf()).toHaveTextContent("34 / 50");
+      // The labelled progress readout stays the single one in the progress card.
+      expect(screen.getByText("34 / 50 trees")).toBeInTheDocument();
+    });
+
+    it("has a Tree-Nation certification link as a quiet, secondary element", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      const link = within(heroOf()).getByRole("link", {
+        name: "Certified by Tree-Nation",
+      });
+      expect(link).toHaveAttribute(
+        "href",
+        "https://tree-nation.com/profile/andrea-agostini-103769",
+      );
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+      // The Forest stays the story: the headline count is not a Tree-Nation widget.
+      expect(
+        document.querySelector("[data-widget-type]"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("localises the certification link", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(
+        screen.getByRole("link", { name: "Certificato da Tree-Nation" }),
+      ).toBeInTheDocument();
+    });
+
+    it("keeps the existing Forest link under the progress card", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(
+        screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -716,6 +767,20 @@ describe("Forest — 200-tree campaign", () => {
     );
     // The Forest began in May 2026; the label must keep saying so.
     expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
+  });
+
+  it("puts the campaign readout and the anniversary in the hero metric, after the proof link", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={183} />);
+    const hero = screen.getByText(defaultForest.treeCountLabel!).parentElement!;
+    const link = within(hero).getByRole("link", {
+      name: "Certified by Tree-Nation",
+    });
+    const note = within(hero).getByTestId("campaign-anniversary");
+
+    expect(hero).toHaveTextContent("183 / 200");
+    expect(
+      link.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 
   it("wins over the Contentful heading and body while active", () => {

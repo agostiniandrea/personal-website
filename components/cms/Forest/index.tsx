@@ -322,6 +322,7 @@ const StatLabel = styled(Text)`
 /* ── CTA card ── */
 
 const CtaCard = styled.div`
+  align-items: center;
   background: ${({ theme }) => alpha(theme.colors.highlight, 5)};
   border: 2px solid ${({ theme }) => theme.colors.highlight};
   border-radius: 1rem;
@@ -330,6 +331,7 @@ const CtaCard = styled.div`
   gap: ${({ theme }) => theme.space["2xl"]};
   margin-bottom: 2.5rem;
   padding: ${({ theme }) => theme.space["2xl"]};
+  text-align: center;
 
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
     gap: ${({ theme }) => theme.space.xl};
@@ -337,49 +339,40 @@ const CtaCard = styled.div`
     padding: ${({ theme }) => theme.space.lg};
   }
 
-  /* matches the breakpoint the rest of the Forest section switches at, so the
-     card fills the row instead of stacking with empty space beside it */
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
     padding: 2.5rem 3rem;
   }
 `;
 
 const CtaContent = styled.div`
-  flex: 1;
+  width: 100%;
 `;
 
+/* The hero metric. The number is the focal point of the intro: the Forest is
+   the story, so the count is its headline and Tree-Nation only the proof under
+   it. One centred column, no divider — it follows the copy and the button. */
 const CtaDecor = styled.div`
-  align-items: flex-start;
-  border-top: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
-  padding-top: 1.25rem;
+`;
 
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: flex-end;
-    border-left: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
-    border-top: none;
-    flex-shrink: 0;
-    padding-left: 3rem;
-    padding-top: 0;
-    text-align: right;
-    width: 260px;
-  }
+const CtaDecorTree = styled(TreeDeciduous)`
+  color: ${({ theme }) => theme.colors.highlight};
+  flex-shrink: 0;
+  opacity: 0.7;
 `;
 
 const CtaDecorNumber = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 3.5rem;
+  font-size: 5.5rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  line-height: ${({ theme }) => theme.lineHeights.tight};
+  line-height: 1;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 4.5rem;
+    font-size: 8rem;
   }
 `;
 
@@ -388,7 +381,50 @@ const CtaDecorLabel = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 0.1em;
+  max-width: 16rem;
   text-transform: uppercase;
+  text-wrap: balance;
+`;
+
+/* The same count against the goal, as a quiet readout under the number. The
+   bar is decorative (the progress card below carries the labelled one). */
+const CtaProgress = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.xs};
+  margin-top: 1.25rem;
+  width: 100%;
+`;
+
+const CtaProgressCount = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+`;
+
+/* Proof, not promotion: small, paragraph-coloured, and only the arrow says it
+   leaves the site. */
+const CertifiedLink = styled.a`
+  align-items: center;
+  color: ${({ theme }) => theme.colors.paragraph};
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  gap: ${({ theme }) => theme.space.xs};
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      color: ${({ theme }) => theme.colors.highlight};
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+  }
 `;
 
 const CtaHeading = styled.h3`
@@ -407,7 +443,7 @@ const CtaBody = styled.p<{ $tight?: boolean }>`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 0 0 ${({ $tight }) => ($tight ? "0.75rem" : "1.75rem")};
+  margin: 0 auto ${({ $tight }) => ($tight ? "0.75rem" : "1.75rem")};
   max-width: 420px;
 `;
 
@@ -508,6 +544,13 @@ const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
   height: 100%;
   transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
   width: ${({ $animate, $pct }) => ($animate ? `${Math.max($pct, 2)}%` : "2%")};
+`;
+
+/* The intro's own slimmer bar; it reuses the progress card's track and fill. */
+const CtaProgressTrack = styled(ProgressTrack)`
+  height: 4px;
+  max-width: 12rem;
+  width: 100%;
 `;
 
 /* Sits with the progress meta rather than the counters above: it is a sign of
@@ -990,6 +1033,9 @@ const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
 
 /* ── Component ── */
 
+const TREE_NATION_PROFILE_URL =
+  "https://tree-nation.com/profile/andrea-agostini-103769";
+
 const Forest: React.FC<ForestProps> = ({
   badge = "Growing in public",
   sectionLabel = "🌳 Forest",
@@ -1060,6 +1106,13 @@ const Forest: React.FC<ForestProps> = ({
   const nextMilestone = nextMilestoneAfter(treeCount);
   const lastMilestone = lastMilestoneReached(treeCount);
   const pct = Math.min(Math.round((treeCount / nextMilestone) * 100), 100);
+  /* The hero metric's readout of the very same numbers the progress card
+     shows below: nothing is recomputed, only presented a second time. */
+  const introProgress = campaignProgress ?? {
+    goal: nextMilestone,
+    pct,
+    shown: treeCount,
+  };
   const perContribution =
     contributionsCount > 0
       ? Math.round(treesDedicatedCount / contributionsCount)
@@ -1182,19 +1235,36 @@ const Forest: React.FC<ForestProps> = ({
                 campaign ? campaign.ctaLabel : ctaButtonLabel,
               )}
             </PlantButton>
-            {campaign && (
-              <CampaignNote data-testid="campaign-anniversary">
-                {campaign.anniversary}
-              </CampaignNote>
-            )}
           </CtaContent>
           <CtaDecor>
             {/* No eyebrow: the caption below already names the number, and
                 "My forest" belongs to the progress panel underneath, where it
                 pairs with "Feedback impact". Repeating it here read as a
                 duplicate once the two cards stacked on phones. */}
+            <CtaDecorTree size={20} strokeWidth={1.8} aria-hidden="true" />
             <CtaDecorNumber>{treeCount}</CtaDecorNumber>
             <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
+            <CtaProgress>
+              <CtaProgressCount>
+                {introProgress.shown} / {introProgress.goal}
+              </CtaProgressCount>
+              <CtaProgressTrack aria-hidden="true">
+                <ProgressFill $pct={introProgress.pct} $animate={inView} />
+              </CtaProgressTrack>
+            </CtaProgress>
+            <CertifiedLink
+              href={TREE_NATION_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.forestCertifiedLabel}
+              <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
+            </CertifiedLink>
+            {campaign && (
+              <CampaignNote data-testid="campaign-anniversary">
+                {campaign.anniversary}
+              </CampaignNote>
+            )}
           </CtaDecor>
         </CtaCard>
 
@@ -1406,7 +1476,7 @@ const Forest: React.FC<ForestProps> = ({
         </SeasonCard>
 
         <VerifiedBadge
-          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          href={TREE_NATION_PROFILE_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
