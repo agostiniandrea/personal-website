@@ -999,7 +999,7 @@ exports[`Forest renders correctly with all props 1`] = `
             >
               <div
                 data-lang="en"
-                data-theme="white-monochrome"
+                data-theme="light"
                 data-tree-nation-code="c128ea8ddf37a37a"
                 data-widget-type="tree-counter"
               />
@@ -1941,7 +1941,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
             >
               <div
                 data-lang="en"
-                data-theme="white-monochrome"
+                data-theme="light"
                 data-tree-nation-code="c128ea8ddf37a37a"
                 data-widget-type="tree-counter"
               />

@@ -177,6 +177,18 @@ describe("Forest", () => {
       expect(document.querySelectorAll("[data-widget-type]")).toHaveLength(1);
     });
 
+    it("uses the default colour themes, following the site theme", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(counterOf()).toHaveAttribute("data-theme", "light");
+    });
+
+    it("switches to the default dark theme when the site is dark", () => {
+      document.documentElement.setAttribute("data-theme", "dark");
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(counterOf()).toHaveAttribute("data-theme", "dark");
+      document.documentElement.removeAttribute("data-theme");
+    });
+
     it("speaks Italian on the Italian locale", () => {
       mockUseRouter.mockReturnValue({ locale: "it" });
       renderWithTheme(<Forest {...defaultForest} />);

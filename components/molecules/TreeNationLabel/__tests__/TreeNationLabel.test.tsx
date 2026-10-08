@@ -61,10 +61,7 @@ describe("TreeNationLabel", () => {
     const widget = widgetOf(container);
 
     expect(widget).toHaveAttribute("data-widget-type", "offset-website");
-    expect(widget).toHaveAttribute(
-      "data-tree-nation-code",
-      "a4d3639b36ee64ed",
-    );
+    expect(widget).toHaveAttribute("data-tree-nation-code", "a4d3639b36ee64ed");
     expect(TREE_NATION_CODES["offset-website"]).toBe("a4d3639b36ee64ed");
   });
 
@@ -75,10 +72,7 @@ describe("TreeNationLabel", () => {
     const widget = widgetOf(container);
 
     expect(widget).toHaveAttribute("data-widget-type", "tree-counter");
-    expect(widget).toHaveAttribute(
-      "data-tree-nation-code",
-      "c128ea8ddf37a37a",
-    );
+    expect(widget).toHaveAttribute("data-tree-nation-code", "c128ea8ddf37a37a");
   });
 
   it("renders exactly one widget per label", () => {
@@ -140,9 +134,9 @@ describe("TreeNationLabel", () => {
     expect(widgetScripts()).toHaveLength(0);
   });
 
-  it("uses the light monochrome theme in English by default", () => {
+  it("uses the light monochrome Climate Action label in English by default", () => {
     const { container } = renderWithTheme(
-      <TreeNationLabel type="tree-counter" />,
+      <TreeNationLabel type="offset-website" />,
     );
 
     expect(widgetOf(container)).toHaveAttribute("data-lang", "en");
@@ -152,16 +146,33 @@ describe("TreeNationLabel", () => {
     );
   });
 
-  it("uses the dark monochrome theme when the site theme is dark", () => {
+  it("uses the dark monochrome Climate Action label when the site theme is dark", () => {
     document.documentElement.setAttribute("data-theme", "dark");
     const { container } = renderWithTheme(
-      <TreeNationLabel type="tree-counter" />,
+      <TreeNationLabel type="offset-website" />,
     );
 
     expect(widgetOf(container)).toHaveAttribute(
       "data-theme",
       "dark-monochrome",
     );
+  });
+
+  it("uses the default light theme for the Tree Counter", () => {
+    const { container } = renderWithTheme(
+      <TreeNationLabel type="tree-counter" />,
+    );
+
+    expect(widgetOf(container)).toHaveAttribute("data-theme", "light");
+  });
+
+  it("uses the default dark theme for the Tree Counter when the site theme is dark", () => {
+    document.documentElement.setAttribute("data-theme", "dark");
+    const { container } = renderWithTheme(
+      <TreeNationLabel type="tree-counter" />,
+    );
+
+    expect(widgetOf(container)).toHaveAttribute("data-theme", "dark");
   });
 
   it("follows the OS when the visitor has not picked a theme", () => {
