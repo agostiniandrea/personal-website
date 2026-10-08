@@ -532,6 +532,107 @@ describe("Forest", () => {
     });
   });
 
+  describe("marketing attribution", () => {
+    const ATTRIBUTION = {
+      source: "reddit",
+      medium: "paid_social",
+      campaign: "forest200",
+    };
+    const PROLIFIC_SESSION = {
+      prolificPid: "5f2a1b9c4d3e2f1a0b9c8d7e",
+      studyId: "60d5f8a2b1c3d4e5f6a7b8c9",
+      sessionId: "70e6a9b3c2d4e5f6a7b8c9d0",
+    };
+    let fetchMock: jest.Mock;
+
+    const submitFeedback = async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<Forest {...defaultForest} />);
+      await user.click(
+        screen.getByRole("button", { name: defaultForest.ctaButtonLabel }),
+      );
+      await user.click(screen.getByRole("button", { name: /continue/i }));
+      await user.click(screen.getByRole("button", { name: "UX" }));
+      await user.click(screen.getByRole("button", { name: /continue/i }));
+      await user.type(
+        screen.getByLabelText("Your feedback"),
+        "The navigation was clear enough to follow.",
+      );
+      await user.click(screen.getByRole("button", { name: /continue/i }));
+      await user.click(screen.getByRole("button", { name: "Send" }));
+    };
+
+    const submittedBody = () =>
+      JSON.parse(fetchMock.mock.calls[0][1].body as string);
+
+    beforeEach(() => {
+      sessionStorage.clear();
+      localStorage.clear();
+      fetchMock = jest.fn().mockResolvedValue({ ok: true });
+      global.fetch = fetchMock as unknown as typeof fetch;
+    });
+
+    it("sends the stored attribution with the submission", async () => {
+      sessionStorage.setItem(
+        "marketing-attribution",
+        JSON.stringify(ATTRIBUTION),
+      );
+      await submitFeedback();
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock.mock.calls[0][0]).toBe("/api/feedback");
+      expect(submittedBody().attribution).toEqual(ATTRIBUTION);
+      expect(submittedBody().prolific).toBeUndefined();
+    });
+
+    it("sends nothing extra for a direct visitor", async () => {
+      await submitFeedback();
+
+      expect(submittedBody()).not.toHaveProperty("attribution");
+      expect(submittedBody()).not.toHaveProperty("prolific");
+      expect(submittedBody()).toMatchObject({
+        category: "UX",
+        message: "The navigation was clear enough to follow.",
+      });
+    });
+
+    it("re-validates a hand-edited stored value before sending it", async () => {
+      sessionStorage.setItem(
+        "marketing-attribution",
+        JSON.stringify({ source: "<script>", medium: "Social" }),
+      );
+      await submitFeedback();
+
+      expect(submittedBody().attribution).toEqual({ medium: "social" });
+    });
+
+    it("leaves a Prolific submission exactly as it was", async () => {
+      sessionStorage.setItem(
+        "prolific-session",
+        JSON.stringify(PROLIFIC_SESSION),
+      );
+      sessionStorage.setItem(
+        "marketing-attribution",
+        JSON.stringify(ATTRIBUTION),
+      );
+      await submitFeedback();
+
+      expect(submittedBody().prolific).toEqual(PROLIFIC_SESSION);
+      expect(submittedBody().attribution).toBeUndefined();
+    });
+
+    it("still shows the normal success step after an attributed submission", async () => {
+      sessionStorage.setItem(
+        "marketing-attribution",
+        JSON.stringify(ATTRIBUTION),
+      );
+      await submitFeedback();
+
+      expect(screen.queryByTestId("prolific-complete")).not.toBeInTheDocument();
+      expect(localStorage.getItem("forest-feedback-submitted")).toBe("true");
+    });
+  });
+
   describe("stats section visibility", () => {
     const getStatItems = (container: HTMLElement) =>
       container.querySelectorAll("[data-testid='stat-item']");
