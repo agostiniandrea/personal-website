@@ -171,10 +171,11 @@ function useWidgetScan(variantKey: string | null): void {
   }, [variantKey]);
 }
 
-/* A label is roughly 190 × 65 px. The row is always rendered (also in the
+/* A label is roughly 190 × 57 px. The row is always rendered (also in the
    server HTML) so this room is reserved up front and the page does not shift
-   once the third-party script fills the label in. */
-const LABEL_MIN_HEIGHT = "4.5rem";
+   once the third-party script fills the label in. It matches the label's real
+   height: any more would show up as empty space under it. */
+const LABEL_MIN_HEIGHT = "3.5rem";
 
 const Row = styled.div`
   min-height: ${LABEL_MIN_HEIGHT};

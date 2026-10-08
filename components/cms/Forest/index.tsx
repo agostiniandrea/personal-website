@@ -14,6 +14,7 @@ import {
   Section,
   SectionLabel,
   TreeIcon,
+  TreeNationLabel,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
@@ -67,6 +68,7 @@ export interface ForestProps {
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
+  /** Kept for CMS compatibility; the intro now shows Tree-Nation's own counter. */
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
@@ -351,44 +353,30 @@ const CtaContent = styled.div`
   flex: 1;
 `;
 
+/* The counter has the right side to itself: no divider, and wide enough that
+   the (now larger) label balances the copy opposite it. */
 const CtaDecor = styled.div`
   align-items: flex-start;
-  border-top: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.space.xs};
-  padding-top: 1.25rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
-    border-left: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
-    border-top: none;
     flex-shrink: 0;
-    padding-left: 3rem;
-    padding-top: 0;
     text-align: right;
-    width: 260px;
   }
 `;
 
-const CtaDecorNumber = styled.span`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 3.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  line-height: ${({ theme }) => theme.lineHeights.tight};
+/* Tree-Nation's label is a fixed ~190px widget. `zoom` (unlike a transform)
+   scales its layout box too, so the reserved space and the wrapping around it
+   follow, and the official widget, its hover state and its link stay as they
+   are. */
+const TreeCounter = styled(TreeNationLabel)`
+  zoom: 1.4;
 
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 4.5rem;
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    zoom: 1.8;
   }
-`;
-
-const CtaDecorLabel = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 `;
 
 const CtaHeading = styled.h3`
@@ -409,6 +397,11 @@ const CtaBody = styled.p<{ $tight?: boolean }>`
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0 0 ${({ $tight }) => ($tight ? "0.75rem" : "1.75rem")};
   max-width: 420px;
+
+  /* Wider on desktop, so the copy and the larger counter weigh the same. */
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    max-width: 36rem;
+  }
 `;
 
 /* TEMPORARY CAMPAIGN — the quiet anniversary line under the CTA. Same scale and
@@ -1007,7 +1000,6 @@ const Forest: React.FC<ForestProps> = ({
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
   ctaButtonLabel = "Plant your feedback",
-  treeCountLabel,
   treesLabel,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
@@ -1051,7 +1043,6 @@ const Forest: React.FC<ForestProps> = ({
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
   const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
-  const resolvedTreeCountLabel = treeCountLabel ?? t.forestTreeCountLabel;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -1189,12 +1180,11 @@ const Forest: React.FC<ForestProps> = ({
             )}
           </CtaContent>
           <CtaDecor>
-            {/* No eyebrow: the caption below already names the number, and
-                "My forest" belongs to the progress panel underneath, where it
-                pairs with "Feedback impact". Repeating it here read as a
-                duplicate once the two cards stacked on phones. */}
-            <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-            <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
+            {/* Tree-Nation's official Tree Counter takes the place of the
+                number and caption that used to sit here: it shows the same
+                total, certified, and links to the public Forest. No eyebrow,
+                no frame of its own. */}
+            <TreeCounter type="tree-counter" />
           </CtaDecor>
         </CtaCard>
 

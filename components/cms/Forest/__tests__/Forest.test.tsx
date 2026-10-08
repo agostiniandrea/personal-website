@@ -147,28 +147,40 @@ describe("Forest", () => {
     });
   });
 
-  describe("tree count label", () => {
-    it("keeps the English text without a CMS override", () => {
-      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
-      expect(
-        screen.getByText("Trees planted since May 2026"),
-      ).toBeInTheDocument();
+  describe("tree counter in the intro", () => {
+    const counterOf = () =>
+      screen
+        .getByTestId("tree-nation-tree-counter")
+        .querySelector<HTMLElement>("[data-widget-type]")!;
+
+    it("shows the official Tree-Nation Tree Counter on the right of the intro", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(counterOf()).toHaveAttribute("data-widget-type", "tree-counter");
+      expect(counterOf()).toHaveAttribute(
+        "data-tree-nation-code",
+        "c128ea8ddf37a37a",
+      );
     });
 
-    it("is localised in Italian without a CMS override", () => {
-      mockUseRouter.mockReturnValue({ locale: "it" });
-      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
-      expect(
-        screen.getByText("Alberi piantati da maggio 2026"),
-      ).toBeInTheDocument();
+    it("replaces the old number and caption instead of repeating them", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
       expect(
         screen.queryByText("Trees planted since May 2026"),
       ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(String(defaultForest.treeCount)),
+      ).not.toBeInTheDocument();
     });
 
-    it("still lets an explicit CMS label win", () => {
-      renderWithTheme(<Forest {...defaultForest} treeCountLabel="CMS label" />);
-      expect(screen.getByText("CMS label")).toBeInTheDocument();
+    it("renders no other Tree-Nation widget in the Forest", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(document.querySelectorAll("[data-widget-type]")).toHaveLength(1);
+    });
+
+    it("speaks Italian on the Italian locale", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(counterOf()).toHaveAttribute("data-lang", "it");
     });
   });
 
@@ -714,8 +726,6 @@ describe("Forest — 200-tree campaign", () => {
     expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
       "One year in Thailand · October 10, 2025 → October 10, 2026",
     );
-    // The Forest began in May 2026; the label must keep saying so.
-    expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
   });
 
   it("wins over the Contentful heading and body while active", () => {
@@ -794,8 +804,10 @@ describe("Forest — 200-tree campaign", () => {
         "aria-valuenow",
         "200",
       );
-      // The real Tree-Nation total stays visible and untouched.
-      expect(screen.getByText(String(count))).toBeInTheDocument();
+      // The intro counter is Tree-Nation's own label: the real total is theirs.
+      expect(
+        screen.getByTestId("tree-nation-tree-counter"),
+      ).toBeInTheDocument();
     },
   );
 
