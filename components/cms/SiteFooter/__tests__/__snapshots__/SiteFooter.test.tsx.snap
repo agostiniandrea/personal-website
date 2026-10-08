@@ -63,6 +63,19 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   border-radius: 0 0.3em 0.3em 0;
 }
 
+.c15 {
+  margin-top: 1.5rem;
+  min-height: 4.5rem;
+}
+
+.c16 {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
 .c0 {
   background: var(--color-badge-bg);
   border-top: 1px solid rgba(128, 128, 128, 0.12);
@@ -301,6 +314,27 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           </p>
         </div>
       </div>
+      <div
+        class="c15"
+        data-testid="tree-nation-labels"
+      >
+        <div
+          class="c16"
+        >
+          <div
+            data-lang="en"
+            data-theme="white-monochrome"
+            data-tree-nation-code="a4d3639b36ee64ed"
+            data-widget-type="offset-website"
+          />
+          <div
+            data-lang="en"
+            data-theme="white-monochrome"
+            data-tree-nation-code="c128ea8ddf37a37a"
+            data-widget-type="tree-counter"
+          />
+        </div>
+      </div>
     </section>
   </footer>
 </div>
@@ -380,6 +414,19 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   text-decoration: none;
   border-left: 0;
   border-radius: 0 0.3em 0.3em 0;
+}
+
+.c19 {
+  margin-top: 1.5rem;
+  min-height: 4.5rem;
+}
+
+.c20 {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .c0 {
@@ -675,6 +722,27 @@ exports[`SiteFooter renders correctly with social links 1`] = `
              
             Andrea Agostini
           </p>
+        </div>
+      </div>
+      <div
+        class="c19"
+        data-testid="tree-nation-labels"
+      >
+        <div
+          class="c20"
+        >
+          <div
+            data-lang="en"
+            data-theme="white-monochrome"
+            data-tree-nation-code="a4d3639b36ee64ed"
+            data-widget-type="offset-website"
+          />
+          <div
+            data-lang="en"
+            data-theme="white-monochrome"
+            data-tree-nation-code="c128ea8ddf37a37a"
+            data-widget-type="tree-counter"
+          />
         </div>
       </div>
     </section>

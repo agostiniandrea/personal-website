@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Container, Flex, Link, Text } from "@components/ions";
-import { CarbonBadge } from "@components/molecules";
+import { CarbonBadge, TreeNationLabels } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
@@ -198,6 +198,8 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           </Text>
         </MetaCol>
       </Subfooter>
+
+      <TreeNationLabels />
     </Container>
   </FooterWrapper>
 );

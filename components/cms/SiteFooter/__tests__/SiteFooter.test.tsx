@@ -62,6 +62,13 @@ describe("SiteFooter", () => {
     expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
   });
 
+  it("renders the Tree-Nation labels in the footer", () => {
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    const labels = screen.getByTestId("tree-nation-labels");
+    expect(screen.getByRole("contentinfo")).toContainElement(labels);
+    expect(labels.querySelectorAll("[data-tree-nation-code]")).toHaveLength(2);
+  });
+
   it("tracks footer social profile clicks", async () => {
     const user = userEvent.setup();
     window.gtag = jest.fn();
