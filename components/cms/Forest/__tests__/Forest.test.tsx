@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { screen, within } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { FOREST_CAMPAIGN } from "@lib/utils/forestCampaign";
@@ -147,63 +147,40 @@ describe("Forest", () => {
     });
   });
 
-  describe("tree count label", () => {
-    it("keeps the English text without a CMS override", () => {
-      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
-      expect(
-        screen.getByText("Trees planted since May 2026"),
-      ).toBeInTheDocument();
+  describe("Tree-Nation badge", () => {
+    const PROFILE = "https://tree-nation.com/profile/andrea-agostini-103769";
+
+    it("shows the dynamic count prominently with its label and certification", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={183} />);
+      const badge = screen.getByTestId("tree-badge");
+      expect(badge).toHaveTextContent("183");
+      expect(badge).toHaveTextContent("Trees planted");
+      expect(badge).toHaveTextContent("Certified by Tree-Nation");
     });
 
-    it("is localised in Italian without a CMS override", () => {
-      mockUseRouter.mockReturnValue({ locale: "it" });
-      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+    it("follows the tree count", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={47} />);
+      expect(screen.getByTestId("tree-badge")).toHaveTextContent("47");
+    });
+
+    it("is itself the link to the public Tree-Nation Forest", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      const badge = screen.getByTestId("tree-badge");
+      expect(badge.tagName).toBe("A");
+      expect(badge).toHaveAttribute("href", PROFILE);
+      expect(badge).toHaveAttribute("target", "_blank");
+      expect(badge).toHaveAttribute("rel", "noopener noreferrer");
+    });
+
+    it("is the only link to the Tree-Nation profile in the section", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(document.querySelectorAll(`a[href="${PROFILE}"]`)).toHaveLength(1);
       expect(
-        screen.getByText("Alberi piantati da maggio 2026"),
-      ).toBeInTheDocument();
-      expect(
-        screen.queryByText("Trees planted since May 2026"),
+        screen.queryByRole("link", { name: /View the forest on Tree-Nation/i }),
       ).not.toBeInTheDocument();
     });
 
-    it("still lets an explicit CMS label win", () => {
-      renderWithTheme(<Forest {...defaultForest} treeCountLabel="CMS label" />);
-      expect(screen.getByText("CMS label")).toBeInTheDocument();
-    });
-  });
-
-  describe("Tree-Nation certification", () => {
-    const heroOf = () =>
-      screen.getByText("Trees planted since May 2026").parentElement!;
-
-    it("keeps the count as the hero, with the certification only underneath", () => {
-      renderWithTheme(<Forest {...defaultForest} treeCount={183} />);
-      const hero = heroOf();
-      expect(hero).toHaveTextContent("183");
-      const link = within(hero).getByRole("link", {
-        name: "Certified by Tree-Nation",
-      });
-      expect(
-        screen
-          .getByText("Trees planted since May 2026")
-          .compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING,
-      ).toBeTruthy();
-    });
-
-    it("links to the Tree-Nation Forest and opens it safely", () => {
-      renderWithTheme(<Forest {...defaultForest} />);
-      const link = screen.getByRole("link", {
-        name: "Certified by Tree-Nation",
-      });
-      expect(link).toHaveAttribute(
-        "href",
-        "https://tree-nation.com/profile/andrea-agostini-103769",
-      );
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-    });
-
-    it("is a plain link, not a Tree-Nation widget or badge", () => {
+    it("is drawn natively: no Tree-Nation widget or script", () => {
       renderWithTheme(<Forest {...defaultForest} />);
       expect(document.querySelector("[data-widget-type]")).toBeNull();
       expect(document.querySelector('script[src*="tree-nation"]')).toBeNull();
@@ -212,16 +189,9 @@ describe("Forest", () => {
     it("is localised in Italian", () => {
       mockUseRouter.mockReturnValue({ locale: "it" });
       renderWithTheme(<Forest {...defaultForest} />);
-      expect(
-        screen.getByRole("link", { name: "Certificato da Tree-Nation" }),
-      ).toBeInTheDocument();
-    });
-
-    it("keeps the existing Forest link under the progress card", () => {
-      renderWithTheme(<Forest {...defaultForest} />);
-      expect(
-        screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
-      ).toBeInTheDocument();
+      const badge = screen.getByTestId("tree-badge");
+      expect(badge).toHaveTextContent("Alberi piantati");
+      expect(badge).toHaveTextContent("Certificato da Tree-Nation");
     });
   });
 
@@ -377,16 +347,6 @@ describe("Forest", () => {
     expect(block).toHaveTextContent("4 trees grown through portfolio feedback");
     expect(block).toHaveTextContent("2 meaningful contributions");
     expect(block).toHaveTextContent("2 trees planted for each");
-  });
-
-  it("renders the Tree-Nation link", () => {
-    renderWithTheme(<Forest {...defaultForest} />);
-    expect(
-      screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
-    ).toHaveAttribute(
-      "href",
-      "https://tree-nation.com/profile/andrea-agostini-103769",
-    );
   });
 
   it("renders the season project panel with species and project link", () => {
@@ -767,8 +727,6 @@ describe("Forest — 200-tree campaign", () => {
     expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
       "One year in Thailand · October 10, 2025 → October 10, 2026",
     );
-    // The Forest began in May 2026; the label must keep saying so.
-    expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
   });
 
   it("wins over the Contentful heading and body while active", () => {

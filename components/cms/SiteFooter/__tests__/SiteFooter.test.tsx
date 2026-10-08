@@ -85,17 +85,17 @@ describe("SiteFooter", () => {
     expect(screen.queryByTestId("tree-nation-tree-counter")).toBeNull();
   });
 
-  it("shows Website Carbon in its monochrome version, like the Climate Action label", () => {
+  it("shows both environmental badges in colour", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
     const carbon = screen.getByRole("link", { name: /Website Carbon result/i });
+    const climate = screen
+      .getByTestId("tree-nation-offset-website")
+      .querySelector("[data-theme]")!;
 
-    expect(carbon).toHaveStyleRule("background", "var(--color-paragraph)");
-    expect(
-      screen
-        .getByTestId("tree-nation-offset-website")
-        .querySelector("[data-theme]")!
-        .getAttribute("data-theme"),
-    ).toMatch(/monochrome$/);
+    // Website Carbon keeps its own indigo and mint.
+    expect(carbon).toHaveStyleRule("background", "#00ffbc");
+    // Climate Action uses the default light/dark theme, never a monochrome one.
+    expect(climate.getAttribute("data-theme")).toMatch(/^(light|dark)$/);
   });
 
   it("tracks footer social profile clicks", async () => {

@@ -18,7 +18,7 @@ import styled from "styled-components";
  * The script URL, the widget types and the two `data-tree-nation-code` values
  * below are the official ones, untouched. The only things a label varies are
  * `data-lang` and `data-theme`, using values the dashboard offers
- * (en | it; light, dark, white-monochrome, dark-monochrome).
+ * (en | it; light | dark).
  *
  * One variant of each label is mounted at a time, never every variant hidden
  * with CSS: a hidden copy is still a label on the page, and the Climate Action
@@ -36,21 +36,14 @@ export const TREE_NATION_CODES = {
 export type TreeNationWidgetType = keyof typeof TREE_NATION_CODES;
 
 export type TreeNationLang = "en" | "it";
-export type TreeNationTheme =
-  "light" | "dark" | "white-monochrome" | "dark-monochrome";
+export type TreeNationTheme = "light" | "dark";
 type ColorScheme = "light" | "dark";
 
-/* Each label picks its own look. The Climate Action Website label sits in the
-   footer as a quiet credential, so it is monochrome (the carbon badge next to
-   it is dimmed too, and a colourful label would be the loudest thing there).
-   The Tree Counter is the Forest's headline figure, so it uses the default
-   colour themes. */
-const THEME_FOR_SCHEME: Record<
-  TreeNationWidgetType,
-  Record<ColorScheme, TreeNationTheme>
-> = {
-  "offset-website": { dark: "dark-monochrome", light: "white-monochrome" },
-  "tree-counter": { dark: "dark", light: "light" },
+/* The default colour themes: the label follows the site's light/dark theme.
+   (The dashboard also offers white-monochrome and dark-monochrome.) */
+const THEME_FOR_SCHEME: Record<ColorScheme, TreeNationTheme> = {
+  dark: "dark",
+  light: "light",
 };
 
 const DARK_QUERY = "(prefers-color-scheme: dark)";
@@ -205,7 +198,7 @@ const TreeNationLabel: React.FC<TreeNationLabelProps> = ({
   const scheme = useColorScheme();
 
   const lang: TreeNationLang = locale === "it" ? "it" : "en";
-  const theme = scheme ? THEME_FOR_SCHEME[type][scheme] : null;
+  const theme = scheme ? THEME_FOR_SCHEME[scheme] : null;
   const variantKey = theme ? `${lang}-${theme}` : null;
 
   useWidgetScan(variantKey);

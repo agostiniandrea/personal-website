@@ -67,6 +67,7 @@ export interface ForestProps {
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
+  /** No longer shown: the intro badge carries its own "trees planted" label. */
   treeCountLabel?: string;
   treesLabel?: string;
   viewForestLabel?: string;
@@ -371,42 +372,29 @@ const CtaDecor = styled.div`
   }
 `;
 
-const CtaDecorNumber = styled.span`
-  color: ${({ theme }) => theme.colors.highlight};
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 3.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  line-height: ${({ theme }) => theme.lineHeights.tight};
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 4.5rem;
-  }
-`;
-
-const CtaDecorLabel = styled.span`
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-`;
-
-/* Proof, not promotion: small, in the paragraph colour, with the same tree the
-   verified link below uses. Only the arrow says it leaves the site. */
-const CertifiedLink = styled.a`
+/* The badge for the tree count. It is drawn here, in the portfolio's own
+   typography and teal, rather than embedded from Tree-Nation: the count is the
+   Forest's, the certification line says who vouches for it, and the whole badge
+   is the one link to the public Tree-Nation Forest. */
+const TreeBadge = styled.a`
   align-items: center;
-  color: ${({ theme }) => theme.colors.paragraph};
+  background: ${({ theme }) => alpha(theme.colors.highlight, 8)};
+  border: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 35)};
+  border-radius: ${({ theme }) => theme.radii.sm};
   display: inline-flex;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  gap: ${({ theme }) => theme.space.xs};
-  letter-spacing: 0.02em;
-  margin-top: ${({ theme }) => theme.space.sm};
+  gap: ${({ theme }) => theme.space.md};
+  max-width: 100%;
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.lg};
+  text-align: left;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 
   @media (hover: hover) {
     &:hover {
-      color: ${({ theme }) => theme.colors.highlight};
+      background: ${({ theme }) => alpha(theme.colors.highlight, 14)};
+      border-color: ${({ theme }) => alpha(theme.colors.highlight, 70)};
     }
   }
 
@@ -416,9 +404,53 @@ const CertifiedLink = styled.a`
   }
 `;
 
-const CertifiedTree = styled(TreeDeciduous)`
+const TreeBadgeIcon = styled.span`
+  align-items: center;
+  background: ${({ theme }) => alpha(theme.colors.highlight, 16)};
+  border-radius: 50%;
   color: ${({ theme }) => theme.colors.highlight};
+  display: inline-flex;
   flex-shrink: 0;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+`;
+
+const TreeBadgeBody = styled.span`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.xs};
+  min-width: 0;
+`;
+
+const TreeBadgeCount = styled.span`
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 ${({ theme }) => theme.space.sm};
+`;
+
+const TreeBadgeNumber = styled.span`
+  color: ${({ theme }) => theme.colors.highlight};
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: 2.25rem;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: 1;
+`;
+
+const TreeBadgeLabel = styled.span`
+  color: ${({ theme }) => theme.colors.headline};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+`;
+
+const TreeBadgeCertified = styled.span`
+  align-items: center;
+  color: ${({ theme }) => theme.colors.paragraph};
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  gap: ${({ theme }) => theme.space.xs};
+  letter-spacing: 0.02em;
 `;
 
 const CtaHeading = styled.h3`
@@ -903,50 +935,6 @@ const ProjectLink = styled.a`
   }
 `;
 
-/* ── View forest link ── */
-
-/* Trust seal linking to the public Tree-Nation profile. Drawn inline so it costs
-   no extra request — the point of the badge is credibility, not third-party JS. */
-const VerifiedBadge = styled.a`
-  align-items: center;
-  border: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 30)};
-  border-radius: 999px;
-  color: ${({ theme }) => theme.colors.paragraph};
-  display: inline-flex;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  gap: ${({ theme }) => theme.space.sm};
-  padding: 0.4rem 0.875rem;
-  text-decoration: none;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
-  width: fit-content;
-
-  @media (hover: hover) {
-    &:hover {
-      background: ${({ theme }) => alpha(theme.colors.highlight, 6)};
-      border-color: ${({ theme }) => alpha(theme.colors.highlight, 60)};
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.highlight};
-    outline-offset: 3px;
-  }
-`;
-
-/* The badge points at the forest itself, so it carries the tree — the leaf is
-   reserved for a single contribution. */
-const VerifiedTree = styled(TreeDeciduous)`
-  color: ${({ theme }) => theme.colors.highlight};
-  flex-shrink: 0;
-`;
-
-const VerifiedArrow = styled(ArrowUpRight)`
-  color: ${({ theme }) => theme.colors.highlight};
-  flex-shrink: 0;
-`;
-
 /* ── Timeline ── */
 
 const TimelineSection = styled.div``;
@@ -1040,7 +1028,6 @@ const Forest: React.FC<ForestProps> = ({
   ctaHeading = "Help this portfolio grow.",
   ctaBody,
   ctaButtonLabel = "Plant your feedback",
-  treeCountLabel,
   treesLabel,
   seasonProjectLabel = "Season One project",
   seasonProjectName,
@@ -1084,7 +1071,6 @@ const Forest: React.FC<ForestProps> = ({
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
   const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
-  const resolvedTreeCountLabel = treeCountLabel ?? t.forestTreeCountLabel;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
@@ -1222,21 +1208,26 @@ const Forest: React.FC<ForestProps> = ({
             )}
           </CtaContent>
           <CtaDecor>
-            {/* No eyebrow: the caption below already names the number, and
-                "My forest" belongs to the progress panel underneath, where it
-                pairs with "Feedback impact". Repeating it here read as a
-                duplicate once the two cards stacked on phones. */}
-            <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-            <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
-            <CertifiedLink
+            <TreeBadge
               href={TREE_NATION_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
+              data-testid="tree-badge"
             >
-              <CertifiedTree size={13} strokeWidth={1.8} aria-hidden="true" />
-              {t.forestCertifiedLabel}
-              <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
-            </CertifiedLink>
+              <TreeBadgeIcon aria-hidden="true">
+                <TreeDeciduous size={20} strokeWidth={1.8} />
+              </TreeBadgeIcon>
+              <TreeBadgeBody>
+                <TreeBadgeCount>
+                  <TreeBadgeNumber>{treeCount}</TreeBadgeNumber>
+                  <TreeBadgeLabel>{t.forestTreesPlantedLabel}</TreeBadgeLabel>
+                </TreeBadgeCount>
+                <TreeBadgeCertified>
+                  {t.forestCertifiedLabel}
+                  <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
+                </TreeBadgeCertified>
+              </TreeBadgeBody>
+            </TreeBadge>
           </CtaDecor>
         </CtaCard>
 
@@ -1446,16 +1437,6 @@ const Forest: React.FC<ForestProps> = ({
             )}
           </SeasonGrid>
         </SeasonCard>
-
-        <VerifiedBadge
-          href={TREE_NATION_PROFILE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
-          {t.forestVerifiedLabel}
-          <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
-        </VerifiedBadge>
 
         {changelogItems.length > 0 && (
           <>

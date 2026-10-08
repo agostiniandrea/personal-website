@@ -134,42 +134,19 @@ describe("TreeNationLabel", () => {
     expect(widgetScripts()).toHaveLength(0);
   });
 
-  it("uses the light monochrome Climate Action label in English by default", () => {
+  it("uses the light theme in English by default", () => {
     const { container } = renderWithTheme(
       <TreeNationLabel type="offset-website" />,
     );
 
     expect(widgetOf(container)).toHaveAttribute("data-lang", "en");
-    expect(widgetOf(container)).toHaveAttribute(
-      "data-theme",
-      "white-monochrome",
-    );
-  });
-
-  it("uses the dark monochrome Climate Action label when the site theme is dark", () => {
-    document.documentElement.setAttribute("data-theme", "dark");
-    const { container } = renderWithTheme(
-      <TreeNationLabel type="offset-website" />,
-    );
-
-    expect(widgetOf(container)).toHaveAttribute(
-      "data-theme",
-      "dark-monochrome",
-    );
-  });
-
-  it("uses the default light theme for the Tree Counter", () => {
-    const { container } = renderWithTheme(
-      <TreeNationLabel type="tree-counter" />,
-    );
-
     expect(widgetOf(container)).toHaveAttribute("data-theme", "light");
   });
 
-  it("uses the default dark theme for the Tree Counter when the site theme is dark", () => {
+  it("uses the dark theme when the site theme is dark", () => {
     document.documentElement.setAttribute("data-theme", "dark");
     const { container } = renderWithTheme(
-      <TreeNationLabel type="tree-counter" />,
+      <TreeNationLabel type="offset-website" />,
     );
 
     expect(widgetOf(container)).toHaveAttribute("data-theme", "dark");
@@ -181,10 +158,7 @@ describe("TreeNationLabel", () => {
       <TreeNationLabel type="offset-website" />,
     );
 
-    expect(widgetOf(container)).toHaveAttribute(
-      "data-theme",
-      "dark-monochrome",
-    );
+    expect(widgetOf(container)).toHaveAttribute("data-theme", "dark");
   });
 
   it("lets an explicit light choice win over a dark OS", () => {
@@ -194,10 +168,7 @@ describe("TreeNationLabel", () => {
       <TreeNationLabel type="offset-website" />,
     );
 
-    expect(widgetOf(container)).toHaveAttribute(
-      "data-theme",
-      "white-monochrome",
-    );
+    expect(widgetOf(container)).toHaveAttribute("data-theme", "light");
   });
 
   it("uses the Italian label on the Italian locale", () => {
@@ -230,10 +201,7 @@ describe("TreeNationLabel", () => {
     act(() => onThemeAttributeChange());
 
     expect(container.querySelectorAll("[data-widget-type]")).toHaveLength(1);
-    expect(widgetOf(container)).toHaveAttribute(
-      "data-theme",
-      "dark-monochrome",
-    );
+    expect(widgetOf(container)).toHaveAttribute("data-theme", "dark");
     runIdle();
     expect(widgetScripts()).toHaveLength(1);
   });

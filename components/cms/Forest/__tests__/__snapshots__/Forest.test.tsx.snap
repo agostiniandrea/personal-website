@@ -38,7 +38,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c57 {
+.c60 {
   -webkit-tap-highlight-color: transparent;
   background: var(--color-badge-bg);
   border: 1px solid var(--color-highlight);
@@ -60,12 +60,12 @@ exports[`Forest renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c53 {
+.c56 {
   display: inline-block;
   position: relative;
 }
 
-.c54 {
+.c57 {
   align-items: center;
   background: none;
   border: none;
@@ -81,14 +81,14 @@ exports[`Forest renders correctly with all props 1`] = `
   width: 44px;
 }
 
-.c54:focus-visible {
+.c57:focus-visible {
   border-radius: 100%;
   opacity: 1;
   outline: 2px solid var(--color-highlight);
   outline-offset: -10px;
 }
 
-.c54 svg {
+.c57 svg {
   display: block;
   transform: translateY(-1px);
 }
@@ -238,41 +238,71 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 .c27 {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-highlight) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-highlight) 35%, transparent);
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 0.75rem;
+  max-width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  transition: background 0.2s ease,border-color 0.2s ease;
+}
+
+.c27:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c28 {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-highlight) 16%, transparent);
+  border-radius: 50%;
+  color: var(--color-highlight);
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.c29 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.c30 {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+}
+
+.c31 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 3.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.c28 {
-  color: var(--color-paragraph);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.c32 {
+  color: var(--color-headline);
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
-.c29 {
+.c33 {
   align-items: center;
   color: var(--color-paragraph);
   display: inline-flex;
   font-size: 0.75rem;
   gap: 0.25rem;
   letter-spacing: 0.02em;
-  margin-top: 0.5rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.c29:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-.c30 {
-  color: var(--color-highlight);
-  flex-shrink: 0;
 }
 
 .c23 {
@@ -312,33 +342,33 @@ exports[`Forest renders correctly with all props 1`] = `
   outline-offset: 3px;
 }
 
-.c31 {
+.c34 {
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   margin-bottom: 2rem;
   padding: 1.5rem 1.75rem;
 }
 
-.c34 {
+.c37 {
   align-items: baseline;
   display: flex;
   grid-area: phead;
   justify-content: space-between;
 }
 
-.c35 {
+.c38 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
 }
 
-.c36 {
+.c39 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c37 {
+.c40 {
   background: color-mix(in srgb, var(--color-highlight) 10%, transparent);
   border-radius: 999px;
   grid-area: pbar;
@@ -346,7 +376,7 @@ exports[`Forest renders correctly with all props 1`] = `
   overflow: hidden;
 }
 
-.c38 {
+.c41 {
   background: linear-gradient(       90deg,       var(--color-highlight),       color-mix(in srgb, var(--color-highlight) 80%, transparent)     );
   border-radius: 999px;
   height: 100%;
@@ -354,24 +384,24 @@ exports[`Forest renders correctly with all props 1`] = `
   width: 2%;
 }
 
-.c39 {
+.c42 {
   align-items: center;
   display: flex;
   grid-area: pmeta;
   justify-content: space-between;
 }
 
-.c40 {
+.c43 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
-.c41 {
+.c44 {
   display: contents;
 }
 
-.c42 {
+.c45 {
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   color: var(--color-paragraph);
   grid-area: chead;
@@ -383,7 +413,7 @@ exports[`Forest renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c43 {
+.c46 {
   color: var(--color-headline);
   grid-area: ctitle;
   font-family: var(--font-space-grotesk),sans-serif;
@@ -392,25 +422,25 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1;
 }
 
-.c44 {
+.c47 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   grid-area: cmeta;
   text-wrap: balance;
 }
 
-.c32 {
+.c35 {
   display: grid;
   gap: 1.5rem;
   grid-template-areas: "phead" "pbar" "pmeta" "spread" "chead" "ctitle" "cmeta" "project";
   row-gap: 0.875rem;
 }
 
-.c33 {
+.c36 {
   display: contents;
 }
 
-.c46 {
+.c49 {
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
   flex-direction: column;
@@ -420,7 +450,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding-top: 1rem;
 }
 
-.c47 {
+.c50 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   font-weight: 700;
@@ -428,7 +458,7 @@ exports[`Forest renders correctly with all props 1`] = `
   text-transform: uppercase;
 }
 
-.c48 {
+.c51 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1.25rem;
@@ -436,33 +466,33 @@ exports[`Forest renders correctly with all props 1`] = `
   line-height: 1.2;
 }
 
-.c49 {
+.c52 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c50 {
+.c53 {
   color: var(--color-headline);
   margin-top: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
 }
 
-.c51 {
+.c54 {
   display: inline-block;
   white-space: nowrap;
 }
 
-.c51 sub {
+.c54 sub {
   font-size: 0.7em;
   line-height: 1;
 }
 
-.c52 {
+.c55 {
   white-space: pre;
 }
 
-.c55 {
+.c58 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -470,7 +500,7 @@ exports[`Forest renders correctly with all props 1`] = `
   margin-top: 0.5rem;
 }
 
-.c56 {
+.c59 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -479,7 +509,7 @@ exports[`Forest renders correctly with all props 1`] = `
   padding: 0;
 }
 
-.c58 {
+.c61 {
   align-items: center;
   color: var(--color-highlight);
   display: inline-flex;
@@ -491,38 +521,9 @@ exports[`Forest renders correctly with all props 1`] = `
   transition: opacity 0.2s ease;
 }
 
-.c58:focus-visible {
+.c61:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 3px;
-}
-
-.c59 {
-  align-items: center;
-  border: 1px solid color-mix(in srgb, var(--color-highlight) 30%, transparent);
-  border-radius: 999px;
-  color: var(--color-paragraph);
-  display: inline-flex;
-  font-size: 0.875rem;
-  gap: 0.5rem;
-  padding: 0.4rem 0.875rem;
-  text-decoration: none;
-  transition: border-color 0.2s ease,background 0.2s ease;
-  width: fit-content;
-}
-
-.c59:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-.c60 {
-  color: var(--color-highlight);
-  flex-shrink: 0;
-}
-
-.c61 {
-  color: var(--color-highlight);
-  flex-shrink: 0;
 }
 
 @media (min-width: 600px) {
@@ -572,7 +573,7 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (hover: hover) {
-  .c54:hover {
+  .c57:hover {
     opacity: 1;
   }
 }
@@ -649,15 +650,10 @@ exports[`Forest renders correctly with all props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c27 {
-    font-size: 4.5rem;
-  }
-}
-
 @media (hover: hover) {
-  .c29:hover {
-    color: var(--color-highlight);
+  .c27:hover {
+    background: color-mix(in srgb, var(--color-highlight) 14%, transparent);
+    border-color: color-mix(in srgb, var(--color-highlight) 70%, transparent);
   }
 }
 
@@ -676,20 +672,20 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (max-width: 599.99px) {
-  .c31 {
+  .c34 {
     margin-bottom: 1.5rem;
     padding: 1rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c37 {
+  .c40 {
     align-self: center;
   }
 }
 
 @media (min-width: 900px) {
-  .c42 {
+  .c45 {
     border-top: none;
     margin-top: 0;
     padding-top: 0;
@@ -697,20 +693,20 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (max-width: 599.99px) {
-  .c44 {
+  .c47 {
     display: flex;
     flex-direction: column;
   }
 }
 
 @media (max-width: 599.99px) {
-  .c45 {
+  .c48 {
     display: none;
   }
 }
 
 @media (min-width: 900px) {
-  .c32 {
+  .c35 {
     align-items: start;
     column-gap: 2rem;
     grid-template-areas: "phead  chead" "pbar   ctitle" "pmeta  cmeta" "spread project";
@@ -718,7 +714,7 @@ exports[`Forest renders correctly with all props 1`] = `
     position: relative;
   }
 
-  .c32::before {
+  .c35::before {
     background: rgba(128, 128, 128, 0.12);
     bottom: 0;
     content: "";
@@ -730,7 +726,7 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (max-width: 599.99px) {
-  .c50 {
+  .c53 {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
@@ -739,21 +735,14 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 @media (max-width: 599.99px) {
-  .c52 {
+  .c55 {
     display: none;
   }
 }
 
 @media (hover: hover) {
-  .c58:hover {
+  .c61:hover {
     opacity: 0.75;
-  }
-}
-
-@media (hover: hover) {
-  .c59:hover {
-    background: color-mix(in srgb, var(--color-highlight) 6%, transparent);
-    border-color: color-mix(in srgb, var(--color-highlight) 60%, transparent);
   }
 }
 
@@ -1023,85 +1012,103 @@ exports[`Forest renders correctly with all props 1`] = `
         <div
           class="c26"
         >
-          <span
-            class="c27"
-          >
-            34
-          </span>
-          <span
-            class="c28"
-          >
-            Trees planted since May 2026
-          </span>
           <a
-            class="c29"
+            class="c27"
+            data-testid="tree-badge"
             href="https://tree-nation.com/profile/andrea-agostini-103769"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <svg
+            <span
               aria-hidden="true"
-              class="lucide lucide-tree-deciduous c30"
-              fill="none"
-              height="13"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.8"
-              viewBox="0 0 24 24"
-              width="13"
-              xmlns="http://www.w3.org/2000/svg"
+              class="c28"
             >
-              <path
-                d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"
-              />
-              <path
-                d="M12 19v3"
-              />
-            </svg>
-            Certified by Tree-Nation
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-arrow-up-right"
-              fill="none"
-              height="12"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="12"
-              xmlns="http://www.w3.org/2000/svg"
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-tree-deciduous"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"
+                />
+                <path
+                  d="M12 19v3"
+                />
+              </svg>
+            </span>
+            <span
+              class="c29"
             >
-              <path
-                d="M7 7h10v10"
-              />
-              <path
-                d="M7 17 17 7"
-              />
-            </svg>
+              <span
+                class="c30"
+              >
+                <span
+                  class="c31"
+                >
+                  34
+                </span>
+                <span
+                  class="c32"
+                >
+                  Trees planted
+                </span>
+              </span>
+              <span
+                class="c33"
+              >
+                Certified by Tree-Nation
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-arrow-up-right"
+                  fill="none"
+                  height="12"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 7h10v10"
+                  />
+                  <path
+                    d="M7 17 17 7"
+                  />
+                </svg>
+              </span>
+            </span>
           </a>
         </div>
       </div>
       <div
-        class="c31"
+        class="c34"
       >
         <div
-          class="c32"
+          class="c35"
         >
           <div
-            class="c33"
+            class="c36"
           >
             <div
-              class="c34"
+              class="c37"
             >
               <span
-                class="c35"
+                class="c38"
               >
                 My forest
               </span>
               <span
-                class="c36"
+                class="c39"
               >
                 34
                  / 
@@ -1111,45 +1118,45 @@ exports[`Forest renders correctly with all props 1`] = `
               </span>
             </div>
             <div
-              class="c37"
+              class="c40"
             >
               <div
-                class="c38"
+                class="c41"
               />
             </div>
             <div
-              class="c39"
+              class="c42"
             >
               <span
-                class="c40"
+                class="c43"
               >
                 68% towards next milestone
               </span>
             </div>
           </div>
           <div
-            class="c41"
+            class="c44"
             data-testid="feedback-impact"
           >
             <span
-              class="c42"
+              class="c45"
             >
               Feedback impact
             </span>
             <span
-              class="c43"
+              class="c46"
             >
               4 trees grown through portfolio feedback
             </span>
             <span
-              class="c44"
+              class="c47"
             >
               <span>
                 2 meaningful contributions
               </span>
               <span
                 aria-hidden="true"
-                class="c45"
+                class="c48"
               >
                  · 
               </span>
@@ -1159,36 +1166,36 @@ exports[`Forest renders correctly with all props 1`] = `
             </span>
           </div>
           <div
-            class="c46"
+            class="c49"
             data-testid="season-project"
           >
             <span
-              class="c47"
+              class="c50"
             >
               Season One project
             </span>
             <span
-              class="c48"
+              class="c51"
             >
               Community Reforestation in Indonesia
             </span>
             <span
-              class="c49"
+              class="c52"
             >
               Indonesia · Tropical community reforestation
             </span>
             <span
-              class="c50"
+              class="c53"
               data-testid="project-stats"
             >
               <span>
                 4 trees · 2 species
               </span>
               <span
-                class="c51"
+                class="c54"
               >
                 <span
-                  class="c52"
+                  class="c55"
                 >
                    · 
                 </span>
@@ -1198,12 +1205,12 @@ exports[`Forest renders correctly with all props 1`] = `
                 </sub>
                  lifetime estimate
                 <span
-                  class="c53"
+                  class="c56"
                 >
                   <button
                     aria-expanded="false"
                     aria-label="About the CO₂ estimate"
-                    class="c54"
+                    class="c57"
                     type="button"
                   >
                     <svg
@@ -1236,24 +1243,24 @@ exports[`Forest renders correctly with all props 1`] = `
               </span>
             </span>
             <div
-              class="c55"
+              class="c58"
             >
               <ul
-                class="c56"
+                class="c59"
               >
                 <li
-                  class="c57"
+                  class="c60"
                 >
                   Sengon
                 </li>
                 <li
-                  class="c57"
+                  class="c60"
                 >
                   Kadamba
                 </li>
               </ul>
               <a
-                class="c58"
+                class="c61"
                 href="https://tree-nation.com/projects/community-reforestation-in-indonesia"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -1284,54 +1291,6 @@ exports[`Forest renders correctly with all props 1`] = `
           </div>
         </div>
       </div>
-      <a
-        class="c59"
-        href="https://tree-nation.com/profile/andrea-agostini-103769"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-tree-deciduous c60"
-          fill="none"
-          height="15"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="15"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"
-          />
-          <path
-            d="M12 19v3"
-          />
-        </svg>
-        View the forest on Tree-Nation
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-arrow-up-right c61"
-          fill="none"
-          height="13"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="13"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7 7h10v10"
-          />
-          <path
-            d="M7 17 17 7"
-          />
-        </svg>
-      </a>
     </section>
   </section>
 </div>
@@ -1493,41 +1452,71 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 .c22 {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-highlight) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-highlight) 35%, transparent);
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 0.75rem;
+  max-width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  transition: background 0.2s ease,border-color 0.2s ease;
+}
+
+.c22:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
+
+.c23 {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-highlight) 16%, transparent);
+  border-radius: 50%;
+  color: var(--color-highlight);
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.c24 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.c25 {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+}
+
+.c26 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 3.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.c23 {
-  color: var(--color-paragraph);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.c27 {
+  color: var(--color-headline);
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
-.c24 {
+.c28 {
   align-items: center;
   color: var(--color-paragraph);
   display: inline-flex;
   font-size: 0.75rem;
   gap: 0.25rem;
   letter-spacing: 0.02em;
-  margin-top: 0.5rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.c24:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-.c25 {
-  color: var(--color-highlight);
-  flex-shrink: 0;
 }
 
 .c18 {
@@ -1567,33 +1556,33 @@ exports[`Forest renders correctly with minimal props 1`] = `
   outline-offset: 3px;
 }
 
-.c26 {
+.c29 {
   border: 1px solid rgba(128, 128, 128, 0.15);
   border-radius: 1rem;
   margin-bottom: 2rem;
   padding: 1.5rem 1.75rem;
 }
 
-.c29 {
+.c32 {
   align-items: baseline;
   display: flex;
   grid-area: phead;
   justify-content: space-between;
 }
 
-.c30 {
+.c33 {
   color: var(--color-headline);
   font-family: var(--font-space-grotesk),sans-serif;
   font-size: 1rem;
   font-weight: 700;
 }
 
-.c31 {
+.c34 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
 }
 
-.c32 {
+.c35 {
   background: color-mix(in srgb, var(--color-highlight) 10%, transparent);
   border-radius: 999px;
   grid-area: pbar;
@@ -1601,7 +1590,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   overflow: hidden;
 }
 
-.c33 {
+.c36 {
   background: linear-gradient(       90deg,       var(--color-highlight),       color-mix(in srgb, var(--color-highlight) 80%, transparent)     );
   border-radius: 999px;
   height: 100%;
@@ -1609,57 +1598,28 @@ exports[`Forest renders correctly with minimal props 1`] = `
   width: 2%;
 }
 
-.c34 {
+.c37 {
   align-items: center;
   display: flex;
   grid-area: pmeta;
   justify-content: space-between;
 }
 
-.c35 {
+.c38 {
   color: var(--color-paragraph);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
-.c27 {
+.c30 {
   display: grid;
   gap: 1.5rem;
   grid-template-areas: "phead" "pbar" "pmeta" "spread" "chead" "ctitle" "cmeta" "project";
   row-gap: 0.875rem;
 }
 
-.c28 {
+.c31 {
   display: contents;
-}
-
-.c36 {
-  align-items: center;
-  border: 1px solid color-mix(in srgb, var(--color-highlight) 30%, transparent);
-  border-radius: 999px;
-  color: var(--color-paragraph);
-  display: inline-flex;
-  font-size: 0.875rem;
-  gap: 0.5rem;
-  padding: 0.4rem 0.875rem;
-  text-decoration: none;
-  transition: border-color 0.2s ease,background 0.2s ease;
-  width: fit-content;
-}
-
-.c36:focus-visible {
-  outline: 2px solid var(--color-highlight);
-  outline-offset: 3px;
-}
-
-.c37 {
-  color: var(--color-highlight);
-  flex-shrink: 0;
-}
-
-.c38 {
-  color: var(--color-highlight);
-  flex-shrink: 0;
 }
 
 @media (min-width: 600px) {
@@ -1758,15 +1718,10 @@ exports[`Forest renders correctly with minimal props 1`] = `
   }
 }
 
-@media (min-width: 1200px) {
-  .c22 {
-    font-size: 4.5rem;
-  }
-}
-
 @media (hover: hover) {
-  .c24:hover {
-    color: var(--color-highlight);
+  .c22:hover {
+    background: color-mix(in srgb, var(--color-highlight) 14%, transparent);
+    border-color: color-mix(in srgb, var(--color-highlight) 70%, transparent);
   }
 }
 
@@ -1785,20 +1740,20 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 @media (max-width: 599.99px) {
-  .c26 {
+  .c29 {
     margin-bottom: 1.5rem;
     padding: 1rem;
   }
 }
 
 @media (min-width: 900px) {
-  .c32 {
+  .c35 {
     align-self: center;
   }
 }
 
 @media (min-width: 900px) {
-  .c27 {
+  .c30 {
     align-items: start;
     column-gap: 2rem;
     grid-template-areas: "phead  chead" "pbar   ctitle" "pmeta  cmeta" "spread project";
@@ -1806,7 +1761,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
     position: relative;
   }
 
-  .c27::before {
+  .c30::before {
     background: rgba(128, 128, 128, 0.12);
     bottom: 0;
     content: "";
@@ -1814,13 +1769,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
     position: absolute;
     top: 0;
     width: 1px;
-  }
-}
-
-@media (hover: hover) {
-  .c36:hover {
-    background: color-mix(in srgb, var(--color-highlight) 6%, transparent);
-    border-color: color-mix(in srgb, var(--color-highlight) 60%, transparent);
   }
 }
 
@@ -2041,85 +1989,103 @@ exports[`Forest renders correctly with minimal props 1`] = `
         <div
           class="c21"
         >
-          <span
-            class="c22"
-          >
-            34
-          </span>
-          <span
-            class="c23"
-          >
-            Trees planted since May 2026
-          </span>
           <a
-            class="c24"
+            class="c22"
+            data-testid="tree-badge"
             href="https://tree-nation.com/profile/andrea-agostini-103769"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <svg
+            <span
               aria-hidden="true"
-              class="lucide lucide-tree-deciduous c25"
-              fill="none"
-              height="13"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.8"
-              viewBox="0 0 24 24"
-              width="13"
-              xmlns="http://www.w3.org/2000/svg"
+              class="c23"
             >
-              <path
-                d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"
-              />
-              <path
-                d="M12 19v3"
-              />
-            </svg>
-            Certified by Tree-Nation
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-arrow-up-right"
-              fill="none"
-              height="12"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="12"
-              xmlns="http://www.w3.org/2000/svg"
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-tree-deciduous"
+                fill="none"
+                height="20"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"
+                />
+                <path
+                  d="M12 19v3"
+                />
+              </svg>
+            </span>
+            <span
+              class="c24"
             >
-              <path
-                d="M7 7h10v10"
-              />
-              <path
-                d="M7 17 17 7"
-              />
-            </svg>
+              <span
+                class="c25"
+              >
+                <span
+                  class="c26"
+                >
+                  34
+                </span>
+                <span
+                  class="c27"
+                >
+                  Trees planted
+                </span>
+              </span>
+              <span
+                class="c28"
+              >
+                Certified by Tree-Nation
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-arrow-up-right"
+                  fill="none"
+                  height="12"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 7h10v10"
+                  />
+                  <path
+                    d="M7 17 17 7"
+                  />
+                </svg>
+              </span>
+            </span>
           </a>
         </div>
       </div>
       <div
-        class="c26"
+        class="c29"
       >
         <div
-          class="c27"
+          class="c30"
         >
           <div
-            class="c28"
+            class="c31"
           >
             <div
-              class="c29"
+              class="c32"
             >
               <span
-                class="c30"
+                class="c33"
               >
                 My forest
               </span>
               <span
-                class="c31"
+                class="c34"
               >
                 34
                  / 
@@ -2129,17 +2095,17 @@ exports[`Forest renders correctly with minimal props 1`] = `
               </span>
             </div>
             <div
-              class="c32"
+              class="c35"
             >
               <div
-                class="c33"
+                class="c36"
               />
             </div>
             <div
-              class="c34"
+              class="c37"
             >
               <span
-                class="c35"
+                class="c38"
               >
                 68% towards next milestone
               </span>
@@ -2147,54 +2113,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
           </div>
         </div>
       </div>
-      <a
-        class="c36"
-        href="https://tree-nation.com/profile/andrea-agostini-103769"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-tree-deciduous c37"
-          fill="none"
-          height="15"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          viewBox="0 0 24 24"
-          width="15"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"
-          />
-          <path
-            d="M12 19v3"
-          />
-        </svg>
-        View the forest on Tree-Nation
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-arrow-up-right c38"
-          fill="none"
-          height="13"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="13"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7 7h10v10"
-          />
-          <path
-            d="M7 17 17 7"
-          />
-        </svg>
-      </a>
     </section>
   </section>
 </div>
