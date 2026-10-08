@@ -90,8 +90,9 @@ const Subfooter = styled.div`
   }
 `;
 
-/* The eco column: Website Carbon (how light the site is) with the Climate
-   Action Website label under it (what the site gives back). */
+/* The left side of the footer is the site's environmental footprint: Website
+   Carbon (how light the site is) with the Climate Action Website label under
+   it (what the site gives back). */
 const BadgeCol = styled.div`
   align-items: center;
   display: flex;
@@ -102,6 +103,26 @@ const BadgeCol = styled.div`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-start;
   }
+`;
+
+/* Both Tree-Nation labels are credentials, not calls to action: dimmed like the
+   carbon badge and back to full strength on hover/focus, where the official
+   widgets show their own hover state and link. Only the wrapper is styled; the
+   widgets themselves are untouched. */
+const Credential = styled(TreeNationLabel)`
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover,
+  &:focus-within {
+    opacity: 1;
+  }
+`;
+
+/* Secondary to Website Carbon: the same 0.9 scale the carbon badge gets. */
+const ClimateActionCredential = styled(Credential)`
+  transform: scale(0.9);
+  transform-origin: left top;
 `;
 
 const TaglineCol = styled.div`
@@ -143,7 +164,7 @@ const MetaCol = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  gap: ${toSpacing("sm")};
+  gap: ${toSpacing("md")};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
@@ -184,7 +205,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           <CarbonWrapper>
             <CarbonBadge />
           </CarbonWrapper>
-          <TreeNationLabel type="offset-website" />
+          <ClimateActionCredential type="offset-website" />
         </BadgeCol>
 
         <TaglineCol>
@@ -198,6 +219,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </TaglineCol>
 
         <MetaCol>
+          <Credential type="tree-counter" />
           <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
             © {CURRENT_YEAR} {copyrightName}
           </Text>

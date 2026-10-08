@@ -21,7 +21,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c16 {
+.c18 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -67,7 +67,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   min-height: 4.5rem;
 }
 
-.c13 {
+.c15 {
   align-items: center;
   display: flex;
 }
@@ -111,7 +111,22 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   justify-content: center;
 }
 
+.c13 {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.c13:hover,
+.c13:focus-within {
+  opacity: 1;
+}
+
 .c14 {
+  transform: scale(0.9);
+  transform-origin: left top;
+}
+
+.c16 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -124,12 +139,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   transform-origin: center center;
 }
 
-.c15 {
+.c17 {
   align-items: center;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 @media (min-width: 600px) {
@@ -227,7 +242,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c14 {
+  .c16 {
     align-items: center;
     text-align: center;
   }
@@ -240,7 +255,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c15 {
+  .c17 {
     align-items: flex-end;
   }
 }
@@ -295,11 +310,11 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
             </span>
           </div>
           <div
-            class="c12"
+            class="c12 c13 c14"
             data-testid="tree-nation-offset-website"
           >
             <div
-              class="c13"
+              class="c15"
             >
               <div
                 data-lang="en"
@@ -311,13 +326,28 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           </div>
         </div>
         <div
-          class="c14"
+          class="c16"
         />
         <div
-          class="c15"
+          class="c17"
         >
+          <div
+            class="c12 c13"
+            data-testid="tree-nation-tree-counter"
+          >
+            <div
+              class="c15"
+            >
+              <div
+                data-lang="en"
+                data-theme="white-monochrome"
+                data-tree-nation-code="c128ea8ddf37a37a"
+                data-widget-type="tree-counter"
+              />
+            </div>
+          </div>
           <p
-            class="c16"
+            class="c18"
             style="color: var(--color-paragraph);"
           >
             © 
@@ -366,7 +396,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c17 {
+.c19 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -412,7 +442,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   min-height: 4.5rem;
 }
 
-.c15 {
+.c17 {
   align-items: center;
   display: flex;
 }
@@ -461,19 +491,34 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   justify-content: center;
 }
 
+.c15 {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.c15:hover,
+.c15:focus-within {
+  opacity: 1;
+}
+
 .c16 {
+  transform: scale(0.9);
+  transform-origin: left top;
+}
+
+.c18 {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.c18 {
+.c20 {
   color: var(--color-paragraph);
   max-width: 36ch;
 }
 
-.c19 {
+.c21 {
   display: block;
   text-wrap: balance;
 }
@@ -484,12 +529,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   transform-origin: center center;
 }
 
-.c20 {
+.c22 {
   align-items: center;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 @media (min-width: 600px) {
@@ -593,7 +638,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c16 {
+  .c18 {
     align-items: center;
     text-align: center;
   }
@@ -606,7 +651,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c20 {
+  .c22 {
     align-items: flex-end;
   }
 }
@@ -687,11 +732,11 @@ exports[`SiteFooter renders correctly with social links 1`] = `
             </span>
           </div>
           <div
-            class="c14"
+            class="c14 c15 c16"
             data-testid="tree-nation-offset-website"
           >
             <div
-              class="c15"
+              class="c17"
             >
               <div
                 data-lang="en"
@@ -703,23 +748,38 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           </div>
         </div>
         <div
-          class="c16"
+          class="c18"
         >
           <p
-            class="c17 c18"
+            class="c19 c20"
           >
             <span
-              class="c19"
+              class="c21"
             >
               Building for the web, one component at a time. Based in Bangkok.
             </span>
           </p>
         </div>
         <div
-          class="c20"
+          class="c22"
         >
+          <div
+            class="c14 c15"
+            data-testid="tree-nation-tree-counter"
+          >
+            <div
+              class="c17"
+            >
+              <div
+                data-lang="en"
+                data-theme="white-monochrome"
+                data-tree-nation-code="c128ea8ddf37a37a"
+                data-widget-type="tree-counter"
+              />
+            </div>
+          </div>
           <p
-            class="c17"
+            class="c19"
             style="color: var(--color-paragraph);"
           >
             © 

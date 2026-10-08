@@ -62,16 +62,31 @@ describe("SiteFooter", () => {
     expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
   });
 
-  it("renders the Climate Action Website label in the footer, and only that one", () => {
+  it("puts the Climate Action Website label on the left, under Website Carbon", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
-    const label = screen.getByTestId("tree-nation-offset-website");
-    expect(screen.getByRole("contentinfo")).toContainElement(label);
-    expect(label.querySelectorAll("[data-tree-nation-code]")).toHaveLength(1);
+    const climate = screen.getByTestId("tree-nation-offset-website");
+    const carbon = screen.getByRole("link", { name: /Website Carbon result/i });
+
+    expect(climate.parentElement).toContainElement(carbon);
     expect(
-      screen
-        .getByRole("contentinfo")
-        .querySelector('[data-widget-type="tree-counter"]'),
-    ).toBeNull();
+      carbon.compareDocumentPosition(climate) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("puts the Tree Counter on the opposite side, with the copyright", () => {
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    const counter = screen.getByTestId("tree-nation-tree-counter");
+    const climate = screen.getByTestId("tree-nation-offset-website");
+    const copyright = screen.getByText(
+      new RegExp(defaultSiteFooter.copyrightName),
+    );
+
+    expect(counter.parentElement).toContainElement(copyright);
+    expect(counter.parentElement).not.toContainElement(climate);
+    expect(
+      screen.getByRole("contentinfo").querySelectorAll("[data-widget-type]"),
+    ).toHaveLength(2);
   });
 
   it("tracks footer social profile clicks", async () => {
