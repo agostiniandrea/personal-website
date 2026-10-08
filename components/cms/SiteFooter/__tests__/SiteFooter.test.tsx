@@ -85,6 +85,19 @@ describe("SiteFooter", () => {
     expect(screen.queryByTestId("tree-nation-tree-counter")).toBeNull();
   });
 
+  it("shows Website Carbon in its monochrome version, like the Climate Action label", () => {
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    const carbon = screen.getByRole("link", { name: /Website Carbon result/i });
+
+    expect(carbon).toHaveStyleRule("background", "var(--color-paragraph)");
+    expect(
+      screen
+        .getByTestId("tree-nation-offset-website")
+        .querySelector("[data-theme]")!
+        .getAttribute("data-theme"),
+    ).toMatch(/monochrome$/);
+  });
+
   it("tracks footer social profile clicks", async () => {
     const user = userEvent.setup();
     window.gtag = jest.fn();

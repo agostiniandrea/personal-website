@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { FOREST_CAMPAIGN } from "@lib/utils/forestCampaign";
@@ -147,52 +147,81 @@ describe("Forest", () => {
     });
   });
 
-  describe("tree counter in the intro", () => {
-    const counterOf = () =>
-      screen
-        .getByTestId("tree-nation-tree-counter")
-        .querySelector<HTMLElement>("[data-widget-type]")!;
-
-    it("shows the official Tree-Nation Tree Counter on the right of the intro", () => {
-      renderWithTheme(<Forest {...defaultForest} />);
-      expect(counterOf()).toHaveAttribute("data-widget-type", "tree-counter");
-      expect(counterOf()).toHaveAttribute(
-        "data-tree-nation-code",
-        "c128ea8ddf37a37a",
-      );
+  describe("tree count label", () => {
+    it("keeps the English text without a CMS override", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+      expect(
+        screen.getByText("Trees planted since May 2026"),
+      ).toBeInTheDocument();
     });
 
-    it("replaces the old number and caption instead of repeating them", () => {
-      renderWithTheme(<Forest {...defaultForest} />);
+    it("is localised in Italian without a CMS override", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel={undefined} />);
+      expect(
+        screen.getByText("Alberi piantati da maggio 2026"),
+      ).toBeInTheDocument();
       expect(
         screen.queryByText("Trees planted since May 2026"),
       ).not.toBeInTheDocument();
+    });
+
+    it("still lets an explicit CMS label win", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCountLabel="CMS label" />);
+      expect(screen.getByText("CMS label")).toBeInTheDocument();
+    });
+  });
+
+  describe("Tree-Nation certification", () => {
+    const heroOf = () =>
+      screen.getByText("Trees planted since May 2026").parentElement!;
+
+    it("keeps the count as the hero, with the certification only underneath", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={183} />);
+      const hero = heroOf();
+      expect(hero).toHaveTextContent("183");
+      const link = within(hero).getByRole("link", {
+        name: "Certified by Tree-Nation",
+      });
       expect(
-        screen.queryByText(String(defaultForest.treeCount)),
-      ).not.toBeInTheDocument();
+        screen
+          .getByText("Trees planted since May 2026")
+          .compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
     });
 
-    it("renders no other Tree-Nation widget in the Forest", () => {
+    it("links to the Tree-Nation Forest and opens it safely", () => {
       renderWithTheme(<Forest {...defaultForest} />);
-      expect(document.querySelectorAll("[data-widget-type]")).toHaveLength(1);
+      const link = screen.getByRole("link", {
+        name: "Certified by Tree-Nation",
+      });
+      expect(link).toHaveAttribute(
+        "href",
+        "https://tree-nation.com/profile/andrea-agostini-103769",
+      );
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
 
-    it("uses the default colour themes, following the site theme", () => {
+    it("is a plain link, not a Tree-Nation widget or badge", () => {
       renderWithTheme(<Forest {...defaultForest} />);
-      expect(counterOf()).toHaveAttribute("data-theme", "light");
+      expect(document.querySelector("[data-widget-type]")).toBeNull();
+      expect(document.querySelector('script[src*="tree-nation"]')).toBeNull();
     });
 
-    it("switches to the default dark theme when the site is dark", () => {
-      document.documentElement.setAttribute("data-theme", "dark");
-      renderWithTheme(<Forest {...defaultForest} />);
-      expect(counterOf()).toHaveAttribute("data-theme", "dark");
-      document.documentElement.removeAttribute("data-theme");
-    });
-
-    it("speaks Italian on the Italian locale", () => {
+    it("is localised in Italian", () => {
       mockUseRouter.mockReturnValue({ locale: "it" });
       renderWithTheme(<Forest {...defaultForest} />);
-      expect(counterOf()).toHaveAttribute("data-lang", "it");
+      expect(
+        screen.getByRole("link", { name: "Certificato da Tree-Nation" }),
+      ).toBeInTheDocument();
+    });
+
+    it("keeps the existing Forest link under the progress card", () => {
+      renderWithTheme(<Forest {...defaultForest} />);
+      expect(
+        screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -738,6 +767,8 @@ describe("Forest — 200-tree campaign", () => {
     expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
       "One year in Thailand · October 10, 2025 → October 10, 2026",
     );
+    // The Forest began in May 2026; the label must keep saying so.
+    expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
   });
 
   it("wins over the Contentful heading and body while active", () => {
@@ -816,10 +847,8 @@ describe("Forest — 200-tree campaign", () => {
         "aria-valuenow",
         "200",
       );
-      // The intro counter is Tree-Nation's own label: the real total is theirs.
-      expect(
-        screen.getByTestId("tree-nation-tree-counter"),
-      ).toBeInTheDocument();
+      // The real Tree-Nation total stays visible and untouched.
+      expect(screen.getByText(String(count))).toBeInTheDocument();
     },
   );
 

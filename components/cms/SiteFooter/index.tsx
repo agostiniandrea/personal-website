@@ -210,7 +210,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         <BadgeCol>
           <ClimateActionCredential type="offset-website" />
           <CarbonWrapper>
-            <CarbonBadge />
+            <CarbonBadge monochrome />
           </CarbonWrapper>
         </BadgeCol>
 

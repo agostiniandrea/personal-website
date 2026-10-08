@@ -12,6 +12,7 @@ const strings = {
     feedbackNudgeCta: "See how it grows",
     feedbackNudgeDismiss: "Dismiss feedback prompt",
     feedbackNudgeTitle: "Your feedback helps grow real trees.",
+    forestCertifiedLabel: "Certified by Tree-Nation",
     forestFeedbackImpactTitle: "Feedback impact",
     forestPerContribution: (perContribution: number) =>
       `${perContribution} trees planted for each`,
@@ -97,6 +98,7 @@ const strings = {
     feedbackNudgeCta: "Scopri come cresce",
     feedbackNudgeDismiss: "Chiudi l'invito al feedback",
     feedbackNudgeTitle: "Il tuo feedback aiuta a far crescere alberi veri.",
+    forestCertifiedLabel: "Certificato da Tree-Nation",
     forestFeedbackImpactTitle: "Impatto dei feedback",
     forestPerContribution: (perContribution: number) =>
       `${perContribution} alberi piantati per ciascuno`,
