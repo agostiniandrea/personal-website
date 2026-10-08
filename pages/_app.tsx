@@ -16,6 +16,7 @@ import {
 } from "@components/molecules";
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
+import { useAttributionCapture } from "@lib/utils/attribution";
 import { useI18n } from "@lib/utils/i18n";
 import { useProlificCapture } from "@lib/utils/prolific";
 
@@ -59,6 +60,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
   /* Reads the Prolific study parameters once, if they are there. Renders
      nothing and leaves the page identical for everyone else. */
   useProlificCapture();
+
+  /* Same for the campaign (UTM) tags: first touch, sessionStorage only, and
+     independent of the cookie-consent choice. See lib/utils/attribution.ts. */
+  useAttributionCapture();
 
   useEffect(() => {
     if (localStorage.getItem("cookie-consent") === "accepted") {
