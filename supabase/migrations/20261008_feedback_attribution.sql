@@ -45,20 +45,26 @@ alter table public.feedback
   add column if not exists attribution_term text;
 
 -- 2. Length backstop --------------------------------------------------------
---    Dropped and re-added rather than guarded on existence, so the final state
---    is the same however many times this runs. char_length(null) is null, and
---    a null check passes, so direct visitors are unaffected.
-alter table public.feedback
-  drop constraint if exists feedback_attribution_length_check;
-
-alter table public.feedback
-  add constraint feedback_attribution_length_check
-  check (
-    char_length(attribution_source)   <= 100 and
-    char_length(attribution_medium)   <= 100 and
-    char_length(attribution_campaign) <= 100 and
-    char_length(attribution_content)  <= 100 and
-    char_length(attribution_term)     <= 100
-  );
+--    Guarded on existence so re-runs don't error (same style as 20260731).
+--    char_length(null) is null, and a null check passes, so direct visitors
+--    are unaffected.
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'feedback_attribution_length_check'
+      and conrelid = 'public.feedback'::regclass
+  ) then
+    alter table public.feedback
+      add constraint feedback_attribution_length_check
+      check (
+        char_length(attribution_source)   <= 100 and
+        char_length(attribution_medium)   <= 100 and
+        char_length(attribution_campaign) <= 100 and
+        char_length(attribution_content)  <= 100 and
+        char_length(attribution_term)     <= 100
+      );
+  end if;
+end $$;
 
 commit;
