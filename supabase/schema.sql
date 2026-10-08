@@ -27,6 +27,13 @@ create table if not exists public.feedback (
   prolific_pid         text,
   prolific_study_id    text,
   prolific_session_id  text,
+  -- Marketing attribution (UTM, first touch). Metadata only: separate from
+  -- `source`, null for direct visitors and for Prolific study submissions.
+  attribution_source   text,
+  attribution_medium   text,
+  attribution_campaign text,
+  attribution_content  text,
+  attribution_term     text,
   ip                   text,
   created_at           timestamptz not null default now(),
 

@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
 
 import { FEEDBACK_MESSAGE_MIN_LENGTH } from "@constants";
+import { sanitizeAttribution } from "@lib/utils/attribution";
 import { isValidProlificId, ProlificSession } from "@lib/utils/prolific";
 
 const ALLOWED_CATEGORIES = [
@@ -139,6 +140,15 @@ export default async function handler(
   const supabase = createClient(supabaseUrl, supabaseKey);
   const ip = getIp(req);
   const prolific = readProlificSession(req.body);
+  /* Campaign metadata, nothing more: it is re-validated here because the body
+     is public input, it never feeds `source` or any counter, and a study
+     participant never carries one — a paid, recruited submission must not
+     show up in a campaign report whatever their URL contained. */
+  const attribution = prolific
+    ? null
+    : sanitizeAttribution(
+        (req.body as { attribution?: unknown } | null)?.attribution,
+      );
   const since = new Date(
     Date.now() - COOLDOWN_HOURS * 60 * 60 * 1000,
   ).toISOString();
@@ -216,6 +226,11 @@ export default async function handler(
     prolific_pid: prolific?.prolificPid ?? null,
     prolific_study_id: prolific?.studyId ?? null,
     prolific_session_id: prolific?.sessionId ?? null,
+    attribution_source: attribution?.source ?? null,
+    attribution_medium: attribution?.medium ?? null,
+    attribution_campaign: attribution?.campaign ?? null,
+    attribution_content: attribution?.content ?? null,
+    attribution_term: attribution?.term ?? null,
     ip,
   });
 

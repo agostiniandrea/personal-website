@@ -9,6 +9,7 @@ import styled, { keyframes } from "styled-components";
 import { LeafIcon, TreeIcon } from "@components/molecules";
 import { BREAKPOINTS, FEEDBACK_MESSAGE_MIN_LENGTH } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
+import { getAttribution } from "@lib/utils/attribution";
 import {
   getProlificCompletionUrl,
   getProlificSession,
@@ -712,10 +713,20 @@ export const ForestModal: React.FC<ForestModalProps> = ({
          travel with the submission so the feedback can be matched to a paid
          participant; they are never shown anywhere. */
       const prolific = getProlificSession();
+      /* Campaign tags captured on landing (first touch). Never sent for a study
+         participant: those submissions stay out of any campaign report, and
+         the server drops it for them as well. */
+      const attribution = prolific ? null : getAttribution();
       const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(prolific ? { ...data, prolific } : data),
+        body: JSON.stringify(
+          prolific
+            ? { ...data, prolific }
+            : attribution
+              ? { ...data, attribution }
+              : data,
+        ),
       });
       if (!res.ok) throw new Error();
       trackEvent("feedback_submitted", {
