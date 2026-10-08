@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Container, Flex, Link, Text } from "@components/ions";
-import { CarbonBadge, TreeNationLabels } from "@components/molecules";
+import { CarbonBadge, TreeNationLabel } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
@@ -90,13 +90,17 @@ const Subfooter = styled.div`
   }
 `;
 
+/* The eco column: Website Carbon (how light the site is) with the Climate
+   Action Website label under it (what the site gives back). */
 const BadgeCol = styled.div`
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: ${toSpacing("sm")};
   justify-content: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
 `;
 
@@ -180,6 +184,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           <CarbonWrapper>
             <CarbonBadge />
           </CarbonWrapper>
+          <TreeNationLabel type="offset-website" />
         </BadgeCol>
 
         <TaglineCol>
@@ -198,8 +203,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           </Text>
         </MetaCol>
       </Subfooter>
-
-      <TreeNationLabels />
     </Container>
   </FooterWrapper>
 );

@@ -21,7 +21,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c14 {
+.c16 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -63,17 +63,13 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   border-radius: 0 0.3em 0.3em 0;
 }
 
-.c15 {
-  margin-top: 1.5rem;
+.c12 {
   min-height: 4.5rem;
 }
 
-.c16 {
+.c13 {
   align-items: center;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
 }
 
 .c0 {
@@ -110,10 +106,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c6 {
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   justify-content: center;
 }
 
-.c12 {
+.c14 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -126,7 +124,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   transform-origin: center center;
 }
 
-.c13 {
+.c15 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -224,12 +222,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (min-width: 900px) {
   .c6 {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c12 {
+  .c14 {
     align-items: center;
     text-align: center;
   }
@@ -242,7 +240,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c13 {
+  .c15 {
     align-items: flex-end;
   }
 }
@@ -296,15 +294,30 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
               </a>
             </span>
           </div>
+          <div
+            class="c12"
+            data-testid="tree-nation-offset-website"
+          >
+            <div
+              class="c13"
+            >
+              <div
+                data-lang="en"
+                data-theme="white-monochrome"
+                data-tree-nation-code="a4d3639b36ee64ed"
+                data-widget-type="offset-website"
+              />
+            </div>
+          </div>
         </div>
         <div
-          class="c12"
+          class="c14"
         />
         <div
-          class="c13"
+          class="c15"
         >
           <p
-            class="c14"
+            class="c16"
             style="color: var(--color-paragraph);"
           >
             © 
@@ -312,27 +325,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
              
             Andrea Agostini
           </p>
-        </div>
-      </div>
-      <div
-        class="c15"
-        data-testid="tree-nation-labels"
-      >
-        <div
-          class="c16"
-        >
-          <div
-            data-lang="en"
-            data-theme="white-monochrome"
-            data-tree-nation-code="a4d3639b36ee64ed"
-            data-widget-type="offset-website"
-          />
-          <div
-            data-lang="en"
-            data-theme="white-monochrome"
-            data-tree-nation-code="c128ea8ddf37a37a"
-            data-widget-type="tree-counter"
-          />
         </div>
       </div>
     </section>
@@ -374,7 +366,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c15 {
+.c17 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -416,17 +408,13 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   border-radius: 0 0.3em 0.3em 0;
 }
 
-.c19 {
-  margin-top: 1.5rem;
+.c14 {
   min-height: 4.5rem;
 }
 
-.c20 {
+.c15 {
   align-items: center;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
 }
 
 .c0 {
@@ -468,22 +456,24 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 .c8 {
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   justify-content: center;
 }
 
-.c14 {
+.c16 {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.c16 {
+.c18 {
   color: var(--color-paragraph);
   max-width: 36ch;
 }
 
-.c17 {
+.c19 {
   display: block;
   text-wrap: balance;
 }
@@ -494,7 +484,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   transform-origin: center center;
 }
 
-.c18 {
+.c20 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -598,12 +588,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (min-width: 900px) {
   .c8 {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c14 {
+  .c16 {
     align-items: center;
     text-align: center;
   }
@@ -616,7 +606,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c18 {
+  .c20 {
     align-items: flex-end;
   }
 }
@@ -696,25 +686,40 @@ exports[`SiteFooter renders correctly with social links 1`] = `
               </a>
             </span>
           </div>
+          <div
+            class="c14"
+            data-testid="tree-nation-offset-website"
+          >
+            <div
+              class="c15"
+            >
+              <div
+                data-lang="en"
+                data-theme="white-monochrome"
+                data-tree-nation-code="a4d3639b36ee64ed"
+                data-widget-type="offset-website"
+              />
+            </div>
+          </div>
         </div>
         <div
-          class="c14"
+          class="c16"
         >
           <p
-            class="c15 c16"
+            class="c17 c18"
           >
             <span
-              class="c17"
+              class="c19"
             >
               Building for the web, one component at a time. Based in Bangkok.
             </span>
           </p>
         </div>
         <div
-          class="c18"
+          class="c20"
         >
           <p
-            class="c15"
+            class="c17"
             style="color: var(--color-paragraph);"
           >
             © 
@@ -722,27 +727,6 @@ exports[`SiteFooter renders correctly with social links 1`] = `
              
             Andrea Agostini
           </p>
-        </div>
-      </div>
-      <div
-        class="c19"
-        data-testid="tree-nation-labels"
-      >
-        <div
-          class="c20"
-        >
-          <div
-            data-lang="en"
-            data-theme="white-monochrome"
-            data-tree-nation-code="a4d3639b36ee64ed"
-            data-widget-type="offset-website"
-          />
-          <div
-            data-lang="en"
-            data-theme="white-monochrome"
-            data-tree-nation-code="c128ea8ddf37a37a"
-            data-widget-type="tree-counter"
-          />
         </div>
       </div>
     </section>

@@ -62,11 +62,16 @@ describe("SiteFooter", () => {
     expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
   });
 
-  it("renders the Tree-Nation labels in the footer", () => {
+  it("renders the Climate Action Website label in the footer, and only that one", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
-    const labels = screen.getByTestId("tree-nation-labels");
-    expect(screen.getByRole("contentinfo")).toContainElement(labels);
-    expect(labels.querySelectorAll("[data-tree-nation-code]")).toHaveLength(2);
+    const label = screen.getByTestId("tree-nation-offset-website");
+    expect(screen.getByRole("contentinfo")).toContainElement(label);
+    expect(label.querySelectorAll("[data-tree-nation-code]")).toHaveLength(1);
+    expect(
+      screen
+        .getByRole("contentinfo")
+        .querySelector('[data-widget-type="tree-counter"]'),
+    ).toBeNull();
   });
 
   it("tracks footer social profile clicks", async () => {

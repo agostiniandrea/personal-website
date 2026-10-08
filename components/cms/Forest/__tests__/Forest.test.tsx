@@ -336,6 +336,25 @@ describe("Forest", () => {
     );
   });
 
+  it("shows the official Tree-Nation Tree Counter as proof, right after the Forest link", () => {
+    renderWithTheme(<Forest {...defaultForest} />);
+    const link = screen.getByRole("link", {
+      name: /View the forest on Tree-Nation/i,
+    });
+    const counter = screen.getByTestId("tree-nation-tree-counter");
+
+    expect(
+      counter.querySelector('[data-widget-type="tree-counter"]'),
+    ).toHaveAttribute("data-tree-nation-code", "c128ea8ddf37a37a");
+    expect(
+      link.compareDocumentPosition(counter) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    // The Climate Action Website label lives in the footer, not here.
+    expect(
+      document.querySelector('[data-widget-type="offset-website"]'),
+    ).toBeNull();
+  });
+
   it("renders the season project panel with species and project link", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     const panel = screen.getByTestId("season-project");

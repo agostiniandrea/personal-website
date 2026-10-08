@@ -98,6 +98,15 @@ exports[`Forest renders correctly with all props 1`] = `
   padding-top: 3rem;
 }
 
+.c60 {
+  min-height: 4.5rem;
+}
+
+.c62 {
+  align-items: center;
+  display: flex;
+}
+
 .c2 {
   align-items: center;
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -501,6 +510,10 @@ exports[`Forest renders correctly with all props 1`] = `
 .c59 {
   color: var(--color-highlight);
   flex-shrink: 0;
+}
+
+.c61 {
+  margin-top: 0.75rem;
 }
 
 @media (min-width: 600px) {
@@ -1256,6 +1269,21 @@ exports[`Forest renders correctly with all props 1`] = `
           />
         </svg>
       </a>
+      <div
+        class="c60 c61"
+        data-testid="tree-nation-tree-counter"
+      >
+        <div
+          class="c62"
+        >
+          <div
+            data-lang="en"
+            data-theme="white-monochrome"
+            data-tree-nation-code="c128ea8ddf37a37a"
+            data-widget-type="tree-counter"
+          />
+        </div>
+      </div>
     </section>
   </section>
 </div>
@@ -1303,6 +1331,15 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c0 {
   padding-bottom: 3rem;
   padding-top: 3rem;
+}
+
+.c37 {
+  min-height: 4.5rem;
+}
+
+.c39 {
+  align-items: center;
+  display: flex;
 }
 
 .c2 {
@@ -1562,6 +1599,10 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c36 {
   color: var(--color-highlight);
   flex-shrink: 0;
+}
+
+.c38 {
+  margin-top: 0.75rem;
 }
 
 @media (min-width: 600px) {
@@ -2043,6 +2084,21 @@ exports[`Forest renders correctly with minimal props 1`] = `
           />
         </svg>
       </a>
+      <div
+        class="c37 c38"
+        data-testid="tree-nation-tree-counter"
+      >
+        <div
+          class="c39"
+        >
+          <div
+            data-lang="en"
+            data-theme="white-monochrome"
+            data-tree-nation-code="c128ea8ddf37a37a"
+            data-widget-type="tree-counter"
+          />
+        </div>
+      </div>
     </section>
   </section>
 </div>

@@ -19,4 +19,4 @@ export { default as ScrollToTop } from "./ScrollToTop";
 export { default as Section } from "./Section";
 export { default as SectionLabel } from "./SectionLabel";
 export { default as ThemeMenu } from "./ThemeMenu";
-export { default as TreeNationLabels } from "./TreeNationLabels";
+export { default as TreeNationLabel } from "./TreeNationLabel";

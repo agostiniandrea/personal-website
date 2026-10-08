@@ -14,6 +14,7 @@ import {
   Section,
   SectionLabel,
   TreeIcon,
+  TreeNationLabel,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
@@ -917,6 +918,13 @@ const VerifiedArrow = styled(ArrowUpRight)`
   flex-shrink: 0;
 `;
 
+/* Tree-Nation's own Tree Counter, as proof of the total above. It sits right
+   under the verified link and is left as the official label: no card, no frame
+   of its own. */
+const TreeCounterProof = styled(TreeNationLabel)`
+  margin-top: ${({ theme }) => theme.space.md};
+`;
+
 /* ── Timeline ── */
 
 const TimelineSection = styled.div``;
@@ -1414,6 +1422,8 @@ const Forest: React.FC<ForestProps> = ({
           {t.forestVerifiedLabel}
           <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
         </VerifiedBadge>
+
+        <TreeCounterProof type="tree-counter" />
 
         {changelogItems.length > 0 && (
           <>
