@@ -343,7 +343,7 @@ const CtaCard = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1.75rem 2.5rem;
+    padding: 2.5rem 3rem;
   }
 `;
 
@@ -364,10 +364,10 @@ const CtaDecor = styled.div`
     border-left: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
     border-top: none;
     flex-shrink: 0;
-    padding-left: 2.5rem;
+    padding-left: 3rem;
     padding-top: 0;
     text-align: right;
-    width: 220px;
+    width: 260px;
   }
 `;
 
@@ -396,7 +396,7 @@ const CtaHeading = styled.h3`
   font-family: ${({ theme }) => theme.fontFamilies.heading};
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.625rem;
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes["2xl"]};
@@ -409,12 +409,6 @@ const CtaBody = styled.p<{ $tight?: boolean }>`
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0 0 ${({ $tight }) => ($tight ? "0.75rem" : "1.75rem")};
   max-width: 420px;
-
-  /* the copy sits beside the tree count, so it can run wide: fewer lines and a
-     shorter card instead of a narrow column with empty space to its right */
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    max-width: 64ch;
-  }
 `;
 
 /* TEMPORARY CAMPAIGN — the quiet anniversary line under the CTA. Same scale and
