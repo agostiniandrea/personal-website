@@ -9,7 +9,7 @@ import React, {
 import { ArrowUpRight, BadgeCheck } from "lucide-react";
 import styled from "styled-components";
 
-import TreeNationLabel from "../TreeNationLabel";
+import TreeNationLabel, { useColorScheme } from "../TreeNationLabel";
 
 /* A small certification badge that opens a compact popover holding the official
    Tree-Nation Tree Counter label and a link to the public forest.
@@ -24,8 +24,8 @@ import TreeNationLabel from "../TreeNationLabel";
      trapped.
    - Placement: above the badge, flipped below when clipped by the top of the
      viewport, nudged sideways to keep a 16px margin.
-   The panel is always white, whatever the site theme, so the official label
-   (rendered in its light theme) reads exactly as Tree-Nation designed it. */
+   The panel follows the site theme: white with the light Tree-Nation label, or a
+   dark surface with the dark label. */
 
 export interface TreeNationPopoverProps {
   /** Accessible name of the badge button (localized by the host). */
@@ -36,6 +36,39 @@ export interface TreeNationPopoverProps {
   linkHref: string;
   linkLabel: string;
   className?: string;
+}
+
+/* Light: a white card. Dark: a raised dark surface (the page itself is almost
+   black, so the card needs its own edge) with the site's own dark-theme teal. */
+const PALETTE = {
+  dark: {
+    border: "rgba(255, 255, 255, 0.14)",
+    divider: "rgba(255, 255, 255, 0.1)",
+    linkColor: "#2dd4bf",
+    linkHover: "#5eead4",
+    linkUnderline: "rgba(45, 212, 191, 0.4)",
+    muted: "#a0a0b0",
+    shadow: "0 8px 28px rgba(0, 0, 0, 0.55)",
+    surface: "#15151d",
+    text: "#ffffff",
+  },
+  light: {
+    border: "rgba(0, 0, 0, 0.12)",
+    divider: "rgba(0, 0, 0, 0.08)",
+    linkColor: "#0f766e",
+    linkHover: "#0b5f58",
+    linkUnderline: "rgba(15, 118, 110, 0.35)",
+    muted: "#5b6470",
+    shadow: "0 8px 28px rgba(0, 0, 0, 0.18)",
+    surface: "#ffffff",
+    text: "#1a1a1a",
+  },
+} as const;
+
+const palette = (dark: boolean) => (dark ? PALETTE.dark : PALETTE.light);
+
+interface Themed {
+  $dark: boolean;
 }
 
 const Wrapper = styled.span`
@@ -99,14 +132,14 @@ const Positioner = styled.span<{ $below: boolean }>`
 /* The notch points at the badge. The panel is nudged sideways to stay on the
    viewport, so the notch is shifted back by the same amount (--notch-shift) and
    keeps pointing at the badge rather than at the middle of the panel. */
-const Panel = styled.span<{ $below: boolean }>`
+const Panel = styled.span<{ $below: boolean } & Themed>`
   position: relative;
 
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: ${({ $dark }) => palette($dark).surface};
+  border: 1px solid ${({ $dark }) => palette($dark).border};
   border-radius: ${({ theme }) => theme.radii.sm};
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
-  color: #1a1a1a;
+  box-shadow: ${({ $dark }) => palette($dark).shadow};
+  color: ${({ $dark }) => palette($dark).text};
   /* A span is inline by default: its background and border would break into
      fragments around the block-level label instead of wrapping the panel. */
   display: block;
@@ -119,8 +152,8 @@ const Panel = styled.span<{ $below: boolean }>`
   }
 
   &::after {
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: ${({ $dark }) => palette($dark).surface};
+    border: 1px solid ${({ $dark }) => palette($dark).border};
     content: "";
     height: 10px;
     left: calc(50% - var(--notch-shift, 0px));
@@ -139,8 +172,8 @@ const Panel = styled.span<{ $below: boolean }>`
 
 /* Below the label, set off by a hairline. The label is the first thing seen;
    this is the small print. */
-const Details = styled.span`
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+const Details = styled.span<Themed>`
+  border-top: 1px solid ${({ $dark }) => palette($dark).divider};
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -150,8 +183,8 @@ const Details = styled.span`
 
 /* width: 0 + min-width: 100% keeps the note from widening the panel: it wraps
    to the width of the label above it. */
-const Note = styled.span`
-  color: #5b6470;
+const Note = styled.span<Themed>`
+  color: ${({ $dark }) => palette($dark).muted};
   display: block;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: 1.45;
@@ -159,17 +192,17 @@ const Note = styled.span`
   width: 0;
 `;
 
-/* The panel is always white, so the link uses the light theme's teal (#0f766e)
-   rather than the theme's own accent, which turns pale in dark mode. */
-const ForestLink = styled.a`
+/* Teal on both surfaces: the light theme's deeper teal on white, the dark
+   theme's brighter one on the dark card. */
+const ForestLink = styled.a<Themed>`
   align-items: center;
-  color: #0f766e;
+  color: ${({ $dark }) => palette($dark).linkColor};
   display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.25rem;
   text-decoration: underline;
-  text-decoration-color: rgba(15, 118, 110, 0.35);
+  text-decoration-color: ${({ $dark }) => palette($dark).linkUnderline};
   text-underline-offset: 3px;
   transition:
     color 0.2s ease,
@@ -178,13 +211,13 @@ const ForestLink = styled.a`
 
   @media (hover: hover) {
     &:hover {
-      color: #0b5f58;
+      color: ${({ $dark }) => palette($dark).linkHover};
       text-decoration-color: currentColor;
     }
   }
 
   &:focus-visible {
-    outline: 2px solid #0f766e;
+    outline: 2px solid ${({ $dark }) => palette($dark).linkColor};
     outline-offset: 3px;
   }
 `;
@@ -197,6 +230,7 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
   className,
 }) => {
   const id = useId();
+  const dark = useColorScheme() === "dark";
   const [open, setOpen] = useState(false);
   const [below, setBelow] = useState(false);
   const [shiftX, setShiftX] = useState(0);
@@ -318,11 +352,13 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
             aria-label={ariaLabel}
             tabIndex={-1}
             $below={below}
+            $dark={dark}
           >
-            <TreeNationLabel type="tree-counter" theme="light" />
-            <Details>
-              <Note>{note}</Note>
+            <TreeNationLabel type="tree-counter" />
+            <Details $dark={dark}>
+              <Note $dark={dark}>{note}</Note>
               <ForestLink
+                $dark={dark}
                 href={linkHref}
                 target="_blank"
                 rel="noopener noreferrer"

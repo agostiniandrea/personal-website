@@ -35,6 +35,7 @@ const trigger = () =>
 describe("TreeNationPopover", () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    document.documentElement.removeAttribute("data-theme");
     document.querySelectorAll("script").forEach((el) => el.remove());
   });
 
@@ -64,7 +65,7 @@ describe("TreeNationPopover", () => {
     const widget = dialog.querySelector("[data-widget-type]");
     expect(widget).toHaveAttribute("data-widget-type", "tree-counter");
     expect(widget).toHaveAttribute("data-tree-nation-code", "c128ea8ddf37a37a");
-    // The panel is white, so the label is the light one even in a dark site.
+    // Light site: white panel, light label.
     expect(widget).toHaveAttribute("data-theme", "light");
 
     const link = screen.getByRole("link", {
@@ -246,5 +247,21 @@ describe("TreeNationPopover", () => {
       modifier: "::after",
     });
     jest.restoreAllMocks();
+  });
+
+  it("follows a dark site: dark surface and the dark Tree-Nation label", async () => {
+    document.documentElement.setAttribute("data-theme", "dark");
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    renderPopover();
+    await user.click(trigger());
+
+    const dialog = screen.getByRole("dialog");
+    expect(dialog.querySelector("[data-widget-type]")).toHaveAttribute(
+      "data-theme",
+      "dark",
+    );
+    expect(dialog).toHaveStyleRule("background", "#15151d");
+    expect(screen.getByRole("link")).toHaveStyleRule("color", "#2dd4bf");
+    document.documentElement.removeAttribute("data-theme");
   });
 });

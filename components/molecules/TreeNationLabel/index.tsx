@@ -58,7 +58,7 @@ function readColorScheme(): ColorScheme {
    OS). Watching both keeps the label in step with the theme menu and with the
    OS switching at sunset, without touching either of them. `null` until the
    first client effect, so server HTML and first client render match. */
-function useColorScheme(): ColorScheme | null {
+export function useColorScheme(): ColorScheme | null {
   const [scheme, setScheme] = useState<ColorScheme | null>(null);
 
   useEffect(() => {
@@ -186,23 +186,19 @@ const Variant = styled.div`
 
 export interface TreeNationLabelProps {
   type: TreeNationWidgetType;
-  /** Pins a theme. By default the label follows the site's light/dark theme;
-   *  a surface with its own fixed background (a white popover) pins one. */
-  theme?: TreeNationTheme;
   /** Lets the host (footer, Forest) place the row: margins, alignment. */
   className?: string;
 }
 
 const TreeNationLabel: React.FC<TreeNationLabelProps> = ({
   type,
-  theme: pinnedTheme,
   className,
 }) => {
   const { locale } = useRouter();
   const scheme = useColorScheme();
 
   const lang: TreeNationLang = locale === "it" ? "it" : "en";
-  const theme = pinnedTheme ?? (scheme ? THEME_FOR_SCHEME[scheme] : null);
+  const theme = scheme ? THEME_FOR_SCHEME[scheme] : null;
   const variantKey = theme ? `${lang}-${theme}` : null;
 
   useWidgetScan(variantKey);
