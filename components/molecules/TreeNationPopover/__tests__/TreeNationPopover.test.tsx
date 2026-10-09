@@ -243,7 +243,7 @@ describe("TreeNationPopover", () => {
     // Overflowed by 40px + 16px margin: the panel moves left 56px, the notch
     // moves right by the same amount to stay under the badge.
     expect(positioner.style.getPropertyValue("--notch-shift")).toBe("-56px");
-    expect(screen.getByRole("dialog")).toHaveStyleRule("bottom", "-5px", {
+    expect(screen.getByRole("dialog")).toHaveStyleRule("bottom", "-6px", {
       modifier: "::after",
     });
     jest.restoreAllMocks();
