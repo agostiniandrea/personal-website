@@ -14,6 +14,7 @@ import {
   Section,
   SectionLabel,
   TreeIcon,
+  TreeNationPopover,
 } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
@@ -32,6 +33,10 @@ import { useI18n } from "@lib/utils/i18n";
 import type { ForestProject, ForestSpecies } from "@lib/utils/treeNation";
 
 import { ForestModal } from "./ForestModal";
+
+/* The public Tree-Nation forest, linked from the certification popover. */
+const TREE_NATION_PROFILE_URL =
+  "https://tree-nation.com/profile/andrea-agostini-103769";
 
 export interface ChangelogItem {
   date: string;
@@ -342,6 +347,7 @@ const CtaCard = styled.div`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: center;
     flex-direction: row;
+    gap: 3rem;
     justify-content: space-between;
     padding: 2.5rem 3rem;
   }
@@ -353,33 +359,39 @@ const CtaContent = styled.div`
 
 const CtaDecor = styled.div`
   align-items: flex-start;
-  border-top: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
-  padding-top: 1.25rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
-    border-left: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
-    border-top: none;
     flex-shrink: 0;
-    padding-left: 3rem;
-    padding-top: 0;
     text-align: right;
-    width: 260px;
   }
+`;
+
+/* The certification badge sits in the flow, right after the number, so the
+   counter (number, badge and label) is one block that fits its own column. Its
+   44px touch target is tucked in at the sides so the icon, not the box, lines
+   up with the label's right edge. */
+const CtaDecorNumberWrap = styled.span`
+  align-items: flex-start;
+  display: flex;
+`;
+
+const CertificationAnchor = styled.span`
+  margin: 0 -0.75rem 0 -0.5rem;
 `;
 
 const CtaDecorNumber = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 4.5rem;
+    font-size: 6.5rem;
   }
 `;
 
@@ -1193,7 +1205,17 @@ const Forest: React.FC<ForestProps> = ({
                 "My forest" belongs to the progress panel underneath, where it
                 pairs with "Feedback impact". Repeating it here read as a
                 duplicate once the two cards stacked on phones. */}
-            <CtaDecorNumber>{treeCount}</CtaDecorNumber>
+            <CtaDecorNumberWrap>
+              <CtaDecorNumber>{treeCount}</CtaDecorNumber>
+              <CertificationAnchor>
+                <TreeNationPopover
+                  ariaLabel={t.forestCertifiedLabel}
+                  note={t.forestCertifiedNote}
+                  linkHref={TREE_NATION_PROFILE_URL}
+                  linkLabel={t.forestVerifiedLabel}
+                />
+              </CertificationAnchor>
+            </CtaDecorNumberWrap>
             <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
           </CtaDecor>
         </CtaCard>

@@ -21,7 +21,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c14 {
+.c18 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -29,7 +29,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   padding: 0;
 }
 
-.c8 {
+.c12 {
   display: inline-flex;
   align-items: stretch;
   font-family: -apple-system,BlinkMacSystemFont,sans-serif;
@@ -37,7 +37,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   line-height: 1.15;
 }
 
-.c9 {
+.c13 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +46,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   border: 0.13em solid #00ffbc;
 }
 
-.c10 {
+.c14 {
   background: #fff;
   color: #0e11a8;
   border-right: 0;
@@ -54,13 +54,22 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   min-width: 8.2em;
 }
 
-.c11 {
+.c15 {
   background: #00ffbc;
   color: #0e11a8;
   font-weight: 700;
   text-decoration: none;
   border-left: 0;
   border-radius: 0 0.3em 0.3em 0;
+}
+
+.c7 {
+  min-height: 3.5rem;
+}
+
+.c10 {
+  align-items: center;
+  display: flex;
 }
 
 .c0 {
@@ -97,23 +106,40 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c6 {
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   justify-content: center;
 }
 
-.c12 {
+.c8 {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.c8:hover,
+.c8:focus-within {
+  opacity: 1;
+}
+
+.c9 {
+  display: flex;
+  zoom: 0.9;
+}
+
+.c16 {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.c7 {
+.c11 {
   opacity: 0.7;
   transform: scale(0.9);
   transform-origin: center center;
 }
 
-.c13 {
+.c17 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -183,6 +209,8 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 @media (min-width: 900px) {
   .c2 {
     border-bottom: none;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0;
   }
 }
 
@@ -211,25 +239,25 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (min-width: 900px) {
   .c6 {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c12 {
+  .c16 {
     align-items: center;
     text-align: center;
   }
 }
 
 @media (min-width: 900px) {
-  .c7 {
+  .c11 {
     transform-origin: left center;
   }
 }
 
 @media (min-width: 900px) {
-  .c13 {
+  .c17 {
     align-items: flex-end;
   }
 }
@@ -261,20 +289,35 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           class="c6"
         >
           <div
-            class="c7"
+            class="c7 c8 c9"
+            data-testid="tree-nation-offset-website"
+          >
+            <div
+              class="c10"
+            >
+              <div
+                data-lang="en"
+                data-theme="light"
+                data-tree-nation-code="a4d3639b36ee64ed"
+                data-widget-type="offset-website"
+              />
+            </div>
+          </div>
+          <div
+            class="c11"
           >
             <span
-              class="c8"
+              class="c12"
             >
               <span
-                class="c9 c10"
+                class="c13 c14"
               >
                 0.05
                 g of CO₂/view
               </span>
               <a
                 aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
-                class="c9 c11"
+                class="c13 c15"
                 href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -285,13 +328,13 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           </div>
         </div>
         <div
-          class="c12"
+          class="c16"
         />
         <div
-          class="c13"
+          class="c17"
         >
           <p
-            class="c14"
+            class="c18"
             style="color: var(--color-paragraph);"
           >
             © 
@@ -340,7 +383,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c15 {
+.c19 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -348,7 +391,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   padding: 0;
 }
 
-.c10 {
+.c14 {
   display: inline-flex;
   align-items: stretch;
   font-family: -apple-system,BlinkMacSystemFont,sans-serif;
@@ -356,7 +399,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   line-height: 1.15;
 }
 
-.c11 {
+.c15 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -365,7 +408,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   border: 0.13em solid #00ffbc;
 }
 
-.c12 {
+.c16 {
   background: #fff;
   color: #0e11a8;
   border-right: 0;
@@ -373,13 +416,22 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   min-width: 8.2em;
 }
 
-.c13 {
+.c17 {
   background: #00ffbc;
   color: #0e11a8;
   font-weight: 700;
   text-decoration: none;
   border-left: 0;
   border-radius: 0 0.3em 0.3em 0;
+}
+
+.c9 {
+  min-height: 3.5rem;
+}
+
+.c12 {
+  align-items: center;
+  display: flex;
 }
 
 .c0 {
@@ -421,33 +473,50 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 .c8 {
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   justify-content: center;
 }
 
-.c14 {
+.c10 {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.c10:hover,
+.c10:focus-within {
+  opacity: 1;
+}
+
+.c11 {
+  display: flex;
+  zoom: 0.9;
+}
+
+.c18 {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.c16 {
+.c20 {
   color: var(--color-paragraph);
   max-width: 36ch;
 }
 
-.c17 {
+.c21 {
   display: block;
   text-wrap: balance;
 }
 
-.c9 {
+.c13 {
   opacity: 0.7;
   transform: scale(0.9);
   transform-origin: center center;
 }
 
-.c18 {
+.c22 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -523,6 +592,8 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 @media (min-width: 900px) {
   .c2 {
     border-bottom: none;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0;
   }
 }
 
@@ -551,25 +622,25 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (min-width: 900px) {
   .c8 {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c14 {
+  .c18 {
     align-items: center;
     text-align: center;
   }
 }
 
 @media (min-width: 900px) {
-  .c9 {
+  .c13 {
     transform-origin: left center;
   }
 }
 
 @media (min-width: 900px) {
-  .c18 {
+  .c22 {
     align-items: flex-end;
   }
 }
@@ -627,20 +698,35 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           class="c8"
         >
           <div
-            class="c9"
+            class="c9 c10 c11"
+            data-testid="tree-nation-offset-website"
+          >
+            <div
+              class="c12"
+            >
+              <div
+                data-lang="en"
+                data-theme="light"
+                data-tree-nation-code="a4d3639b36ee64ed"
+                data-widget-type="offset-website"
+              />
+            </div>
+          </div>
+          <div
+            class="c13"
           >
             <span
-              class="c10"
+              class="c14"
             >
               <span
-                class="c11 c12"
+                class="c15 c16"
               >
                 0.05
                 g of CO₂/view
               </span>
               <a
                 aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
-                class="c11 c13"
+                class="c15 c17"
                 href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -651,23 +737,23 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           </div>
         </div>
         <div
-          class="c14"
+          class="c18"
         >
           <p
-            class="c15 c16"
+            class="c19 c20"
           >
             <span
-              class="c17"
+              class="c21"
             >
               Building for the web, one component at a time. Based in Bangkok.
             </span>
           </p>
         </div>
         <div
-          class="c18"
+          class="c22"
         >
           <p
-            class="c15"
+            class="c19"
             style="color: var(--color-paragraph);"
           >
             © 
