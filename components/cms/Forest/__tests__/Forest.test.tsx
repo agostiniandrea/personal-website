@@ -292,14 +292,17 @@ describe("Forest", () => {
       );
     });
 
-    it("recalls the earlier campaign from the project list, with its own tree count", () => {
+    it("recalls the earlier campaign from the project list, with the feedback tree count it earned", () => {
       renderWithTheme(
         <Forest {...defaultForest} forestProjects={[indonesia]} />,
       );
       const note = screen.getByTestId("earlier-campaign");
       expect(note).toHaveTextContent(
-        "Earlier campaign: supported through Community Reforestation in Indonesia · 19 trees planted there.",
+        "Earlier campaign: supported through Community Reforestation in Indonesia · 18 feedback trees.",
       );
+      // Tree-Nation's own count for the project (19) is not what is shown: it
+      // includes a tree that was not planted for feedback.
+      expect(note).not.toHaveTextContent("19");
       // Only the project name is the link, not the whole sentence.
       const link = screen.getByRole("link", {
         name: "Community Reforestation in Indonesia",
@@ -316,18 +319,6 @@ describe("Forest", () => {
       expect(
         screen.getByText(defaultForest.seasonProjectName!),
       ).toBeInTheDocument();
-    });
-
-    it("uses the singular for a single tree", () => {
-      renderWithTheme(
-        <Forest
-          {...defaultForest}
-          forestProjects={[{ ...indonesia, trees: 1 }]}
-        />,
-      );
-      expect(screen.getByTestId("earlier-campaign")).toHaveTextContent(
-        "1 tree planted there.",
-      );
     });
 
     it("says nothing about an earlier campaign Tree-Nation did not list", () => {
@@ -352,7 +343,7 @@ describe("Forest", () => {
         <Forest {...defaultForest} forestProjects={[indonesia]} />,
       );
       expect(screen.getByTestId("earlier-campaign")).toHaveTextContent(
-        "Campagna precedente: sostenuta attraverso Community Reforestation in Indonesia · 19 alberi piantati lì.",
+        "Campagna precedente: sostenuta attraverso Community Reforestation in Indonesia · 18 alberi da feedback.",
       );
     });
   });
