@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { BREAKPOINTS_BELOW } from "@constants";
+import { ConsentValue, readConsent, writeConsent } from "@lib/utils/consent";
 
 const copy = {
   en: {
@@ -42,9 +43,6 @@ const copy = {
     analyticsAriaOff: "Cookie analitici disattivi",
   },
 };
-
-const CONSENT_KEY = "cookie-consent";
-type ConsentValue = "accepted" | "rejected" | "custom";
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.surfaceRaised};
@@ -271,11 +269,11 @@ const CookieBanner: React.FC = () => {
   const t = locale === "it" ? copy.it : copy.en;
 
   useEffect(() => {
-    if (!localStorage.getItem(CONSENT_KEY)) setVisible(true);
+    if (!readConsent()) setVisible(true);
   }, []);
 
   const save = (value: ConsentValue, analytics: boolean) => {
-    localStorage.setItem(CONSENT_KEY, value);
+    writeConsent(value);
     setVisible(false);
     if (analytics) window.dispatchEvent(new Event("cookie-consent-accepted"));
   };
@@ -283,9 +281,13 @@ const CookieBanner: React.FC = () => {
   if (!visible) return null;
 
   return (
+    /* A non-modal dialog: nothing behind it is inert and there is no focus trap,
+       so it must not claim `aria-modal`. `data-cookie-banner` is how the
+       feedback nudges know to stay out of its way (they used to infer it from
+       aria-modal). */
     <Card
       role="dialog"
-      aria-modal="true"
+      data-cookie-banner="true"
       aria-labelledby="cookie-title"
       aria-describedby="cookie-desc"
     >

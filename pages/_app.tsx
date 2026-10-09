@@ -17,6 +17,7 @@ import {
 import GlobalStyle from "@config/customizations/globalStyles";
 import theme from "@config/theme";
 import { useAttributionCapture } from "@lib/utils/attribution";
+import { readConsent } from "@lib/utils/consent";
 import { useI18n } from "@lib/utils/i18n";
 import { useProlificCapture } from "@lib/utils/prolific";
 
@@ -66,7 +67,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
   useAttributionCapture();
 
   useEffect(() => {
-    if (localStorage.getItem("cookie-consent") === "accepted") {
+    if (readConsent() === "accepted") {
       setGaConsent(true);
     }
     const handler = () => setGaConsent(true);
