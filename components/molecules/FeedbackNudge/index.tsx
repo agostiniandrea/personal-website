@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent, trackOnce } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
+import { safeSessionStorage } from "@lib/utils/safeStorage";
 
 import { LeafIcon } from "../ForestIcons";
 
@@ -141,7 +142,7 @@ const FeedbackNudge: React.FC = () => {
     !teaserEngaged;
 
   useEffect(() => {
-    setDismissed(sessionStorage.getItem(DISMISSED_KEY) === "true");
+    setDismissed(safeSessionStorage.getItem(DISMISSED_KEY) === "true");
   }, []);
 
   useEffect(() => {
@@ -171,7 +172,7 @@ const FeedbackNudge: React.FC = () => {
     if (!forest) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
-      sessionStorage.setItem(DISMISSED_KEY, "true");
+      safeSessionStorage.setItem(DISMISSED_KEY, "true");
       setDismissed(true);
     });
     observer.observe(forest);
@@ -180,7 +181,7 @@ const FeedbackNudge: React.FC = () => {
 
   useEffect(() => {
     setTeaserEngaged(
-      sessionStorage.getItem("forest-inline-teaser-engaged") === "true",
+      safeSessionStorage.getItem("forest-inline-teaser-engaged") === "true",
     );
     const teaser = document.querySelector('[data-testid="forest-teaser"]');
     if (!teaser) return;
@@ -233,7 +234,7 @@ const FeedbackNudge: React.FC = () => {
   if (dismissed || teaserEngaged) return null;
 
   const openForest = () => {
-    sessionStorage.setItem(DISMISSED_KEY, "true");
+    safeSessionStorage.setItem(DISMISSED_KEY, "true");
     setDismissed(true);
     trackEvent("feedback_nudge_click", { locale: router.locale ?? "en" });
     document.getElementById("forest-impact")?.scrollIntoView({
@@ -259,7 +260,7 @@ const FeedbackNudge: React.FC = () => {
         <Close
           aria-label={t.feedbackNudgeDismiss}
           onClick={() => {
-            sessionStorage.setItem(DISMISSED_KEY, "true");
+            safeSessionStorage.setItem(DISMISSED_KEY, "true");
             trackEvent("feedback_nudge_dismiss", {
               locale: router.locale ?? "en",
             });

@@ -14,6 +14,7 @@ import {
   getProlificCompletionUrl,
   getProlificSession,
 } from "@lib/utils/prolific";
+import { safeLocalStorage } from "@lib/utils/safeStorage";
 
 const copy = {
   en: {
@@ -733,7 +734,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({
         feedback_category: data.category,
         locale: locale ?? "en",
       });
-      localStorage.setItem("forest-feedback-submitted", "true");
+      /* A convenience flag for the nudges, written after the feedback is already
+         saved: if storage is blocked it must not turn a successful submission
+         into an error screen (nor lose the Prolific return link). */
+      safeLocalStorage.setItem("forest-feedback-submitted", "true");
       window.dispatchEvent(new Event("feedback-submitted"));
       if (prolific) setCompletionUrl(getProlificCompletionUrl());
       setStep(5);

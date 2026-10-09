@@ -4,6 +4,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { FOREST_CAMPAIGN } from "@lib/utils/forestCampaign";
+import { blockBrowserStorage } from "@test-utils/blockBrowserStorage";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import Forest from "../index";
@@ -581,6 +582,85 @@ describe("Forest", () => {
 
       expect(submittedBody().prolific).toEqual(SESSION);
       expect(successCloseButton()).toBeInTheDocument();
+    });
+
+    /* The feedback is saved server-side before the browser writes its
+       "feedback sent" convenience flag, so a refused write must never turn a
+       successful submission into an error screen, nor hide the way back to
+       Prolific. */
+    describe("when browser storage refuses to write", () => {
+      const ERROR = /Something went wrong/;
+
+      afterEach(() => jest.restoreAllMocks());
+
+      it("still reaches the success step and the Prolific return link when only localStorage fails", async () => {
+        sessionStorage.setItem("prolific-session", JSON.stringify(SESSION));
+        blockBrowserStorage("local");
+        await submitFeedback();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(submittedBody().prolific).toEqual(SESSION);
+        const returnLink = screen.getByTestId("prolific-complete");
+        expect(returnLink).toHaveAttribute("href", COMPLETION_URL);
+        expect(screen.queryByText(ERROR)).not.toBeInTheDocument();
+      });
+
+      it("still reaches the success step for an ordinary visitor", async () => {
+        blockBrowserStorage("local");
+        await submitFeedback();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(submittedBody().prolific).toBeUndefined();
+        expect(successCloseButton()).toBeInTheDocument();
+        expect(screen.queryByText(ERROR)).not.toBeInTheDocument();
+      });
+
+      /* Known limit, kept from the original design: the study ids live in
+         sessionStorage, so with ALL storage blocked a participant cannot be
+         recognised and is an ordinary visitor. The submission itself must
+         still succeed. */
+      it("with every store blocked, the submission still succeeds, as an ordinary one", async () => {
+        sessionStorage.setItem("prolific-session", JSON.stringify(SESSION));
+        blockBrowserStorage();
+        await submitFeedback();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(submittedBody().prolific).toBeUndefined();
+        expect(successCloseButton()).toBeInTheDocument();
+        expect(
+          screen.queryByTestId("prolific-complete"),
+        ).not.toBeInTheDocument();
+        expect(screen.queryByText(ERROR)).not.toBeInTheDocument();
+      });
+    });
+
+    /* Unchanged on purpose: a request that did not succeed is still an error
+       and records nothing, including the duplicate-submission answer. */
+    describe("when the submission itself is not accepted", () => {
+      const ERROR = /Something went wrong/;
+
+      afterEach(() => jest.restoreAllMocks());
+
+      it("reports an already-recorded submission as an error and sets no flag", async () => {
+        sessionStorage.setItem("prolific-session", JSON.stringify(SESSION));
+        fetchMock.mockResolvedValue({ ok: false, status: 429 });
+        await submitFeedback();
+
+        expect(await screen.findByText(ERROR)).toBeInTheDocument();
+        expect(
+          screen.queryByTestId("prolific-complete"),
+        ).not.toBeInTheDocument();
+        expect(localStorage.getItem("forest-feedback-submitted")).toBeNull();
+      });
+
+      it("reports a network failure as an error, with storage blocked or not", async () => {
+        blockBrowserStorage("local");
+        fetchMock.mockRejectedValue(new Error("offline"));
+        await submitFeedback();
+
+        expect(await screen.findByText(ERROR)).toBeInTheDocument();
+        expect(successCloseButton()).toBeUndefined();
+      });
     });
   });
 
