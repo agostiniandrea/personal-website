@@ -265,7 +265,6 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c26 {
   align-items: flex-start;
-  border-top: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -280,13 +279,12 @@ exports[`Forest renders correctly with all props 1`] = `
 .c29 {
   left: 100%;
   position: absolute;
-  top: -1rem;
 }
 
 .c28 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 4.1rem;
+  font-size: 5rem;
   font-weight: 700;
   line-height: 1;
 }
@@ -669,8 +667,6 @@ exports[`Forest renders correctly with all props 1`] = `
 @media (min-width: 900px) {
   .c26 {
     align-items: flex-end;
-    border-left: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
-    border-top: none;
     flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
@@ -681,7 +677,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 @media (min-width: 1200px) {
   .c28 {
-    font-size: 5.3rem;
+    font-size: 6.5rem;
   }
 }
 
@@ -1536,7 +1532,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 .c21 {
   align-items: flex-start;
-  border-top: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -1551,13 +1546,12 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c24 {
   left: 100%;
   position: absolute;
-  top: -1rem;
 }
 
 .c23 {
   color: var(--color-highlight);
   font-family: var(--font-space-grotesk),sans-serif;
-  font-size: 4.1rem;
+  font-size: 5rem;
   font-weight: 700;
   line-height: 1;
 }
@@ -1794,8 +1788,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
 @media (min-width: 900px) {
   .c21 {
     align-items: flex-end;
-    border-left: 1px solid color-mix(in srgb, var(--color-highlight) 15%, transparent);
-    border-top: none;
     flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
@@ -1806,7 +1798,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 @media (min-width: 1200px) {
   .c23 {
-    font-size: 5.3rem;
+    font-size: 6.5rem;
   }
 }
 

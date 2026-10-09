@@ -358,7 +358,6 @@ const CtaContent = styled.div`
 
 const CtaDecor = styled.div`
   align-items: flex-start;
-  border-top: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
@@ -366,8 +365,6 @@ const CtaDecor = styled.div`
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
-    border-left: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 15)};
-    border-top: none;
     flex-shrink: 0;
     padding-left: 3rem;
     padding-top: 0;
@@ -386,20 +383,19 @@ const CtaDecorNumberWrap = styled.span`
 const CertificationAnchor = styled.span`
   left: 100%;
   position: absolute;
-  /* The 44px touch target is centred on the icon, so this puts the icon level
-     with the top of the digits, like a superscript. */
-  top: -1rem;
+  /* No offset: the icon sits at the top corner of the digits, like a
+     superscript. */
 `;
 
 const CtaDecorNumber = styled.span`
   color: ${({ theme }) => theme.colors.highlight};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: 4.1rem;
+  font-size: 5rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   line-height: ${({ theme }) => theme.lineHeights.tight};
 
   @media (min-width: ${BREAKPOINTS.tablet}) {
-    font-size: 5.3rem;
+    font-size: 6.5rem;
   }
 `;
 
