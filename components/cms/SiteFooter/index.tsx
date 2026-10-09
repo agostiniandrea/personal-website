@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Container, Flex, Link, Text } from "@components/ions";
-import { CarbonBadge } from "@components/molecules";
+import { CarbonBadge, TreeNationLabel } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
@@ -44,8 +44,12 @@ const CtaArea = styled.div`
     padding-bottom: ${toSpacing("lg")};
   }
 
+  /* With no rule between the two halves, the old 2rem + 2rem read as one big
+     hole: the links and the badges below are one footer, so they sit closer. */
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     border-bottom: none;
+    margin-bottom: ${toSpacing("xl")};
+    padding-bottom: 0;
   }
 `;
 
@@ -90,14 +94,40 @@ const Subfooter = styled.div`
   }
 `;
 
+/* The left side of the footer is the site's environmental footprint: the
+   Climate Action Website label (what the site gives back) with Website Carbon
+   (how light the site is) under it. */
 const BadgeCol = styled.div`
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: ${toSpacing("lg")};
   justify-content: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
+`;
+
+/* The Climate Action label is a credential, not a call to action: dimmed like
+   the carbon badge and back to full strength on hover/focus, where the official
+   widget shows its own hover state and link. Only the wrapper is styled; the
+   widget itself is untouched. */
+const Credential = styled(TreeNationLabel)`
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover,
+  &:focus-within {
+    opacity: 1;
+  }
+`;
+
+/* Same 0.9 scale the carbon badge gets. `zoom` rather than a transform, so the
+   box shrinks with the label and leaves no empty strip under it. */
+const ClimateActionCredential = styled(Credential)`
+  display: flex;
+  zoom: 0.9;
 `;
 
 const TaglineCol = styled.div`
@@ -177,6 +207,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
       {/* Subfooter */}
       <Subfooter>
         <BadgeCol>
+          <ClimateActionCredential type="offset-website" />
           <CarbonWrapper>
             <CarbonBadge />
           </CarbonWrapper>
