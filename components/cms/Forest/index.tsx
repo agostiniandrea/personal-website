@@ -769,6 +769,13 @@ const ProjectMeta = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
+/* A quiet footnote under the current project: history, not a second card. */
+const EarlierCampaign = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  margin-top: ${GROUP_GAP_TOPUP};
+`;
+
 const ProjectStats = styled.span`
   color: ${({ theme }) => theme.colors.headline};
   margin-top: ${GROUP_GAP_TOPUP};
@@ -1000,6 +1007,13 @@ const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
   },
 ];
 
+/* The project feedback trees went to before the current one, as Tree-Nation
+   names it in the forest's project list ("Community Reforestation in
+   Indonesia"). Only the slug is kept here: name and country come from the API,
+   and no figure is attached to it, since that project's trees include ones
+   that were not planted for feedback. */
+const EARLIER_CAMPAIGN_PROJECT_SLUG = "community-reforestation-in-java-1";
+
 /* ── Component ── */
 
 const Forest: React.FC<ForestProps> = ({
@@ -1021,7 +1035,7 @@ const Forest: React.FC<ForestProps> = ({
   ctaButtonLabel = "Plant your feedback",
   treeCountLabel,
   treesLabel,
-  seasonProjectLabel = "Season One project",
+  seasonProjectLabel,
   seasonProjectName,
   seasonProjectMeta,
   seasonProjectStats,
@@ -1063,6 +1077,21 @@ const Forest: React.FC<ForestProps> = ({
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
   const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
+  /* The card names the project feedback trees currently go to; it carries no
+     season number, so nothing here has to change when that project does. */
+  const resolvedProjectLabel =
+    seasonProjectLabel ?? t.forestCurrentProjectLabel;
+  /* The earlier campaign is read from the project list Tree-Nation already
+     gave us, so its name is never typed here and the line disappears if the
+     list is unavailable. It is also left out while the card itself still shows
+     that same project, so the two can never contradict each other. */
+  const earlierProject = forestProjects.find(
+    (project) => project.slug === EARLIER_CAMPAIGN_PROJECT_SLUG,
+  );
+  const showEarlierCampaign =
+    earlierProject !== undefined &&
+    earlierProject.name.toLowerCase() !==
+      (seasonProjectName ?? "").toLowerCase();
   const resolvedTreeCountLabel = treeCountLabel ?? t.forestTreeCountLabel;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
@@ -1345,8 +1374,8 @@ const Forest: React.FC<ForestProps> = ({
             )}
             {seasonProjectName && (
               <ProjectPanel data-testid="season-project">
-                {seasonProjectLabel && (
-                  <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
+                {resolvedProjectLabel && (
+                  <ProjectLabel>{resolvedProjectLabel}</ProjectLabel>
                 )}
                 <ProjectName>{seasonProjectName}</ProjectName>
                 {seasonProjectMeta && (
@@ -1381,7 +1410,7 @@ const Forest: React.FC<ForestProps> = ({
                   <ProjectFooter>
                     {forestSpecies.length > 0 ? (
                       <SpeciesDetailList data-testid="species-detail">
-                        {forestSpecies.map((species) => (
+                        {forestSpecies.map((species, index) => (
                           <SpeciesRow key={species.label}>
                             <SpeciesLabel>{species.label}</SpeciesLabel>{" "}
                             <SpeciesLatin>{species.scientific}</SpeciesLatin>
@@ -1392,6 +1421,12 @@ const Forest: React.FC<ForestProps> = ({
                             )}
                             {species.co2Kg > 0 &&
                               `\u00a0· ${t.forestSpeciesCo2(species.co2Kg)}`}
+                            {forestSpecies.length === 2 &&
+                              `\u00a0· ${
+                                index === 0
+                                  ? t.forestSpeciesRoleContributor
+                                  : t.forestSpeciesRoleMatched
+                              }`}
                           </SpeciesRow>
                         ))}
                       </SpeciesDetailList>
@@ -1421,6 +1456,11 @@ const Forest: React.FC<ForestProps> = ({
                       </ProjectLink>
                     )}
                   </ProjectFooter>
+                )}
+                {showEarlierCampaign && (
+                  <EarlierCampaign data-testid="earlier-campaign">
+                    {t.forestEarlierCampaign(earlierProject.name)}
+                  </EarlierCampaign>
                 )}
               </ProjectPanel>
             )}

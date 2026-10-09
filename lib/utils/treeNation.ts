@@ -277,9 +277,24 @@ export async function getForestData(
     countersAt !== null &&
     now.getTime() - countersAt.getTime() < COUNTERS_STALE_AFTER_MS &&
     sameCalendarMonth(countersAt, now);
+  /* The cached species belong to whichever project was featured when they were
+     resolved. When the CMS points the card somewhere else they must neither be
+     shown under the new project nor be trusted as fresh for a day, so anything
+     the card no longer names is dropped, and its presence forces a re-resolve.
+     A partial match (some names never resolve) stays on the daily clock. */
+  const wantedNames = (featured?.speciesNames ?? [])
+    .map((name) => name.trim().toLowerCase())
+    .filter(Boolean);
+  const isWanted = (item: ForestSpecies) =>
+    wantedNames.length === 0 ||
+    wantedNames.includes(item.label.trim().toLowerCase());
+  const allCached = lastKnown?.species ?? [];
+  const cachedSpecies = allCached.filter(isWanted);
+  const cacheIsForAnotherProject = cachedSpecies.length < allCached.length;
   const speciesFresh =
     speciesAt !== null &&
-    now.getTime() - speciesAt.getTime() < SPECIES_STALE_AFTER_MS;
+    now.getTime() - speciesAt.getTime() < SPECIES_STALE_AFTER_MS &&
+    !cacheIsForAnotherProject;
 
   let total = lastKnown?.tree_count ?? null;
   let month =
@@ -287,7 +302,7 @@ export async function getForestData(
       ? (lastKnown?.month_count ?? null)
       : null;
   let projects = lastKnown?.projects ?? [];
-  let species = lastKnown?.species ?? [];
+  let species = cachedSpecies;
 
   /* Only what actually refreshed is written back, so one half going stale
      never overwrites the other with older values. */

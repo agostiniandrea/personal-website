@@ -33,15 +33,17 @@ export const defaultForest: ForestProps = {
   ctaButtonLabel: "Plant your feedback",
   treeCountLabel: "Trees planted since May 2026",
   viewForestLabel: "View the living forest",
-  seasonProjectLabel: "Season One project",
-  seasonProjectName: "Community Reforestation in Indonesia",
-  seasonProjectMeta: "Indonesia · Tropical community reforestation",
-  seasonProjectStats: "4 trees · 1.5 t CO₂ · 2 species",
-  seasonProjectTreesCount: 4,
-  seasonProjectCo2Kg: 1500,
-  seasonProjectSpecies: ["Sengon", "Kadamba"],
+  seasonProjectLabel: "Current feedback project",
+  seasonProjectName: "Replanting the burnt Mkussu Forest",
+  seasonProjectMeta: "Tanzania · Mangrove restoration",
+  seasonProjectStats: "10 trees · 1 t CO₂ · 2 species",
+  seasonProjectTreesCount: 10,
+  seasonProjectCo2Kg: 1000,
+  /* Order matters: the first species is the contributor's tree, the second is
+     the one matched by me. */
+  seasonProjectSpecies: ["Mangrove Cannonball Tree", "Black Mangrove"],
   seasonProjectUrl:
-    "https://tree-nation.com/projects/community-reforestation-in-indonesia",
+    "https://tree-nation.com/projects/replanting-the-burnt-mkussu-forest",
   seasonProjectLinkLabel: "View project",
   changelogItems: [],
 };

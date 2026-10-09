@@ -230,6 +230,110 @@ describe("Forest", () => {
     });
   });
 
+  describe("current and earlier feedback project", () => {
+    const twoSpecies = [
+      {
+        label: "Mangrove Cannonball Tree",
+        scientific: "Xylocarpus granatum",
+        category: "Plant",
+        origin: "Native",
+        co2Kg: 100,
+      },
+      {
+        label: "Black mangrove",
+        scientific: "Bruguiera gymnorhiza",
+        category: "Plant",
+        origin: "Native",
+        co2Kg: 100,
+      },
+    ];
+    const indonesia = {
+      id: 692,
+      name: "Community Reforestation in Indonesia",
+      slug: "community-reforestation-in-java-1",
+      country: "ID",
+      trees: 19,
+    };
+
+    it("says whose tree is whose when a card has the two species of a pair", () => {
+      renderWithTheme(<Forest {...defaultForest} forestSpecies={twoSpecies} />);
+      const rows = screen.getByTestId("species-detail").querySelectorAll("li");
+      expect(rows[0]).toHaveTextContent("Mangrove Cannonball Tree");
+      expect(rows[0]).toHaveTextContent("for the contributor");
+      expect(rows[1]).toHaveTextContent("Black mangrove");
+      expect(rows[1]).toHaveTextContent("matched by me");
+    });
+
+    it("assigns no role when the species are not a pair", () => {
+      renderWithTheme(
+        <Forest {...defaultForest} forestSpecies={[twoSpecies[0]]} />,
+      );
+      const block = screen.getByTestId("species-detail");
+      expect(block).not.toHaveTextContent("for the contributor");
+      expect(block).not.toHaveTextContent("matched by me");
+    });
+
+    it("labels the card without naming a season when the CMS gives no label", () => {
+      renderWithTheme(
+        <Forest {...defaultForest} seasonProjectLabel={undefined} />,
+      );
+      const panel = screen.getByTestId("season-project");
+      expect(panel).toHaveTextContent("Current feedback project");
+      expect(panel).not.toHaveTextContent(/season/i);
+    });
+
+    it("localizes that default label", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(
+        <Forest {...defaultForest} seasonProjectLabel={undefined} />,
+      );
+      expect(screen.getByTestId("season-project")).toHaveTextContent(
+        "Progetto attuale dei feedback",
+      );
+    });
+
+    it("recalls the earlier campaign from the project list, without a figure", () => {
+      renderWithTheme(
+        <Forest {...defaultForest} forestProjects={[indonesia]} />,
+      );
+      const note = screen.getByTestId("earlier-campaign");
+      expect(note).toHaveTextContent(
+        "Earlier campaign: supported through Community Reforestation in Indonesia.",
+      );
+      expect(note).not.toHaveTextContent("19");
+      // The card itself stays on the current project.
+      expect(
+        screen.getByText(defaultForest.seasonProjectName!),
+      ).toBeInTheDocument();
+    });
+
+    it("says nothing about an earlier campaign Tree-Nation did not list", () => {
+      renderWithTheme(<Forest {...defaultForest} forestProjects={[]} />);
+      expect(screen.queryByTestId("earlier-campaign")).not.toBeInTheDocument();
+    });
+
+    it("does not call a card the earlier campaign while it still shows that project", () => {
+      renderWithTheme(
+        <Forest
+          {...defaultForest}
+          seasonProjectName="Community Reforestation in Indonesia"
+          forestProjects={[indonesia]}
+        />,
+      );
+      expect(screen.queryByTestId("earlier-campaign")).not.toBeInTheDocument();
+    });
+
+    it("localizes the earlier campaign line", () => {
+      mockUseRouter.mockReturnValue({ locale: "it" });
+      renderWithTheme(
+        <Forest {...defaultForest} forestProjects={[indonesia]} />,
+      );
+      expect(screen.getByTestId("earlier-campaign")).toHaveTextContent(
+        "Campagna precedente: sostenuta attraverso Community Reforestation in Indonesia.",
+      );
+    });
+  });
+
   describe("where the forest grows", () => {
     const projects = [
       {
@@ -394,7 +498,7 @@ describe("Forest", () => {
     const panel = screen.getByTestId("season-project");
     expect(panel).toHaveTextContent(defaultForest.seasonProjectName!);
     expect(panel).toHaveTextContent(
-      "4 trees · 2 species · 1.5 t CO2 lifetime estimate",
+      "10 trees · 2 species · 1 t CO2 lifetime estimate",
     );
     defaultForest.seasonProjectSpecies!.forEach((species) => {
       expect(screen.getByText(species)).toBeInTheDocument();
@@ -415,7 +519,7 @@ describe("Forest", () => {
       renderWithTheme(<Forest {...defaultForest} />);
       const stats = screen.getByTestId("project-stats");
       expect(stats).toHaveTextContent(
-        "4 trees · 2 species · 1.5 t CO2 lifetime estimate",
+        "10 trees · 2 species · 1 t CO2 lifetime estimate",
       );
       const sub = stats.querySelector("sub");
       expect(sub).not.toBeNull();
@@ -463,7 +567,7 @@ describe("Forest", () => {
         name: "Informazioni sulla stima della CO₂",
       });
       expect(screen.getByTestId("project-stats")).toHaveTextContent(
-        "4 alberi · 2 specie · 1,5 t CO2 stima sul ciclo di vita",
+        "10 alberi · 2 specie · 1 t CO2 stima sul ciclo di vita",
       );
       await user.click(trigger);
 
