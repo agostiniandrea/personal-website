@@ -94,13 +94,18 @@ const Subfooter = styled.div`
   }
 `;
 
+/* The left side of the footer is the site's environmental footprint: the
+   Climate Action Website label (what the site gives back) with Website Carbon
+   (how light the site is) under it. */
 const BadgeCol = styled.div`
   align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: ${toSpacing("lg")};
   justify-content: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    justify-content: flex-start;
+    align-items: flex-start;
   }
 `;
 
@@ -202,13 +207,13 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
       {/* Subfooter */}
       <Subfooter>
         <BadgeCol>
+          <ClimateActionCredential type="offset-website" />
           <CarbonWrapper>
             <CarbonBadge />
           </CarbonWrapper>
         </BadgeCol>
 
         <TaglineCol>
-          <ClimateActionCredential type="offset-website" />
           {tagline && (
             <Tagline variant="small">
               {tagline.split("\n").map((line, i) => (

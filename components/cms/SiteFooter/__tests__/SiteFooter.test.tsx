@@ -62,20 +62,19 @@ describe("SiteFooter", () => {
     expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
   });
 
-  it("centres the Climate Action Website label above the tagline, away from Website Carbon", () => {
+  it("stacks the Climate Action Website label on the left, above Website Carbon", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
     const climate = screen.getByTestId("tree-nation-offset-website");
     const carbon = screen.getByRole("link", { name: /Website Carbon result/i });
     const tagline = screen.getByText(/one component at a time/i);
 
-    // Same centre column as the tagline, and before it.
-    expect(climate.parentElement).toContainElement(tagline);
+    expect(climate.parentElement).toContainElement(carbon);
     expect(
-      climate.compareDocumentPosition(tagline) &
+      climate.compareDocumentPosition(carbon) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
-    // Website Carbon stays alone on the left.
-    expect(climate.parentElement).not.toContainElement(carbon);
+    // The tagline column is left alone.
+    expect(climate.parentElement).not.toContainElement(tagline);
   });
 
   it("has no Tree Counter in the footer: only the Climate Action label", () => {
