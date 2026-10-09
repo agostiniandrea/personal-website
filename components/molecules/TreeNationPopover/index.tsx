@@ -18,9 +18,10 @@ import TreeNationLabel from "../TreeNationLabel";
      the third-party script is not asked to render anything nobody can see.
    - Pointer-fine devices: hover opens it, click pins it open (click again, Esc
      or an outside click closes it). Touch: tap toggles it.
-   - Keyboard: Enter/Space on the button toggles it, Tab walks into the popover
-     (it follows the button in the DOM), Esc closes it and gives focus back, and
-     tabbing out of it closes it. Not a modal: focus is never trapped.
+   - Keyboard: focusing the button opens it, Enter/Space pins it, Tab walks into
+     the popover (it follows the button in the DOM), Esc closes it and gives
+     focus back, and tabbing out of it closes it. Not a modal: focus is never
+     trapped.
    - Placement: above the badge, flipped below when clipped by the top of the
      viewport, nudged sideways to keep a 16px margin.
    The panel is always white, whatever the site theme, so the official label
@@ -29,6 +30,8 @@ import TreeNationLabel from "../TreeNationLabel";
 export interface TreeNationPopoverProps {
   /** Accessible name of the badge button (localized by the host). */
   ariaLabel: string;
+  /** One short line under the label, e.g. that the two counts may differ. */
+  note: string;
   /** Public Tree-Nation forest. */
   linkHref: string;
   linkLabel: string;
@@ -104,9 +107,6 @@ const Panel = styled.span<{ $below: boolean }>`
   border-radius: ${({ theme }) => theme.radii.sm};
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   color: #1a1a1a;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   padding: 0.875rem 1rem;
   text-align: left;
   text-transform: none;
@@ -134,25 +134,61 @@ const Panel = styled.span<{ $below: boolean }>`
   }
 `;
 
+/* Below the label, set off by a hairline. The label is the first thing seen;
+   this is the small print. */
+const Details = styled.span`
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+  padding-top: 0.625rem;
+`;
+
+/* width: 0 + min-width: 100% keeps the note from widening the panel: it wraps
+   to the width of the label above it. */
+const Note = styled.span`
+  color: #5b6470;
+  display: block;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  line-height: 1.45;
+  min-width: 100%;
+  width: 0;
+`;
+
+/* The panel is always white, so the link uses the light theme's teal (#0f766e)
+   rather than the theme's own accent, which turns pale in dark mode. */
 const ForestLink = styled.a`
   align-items: center;
-  color: #1a1a1a;
+  color: #0f766e;
   display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.25rem;
   text-decoration: underline;
+  text-decoration-color: rgba(15, 118, 110, 0.35);
   text-underline-offset: 3px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
   width: fit-content;
 
+  @media (hover: hover) {
+    &:hover {
+      color: #0b5f58;
+      text-decoration-color: currentColor;
+    }
+  }
+
   &:focus-visible {
-    outline: 2px solid #1a1a1a;
+    outline: 2px solid #0f766e;
     outline-offset: 3px;
   }
 `;
 
 const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
   ariaLabel,
+  note,
   linkHref,
   linkLabel,
   className,
@@ -165,6 +201,8 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const positionerRef = useRef<HTMLSpanElement>(null);
   const pinnedRef = useRef(false);
+  /* Escape hands focus back to the badge, which must not reopen it. */
+  const restoringFocusRef = useRef(false);
 
   const hide = () => {
     pinnedRef.current = false;
@@ -177,7 +215,11 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
       if (e.key !== "Escape") return;
       const focusInside = wrapperRef.current?.contains(document.activeElement);
       hide();
-      if (focusInside) triggerRef.current?.focus();
+      if (focusInside) {
+        restoringFocusRef.current = true;
+        triggerRef.current?.focus();
+        restoringFocusRef.current = false;
+      }
     };
     const onPointerDown = (e: PointerEvent) => {
       if (!wrapperRef.current?.contains(e.target as Node)) hide();
@@ -206,6 +248,19 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
     });
     return () => cancelAnimationFrame(frame);
   }, [open]);
+
+  /* Keyboard focus shows it too (a mouse click focuses the button as well, but
+     that goes through onClick). Without :focus-visible support, assume keys. */
+  const onFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
+    if (restoringFocusRef.current) return;
+    let keyboard = true;
+    try {
+      keyboard = e.currentTarget.matches(":focus-visible");
+    } catch {
+      /* unsupported selector */
+    }
+    if (keyboard) setOpen(true);
+  };
 
   const onClick = () => {
     if (open && pinnedRef.current) {
@@ -239,6 +294,7 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
         aria-controls={open ? id : undefined}
         aria-haspopup="dialog"
         onClick={onClick}
+        onFocus={onFocus}
       >
         <BadgeCheck size={20} strokeWidth={1.75} aria-hidden="true" />
       </TriggerButton>
@@ -261,14 +317,17 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
             $below={below}
           >
             <TreeNationLabel type="tree-counter" theme="light" />
-            <ForestLink
-              href={linkHref}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {linkLabel}
-              <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
-            </ForestLink>
+            <Details>
+              <Note>{note}</Note>
+              <ForestLink
+                href={linkHref}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {linkLabel}
+                <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
+              </ForestLink>
+            </Details>
           </Panel>
         </Positioner>
       )}

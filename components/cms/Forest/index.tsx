@@ -1210,6 +1210,7 @@ const Forest: React.FC<ForestProps> = ({
               <CertificationAnchor>
                 <TreeNationPopover
                   ariaLabel={t.forestCertifiedLabel}
+                  note={t.forestCertifiedNote}
                   linkHref={TREE_NATION_PROFILE_URL}
                   linkLabel={t.forestVerifiedLabel}
                 />

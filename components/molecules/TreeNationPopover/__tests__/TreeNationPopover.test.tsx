@@ -21,6 +21,7 @@ const renderPopover = () =>
       <button type="button">before</button>
       <TreeNationPopover
         ariaLabel="Certified by Tree-Nation"
+        note="Tree-Nation’s count may differ from this site."
         linkHref={PROFILE}
         linkLabel="View the forest on Tree-Nation"
       />
@@ -133,14 +134,13 @@ describe("TreeNationPopover", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("is keyboard operable: Enter opens, Tab reaches the link, Tab again leaves and closes", async () => {
+  it("opens on keyboard focus, Tab reaches the link, Tab again leaves and closes", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     renderPopover();
     await user.tab(); // "before"
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     await user.tab(); // the badge
     expect(trigger()).toHaveFocus();
-
-    await user.keyboard("{Enter}");
     expect(screen.getByRole("dialog")).toBeInTheDocument();
 
     await user.tab();
@@ -150,6 +150,42 @@ describe("TreeNationPopover", () => {
     await user.tab(); // "after"
     expect(screen.getByRole("button", { name: "after" })).toHaveFocus();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("Enter on the focused badge pins it, a second Enter closes it", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    renderPopover();
+    await user.tab();
+    await user.tab();
+    await user.keyboard("{Enter}");
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    await user.keyboard("{Enter}");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("shows the label first, then the note and the forest link under a divider", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    renderPopover();
+    await user.click(trigger());
+
+    const dialog = screen.getByRole("dialog");
+    const widget = dialog.querySelector("[data-widget-type]")!;
+    const note = screen.getByText(
+      "Tree-Nation’s count may differ from this site.",
+    );
+    const link = screen.getByRole("link");
+
+    expect(dialog.firstElementChild as HTMLElement).toContainElement(
+      widget as HTMLElement,
+    );
+    expect(note.parentElement).toHaveStyleRule(
+      "border-top",
+      expect.stringContaining("1px solid"),
+    );
+    expect(note.parentElement).toContainElement(link);
+    expect(
+      note.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 
   it("keeps the panel on the viewport: flips below when clipped at the top", () => {

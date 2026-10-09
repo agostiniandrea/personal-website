@@ -345,6 +345,29 @@ describe("Forest", () => {
     expect(links[1]).toHaveAttribute("href", standalone.getAttribute("href")!);
   });
 
+  it("explains in the popover that the two counts may differ, in English and Italian", async () => {
+    const user = userEvent.setup();
+    const { unmount } = renderWithTheme(<Forest {...defaultForest} />);
+    await user.click(
+      screen.getByRole("button", { name: /Certified by Tree-Nation/i }),
+    );
+    expect(
+      screen.getByText("Tree-Nation’s count may differ from this site."),
+    ).toBeInTheDocument();
+    unmount();
+
+    mockUseRouter.mockReturnValue({ locale: "it" });
+    renderWithTheme(<Forest {...defaultForest} />);
+    await user.click(
+      screen.getByRole("button", { name: /Certificato da Tree-Nation/i }),
+    );
+    expect(
+      screen.getByText(
+        "Il conteggio di Tree-Nation può differire da quello di questo sito.",
+      ),
+    ).toBeInTheDocument();
+  });
+
   it("puts the certification badge beside the dynamic tree count, closed by default", () => {
     renderWithTheme(<Forest {...defaultForest} />);
     const badge = screen.getByRole("button", {

@@ -18,6 +18,7 @@ const strings = {
     forestFeedbackTrees: (trees: number) =>
       `${trees} trees grown through portfolio feedback`,
     forestCertifiedLabel: "Certified by Tree-Nation: show the official counter",
+    forestCertifiedNote: "Tree-Nation’s count may differ from this site.",
     forestContributions: (count: number) =>
       `${count} meaningful ${count === 1 ? "contribution" : "contributions"}`,
     forestCtaBody:
@@ -105,6 +106,8 @@ const strings = {
       `${trees} alberi cresciuti grazie ai feedback`,
     forestCertifiedLabel:
       "Certificato da Tree-Nation: mostra il contatore ufficiale",
+    forestCertifiedNote:
+      "Il conteggio di Tree-Nation può differire da quello di questo sito.",
     forestContributions: (count: number) =>
       `${count} ${count === 1 ? "contributo significativo" : "contributi significativi"}`,
     forestCtaBody:
