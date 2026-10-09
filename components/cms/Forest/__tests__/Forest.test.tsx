@@ -301,6 +301,18 @@ describe("Forest", () => {
         "Earlier campaign: supported through Community Reforestation in Indonesia.",
       );
       expect(note).not.toHaveTextContent("19");
+      // Only the project name is the link, not the whole sentence.
+      const link = screen.getByRole("link", {
+        name: "Community Reforestation in Indonesia",
+      });
+      expect(link).toHaveAttribute(
+        "href",
+        "https://tree-nation.com/projects/community-reforestation-in-indonesia",
+      );
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+      expect(link).toHaveStyleRule("text-decoration", "underline");
+      expect(link).toHaveTextContent(/^Community Reforestation in Indonesia$/);
       // The card itself stays on the current project.
       expect(
         screen.getByText(defaultForest.seasonProjectName!),

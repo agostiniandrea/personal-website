@@ -26,10 +26,10 @@ const strings = {
     /* Describes what the card is, not which season it belongs to: the project
        feedback trees go to can change without the copy having to. */
     forestCurrentProjectLabel: "Current feedback project",
-    /* A past phase, named for what it was. The name comes from Tree-Nation, so
-       the line never says more than the project list does. */
-    forestEarlierCampaign: (name: string) =>
-      `Earlier campaign: supported through ${name}.`,
+    /* A past phase, named for what it was. The project name that follows comes
+       from Tree-Nation and is a link, so the line never says more than the
+       project list does. */
+    forestEarlierCampaignLead: "Earlier campaign: supported through",
     forestHeading:
       "This portfolio grows through feedback, research and iteration.",
     forestInlineCta: "Explore the Forest",
@@ -122,8 +122,7 @@ const strings = {
     forestCtaBody:
       "Ogni contributo significativo può dare forma al portfolio. I feedback della community fanno crescere due alberi veri — uno dedicato a te, uno che aggiungo io.",
     forestCurrentProjectLabel: "Progetto attuale dei feedback",
-    forestEarlierCampaign: (name: string) =>
-      `Campagna precedente: sostenuta attraverso ${name}.`,
+    forestEarlierCampaignLead: "Campagna precedente: sostenuta attraverso",
     forestHeading:
       "Questo portfolio cresce grazie a feedback, ricerca e iterazione.",
     forestInlineCta: "Esplora Forest",

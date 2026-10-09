@@ -769,11 +769,33 @@ const ProjectMeta = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
-/* A quiet footnote under the current project: history, not a second card. */
+/* A quiet footnote under the current project: history, not a second card. It
+   sits one action-gap below "View project", the same step that link keeps from
+   the species above it, so two links never read as a single cluster. */
 const EarlierCampaign = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  margin-top: ${GROUP_GAP_TOPUP};
+  margin-top: ${ACTION_GAP};
+`;
+
+/* Only the project name is the link, underlined so it reads as one inside a
+   sentence that is otherwise plain text. */
+const EarlierCampaignLink = styled.a`
+  color: ${({ theme }) => theme.colors.highlight};
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 2px;
+  }
 `;
 
 const ProjectStats = styled.span`
@@ -1013,6 +1035,10 @@ const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
    and no figure is attached to it, since that project's trees include ones
    that were not planted for feedback. */
 const EARLIER_CAMPAIGN_PROJECT_SLUG = "community-reforestation-in-java-1";
+/* The page the site has always linked that project to; Tree-Nation's API does
+   not return project URLs. */
+const EARLIER_CAMPAIGN_PROJECT_URL =
+  "https://tree-nation.com/projects/community-reforestation-in-indonesia";
 
 /* ── Component ── */
 
@@ -1459,7 +1485,15 @@ const Forest: React.FC<ForestProps> = ({
                 )}
                 {showEarlierCampaign && (
                   <EarlierCampaign data-testid="earlier-campaign">
-                    {t.forestEarlierCampaign(earlierProject.name)}
+                    {t.forestEarlierCampaignLead}{" "}
+                    <EarlierCampaignLink
+                      href={EARLIER_CAMPAIGN_PROJECT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {earlierProject.name}
+                    </EarlierCampaignLink>
+                    .
                   </EarlierCampaign>
                 )}
               </ProjectPanel>
