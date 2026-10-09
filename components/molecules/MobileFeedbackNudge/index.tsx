@@ -9,6 +9,7 @@ import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent, trackOnce } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import { MobileView } from "@lib/utils/mobileNav";
+import { safeLocalStorage, safeSessionStorage } from "@lib/utils/safeStorage";
 
 const DISMISSED_KEY = "forest-feedback-nudge-dismissed";
 const SUBMITTED_KEY = "forest-feedback-submitted";
@@ -114,7 +115,7 @@ export interface MobileFeedbackNudgeProps {
 
 const readVisited = (): Set<string> => {
   try {
-    return new Set(JSON.parse(sessionStorage.getItem(VISITED_KEY) ?? "[]"));
+    return new Set(JSON.parse(safeSessionStorage.getItem(VISITED_KEY) ?? "[]"));
   } catch {
     return new Set();
   }
@@ -147,20 +148,20 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
   }, []);
 
   useEffect(() => {
-    const dismissedAt = Number(localStorage.getItem(DISMISSED_KEY));
+    const dismissedAt = Number(safeLocalStorage.getItem(DISMISSED_KEY));
     const alreadyDismissed =
       Number.isFinite(dismissedAt) &&
       dismissedAt > 0 &&
       Date.now() - dismissedAt < DISMISSAL_TTL_MS;
-    const alreadySubmitted = localStorage.getItem(SUBMITTED_KEY) === "true";
+    const alreadySubmitted = safeLocalStorage.getItem(SUBMITTED_KEY) === "true";
     setDismissed(alreadyDismissed || alreadySubmitted);
 
-    const storedStart = Number(sessionStorage.getItem(STARTED_AT_KEY));
+    const storedStart = Number(safeSessionStorage.getItem(STARTED_AT_KEY));
     const startedAt =
       Number.isFinite(storedStart) && storedStart > 0
         ? storedStart
         : Date.now();
-    sessionStorage.setItem(STARTED_AT_KEY, String(startedAt));
+    safeSessionStorage.setItem(STARTED_AT_KEY, String(startedAt));
     const remaining = Math.max(0, DELAY_MS - (Date.now() - startedAt));
     const timeout = window.setTimeout(() => setDelayElapsed(true), remaining);
     return () => window.clearTimeout(timeout);
@@ -170,7 +171,7 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
     const visited = readVisited();
     if (["home", "work", "story", "forest"].includes(currentView)) {
       visited.add(currentView);
-      sessionStorage.setItem(VISITED_KEY, JSON.stringify([...visited]));
+      safeSessionStorage.setItem(VISITED_KEY, JSON.stringify([...visited]));
     }
     setVisitedCount(visited.size);
     if (currentView === "work" || currentView === "story") {
@@ -232,7 +233,7 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
     if (!visible) return;
     const onEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
-      localStorage.setItem(DISMISSED_KEY, String(Date.now()));
+      safeLocalStorage.setItem(DISMISSED_KEY, String(Date.now()));
       trackEvent("forest_feedback_nudge_dismiss", {
         locale: locale ?? "en",
       });
@@ -245,13 +246,13 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
   if (!visible) return null;
 
   const dismiss = () => {
-    localStorage.setItem(DISMISSED_KEY, String(Date.now()));
+    safeLocalStorage.setItem(DISMISSED_KEY, String(Date.now()));
     trackEvent("forest_feedback_nudge_dismiss", { locale: locale ?? "en" });
     setDismissed(true);
   };
 
   const navigate = () => {
-    localStorage.setItem(DISMISSED_KEY, String(Date.now()));
+    safeLocalStorage.setItem(DISMISSED_KEY, String(Date.now()));
     trackEvent("forest_feedback_nudge_click", { locale: locale ?? "en" });
     setDismissed(true);
     onNavigateToForest();

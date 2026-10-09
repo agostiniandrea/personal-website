@@ -1,6 +1,10 @@
 import { fireEvent, screen } from "@testing-library/react";
 
 import { useI18n } from "@lib/utils/i18n";
+import {
+  blockBrowserStorage,
+  captureUncaughtErrors,
+} from "@test-utils/blockBrowserStorage";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import ForestTeaser from "../index";
@@ -9,6 +13,8 @@ const t = useI18n("en");
 const ctaName = new RegExp(t.forestInlineCta, "i");
 
 describe("ForestTeaser", () => {
+  afterEach(() => jest.restoreAllMocks());
+
   it("renders localized, data-driven inline Forest copy", () => {
     renderWithTheme(<ForestTeaser feedbackTrees={4} totalTrees={34} />);
     expect(
@@ -42,6 +48,31 @@ describe("ForestTeaser", () => {
       behavior: "auto",
       block: "start",
     });
+    forest.remove();
+  });
+
+  it("still engages and scrolls to the Forest when sessionStorage is unavailable", () => {
+    blockBrowserStorage("session");
+    const { errors, stop } = captureUncaughtErrors();
+    const forest = document.createElement("section");
+    forest.id = "forest";
+    forest.scrollIntoView = jest.fn();
+    document.body.appendChild(forest);
+    const onEngaged = jest.fn();
+    window.addEventListener("forest-inline-teaser-engaged", onEngaged);
+    renderWithTheme(<ForestTeaser feedbackTrees={4} totalTrees={34} />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: ctaName, hidden: true }),
+    );
+
+    // The page-level signal and the scroll still happen; only the remembered
+    // flag is lost.
+    expect(onEngaged).toHaveBeenCalledTimes(1);
+    expect(forest.scrollIntoView).toHaveBeenCalled();
+    stop();
+    expect(errors).toHaveLength(0);
+    window.removeEventListener("forest-inline-teaser-engaged", onEngaged);
     forest.remove();
   });
 
