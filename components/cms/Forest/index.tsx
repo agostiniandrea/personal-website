@@ -1040,10 +1040,9 @@ const EARLIER_CAMPAIGN_PROJECT_SLUG = "community-reforestation-in-java-1";
    that was not planted for feedback, and nothing in the data separates the
    two. */
 const EARLIER_CAMPAIGN_FEEDBACK_TREES = 18;
-/* The page the site has always linked that project to; Tree-Nation's API does
-   not return project URLs. */
-const EARLIER_CAMPAIGN_PROJECT_URL =
-  "https://tree-nation.com/projects/community-reforestation-in-indonesia";
+/* The page the site's own project card linked that project to (Tree-Nation's
+   API does not return project URLs): the project URL is its slug. */
+const EARLIER_CAMPAIGN_PROJECT_URL = `https://tree-nation.com/projects/${EARLIER_CAMPAIGN_PROJECT_SLUG}`;
 
 /* ── Component ── */
 

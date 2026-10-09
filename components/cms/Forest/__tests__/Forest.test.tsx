@@ -309,7 +309,7 @@ describe("Forest", () => {
       });
       expect(link).toHaveAttribute(
         "href",
-        "https://tree-nation.com/projects/community-reforestation-in-indonesia",
+        "https://tree-nation.com/projects/community-reforestation-in-java-1",
       );
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
