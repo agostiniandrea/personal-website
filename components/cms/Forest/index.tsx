@@ -347,6 +347,7 @@ const CtaCard = styled.div`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: center;
     flex-direction: row;
+    gap: 3rem;
     justify-content: space-between;
     padding: 2.5rem 3rem;
   }
@@ -366,25 +367,22 @@ const CtaDecor = styled.div`
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
     flex-shrink: 0;
-    padding-left: 3rem;
     padding-top: 0;
     text-align: right;
-    width: 260px;
   }
 `;
 
-/* The Tree-Nation certification badge hangs off the number's top-right corner,
-   so the number keeps its place and alignment; the card's own padding holds it. */
+/* The certification badge sits in the flow, right after the number, so the
+   counter (number, badge and label) is one block that fits its own column. Its
+   44px touch target is tucked in at the sides so the icon, not the box, lines
+   up with the label's right edge. */
 const CtaDecorNumberWrap = styled.span`
+  align-items: flex-start;
   display: flex;
-  position: relative;
 `;
 
 const CertificationAnchor = styled.span`
-  left: 100%;
-  position: absolute;
-  /* No offset: the icon sits at the top corner of the digits, like a
-     superscript. */
+  margin: 0 -0.75rem 0 -0.5rem;
 `;
 
 const CtaDecorNumber = styled.span`

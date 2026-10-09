@@ -272,13 +272,12 @@ exports[`Forest renders correctly with all props 1`] = `
 }
 
 .c27 {
+  align-items: flex-start;
   display: flex;
-  position: relative;
 }
 
 .c29 {
-  left: 100%;
-  position: absolute;
+  margin: 0 -0.75rem 0 -0.5rem;
 }
 
 .c28 {
@@ -659,6 +658,7 @@ exports[`Forest renders correctly with all props 1`] = `
   .c21 {
     align-items: center;
     flex-direction: row;
+    gap: 3rem;
     justify-content: space-between;
     padding: 2.5rem 3rem;
   }
@@ -668,10 +668,8 @@ exports[`Forest renders correctly with all props 1`] = `
   .c26 {
     align-items: flex-end;
     flex-shrink: 0;
-    padding-left: 3rem;
     padding-top: 0;
     text-align: right;
-    width: 260px;
   }
 }
 
@@ -1539,13 +1537,12 @@ exports[`Forest renders correctly with minimal props 1`] = `
 }
 
 .c22 {
+  align-items: flex-start;
   display: flex;
-  position: relative;
 }
 
 .c24 {
-  left: 100%;
-  position: absolute;
+  margin: 0 -0.75rem 0 -0.5rem;
 }
 
 .c23 {
@@ -1780,6 +1777,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   .c16 {
     align-items: center;
     flex-direction: row;
+    gap: 3rem;
     justify-content: space-between;
     padding: 2.5rem 3rem;
   }
@@ -1789,10 +1787,8 @@ exports[`Forest renders correctly with minimal props 1`] = `
   .c21 {
     align-items: flex-end;
     flex-shrink: 0;
-    padding-left: 3rem;
     padding-top: 0;
     text-align: right;
-    width: 260px;
   }
 }
 
