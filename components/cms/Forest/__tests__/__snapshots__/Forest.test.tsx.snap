@@ -268,7 +268,6 @@ exports[`Forest renders correctly with all props 1`] = `
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  padding-top: 1.25rem;
 }
 
 .c27 {
@@ -668,7 +667,6 @@ exports[`Forest renders correctly with all props 1`] = `
   .c26 {
     align-items: flex-end;
     flex-shrink: 0;
-    padding-top: 0;
     text-align: right;
   }
 }
@@ -1533,7 +1531,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  padding-top: 1.25rem;
 }
 
 .c22 {
@@ -1787,7 +1784,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
   .c21 {
     align-items: flex-end;
     flex-shrink: 0;
-    padding-top: 0;
     text-align: right;
   }
 }

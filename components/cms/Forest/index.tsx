@@ -362,12 +362,10 @@ const CtaDecor = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.space.xs};
-  padding-top: 1.25rem;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
     flex-shrink: 0;
-    padding-top: 0;
     text-align: right;
   }
 `;
