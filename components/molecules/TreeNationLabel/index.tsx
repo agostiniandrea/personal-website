@@ -186,19 +186,23 @@ const Variant = styled.div`
 
 export interface TreeNationLabelProps {
   type: TreeNationWidgetType;
+  /** Pins a theme. By default the label follows the site's light/dark theme;
+   *  a surface with its own fixed background (a white popover) pins one. */
+  theme?: TreeNationTheme;
   /** Lets the host (footer, Forest) place the row: margins, alignment. */
   className?: string;
 }
 
 const TreeNationLabel: React.FC<TreeNationLabelProps> = ({
   type,
+  theme: pinnedTheme,
   className,
 }) => {
   const { locale } = useRouter();
   const scheme = useColorScheme();
 
   const lang: TreeNationLang = locale === "it" ? "it" : "en";
-  const theme = scheme ? THEME_FOR_SCHEME[scheme] : null;
+  const theme = pinnedTheme ?? (scheme ? THEME_FOR_SCHEME[scheme] : null);
   const variantKey = theme ? `${lang}-${theme}` : null;
 
   useWidgetScan(variantKey);

@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { BREAKPOINTS_BELOW } from "@constants";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import SiteFooter from "../index";
@@ -99,6 +100,13 @@ describe("SiteFooter", () => {
     expect(carbon).toHaveStyleRule("background", "#00ffbc");
     // Climate Action uses the default light/dark theme, never a monochrome one.
     expect(climate.getAttribute("data-theme")).toMatch(/^(light|dark)$/);
+  });
+
+  it("hides the whole footer, environmental badges included, on mobile", () => {
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    expect(screen.getByRole("contentinfo")).toHaveStyleRule("display", "none", {
+      media: `(max-width: ${BREAKPOINTS_BELOW.xTablet})`,
+    });
   });
 
   it("tracks footer social profile clicks", async () => {

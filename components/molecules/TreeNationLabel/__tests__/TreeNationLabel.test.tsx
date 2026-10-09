@@ -212,4 +212,12 @@ describe("TreeNationLabel", () => {
     );
     expect(getByTestId("tree-nation-tree-counter")).toBeInTheDocument();
   });
+
+  it("pins the theme it is given, whatever the site theme is", () => {
+    document.documentElement.setAttribute("data-theme", "dark");
+    const { container } = renderWithTheme(
+      <TreeNationLabel type="tree-counter" theme="light" />,
+    );
+    expect(widgetOf(container)).toHaveAttribute("data-theme", "light");
+  });
 });

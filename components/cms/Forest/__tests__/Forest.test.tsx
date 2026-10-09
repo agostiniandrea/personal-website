@@ -326,14 +326,42 @@ describe("Forest", () => {
     expect(block).toHaveTextContent("2 trees planted for each");
   });
 
-  it("renders the Tree-Nation link", () => {
+  it("has no standalone Tree-Nation link below the card: it lives in the popover", async () => {
+    const user = userEvent.setup();
     renderWithTheme(<Forest {...defaultForest} />);
+    expect(
+      screen.queryByRole("link", { name: /View the forest on Tree-Nation/i }),
+    ).not.toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("button", { name: /Certified by Tree-Nation/i }),
+    );
     expect(
       screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
     ).toHaveAttribute(
       "href",
       "https://tree-nation.com/profile/andrea-agostini-103769",
     );
+  });
+
+  it("puts the certification badge beside the dynamic tree count, closed by default", () => {
+    renderWithTheme(<Forest {...defaultForest} />);
+    const badge = screen.getByRole("button", {
+      name: /Certified by Tree-Nation/i,
+    });
+    expect(badge).toHaveAttribute("aria-expanded", "false");
+    expect(badge.closest("div")).toHaveTextContent(
+      String(defaultForest.treeCount),
+    );
+    expect(document.querySelector("[data-widget-type]")).toBeNull();
+  });
+
+  it("localizes the certification badge", () => {
+    mockUseRouter.mockReturnValue({ locale: "it" });
+    renderWithTheme(<Forest {...defaultForest} />);
+    expect(
+      screen.getByRole("button", { name: /Certificato da Tree-Nation/i }),
+    ).toBeInTheDocument();
   });
 
   it("renders the season project panel with species and project link", () => {
