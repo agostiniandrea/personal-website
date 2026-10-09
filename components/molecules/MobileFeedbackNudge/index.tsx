@@ -187,8 +187,14 @@ const MobileFeedbackNudge: React.FC<MobileFeedbackNudgeProps> = ({
   }, []);
 
   useEffect(() => {
+    /* The cookie banner is not modal (no aria-modal) but still counts as a
+       surface the nudge must not stack on top of. */
     const updateModalState = () =>
-      setModalOpen(Boolean(document.querySelector('[aria-modal="true"]')));
+      setModalOpen(
+        Boolean(
+          document.querySelector('[aria-modal="true"], [data-cookie-banner]'),
+        ),
+      );
     updateModalState();
     const observer = new MutationObserver(updateModalState);
     observer.observe(document.body, { childList: true, subtree: true });

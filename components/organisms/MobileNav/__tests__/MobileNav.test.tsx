@@ -1,4 +1,4 @@
-import { act, screen } from "@testing-library/react";
+import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { createMatchMediaMock } from "@test-utils/mockMatchMedia";
@@ -266,6 +266,103 @@ describe("MobileNav", () => {
       await user.click(screen.getByRole("button", { name: "More" }));
       await user.click(screen.getByTestId("more-backdrop"));
       expect(screen.queryByTestId("more-sheet")).not.toBeInTheDocument();
+    });
+
+    describe("social links", () => {
+      const socialLinks = [
+        { label: "LinkedIn", url: "https://linkedin.com/in/agostiniandrea" },
+        { label: "GitHub", url: "https://github.com/agostiniandrea" },
+        { label: "Email", url: "mailto:a.agostini92@gmail.com" },
+      ];
+
+      const openSheet = async (links = socialLinks) => {
+        window.matchMedia = createMatchMediaMock(true);
+        const user = userEvent.setup();
+        renderWithTheme(<MobileNav socialLinks={links} />);
+        await user.click(screen.getByRole("button", { name: "More" }));
+        return { user, sheet: screen.getByTestId("more-sheet") };
+      };
+
+      afterEach(() => {
+        delete window.gtag;
+      });
+
+      it("lists LinkedIn, GitHub and Email with their real hrefs", async () => {
+        const { sheet } = await openSheet();
+        socialLinks.forEach(({ label, url }) => {
+          const link = within(sheet).getByRole("link", { name: label });
+          expect(link).toHaveAttribute("href", url);
+          expect(link).toBeVisible();
+        });
+      });
+
+      it("opens web profiles in a new tab, but never mailto: links", async () => {
+        const { sheet } = await openSheet();
+        ["LinkedIn", "GitHub"].forEach((label) => {
+          const link = within(sheet).getByRole("link", { name: label });
+          expect(link).toHaveAttribute("target", "_blank");
+          expect(link).toHaveAttribute("rel", "noopener noreferrer");
+        });
+        const email = within(sheet).getByRole("link", { name: "Email" });
+        expect(email).not.toHaveAttribute("target");
+        expect(email).not.toHaveAttribute("rel");
+      });
+
+      it("renders no social row when there are no links", async () => {
+        const { sheet } = await openSheet([]);
+        expect(
+          within(sheet).queryByRole("link", { name: "GitHub" }),
+        ).not.toBeInTheDocument();
+      });
+
+      it("leaves a click on each link to the browser: nothing intercepts it", async () => {
+        const { user, sheet } = await openSheet();
+        // Recorded at the document in the bubble phase, after MobileNav's own
+        // capture-phase handler and React's, then cancelled so jsdom does not
+        // try to navigate.
+        const intercepted: Record<string, boolean> = {};
+        const record = (event: MouseEvent) => {
+          const href = (event.target as Element)
+            .closest("a")
+            ?.getAttribute("href");
+          if (href) intercepted[href] = event.defaultPrevented;
+          event.preventDefault();
+        };
+        document.addEventListener("click", record);
+
+        for (const { label } of socialLinks) {
+          await user.click(within(sheet).getByRole("link", { name: label }));
+        }
+        document.removeEventListener("click", record);
+
+        expect(intercepted).toEqual({
+          "https://linkedin.com/in/agostiniandrea": false,
+          "https://github.com/agostiniandrea": false,
+          "mailto:a.agostini92@gmail.com": false,
+        });
+      });
+
+      it("keeps the sheet open and reports the click without sending the URL", async () => {
+        const { user, sheet } = await openSheet();
+        window.gtag = jest.fn();
+        const stop = (event: MouseEvent) => event.preventDefault();
+        document.addEventListener("click", stop);
+
+        await user.click(within(sheet).getByRole("link", { name: "GitHub" }));
+        await user.click(within(sheet).getByRole("link", { name: "Email" }));
+        document.removeEventListener("click", stop);
+
+        expect(window.gtag).toHaveBeenCalledWith(
+          "event",
+          "social_profile_clicked",
+          { location: "more", platform: "github" },
+        );
+        expect(window.gtag).toHaveBeenCalledWith("event", "contact_clicked", {
+          location: "more",
+          method: "email",
+        });
+        expect(screen.getByTestId("more-sheet")).toBeInTheDocument();
+      });
     });
   });
 });

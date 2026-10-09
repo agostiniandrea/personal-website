@@ -201,8 +201,10 @@ const FeedbackNudge: React.FC = () => {
 
   useEffect(() => {
     const updateModalState = () => {
+      /* The cookie banner is not modal (no aria-modal) but still counts as a
+         surface the nudge must not stack on top of. */
       const nextModalOpen = Boolean(
-        document.querySelector('[aria-modal="true"]'),
+        document.querySelector('[aria-modal="true"], [data-cookie-banner]'),
       );
       setModalOpen((current) =>
         current === nextModalOpen ? current : nextModalOpen,

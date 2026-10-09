@@ -73,6 +73,28 @@ describe("MobileFeedbackNudge", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("stays out of the way of the cookie banner, which is not modal", async () => {
+    prepareEligibleSession();
+    const banner = document.createElement("div");
+    banner.setAttribute("role", "dialog");
+    banner.setAttribute("data-cookie-banner", "true");
+    document.body.appendChild(banner);
+
+    renderWithTheme(
+      <MobileFeedbackNudge
+        blocked={false}
+        currentView="work"
+        onNavigateToForest={jest.fn()}
+      />,
+    );
+    await act(async () => {});
+
+    expect(
+      screen.queryByTestId("mobile-feedback-nudge"),
+    ).not.toBeInTheDocument();
+    banner.remove();
+  });
+
   it("dismisses with Escape and persists the dismissal timestamp", async () => {
     const startedAt = Date.now();
     prepareEligibleSession();

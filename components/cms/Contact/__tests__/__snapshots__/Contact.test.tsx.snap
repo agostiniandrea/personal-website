@@ -207,8 +207,6 @@ exports[`Contact renders correctly with a single link 1`] = `
           aria-label="Email me"
           class="c9 c10"
           href="mailto:a.agostini92@gmail.com"
-          rel="noopener noreferrer"
-          target="_blank"
         >
           Email me
         </a>
@@ -425,8 +423,6 @@ exports[`Contact renders correctly with all links 1`] = `
           aria-label="Email me"
           class="c9 c10"
           href="mailto:a.agostini92@gmail.com"
-          rel="noopener noreferrer"
-          target="_blank"
         >
           Email me
         </a>

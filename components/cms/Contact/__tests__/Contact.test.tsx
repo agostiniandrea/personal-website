@@ -43,17 +43,48 @@ describe("Contact", () => {
     });
   });
 
-  it("sets target=_blank on external links", () => {
+  it("opens http(s) links in a new tab, safely", () => {
     renderWithTheme(<Contact {...defaultContact} />);
-    const externalLinks = defaultContact.links.filter(
-      ({ url }) => !url.startsWith("#") && !url.startsWith("/"),
+    const webLinks = defaultContact.links.filter(({ url }) =>
+      /^https?:\/\//.test(url),
     );
-    externalLinks.forEach(({ label }) => {
-      expect(screen.getByRole("link", { name: label })).toHaveAttribute(
-        "target",
-        "_blank",
-      );
+    expect(webLinks.length).toBeGreaterThan(0);
+    webLinks.forEach(({ label }) => {
+      const link = screen.getByRole("link", { name: label });
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
+  });
+
+  it("does not open mailto: links in a new tab", () => {
+    renderWithTheme(<Contact {...defaultContact} />);
+    const mailLinks = defaultContact.links.filter(({ url }) =>
+      url.startsWith("mailto:"),
+    );
+    expect(mailLinks.length).toBeGreaterThan(0);
+    mailLinks.forEach(({ label }) => {
+      const link = screen.getByRole("link", { name: label });
+      expect(link).not.toHaveAttribute("target");
+      expect(link).not.toHaveAttribute("rel");
+    });
+  });
+
+  it("keeps in-page and internal links in the same tab", () => {
+    renderWithTheme(
+      <Contact
+        {...defaultContact}
+        links={[
+          { label: "Jump", url: "#contact" },
+          { label: "Page", url: "/business-details" },
+        ]}
+      />,
+    );
+    expect(screen.getByRole("link", { name: "Jump" })).not.toHaveAttribute(
+      "target",
+    );
+    expect(screen.getByRole("link", { name: "Page" })).not.toHaveAttribute(
+      "target",
+    );
   });
 
   it("tracks contact and social clicks without sending their URLs", async () => {
