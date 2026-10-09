@@ -89,8 +89,8 @@ const Positioner = styled.span<{ $below: boolean }>`
 
   ${({ $below }) =>
     $below
-      ? "padding-top: 1rem; top: 100%;"
-      : "padding-bottom: 1rem; bottom: 100%;"}
+      ? "padding-top: 2rem; top: 100%;"
+      : "padding-bottom: 2rem; bottom: 100%;"}
 `;
 
 /* The notch points at the badge. The panel is nudged sideways to stay on the
