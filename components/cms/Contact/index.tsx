@@ -16,6 +16,12 @@ export interface ContactProps {
   links: ContactLink[];
 }
 
+/* A mailto: link must not open in a new tab: browsers hand it to the mail
+   handler anyway, and target=_blank can leave a blank tab or be treated as a
+   popup. */
+const opensInNewTab = (url: string) =>
+  !url.startsWith("#") && !url.startsWith("/") && !url.startsWith("mailto:");
+
 // Extend the Link ion with contact-specific typography
 const ContactLink = styled(Link)`
   font-size: ${({ theme }) => theme.fontSizes.md};
@@ -34,7 +40,7 @@ const Contact: React.FC<ContactProps> = ({
         <ContactLink
           key={link.url}
           href={link.url}
-          isExternal={!link.url.startsWith("#") && !link.url.startsWith("/")}
+          isExternal={opensInNewTab(link.url)}
           ariaLabel={link.label}
           onClick={() => trackContactInteraction(link.url, "contact")}
         >
