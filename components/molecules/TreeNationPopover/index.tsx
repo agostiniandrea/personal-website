@@ -125,8 +125,8 @@ const Positioner = styled.span<{ $below: boolean }>`
 
   ${({ $below }) =>
     $below
-      ? "padding-top: 2rem; top: 100%;"
-      : "padding-bottom: 2rem; bottom: 100%;"}
+      ? "padding-top: 0.75rem; top: 100%;"
+      : "padding-bottom: 0.75rem; bottom: 100%;"}
 `;
 
 /* The notch points at the badge. The panel is nudged sideways to stay on the
@@ -151,6 +151,10 @@ const Panel = styled.span<{ $below: boolean } & Themed>`
     outline: none;
   }
 
+  /* The notch is a rotated square. At -5px its centre sits on the inner side
+     of the panel's 1px border, so the stroke ends of its two visible sides
+     poke a pixel into the panel. At -6px the centre sits on the border's outer
+     side and those ends stay inside the border line. */
   &::after {
     background: ${({ $dark }) => palette($dark).surface};
     border: 1px solid ${({ $dark }) => palette($dark).border};
@@ -165,8 +169,8 @@ const Panel = styled.span<{ $below: boolean } & Themed>`
 
     ${({ $below }) =>
       $below
-        ? "border-bottom: none; border-right: none; top: -5px;"
-        : "border-left: none; border-top: none; bottom: -5px;"}
+        ? "border-bottom: none; border-right: none; top: -6px;"
+        : "border-left: none; border-top: none; bottom: -6px;"}
   }
 `;
 
