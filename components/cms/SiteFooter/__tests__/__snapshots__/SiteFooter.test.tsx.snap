@@ -29,7 +29,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   padding: 0;
 }
 
-.c12 {
+.c8 {
   display: inline-flex;
   align-items: stretch;
   font-family: -apple-system,BlinkMacSystemFont,sans-serif;
@@ -37,7 +37,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   line-height: 1.15;
 }
 
-.c13 {
+.c9 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +46,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   border: 0.13em solid #00ffbc;
 }
 
-.c14 {
+.c10 {
   background: #fff;
   color: #0e11a8;
   border-right: 0;
@@ -54,7 +54,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   min-width: 8.2em;
 }
 
-.c15 {
+.c11 {
   background: #00ffbc;
   color: #0e11a8;
   font-weight: 700;
@@ -63,11 +63,11 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   border-radius: 0 0.3em 0.3em 0;
 }
 
-.c7 {
+.c13 {
   min-height: 3.5rem;
 }
 
-.c10 {
+.c16 {
   align-items: center;
   display: flex;
 }
@@ -106,34 +106,32 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c6 {
   align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   justify-content: center;
 }
 
-.c8 {
+.c14 {
   opacity: 0.7;
   transition: opacity 0.2s ease;
 }
 
-.c8:hover,
-.c8:focus-within {
+.c14:hover,
+.c14:focus-within {
   opacity: 1;
 }
 
-.c9 {
+.c15 {
   display: flex;
   zoom: 0.9;
 }
 
-.c16 {
+.c12 {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.c11 {
+.c7 {
   opacity: 0.7;
   transform: scale(0.9);
   transform-origin: center center;
@@ -144,7 +142,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 @media (min-width: 600px) {
@@ -239,19 +237,19 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (min-width: 900px) {
   .c6 {
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c16 {
+  .c12 {
     align-items: center;
     text-align: center;
   }
 }
 
 @media (min-width: 900px) {
-  .c11 {
+  .c7 {
     transform-origin: left center;
   }
 }
@@ -289,35 +287,20 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           class="c6"
         >
           <div
-            class="c7 c8 c9"
-            data-testid="tree-nation-offset-website"
-          >
-            <div
-              class="c10"
-            >
-              <div
-                data-lang="en"
-                data-theme="light"
-                data-tree-nation-code="a4d3639b36ee64ed"
-                data-widget-type="offset-website"
-              />
-            </div>
-          </div>
-          <div
-            class="c11"
+            class="c7"
           >
             <span
-              class="c12"
+              class="c8"
             >
               <span
-                class="c13 c14"
+                class="c9 c10"
               >
                 0.05
                 g of CO₂/view
               </span>
               <a
                 aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
-                class="c13 c15"
+                class="c9 c11"
                 href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -328,8 +311,24 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           </div>
         </div>
         <div
-          class="c16"
-        />
+          class="c12"
+        >
+          <div
+            class="c13 c14 c15"
+            data-testid="tree-nation-offset-website"
+          >
+            <div
+              class="c16"
+            >
+              <div
+                data-lang="en"
+                data-theme="light"
+                data-tree-nation-code="a4d3639b36ee64ed"
+                data-widget-type="offset-website"
+              />
+            </div>
+          </div>
+        </div>
         <div
           class="c17"
         >
@@ -391,7 +390,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   padding: 0;
 }
 
-.c14 {
+.c10 {
   display: inline-flex;
   align-items: stretch;
   font-family: -apple-system,BlinkMacSystemFont,sans-serif;
@@ -399,7 +398,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   line-height: 1.15;
 }
 
-.c15 {
+.c11 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -408,7 +407,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   border: 0.13em solid #00ffbc;
 }
 
-.c16 {
+.c12 {
   background: #fff;
   color: #0e11a8;
   border-right: 0;
@@ -416,7 +415,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   min-width: 8.2em;
 }
 
-.c17 {
+.c13 {
   background: #00ffbc;
   color: #0e11a8;
   font-weight: 700;
@@ -425,11 +424,11 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   border-radius: 0 0.3em 0.3em 0;
 }
 
-.c9 {
+.c15 {
   min-height: 3.5rem;
 }
 
-.c12 {
+.c18 {
   align-items: center;
   display: flex;
 }
@@ -473,27 +472,25 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 .c8 {
   align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   justify-content: center;
 }
 
-.c10 {
+.c16 {
   opacity: 0.7;
   transition: opacity 0.2s ease;
 }
 
-.c10:hover,
-.c10:focus-within {
+.c16:hover,
+.c16:focus-within {
   opacity: 1;
 }
 
-.c11 {
+.c17 {
   display: flex;
   zoom: 0.9;
 }
 
-.c18 {
+.c14 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -510,7 +507,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   text-wrap: balance;
 }
 
-.c13 {
+.c9 {
   opacity: 0.7;
   transform: scale(0.9);
   transform-origin: center center;
@@ -521,7 +518,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 @media (min-width: 600px) {
@@ -622,19 +619,19 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (min-width: 900px) {
   .c8 {
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 }
 
 @media (min-width: 900px) {
-  .c18 {
+  .c14 {
     align-items: center;
     text-align: center;
   }
 }
 
 @media (min-width: 900px) {
-  .c13 {
+  .c9 {
     transform-origin: left center;
   }
 }
@@ -698,35 +695,20 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           class="c8"
         >
           <div
-            class="c9 c10 c11"
-            data-testid="tree-nation-offset-website"
-          >
-            <div
-              class="c12"
-            >
-              <div
-                data-lang="en"
-                data-theme="light"
-                data-tree-nation-code="a4d3639b36ee64ed"
-                data-widget-type="offset-website"
-              />
-            </div>
-          </div>
-          <div
-            class="c13"
+            class="c9"
           >
             <span
-              class="c14"
+              class="c10"
             >
               <span
-                class="c15 c16"
+                class="c11 c12"
               >
                 0.05
                 g of CO₂/view
               </span>
               <a
                 aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
-                class="c15 c17"
+                class="c11 c13"
                 href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -737,8 +719,23 @@ exports[`SiteFooter renders correctly with social links 1`] = `
           </div>
         </div>
         <div
-          class="c18"
+          class="c14"
         >
+          <div
+            class="c15 c16 c17"
+            data-testid="tree-nation-offset-website"
+          >
+            <div
+              class="c18"
+            >
+              <div
+                data-lang="en"
+                data-theme="light"
+                data-tree-nation-code="a4d3639b36ee64ed"
+                data-widget-type="offset-website"
+              />
+            </div>
+          </div>
           <p
             class="c19 c20"
           >

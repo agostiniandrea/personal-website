@@ -94,18 +94,13 @@ const Subfooter = styled.div`
   }
 `;
 
-/* The left side of the footer is the site's environmental footprint: Website
-   Carbon (how light the site is) with the Climate Action Website label under
-   it (what the site gives back). */
 const BadgeCol = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: ${toSpacing("sm")};
   justify-content: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 `;
 
@@ -123,9 +118,8 @@ const Credential = styled(TreeNationLabel)`
   }
 `;
 
-/* Secondary to Website Carbon: the same 0.9 scale the carbon badge gets. `zoom`
-   rather than a transform, so the box shrinks with the label and leaves no
-   empty strip under it. */
+/* Same 0.9 scale the carbon badge gets. `zoom` rather than a transform, so the
+   box shrinks with the label and leaves no empty strip under it. */
 const ClimateActionCredential = styled(Credential)`
   display: flex;
   zoom: 0.9;
@@ -170,7 +164,7 @@ const MetaCol = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  gap: ${toSpacing("md")};
+  gap: ${toSpacing("sm")};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     align-items: flex-end;
@@ -208,13 +202,13 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
       {/* Subfooter */}
       <Subfooter>
         <BadgeCol>
-          <ClimateActionCredential type="offset-website" />
           <CarbonWrapper>
             <CarbonBadge />
           </CarbonWrapper>
         </BadgeCol>
 
         <TaglineCol>
+          <ClimateActionCredential type="offset-website" />
           {tagline && (
             <Tagline variant="small">
               {tagline.split("\n").map((line, i) => (
