@@ -280,7 +280,7 @@ exports[`Forest renders correctly with all props 1`] = `
 .c29 {
   left: 100%;
   position: absolute;
-  top: 0.25rem;
+  top: -1rem;
 }
 
 .c28 {
@@ -676,12 +676,6 @@ exports[`Forest renders correctly with all props 1`] = `
     padding-top: 0;
     text-align: right;
     width: 260px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c29 {
-    top: 0.5rem;
   }
 }
 
@@ -1557,7 +1551,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 .c24 {
   left: 100%;
   position: absolute;
-  top: 0.25rem;
+  top: -1rem;
 }
 
 .c23 {
@@ -1807,12 +1801,6 @@ exports[`Forest renders correctly with minimal props 1`] = `
     padding-top: 0;
     text-align: right;
     width: 260px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c24 {
-    top: 0.5rem;
   }
 }
 

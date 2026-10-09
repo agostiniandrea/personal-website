@@ -386,11 +386,9 @@ const CtaDecorNumberWrap = styled.span`
 const CertificationAnchor = styled.span`
   left: 100%;
   position: absolute;
-  top: 0.25rem;
-
-  @media (min-width: ${BREAKPOINTS.tablet}) {
-    top: 0.5rem;
-  }
+  /* The 44px touch target is centred on the icon, so this puts the icon level
+     with the top of the digits, like a superscript. */
+  top: -1rem;
 `;
 
 const CtaDecorNumber = styled.span`
