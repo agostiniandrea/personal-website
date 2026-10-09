@@ -1498,7 +1498,10 @@ const Forest: React.FC<ForestProps> = ({
                       {earlierProject.name}
                     </EarlierCampaignLink>
                     {" · "}
-                    {t.forestEarlierCampaignTrees(EARLIER_CAMPAIGN_FEEDBACK_TREES)}.
+                    {t.forestEarlierCampaignTrees(
+                      EARLIER_CAMPAIGN_FEEDBACK_TREES,
+                    )}
+                    .
                   </EarlierCampaign>
                 )}
               </ProjectPanel>
