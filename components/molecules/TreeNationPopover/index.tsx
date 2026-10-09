@@ -107,6 +107,9 @@ const Panel = styled.span<{ $below: boolean }>`
   border-radius: ${({ theme }) => theme.radii.sm};
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   color: #1a1a1a;
+  /* A span is inline by default: its background and border would break into
+     fragments around the block-level label instead of wrapping the panel. */
+  display: block;
   padding: 0.875rem 1rem;
   text-align: left;
   text-transform: none;

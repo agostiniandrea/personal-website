@@ -175,6 +175,9 @@ describe("TreeNationPopover", () => {
     );
     const link = screen.getByRole("link");
 
+    // A block box, so the white background and border wrap the whole panel.
+    expect(dialog).toHaveStyleRule("display", "block");
+    expect(dialog).toHaveStyleRule("background", "#ffffff");
     expect(dialog.firstElementChild as HTMLElement).toContainElement(
       widget as HTMLElement,
     );
