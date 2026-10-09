@@ -326,22 +326,23 @@ describe("Forest", () => {
     expect(block).toHaveTextContent("2 trees planted for each");
   });
 
-  it("has no standalone Tree-Nation link below the card: it lives in the popover", async () => {
+  it("keeps the standalone Tree-Nation link below the card, separate from the popover", async () => {
     const user = userEvent.setup();
     renderWithTheme(<Forest {...defaultForest} />);
-    expect(
-      screen.queryByRole("link", { name: /View the forest on Tree-Nation/i }),
-    ).not.toBeInTheDocument();
-
-    await user.click(
-      screen.getByRole("button", { name: /Certified by Tree-Nation/i }),
-    );
-    expect(
-      screen.getByRole("link", { name: /View the forest on Tree-Nation/i }),
-    ).toHaveAttribute(
+    const linkName = /View the forest on Tree-Nation/i;
+    const standalone = screen.getByRole("link", { name: linkName });
+    expect(standalone).toHaveAttribute(
       "href",
       "https://tree-nation.com/profile/andrea-agostini-103769",
     );
+
+    // Opening the popover adds its own link; the standalone one stays.
+    await user.click(
+      screen.getByRole("button", { name: /Certified by Tree-Nation/i }),
+    );
+    const links = screen.getAllByRole("link", { name: linkName });
+    expect(links).toHaveLength(2);
+    expect(links[1]).toHaveAttribute("href", standalone.getAttribute("href")!);
   });
 
   it("puts the certification badge beside the dynamic tree count, closed by default", () => {

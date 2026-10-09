@@ -76,21 +76,29 @@ const TriggerButton = styled.button`
   }
 `;
 
-/* The transparent padding bridges the gap between the badge and the panel, so
-   moving the pointer from one to the other never counts as leaving. */
+/* The transparent padding is the air between the badge and the panel's notch,
+   and it bridges the gap, so moving the pointer from one to the other never
+   counts as leaving. */
 const Positioner = styled.span<{ $below: boolean }>`
   display: block;
   left: 50%;
   max-width: min(280px, calc(100vw - 32px));
-  padding: 0.25rem 0;
   position: absolute;
   width: max-content;
   z-index: 500;
 
-  ${({ $below }) => ($below ? "top: 100%;" : "bottom: 100%;")}
+  ${({ $below }) =>
+    $below
+      ? "padding-top: 1rem; top: 100%;"
+      : "padding-bottom: 1rem; bottom: 100%;"}
 `;
 
-const Panel = styled.span`
+/* The notch points at the badge. The panel is nudged sideways to stay on the
+   viewport, so the notch is shifted back by the same amount (--notch-shift) and
+   keeps pointing at the badge rather than at the middle of the panel. */
+const Panel = styled.span<{ $below: boolean }>`
+  position: relative;
+
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: ${({ theme }) => theme.radii.sm};
@@ -105,6 +113,24 @@ const Panel = styled.span`
 
   &:focus {
     outline: none;
+  }
+
+  &::after {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    content: "";
+    height: 10px;
+    left: calc(50% - var(--notch-shift, 0px));
+    margin-left: -5px;
+    pointer-events: none;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 10px;
+
+    ${({ $below }) =>
+      $below
+        ? "border-bottom: none; border-right: none; top: -5px;"
+        : "border-left: none; border-top: none; bottom: -5px;"}
   }
 `;
 
@@ -220,9 +246,20 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
         <Positioner
           ref={positionerRef}
           $below={below}
-          style={{ transform: `translateX(calc(-50% + ${shiftX}px))` }}
+          style={
+            {
+              "--notch-shift": `${shiftX}px`,
+              transform: `translateX(calc(-50% + ${shiftX}px))`,
+            } as React.CSSProperties
+          }
         >
-          <Panel id={id} role="dialog" aria-label={ariaLabel} tabIndex={-1}>
+          <Panel
+            id={id}
+            role="dialog"
+            aria-label={ariaLabel}
+            tabIndex={-1}
+            $below={below}
+          >
             <TreeNationLabel type="tree-counter" theme="light" />
             <ForestLink
               href={linkHref}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { ArrowUpRight, CircleCheck } from "lucide-react";
+import { ArrowUpRight, CircleCheck, TreeDeciduous } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Text } from "@components/ions";
@@ -895,6 +895,50 @@ const ProjectLink = styled.a`
   }
 `;
 
+/* ── View forest link ── */
+
+/* Trust seal linking to the public Tree-Nation profile. Drawn inline so it costs
+   no extra request — the point of the badge is credibility, not third-party JS. */
+const VerifiedBadge = styled.a`
+  align-items: center;
+  border: 1px solid ${({ theme }) => alpha(theme.colors.highlight, 30)};
+  border-radius: 999px;
+  color: ${({ theme }) => theme.colors.paragraph};
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  gap: ${({ theme }) => theme.space.sm};
+  padding: 0.4rem 0.875rem;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+  width: fit-content;
+
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => alpha(theme.colors.highlight, 6)};
+      border-color: ${({ theme }) => alpha(theme.colors.highlight, 60)};
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+  }
+`;
+
+/* The badge points at the forest itself, so it carries the tree — the leaf is
+   reserved for a single contribution. */
+const VerifiedTree = styled(TreeDeciduous)`
+  color: ${({ theme }) => theme.colors.highlight};
+  flex-shrink: 0;
+`;
+
+const VerifiedArrow = styled(ArrowUpRight)`
+  color: ${({ theme }) => theme.colors.highlight};
+  flex-shrink: 0;
+`;
+
 /* ── Timeline ── */
 
 const TimelineSection = styled.div``;
@@ -1391,6 +1435,16 @@ const Forest: React.FC<ForestProps> = ({
             )}
           </SeasonGrid>
         </SeasonCard>
+
+        <VerifiedBadge
+          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <VerifiedTree size={15} strokeWidth={1.8} aria-hidden="true" />
+          {t.forestVerifiedLabel}
+          <VerifiedArrow size={13} strokeWidth={2} aria-hidden="true" />
+        </VerifiedBadge>
 
         {changelogItems.length > 0 && (
           <>

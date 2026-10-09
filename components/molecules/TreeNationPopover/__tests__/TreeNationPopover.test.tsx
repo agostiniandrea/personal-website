@@ -177,4 +177,35 @@ describe("TreeNationPopover", () => {
     expect(positioner).toHaveStyleRule("top", "100%");
     jest.restoreAllMocks();
   });
+
+  it("keeps the notch on the badge when the panel is nudged to fit the viewport", () => {
+    renderPopover();
+    jest.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
+      bottom: 300,
+      height: 100,
+      left: window.innerWidth - 150,
+      right: window.innerWidth + 40,
+      top: 200,
+      width: 190,
+      x: 0,
+      y: 200,
+      toJSON: () => ({}),
+    });
+    jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
+      cb(0);
+      return 1;
+    });
+
+    act(() => {
+      fireEvent.click(trigger());
+    });
+    const positioner = screen.getByRole("dialog").parentElement!;
+    // Overflowed by 40px + 16px margin: the panel moves left 56px, the notch
+    // moves right by the same amount to stay under the badge.
+    expect(positioner.style.getPropertyValue("--notch-shift")).toBe("-56px");
+    expect(screen.getByRole("dialog")).toHaveStyleRule("bottom", "-5px", {
+      modifier: "::after",
+    });
+    jest.restoreAllMocks();
+  });
 });
