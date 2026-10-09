@@ -1031,9 +1031,9 @@ const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
 
 /* The project feedback trees went to before the current one, as Tree-Nation
    names it in the forest's project list ("Community Reforestation in
-   Indonesia"). Only the slug is kept here: name and country come from the API,
-   and no figure is attached to it, since that project's trees include ones
-   that were not planted for feedback. */
+   Indonesia"). Only the slug is kept here: name and tree count come from the
+   API. The count is every tree the forest planted in that project, so it is
+   worded as such and never as "feedback trees". */
 const EARLIER_CAMPAIGN_PROJECT_SLUG = "community-reforestation-in-java-1";
 /* The page the site has always linked that project to; Tree-Nation's API does
    not return project URLs. */
@@ -1493,7 +1493,8 @@ const Forest: React.FC<ForestProps> = ({
                     >
                       {earlierProject.name}
                     </EarlierCampaignLink>
-                    .
+                    {" · "}
+                    {t.forestEarlierCampaignTrees(earlierProject.trees)}.
                   </EarlierCampaign>
                 )}
               </ProjectPanel>

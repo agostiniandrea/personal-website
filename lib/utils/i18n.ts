@@ -30,6 +30,10 @@ const strings = {
        from Tree-Nation and is a link, so the line never says more than the
        project list does. */
     forestEarlierCampaignLead: "Earlier campaign: supported through",
+    /* The project's own tree count from Tree-Nation: every tree this forest
+       planted there, which is a little more than the feedback trees alone. */
+    forestEarlierCampaignTrees: (count: number) =>
+      `${count} ${count === 1 ? "tree" : "trees"} planted there`,
     forestHeading:
       "This portfolio grows through feedback, research and iteration.",
     forestInlineCta: "Explore the Forest",
@@ -123,6 +127,8 @@ const strings = {
       "Ogni contributo significativo può dare forma al portfolio. I feedback della community fanno crescere due alberi veri — uno dedicato a te, uno che aggiungo io.",
     forestCurrentProjectLabel: "Progetto attuale dei feedback",
     forestEarlierCampaignLead: "Campagna precedente: sostenuta attraverso",
+    forestEarlierCampaignTrees: (count: number) =>
+      `${count} ${count === 1 ? "albero piantato" : "alberi piantati"} lì`,
     forestHeading:
       "Questo portfolio cresce grazie a feedback, ricerca e iterazione.",
     forestInlineCta: "Esplora Forest",
