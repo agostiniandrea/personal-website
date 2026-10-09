@@ -769,6 +769,35 @@ const ProjectMeta = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
+/* A quiet footnote under the current project: history, not a second card. It
+   sits one action-gap below "View project", the same step that link keeps from
+   the species above it, so two links never read as a single cluster. */
+const EarlierCampaign = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  margin-top: ${ACTION_GAP};
+`;
+
+/* Only the project name is the link, underlined so it reads as one inside a
+   sentence that is otherwise plain text. */
+const EarlierCampaignLink = styled.a`
+  color: ${({ theme }) => theme.colors.highlight};
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 2px;
+  }
+`;
+
 const ProjectStats = styled.span`
   color: ${({ theme }) => theme.colors.headline};
   margin-top: ${GROUP_GAP_TOPUP};
@@ -1000,6 +1029,21 @@ const DEFAULT_ORIGIN_ITEMS: OriginItem[] = [
   },
 ];
 
+/* The project feedback trees went to before the current one, as Tree-Nation
+   names it in the forest's project list ("Community Reforestation in
+   Indonesia"). The slug identifies it; the name comes from the API. */
+const EARLIER_CAMPAIGN_PROJECT_SLUG = "community-reforestation-in-java-1";
+/* Feedback trees planted in that earlier campaign, as stated by the maintainer
+   (9 contributions, a pair each). The campaign is closed, so the figure no
+   longer moves. It is typed rather than read from Tree-Nation on purpose:
+   Tree-Nation's count for the project is 19, because it also includes a tree
+   that was not planted for feedback, and nothing in the data separates the
+   two. */
+const EARLIER_CAMPAIGN_FEEDBACK_TREES = 18;
+/* The page the site's own project card linked that project to (Tree-Nation's
+   API does not return project URLs): the project URL is its slug. */
+const EARLIER_CAMPAIGN_PROJECT_URL = `https://tree-nation.com/projects/${EARLIER_CAMPAIGN_PROJECT_SLUG}`;
+
 /* ── Component ── */
 
 const Forest: React.FC<ForestProps> = ({
@@ -1021,7 +1065,7 @@ const Forest: React.FC<ForestProps> = ({
   ctaButtonLabel = "Plant your feedback",
   treeCountLabel,
   treesLabel,
-  seasonProjectLabel = "Season One project",
+  seasonProjectLabel,
   seasonProjectName,
   seasonProjectMeta,
   seasonProjectStats,
@@ -1063,6 +1107,21 @@ const Forest: React.FC<ForestProps> = ({
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
   const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
+  /* The card names the project feedback trees currently go to; it carries no
+     season number, so nothing here has to change when that project does. */
+  const resolvedProjectLabel =
+    seasonProjectLabel ?? t.forestCurrentProjectLabel;
+  /* The earlier campaign is read from the project list Tree-Nation already
+     gave us, so its name is never typed here and the line disappears if the
+     list is unavailable. It is also left out while the card itself still shows
+     that same project, so the two can never contradict each other. */
+  const earlierProject = forestProjects.find(
+    (project) => project.slug === EARLIER_CAMPAIGN_PROJECT_SLUG,
+  );
+  const showEarlierCampaign =
+    earlierProject !== undefined &&
+    earlierProject.name.toLowerCase() !==
+      (seasonProjectName ?? "").toLowerCase();
   const resolvedTreeCountLabel = treeCountLabel ?? t.forestTreeCountLabel;
 
   const animInsights = useAnimatedCounter(insightsCollectedCount, inView);
@@ -1345,8 +1404,8 @@ const Forest: React.FC<ForestProps> = ({
             )}
             {seasonProjectName && (
               <ProjectPanel data-testid="season-project">
-                {seasonProjectLabel && (
-                  <ProjectLabel>{seasonProjectLabel}</ProjectLabel>
+                {resolvedProjectLabel && (
+                  <ProjectLabel>{resolvedProjectLabel}</ProjectLabel>
                 )}
                 <ProjectName>{seasonProjectName}</ProjectName>
                 {seasonProjectMeta && (
@@ -1381,7 +1440,7 @@ const Forest: React.FC<ForestProps> = ({
                   <ProjectFooter>
                     {forestSpecies.length > 0 ? (
                       <SpeciesDetailList data-testid="species-detail">
-                        {forestSpecies.map((species) => (
+                        {forestSpecies.map((species, index) => (
                           <SpeciesRow key={species.label}>
                             <SpeciesLabel>{species.label}</SpeciesLabel>{" "}
                             <SpeciesLatin>{species.scientific}</SpeciesLatin>
@@ -1392,6 +1451,12 @@ const Forest: React.FC<ForestProps> = ({
                             )}
                             {species.co2Kg > 0 &&
                               `\u00a0· ${t.forestSpeciesCo2(species.co2Kg)}`}
+                            {forestSpecies.length === 2 &&
+                              `\u00a0· ${
+                                index === 0
+                                  ? t.forestSpeciesRoleContributor
+                                  : t.forestSpeciesRoleMatched
+                              }`}
                           </SpeciesRow>
                         ))}
                       </SpeciesDetailList>
@@ -1421,6 +1486,23 @@ const Forest: React.FC<ForestProps> = ({
                       </ProjectLink>
                     )}
                   </ProjectFooter>
+                )}
+                {showEarlierCampaign && (
+                  <EarlierCampaign data-testid="earlier-campaign">
+                    {t.forestEarlierCampaignLead}{" "}
+                    <EarlierCampaignLink
+                      href={EARLIER_CAMPAIGN_PROJECT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {earlierProject.name}
+                    </EarlierCampaignLink>
+                    {" · "}
+                    {t.forestEarlierCampaignTrees(
+                      EARLIER_CAMPAIGN_FEEDBACK_TREES,
+                    )}
+                    .
+                  </EarlierCampaign>
                 )}
               </ProjectPanel>
             )}

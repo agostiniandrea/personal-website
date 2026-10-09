@@ -23,6 +23,14 @@ const strings = {
       `${count} meaningful ${count === 1 ? "contribution" : "contributions"}`,
     forestCtaBody:
       "Every meaningful contribution can shape the portfolio. Community feedback grows a pair of real trees — one dedicated to you, one matched by me.",
+    /* Describes what the card is, not which season it belongs to: the project
+       feedback trees go to can change without the copy having to. */
+    forestCurrentProjectLabel: "Current feedback project",
+    /* A past phase, named for what it was. The project name that follows comes
+       from Tree-Nation and is a link, so the line never says more than the
+       project list does. */
+    forestEarlierCampaignLead: "Earlier campaign: supported through",
+    forestEarlierCampaignTrees: (count: number) => `${count} feedback trees`,
     forestHeading:
       "This portfolio grows through feedback, research and iteration.",
     forestInlineCta: "Explore the Forest",
@@ -36,6 +44,8 @@ const strings = {
     forestMilestonePassed: (milestone: number) => `${milestone} trees reached`,
     forestProgressTitle: "My forest",
     forestSpeciesCo2: (kg: number) => `${kg} kg CO\u2082 over its life`,
+    forestSpeciesRoleContributor: "for the contributor",
+    forestSpeciesRoleMatched: "matched by me",
     /* Tree-Nation answers in English ("Fast-growing", "Native"); the map keeps
        the Italian copy honest instead of printing the API's words verbatim. */
     forestSpeciesKind: (category: string, origin: string) =>
@@ -112,6 +122,10 @@ const strings = {
       `${count} ${count === 1 ? "contributo significativo" : "contributi significativi"}`,
     forestCtaBody:
       "Ogni contributo significativo può dare forma al portfolio. I feedback della community fanno crescere due alberi veri — uno dedicato a te, uno che aggiungo io.",
+    forestCurrentProjectLabel: "Progetto attuale dei feedback",
+    forestEarlierCampaignLead: "Campagna precedente: sostenuta attraverso",
+    forestEarlierCampaignTrees: (count: number) =>
+      `${count} alberi da feedback`,
     forestHeading:
       "Questo portfolio cresce grazie a feedback, ricerca e iterazione.",
     forestInlineCta: "Esplora Forest",
@@ -124,6 +138,8 @@ const strings = {
       `${milestone} alberi raggiunti`,
     forestProgressTitle: "La mia foresta",
     forestSpeciesCo2: (kg: number) => `${kg} kg di CO\u2082 in tutta la vita`,
+    forestSpeciesRoleContributor: "per chi contribuisce",
+    forestSpeciesRoleMatched: "aggiunto da me",
     forestSpeciesKind: (category: string, origin: string) => {
       const words: Record<string, string> = {
         "fast-growing": "crescita rapida",
@@ -133,6 +149,7 @@ const strings = {
         native: "autoctona",
         introduced: "introdotta",
         nutritional: "alimentare",
+        plant: "pianta",
       };
       const say = (w: string) => words[w.toLowerCase()] ?? w.toLowerCase();
       return [category, origin].filter(Boolean).map(say).join(", ");

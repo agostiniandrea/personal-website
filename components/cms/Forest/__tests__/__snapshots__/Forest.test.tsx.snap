@@ -1173,24 +1173,24 @@ exports[`Forest renders correctly with all props 1`] = `
             <span
               class="c49"
             >
-              Season One project
+              Current feedback project
             </span>
             <span
               class="c50"
             >
-              Community Reforestation in Indonesia
+              Replanting the burnt Mkussu Forest
             </span>
             <span
               class="c51"
             >
-              Indonesia · Tropical community reforestation
+              Tanzania · Mangrove restoration
             </span>
             <span
               class="c52"
               data-testid="project-stats"
             >
               <span>
-                4 trees · 2 species
+                10 trees · 2 species
               </span>
               <span
                 class="c53"
@@ -1200,7 +1200,7 @@ exports[`Forest renders correctly with all props 1`] = `
                 >
                    · 
                 </span>
-                1.5 t CO
+                1 t CO
                 <sub>
                   2
                 </sub>
@@ -1252,17 +1252,17 @@ exports[`Forest renders correctly with all props 1`] = `
                 <li
                   class="c59"
                 >
-                  Sengon
+                  Mangrove Cannonball Tree
                 </li>
                 <li
                   class="c59"
                 >
-                  Kadamba
+                  Black Mangrove
                 </li>
               </ul>
               <a
                 class="c60"
-                href="https://tree-nation.com/projects/community-reforestation-in-indonesia"
+                href="https://tree-nation.com/projects/replanting-the-burnt-mkussu-forest"
                 rel="noopener noreferrer"
                 target="_blank"
               >
