@@ -8,6 +8,7 @@ import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha, tint } from "@lib/utils/color";
 import { useI18n } from "@lib/utils/i18n";
+import { safeSessionStorage } from "@lib/utils/safeStorage";
 
 export interface ForestTeaserProps {
   feedbackTrees?: number;
@@ -139,7 +140,7 @@ const ForestTeaser: React.FC<ForestTeaserProps> = ({
   const t = useI18n(router.locale);
 
   const openForest = () => {
-    sessionStorage.setItem("forest-inline-teaser-engaged", "true");
+    safeSessionStorage.setItem("forest-inline-teaser-engaged", "true");
     window.dispatchEvent(new Event("forest-inline-teaser-engaged"));
     trackEvent("forest_teaser_click", { locale: router.locale ?? "en" });
     document.getElementById("forest")?.scrollIntoView({
