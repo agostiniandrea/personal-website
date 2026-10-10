@@ -61,6 +61,11 @@ const GlobalStyle = createGlobalStyle`
        needs to stay quiet. */
     --color-border: #a0a0b0;
     --color-highlight: #2dd4bf;
+    /* Brand logo. On the dark ground the light-mode teal (#306F6B) read as
+       switched off, so the lettering and the lone symbol take the highlight
+       teal and the disc a brighter one that still holds the white symbol. */
+    --logo-ink: #2dd4bf;
+    --logo-disc: #2a9d93;
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);
@@ -84,6 +89,8 @@ const GlobalStyle = createGlobalStyle`
       --color-main: #5e5e72;
       --color-border: #9a9ab0;
       --color-highlight: #0f766e;
+      --logo-ink: #306f6b;
+      --logo-disc: #306f6b;
       --color-secondary: #0a0a0f;
       --color-tertiary: #0f766e;
       --color-surface: rgba(15, 118, 110, 0.04);
@@ -112,6 +119,8 @@ const GlobalStyle = createGlobalStyle`
     --color-main: #5e5e72;
     --color-border: #9a9ab0;
     --color-highlight: #0f766e;
+    --logo-ink: #306f6b;
+    --logo-disc: #306f6b;
     --color-secondary: #0a0a0f;
     --color-tertiary: #0f766e;
     --color-surface: rgba(15, 118, 110, 0.04);
@@ -132,6 +141,11 @@ const GlobalStyle = createGlobalStyle`
     --color-main: #a0a0b0;
     --color-border: #a0a0b0;
     --color-highlight: #2dd4bf;
+    /* Brand logo. On the dark ground the light-mode teal (#306F6B) read as
+       switched off, so the lettering and the lone symbol take the highlight
+       teal and the disc a brighter one that still holds the white symbol. */
+    --logo-ink: #2dd4bf;
+    --logo-disc: #2a9d93;
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);

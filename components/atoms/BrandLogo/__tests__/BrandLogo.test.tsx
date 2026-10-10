@@ -15,11 +15,11 @@ describe("BrandLogo", () => {
     expect(screen.getByTestId("brand-logo-lettering")).toBeInTheDocument();
   });
 
-  it("draws the lettering in the brand teal, like the circle", () => {
+  it("draws the lettering in the logo ink, brand teal by default", () => {
     render(<BrandLogo label="Andrea Agostini" />);
     expect(screen.getByTestId("brand-logo-lettering")).toHaveAttribute(
       "fill",
-      "#306F6B",
+      "var(--logo-ink, #306F6B)",
     );
   });
 
@@ -37,7 +37,7 @@ describe("BrandLogo", () => {
     expect(screen.queryByTestId("brand-logo-lettering")).toBeNull();
     expect(screen.getByTestId("brand-logo-symbol")).toHaveAttribute(
       "fill",
-      "#306F6B",
+      "var(--logo-ink, #306F6B)",
     );
   });
 });

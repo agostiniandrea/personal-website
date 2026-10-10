@@ -18,14 +18,19 @@ export interface BrandLogoProps {
   className?: string;
 }
 
+/* Theme tokens (see globalStyles), with the brand teal as the fallback. */
+const INK = `var(--logo-ink, ${BRAND_TEAL})`;
+const DISC = `var(--logo-disc, ${BRAND_TEAL})`;
+
 const VIEWBOXES = {
   inline: INLINE_VIEWBOX,
   mark: MARK_VIEWBOX,
   symbol: SYMBOL_VIEWBOX,
 } as const;
 
-/* The circle and the lettering are the brand teal, the symbol is white;
- * the "symbol" variant is flipped: teal curves and leaf, nothing else. */
+/* The disc and the lettering are the brand teal (lighter on the dark theme),
+ * the symbol is white; the "symbol" variant is flipped: curves and leaf in
+ * the lettering colour, nothing else. */
 const BrandLogo: React.FC<BrandLogoProps> = ({
   label,
   variant = "inline",
@@ -40,17 +45,17 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
     className={className}
   >
     {variant === "symbol" ? (
-      <path data-testid="brand-logo-symbol" fill={BRAND_TEAL} d={MARK_PATH} />
+      <path data-testid="brand-logo-symbol" fill={INK} d={MARK_PATH} />
     ) : (
       <>
-        <circle cx="500" cy="500" r="500" fill={BRAND_TEAL} />
+        <circle cx="500" cy="500" r="500" fill={DISC} />
         <path fill="#FFFFFF" d={MARK_PATH} />
       </>
     )}
     {variant === "inline" && (
       <path
         data-testid="brand-logo-lettering"
-        fill={BRAND_TEAL}
+        fill={INK}
         d={INLINE_TEXT_PATH}
       />
     )}
