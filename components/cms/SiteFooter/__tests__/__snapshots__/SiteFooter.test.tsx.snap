@@ -133,7 +133,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   gap: 0.75rem;
 }
 
-.c17 {
+.c18 {
   display: block;
   height: 2.5rem;
   width: auto;
@@ -145,7 +145,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   transform-origin: center center;
 }
 
-.c18 {
+.c17 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -263,7 +263,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c18 {
+  .c17 {
     align-items: flex-end;
   }
 }
@@ -335,13 +335,16 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
         </div>
         <div
           class="c16"
+        />
+        <div
+          class="c17"
         >
           <span
             aria-hidden="true"
           >
             <svg
               aria-label="Andrea Agostini"
-              class="c17"
+              class="c18"
               focusable="false"
               role="img"
               viewBox="166.5 259.8 707 495.5"
@@ -354,10 +357,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
               />
             </svg>
           </span>
-        </div>
-        <div
-          class="c18"
-        >
           <p
             class="c19"
             style="color: var(--color-paragraph);"
@@ -408,7 +407,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c20 {
+.c19 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -525,18 +524,18 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   gap: 0.75rem;
 }
 
-.c19 {
+.c23 {
   display: block;
   height: 2.5rem;
   width: auto;
 }
 
-.c21 {
+.c20 {
   color: var(--color-paragraph);
   max-width: 36ch;
 }
 
-.c22 {
+.c21 {
   display: block;
   text-wrap: balance;
 }
@@ -547,7 +546,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   transform-origin: center center;
 }
 
-.c23 {
+.c22 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -671,7 +670,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 @media (min-width: 900px) {
-  .c23 {
+  .c22 {
     align-items: flex-end;
   }
 }
@@ -770,12 +769,25 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         <div
           class="c18"
         >
+          <p
+            class="c19 c20"
+          >
+            <span
+              class="c21"
+            >
+              Building for the web, one component at a time. Based in Bangkok.
+            </span>
+          </p>
+        </div>
+        <div
+          class="c22"
+        >
           <span
             aria-hidden="true"
           >
             <svg
               aria-label="Andrea Agostini"
-              class="c19"
+              class="c23"
               focusable="false"
               role="img"
               viewBox="166.5 259.8 707 495.5"
@@ -789,20 +801,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
             </svg>
           </span>
           <p
-            class="c20 c21"
-          >
-            <span
-              class="c22"
-            >
-              Building for the web, one component at a time. Based in Bangkok.
-            </span>
-          </p>
-        </div>
-        <div
-          class="c23"
-        >
-          <p
-            class="c20"
+            class="c19"
             style="color: var(--color-paragraph);"
           >
             © 

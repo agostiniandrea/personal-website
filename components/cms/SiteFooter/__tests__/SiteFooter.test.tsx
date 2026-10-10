@@ -78,17 +78,20 @@ describe("SiteFooter", () => {
     expect(climate.parentElement).not.toContainElement(tagline);
   });
 
-  it("shows the logo in the centre column, above the tagline, hidden from assistive tech", () => {
+  it("shows the symbol on the right, above the copyright name, hidden from assistive tech", () => {
     const { container } = renderWithTheme(
       <SiteFooter {...defaultSiteFooter} />,
     );
     const logo = container.querySelector("svg");
+    const copyright = screen.getByText(/©/);
     const tagline = screen.getByText(/one component at a time/i);
 
     expect(logo).not.toBeNull();
     expect(logo?.closest("[aria-hidden='true']")).not.toBeNull();
     expect(screen.queryByRole("img", { name: /Agostini/i })).toBeNull();
-    const position = logo?.compareDocumentPosition(tagline) ?? 0;
+    expect(copyright.parentElement).toContainElement(logo as SVGSVGElement);
+    expect(tagline.parentElement).not.toContainElement(logo as SVGSVGElement);
+    const position = logo?.compareDocumentPosition(copyright) ?? 0;
     expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 

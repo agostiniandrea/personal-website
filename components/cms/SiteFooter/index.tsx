@@ -222,9 +222,6 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </BadgeCol>
 
         <TaglineCol>
-          <span aria-hidden="true">
-            <FooterLogo label={copyrightName} variant="symbol" />
-          </span>
           {tagline && (
             <Tagline variant="small">
               {tagline.split("\n").map((line, i) => (
@@ -235,6 +232,9 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </TaglineCol>
 
         <MetaCol>
+          <span aria-hidden="true">
+            <FooterLogo label={copyrightName} variant="symbol" />
+          </span>
           <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
             © {CURRENT_YEAR} {copyrightName}
           </Text>
