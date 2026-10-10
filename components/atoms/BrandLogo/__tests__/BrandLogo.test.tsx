@@ -28,4 +28,16 @@ describe("BrandLogo", () => {
     expect(screen.queryByTestId("brand-logo-lettering")).toBeNull();
     expect(screen.getByRole("img")).toHaveAttribute("viewBox", "0 0 1000 1000");
   });
+
+  it("renders the flipped symbol alone: teal, no circle, no name", () => {
+    const { container } = render(
+      <BrandLogo label="Andrea Agostini" variant="symbol" />,
+    );
+    expect(container.querySelector("circle")).toBeNull();
+    expect(screen.queryByTestId("brand-logo-lettering")).toBeNull();
+    expect(screen.getByTestId("brand-logo-symbol")).toHaveAttribute(
+      "fill",
+      "#306F6B",
+    );
+  });
 });

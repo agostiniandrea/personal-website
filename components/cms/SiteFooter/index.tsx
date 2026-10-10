@@ -223,7 +223,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
 
         <TaglineCol>
           <span aria-hidden="true">
-            <FooterLogo label={copyrightName} />
+            <FooterLogo label={copyrightName} variant="symbol" />
           </span>
           {tagline && (
             <Tagline variant="small">

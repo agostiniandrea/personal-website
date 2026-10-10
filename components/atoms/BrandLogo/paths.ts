@@ -13,3 +13,5 @@ export const INLINE_TEXT_PATH =
 
 export const MARK_VIEWBOX = "0 0 1000 1000";
 export const INLINE_VIEWBOX = "0 0 6593 1000";
+/* Tight box around the symbol alone (no circle). */
+export const SYMBOL_VIEWBOX = "166.5 259.8 707 495.5";
