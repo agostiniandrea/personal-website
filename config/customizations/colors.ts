@@ -23,4 +23,15 @@ export const colors = {
   badgeBg: "var(--color-badge-bg)",
   ringStart: "var(--color-ring-start)",
   ringEnd: "var(--color-ring-end)",
+
+  /* The one celebratory gold, always an accent next to the teal and never a
+     surface: the hero badge, the milestone leaf, the headline words, the reached
+     badge, the anniversary title. Like the teal it has a value per theme, because
+     the bright gold that suits the dark ground is unreadable as text on the
+     light one (1.6:1 there against 4.7:1 for the darker value). */
+  milestone: "var(--color-milestone)",
+
+  /* The deep navy of the Thai flag, for the anniversary title only. On the dark
+     ground it falls back to the headline colour, since navy would vanish. */
+  thaiNavy: "var(--color-thai-navy)",
 };

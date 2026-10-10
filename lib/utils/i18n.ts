@@ -80,6 +80,11 @@ const strings = {
     moreTitle: "Explore",
     navigationMenu: "Navigation menu",
     openMenu: "Open menu",
+    /* The hero badge names the latest milestone, not the live total: it is the
+       achievement being marked, and the Forest section carries the exact count. */
+    heroMilestone: (milestone: number) => `${milestone} trees planted`,
+    heroMilestoneAria: (milestone: number) =>
+      `${milestone} trees planted — see the Forest`,
     scrollDown: "Scroll down",
     scrollToTop: "Scroll to top",
     sectionNavigation: "Section navigation",
@@ -185,6 +190,9 @@ const strings = {
     moreTitle: "Esplora",
     navigationMenu: "Menu di navigazione",
     openMenu: "Apri menu",
+    heroMilestone: (milestone: number) => `${milestone} alberi piantati`,
+    heroMilestoneAria: (milestone: number) =>
+      `${milestone} alberi piantati — vai alla Forest`,
     scrollDown: "Scorri in basso",
     scrollToTop: "Torna all'inizio",
     sectionNavigation: "Navigazione sezioni",

@@ -3,12 +3,16 @@ import {
   getCampaignCopy,
   getCampaignProgress,
 } from "../forestCampaign";
-import { nextMilestoneAfter } from "../forestMilestones";
+import { milestoneTarget } from "../forestMilestones";
 
 /* TEMPORARY CAMPAIGN (Oct 7–10, 2026) — delete with forestCampaign.ts */
 describe("forestCampaign", () => {
   it("keeps the goal at 200", () => {
     expect(FOREST_CAMPAIGN.goal).toBe(200);
+  });
+
+  it("is out of countdown mode: the goal is reached, the ladder takes over", () => {
+    expect(FOREST_CAMPAIGN.goalProgress).toBe(false);
   });
 
   it.each([
@@ -48,8 +52,9 @@ describe("forestCampaign", () => {
   });
 
   it("leaves the regular milestone ladder alone", () => {
-    expect(nextMilestoneAfter(179)).toBe(200);
-    expect(nextMilestoneAfter(200)).toBe(300);
+    expect(milestoneTarget(179)).toBe(200);
+    expect(milestoneTarget(200)).toBe(200);
+    expect(milestoneTarget(201)).toBe(300);
   });
 
   it("pluralises the countdown in both languages", () => {

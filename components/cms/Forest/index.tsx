@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { ArrowUpRight, CircleCheck, TreeDeciduous } from "lucide-react";
+import {
+  ArrowUpRight,
+  CircleCheck,
+  Sparkle,
+  TreeDeciduous,
+} from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Text } from "@components/ions";
@@ -11,8 +16,10 @@ import {
   Badge,
   InfoTooltip,
   LeafIcon,
+  MilestoneLeafIcon,
   Section,
   SectionLabel,
+  ThailandAnniversary,
   TreeIcon,
   TreeNationPopover,
 } from "@components/molecules";
@@ -26,10 +33,11 @@ import {
 } from "@lib/utils/forestCampaign";
 import {
   lastMilestoneReached,
-  nextMilestoneAfter,
+  milestoneProgress,
 } from "@lib/utils/forestMilestones";
 import { formatCo2Tonnes } from "@lib/utils/formatCo2";
 import { useI18n } from "@lib/utils/i18n";
+import { THAILAND_ANNIVERSARY } from "@lib/utils/thailandAnniversary";
 import type { ForestProject, ForestSpecies } from "@lib/utils/treeNation";
 
 import { ForestModal } from "./ForestModal";
@@ -364,9 +372,9 @@ const CtaDecor = styled.div`
   gap: ${({ theme }) => theme.space.xs};
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: flex-end;
+    align-items: center;
     flex-shrink: 0;
-    text-align: right;
+    text-align: center;
   }
 `;
 
@@ -395,6 +403,88 @@ const CtaDecorNumber = styled.span`
   }
 `;
 
+/* The hero badge's leaf, carried over: it marks the milestone beside the count
+   while the number itself stays teal. Same filled leaf and the same gold token
+   as the hero. Once a milestone
+   is behind us the leaf IS the Tree-Nation certification button (it replaces
+   the check mark rather than sitting next to it) and two sparkles ride with it.
+   The whole group is softened at rest and comes up to full strength on hover or
+   keyboard focus, and while the popover is open. It shrinks with the number on
+   phones. */
+const NumberAccent = styled.span`
+  align-self: flex-start;
+  color: ${({ theme }) => theme.colors.milestone};
+  display: inline-flex;
+  flex-shrink: 0;
+  margin: -0.5rem 0.75rem 0 -0.375rem;
+  opacity: 0.85;
+  position: relative;
+  transition: opacity 0.2s ease;
+
+  /* the button carries its own resting opacity; the group owns it here */
+  button {
+    opacity: 1;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:focus-within,
+  &:has(button[aria-expanded="true"]) {
+    opacity: 1;
+  }
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    margin-top: -0.75rem;
+  }
+`;
+
+const NumberLeaf = styled(MilestoneLeafIcon)`
+  color: ${({ theme }) => theme.colors.milestone};
+  flex-shrink: 0;
+  height: 2.5rem;
+  /* nudged right, off the last digit; a transform so the sparkles keep their
+     place */
+  transform: translateX(0.5rem);
+  width: 2.5rem;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    height: 3.25rem;
+    width: 3.25rem;
+  }
+`;
+
+const SparkleMark = styled(Sparkle).attrs({ "aria-hidden": "true" })<{
+  $small?: boolean;
+}>`
+  color: ${({ theme }) => theme.colors.milestone};
+  fill: currentColor;
+  height: ${({ $small }) => ($small ? "0.625rem" : "0.9rem")};
+  pointer-events: none;
+  position: absolute;
+  right: ${({ $small }) => ($small ? "0.5rem" : "-0.95rem")};
+  top: ${({ $small }) => ($small ? "2.45rem" : "1.6rem")};
+  width: ${({ $small }) => ($small ? "0.625rem" : "0.9rem")};
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    height: ${({ $small }) => ($small ? "0.75rem" : "1.1rem")};
+    right: ${({ $small }) => ($small ? "0.6rem" : "-1.15rem")};
+    top: ${({ $small }) => ($small ? "3.1rem" : "2.05rem")};
+    width: ${({ $small }) => ($small ? "0.75rem" : "1.1rem")};
+  }
+`;
+
+/* The anniversary sits under the counter. */
+/* The flag stripe doubles as the divider between the count and the
+   anniversary, so there is no extra rule. */
+const CtaAnniversary = styled.div`
+  margin-top: ${({ theme }) => theme.space.md};
+  width: 100%;
+`;
+
 const CtaDecorLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -415,22 +505,18 @@ const CtaHeading = styled.h3`
   }
 `;
 
+/* The milestone words in the headline take the milestone gold (4.7:1 on the
+   light ground, 10:1 on the dark one). */
+const CtaAccent = styled.span`
+  color: ${({ theme }) => theme.colors.milestone};
+`;
+
 const CtaBody = styled.p<{ $tight?: boolean }>`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0 0 ${({ $tight }) => ($tight ? "0.75rem" : "1.75rem")};
   max-width: 420px;
-`;
-
-/* TEMPORARY CAMPAIGN — the quiet anniversary line under the CTA. Same scale and
-   colour as the progress sublabel, so it reads as a footnote, not a banner. */
-const CampaignNote = styled.p`
-  color: ${({ theme }) => theme.colors.paragraph};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  letter-spacing: 0.05em;
-  line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 1rem 0 0;
 `;
 
 const PlantButton = styled.button`
@@ -495,12 +581,13 @@ const SeasonCount = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
-const ProgressTrack = styled.div`
-  background: ${({ theme }) => alpha(theme.colors.highlight, 10)};
-  border-radius: 999px;
+/* The track and, once a milestone has been reached, the gold leaf that closes
+   the bar — the same leaf as the hero badge and the counter above. */
+const ProgressBar = styled.div`
+  align-items: center;
+  display: flex;
+  gap: ${({ theme }) => theme.space.sm};
   grid-area: pbar;
-  height: 8px;
-  overflow: hidden;
 
   /* The bar is 8px against a row sized by the heading opposite, so it centres
      rather than clinging to the top of its row. */
@@ -509,6 +596,24 @@ const ProgressTrack = styled.div`
   }
 `;
 
+const ProgressTrack = styled.div`
+  background: ${({ theme }) => alpha(theme.colors.highlight, 10)};
+  border-radius: 999px;
+  flex: 1;
+  height: 8px;
+  min-width: 0;
+  overflow: hidden;
+`;
+
+const BarLeaf = styled(MilestoneLeafIcon)`
+  color: ${({ theme }) => theme.colors.milestone};
+  flex-shrink: 0;
+  height: 1.375rem;
+  width: 1.375rem;
+`;
+
+/* Teal, always: the gold belongs to the leaf at the end of the bar, not to the
+   fill, so the bar keeps reading as the Forest's own progress. */
 const ProgressFill = styled.div<{ $pct: number; $animate: boolean }>`
   background: ${({ theme }) =>
     `linear-gradient(
@@ -548,12 +653,19 @@ const SeasonSublabel = styled.span`
    and a mark, so it reads as an event rather than a reading. */
 const SeasonReached = styled.span`
   align-items: center;
-  color: ${({ theme }) => theme.colors.highlight};
+  color: ${({ theme }) => theme.colors.milestone};
   display: inline-flex;
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   gap: 0.375rem;
   letter-spacing: 0.05em;
+
+  /* A filled gold disc with the check cut out of it, as on the milestone card.
+     One gold for the words and the disc, readable on each ground. */
+  svg {
+    fill: ${({ theme }) => theme.colors.milestone};
+    stroke: ${({ theme }) => theme.colors.background};
+  }
 `;
 
 /* ── Feedback impact ── */
@@ -1044,6 +1156,23 @@ const EARLIER_CAMPAIGN_FEEDBACK_TREES = 18;
    API does not return project URLs): the project URL is its slug. */
 const EARLIER_CAMPAIGN_PROJECT_URL = `https://tree-nation.com/projects/${EARLIER_CAMPAIGN_PROJECT_SLUG}`;
 
+/* Sets `accent` (a phrase inside `text`) in the milestone gold. If the phrase is
+   not there, the heading is simply shown plain. */
+const AccentedHeading: React.FC<{ text: string; accent: string }> = ({
+  text,
+  accent,
+}) => {
+  const at = text.indexOf(accent);
+  if (at === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, at)}
+      <CtaAccent>{accent}</CtaAccent>
+      {text.slice(at + accent.length)}
+    </>
+  );
+};
+
 /* ── Component ── */
 
 const Forest: React.FC<ForestProps> = ({
@@ -1103,9 +1232,13 @@ const Forest: React.FC<ForestProps> = ({
   /* TEMPORARY CAMPAIGN (Oct 7–10, 2026) — see lib/utils/forestCampaign.ts.
      While active, its copy wins over the Contentful ctaHeading / ctaBody /
      ctaButtonLabel. The
-     tree total itself is never altered, only shown against the campaign goal. */
+     tree total itself is never altered; the countdown against the campaign goal
+     only runs while FOREST_CAMPAIGN.goalProgress is on. */
   const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
-  const campaignProgress = campaign ? getCampaignProgress(treeCount) : null;
+  const campaignProgress =
+    campaign && FOREST_CAMPAIGN.goalProgress
+      ? getCampaignProgress(treeCount)
+      : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
   /* The card names the project feedback trees currently go to; it carries no
      season number, so nothing here has to change when that project does. */
@@ -1128,9 +1261,14 @@ const Forest: React.FC<ForestProps> = ({
   const animTrees = useAnimatedCounter(treesDedicatedCount, inView);
   const animImprovements = useAnimatedCounter(improvementsShippedCount, inView);
 
-  const nextMilestone = nextMilestoneAfter(treeCount);
+  /* The target stays on a milestone while the count sits on it: 200 reads
+     "200 / 200" and complete, 201 reads "201 / 300". See forestMilestones.ts. */
+  const {
+    target: milestoneGoal,
+    complete: milestoneComplete,
+    pct,
+  } = milestoneProgress(treeCount);
   const lastMilestone = lastMilestoneReached(treeCount);
-  const pct = Math.min(Math.round((treeCount / nextMilestone) * 100), 100);
   const perContribution =
     contributionsCount > 0
       ? Math.round(treesDedicatedCount / contributionsCount)
@@ -1228,7 +1366,16 @@ const Forest: React.FC<ForestProps> = ({
 
         <CtaCard>
           <CtaContent>
-            <CtaHeading>{campaign ? campaign.heading : ctaHeading}</CtaHeading>
+            <CtaHeading>
+              {campaign ? (
+                <AccentedHeading
+                  accent={campaign.headingAccent}
+                  text={campaign.heading}
+                />
+              ) : (
+                ctaHeading
+              )}
+            </CtaHeading>
             {campaign ? (
               campaign.body.map((paragraph, index) => (
                 <CtaBody
@@ -1253,11 +1400,6 @@ const Forest: React.FC<ForestProps> = ({
                 campaign ? campaign.ctaLabel : ctaButtonLabel,
               )}
             </PlantButton>
-            {campaign && (
-              <CampaignNote data-testid="campaign-anniversary">
-                {campaign.anniversary}
-              </CampaignNote>
-            )}
           </CtaContent>
           <CtaDecor>
             {/* No eyebrow: the caption below already names the number, and
@@ -1266,16 +1408,38 @@ const Forest: React.FC<ForestProps> = ({
                 duplicate once the two cards stacked on phones. */}
             <CtaDecorNumberWrap>
               <CtaDecorNumber>{treeCount}</CtaDecorNumber>
-              <CertificationAnchor>
-                <TreeNationPopover
-                  ariaLabel={t.forestCertifiedLabel}
-                  note={t.forestCertifiedNote}
-                  linkHref={TREE_NATION_PROFILE_URL}
-                  linkLabel={t.forestVerifiedLabel}
-                />
-              </CertificationAnchor>
+              {/* One certification button, two looks: the gold milestone leaf
+                  once a milestone is behind us, the plain check before that.
+                  Same popover, same accessible name either way. */}
+              {lastMilestone !== null ? (
+                <NumberAccent>
+                  <TreeNationPopover
+                    ariaLabel={t.forestCertifiedLabel}
+                    note={t.forestCertifiedNote}
+                    linkHref={TREE_NATION_PROFILE_URL}
+                    linkLabel={t.forestVerifiedLabel}
+                    icon={<NumberLeaf />}
+                  />
+                  <SparkleMark />
+                  <SparkleMark $small />
+                </NumberAccent>
+              ) : (
+                <CertificationAnchor>
+                  <TreeNationPopover
+                    ariaLabel={t.forestCertifiedLabel}
+                    note={t.forestCertifiedNote}
+                    linkHref={TREE_NATION_PROFILE_URL}
+                    linkLabel={t.forestVerifiedLabel}
+                  />
+                </CertificationAnchor>
+              )}
             </CtaDecorNumberWrap>
             <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
+            {THAILAND_ANNIVERSARY.enabled && (
+              <CtaAnniversary>
+                <ThailandAnniversary variant="stacked" />
+              </CtaAnniversary>
+            )}
           </CtaDecor>
         </CtaCard>
 
@@ -1292,25 +1456,28 @@ const Forest: React.FC<ForestProps> = ({
                     </>
                   ) : (
                     <>
-                      {treeCount} / {nextMilestone} {resolvedTreesLabel}
+                      {treeCount} / {milestoneGoal} {resolvedTreesLabel}
                     </>
                   )}
                 </SeasonCount>
               </SeasonHeader>
-              <ProgressTrack
-                {...(campaignProgress && {
-                  role: "progressbar",
-                  "aria-label": t.forestProgressTitle,
-                  "aria-valuemin": 0,
-                  "aria-valuemax": campaignProgress.goal,
-                  "aria-valuenow": campaignProgress.shown,
-                })}
-              >
-                <ProgressFill
-                  $pct={campaignProgress ? campaignProgress.pct : pct}
-                  $animate={inView}
-                />
-              </ProgressTrack>
+              <ProgressBar data-testid="progress-bar">
+                <ProgressTrack
+                  {...(campaignProgress && {
+                    role: "progressbar",
+                    "aria-label": t.forestProgressTitle,
+                    "aria-valuemin": 0,
+                    "aria-valuemax": campaignProgress.goal,
+                    "aria-valuenow": campaignProgress.shown,
+                  })}
+                >
+                  <ProgressFill
+                    $pct={campaignProgress ? campaignProgress.pct : pct}
+                    $animate={inView}
+                  />
+                </ProgressTrack>
+                {!campaignProgress && lastMilestone !== null && <BarLeaf />}
+              </ProgressBar>
               <SeasonMeta>
                 {/* The badge and the percentage both belong here, and both are
                     true at once past the first rung: one says where the forest
@@ -1335,7 +1502,10 @@ const Forest: React.FC<ForestProps> = ({
                     </SeasonSublabel>
                   )
                 ) : lastMilestone !== null ? (
-                  <SeasonReached data-testid="milestone-reached">
+                  <SeasonReached
+                    data-testid="milestone-reached"
+                    data-complete={milestoneComplete || undefined}
+                  >
                     <CircleCheck
                       size={14}
                       strokeWidth={2.25}

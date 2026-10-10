@@ -45,3 +45,42 @@ export const ArrowIcon: React.FC<IconProps> = ({ size = 16, className }) => (
     strokeWidth={STROKE}
   />
 );
+
+/* The milestone leaf: the same Lucide leaf outline, filled, with its stem and a
+   vein cut back in the page colour. One mark for the hero badge, the end of the
+   Forest progress bar and the counter beside the count, so the three read as
+   the same celebration. Colour comes from the host (currentColor). */
+export const MilestoneLeafIcon: React.FC<IconProps> = ({
+  size = 16,
+  className,
+}) => (
+  <svg
+    aria-hidden="true"
+    className={className}
+    data-icon="milestone-leaf"
+    fill="none"
+    height={size}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    viewBox="0 0 24 24"
+    width={size}
+  >
+    <path
+      d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+    <path
+      d="M2 21c0-3 1.85-5.36 5.08-6"
+      stroke="currentColor"
+      strokeWidth="1.75"
+    />
+    <path
+      d="M7.08 15C9.5 14.52 12 13 13 12"
+      stroke="var(--color-background)"
+      strokeOpacity="0.8"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
