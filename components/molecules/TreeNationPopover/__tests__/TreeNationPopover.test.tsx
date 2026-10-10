@@ -13,7 +13,7 @@ jest.mock("next/router", () => ({
   useRouter: () => ({ locale: "en" }),
 }));
 
-const PROFILE = "https://tree-nation.com/profile/andrea-agostini-103769";
+const PROFILE = "https://tree-nation.com/profile/andrea-agostini";
 
 const renderPopover = () =>
   renderWithTheme(

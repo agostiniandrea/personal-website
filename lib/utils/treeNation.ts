@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-export const TREE_NATION_FOREST_SLUG = "andrea-agostini-103769";
+export const TREE_NATION_FOREST_SLUG = "andrea-agostini";
 /* The impact endpoint keys off the numeric profile id, not the slug. */
 const TREE_NATION_PROFILE_ID = 941526;
 
