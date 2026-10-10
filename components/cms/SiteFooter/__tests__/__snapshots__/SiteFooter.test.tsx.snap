@@ -342,7 +342,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
                 >
                   <stop
                     offset="0"
-                    style="stop-color: var(--logo-shine-from, #2A7F78);"
+                    style="stop-color: var(--logo-shine-from, #1F6B65);"
                   />
                   <stop
                     offset="1"
@@ -358,11 +358,11 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
                 >
                   <stop
                     offset="0"
-                    stop-color="#2A7F78"
+                    stop-color="#22756E"
                   />
                   <stop
                     offset="1"
-                    stop-color="#379A90"
+                    stop-color="#3AA395"
                   />
                 </lineargradient>
               </defs>
@@ -801,7 +801,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
                 >
                   <stop
                     offset="0"
-                    style="stop-color: var(--logo-shine-from, #2A7F78);"
+                    style="stop-color: var(--logo-shine-from, #1F6B65);"
                   />
                   <stop
                     offset="1"
@@ -817,11 +817,11 @@ exports[`SiteFooter renders correctly with social links 1`] = `
                 >
                   <stop
                     offset="0"
-                    stop-color="#2A7F78"
+                    stop-color="#22756E"
                   />
                   <stop
                     offset="1"
-                    stop-color="#379A90"
+                    stop-color="#3AA395"
                   />
                 </lineargradient>
               </defs>

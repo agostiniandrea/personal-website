@@ -30,7 +30,7 @@ const VIEWBOXES = {
 /* Light bottom-left to bright top-right: the "shine" on the ink. Both ends come
  * from the theme (see globalStyles) and fall back to the light-theme pair; the
  * mid-tones stay close to the brand teal so the logo reads as one colour. */
-const SHINE_FROM = `var(--logo-shine-from, #2A7F78)`;
+const SHINE_FROM = `var(--logo-shine-from, #1F6B65)`;
 const SHINE_TO = `var(--logo-shine-to, #379A90)`;
 
 /* The disc is a teal gradient and the symbol is white; the lettering and the

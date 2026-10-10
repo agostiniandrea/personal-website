@@ -64,7 +64,7 @@ const GlobalStyle = createGlobalStyle`
     /* Logo ink: a gradient from the brand teal up to a brighter one, so it
        catches the eye on the dark ground. */
     --logo-shine-from: #2f8a82;
-    --logo-shine-to: #5eead4;
+    --logo-shine-to: #6ff0dc;
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);
@@ -88,7 +88,7 @@ const GlobalStyle = createGlobalStyle`
       --color-main: #5e5e72;
       --color-border: #9a9ab0;
       --color-highlight: #0f766e;
-      --logo-shine-from: #2a7f78;
+      --logo-shine-from: #1f6b65;
       --logo-shine-to: #379a90;
       --color-secondary: #0a0a0f;
       --color-tertiary: #0f766e;
@@ -118,7 +118,7 @@ const GlobalStyle = createGlobalStyle`
     --color-main: #5e5e72;
     --color-border: #9a9ab0;
     --color-highlight: #0f766e;
-    --logo-shine-from: #2a7f78;
+    --logo-shine-from: #1f6b65;
     --logo-shine-to: #379a90;
     --color-secondary: #0a0a0f;
     --color-tertiary: #0f766e;
@@ -143,7 +143,7 @@ const GlobalStyle = createGlobalStyle`
     /* Logo ink: a gradient from the brand teal up to a brighter one, so it
        catches the eye on the dark ground. */
     --logo-shine-from: #2f8a82;
-    --logo-shine-to: #5eead4;
+    --logo-shine-to: #6ff0dc;
     --color-secondary: #ffffff;
     --color-tertiary: #2dd4bf;
     --color-surface: rgba(45, 212, 191, 0.04);

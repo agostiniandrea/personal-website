@@ -331,7 +331,7 @@ html:not([data-theme]) .c14[data-icon="system"] {
               >
                 <stop
                   offset="0"
-                  style="stop-color: var(--logo-shine-from, #2A7F78);"
+                  style="stop-color: var(--logo-shine-from, #1F6B65);"
                 />
                 <stop
                   offset="1"
@@ -347,11 +347,11 @@ html:not([data-theme]) .c14[data-icon="system"] {
               >
                 <stop
                   offset="0"
-                  stop-color="#2A7F78"
+                  stop-color="#22756E"
                 />
                 <stop
                   offset="1"
-                  stop-color="#379A90"
+                  stop-color="#3AA395"
                 />
               </lineargradient>
             </defs>
@@ -851,7 +851,7 @@ html:not([data-theme]) .c13[data-icon="system"] {
               >
                 <stop
                   offset="0"
-                  style="stop-color: var(--logo-shine-from, #2A7F78);"
+                  style="stop-color: var(--logo-shine-from, #1F6B65);"
                 />
                 <stop
                   offset="1"
@@ -867,11 +867,11 @@ html:not([data-theme]) .c13[data-icon="system"] {
               >
                 <stop
                   offset="0"
-                  stop-color="#2A7F78"
+                  stop-color="#22756E"
                 />
                 <stop
                   offset="1"
-                  stop-color="#379A90"
+                  stop-color="#3AA395"
                 />
               </lineargradient>
             </defs>
