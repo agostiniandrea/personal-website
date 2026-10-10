@@ -39,15 +39,18 @@ describe("SiteHeader", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("renders the logo text", () => {
+  it("renders the logo, named after the CMS label", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    expect(screen.getByText(defaultSiteHeader.logoText)).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: defaultSiteHeader.logoText }),
+    ).toBeInTheDocument();
   });
 
   it("renders the logo as a link to /", () => {
     renderWithTheme(<SiteHeader {...defaultSiteHeader} />);
-    const logo = screen.getByText(defaultSiteHeader.logoText);
-    expect(logo.tagName.toLowerCase()).toBe("a");
+    const logo = screen.getByRole("link", {
+      name: defaultSiteHeader.logoText,
+    });
     expect(logo).toHaveAttribute("href", "/");
   });
 
@@ -68,7 +71,9 @@ describe("SiteHeader", () => {
         <MobileNav />
       </>,
     );
-    await user.click(screen.getByText(defaultSiteHeader.logoText));
+    await user.click(
+      screen.getByRole("link", { name: defaultSiteHeader.logoText }),
+    );
 
     expect(window.location.hash).toBe("");
     expect(document.documentElement).toHaveAttribute(
