@@ -1294,7 +1294,7 @@ exports[`Forest renders correctly with all props 1`] = `
       </div>
       <a
         class="c61"
-        href="https://tree-nation.com/profile/andrea-agostini-103769"
+        href="https://tree-nation.com/profile/andrea-agostini"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -2165,7 +2165,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
       </div>
       <a
         class="c38"
-        href="https://tree-nation.com/profile/andrea-agostini-103769"
+        href="https://tree-nation.com/profile/andrea-agostini"
         rel="noopener noreferrer"
         target="_blank"
       >

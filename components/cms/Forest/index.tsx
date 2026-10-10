@@ -36,7 +36,7 @@ import { ForestModal } from "./ForestModal";
 
 /* The public Tree-Nation forest, linked from the certification popover. */
 const TREE_NATION_PROFILE_URL =
-  "https://tree-nation.com/profile/andrea-agostini-103769";
+  "https://tree-nation.com/profile/andrea-agostini";
 
 export interface ChangelogItem {
   date: string;
@@ -1510,7 +1510,7 @@ const Forest: React.FC<ForestProps> = ({
         </SeasonCard>
 
         <VerifiedBadge
-          href="https://tree-nation.com/profile/andrea-agostini-103769"
+          href={TREE_NATION_PROFILE_URL}
           target="_blank"
           rel="noopener noreferrer"
         >

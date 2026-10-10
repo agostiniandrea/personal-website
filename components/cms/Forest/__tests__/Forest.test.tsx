@@ -452,7 +452,7 @@ describe("Forest", () => {
     const standalone = screen.getByRole("link", { name: linkName });
     expect(standalone).toHaveAttribute(
       "href",
-      "https://tree-nation.com/profile/andrea-agostini-103769",
+      "https://tree-nation.com/profile/andrea-agostini",
     );
 
     // Opening the popover adds its own link; the standalone one stays.
