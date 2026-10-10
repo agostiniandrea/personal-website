@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { ArrowDown, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowRight, ChevronDown } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Box, Container, Heading, Image, Link, Text } from "@components/ions";
+import { MilestoneLeafIcon, ThailandAnniversary } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
+import { alpha } from "@lib/utils/color";
+import { lastMilestoneReached } from "@lib/utils/forestMilestones";
 import { useI18n } from "@lib/utils/i18n";
+import { THAILAND_ANNIVERSARY } from "@lib/utils/thailandAnniversary";
 import { contentfulImageUrl } from "@utils/contentfulImage";
 
 export interface HeroPortfolioProps {
@@ -23,6 +27,9 @@ export interface HeroPortfolioProps {
   ctaSecondaryUrl?: string;
   cvDownloadLabel?: string;
   cvDownloadFile?: string;
+  /** The live Tree-Nation total, handed down by ModuleRenderer from the Forest
+      module's data. Optional: without it the milestone badge is simply absent. */
+  treesPlanted?: number;
 }
 
 const Section = styled.section`
@@ -52,8 +59,11 @@ const Section = styled.section`
     );
   }
 
+  /* the next section brings its own top padding, so the hero keeps only a
+     small bottom gap on phones instead of doubling it */
   @media (max-width: ${BREAKPOINTS_BELOW.mobile}) {
-    padding: ${({ theme }) => theme.space["xl"]} 0;
+    padding: ${({ theme }) => theme.space["xl"]} 0
+      ${({ theme }) => theme.space.sm};
   }
 `;
 
@@ -64,7 +74,8 @@ const HeroGrid = styled.div`
   grid-template-areas:
     "photo"
     "copy"
-    "actions";
+    "actions"
+    "milestones";
   grid-template-columns: minmax(0, 1fr);
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
@@ -72,9 +83,10 @@ const HeroGrid = styled.div`
     column-gap: ${({ theme }) => theme.space["4xl"]};
     grid-template-areas:
       "copy photo"
-      "actions photo";
+      "actions photo"
+      "milestones photo";
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     row-gap: ${({ theme }) => theme.space["2xl"]};
     width: 100%;
   }
@@ -159,6 +171,106 @@ const Tagline = styled(Text)`
     line-height: ${({ theme }) => theme.lineHeights.relaxed};
     margin: 0;
     max-width: 500px;
+  }
+`;
+
+/* A quiet status chip, not a banner: one line under the tagline, teal text on
+   the existing badge tint with a thin gold edge and a gold leaf. The gold is
+   decoration only (the words stay teal, which keeps their contrast on both
+   grounds), and the ::after widens the touch target to 44px without growing
+   the chip itself. */
+const MilestoneBadge = styled.a`
+  align-items: center;
+  background: ${({ theme }) => theme.colors.badgeBg};
+  border: 1px solid ${({ theme }) => alpha(theme.colors.milestone, 60)};
+  border-radius: ${({ theme }) => theme.radii.full};
+  box-sizing: border-box;
+  color: ${({ theme }) => theme.colors.highlight};
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  gap: 0.5rem;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  min-height: 2.25rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.75rem;
+  position: relative;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  &::after {
+    content: "";
+    inset: -4px 0;
+    position: absolute;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => alpha(theme.colors.milestone, 12)};
+      border-color: ${({ theme }) => theme.colors.milestone};
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 3px;
+  }
+`;
+
+/* The two milestones share one quiet row under the calls to action, so they
+   never compete with the name, role, portrait or buttons above. Stacked and
+   centred on phones; a single line with a hairline between them from tablet. */
+const MilestoneRow = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space.md};
+  grid-area: milestones;
+  justify-content: center;
+  margin-top: ${({ theme }) => theme.space.lg};
+  text-align: center;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: ${({ theme }) => theme.space.lg};
+    justify-content: flex-start;
+    /* the grid's row gap is sized for the larger step above the buttons */
+    margin-top: calc(
+      ${({ theme }) => theme.space.lg} - ${({ theme }) => theme.space["2xl"]}
+    );
+    text-align: left;
+  }
+`;
+
+const MilestoneDivider = styled.span.attrs({ "aria-hidden": "true" })`
+  background: ${({ theme }) => alpha(theme.colors.paragraph, 28)};
+  display: none;
+  height: 1.75rem;
+  width: 1px;
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    display: block;
+  }
+`;
+
+const MilestoneLeaf = styled(MilestoneLeafIcon)`
+  color: ${({ theme }) => theme.colors.milestone};
+`;
+
+const MilestoneArrow = styled(ArrowRight)`
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    transition: transform 0.2s ease;
+
+    ${MilestoneBadge}:hover & {
+      transform: translateX(2px);
+    }
   }
 `;
 
@@ -407,6 +519,7 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
   ctaSecondaryUrl,
   cvDownloadLabel,
   cvDownloadFile,
+  treesPlanted = 0,
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const { locale } = useRouter();
@@ -422,6 +535,23 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
     document
       .getElementById("about")
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  /* The latest milestone, from the same rule the Forest section uses, so the
+     two can never disagree. It follows the live total: nothing here is typed. */
+  const milestone = lastMilestoneReached(treesPlanted);
+
+  const openForest = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const forest = document.getElementById("forest");
+    if (!forest) return;
+    e.preventDefault();
+    trackEvent("hero_milestone_click", { locale: locale ?? "en" });
+    forest.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
   };
 
   const handleAnchorClick = (
@@ -497,6 +627,30 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                 </CvLink>
               )}
             </Actions>
+            {(milestone !== null || THAILAND_ANNIVERSARY.enabled) && (
+              <MilestoneRow>
+                {milestone !== null && (
+                  <MilestoneBadge
+                    href="#forest"
+                    aria-label={t.heroMilestoneAria(milestone)}
+                    data-testid="hero-milestone"
+                    onClick={openForest}
+                  >
+                    <MilestoneLeaf size={20} />
+                    <span>{t.heroMilestone(milestone)}</span>
+                    <MilestoneArrow
+                      size={14}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
+                  </MilestoneBadge>
+                )}
+                {milestone !== null && THAILAND_ANNIVERSARY.enabled && (
+                  <MilestoneDivider />
+                )}
+                {THAILAND_ANNIVERSARY.enabled && <ThailandAnniversary />}
+              </MilestoneRow>
+            )}
           </HeroGrid>
         </Container>
         <ScrollHint

@@ -63,6 +63,9 @@ interface AnalyticsEventParams {
     locale: string;
     source: "tab" | "scroll";
   };
+  hero_milestone_click: {
+    locale: string;
+  };
   mobile_more_destination: {
     destination: string;
   };

@@ -72,6 +72,10 @@ const GlobalStyle = createGlobalStyle`
     --color-badge-bg: rgba(45, 212, 191, 0.08);
     --color-ring-start: #2dd4bf;
     --color-ring-end: #34d399;
+    /* The milestone gold: one colour, a value per theme (the bright gold on
+       dark, a deeper one on light where it still has to read as small text). */
+    --color-milestone: #e9b957;
+    --color-thai-navy: var(--color-headline);
   }
 
   @media (prefers-color-scheme: light) {
@@ -97,6 +101,8 @@ const GlobalStyle = createGlobalStyle`
       --color-badge-bg: rgba(15, 118, 110, 0.07);
       --color-ring-start: #0f766e;
       --color-ring-end: #059669;
+      --color-milestone: #8a6000;
+      --color-thai-navy: #2d2a4a;
     }
   }
 
@@ -127,6 +133,8 @@ const GlobalStyle = createGlobalStyle`
     --color-badge-bg: rgba(15, 118, 110, 0.07);
     --color-ring-start: #0f766e;
     --color-ring-end: #059669;
+    --color-milestone: #8a6000;
+    --color-thai-navy: #2d2a4a;
   }
 
   :root[data-theme="dark"] {
@@ -151,6 +159,8 @@ const GlobalStyle = createGlobalStyle`
     --color-badge-bg: rgba(45, 212, 191, 0.08);
     --color-ring-start: #2dd4bf;
     --color-ring-end: #34d399;
+    --color-milestone: #e9b957;
+    --color-thai-navy: var(--color-headline);
   }
 
   ${({ theme }) => css`

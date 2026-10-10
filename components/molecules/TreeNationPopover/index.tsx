@@ -35,6 +35,11 @@ export interface TreeNationPopoverProps {
   /** Public Tree-Nation forest. */
   linkHref: string;
   linkLabel: string;
+  /** What the button shows. Defaults to the certification check; the host can
+      swap in its own mark (the Forest uses its gold milestone leaf) without
+      losing the button, its name or the popover behind it. Decorative: the
+      button's `ariaLabel` is what is announced. */
+  icon?: React.ReactNode;
   className?: string;
 }
 
@@ -231,6 +236,7 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
   note,
   linkHref,
   linkLabel,
+  icon,
   className,
 }) => {
   const id = useId();
@@ -337,7 +343,7 @@ const TreeNationPopover: React.FC<TreeNationPopoverProps> = ({
         onClick={onClick}
         onFocus={onFocus}
       >
-        <BadgeCheck size={20} strokeWidth={1.75} aria-hidden="true" />
+        {icon ?? <BadgeCheck size={20} strokeWidth={1.75} aria-hidden="true" />}
       </TriggerButton>
       {open && (
         <Positioner

@@ -19,6 +19,8 @@ declare module "styled-components" {
       badgeBg: string;
       ringStart: string;
       ringEnd: string;
+      milestone: string;
+      thaiNavy: string;
     };
     fontFamilies: {
       default: string;
