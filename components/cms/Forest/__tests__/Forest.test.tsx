@@ -4,6 +4,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { FOREST_CAMPAIGN } from "@lib/utils/forestCampaign";
+import { THAILAND_ANNIVERSARY } from "@lib/utils/thailandAnniversary";
 import { blockBrowserStorage } from "@test-utils/blockBrowserStorage";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
@@ -28,6 +29,7 @@ describe("Forest", () => {
     // The regular behaviour is covered with the temporary campaign switched
     // off; the campaign has its own describe block at the bottom of the file.
     jest.replaceProperty(FOREST_CAMPAIGN, "enabled", false);
+    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", false);
   });
 
   afterEach(() => {
@@ -88,14 +90,27 @@ describe("Forest", () => {
       expect(screen.queryByTestId("milestone-reached")).not.toBeInTheDocument();
     });
 
-    /* Landing exactly on a rung advances past it rather than pinning the bar at
-       100% — the forest does not pause, and a full bar that never empties stops
-       reporting anything. */
-    it("advances the moment a rung is reached", () => {
+    /* Landing exactly on a rung keeps it as the target: the panel reads as a
+       completed milestone, and only the next tree starts the climb to the one
+       after. */
+    it("holds a reached rung as completed until it is exceeded", () => {
       renderWithTheme(<Forest {...defaultForest} treeCount={50} />);
-      expect(screen.getByText("50 / 100 trees")).toBeInTheDocument();
+      expect(screen.getByText("50 / 50 trees")).toBeInTheDocument();
       expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
         "50 trees reached",
+      );
+      expect(screen.getByTestId("milestone-reached")).toHaveAttribute(
+        "data-complete",
+        "true",
+      );
+    });
+
+    it("moves on to the next rung one tree later, with the cumulative count", () => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={51} />);
+      expect(screen.getByText("51 / 100 trees")).toBeInTheDocument();
+      expect(screen.queryByText(/^1 \/ 100/)).not.toBeInTheDocument();
+      expect(screen.getByTestId("milestone-reached")).not.toHaveAttribute(
+        "data-complete",
       );
     });
 
@@ -113,7 +128,7 @@ describe("Forest", () => {
       const { rerender } = renderWithTheme(
         <Forest {...defaultForest} treeCount={100} />,
       );
-      expect(screen.getByText("100 / 200 trees")).toBeInTheDocument();
+      expect(screen.getByText("100 / 100 trees")).toBeInTheDocument();
       expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
         "100 trees reached",
       );
@@ -123,6 +138,35 @@ describe("Forest", () => {
       expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
         "1200 trees reached",
       );
+    });
+
+    /* The milestone boundaries, end to end: the cumulative count stays in the
+       numerator and the target advances only once the count exceeds it. The
+       bar's fill itself is covered by milestoneProgress. */
+    it.each([
+      [199, "199 / 200 trees", false],
+      [200, "200 / 200 trees", true],
+      [201, "201 / 300 trees", false],
+      [202, "202 / 300 trees", false],
+      [250, "250 / 300 trees", false],
+      [299, "299 / 300 trees", false],
+      [300, "300 / 300 trees", true],
+      [301, "301 / 400 trees", false],
+    ])("reads %i trees as %s (complete: %s)", (count, text, complete) => {
+      renderWithTheme(<Forest {...defaultForest} treeCount={count} />);
+      expect(screen.getByText(text)).toBeInTheDocument();
+      const badge = screen.getByTestId("milestone-reached");
+      if (complete) {
+        expect(badge).toHaveAttribute("data-complete", "true");
+      } else {
+        expect(badge).not.toHaveAttribute("data-complete");
+      }
+      expect(badge).toHaveTextContent(
+        `${Math.floor(count / 100) * 100} trees reached`,
+      );
+      // The real Tree-Nation total stays visible and untouched.
+      expect(screen.getAllByText(String(count)).length).toBeGreaterThan(0);
+      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
     });
 
     it("reports the percentage only while no rung has fallen", () => {
@@ -939,33 +983,211 @@ describe("Forest — 200-tree campaign", () => {
     jest.restoreAllMocks();
   });
 
-  it("replaces the hero copy and localises the button", () => {
-    renderWithTheme(<Forest {...defaultForest} treeCount={179} />);
+  it("celebrates the milestone instead of asking for help reaching it", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
-      "Help this Forest reach 200 trees.",
+      "This Forest has reached 200 trees.",
     );
     expect(
       screen.getByText(
-        "I'm celebrating one year in Thailand on October 10th — and I'm growing this Forest to 200 trees.",
+        "Thank you to everyone whose feedback has helped turn conversations into real trees since May.",
       ),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Since May, meaningful feedback from people exploring this portfolio has helped turn conversations into real trees.",
+        "The Forest keeps growing: every meaningful contribution can still shape the portfolio. Community feedback grows a pair of real trees — one dedicated to you, one matched by me.",
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Plant your feedback" }),
+      screen.getByRole("button", { name: "Keep the Forest growing" }),
     ).toBeInTheDocument();
+    expect(screen.getByTestId("plant-feedback")).toHaveAttribute(
+      "aria-haspopup",
+      "dialog",
+    );
+    expect(screen.queryByText(/Help this Forest/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/to go/)).not.toBeInTheDocument();
   });
 
-  it("shows the anniversary as a quiet line without dating the Forest", () => {
-    renderWithTheme(<Forest {...defaultForest} treeCount={179} />);
-    expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
-      "One year in Thailand · October 10, 2025 → October 10, 2026",
+  it("leaves the progress panel on the automatic milestone ladder", () => {
+    for (const [count, progress, badge] of [
+      [200, "200 / 200 trees", "200 trees reached"],
+      [205, "205 / 300 trees", "200 trees reached"],
+      [300, "300 / 300 trees", "300 trees reached"],
+      [301, "301 / 400 trees", "300 trees reached"],
+    ] as const) {
+      const { unmount } = renderWithTheme(
+        <Forest {...defaultForest} treeCount={count} />,
+      );
+      expect(screen.getByText(progress)).toBeInTheDocument();
+      expect(screen.getByTestId("milestone-reached")).toHaveTextContent(badge);
+      expect(screen.queryByTestId("campaign-reached")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("campaign-to-go")).not.toBeInTheDocument();
+      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+      // The real Tree-Nation total stays visible and untouched.
+      expect(screen.getByText(String(count))).toBeInTheDocument();
+      unmount();
+    }
+  });
+
+  it("sets the milestone words of the headline in gold, keeping the sentence whole", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    const heading = screen.getByRole("heading", { level: 3 });
+    expect(heading).toHaveTextContent("This Forest has reached 200 trees.");
+    const accent = screen.getByText("200 trees");
+    expect(heading).toContainElement(accent);
+    expect(accent).toHaveStyleRule("color", "var(--color-milestone)");
+  });
+
+  it("speaks the headline accent in Italian too", () => {
+    mockUseRouter.mockReturnValue({ locale: "it" });
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    expect(screen.getByText("200 alberi")).toHaveStyleRule(
+      "color",
+      "var(--color-milestone)",
     );
+  });
+
+  it("puts the anniversary beside the counter, without replacing the count", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    const anniversary = screen.getByTestId("thailand-anniversary");
+    expect(anniversary).toHaveTextContent("One year in Thailand");
+    expect(anniversary).toHaveTextContent("Oct 2025 — Oct 2026");
+    expect(screen.getByText("200")).toBeInTheDocument();
+    expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
+  });
+
+  /* The leaf from the hero badge, beside the count. It is the Tree-Nation
+     certification button wearing the milestone mark, so nothing is lost: same
+     name, same popover, one control instead of a leaf plus a check. */
+  it("carries the hero's gold leaf beside the count as the certification button", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    const button = screen.getByRole("button", {
+      name: /Certified by Tree-Nation/i,
+    });
+    const counter = screen.getByText("200").parentElement!;
+    expect(counter).toContainElement(button);
+    const leaf = button.querySelector('svg[data-icon="milestone-leaf"]');
+    expect(leaf).not.toBeNull();
+    expect(leaf).toHaveAttribute("aria-hidden", "true");
+    expect(leaf).toHaveStyleRule("color", "var(--color-milestone)");
+    // Replaced, not duplicated: no check mark next to the leaf.
+    expect(counter.querySelector("svg.lucide-badge-check")).toBeNull();
+    expect(button).toHaveAttribute("aria-haspopup", "dialog");
+    // The number itself stays teal.
+    expect(screen.getByText("200")).toHaveStyleRule(
+      "color",
+      "var(--color-highlight)",
+    );
+  });
+
+  /* The leaf and its sparkles are one group: softened at rest, full strength on
+     hover, keyboard focus or while the popover is open. */
+  it("softens the leaf group at rest and brings it to full strength on hover and focus", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    const group = screen
+      .getByRole("button", { name: /Certified by Tree-Nation/i })
+      .closest("span[class]")!.parentElement!;
+    expect(group).toHaveStyleRule("opacity", "0.85");
+    expect(group).toHaveStyleRule("opacity", "1", {
+      media: "(hover:hover)",
+      modifier: ":hover",
+    });
+    expect(group).toHaveStyleRule("opacity", "1", {
+      modifier: ":focus-within",
+    });
+  });
+
+  it("still opens the Tree-Nation popover from the leaf", async () => {
+    const user = userEvent.setup();
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    const button = screen.getByRole("button", {
+      name: /Certified by Tree-Nation/i,
+    });
+    await user.click(button);
+    expect(button).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  /* One rule for the motif: while a milestone is behind us, the leaf closes the
+     bar, rides the count and marks the hero badge. The bar itself stays teal. */
+  it("closes the progress bar with the gold leaf once a milestone is reached", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    const bar = screen.getByTestId("progress-bar");
+    const leaf = bar.querySelector('svg[data-icon="milestone-leaf"]');
+    expect(leaf).not.toBeNull();
+    expect(leaf).toHaveStyleRule("color", "var(--color-milestone)");
+    expect(bar.lastElementChild).toBe(leaf);
+  });
+
+  it("keeps the leaf at the end of the bar while climbing to the next milestone", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={250} />);
+    expect(
+      screen
+        .getByTestId("progress-bar")
+        .querySelector('svg[data-icon="milestone-leaf"]'),
+    ).not.toBeNull();
+    expect(screen.getByText("250 / 300 trees")).toBeInTheDocument();
+  });
+
+  it("shows no leaf on the bar before the first milestone", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={34} />);
+    expect(
+      screen
+        .getByTestId("progress-bar")
+        .querySelector('svg[data-icon="milestone-leaf"]'),
+    ).toBeNull();
+  });
+
+  it("sets the reached badge in gold", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    expect(screen.getByTestId("milestone-reached")).toHaveStyleRule(
+      "color",
+      "var(--color-milestone)",
+    );
+  });
+
+  it("keeps the plain check on the button before the first milestone", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={34} />);
+    const counter = screen.getByText("34").parentElement!;
+    expect(counter.querySelector('svg[data-icon="milestone-leaf"]')).toBeNull();
+    expect(counter.querySelector("svg.lucide-badge-check")).not.toBeNull();
+  });
+
+  it("takes the anniversary down with its own switch and leaves the milestone", () => {
+    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", false);
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    expect(
+      screen.queryByTestId("thailand-anniversary"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
+      "This Forest has reached 200 trees.",
+    );
+    expect(screen.getByText("200 / 200 trees")).toBeInTheDocument();
+    expect(screen.getByTestId("milestone-reached")).toHaveTextContent(
+      "200 trees reached",
+    );
+  });
+
+  /* The anniversary is said once in this card (beside the counter), not again
+     as a line under the button. */
+  it("says the anniversary once, beside the counter, without dating the Forest", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={179} />);
+    expect(screen.getAllByText("One year in Thailand")).toHaveLength(1);
+    expect(screen.getByTestId("thailand-anniversary")).toHaveTextContent(
+      "Oct 2025 — Oct 2026",
+    );
+    expect(screen.queryByText(/October 10, 2025/)).not.toBeInTheDocument();
     // The Forest began in May 2026; the label must keep saying so.
     expect(screen.getByText(defaultForest.treeCountLabel!)).toBeInTheDocument();
+  });
+
+  it("sets the anniversary title in the milestone gold under the counter", () => {
+    renderWithTheme(<Forest {...defaultForest} treeCount={200} />);
+    expect(screen.getByText("One year in Thailand")).toHaveStyleRule(
+      "color",
+      "var(--color-milestone)",
+    );
   });
 
   it("wins over the Contentful heading and body while active", () => {
@@ -979,10 +1201,10 @@ describe("Forest — 200-tree campaign", () => {
     expect(screen.queryByText("CMS body copy")).not.toBeInTheDocument();
     expect(screen.queryByText("CMS button")).not.toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Plant your feedback" }),
+      screen.getByRole("button", { name: "Keep the Forest growing" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
-      "Help this Forest reach 200 trees.",
+      "This Forest has reached 200 trees.",
     );
   });
 
@@ -1001,9 +1223,6 @@ describe("Forest — 200-tree campaign", () => {
     expect(
       screen.getByRole("button", { name: "CMS button" }),
     ).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("campaign-anniversary"),
-    ).not.toBeInTheDocument();
     expect(screen.getByText("179 / 200 trees")).toBeInTheDocument();
   });
 
@@ -1011,7 +1230,8 @@ describe("Forest — 200-tree campaign", () => {
     [179, "21 trees to go"],
     [181, "19 trees to go"],
     [199, "1 tree to go"],
-  ])("counts down at %i trees", (count, label) => {
+  ])("counts down at %i trees in countdown mode", (count, label) => {
+    jest.replaceProperty(FOREST_CAMPAIGN, "goalProgress", true);
     renderWithTheme(<Forest {...defaultForest} treeCount={count} />);
     expect(screen.getByText(`${count} / 200 trees`)).toBeInTheDocument();
     expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(label);
@@ -1029,8 +1249,9 @@ describe("Forest — 200-tree campaign", () => {
   });
 
   it.each([200, 205, 1_240])(
-    "shows the calm completed state at %i trees",
+    "shows the calm completed state at %i trees in countdown mode",
     (count) => {
+      jest.replaceProperty(FOREST_CAMPAIGN, "goalProgress", true);
       renderWithTheme(<Forest {...defaultForest} treeCount={count} />);
       expect(screen.getByText("200 / 200 trees")).toBeInTheDocument();
       expect(screen.queryByText(/\/ 300/)).not.toBeInTheDocument();
@@ -1060,26 +1281,32 @@ describe("Forest — 200-tree campaign", () => {
   });
 
   it("speaks Italian, with the right singular", () => {
+    jest.replaceProperty(FOREST_CAMPAIGN, "goalProgress", true);
     mockUseRouter.mockReturnValue({ locale: "it" });
     const { rerender } = renderWithTheme(
       <Forest {...defaultForest} treeCount={179} />,
     );
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
-      "Aiuta Forest a raggiungere 200 alberi.",
+      "Questa Forest ha raggiunto i 200 alberi.",
     );
     expect(
       screen.getByText(
-        "Da maggio, i feedback utili di chi esplora questo portfolio hanno contribuito a trasformare le conversazioni in alberi veri.",
+        "Grazie a chi, da maggio, ha contribuito con i propri feedback a trasformare le conversazioni in alberi veri.",
       ),
     ).toBeInTheDocument();
-    expect(screen.getByTestId("campaign-anniversary")).toHaveTextContent(
-      "Un anno in Thailandia · 10 ottobre 2025 → 10 ottobre 2026",
+    expect(
+      screen.getByText(
+        "La Forest continua a crescere: ogni contributo significativo può ancora dare forma al portfolio. I feedback della community fanno crescere due alberi veri — uno dedicato a te, uno che aggiungo io.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("thailand-anniversary")).toHaveTextContent(
+      "Un anno in Thailandia",
     );
     expect(screen.getByTestId("campaign-to-go")).toHaveTextContent(
       "Mancano 21 alberi",
     );
     expect(
-      screen.getByRole("button", { name: "Pianta il tuo feedback" }),
+      screen.getByRole("button", { name: "Fai crescere ancora la Forest" }),
     ).toBeInTheDocument();
     // Contentful's (English) label must not leak into the Italian campaign.
     expect(

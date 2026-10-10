@@ -133,9 +133,11 @@ export const cleanProps = (fields: TPageModule["fields"]) => {
 type ModuleMatrixProps = {
   data: TPageModule;
   pageOrigin: string;
+  /** Live Tree-Nation total, taken from the Forest module's data. */
+  treesPlanted?: number;
 };
 
-const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
+const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data, treesPlanted }) => {
   const { type, fields } = data;
 
   const propsComponent = cleanProps(fields);
@@ -153,7 +155,10 @@ const ModuleMatrix: React.FC<ModuleMatrixProps> = ({ data }) => {
       return <Forest {...(propsComponent as unknown as ForestProps)} />;
     case MODULES.HERO_PORTFOLIO:
       return (
-        <HeroPortfolio {...(propsComponent as unknown as HeroPortfolioProps)} />
+        <HeroPortfolio
+          {...(propsComponent as unknown as HeroPortfolioProps)}
+          treesPlanted={treesPlanted}
+        />
       );
     case MODULES.JOURNEY:
       return <Journey {...(propsComponent as unknown as JourneyProps)} />;
@@ -206,6 +211,7 @@ const ModuleRenderer: React.FC<ModuleRendererProps> = ({
             <ModuleMatrix
               data={componentData}
               pageOrigin={pageOrigin}
+              treesPlanted={totalTrees}
               {...rest}
             />
           )}
