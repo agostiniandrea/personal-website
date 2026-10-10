@@ -1,7 +1,7 @@
 /* Brand logo geometry, in a 1000-unit-high box. The lettering is outlined
    Space Grotesk (OFL), so the logo does not depend on any font being loaded. */
 
-export const BRAND_TEAL = "#306F6B";
+export const BRAND_TEAL = "#2F8A82";
 
 /* White W-and-leaf symbol that sits inside the teal circle. */
 export const MARK_PATH =
