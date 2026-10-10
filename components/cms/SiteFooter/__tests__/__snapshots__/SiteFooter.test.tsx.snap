@@ -130,8 +130,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 }
 
 .c10 {
-  transform: scale(0.9);
-  transform-origin: center center;
+  zoom: 0.75;
 }
 
 .c16 {
@@ -242,12 +241,6 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   .c15 {
     align-items: center;
     text-align: center;
-  }
-}
-
-@media (min-width: 900px) {
-  .c10 {
-    transform-origin: left center;
   }
 }
 
@@ -520,8 +513,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 }
 
 .c12 {
-  transform: scale(0.9);
-  transform-origin: center center;
+  zoom: 0.75;
 }
 
 .c21 {
@@ -638,12 +630,6 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   .c17 {
     align-items: center;
     text-align: center;
-  }
-}
-
-@media (min-width: 900px) {
-  .c12 {
-    transform-origin: left center;
   }
 }
 

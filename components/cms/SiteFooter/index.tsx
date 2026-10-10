@@ -151,13 +151,10 @@ const TaglineLine = styled.span`
   text-wrap: balance;
 `;
 
+/* Smaller than the Climate Action label. `zoom` rather than a transform, so the
+   box shrinks with the badge and the footer really takes less room. */
 const CarbonWrapper = styled.div`
-  transform: scale(0.9);
-  transform-origin: center center;
-
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    transform-origin: left center;
-  }
+  zoom: 0.75;
 `;
 
 const MetaCol = styled.div`
