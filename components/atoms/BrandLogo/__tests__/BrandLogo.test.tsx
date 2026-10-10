@@ -15,11 +15,15 @@ describe("BrandLogo", () => {
     expect(screen.getByTestId("brand-logo-lettering")).toBeInTheDocument();
   });
 
-  it("draws the lettering in the brand teal, like the circle", () => {
+  it("fills the lettering with the shine gradient", () => {
     render(<BrandLogo label="Andrea Agostini" />);
-    expect(screen.getByTestId("brand-logo-lettering")).toHaveAttribute(
-      "fill",
-      "#2F8A82",
+    const fill = screen
+      .getByTestId("brand-logo-lettering")
+      .getAttribute("fill");
+    expect(fill).toMatch(/^url\(#logo-shine-\w+\)$/);
+    const id = fill?.slice(5, -1) ?? "";
+    expect(document.getElementById(id)?.tagName.toLowerCase()).toBe(
+      "lineargradient",
     );
   });
 
@@ -35,9 +39,8 @@ describe("BrandLogo", () => {
     );
     expect(container.querySelector("circle")).toBeNull();
     expect(screen.queryByTestId("brand-logo-lettering")).toBeNull();
-    expect(screen.getByTestId("brand-logo-symbol")).toHaveAttribute(
-      "fill",
-      "#2F8A82",
-    );
+    expect(
+      screen.getByTestId("brand-logo-symbol").getAttribute("fill"),
+    ).toMatch(/^url\(#logo-shine-\w+\)$/);
   });
 });
