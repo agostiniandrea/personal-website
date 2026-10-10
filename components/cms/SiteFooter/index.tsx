@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import BrandLogo from "@components/atoms/BrandLogo";
 import { Container, Flex, Link, Text } from "@components/ions";
 import { CarbonBadge, TreeNationLabel } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
@@ -109,23 +110,12 @@ const BadgeCol = styled.div`
   }
 `;
 
-/* The Climate Action label is a credential, not a call to action: dimmed like
-   the carbon badge and back to full strength on hover/focus, where the official
-   widget shows its own hover state and link. Only the wrapper is styled; the
-   widget itself is untouched. */
-const Credential = styled(TreeNationLabel)`
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-
-  &:hover,
-  &:focus-within {
-    opacity: 1;
-  }
-`;
-
-/* Same 0.9 scale the carbon badge gets. `zoom` rather than a transform, so the
-   box shrinks with the label and leaves no empty strip under it. */
-const ClimateActionCredential = styled(Credential)`
+/* The Climate Action label is a credential, shown at full strength like the
+   carbon badge: dimmed, both read as switched off next to the teal logo. Only
+   the wrapper is styled; the widget itself is untouched. Same 0.9 scale the
+   carbon badge gets, as `zoom` rather than a transform, so the box shrinks with
+   the label and leaves no empty strip under it. */
+const ClimateActionCredential = styled(TreeNationLabel)`
   display: flex;
   zoom: 0.9;
 `;
@@ -142,6 +132,13 @@ const TaglineCol = styled.div`
   }
 `;
 
+/* Decorative here: the copyright line already names the owner. */
+const FooterLogo = styled(BrandLogo)`
+  display: block;
+  height: 2.5rem;
+  width: auto;
+`;
+
 const Tagline = styled(Text)`
   color: ${({ theme }) => theme.colors.paragraph};
   max-width: 36ch;
@@ -154,14 +151,10 @@ const TaglineLine = styled.span`
   text-wrap: balance;
 `;
 
+/* Smaller than the Climate Action label. `zoom` rather than a transform, so the
+   box shrinks with the badge and the footer really takes less room. */
 const CarbonWrapper = styled.div`
-  opacity: 0.7;
-  transform: scale(0.9);
-  transform-origin: center center;
-
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    transform-origin: left center;
-  }
+  zoom: 0.75;
 `;
 
 const MetaCol = styled.div`
@@ -224,6 +217,9 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </TaglineCol>
 
         <MetaCol>
+          <span aria-hidden="true">
+            <FooterLogo label={copyrightName} variant="symbol" />
+          </span>
           <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
             © {CURRENT_YEAR} {copyrightName}
           </Text>

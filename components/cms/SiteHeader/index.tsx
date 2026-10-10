@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
+import BrandLogo from "@components/atoms/BrandLogo";
 import { Container, Flex, Link } from "@components/ions";
 import { ThemeMenu } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
@@ -67,16 +68,19 @@ const HeaderRow = styled(Flex)`
 `;
 
 const Logo = styled(Link)`
-  color: ${({ theme }) => theme.colors.headline};
+  align-items: center;
   cursor: pointer;
-  font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  display: inline-flex;
   text-decoration: none;
+`;
+
+const LogoImage = styled(BrandLogo)`
+  display: block;
+  height: 2.75rem;
+  width: auto;
 
   @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
-    font-size: 18px;
-    white-space: nowrap;
+    height: 2.25rem;
   }
 `;
 
@@ -281,7 +285,7 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
         <Container>
           <HeaderRow justifyContent="space-between" alignItems="center">
             <Logo href="/" onClick={(e) => handleAnchorClick(e, "/")}>
-              {logoText}
+              <LogoImage label={logoText} />
             </Logo>
             <Flex alignItems="center" gap="2xl">
               <DesktopNav aria-label={t.mainNavigation}>

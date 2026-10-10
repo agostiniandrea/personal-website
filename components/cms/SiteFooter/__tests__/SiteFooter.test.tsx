@@ -78,6 +78,23 @@ describe("SiteFooter", () => {
     expect(climate.parentElement).not.toContainElement(tagline);
   });
 
+  it("shows the symbol on the right, above the copyright name, hidden from assistive tech", () => {
+    const { container } = renderWithTheme(
+      <SiteFooter {...defaultSiteFooter} />,
+    );
+    const logo = container.querySelector("svg");
+    const copyright = screen.getByText(/©/);
+    const tagline = screen.getByText(/one component at a time/i);
+
+    expect(logo).not.toBeNull();
+    expect(logo?.closest("[aria-hidden='true']")).not.toBeNull();
+    expect(screen.queryByRole("img", { name: /Agostini/i })).toBeNull();
+    expect(copyright.parentElement).toContainElement(logo as SVGSVGElement);
+    expect(tagline.parentElement).not.toContainElement(logo as SVGSVGElement);
+    const position = logo?.compareDocumentPosition(copyright) ?? 0;
+    expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("has no Tree Counter in the footer: only the Climate Action label", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
     const widgets = screen
