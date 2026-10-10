@@ -78,6 +78,20 @@ describe("SiteFooter", () => {
     expect(climate.parentElement).not.toContainElement(tagline);
   });
 
+  it("shows the logo in the centre column, above the tagline, hidden from assistive tech", () => {
+    const { container } = renderWithTheme(
+      <SiteFooter {...defaultSiteFooter} />,
+    );
+    const logo = container.querySelector("svg");
+    const tagline = screen.getByText(/one component at a time/i);
+
+    expect(logo).not.toBeNull();
+    expect(logo?.closest("[aria-hidden='true']")).not.toBeNull();
+    expect(screen.queryByRole("img", { name: /Agostini/i })).toBeNull();
+    const position = logo?.compareDocumentPosition(tagline) ?? 0;
+    expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("has no Tree Counter in the footer: only the Climate Action label", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
     const widgets = screen

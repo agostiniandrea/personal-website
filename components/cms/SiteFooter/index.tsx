@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import BrandLogo from "@components/atoms/BrandLogo";
 import { Container, Flex, Link, Text } from "@components/ions";
 import { CarbonBadge, TreeNationLabel } from "@components/molecules";
 import { toSpacing } from "@config/tokens";
@@ -142,6 +143,13 @@ const TaglineCol = styled.div`
   }
 `;
 
+/* Decorative here: the copyright line already names the owner. */
+const FooterLogo = styled(BrandLogo)`
+  display: block;
+  height: 2.5rem;
+  width: auto;
+`;
+
 const Tagline = styled(Text)`
   color: ${({ theme }) => theme.colors.paragraph};
   max-width: 36ch;
@@ -214,6 +222,9 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </BadgeCol>
 
         <TaglineCol>
+          <span aria-hidden="true">
+            <FooterLogo label={copyrightName} />
+          </span>
           {tagline && (
             <Tagline variant="small">
               {tagline.split("\n").map((line, i) => (
