@@ -43,4 +43,17 @@ describe("BrandLogo", () => {
       screen.getByTestId("brand-logo-symbol").getAttribute("fill"),
     ).toMatch(/^url\(#logo-shine-\w+\)$/);
   });
+
+  it("fills the disc with a gradient too, in every variant that has one", () => {
+    const { container, rerender } = render(
+      <BrandLogo label="Andrea Agostini" />,
+    );
+    expect(container.querySelector("circle")?.getAttribute("fill")).toMatch(
+      /^url\(#logo-disc-\w+\)$/,
+    );
+    rerender(<BrandLogo label="Andrea Agostini" variant="mark" />);
+    expect(container.querySelector("circle")?.getAttribute("fill")).toMatch(
+      /^url\(#logo-disc-\w+\)$/,
+    );
+  });
 });

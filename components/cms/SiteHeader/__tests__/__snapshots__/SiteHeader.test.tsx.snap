@@ -338,11 +338,27 @@ html:not([data-theme]) .c14[data-icon="system"] {
                   style="stop-color: var(--logo-shine-to, #379A90);"
                 />
               </lineargradient>
+              <lineargradient
+                id="logo-disc-_r_0_"
+                x1="0"
+                x2="1"
+                y1="1"
+                y2="0"
+              >
+                <stop
+                  offset="0"
+                  stop-color="#2A7F78"
+                />
+                <stop
+                  offset="1"
+                  stop-color="#379A90"
+                />
+              </lineargradient>
             </defs>
             <circle
               cx="500"
               cy="500"
-              fill="#2F8A82"
+              fill="url(#logo-disc-_r_0_)"
               r="500"
             />
             <path
@@ -842,11 +858,27 @@ html:not([data-theme]) .c13[data-icon="system"] {
                   style="stop-color: var(--logo-shine-to, #379A90);"
                 />
               </lineargradient>
+              <lineargradient
+                id="logo-disc-_r_1_"
+                x1="0"
+                x2="1"
+                y1="1"
+                y2="0"
+              >
+                <stop
+                  offset="0"
+                  stop-color="#2A7F78"
+                />
+                <stop
+                  offset="1"
+                  stop-color="#379A90"
+                />
+              </lineargradient>
             </defs>
             <circle
               cx="500"
               cy="500"
-              fill="#2F8A82"
+              fill="url(#logo-disc-_r_1_)"
               r="500"
             />
             <path

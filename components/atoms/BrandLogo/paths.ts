@@ -2,6 +2,10 @@
    Space Grotesk (OFL), so the logo does not depend on any font being loaded. */
 
 export const BRAND_TEAL = "#2F8A82";
+/* The disc is a shine gradient too, bottom-left to top-right. Both ends stay dark
+   enough to hold the white symbol (at least 3.4:1), on either theme. */
+export const DISC_FROM = "#2A7F78";
+export const DISC_TO = "#379A90";
 
 /* White W-and-leaf symbol that sits inside the teal circle. */
 export const MARK_PATH =
