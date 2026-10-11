@@ -796,10 +796,13 @@ describe("Forest", () => {
       });
     });
 
-    /* Unchanged on purpose: a request that did not succeed is still an error
-       and records nothing, including the duplicate-submission answer. */
+    /* A request that did not succeed is still an error and records nothing,
+       including the duplicate-submission answer. What changed is only the
+       wording: a 429 now says it is a cooldown instead of "something went
+       wrong" (see the failed-submissions block at the end of this file). */
     describe("when the submission itself is not accepted", () => {
       const ERROR = /Something went wrong/;
+      const COOLDOWN = /feedback from you has already been received/;
 
       afterEach(() => jest.restoreAllMocks());
 
@@ -808,7 +811,8 @@ describe("Forest", () => {
         fetchMock.mockResolvedValue({ ok: false, status: 429 });
         await submitFeedback();
 
-        expect(await screen.findByText(ERROR)).toBeInTheDocument();
+        expect(await screen.findByText(COOLDOWN)).toBeInTheDocument();
+        expect(screen.queryByText(ERROR)).not.toBeInTheDocument();
         expect(
           screen.queryByTestId("prolific-complete"),
         ).not.toBeInTheDocument();
@@ -1321,6 +1325,205 @@ describe("Forest — 200-tree campaign", () => {
     rerender(<Forest {...defaultForest} treeCount={200} />);
     expect(screen.getByTestId("campaign-reached")).toHaveTextContent(
       "200 alberi raggiunti.",
+    );
+  });
+});
+
+/* ---------------------------------------------------------------------------
+ * Failed submissions: the form says which kind of failure it was
+ * ------------------------------------------------------------------------- */
+
+describe("Forest feedback form — failed submissions", () => {
+  type Locale = "en" | "it";
+
+  const LABELS = {
+    en: {
+      next: /continue/i,
+      send: "Send",
+      textarea: "Your feedback",
+      back: /^back$/i,
+    },
+    it: {
+      next: /continua/i,
+      send: "Invia",
+      textarea: "Il tuo feedback",
+      back: /^indietro$/i,
+    },
+  } as const;
+
+  const GENERIC = {
+    en: /Something went wrong/,
+    it: /Qualcosa è andato storto/,
+  } as const;
+  const CONTENT = {
+    en: /I couldn't accept this message/,
+    it: /Non ho potuto accettare questo messaggio/,
+  } as const;
+  const COOLDOWN = {
+    en: /feedback from you has already been received recently/,
+    it: /ho già ricevuto un tuo feedback di recente/,
+  } as const;
+
+  let fetchMock: jest.Mock;
+
+  const respond = (status: number, body?: unknown) =>
+    fetchMock.mockResolvedValue({
+      ok: false,
+      status,
+      ...(body !== undefined && { json: async () => body }),
+    });
+
+  /* Walks the form to the last step and presses Send. */
+  const submitFeedback = async (locale: Locale = "en") => {
+    mockUseRouter.mockReturnValue({ locale });
+    const labels = LABELS[locale];
+    const user = userEvent.setup();
+    renderWithTheme(<Forest {...defaultForest} />);
+    await user.click(
+      screen.getByRole("button", { name: defaultForest.ctaButtonLabel }),
+    );
+    await user.click(screen.getByRole("button", { name: labels.next }));
+    await user.click(screen.getByRole("button", { name: "UX" }));
+    await user.click(screen.getByRole("button", { name: labels.next }));
+    await user.type(
+      screen.getByLabelText(labels.textarea),
+      "The navigation was clear enough to follow.",
+    );
+    await user.click(screen.getByRole("button", { name: labels.next }));
+    await user.click(screen.getByRole("button", { name: labels.send }));
+    return user;
+  };
+
+  beforeEach(() => {
+    mockUseRouter.mockReturnValue({ locale: "en" });
+    jest.replaceProperty(FOREST_CAMPAIGN, "enabled", false);
+    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", false);
+    sessionStorage.clear();
+    localStorage.clear();
+    fetchMock = jest.fn();
+    global.fetch = fetchMock as unknown as typeof fetch;
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it.each(["en", "it"] as const)(
+    "tells a visitor whose content was refused to edit it (%s)",
+    async (locale) => {
+      respond(400, {
+        error: "This message can't be accepted.",
+        code: "content_rejected",
+      });
+      await submitFeedback(locale);
+
+      const alert = await screen.findByRole("alert");
+      expect(alert).toHaveTextContent(CONTENT[locale]);
+      expect(alert).toHaveAttribute("data-error-kind", "content");
+      expect(screen.queryByText(GENERIC[locale])).not.toBeInTheDocument();
+      expect(screen.queryByText(COOLDOWN[locale])).not.toBeInTheDocument();
+    },
+  );
+
+  it.each(["en", "it"] as const)(
+    "tells a visitor who hit the cooldown to come back later (%s)",
+    async (locale) => {
+      respond(429, { error: "You've already submitted feedback recently." });
+      await submitFeedback(locale);
+
+      const alert = await screen.findByRole("alert");
+      expect(alert).toHaveTextContent(COOLDOWN[locale]);
+      expect(alert).toHaveAttribute("data-error-kind", "cooldown");
+      expect(screen.queryByText(GENERIC[locale])).not.toBeInTheDocument();
+      expect(screen.queryByText(CONTENT[locale])).not.toBeInTheDocument();
+    },
+  );
+
+  it("recognises a 429 whatever the body looks like", async () => {
+    respond(429);
+    await submitFeedback();
+
+    expect(await screen.findByText(COOLDOWN.en)).toBeInTheDocument();
+  });
+
+  it.each([
+    ["a server error", 500, { error: "Failed to save feedback" }],
+    ["a 400 that is not a content refusal", 400, { error: "Invalid email" }],
+    ["a 400 with no body", 400, undefined],
+    ["a misconfigured server", 500, undefined],
+  ])("keeps the generic message for %s", async (_label, status, body) => {
+    respond(status, body);
+    await submitFeedback();
+
+    const alert = await screen.findByRole("alert");
+    expect(alert).toHaveTextContent(GENERIC.en);
+    expect(alert).toHaveAttribute("data-error-kind", "generic");
+  });
+
+  it("keeps the generic message when the 400 body is not JSON", async () => {
+    fetchMock.mockResolvedValue({
+      ok: false,
+      status: 400,
+      json: async () => {
+        throw new SyntaxError("Unexpected token <");
+      },
+    });
+    await submitFeedback();
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(GENERIC.en);
+  });
+
+  it("keeps the generic message when the network fails", async () => {
+    fetchMock.mockRejectedValue(new Error("offline"));
+    await submitFeedback();
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(GENERIC.en);
+  });
+
+  it("never records a refused submission as sent", async () => {
+    respond(400, { error: "x", code: "content_rejected" });
+    await submitFeedback();
+    await screen.findByRole("alert");
+
+    expect(localStorage.getItem("forest-feedback-submitted")).toBeNull();
+    expect(screen.queryByText("Thank you.")).not.toBeInTheDocument();
+  });
+
+  it("clears the message when the visitor goes back to edit", async () => {
+    respond(400, { error: "x", code: "content_rejected" });
+    const user = await submitFeedback();
+    await screen.findByRole("alert");
+
+    await user.click(screen.getByRole("button", { name: LABELS.en.back }));
+
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("lets a corrected message go through afterwards", async () => {
+    respond(400, { error: "x", code: "content_rejected" });
+    const user = await submitFeedback();
+    await screen.findByRole("alert");
+
+    fetchMock.mockResolvedValue({ ok: true, status: 200 });
+    await user.click(screen.getByRole("button", { name: LABELS.en.send }));
+
+    expect(await screen.findByText("Thank you.")).toBeInTheDocument();
+  });
+
+  it("stops the message field at the length the API accepts", async () => {
+    mockUseRouter.mockReturnValue({ locale: "en" });
+    const user = userEvent.setup();
+    renderWithTheme(<Forest {...defaultForest} />);
+    await user.click(
+      screen.getByRole("button", { name: defaultForest.ctaButtonLabel }),
+    );
+    await user.click(screen.getByRole("button", { name: /continue/i }));
+    await user.click(screen.getByRole("button", { name: "UX" }));
+    await user.click(screen.getByRole("button", { name: /continue/i }));
+
+    expect(screen.getByLabelText("Your feedback")).toHaveAttribute(
+      "maxlength",
+      "2000",
     );
   });
 });
