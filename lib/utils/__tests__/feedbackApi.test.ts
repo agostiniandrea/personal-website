@@ -23,17 +23,23 @@ const queryBuilder = () => {
   return builder;
 };
 
+/* A spy in front of the fake, so a test can also assert that the handler never
+   even created a client (the content rules run before that). */
+const mockCreateClient = jest.fn();
+
 jest.mock("@supabase/supabase-js", () => ({
-  createClient: () => ({
-    from: () => ({
-      select: () => queryBuilder(),
-      insert: (row: Row) => {
-        inserted.push(row);
-        return Promise.resolve({ error: insertError });
-      },
-    }),
-  }),
+  createClient: (...args: unknown[]) => mockCreateClient(...args),
 }));
+
+const fakeClient = () => ({
+  from: () => ({
+    select: () => queryBuilder(),
+    insert: (row: Row) => {
+      inserted.push(row);
+      return Promise.resolve({ error: insertError });
+    },
+  }),
+});
 
 const MESSAGE = "The Forest section is clear and the page loads quickly.";
 
@@ -84,9 +90,12 @@ beforeEach(() => {
   inserted = [];
   recentCount = 0;
   insertError = null;
+  mockCreateClient.mockReset();
+  mockCreateClient.mockImplementation(() => fakeClient());
   process.env.SUPABASE_URL = "https://example.supabase.co";
   process.env.SUPABASE_SERVICE_ROLE_KEY = "test-key";
   jest.spyOn(console, "error").mockImplementation(() => undefined);
+  jest.spyOn(console, "warn").mockImplementation(() => undefined);
 });
 
 afterEach(() => {
@@ -308,5 +317,342 @@ describe("/api/feedback — existing behaviour", () => {
 
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.revalidate).not.toHaveBeenCalled();
+  });
+});
+
+/* ---------------------------------------------------------------------------
+ * Content rules and limits
+ * ------------------------------------------------------------------------- */
+
+const REFUSED = {
+  error: "This message can't be accepted.",
+  code: "content_rejected",
+};
+
+/* One clearly abusive message per rule. Every one must get the same answer. */
+const ABUSIVE_BY_RULE: [string, string][] = [
+  ["slur", "this faggot website is trash and so are you"],
+  ["threat", "I will kill you if you do not take this site down"],
+  ["sexual abuse", "send nudes and then I will tell you what I think"],
+  [
+    "directed abuse",
+    "easily vibecoded 5 mins shit, it looks like an ai slop and im sick of it, at least put in some effort u dumbfuck",
+  ],
+  [
+    "link spam",
+    "buy now a.com/x b.com/y c.com/z d.com/w and more at www.e.com/deals",
+  ],
+  ["personal hostility (you suck)", "the layout is slow and honestly you suck"],
+  ["personal hostility (I hate you)", "I hate you so much, delete this site"],
+  ["personal hostility (clause)", "I hate you, honestly. The menu is fine."],
+];
+
+const loggedText = () =>
+  [console.warn, console.error, console.log, console.info]
+    .flatMap((fn) => (fn as jest.Mock).mock?.calls ?? [])
+    .map((args: unknown[]) => args.map(String).join(" "))
+    .join("\n");
+
+describe("/api/feedback — content rules", () => {
+  it.each(ABUSIVE_BY_RULE)(
+    "refuses a %s message with the one generic 400 and stores nothing",
+    async (_rule, message) => {
+      const res = await post({ message });
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(REFUSED);
+      expect(inserted).toHaveLength(0);
+      expect(res.revalidate).not.toHaveBeenCalled();
+    },
+  );
+
+  it("refuses before any Supabase client exists, any query runs or the cooldown is touched", async () => {
+    recentCount = 1;
+    delete process.env.SUPABASE_URL;
+    delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    const res = await post({ message: ABUSIVE_BY_RULE[3][1] });
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.status).not.toHaveBeenCalledWith(429);
+    expect(res.status).not.toHaveBeenCalledWith(500);
+    expect(mockCreateClient).not.toHaveBeenCalled();
+  });
+
+  it("applies the same rules to a study participant", async () => {
+    const res = await post({
+      prolific: PROLIFIC,
+      message: ABUSIVE_BY_RULE[0][1],
+    });
+
+    expect(res.json).toHaveBeenCalledWith(REFUSED);
+    expect(inserted).toHaveLength(0);
+    expect(mockCreateClient).not.toHaveBeenCalled();
+  });
+
+  it("refuses abuse in the name, not only in the message", async () => {
+    const res = await post({ name: "I will kill you" });
+
+    expect(res.json).toHaveBeenCalledWith(REFUSED);
+    expect(inserted).toHaveLength(0);
+  });
+
+  it("still lets the honeypot win: a bot gets its silent success, nothing is stored", async () => {
+    const res = await post({ _hp: "bot", message: ABUSIVE_BY_RULE[0][1] });
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(inserted).toHaveLength(0);
+  });
+
+  it("never echoes the matched text and never logs the message", async () => {
+    const MARKER = "zq7marker";
+    const SLUR = "faggot";
+    const res = await post({
+      message: `${MARKER} you ${SLUR} I will kill you ${MARKER}`,
+      name: `Name${MARKER}`,
+    });
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    const answered = JSON.stringify((res.json as jest.Mock).mock.calls);
+    for (const text of [MARKER, SLUR, "kill"]) {
+      expect(answered).not.toContain(text);
+      expect(loggedText()).not.toContain(text);
+    }
+    // A reason code is all the log carries.
+    expect(loggedText()).toMatch(/refused by content rules: (slur|threat)/);
+  });
+
+  it.each([
+    "this navigation sucks and the menu does not open",
+    "I hate this navigation, it hides the projects page",
+    "How do you suck the colour out of this image in CSS?",
+  ])(
+    "accepts criticism and technical questions that use the same verbs: %s",
+    async (message) => {
+      const res = await post({ message });
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(lastRow().message).toBe(message);
+    },
+  );
+
+  it("accepts harsh but constructive criticism untouched", async () => {
+    const message =
+      "easily vibecoded in 5 mins, it looks like ai slop and im sick of it, at least put in some effort";
+    const res = await post({ message });
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(lastRow().message).toBe(message);
+    expect(loggedText()).not.toContain("moderation flag");
+  });
+
+  describe("profanity that is not abuse", () => {
+    const SWEARING = "The contrast is shit and the navigation is slow.";
+
+    it("is stored as an ordinary pending community submission", async () => {
+      const res = await post({ message: SWEARING });
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(lastRow()).toMatchObject({
+        message: SWEARING,
+        source: "community",
+      });
+      /* No status, no trees: the database defaults ('pending', 0) apply, as
+         for every submission. The flag approves nothing and rewards nothing. */
+      expect(lastRow()).not.toHaveProperty("status");
+      expect(lastRow()).not.toHaveProperty("trees_planted");
+    });
+
+    it("keeps attribution, revalidation and the cooldown exactly as before", async () => {
+      const res = await post({ message: SWEARING, attribution: REDDIT });
+
+      expect(lastRow().attribution_source).toBe("reddit");
+      expect(res.revalidate).toHaveBeenCalledWith("/");
+      expect(res.revalidate).toHaveBeenCalledWith("/it");
+
+      recentCount = 1;
+      const again = await post({ message: SWEARING });
+      expect(again.status).toHaveBeenCalledWith(429);
+    });
+
+    it("keeps study identifiers and the no-revalidation rule for a participant", async () => {
+      const res = await post({ message: SWEARING, prolific: PROLIFIC });
+
+      expect(lastRow()).toMatchObject({
+        source: "usability_study",
+        prolific_session_id: PROLIFIC.sessionId,
+      });
+      expect(res.revalidate).not.toHaveBeenCalled();
+    });
+
+    it("notes the flag by reason code only, once the row is stored", async () => {
+      await post({ message: SWEARING });
+
+      expect(loggedText()).toContain(
+        "stored with a moderation flag: profanity",
+      );
+      expect(loggedText()).not.toContain("contrast");
+    });
+
+    it("does not note a flag for a submission that was not stored", async () => {
+      insertError = { message: "boom" };
+      await post({ message: SWEARING });
+
+      expect(loggedText()).not.toContain("moderation flag");
+    });
+  });
+});
+
+describe("/api/feedback — limits", () => {
+  const url = (prefix: string, length: number) =>
+    prefix + "a".repeat(length - prefix.length);
+
+  it("accepts a message of exactly 2000 characters and refuses 2001", async () => {
+    expect(
+      (await post({ message: "x".repeat(2000) })).status,
+    ).toHaveBeenCalledWith(200);
+
+    const tooLong = await post({ message: "x".repeat(2001) });
+    expect(tooLong.status).toHaveBeenCalledWith(400);
+    expect(tooLong.json).toHaveBeenCalledWith({ error: "Message is too long" });
+    expect(inserted).toHaveLength(1);
+  });
+
+  it("measures the message after trimming, as the minimum does", async () => {
+    const res = await post({ message: `   ${"x".repeat(2000)}   ` });
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(lastRow().message).toBe("x".repeat(2000));
+  });
+
+  it("keeps the existing 100-character name limit", async () => {
+    expect((await post({ name: "n".repeat(100) })).status).toHaveBeenCalledWith(
+      200,
+    );
+    const res = await post({ name: "n".repeat(101) });
+    expect(res.json).toHaveBeenCalledWith({ error: "Invalid name" });
+  });
+
+  it("limits an e-mail address to 254 characters", async () => {
+    const at = (length: number) => `${"a".repeat(length - 6)}@a.com`;
+
+    expect((await post({ email: at(254) })).status).toHaveBeenCalledWith(200);
+    const res = await post({ email: at(255) });
+    expect(res.json).toHaveBeenCalledWith({ error: "Invalid email" });
+  });
+
+  it("limits each optional link to 2048 characters", async () => {
+    const linkedin = "https://www.linkedin.com/in/";
+    const github = "https://github.com/";
+    const website = "https://example.com/";
+
+    expect(
+      (await post({ linkedin: url(linkedin, 2048) })).status,
+    ).toHaveBeenCalledWith(200);
+    expect(
+      (await post({ github: url(github, 2048) })).status,
+    ).toHaveBeenCalledWith(200);
+    expect(
+      (await post({ website: url(website, 2048) })).status,
+    ).toHaveBeenCalledWith(200);
+
+    expect(
+      (await post({ linkedin: url(linkedin, 2049) })).json,
+    ).toHaveBeenCalledWith({
+      error: "Invalid LinkedIn URL",
+    });
+    expect(
+      (await post({ github: url(github, 2049) })).json,
+    ).toHaveBeenCalledWith({
+      error: "Invalid GitHub URL",
+    });
+    expect(
+      (await post({ website: url(website, 2049) })).json,
+    ).toHaveBeenCalledWith({
+      error: "Invalid website URL",
+    });
+  });
+});
+
+describe("/api/feedback — malformed requests", () => {
+  const rawPost = async (body: unknown) => {
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+      revalidate: jest.fn().mockResolvedValue(undefined),
+    };
+    await handler(
+      {
+        method: "POST",
+        body,
+        headers: {},
+        socket: { remoteAddress: "203.0.113.7" },
+      } as unknown as NextApiRequest,
+      res as unknown as NextApiResponse,
+    );
+    return res;
+  };
+
+  it.each([undefined, null, "just a string", 42, []])(
+    "answers 400 for a body of %p",
+    async (body) => {
+      const res = await rawPost(body);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(inserted).toHaveLength(0);
+    },
+  );
+
+  it.each([
+    ["an array", ["I will kill you"]],
+    ["a number", 1e30],
+    ["an object", { toString: () => "I will kill you" }],
+  ])(
+    "treats a message that is %s as too short, never as text",
+    async (_t, message) => {
+      const res = await rawPost({ category: "UX", message });
+
+      expect(res.json).toHaveBeenCalledWith({ error: "Message is too short" });
+      expect(inserted).toHaveLength(0);
+    },
+  );
+
+  it.each([{ first: "Ada" }, ["Ada"], 7, true])(
+    "refuses a non-text name: %p",
+    async (name) => {
+      const res = await rawPost({ category: "UX", message: MESSAGE, name });
+
+      expect(res.json).toHaveBeenCalledWith({ error: "Invalid name" });
+      expect(inserted).toHaveLength(0);
+    },
+  );
+
+  it.each([
+    ["email", { a: 1 }],
+    ["email", ["a@b.co"]],
+    ["website", { a: 1 }],
+    ["linkedin", 5],
+    ["github", []],
+  ])("refuses a non-text %s", async (field, value) => {
+    const res = await rawPost({
+      category: "UX",
+      message: MESSAGE,
+      [field]: value,
+    });
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(inserted).toHaveLength(0);
+  });
+
+  it("does not let a malformed attribution or study object break moderation", async () => {
+    const res = await rawPost({
+      category: "UX",
+      message: MESSAGE,
+      attribution: "utm_source=reddit",
+      prolific: 7,
+    });
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(lastRow().source).toBe("community");
   });
 });

@@ -2,8 +2,16 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { createClient } from "@supabase/supabase-js";
 
-import { FEEDBACK_MESSAGE_MIN_LENGTH } from "@constants";
+import {
+  FEEDBACK_CONTENT_REJECTED_CODE,
+  FEEDBACK_EMAIL_MAX_LENGTH,
+  FEEDBACK_MESSAGE_MAX_LENGTH,
+  FEEDBACK_MESSAGE_MIN_LENGTH,
+  FEEDBACK_NAME_MAX_LENGTH,
+  FEEDBACK_URL_MAX_LENGTH,
+} from "@constants";
 import { sanitizeAttribution } from "@lib/utils/attribution";
+import { moderateFeedback } from "@lib/utils/feedbackModeration";
 import { isValidProlificId, ProlificSession } from "@lib/utils/prolific";
 
 const ALLOWED_CATEGORIES = [
@@ -24,7 +32,9 @@ const COOLDOWN_HOURS = 24;
    NAT, so it can never be what blocks a participant. */
 const STUDY_SUBMISSIONS_PER_IP = 10;
 
-type Response = { success: true } | { error: string };
+/* `code` is only set when the form needs to tell failures apart. Today that is
+   one: a submission the content rules refuse. It names no rule and no term. */
+type Response = { success: true } | { error: string; code?: string };
 
 function getIp(req: NextApiRequest): string {
   const forwarded = req.headers["x-forwarded-for"];
@@ -83,11 +93,15 @@ export default async function handler(
     return res.status(400).json({ error: "Message is too short" });
   }
 
+  if (message.trim().length > FEEDBACK_MESSAGE_MAX_LENGTH) {
+    return res.status(400).json({ error: "Message is too long" });
+  }
+
   if (
     name !== undefined &&
     name !== null &&
     name !== "" &&
-    (typeof name !== "string" || name.length > 100)
+    (typeof name !== "string" || name.length > FEEDBACK_NAME_MAX_LENGTH)
   ) {
     return res.status(400).json({ error: "Invalid name" });
   }
@@ -95,6 +109,7 @@ export default async function handler(
   if (email !== undefined && email !== null && email !== "") {
     if (
       typeof email !== "string" ||
+      email.length > FEEDBACK_EMAIL_MAX_LENGTH ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     ) {
       return res.status(400).json({ error: "Invalid email" });
@@ -104,6 +119,7 @@ export default async function handler(
   if (linkedin !== undefined && linkedin !== null && linkedin !== "") {
     if (
       typeof linkedin !== "string" ||
+      linkedin.length > FEEDBACK_URL_MAX_LENGTH ||
       !/^https?:\/\/(www\.)?linkedin\.com\//.test(linkedin)
     ) {
       return res.status(400).json({ error: "Invalid LinkedIn URL" });
@@ -113,6 +129,7 @@ export default async function handler(
   if (github !== undefined && github !== null && github !== "") {
     if (
       typeof github !== "string" ||
+      github.length > FEEDBACK_URL_MAX_LENGTH ||
       !/^https?:\/\/(www\.)?github\.com\//.test(github)
     ) {
       return res.status(400).json({ error: "Invalid GitHub URL" });
@@ -121,12 +138,35 @@ export default async function handler(
 
   if (website !== undefined && website !== null && website !== "") {
     try {
+      if (
+        typeof website !== "string" ||
+        website.length > FEEDBACK_URL_MAX_LENGTH
+      ) {
+        throw new Error();
+      }
       const url = new URL(website);
       if (url.protocol !== "http:" && url.protocol !== "https:")
         throw new Error();
     } catch {
       return res.status(400).json({ error: "Invalid website URL" });
     }
+  }
+
+  /* Content rules run after every shape check above and before anything that
+     costs a database call: an abusive request creates no client, spends no
+     cooldown, writes no row and triggers no revalidation. Study participants
+     go through the same rules, so this precedes the Prolific branch.
+
+     The answer is deliberately the same for every rule and says nothing about
+     which one matched, and neither the response nor the logs carry any of the
+     text: only a reason code. */
+  const verdict = moderateFeedback({ message, name });
+  if (verdict.action === "block") {
+    console.warn(`Feedback refused by content rules: ${verdict.reason}`);
+    return res.status(400).json({
+      error: "This message can't be accepted.",
+      code: FEEDBACK_CONTENT_REJECTED_CODE,
+    });
   }
 
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -237,6 +277,16 @@ export default async function handler(
   if (error) {
     console.error("Supabase insert error:", error.message);
     return res.status(500).json({ error: "Failed to save feedback" });
+  }
+
+  /* Profanity that is not aimed at anyone is accepted exactly like any other
+     submission: stored as `pending` (the insert above sets no status), not
+     approved, not rewarded. There is no column to record the flag in, so it is
+     noted here, by reason code only, for whoever reviews the new row. */
+  if (verdict.action === "flag") {
+    console.warn(
+      `Feedback stored with a moderation flag: ${verdict.reasons.join(", ")}`,
+    );
   }
 
   /* Study submissions move none of the published figures, so there is nothing
