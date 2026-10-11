@@ -7,7 +7,15 @@ import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { LeafIcon, TreeIcon } from "@components/molecules";
-import { BREAKPOINTS, FEEDBACK_MESSAGE_MIN_LENGTH } from "@constants";
+import {
+  BREAKPOINTS,
+  FEEDBACK_CONTENT_REJECTED_CODE,
+  FEEDBACK_EMAIL_MAX_LENGTH,
+  FEEDBACK_MESSAGE_MAX_LENGTH,
+  FEEDBACK_MESSAGE_MIN_LENGTH,
+  FEEDBACK_NAME_MAX_LENGTH,
+  FEEDBACK_URL_MAX_LENGTH,
+} from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { getAttribution } from "@lib/utils/attribution";
 import {
@@ -43,6 +51,10 @@ const copy = {
     publicAck: "I'm happy to be credited publicly for this suggestion.",
     errorMsg:
       "Something went wrong. Try again or email me directly at a.agostini92@gmail.com",
+    errorContentMsg:
+      "I couldn't accept this message. Please keep feedback respectful: go back, edit your message or name, and try again.",
+    errorCooldownMsg:
+      "Thank you, feedback from you has already been received recently. You can send more in 24 hours.",
     sending: "Sending…",
     send: "Send",
     continue: "Continue",
@@ -85,6 +97,10 @@ const copy = {
       "Sono felice di essere citato pubblicamente per questo suggerimento.",
     errorMsg:
       "Qualcosa è andato storto. Riprova oppure scrivimi a a.agostini92@gmail.com",
+    errorContentMsg:
+      "Non ho potuto accettare questo messaggio. Mantieni un tono rispettoso: torna indietro, modifica il messaggio o il nome e riprova.",
+    errorCooldownMsg:
+      "Grazie, ho già ricevuto un tuo feedback di recente. Potrai inviarne un altro tra 24 ore.",
     sending: "Invio in corso…",
     send: "Invia",
     continue: "Continua",
@@ -106,27 +122,31 @@ const copy = {
 
 function validateName(v: string): string | null {
   if (!v) return null;
-  if (v.length > 100) return "errName";
+  if (v.length > FEEDBACK_NAME_MAX_LENGTH) return "errName";
   return null;
 }
 
 function validateEmail(v: string): string | null {
   if (!v) return null;
+  if (v.length > FEEDBACK_EMAIL_MAX_LENGTH) return "errEmail";
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "errEmail";
 }
 
 function validateLinkedin(v: string): string | null {
   if (!v) return null;
+  if (v.length > FEEDBACK_URL_MAX_LENGTH) return "errLinkedin";
   return /^https?:\/\/(www\.)?linkedin\.com\//.test(v) ? null : "errLinkedin";
 }
 
 function validateGithub(v: string): string | null {
   if (!v) return null;
+  if (v.length > FEEDBACK_URL_MAX_LENGTH) return "errGithub";
   return /^https?:\/\/(www\.)?github\.com\//.test(v) ? null : "errGithub";
 }
 
 function validateWebsite(v: string): string | null {
   if (!v) return null;
+  if (v.length > FEEDBACK_URL_MAX_LENGTH) return "errWebsite";
   try {
     const url = new URL(v);
     return url.protocol === "http:" || url.protocol === "https:"
@@ -160,6 +180,30 @@ function hasFieldErrors(errors: FieldErrors): boolean {
 }
 
 type Step = 1 | 2 | 3 | 4 | 5;
+
+/* Why a submission did not go through, as far as the visitor can act on it:
+   the content rules refused it (they can edit it), the 24h cooldown or study
+   duplicate check did (nothing to edit, try later), or anything else. */
+type SubmitError = "generic" | "content" | "cooldown";
+
+const SUBMIT_ERROR_COPY = {
+  generic: "errorMsg",
+  content: "errorContentMsg",
+  cooldown: "errorCooldownMsg",
+} as const;
+
+async function classifyFailure(res: Response): Promise<SubmitError> {
+  if (res.status === 429) return "cooldown";
+  if (res.status === 400) {
+    try {
+      const body = await res.json();
+      if (body?.code === FEEDBACK_CONTENT_REJECTED_CODE) return "content";
+    } catch {
+      /* Not JSON: it is just a failed request. */
+    }
+  }
+  return "generic";
+}
 
 type FeedbackCategory =
   | "UX"
@@ -630,7 +674,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
   const [data, setData] = useState<FeedbackData>(EMPTY);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<SubmitError | null>(null);
   const [mounted, setMounted] = useState(false);
   /* Set only for a recruited study participant, and only once their feedback
      is safely stored — it is their way back to Prolific to be paid. Null for
@@ -729,7 +773,10 @@ export const ForestModal: React.FC<ForestModalProps> = ({
               : data,
         ),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        setError(await classifyFailure(res));
+        return;
+      }
       trackEvent("feedback_submitted", {
         feedback_category: data.category,
         locale: locale ?? "en",
@@ -742,7 +789,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
       if (prolific) setCompletionUrl(getProlificCompletionUrl());
       setStep(5);
     } catch {
-      setError(t.errorMsg);
+      setError("generic");
     } finally {
       setSubmitting(false);
     }
@@ -830,6 +877,7 @@ export const ForestModal: React.FC<ForestModalProps> = ({
                 setData((d) => ({ ...d, message: e.target.value }))
               }
               aria-label={t.s3FieldAriaLabel}
+              maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
               autoFocus
             />
             <BtnRow>
@@ -972,7 +1020,11 @@ export const ForestModal: React.FC<ForestModalProps> = ({
               />
               <CheckboxText>{t.publicAck}</CheckboxText>
             </CheckboxRow>
-            {error && <ErrorMsg role="alert">{t.errorMsg}</ErrorMsg>}
+            {error && (
+              <ErrorMsg role="alert" data-error-kind={error}>
+                {t[SUBMIT_ERROR_COPY[error]]}
+              </ErrorMsg>
+            )}
             <BtnRow>
               <BackBtn onClick={back} type="button">
                 {backLabel}
