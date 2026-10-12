@@ -329,8 +329,10 @@ const REFUSED = {
   code: "content_rejected",
 };
 
-/* One clearly abusive message per rule. Every one must get the same answer. */
-const ABUSIVE_BY_RULE: [string, string][] = [
+/* One refused message per rule. Every one must get the same answer, and none
+   of them may reach Supabase. Each is at least the minimum message length, so
+   the content rules, not the length check, are what refuse them. */
+const PROHIBITED: [string, string][] = [
   ["slur", "this faggot website is trash and so are you"],
   ["threat", "I will kill you if you do not take this site down"],
   ["sexual abuse", "send nudes and then I will tell you what I think"],
@@ -342,9 +344,26 @@ const ABUSIVE_BY_RULE: [string, string][] = [
     "link spam",
     "buy now a.com/x b.com/y c.com/z d.com/w and more at www.e.com/deals",
   ],
-  ["personal hostility (you suck)", "the layout is slow and honestly you suck"],
-  ["personal hostility (I hate you)", "I hate you so much, delete this site"],
-  ["personal hostility (clause)", "I hate you, honestly. The menu is fine."],
+  ["hostility (you suck)", "the layout is slow and honestly you suck"],
+  ["hostility (I hate you)", "I hate you so much, delete this site"],
+  ["hostility (with a passion)", "I hate you with a passion, honestly"],
+  ["hostility (have no talent)", "I hate you have no talent at all"],
+  ["hostility (are a liar)", "I hate you are a liar and a fraud"],
+  ["hostility (can't design)", "I hate you can't design anything"],
+  ["the vulgar verb, spaced out", "the menu is slow and this s u c k s"],
+  ["hostility (ti odio)", "ti odio e odio questo sito"],
+  ["hostility (fai schifo)", "fai schifo come sviluppatore"],
+  ["profanity", "fuck, this looks amazing"],
+  ["insult", "this design is stupid and slow"],
+  ["Italian insults only", "stupido fuck coglione"],
+  ["Italian vulgarity", "questa navigazione fa schifo"],
+  ["the colloquial verb", "this navigation sucks and the menu is slow"],
+  ["the colloquial verb, run-on", "this sucks the loading is slow today"],
+  ["suck up without a physical object", "this website sucks up my time"],
+  ["a spaced-out word", "the menu is s t u p i d and the loading is slow"],
+  ["Italian blasphemy", "porco dio che lentezza il caricamento"],
+  ["a negated insult", "I am not an idiot but the form is confusing"],
+  ["an obfuscated word", "the f*cking menu does not open on mobile"],
 ];
 
 const loggedText = () =>
@@ -354,24 +373,40 @@ const loggedText = () =>
     .join("\n");
 
 describe("/api/feedback — content rules", () => {
-  it.each(ABUSIVE_BY_RULE)(
-    "refuses a %s message with the one generic 400 and stores nothing",
+  it.each(PROHIBITED)(
+    "refuses %s with the one generic 400 and stores nothing",
     async (_rule, message) => {
       const res = await post({ message });
 
       expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledTimes(1);
       expect(res.json).toHaveBeenCalledWith(REFUSED);
       expect(inserted).toHaveLength(0);
       expect(res.revalidate).not.toHaveBeenCalled();
+      expect(mockCreateClient).not.toHaveBeenCalled();
     },
   );
+
+  it("gives every rule exactly the same answer, so none can be told apart", async () => {
+    const answers = new Set<string>();
+    for (const [, message] of PROHIBITED) {
+      const res = await post({ message });
+      answers.add(
+        JSON.stringify([
+          (res.status as jest.Mock).mock.calls,
+          (res.json as jest.Mock).mock.calls,
+        ]),
+      );
+    }
+    expect(answers.size).toBe(1);
+  });
 
   it("refuses before any Supabase client exists, any query runs or the cooldown is touched", async () => {
     recentCount = 1;
     delete process.env.SUPABASE_URL;
     delete process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    const res = await post({ message: ABUSIVE_BY_RULE[3][1] });
+    const res = await post({ message: "stupido fuck coglione" });
 
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.status).not.toHaveBeenCalledWith(429);
@@ -379,104 +414,195 @@ describe("/api/feedback — content rules", () => {
     expect(mockCreateClient).not.toHaveBeenCalled();
   });
 
-  it("applies the same rules to a study participant", async () => {
+  it("spends no cooldown: a refused message does not stop the next clean one", async () => {
+    await post({ message: "fuck, this looks amazing" });
+    const res = await post({ message: MESSAGE });
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(inserted).toHaveLength(1);
+    expect(lastRow().message).toBe(MESSAGE);
+  });
+
+  it("runs after field validation: a malformed request still gets its own answer", async () => {
     const res = await post({
-      prolific: PROLIFIC,
-      message: ABUSIVE_BY_RULE[0][1],
+      category: "Nope",
+      message: "fuck, this looks amazing",
     });
 
-    expect(res.json).toHaveBeenCalledWith(REFUSED);
-    expect(inserted).toHaveLength(0);
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).not.toHaveBeenCalledWith(REFUSED);
     expect(mockCreateClient).not.toHaveBeenCalled();
   });
 
-  it("refuses abuse in the name, not only in the message", async () => {
-    const res = await post({ name: "I will kill you" });
+  describe("study participants", () => {
+    it.each(PROHIBITED)(
+      "get the same refusal for %s, with nothing stored",
+      async (_rule, message) => {
+        const res = await post({ prolific: PROLIFIC, message });
 
-    expect(res.json).toHaveBeenCalledWith(REFUSED);
-    expect(inserted).toHaveLength(0);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith(REFUSED);
+        expect(inserted).toHaveLength(0);
+        expect(res.revalidate).not.toHaveBeenCalled();
+        expect(mockCreateClient).not.toHaveBeenCalled();
+      },
+    );
+
+    it("are refused for a name as well", async () => {
+      const res = await post({ prolific: PROLIFIC, name: "stupido" });
+
+      expect(res.json).toHaveBeenCalledWith(REFUSED);
+      expect(inserted).toHaveLength(0);
+    });
+
+    it("keep their one submission after a refusal: the next clean one is stored", async () => {
+      await post({ prolific: PROLIFIC, message: "fuck, this looks amazing" });
+      const res = await post({ prolific: PROLIFIC });
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(lastRow()).toMatchObject({
+        source: "usability_study",
+        prolific_session_id: PROLIFIC.sessionId,
+      });
+      expect(res.revalidate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("the name field", () => {
+    it.each([
+      "stupido",
+      "fuck",
+      "Ti odio",
+      "dickhead",
+      "I will kill you",
+      "f*ck",
+      "porco dio",
+      "Dick Head",
+      "Cock Sucker",
+      "D*ck Head",
+      "D1ck",
+      "d i c k",
+      "Dick Dick",
+      "Big Dick",
+      "Dick Pic",
+    ])("refuses '%s' even with a clean message", async (name) => {
+      const res = await post({ name });
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(REFUSED);
+      expect(inserted).toHaveLength(0);
+      expect(mockCreateClient).not.toHaveBeenCalled();
+    });
+
+    it.each(["Dick Smith", "Troia", "Kike", "Andrea Agostini"])(
+      "stores the real name '%s'",
+      async (name) => {
+        const res = await post({ name });
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(lastRow().name).toBe(name);
+      },
+    );
+
+    it("still refuses the message when the name is fine", async () => {
+      const res = await post({
+        name: "Andrea",
+        message: "stupido fuck coglione",
+      });
+
+      expect(res.json).toHaveBeenCalledWith(REFUSED);
+      expect(inserted).toHaveLength(0);
+    });
   });
 
   it("still lets the honeypot win: a bot gets its silent success, nothing is stored", async () => {
-    const res = await post({ _hp: "bot", message: ABUSIVE_BY_RULE[0][1] });
+    const res = await post({ _hp: "bot", message: PROHIBITED[0][1] });
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(inserted).toHaveLength(0);
   });
 
-  it("never echoes the matched text and never logs the message", async () => {
+  it("never echoes the matched text and never logs the message or the name", async () => {
     const MARKER = "zq7marker";
-    const SLUR = "faggot";
     const res = await post({
-      message: `${MARKER} you ${SLUR} I will kill you ${MARKER}`,
-      name: `Name${MARKER}`,
+      message: `${MARKER} stupido fuck coglione faggot I will kill you ${MARKER}`,
+      name: `Name${MARKER} shithead`,
     });
 
     expect(res.status).toHaveBeenCalledWith(400);
     const answered = JSON.stringify((res.json as jest.Mock).mock.calls);
-    for (const text of [MARKER, SLUR, "kill"]) {
+    for (const text of [
+      MARKER,
+      "stupido",
+      "fuck",
+      "coglione",
+      "faggot",
+      "kill",
+    ]) {
       expect(answered).not.toContain(text);
       expect(loggedText()).not.toContain(text);
     }
-    // A reason code is all the log carries.
-    expect(loggedText()).toMatch(/refused by content rules: (slur|threat)/);
+    expect(loggedText()).not.toContain("shithead");
+    /* A coarse category code is all the log carries. */
+    expect(loggedText().trim()).toMatch(
+      /^Feedback refused by content rules: (slur|threat|sexual_abuse|directed_abuse|link_spam|profanity)$/,
+    );
   });
 
-  it.each([
-    "this navigation sucks and the menu does not open",
-    "I hate this navigation, it hides the projects page",
-    "How do you suck the colour out of this image in CSS?",
-  ])(
-    "accepts criticism and technical questions that use the same verbs: %s",
-    async (message) => {
+  it("logs nothing about content for a submission it accepts", async () => {
+    await post({
+      message: "The navigation is slow and the contrast is terrible.",
+    });
+
+    expect(loggedText()).not.toContain("content rules");
+    expect(loggedText()).not.toContain("moderation");
+  });
+
+  describe("strong criticism without prohibited language is accepted untouched", () => {
+    it.each([
+      "The navigation is slow",
+      "I strongly dislike this design, honestly.",
+      "This project is poorly designed and hard to use.",
+      "The contrast is terrible on every page.",
+      "I disagree with the design decisions made here.",
+      "This feature is frustrating and needs improvement.",
+      "La navigazione è lenta e il contrasto è pessimo.",
+      "Questa navigazione è pessima, davvero.",
+      "easily vibecoded in 5 mins, it looks like ai slop and im sick of it, at least put in some effort",
+      "I hate this navigation, it hides the projects page",
+      "How do you suck the colour out of this image in CSS?",
+      "I hate that you have to scroll so far to find the prices",
+      "I hate you have to scroll so far to find the prices",
+      "Jesus Christ the navigation is slow on my phone",
+      "The pump will suck up the water, the animation is the same",
+    ])("%s", async (message) => {
       const res = await post({ message });
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(lastRow().message).toBe(message);
-    },
-  );
-
-  it("accepts harsh but constructive criticism untouched", async () => {
-    const message =
-      "easily vibecoded in 5 mins, it looks like ai slop and im sick of it, at least put in some effort";
-    const res = await post({ message });
-
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(lastRow().message).toBe(message);
-    expect(loggedText()).not.toContain("moderation flag");
-  });
-
-  describe("profanity that is not abuse", () => {
-    const SWEARING = "The contrast is shit and the navigation is slow.";
-
-    it("is stored as an ordinary pending community submission", async () => {
-      const res = await post({ message: SWEARING });
-
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(lastRow()).toMatchObject({
-        message: SWEARING,
-        source: "community",
-      });
-      /* No status, no trees: the database defaults ('pending', 0) apply, as
-         for every submission. The flag approves nothing and rewards nothing. */
-      expect(lastRow()).not.toHaveProperty("status");
-      expect(lastRow()).not.toHaveProperty("trees_planted");
     });
 
     it("keeps attribution, revalidation and the cooldown exactly as before", async () => {
-      const res = await post({ message: SWEARING, attribution: REDDIT });
+      const message = "The navigation is slow and the contrast is terrible.";
+      const res = await post({ message, attribution: REDDIT });
 
+      expect(lastRow()).toMatchObject({ message, source: "community" });
       expect(lastRow().attribution_source).toBe("reddit");
+      expect(lastRow()).not.toHaveProperty("status");
+      expect(lastRow()).not.toHaveProperty("trees_planted");
       expect(res.revalidate).toHaveBeenCalledWith("/");
       expect(res.revalidate).toHaveBeenCalledWith("/it");
 
       recentCount = 1;
-      const again = await post({ message: SWEARING });
+      const again = await post({ message });
       expect(again.status).toHaveBeenCalledWith(429);
     });
 
     it("keeps study identifiers and the no-revalidation rule for a participant", async () => {
-      const res = await post({ message: SWEARING, prolific: PROLIFIC });
+      const res = await post({
+        message: "The navigation is slow and the contrast is terrible.",
+        prolific: PROLIFIC,
+      });
 
       expect(lastRow()).toMatchObject({
         source: "usability_study",
@@ -484,22 +610,14 @@ describe("/api/feedback — content rules", () => {
       });
       expect(res.revalidate).not.toHaveBeenCalled();
     });
+  });
 
-    it("notes the flag by reason code only, once the row is stored", async () => {
-      await post({ message: SWEARING });
+  it("never stores prohibited language as pending: no submission is accepted with a warning", async () => {
+    for (const [, message] of PROHIBITED) await post({ message });
+    await post({ message: MESSAGE });
 
-      expect(loggedText()).toContain(
-        "stored with a moderation flag: profanity",
-      );
-      expect(loggedText()).not.toContain("contrast");
-    });
-
-    it("does not note a flag for a submission that was not stored", async () => {
-      insertError = { message: "boom" };
-      await post({ message: SWEARING });
-
-      expect(loggedText()).not.toContain("moderation flag");
-    });
+    expect(inserted).toHaveLength(1);
+    expect(inserted.map((row) => row.message)).toEqual([MESSAGE]);
   });
 });
 

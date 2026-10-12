@@ -157,9 +157,12 @@ export default async function handler(
      cooldown, writes no row and triggers no revalidation. Study participants
      go through the same rules, so this precedes the Prolific branch.
 
-     The answer is deliberately the same for every rule and says nothing about
-     which one matched, and neither the response nor the logs carry any of the
-     text: only a reason code. */
+     The policy is strict: profanity, vulgar language, insults, slurs, threats
+     and link spam are refused, aimed at anybody or not, and nothing is ever
+     accepted with a warning. The answer is deliberately the same for every
+     rule and says nothing about which one matched. The response carries none
+     of the text, and the log carries only a coarse category code: never the
+     message, the name or the matched term. */
   const verdict = moderateFeedback({ message, name });
   if (verdict.action === "block") {
     console.warn(`Feedback refused by content rules: ${verdict.reason}`);
@@ -277,16 +280,6 @@ export default async function handler(
   if (error) {
     console.error("Supabase insert error:", error.message);
     return res.status(500).json({ error: "Failed to save feedback" });
-  }
-
-  /* Profanity that is not aimed at anyone is accepted exactly like any other
-     submission: stored as `pending` (the insert above sets no status), not
-     approved, not rewarded. There is no column to record the flag in, so it is
-     noted here, by reason code only, for whoever reviews the new row. */
-  if (verdict.action === "flag") {
-    console.warn(
-      `Feedback stored with a moderation flag: ${verdict.reasons.join(", ")}`,
-    );
   }
 
   /* Study submissions move none of the published figures, so there is nothing
