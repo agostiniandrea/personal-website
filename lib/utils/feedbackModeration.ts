@@ -1,22 +1,42 @@
 /* ---------------------------------------------------------------------------
  * Feedback content moderation
  *
- * A small, dependency-free abuse filter for the public feedback form, run on
+ * A small, dependency-free respect filter for the public feedback form, run on
  * the server (pages/api/feedback.ts) because the client cannot be trusted.
  * English and Italian only.
  *
- * It answers one question per submission and returns one of three verdicts:
+ * POLICY: zero tolerance. The feedback form is a respectful space. Negative
+ * opinions and strong criticism are welcome ("the navigation is slow", "I
+ * strongly dislike this design", "the contrast is terrible"). Profanity, vulgar
+ * language, insults, slurs, blasphemous profanity and hostility are not: a
+ * message that contains any of them is refused, even if the rest of it is
+ * constructive, and whether or not the language is aimed at anybody ("fuck,
+ * this looks amazing" and "this design is stupid" are refused). Context is no
+ * excuse for a prohibited word: "I'm not an idiot" and "I felt like an idiot"
+ * are refused too.
  *
- *   block  The submission is clearly abusive and is refused (HTTP 400). Nothing
- *          is stored. Reserved for slurs, credible threats, clearly abusive
- *          sexual content, insults aimed at the person reading ("you
- *          idiot", "fuck you") and link spam.
- *   flag   Mild or strong profanity that is not aimed at a person: "this is
- *          f***ing slow" and "the contrast is shit" are real feedback. The submission is accepted EXACTLY as
- *          before, so it is stored as `pending` like every other one, is not
- *          approved and is not rewarded. The verdict only exists so the caller
- *          can note it; this module never touches status, trees or counters.
+ * It answers one question per submission and returns one of two verdicts:
+ *
+ *   block  The submission is refused (HTTP 400) and nothing is stored.
  *   allow  Nothing to report.
+ *
+ * There is deliberately no third "flag" outcome: prohibited language is never
+ * accepted and parked as `pending`. This module never touches status, trees
+ * or counters; it only answers.
+ *
+ * Categories. The code is for the server log only; the client always gets the
+ * same generic answer, so nobody learns which rule matched.
+ *
+ *   slur            Discriminatory abuse. Terms with no everyday meaning.
+ *   threat          Credible threats ("I will kill you"), as phrase patterns.
+ *   sexual_abuse    Abusive sexual content, as phrase patterns.
+ *   directed_abuse  Fixed hostility at the reader ("fuck you", "vaffanculo",
+ *                   "ti odio", "fai schifo", "you suck", "I hate you") and an
+ *                   insult noun next to "you".
+ *   link_spam       Link dumps; a few legitimate links are fine.
+ *   profanity       Any profane, vulgar, insulting or blasphemous term,
+ *                   anywhere in the text: "fuck", "shit", "cazzo", "stupid",
+ *                   "stupido", "coglione", "porco dio", "fa schifo", "sucks".
  *
  * Design rules:
  *  - Whole tokens only. Matching never looks inside a word, so "class",
@@ -25,26 +45,74 @@
  *  - Obfuscation is undone before matching (see `normalizeForModeration` and
  *    the views below), but only in ways that cannot turn ordinary text into a
  *    match: digits are decoded only inside tokens that also contain letters,
- *    masks (f*ck) need at least two literal letters, and spaced-out letters
- *    (f u c k) need a run of three or more.
- *  - Harsh is not abusive. Criticism of the work ("looks like AI slop", "this
- *    is garbage", "the nav is shit") is feedback. What is refused is an insult
- *    aimed at the person: a profane person-noun next to "you"/"u", or a fixed
- *    insult such as "fuck you". Self-reference and negation ("I felt like an
- *    idiot", "you are not an idiot") are left alone.
- *    The same line is drawn for hostility without a swear word: "you suck" and
- *    "I hate you" are blocked (they judge the author and say nothing about the
- *    page), while "this navigation sucks" and "I hate this navigation" are
- *    feedback and pass. See `directedHostility`.
+ *    masks (f*ck) need at least two literal letters and the exact length of a
+ *    listed word, and spaced-out letters (f u c k) need a run of three or more
+ *    (every stretch of the run is tried, so a neighbouring "a" or "e" cannot
+ *    hide the word).
+ *  - Strong criticism without a prohibited word is allowed: "terrible",
+ *    "awful", "poorly designed", "disgusting", "garbage" and "I hate this
+ *    navigation" are opinions, not vulgarity.
  *  - Threats and sexual abuse are phrase patterns, never single words. A bare
  *    "kill" proves nothing; "I will kill you" does, and "this will kill your
  *    SEO" does not.
- *  - Ambiguous words are left out of the block list on purpose ("chink" in
- *    "a chink in the armour", "dyke", "coon" as in Maine Coon, "finocchio" as
- *    in fennel, "negro" as the Spanish word for black). A short, precise list
- *    that never blocks a real visitor beats a long one that does.
+ *  - Exceptions are few, explicit and reviewed. Each is listed next to its
+ *    data and covered by a test. An exception only ever covers its own words:
+ *    it never excuses another insult in the same field, in any spelling
+ *    (plain, spaced, masked or repeated letters). Name-safe words are skipped
+ *    one token at a time, and the phrases below are removed from the text
+ *    before matching, so whatever is left is still judged in full.
+ *      · NAME-SAFE words: "Dick", "Cock", "Fanny", "Troia" and "Kike" are real
+ *        first names or surnames. In the `name` field, and nowhere else, the
+ *        FIRST such word is ignored, once, if it reads as that exact word
+ *        after Unicode normalisation (below). Everything else is judged with
+ *        no excuse:
+ *          - a second name-safe word ("Dick Dick", "Fanny Troia");
+ *          - other inflections ("dicks", "dickhead") and compounds ("Dick
+ *            Head", "Cock Sucker", "Big Dick", "Dick Pic");
+ *          - any spelling that has to be DECODED, not just normalised, to be
+ *            read: leetspeak ("D1ck", "Dick2"), spaced or dotted letters ("d i
+ *            c k"), masks ("D*ck"), repeated letters ("Dickkk").
+ *        Normalisation is applied before the exception, so it does not break
+ *        it: full-width letters, accents, soft hyphens, zero-width and other
+ *        invisible characters, and Cyrillic or Greek look-alikes that
+ *        `normalizeForModeration` maps to Latin all leave the same plain name,
+ *        which is still ONE occurrence of that name. This hides nothing: the
+ *        same normalisation runs on the whole field first, so no other word
+ *        can be hidden by it. In a message the same words are refused.
+ *      · "idiot-proof", "dumb component/terminal/pipe/..." and "spic and span"
+ *        are ordinary design, engineering and cleaning terms (see
+ *        `BENIGN_PHRASES`).
+ *      · Literal "suck" ("suck the colour out of the image", "suck up the
+ *        water") is not vulgar, but only with positive evidence of a physical
+ *        object (see `isLiteralSuck`). A particle after the verb is not
+ *        enough: "you suck up", "go suck up", "this website sucks up my
+ *        time" and "this sucks the loading is slow" are refused.
+ *      · "Jesus Christ" on its own is a name, not a profanity, and is allowed.
+ *        Explicit imprecations ("goddamn", "god damn it", "jesus fucking
+ *        christ", "porco dio") are refused.
+ *      · Ambiguous words with a rude and an everyday meaning ("chink",
+ *        "dyke", "coon", "negro", "finocchio") are NOT on a list at all: a
+ *        precise rule that never blocks a real visitor beats a long one that
+ *        does. This also means they are not refused.
  *  - Nothing here echoes or logs the text. The result carries a reason code and
  *    nothing else, so a caller has no way to leak the content by accident.
+ *
+ * Known limits. This is not an exhaustive list and does not claim to be:
+ *  - Only English and Italian. Insults in other languages, regional dialects
+ *    and new slang are not covered.
+ *  - Creative spellings beyond the obfuscations above (a letter swapped for an
+ *    unrelated one, words glued into a longer string, text in images or
+ *    emoji) get through. Words are never matched inside a longer word.
+ *  - Italian "deficiente" and English "stupid" are refused even in their
+ *    everyday senses ("contrasto deficiente", "stupid simple"). That is an
+ *    intentional trade-off of the strict policy.
+ *  - Context is never read: negation, quotation and self-reference do not
+ *    excuse a prohibited word. Milder criticism ("terrible", "pessimo",
+ *    "schifoso") is allowed.
+ *  - Only `message` and `name` are moderated as free text. E-mail and the
+ *    three link fields are validated by shape in the API.
+ *  - Only the first PROCESSING_CEILING characters of a field are read; the API
+ *    caps the message far below that.
  *
  * The lists are data, kept at the top of the file so they can be reviewed and
  * extended without touching the matching code. Add a word by adding an
@@ -52,14 +120,15 @@
  * ------------------------------------------------------------------------- */
 
 export type BlockReason =
-  "slur" | "threat" | "sexual_abuse" | "directed_abuse" | "link_spam";
-
-export type FlagReason = "profanity" | "ambiguous_term";
+  | "slur"
+  | "threat"
+  | "sexual_abuse"
+  | "directed_abuse"
+  | "link_spam"
+  | "profanity";
 
 export type ModerationVerdict =
-  | { action: "allow" }
-  | { action: "flag"; reasons: FlagReason[] }
-  | { action: "block"; reason: BlockReason };
+  { action: "allow" } | { action: "block"; reason: BlockReason };
 
 export interface ModerationInput {
   message?: unknown;
@@ -98,16 +167,20 @@ const SLUR_TOKENS = [
   "trann(?:y|ies)",
   "jigaboos?",
   "kyke",
+  "kikes",
+  "spics?|wops?|beaners?|honk(?:y|ey|ies)|shemales?",
+  "spaz|spazz|spastics?",
   // Italian
   "froc(?:io|ia|ie|i)",
   "ricchion(?:e|i|a)",
   "culatton(?:e|i)",
 ];
 
-/* A slur that is also a real first name, so it is not applied to `name`. */
-const SLUR_TOKENS_NOT_FOR_NAMES = ["kik(?:e|es)"];
+/* A slur that is also a real first name (Spanish "Kike", for Enrique), so it is
+   ignored in `name`, in exactly this form. The plural stays a slur everywhere. */
+const SLUR_TOKENS_NOT_FOR_NAMES = ["kike"];
 
-/* Profanity: flagged, never blocked. */
+/* Profanity and vulgar language: refused, aimed at anybody or not. */
 const PROFANITY_TOKENS = [
   "(?:mother|dumb|fat|clown)?fuck(?:s|ed|er|ers|ing|in|face|faces|head|heads|wit|wits|tard|tards|up|ups|off)?",
   "fck|fuk|fuq|fvck|fucc|phuck|phuk",
@@ -126,6 +199,13 @@ const PROFANITY_TOKENS = [
   "douche(?:bag|bags|y|s)?",
   "jerkoffs?|jackoffs?",
   "cocksuckers?",
+  "wtf|stfu|gtfo|fml|omfg",
+  "shite|shyte|bullcrap|horsecrap|dammit|bollox|mofos?",
+  "fukin|fuckin|effing|biatch|beotch|bytch",
+  "arsewipes?|assclowns?|dipshits?|dumbfucks?",
+  "pussy|pussies|tits|titties",
+  "dicks|dickheads?|dickwads?|cocks|pricks?",
+  "retard(?:s|ed)?|fags?",
   // Italian
   "(?:in)?cazz(?:o|i|ata|ate|one|oni|aro|ari|ista|uto)",
   "incazzat[oaie]|incazzare|testadicazzo|rompicoglioni",
@@ -141,27 +221,64 @@ const PROFANITY_TOKENS = [
   "bastard(?:o|a|i|e)",
   "fott(?:iti|ere|uto|uta|uti|ute|i|etevi)",
   "mignott(?:a|e)",
+  "troie|troiata|troiate",
+  "cag(?:are|ata|ate|ato|ona|one|oni)",
+  "pirl(?:a|e|i)",
+  "baldracc(?:a|he)",
+  "fica|fregn(?:a|e|accia|accie)",
+  "incul(?:are|ato|ata|ati|ate|o)",
+  "rompipalle|rompiballe|rompicazzo",
+  "pomp(?:ino|ini|inara|inare)|sborr(?:a|are|ata|ate)|segaiol(?:o|i)",
+  "chiav(?:are|ata|ate)",
+  "sfigat(?:o|a|i|e)",
+  "porcat(?:a|e)|porcheri(?:a|e)|schifezz(?:a|e)",
+  "scassacazz(?:o|i)",
+  // "schifo" is the colloquial "it sucks": "fa schifo", "che schifo", "fai
+  // schifo". "schifoso", "disgustoso" and "pessimo" are allowed criticism.
+  "schifo",
+  // Italian blasphemy written as one word. The spaced forms are phrase
+  // patterns below.
+  "porc(?:odio|amadonna|ocristo|ogesu)",
+  "dio(?:cane|can|porco|maiale|bestia|boia|merda|ladro|stronzo|bono|bastardo)",
+  "madonna(?:puttana|troia|porca|cagna|maiala)",
 ];
 
-/* Profanity that is also somebody's name or surname: still flagged in the
-   message, never in `name` (a visitor called Dick or Troia is not a problem). */
-const PROFANITY_TOKENS_NOT_FOR_NAMES = [
-  "dicks?|dickheads?|dickwads?",
-  "cocks?",
-  "pricks?",
-  "fanny",
-  "troi(?:a|e|ata|ate)",
+/* Insults: words that call somebody (or something) stupid or worthless. They
+   are refused wherever they appear, including "this design is stupid" and
+   "I'm not an idiot". "terrible", "awful", "pessimo" and "poorly designed"
+   are criticism, not insults, and are allowed. */
+const INSULT_TOKENS = [
+  "stupid(?:er|est|ly|ity)?|dumb|loser|losers",
+  "idiot(?:s|ic|ically)?|moron(?:s|ic)?|imbecil(?:e|es|ic)|cretin(?:s|ous)?",
+  // Italian
+  "stupid(?:o|a|i|e|issim[oaie]|aggin[ei]|ita)",
+  "idiot(?:a|i|e|aggine|aggini)|idiozi(?:a|e)",
+  "scem(?:o|a|i|e|issim[oaie]|enza|enze)",
+  "cretin(?:o|a|i|e|ata|ate)",
+  "imbecill(?:e|i|ita|aggine)",
+  "deficient(?:e|i)",
+  "rincoglionit[oaie]",
+  "deficent(?:e|i)|defficient(?:e|i)",
+  "dement(?:e|i)|ebete|ebeti|babbe(?:o|i)",
+  "scimunit[oaie]|rimbambit[oaie]|decerebrat[oaie]",
+  "cretinat(?:a|e)|stupidat(?:a|e)",
+  // English, other everyday insults
+  "(?:dim|nit|half)wits?|numb?skulls?|airheads?|birdbrains?|blockheads?",
+  "buffoons?|dunces?|simpletons?|lowlifes?|dirtbags?|sleazebags?|scumbags?",
 ];
 
-/* Words with a legitimate meaning of their own ("retard" is an engine and
-   electronics term, "fag" is a British cigarette). Flagged in a message so a
-   human decides, ignored in a name. */
-const AMBIGUOUS_TOKENS = ["retard(?:s|ed)?", "fags?"];
+/* Profanity that is also somebody's first name or surname, in exactly this
+   form. Ignored in the `name` field only: a visitor called Dick, Fanny or Troia
+   is not a problem. In a message they are refused like any other rude word, and
+   every other form ("dicks", "dickhead", "cocks", "troie") is refused in a name
+   too, because those are not names. */
+const PROFANITY_TOKENS_NOT_FOR_NAMES = ["dick", "cock", "fanny", "troia"];
 
-/* Nouns that name a person and insult them. On their own they are profanity
-   (flagged); next to a second-person word they are an insult at the reader
-   (blocked). "fuck" and "shit" are NOT here: they describe things as often as
-   people ("what the fuck is this nav"). */
+/* Nouns that name a person and insult them. Every one of them is refused
+   wherever it appears; what this list adds is the reason code: next to a
+   second-person word ("you idiot", "u dumbfuck") the refusal is
+   `directed_abuse` rather than `profanity`. "fuck" and "shit" are NOT here:
+   they describe things as often as people ("what the fuck is this nav"). */
 const PERSON_INSULT_TOKENS = [
   "dumb(?:fuck|ass|shit)(?:s|es)?",
   "(?:jack|smart|fat)ass(?:es)?",
@@ -174,28 +291,108 @@ const PERSON_INSULT_TOKENS = [
   "morons?|idiots?|imbeciles?|cretins?|retards?",
 ];
 
-/* Words that are most often masked ("f*ck", "n*gger"). Compared position by
-   position against a token that contains `*` or `#`. */
-const MASKABLE_SLURS = ["nigger", "nigga", "faggot"];
-const MASKABLE_PROFANITY = [
-  "fuck",
-  "fucker",
-  "fucking",
-  "motherfucker",
-  "shit",
-  "shitty",
-  "bitch",
-  "cunt",
-  "bastard",
-  "asshole",
-  "whore",
-  "slut",
-  "cazzo",
-  "merda",
-  "stronzo",
-  "puttana",
-  "coglione",
+/* Words that are most often masked ("f*ck", "n*gger", "sh#t"). Compared
+   position by position against a token that contains a mask character. Every
+   entry is a word the lists above already refuse, at least four letters long,
+   so a mask can only ever reveal a refused word. */
+const MASKABLE_SLURS = [
+  "nigger",
+  "niggers",
+  "nigga",
+  "niggas",
+  "faggot",
+  "faggots",
+  "frocio",
+  "froci",
+  "ricchione",
 ];
+const MASKABLE_PROFANITY = [
+  "suck",
+  "sucks",
+  "sucked",
+  "fuck",
+  "fucks",
+  "fucked",
+  "fucker",
+  "fuckers",
+  "fucking",
+  "fuckin",
+  "fuckhead",
+  "fuckface",
+  "motherfucker",
+  "motherfuckers",
+  "shit",
+  "shits",
+  "shitty",
+  "shithead",
+  "bullshit",
+  "bitch",
+  "bitches",
+  "bastard",
+  "bastards",
+  "asshole",
+  "assholes",
+  "dick",
+  "dicks",
+  "dickhead",
+  "cock",
+  "cocks",
+  "pussy",
+  "whore",
+  "whores",
+  "slut",
+  "sluts",
+  "cunt",
+  "cunts",
+  "twat",
+  "wanker",
+  "crap",
+  "damn",
+  "goddamn",
+  "moron",
+  "retard",
+  "retarded",
+  "stupid",
+  "idiot",
+  "idiots",
+  "dumbass",
+  "jackass",
+  "prick",
+  "cazzo",
+  "cazzi",
+  "cazzata",
+  "merda",
+  "merde",
+  "stronzo",
+  "stronza",
+  "stronzi",
+  "stronzata",
+  "puttana",
+  "puttane",
+  "troia",
+  "troie",
+  "coglione",
+  "coglioni",
+  "vaffanculo",
+  "minchia",
+  "figa",
+  "culo",
+  "stupido",
+  "stupida",
+  "stupidi",
+  "idiota",
+  "idioti",
+  "cretino",
+  "cretina",
+  "scemo",
+  "scema",
+  "imbecille",
+  "deficiente",
+];
+/* What can stand in for a hidden letter. `_` and `&` appear in ordinary text
+   ("snake_case", "R&D"), which is harmless: a chunk is only refused when it is
+   exactly as long as a listed word and agrees with it on every other letter. */
+const MASK_CHARS = "*#_%&~^";
 
 /* ── Phrase patterns ──────────────────────────────────────────────────────
    Matched against the text with punctuation turned into single spaces and
@@ -248,22 +445,42 @@ const SEXUAL_ABUSE_PATTERNS = [
   String.raw`\bmandami\s+(?:le\s+tue\s+)?(?:foto\s+)?(?:nud[ae]|tette|della\s+figa)\b`,
 ];
 
-/* Profanity that only shows as a phrase: the Italian blasphemies. Flag only. */
 /* Fixed insults aimed at the reader. A pronoun is part of the pattern or the
    phrase can only be aimed at a person ("vaffanculo", "testa di cazzo"). */
 const DIRECTED_ABUSE_PATTERNS = [
   String.raw`\bfuck\s+(?:you|u|yourself|urself|off)\b`,
   String.raw`\bgo\s+(?:and\s+)?(?:fuck|screw)\s+(?:yourself|urself)\b`,
   String.raw`\b(?:you|u|youre|ur)\s+(?:are\s+|re\s+|r\s+)?(?:(?:a|an|such|just|absolute|complete|total|utter|fucking|real)\s+)*piece\s+of\s+(?:shit|crap|garbage|trash)\b`,
+  String.raw`\bscrew\s+(?:you|u|yourself|urself)\b`,
   // Italian
+  String.raw`\b(?:ti|vi)\s+odio\b`,
+  String.raw`\b(?:fai|fate)\s+(?:(?:proprio|davvero|veramente|molto|cosi|pure)\s+){0,2}(?:schifo|cagare)\b`,
   String.raw`\b(?:vaffanculo|vafanculo|affanculo|fanculo|vaffancul|fottiti|testa\s+di\s+(?:cazzo|merda)|pezzo\s+di\s+(?:merda|stronzo)|figlio\s+di\s+puttana|vai\s+a\s+(?:cagare|fanculo))\b`,
   String.raw`\b(?:tu\s+)?(?:sei|siete)\s+(?:(?:un|una|proprio\s+un|solo\s+un|davvero\s+un)\s+)?(?:coglione|coglioni|stronzo|stronza|stronzi|idiota|idioti|imbecille|imbecilli|cretino|cretini|deficiente|deficienti|bastardo|bastardi)\b`,
 ];
 
+/* Blasphemous profanity that only shows as a phrase. "dio", "madonna" and
+   "cristo" alone are ordinary words and are never matched on their own; the
+   phrase needs the profane partner. Written as one word ("diocane") the same
+   expressions are in PROFANITY_TOKENS. Accents are already gone here. */
 const PROFANITY_PHRASE_PATTERNS = [
-  String.raw`\b(?:porco|porca)\s+(?:dio|madonna|puttana|troia)\b`,
-  String.raw`\bdio\s+(?:cane|porco|bestia|maiale|merda)\b`,
-  String.raw`\bmadonna\s+(?:puttana|troia|porca|cagna)\b`,
+  // Italian
+  String.raw`\b(?:porco|porca|maledetto|maledetta)\s+(?:dio|madonna|gesu|cristo|signore|puttana|troia)\b`,
+  String.raw`\bdio\s+(?:cane|can|porco|bestia|maiale|boia|merda|ladro|stronzo|bastardo|bono|infame|lurido|schifoso|impestato)\b`,
+  String.raw`\bmadonna\s+(?:puttana|troia|porca|cagna|maiala|bastarda|impestata|ladra|merda|boia)\b`,
+  String.raw`\b(?:gesu|cristo)\s+(?:porco|maiale|merda|bastardo|cane)\b`,
+  // Rude commands and curses
+  String.raw`\bshut\s+(?:up|your\s+(?:mouth|face|trap|hole))\b`,
+  String.raw`\b(?:go\s+to|burn\s+in|rot\s+in)\s+hell\b`,
+  String.raw`\b(?:stai|sta)\s+zitt[oa]\b`,
+  String.raw`\bzitt[oa]\s+tu\b`,
+  String.raw`\bchiudi\s+(?:(?:la|il)\s+)?(?:bocca|becco)\b`,
+  // English
+  String.raw`\bgod\s+damn(?:ed|it)?\b`,
+  // Compound insults built on a word that is a legitimate name on its own
+  // ("Dick", "Cock"). The bare name is allowed in `name`; these are not names.
+  String.raw`\b(?:dick|cock|prick)\s*(?:heads?|faces?|wads?|bags?|holes?|suckers?|brains?|breath|mongers?|lickers?|eaters?|pics?|pictures?|rings?|slaps?|sizes?|monsters?|jokes?)\b`,
+  String.raw`\b(?:big|huge|hard|fat|tiny|small|long|thick|juicy|dirty|sexy|hot|limp|stiff|sucking|licking|lick|suck)\s*(?:dicks?|cocks?)\b`,
 ];
 
 const anchored = (parts: string[]) => new RegExp(`^(?:${parts.join("|")})$`);
@@ -273,7 +490,8 @@ const SLUR_RE = anchored(SLUR_TOKENS);
 const SLUR_NOT_FOR_NAMES_RE = anchored(SLUR_TOKENS_NOT_FOR_NAMES);
 const PROFANITY_RE = anchored(PROFANITY_TOKENS);
 const PROFANITY_NOT_FOR_NAMES_RE = anchored(PROFANITY_TOKENS_NOT_FOR_NAMES);
-const AMBIGUOUS_RE = anchored(AMBIGUOUS_TOKENS);
+/* Every person-insult noun is an insult wherever it appears. */
+const INSULT_RE = anchored([...INSULT_TOKENS, ...PERSON_INSULT_TOKENS]);
 const THREAT_RES = anyOf(THREAT_PATTERNS);
 const SEXUAL_ABUSE_RES = anyOf(SEXUAL_ABUSE_PATTERNS);
 const PROFANITY_PHRASE_RES = anyOf(PROFANITY_PHRASE_PATTERNS);
@@ -420,16 +638,28 @@ const wordsOf = (text: string): string[] =>
   text.split(/[^a-z0-9]+/).filter(Boolean);
 
 /* "f u c k", "f.u.c.k", "f-u-c-k": three or more single letters, each separated
-   from the next, read as one word. A leading single letter is also tried
-   without ("i f u c k"), since "i" and "a" are words in their own right. */
+   from the next, read as one word. Single-letter words ("a", "e", "i", "o",
+   "y", "u") often sit next to a spaced-out word ("è s t u p i d o e lento"), so
+   every stretch of 3 to MAX_SPACED_WORD consecutive letters inside the run is
+   tried as a word of its own, not just the whole run. Each stretch is then
+   matched whole, like any other token. */
+const MAX_SPACED_WORD = 14;
+
 function spacedLetterTokens(normalized: string): string[] {
   const runs =
     normalized.match(/(?<![a-z0-9])[a-z](?:[ ._\-*]+[a-z]){2,}(?![a-z0-9])/g) ??
     [];
-  return runs.flatMap((run) => {
-    const joined = run.replace(/[^a-z]/g, "");
-    return [joined, joined.slice(1)];
-  });
+  const out = new Set<string>();
+  for (const run of runs) {
+    const letters = run.replace(/[^a-z]/g, "");
+    for (let from = 0; from < letters.length; from++) {
+      const longest = Math.min(letters.length, from + MAX_SPACED_WORD);
+      for (let to = from + 3; to <= longest; to++) {
+        out.add(letters.slice(from, to));
+      }
+    }
+  }
+  return [...out];
 }
 
 /* "fuuuuck" → "fuck" and "asssss" → "ass": a letter repeated three or more
@@ -446,7 +676,7 @@ function matchesMask(chunk: string, word: string): boolean {
   let literals = 0;
   for (let i = 0; i < word.length; i++) {
     const char = chunk[i];
-    if (char === "*" || char === "#") continue;
+    if (MASK_CHARS.includes(char)) continue;
     if (char !== word[i]) return false;
     literals++;
   }
@@ -459,8 +689,8 @@ function maskedMatches(normalized: string): {
   slur: boolean;
   profanity: boolean;
 } {
-  const chunks = (normalized.match(/[a-z*#]+/g) ?? []).filter(
-    (chunk) => /[*#]/.test(chunk) && /[a-z]/.test(chunk),
+  const chunks = (normalized.match(/[a-z*#_%&~^]+/g) ?? []).filter(
+    (chunk) => /[*#_%&~^]/.test(chunk) && /[a-z]/.test(chunk),
   );
   return {
     slur: chunks.some((chunk) =>
@@ -500,38 +730,34 @@ function directedInsult(text: string): boolean {
   return false;
 }
 
-/* Personal hostility with no profane noun in it: "you suck", "u suck", "I hate
-   you". Two fixed shapes, both about the person and neither about the work:
-   a second-person pronoun immediately followed by "suck(s)", and "I/we hate"
-   immediately followed by a second-person pronoun.
+/* Fixed hostility at the reader with no profane noun in it: "you suck", "u
+   suck", "I hate you". Two shapes: a second-person pronoun immediately
+   followed by "suck(s)", and "I/we hate" immediately followed by a
+   second-person pronoun. Both are about the author and say nothing about the
+   page, so they are refused as `directed_abuse`.
 
-   Why they are blocked: they carry no information about the page. They are a
-   verdict on the author, the same thing "you dumbfuck" is without the swear
-   word, and a visitor who means them loses nothing by writing what was wrong
-   instead. The cost of a wrong block is one edited sentence behind a clear
-   message, so the rules are kept strict rather than clever:
+   "suck(s)" is also refused anywhere else by `vulgarSuck`; this function only
+   decides which reason code the refusal carries. "I hate you" is not covered
+   by any other rule, so it needs this one. "hate" itself is an opinion and
+   stays allowed ("I hate this navigation").
 
-   - Adjacency only (a few fillers such as "really" or "guys" may sit in
-     between). "this navigation sucks", "I hate this navigation" and "I hate the
-     carousel, it kills performance" are about the product and never match.
+   The shapes are kept strict rather than clever:
+
+   - Adjacency only: a few fillers such as "really" may sit between "I" and
+     "hate", and nothing but the pronoun between "hate" and "you".
    - Each clause is judged on its own: a comma, colon, dash, bracket or full
-     stop ends it. "I hate you, honestly." is therefore blocked: after the
-     comma the sentence is an afterthought, and what stands before it is
-     exactly "I hate you". Closing phrases inside the clause ("I hate you so
-     much", "I hate you guys") are blocked for the same reason. A pronoun that
-     starts a new clause with no punctuation ("I hate you have to scroll") is
-     feedback and is left alone.
-   - "suck" followed by an object or a particle is the literal verb ("how do
-     you suck the colour out of this image", "you suck up the water", "you
-     suck on a lemon"), not an insult. "you suck", "you suck at design", "you
-     suck, the nav is slow" and "you guys suck" have no object and stay
-     blocked. The price of this exception is a run-on such as "you suck this
-     is bad" passing unblocked; a missed insult is only a pending message a
-     person reviews, a wrongly blocked visitor loses their feedback, so the
-     exception errs towards allowing.
-   - A denial a few words before cancels it ("I don't think you suck", "I
-     don't hate you"). Self-reference does not: "I think you suck" is still
-     aimed at the reader.
+     stop ends it. "I hate you, honestly." is therefore refused: what stands
+     before the comma is exactly "I hate you".
+   - Whatever follows "I hate you" in the same clause is hostility too ("I hate
+     you with a passion", "so much", "have no talent", "are a liar", "can't
+     design"), except the one shape "have to <page-use verb>" ("I hate you
+     have to scroll"): see HATE_OBLIGATIONS. "I hate this navigation" and "I hate that you have
+     to scroll" are not the shape at all, because "you" does not come right
+     after "hate".
+   - No context exception for "suck": "you don't suck" is refused like the
+     rest, because `vulgarSuck` refuses the word wherever it appears. "hate" is
+     an opinion and not a prohibited word, so only the fixed shape "I hate you"
+     is refused; "I don't hate you" is not that shape and is allowed.
    - Applies to "suck(s)" and "hate" only. Nothing else is added here. */
 const HOSTILE_PRONOUNS = new Set(["you", "u", "ya"]);
 const HOSTILE_SUBJECTS = new Set(["i", "we"]);
@@ -556,77 +782,220 @@ const HOSTILE_FILLERS = new Set([
   "guys",
 ]);
 const MAX_HOSTILE_FILLERS = 2;
-/* A word after "suck" that makes it the literal, transitive verb. */
-const LITERAL_SUCK_FOLLOWERS = new Set([
-  "the",
-  "a",
-  "an",
-  "this",
-  "that",
-  "these",
-  "those",
-  "it",
-  "them",
-  "my",
-  "your",
-  "his",
-  "her",
-  "their",
-  "our",
-  "some",
-  "any",
+/* "suck" is literal only with POSITIVE evidence that something physical is
+   being moved. The word after it is never enough on its own: "you suck up",
+   "go suck up" and "this website sucks up my time" are colloquial or vulgar
+   even though a particle follows. Two shapes count as evidence, both inside
+   one clause and with no verb or conjunction in between:
+
+     1. a particle, then a physical thing within three words: "suck up the
+        water", "the pump sucks up the dust". The thing must be on
+        LITERAL_SUCK_OBJECTS, a short list of substances. "time", "memory",
+        "battery", "cache" and the like are not on it: "this app sucks up my
+        memory" is a complaint, and a bare "suck up" or "suck dry" has no
+        object at all.
+     2. an article, then a removal word within three words: "suck the colour
+        out of the image", "the vacuum sucks the dust off the keys", "suck the
+        extra whitespace out". Possessives ("my", "your") do not start this
+        shape: "suck my ... out" is not a literal use.
+
+   Anything else is refused: "this sucks the loading is slow", "this sucks a
+   lot", "it sucks my patience", "suck off", "suck dry the cache". The cost is
+   that a rare literal sentence with another noun ("suck dry the cache") is
+   refused until it is reworded. */
+const SUCK_PARTICLES = new Set(["up", "out", "down", "dry", "away", "back"]);
+const SUCK_ARTICLES = new Set(["the", "a", "an", "some", "any", "them"]);
+/* "off" counts only here, AFTER an object: "sucks the dust off the keys". A
+   particle straight after "suck" ("suck off") is vulgar and is not in
+   SUCK_PARTICLES. */
+const SUCK_REMOVAL_WORDS = new Set([
   "out",
   "up",
   "off",
   "down",
-  "in",
-  "into",
-  "on",
   "dry",
+  "away",
+  "from",
+  "into",
+  "through",
+  "back",
 ]);
+/* Physical things that are literally sucked up. Deliberately short, and not
+   about the product: nothing here can be the subject of a complaint. */
+const LITERAL_SUCK_OBJECTS = new Set([
+  "water",
+  "dust",
+  "dirt",
+  "air",
+  "liquid",
+  "liquids",
+  "fluid",
+  "fluids",
+  "oil",
+  "blood",
+  "juice",
+  "smoke",
+  "fumes",
+  "steam",
+  "gas",
+  "fog",
+  "moisture",
+  "sand",
+  "snow",
+  "rain",
+  "mud",
+  "hair",
+  "crumbs",
+  "debris",
+  "spill",
+  "spills",
+  "puddle",
+  "puddles",
+  "ink",
+  "paint",
+  "colour",
+  "colours",
+  "color",
+  "colors",
+  "noise",
+  "whitespace",
+  "heat",
+  "odour",
+  "odor",
+]);
+/* A verb or a conjunction means a new statement has begun. */
+const SUCK_STATEMENT_WORDS = new Set([
+  "is",
+  "are",
+  "was",
+  "were",
+  "be",
+  "been",
+  "being",
+  "has",
+  "have",
+  "had",
+  "does",
+  "do",
+  "did",
+  "will",
+  "would",
+  "can",
+  "could",
+  "should",
+  "must",
+  "and",
+  "but",
+  "because",
+  "so",
+  "when",
+  "while",
+  "that",
+  "which",
+]);
+const SUCK_EVIDENCE_WINDOW = 3;
+
+/* Looks at up to SUCK_EVIDENCE_WINDOW words starting at `from` for a word in
+   `wanted`, giving up at a word that starts a new statement. */
+function evidenceWithin(
+  words: string[],
+  from: number,
+  wanted: Set<string>,
+): boolean {
+  for (let k = from; k < from + SUCK_EVIDENCE_WINDOW; k++) {
+    const word = words[k];
+    if (word === undefined || SUCK_STATEMENT_WORDS.has(word)) return false;
+    if (wanted.has(word)) return true;
+  }
+  return false;
+}
+
+function isLiteralSuck(words: string[], at: number): boolean {
+  const next = words[at + 1];
+  if (next === undefined) return false;
+  if (SUCK_PARTICLES.has(next)) {
+    return evidenceWithin(words, at + 2, LITERAL_SUCK_OBJECTS);
+  }
+  if (SUCK_ARTICLES.has(next)) {
+    return evidenceWithin(words, at + 2, SUCK_REMOVAL_WORDS);
+  }
+  return false;
+}
+
 /* A clause ends at sentence punctuation, a comma, a colon, a bracket or a
    spaced dash. */
 const HOSTILITY_CLAUSE_END = /[.!?;,:()]+|\s[-\u2013\u2014]+\s/;
-const NEGATION_LOOKBACK = 3;
-/* The only words that may directly follow "I hate you" (inside the same
-   clause) for it to be read as hostility at the reader: a short list of
-   ordinary modifiers and addressees ("so much", "very much", "a lot", "more",
-   "you guys", "you all", "you lot", "you people", "you too"), not verbs.
+/* The ONE shape that is feedback after "I hate you": an obligation on the
+   reader followed by a verb of using the page, "I hate you have to scroll so
+   far", "I hate you need to log in". There "you" is the subject of what
+   follows ("I hate [that] you have to scroll"), not the target of the hate.
 
-   This is a deliberately conservative allow-list, not a grammar. A word that is
-   not listed means "no match", so the text passes. That is the safe direction:
-   "I hate you have to scroll" (a verb after "you") must stay feedback, and a
-   missed insult is only a pending message a person reviews, while a wrong
-   block loses a visitor's feedback. The consequence is that an unlisted
-   trailing phrase also passes, for example "I hate you with a passion". Lists
-   are extended by adding a word here and a test beside it, only when a real
-   case shows up. A comma, full stop or other clause end after "you" needs no
-   entry: "I hate you, honestly." is blocked by the clause rule, not by this
-   list. */
-const HATE_TAIL = new Set([
-  "so",
-  "much",
-  "very",
-  "more",
-  "a",
-  "lot",
-  "people",
-  "all",
-  "both",
-  "guys",
-  "forever",
-  "for",
-  "because",
-  "and",
-  "too",
-  "now",
-  "right",
+   Everything else after "I hate you" in the same clause is hostility. Whether
+   a verb after "you" starts a new clause cannot be told reliably from the
+   words alone ("I hate you have no talent", "I hate you are a liar", "I hate
+   you can't design", "I hate you will pay for this" read as insults), so
+   auxiliaries and modals are NOT let through. Only "<have|has|had|need|needs|
+   got> to <page-use verb>" is. A sentence that is refused although it is
+   about the page ("I hate you can't search by tag") is the accepted cost of
+   the strict policy: rewording it ("I hate that you can't search by tag")
+   passes. To let a new construction through, add it here with a test. */
+const HATE_OBLIGATIONS = new Set([
+  "have",
+  "has",
+  "had",
+  "need",
+  "needs",
+  "got",
+]);
+const HATE_PAGE_ACTIONS = new Set([
+  "scroll",
+  "click",
+  "tap",
+  "press",
+  "swipe",
+  "drag",
+  "pinch",
+  "zoom",
+  "hover",
+  "type",
+  "enter",
+  "fill",
+  "log",
+  "sign",
+  "search",
+  "scan",
+  "wait",
+  "open",
+  "close",
+  "reload",
+  "refresh",
+  "navigate",
+  "accept",
+  "dismiss",
+  "confirm",
+  "verify",
+  "create",
+  "register",
+  "install",
+  "download",
+  "upload",
+  "select",
+  "choose",
+  "switch",
+  "repeat",
+  "retype",
+  "expand",
+  "collapse",
+  "toggle",
+  "visit",
 ]);
 
-function negatedBefore(words: string[], at: number): boolean {
-  return words
-    .slice(Math.max(0, at - NEGATION_LOOKBACK), at)
-    .some((w) => NEGATIONS.includes(w));
+function isPageObligation(words: string[], at: number): boolean {
+  return (
+    HATE_OBLIGATIONS.has(words[at]) &&
+    words[at + 1] === "to" &&
+    HATE_PAGE_ACTIONS.has(words[at + 2])
+  );
 }
 
 /* Index of the first word after `from` that is not a filler, or -1 when more
@@ -655,8 +1024,7 @@ function directedHostility(text: string): boolean {
           const verb = afterFillers(words, at + 1);
           if (
             (words[verb] === "suck" || words[verb] === "sucks") &&
-            !LITERAL_SUCK_FOLLOWERS.has(words[verb + 1]) &&
-            !negatedBefore(words, at)
+            !isLiteralSuck(words, verb)
           ) {
             return true;
           }
@@ -669,13 +1037,48 @@ function directedHostility(text: string): boolean {
         if (words[verb] !== "hate" || !HOSTILE_PRONOUNS.has(words[verb + 1])) {
           continue;
         }
-        const tail = words[verb + 2];
-        if (tail !== undefined && !HATE_TAIL.has(tail)) continue;
-        if (!negatedBefore(words, at)) return true;
+        /* "I hate you have to scroll": feedback, not hostility. */
+        if (isPageObligation(words, verb + 2)) continue;
+        return true;
       }
     }
   }
   return false;
+}
+
+/* "this navigation sucks", "the contrast sucked", "it sucks at loading": the
+   colloquial verb is vulgar, aimed at a person or at the website, so it is
+   refused as `profanity`. The literal verb is not ("how do you suck the
+   colour out of this image", "the pump sucks up the water"); see
+   `isLiteralSuck`. A bare "suck" at the end of a clause is refused, and so is a
+   run-on with no punctuation ("this sucks the loading is slow"). */
+const SUCK_FORMS = new Set(["suck", "sucks", "sucked"]);
+
+function vulgarSuck(text: string): boolean {
+  for (const clause of text.split(HOSTILITY_CLAUSE_END)) {
+    const words = wordsOf(clause);
+    for (let at = 0; at < words.length; at++) {
+      if (!squeezedVariants(words[at]).some((w) => SUCK_FORMS.has(w))) continue;
+      if (!isLiteralSuck(words, at)) return true;
+    }
+  }
+  return false;
+}
+
+/* Ordinary phrases that contain a word the lists refuse. They are removed from
+   the text before any matching, and only in exactly these shapes, so
+   "idiot-proof" is fine while "you idiot" is not. Review a new entry as
+   carefully as a new rude word: it is an exception to the policy.
+     · "idiot-proof", "idiot-proofed": a design term for "hard to misuse".
+     · "dumb component", "dumb terminal", "dumb pipe", ...: engineering terms. */
+const BENIGN_PHRASES = [
+  /\bidiot[\s-]?proof(?:ed|ing|s)?\b/g,
+  /\bdumb[\s-]+(?:components?|terminals?|pipes?|clients?|ui|views?|widgets?)\b/g,
+  /\bspick?\s+and\s+span\b/g,
+];
+
+function scrubBenignPhrases(normalized: string): string {
+  return BENIGN_PHRASES.reduce((text, re) => text.replace(re, " "), normalized);
 }
 
 /* ── Links ───────────────────────────────────────────────────────────── */
@@ -712,51 +1115,100 @@ function linkSpam(text: string): boolean {
 
 type FieldKind = "message" | "name";
 
-interface FieldResult {
-  block: BlockReason | null;
-  flags: Set<FlagReason>;
-}
-
-function evaluateField(raw: string, field: FieldKind): FieldResult {
-  const result: FieldResult = { block: null, flags: new Set() };
-  const normalized = normalizeForModeration(raw);
+/* Judges one field and returns the reason it is refused, or null. */
+function evaluateField(raw: string, field: FieldKind): BlockReason | null {
+  const normalized = scrubBenignPhrases(normalizeForModeration(raw));
   const inName = field === "name";
+  const decoded = decodeLeet(normalized);
 
-  /* The same text, read four ways. A token is matched whole in each. */
+  /* The same text, read four ways; a token is matched whole in each.
+
+     Name-safe words ("Dick", "Troia", "Kike", ...) are excused in `name` only
+     when they are written plainly, once. The allowance below is spent by the
+     FIRST plain occurrence; a second one ("Dick Dick"), and every spelling
+     that needed decoding to be read ("D1ck", "d i c k", "D.i.c.k", "Dickkk")
+     is judged with no excuse at all. */
   const plain = wordsOf(normalized);
-  const tokens = new Set<string>();
-  for (const base of [
-    ...plain,
-    ...wordsOf(decodeLeet(normalized)),
-    ...spacedLetterTokens(normalized),
-  ]) {
-    for (const variant of squeezedVariants(base)) tokens.add(variant);
+  const allowance = new Map<string, number>();
+  if (inName) {
+    const first = plain.find(
+      (w) =>
+        PROFANITY_NOT_FOR_NAMES_RE.test(w) || SLUR_NOT_FOR_NAMES_RE.test(w),
+    );
+    if (first) allowance.set(first, 1);
   }
+  const takeAllowance = (token: string): boolean => {
+    const left = allowance.get(token) ?? 0;
+    if (left <= 0) return false;
+    allowance.set(token, left - 1);
+    return true;
+  };
 
   let slur = false;
   let profanity = false;
-  let ambiguous = false;
-  for (const token of tokens) {
+  const judge = (token: string, mayBeName: boolean) => {
     if (SLUR_RE.test(token)) slur = true;
-    else if (!inName && SLUR_NOT_FOR_NAMES_RE.test(token)) slur = true;
-    if (PROFANITY_RE.test(token)) profanity = true;
-    else if (!inName && PROFANITY_NOT_FOR_NAMES_RE.test(token)) {
+    else if (
+      SLUR_NOT_FOR_NAMES_RE.test(token) &&
+      !(mayBeName && takeAllowance(token))
+    ) {
+      slur = true;
+    }
+    if (PROFANITY_RE.test(token) || INSULT_RE.test(token)) profanity = true;
+    else if (
+      PROFANITY_NOT_FOR_NAMES_RE.test(token) &&
+      !(mayBeName && takeAllowance(token))
+    ) {
       profanity = true;
     }
-    if (!inName && AMBIGUOUS_RE.test(token)) ambiguous = true;
+  };
+
+  /* 1. The words as written. */
+  for (const word of plain) {
+    judge(word, true);
+    for (const variant of squeezedVariants(word).slice(1)) {
+      if (variant !== word) judge(variant, false);
+    }
+  }
+  /* 2. Words that only exist once leetspeak is decoded: what is left of the
+        decoded words after the plain ones are taken out, one for one. */
+  const unmatched = new Map<string, number>();
+  for (const word of plain) unmatched.set(word, (unmatched.get(word) ?? 0) + 1);
+  for (const word of wordsOf(decoded)) {
+    const left = unmatched.get(word) ?? 0;
+    if (left > 0) {
+      unmatched.set(word, left - 1);
+      continue;
+    }
+    for (const variant of squeezedVariants(word)) judge(variant, false);
+  }
+  /* 3. Spaced-out letters. "s u c k" is never a literal use of the verb. */
+  for (const token of spacedLetterTokens(normalized)) {
+    for (const variant of squeezedVariants(token)) {
+      judge(variant, false);
+      if (SUCK_FORMS.has(variant)) profanity = true;
+    }
   }
 
   const masked = maskedMatches(normalized);
   slur = slur || masked.slur;
   profanity = profanity || masked.profanity;
 
-  const decoded = decodeLeet(normalized);
-  const phrases = [normalized, decoded].map((text) => wordsOf(text).join(" "));
+  /* Phrases are matched on each text with its words as written and with
+     letters repeated three or more times squeezed ("dioooo caneee"). */
+  const phrases = [normalized, decoded].flatMap((text) =>
+    [0, 1, 2].map((view) =>
+      wordsOf(text)
+        .map((word) => squeezedVariants(word)[view])
+        .join(" "),
+    ),
+  );
   const threat = phrases.some((p) => THREAT_RES.some((re) => re.test(p)));
   const sexual = phrases.some((p) => SEXUAL_ABUSE_RES.some((re) => re.test(p)));
   if (phrases.some((p) => PROFANITY_PHRASE_RES.some((re) => re.test(p)))) {
     profanity = true;
   }
+  if (vulgarSuck(normalized) || vulgarSuck(decoded)) profanity = true;
   const directed =
     phrases.some((p) => DIRECTED_ABUSE_RES.some((re) => re.test(p))) ||
     directedInsult(normalized) ||
@@ -768,15 +1220,14 @@ function evaluateField(raw: string, field: FieldKind): FieldResult {
     ? SCHEME_OR_WWW_RE.test(normalized)
     : linkSpam(raw.slice(0, PROCESSING_CEILING));
 
-  if (slur) result.block = "slur";
-  else if (threat) result.block = "threat";
-  else if (sexual) result.block = "sexual_abuse";
-  else if (directed) result.block = "directed_abuse";
-  else if (links) result.block = "link_spam";
-
-  if (profanity) result.flags.add("profanity");
-  if (ambiguous) result.flags.add("ambiguous_term");
-  return result;
+  /* One reason per field, most serious first. Only the code is ever used. */
+  if (slur) return "slur";
+  if (threat) return "threat";
+  if (sexual) return "sexual_abuse";
+  if (directed) return "directed_abuse";
+  if (links) return "link_spam";
+  if (profanity) return "profanity";
+  return null;
 }
 
 /**
@@ -792,16 +1243,12 @@ export function moderateFeedback(input: ModerationInput): ModerationVerdict {
     [input?.message, "message"],
     [input?.name, "name"],
   ];
-  const flags = new Set<FlagReason>();
 
   for (const [value, field] of fields) {
     if (typeof value !== "string" || value.trim() === "") continue;
-    const result = evaluateField(value, field);
-    if (result.block) return { action: "block", reason: result.block };
-    result.flags.forEach((flag) => flags.add(flag));
+    const reason = evaluateField(value, field);
+    if (reason) return { action: "block", reason };
   }
 
-  return flags.size > 0
-    ? { action: "flag", reasons: [...flags] }
-    : { action: "allow" };
+  return { action: "allow" };
 }
