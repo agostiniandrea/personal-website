@@ -10,6 +10,7 @@ export default defineConfig({
     env: {
       ASSETS: bindings.assets(),
       IMAGES: bindings.images(),
+      VINEXT_KV_CACHE: bindings.kv(),
       // Runtime secrets (server-only). Locally resolved from .dev.vars / .env.local;
       // in production they are set with `cf workers secrets bulk` and never committed.
       SUPABASE_URL: bindings.secret(),
