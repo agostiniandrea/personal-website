@@ -1,16 +1,13 @@
 import { defineConfig } from "vite";
 import vinext from "vinext";
 import { cloudflare } from "@cloudflare/vite-plugin";
-import { responseStoreServiceBinding } from "./cloudflare.config";
-import { responseStoreAdapter } from "@vinext/cloudflare/cache/response-store-adapter";
 import { imagesOptimizer } from "@vinext/cloudflare/images/images-optimizer";
 
+// Trial setup: no persistent response store (no R2 / auxiliary Worker), so
+// vinext uses its default in-memory cache. Revisit before any production move.
 export default defineConfig({
   plugins: [
-    vinext({
-      cache: responseStoreAdapter(),
-      images: { optimizer: imagesOptimizer() },
-    }),
-    cloudflare({ auxiliaryWorkers: [{ config: responseStoreServiceBinding }] }),
+    vinext({ images: { optimizer: imagesOptimizer() } }),
+    cloudflare(),
   ],
 });
