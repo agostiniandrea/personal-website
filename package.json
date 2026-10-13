@@ -22,9 +22,15 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:update": "jest --updateSnapshot",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "dev:vinext": "vite dev --port 3001",
+    "build:vinext": "vite build",
+    "start:vinext": "vite preview",
+    "deploy:vinext": "vinext-cloudflare deploy",
+    "deploy:response-store": "cf deploy --prebuilt --mode production --worker andrea-agostini-website-response-store"
   },
   "dependencies": {
+    "@cloudflare/workers-response-store": "^1.1.0",
     "@opentelemetry/api": "1.9.1",
     "@opentelemetry/context-async-hooks": "2.11.0",
     "@opentelemetry/core": "2.11.0",
@@ -36,6 +42,7 @@
     "@types/react-dom": "19.3.0",
     "@vercel/analytics": "2.0.1",
     "@vercel/speed-insights": "2.0.0",
+    "@vinext/cloudflare": "^1.1.0",
     "contentful": "11.12.10",
     "dotenv": "18.0.5",
     "lucide-react": "^1.49.0",
@@ -49,6 +56,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.4.0",
+    "@cloudflare/vite-plugin": "2.0.0-beta.sha-91c870c02",
     "@eslint/js": "10.0.1",
     "@jest/globals": "^30.5.2",
     "@jest/types": "^30.5.1",
@@ -68,6 +76,8 @@
     "@types/styled-components": "5.1.36",
     "@typescript-eslint/eslint-plugin": "8.71.0",
     "@typescript-eslint/parser": "8.71.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "cf": "^1.0.0-beta.14",
     "chromatic": "18.10.1",
     "contentful-management": "^12.19.0",
     "eslint": "10.11.0",
@@ -98,6 +108,8 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "1.9.7",
     "typescript-eslint": "8.71.0",
+    "vinext": "^1.1.0",
+    "vite": "8.3.0",
     "wait-on": "^9.5.1"
   },
   "lint-staged": {
@@ -119,5 +131,6 @@
   "engines": {
     "node": ">=24.13.0"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.13.0",
+  "type": "module"
 }
