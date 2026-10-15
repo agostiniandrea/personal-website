@@ -7,8 +7,10 @@ export default defineConfig({
     compatibilityDate: "2026-10-13",
     compatibilityFlags: ["nodejs_compat"],
     assets: { notFoundHandling: "none" },
-    // Trial hostname. The apex stays on Vercel until the cutover.
-    domains: ["test.agostiniandrea.dev"],
+    // Production apex plus the trial hostname. Attaching the apex needs its DNS
+    // record to be free: delete the CNAME that points to Vercel right before the
+    // deploy that ships this line.
+    domains: ["agostiniandrea.dev", "test.agostiniandrea.dev"],
     env: {
       ASSETS: bindings.assets(),
       IMAGES: bindings.images(),
