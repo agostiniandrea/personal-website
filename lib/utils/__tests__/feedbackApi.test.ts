@@ -65,7 +65,13 @@ const ATTRIBUTION_COLUMNS = [
   "attribution_term",
 ] as const;
 
-const post = async (body: Row) => {
+const post = async (
+  body: Row,
+  connection: {
+    headers?: Record<string, string>;
+    socket?: { remoteAddress: string } | undefined;
+  } = {},
+) => {
   const res = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
@@ -74,8 +80,11 @@ const post = async (body: Row) => {
   const req = {
     method: "POST",
     body: { category: "UX", message: MESSAGE, ...body },
-    headers: { "x-forwarded-for": "203.0.113.7" },
-    socket: { remoteAddress: "203.0.113.7" },
+    headers: connection.headers ?? { "x-forwarded-for": "203.0.113.7" },
+    socket:
+      "socket" in connection
+        ? connection.socket
+        : { remoteAddress: "203.0.113.7" },
   };
   await handler(
     req as unknown as NextApiRequest,
@@ -772,5 +781,77 @@ describe("/api/feedback — malformed requests", () => {
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(lastRow().source).toBe("community");
+  });
+});
+
+describe("/api/feedback — client IP", () => {
+  const asCloudflareWorker = () =>
+    jest
+      .spyOn(window.navigator, "userAgent", "get")
+      .mockReturnValue("Cloudflare-Workers");
+
+  it("reads the first x-forwarded-for entry outside Cloudflare", async () => {
+    await post(
+      {},
+      { headers: { "x-forwarded-for": "198.51.100.4, 10.0.0.1" } },
+    );
+
+    expect(lastRow().ip).toBe("198.51.100.4");
+  });
+
+  it("never reads cf-connecting-ip outside Cloudflare, where a client can send it", async () => {
+    await post(
+      {},
+      {
+        headers: {
+          "x-forwarded-for": "198.51.100.4",
+          "cf-connecting-ip": "192.0.2.99",
+        },
+      },
+    );
+
+    expect(lastRow().ip).toBe("198.51.100.4");
+  });
+
+  it("falls back to the socket address when there is no forwarded header", async () => {
+    await post({}, { headers: {}, socket: { remoteAddress: "203.0.113.50" } });
+
+    expect(lastRow().ip).toBe("203.0.113.50");
+  });
+
+  it("reads cf-connecting-ip on Cloudflare and ignores a forged x-forwarded-for", async () => {
+    asCloudflareWorker();
+
+    await post(
+      {},
+      {
+        headers: {
+          "x-forwarded-for": "192.0.2.99, 198.51.100.4",
+          "cf-connecting-ip": "198.51.100.4",
+        },
+      },
+    );
+
+    expect(lastRow().ip).toBe("198.51.100.4");
+  });
+
+  it("does not trust x-forwarded-for on Cloudflare when cf-connecting-ip is missing", async () => {
+    asCloudflareWorker();
+
+    await post({}, { headers: { "x-forwarded-for": "192.0.2.99" } });
+
+    expect(lastRow().ip).toBe("unknown");
+  });
+
+  it("does not need a socket on Cloudflare, where there is none", async () => {
+    asCloudflareWorker();
+
+    const res = await post(
+      {},
+      { headers: { "cf-connecting-ip": "198.51.100.4" }, socket: undefined },
+    );
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(lastRow().ip).toBe("198.51.100.4");
   });
 });

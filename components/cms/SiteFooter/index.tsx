@@ -169,8 +169,6 @@ const MetaCol = styled.div`
   }
 `;
 
-const CURRENT_YEAR = new Date().getFullYear();
-
 const SiteFooter: React.FC<SiteFooterProps> = ({
   socialLinks,
   copyrightName,
@@ -221,7 +219,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
             <FooterLogo label={copyrightName} variant="symbol" />
           </span>
           <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
-            © {CURRENT_YEAR} {copyrightName}
+            © {new Date().getFullYear()} {copyrightName}
           </Text>
         </MetaCol>
       </Subfooter>
