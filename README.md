@@ -26,7 +26,7 @@ Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 | Deployment         | Vercel — preview on every PR, production on `main`                                                    |
 | Analytics          | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent                              |
 | Observability      | Vercel Analytics + Speed Insights                                                                     |
-| Open Graph         | Edge runtime at `/api/og` — dynamic OG image generation                                               |
+| Open Graph         | Edge runtime at `/api/og` — the shared OG card, rendered with `ImageResponse`                         |
 
 ## Getting Started
 
@@ -193,7 +193,7 @@ The feedback form is a respectful space with zero tolerance: any profanity, vulg
 
 ### `GET /api/og`
 
-Edge runtime handler that generates dynamic Open Graph images from `?title=` and `?subtitle=` query parameters using Inter fonts and `ImageResponse`.
+Edge runtime handler that renders the site's single Open Graph card (name, role, location and the logo mark) with `ImageResponse`. It takes no query parameters, so nobody can render arbitrary text on the domain. The logo (`lib/utils/ogLogo.ts`) and the two site fonts, Space Grotesk Bold and Inter Regular (`lib/utils/ogFonts.ts`, WOFF subsets under the SIL OFL), are inlined because there is no filesystem to read them from on the Edge or Workers runtime, and a font CDN would add a network dependency to every render.
 
 ## Analytics and Privacy
 
