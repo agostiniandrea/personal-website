@@ -1,12 +1,18 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export function proxy() {
+import { getRobotsHeader } from "@lib/utils/robots";
+
+export function proxy(request: NextRequest) {
   const response = NextResponse.next();
 
-  // Override x-robots-tag header to allow indexing
-  // This ensures that even if Next.js or Vercel sets noindex,
-  // we explicitly allow indexing
-  response.headers.set("x-robots-tag", "index, follow");
+  // Explicitly allow indexing on the production hosts only (this also overrides
+  // a noindex that Next.js or Vercel may set there). Every other host serving
+  // the site (trial domains, workers.dev, previews) is noindex.
+  response.headers.set(
+    "x-robots-tag",
+    getRobotsHeader(request.headers.get("host")),
+  );
 
   return response;
 }

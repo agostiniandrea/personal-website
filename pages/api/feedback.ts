@@ -36,10 +36,33 @@ const STUDY_SUBMISSIONS_PER_IP = 10;
    one: a submission the content rules refuse. It names no rule and no term. */
 type Response = { success: true } | { error: string; code?: string };
 
+/* Cloudflare's runtime identifies itself through navigator.userAgent, which a
+   visitor cannot set. It is the only safe way to know a header was written by
+   Cloudflare rather than by the client. */
+function isCloudflareWorker(): boolean {
+  return (
+    typeof navigator !== "undefined" &&
+    navigator.userAgent === "Cloudflare-Workers"
+  );
+}
+
+/* The IP drives the one-per-24h cooldown, so it must come from a header the
+   platform writes and the client cannot. On Vercel that is x-forwarded-for,
+   which Vercel overwrites. Cloudflare appends to a client-supplied
+   x-forwarded-for, so there its first entry is forgeable, and the trusted
+   header is cf-connecting-ip instead. The reverse also holds: off Cloudflare,
+   cf-connecting-ip is just another client header and is never read. */
 function getIp(req: NextApiRequest): string {
+  if (isCloudflareWorker()) {
+    const connecting = req.headers["cf-connecting-ip"];
+    return typeof connecting === "string" && connecting.trim()
+      ? connecting.trim()
+      : "unknown";
+  }
+
   const forwarded = req.headers["x-forwarded-for"];
   if (typeof forwarded === "string") return forwarded.split(",")[0].trim();
-  return req.socket.remoteAddress ?? "unknown";
+  return req.socket?.remoteAddress ?? "unknown";
 }
 
 /* A recruited study participant sends the ids the study link carried. Read

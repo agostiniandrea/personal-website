@@ -8,24 +8,25 @@ Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 
 ## Tech Stack
 
-| Layer              | Technology                                                                              |
-| ------------------ | --------------------------------------------------------------------------------------- |
-| Framework          | Next.js 16 (Pages Router), EN + IT via built-in i18n routing                            |
-| CMS                | Contentful — `getStaticProps` + ISR (24 h home, 1 min detail pages)                     |
-| Database           | Supabase — feedback submissions with RLS and IP rate limiting                           |
-| Styling            | styled-components + ThemeProvider                                                       |
-| Theming            | Dark (default) + light via `prefers-color-scheme` — CSS custom properties, zero JS      |
-| Fonts              | Inter + Space Grotesk via `next/font`                                                   |
-| Images             | `next/image` with avif/webp, 30-day CDN TTL, Contentful remote pattern                  |
-| Language           | TypeScript                                                                              |
-| Unit tests         | Jest + Testing Library                                                                  |
-| E2E tests          | Playwright — 37 tests (homepage, i18n, navigation, projects, Forest modal + validation) |
-| Component explorer | Storybook with dark-mode addon + Chromatic visual regression                            |
-| CI                 | GitHub Actions — type-check → lint → Jest → Lighthouse → Playwright → auto-merge        |
-| Deployment         | Vercel — preview on every PR, production on `main`                                      |
-| Analytics          | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent                |
-| Observability      | Vercel Analytics + Speed Insights                                                       |
-| Open Graph         | Edge runtime at `/api/og` — dynamic OG image generation                                 |
+| Layer              | Technology                                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------------------------- |
+| Framework          | Next.js 16 (Pages Router), EN + IT via built-in i18n routing                                          |
+| CMS                | Contentful — `getStaticProps` + ISR (24 h home, 1 min detail pages)                                   |
+| Database           | Supabase — feedback submissions with RLS and IP rate limiting                                         |
+| Moderation         | In-repo English + Italian content rules for the feedback form — no third-party service                |
+| Styling            | styled-components + ThemeProvider                                                                     |
+| Theming            | Dark (default) + light via `prefers-color-scheme` — CSS custom properties, zero JS                    |
+| Fonts              | Inter + Space Grotesk via `next/font`                                                                 |
+| Images             | `next/image` with avif/webp, 30-day CDN TTL, Contentful remote pattern                                |
+| Language           | TypeScript                                                                                            |
+| Unit tests         | Jest + Testing Library                                                                                |
+| E2E tests          | Playwright — 78 tests (homepage, i18n, navigation, projects, analytics, Forest modal, Prolific study) |
+| Component explorer | Storybook with dark-mode addon + Chromatic visual regression                                          |
+| CI                 | GitHub Actions — type-check → lint → Jest → Lighthouse → Playwright → auto-merge                      |
+| Deployment         | Vercel — preview on every PR, production on `main`                                                    |
+| Analytics          | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent                              |
+| Observability      | Vercel Analytics + Speed Insights                                                                     |
+| Open Graph         | Edge runtime at `/api/og` — dynamic OG image generation                                               |
 
 ## Getting Started
 
@@ -68,7 +69,7 @@ yarn lint:fix         # ESLint with auto-fix
 yarn prettier:fix     # Prettier across the repo
 
 # Testing
-yarn test             # Jest unit tests — all *.test.tsx under components/
+yarn test             # Jest unit tests — components/**/*.test.tsx and lib/**/*.test.ts
 yarn test:watch       # Jest in watch mode
 yarn test:coverage    # Jest with coverage report
 yarn test:update      # Update Jest snapshots
@@ -104,11 +105,17 @@ e2e/             # Playwright E2E tests
   projects.spec.ts
   forest.spec.ts           # Modal open/close, step gates, happy path
   forest-validation.spec.ts# All step-4 field validation scenarios
+  analytics.spec.ts        # GA4 and Clarity never load on localhost, even after consent
+  prolific.spec.ts         # Study parameters survive navigation and reload
 lib/
   utils/cms/     # Contentful client + data fetching helpers (getPageContent, getPaths)
+  utils/feedbackModeration.ts  # Content rules for the feedback form (EN + IT), see "Content moderation"
+  utils/prolific.ts            # Study parameters + completion link for Prolific participants
+  utils/attribution.ts         # First-touch campaign attribution, re-validated on the server
+  utils/treeNation.ts          # Tree-Nation forest counters
 pages/
   api/
-    feedback.ts  # POST — validates input, checks IP cooldown, inserts to Supabase
+    feedback.ts  # POST — validates input, applies content rules, checks cooldown, inserts to Supabase
     og.tsx       # GET  — Edge runtime, dynamic Open Graph image generation
   index.tsx      # Home page (pageLanding, ISR 24 h)
   [slug].tsx     # Detail pages keyed by Contentful uid (ISR 1 min)
@@ -119,6 +126,7 @@ pages/
 public/          # Static assets (fonts, favicon, CV PDF)
 supabase/
   schema.sql     # feedback table DDL + RLS policies
+  migrations/    # dated SQL migrations
 ```
 
 ## CMS Architecture
@@ -166,10 +174,22 @@ Accepts Forest modal submissions. Pipeline:
 
 1. Honeypot check (bots fill a hidden `_hp` field — silently accepted and discarded)
 2. Category validation against an allowlist
-3. Message length check (minimum 10 characters)
-4. Optional field validation — email format, LinkedIn/GitHub URL prefix, website URL protocol
-5. IP-based cooldown — one submission per IP per 24 hours (checked via Supabase)
-6. Insert to `public.feedback` table
+3. Message length check — 20 to 2,000 characters
+4. Optional field validation — name length, email format, LinkedIn/GitHub URL prefix, website URL protocol
+5. Content moderation (see below) — a refused message gets a generic `400` with code `content_rejected`; nothing is stored, no cooldown is spent and no page is revalidated
+6. IP-based cooldown — one submission per IP per 24 hours (`429`, checked via Supabase). Study participants carrying valid Prolific ids are de-duplicated by their Prolific submission instead, with a ceiling of 10 per IP
+7. Insert to `public.feedback` (community submissions also carry sanitised campaign attribution), then on-demand revalidation of both homepage locales — not done for study participants
+
+#### Content moderation
+
+The feedback form is a respectful space with zero tolerance: any profanity, vulgar language, insult, slur or blasphemy in the message or the credit name is refused, whether or not it is aimed at anybody ("fuck, this looks amazing" and "this design is stupid" are refused). Strong criticism without prohibited language is accepted ("the navigation is slow", "I strongly dislike this design").
+
+- Rules live in `lib/utils/feedbackModeration.ts`, in English and Italian only, with no dependency. The module has two verdicts, `allow` and `block`: prohibited content is never stored, not even as `pending`.
+- Matching is on whole words, so "Scunthorpe" or "cockpit" are safe. Leetspeak, masks (`f*ck`), spaced and repeated letters, look-alike and invisible characters are seen through.
+- The visitor always gets the same generic message, whatever rule matched. The server log carries a coarse category code only (`slur`, `threat`, `profanity`, ...), never the text, the matched term or the name.
+- Exceptions are few and tested: one plain real first name or surname in the name field (Dick, Cock, Fanny, Troia, Kike), "idiot-proof" and "dumb component", "Jesus Christ" on its own, and the literal verb "suck". None of them excuses another prohibited word in the same field.
+- Known limits are listed in the module header: not exhaustive, no other languages, context is never read.
+- To add a word, add it to the right list at the top of the module and add a test beside it.
 
 ### `GET /api/og`
 
@@ -199,10 +219,10 @@ Every PR triggers the `Test & Lint` GitHub Actions job:
 3. ESLint (`yarn lint`)
 4. Production build with Contentful secrets (`yarn build:compile`)
 5. Lighthouse CI — desktop and mobile
-6. Playwright E2E — 37 tests against the running production build
+6. Playwright E2E — 78 tests against the running production build
 7. Auto-squash-merge on success
 
-A separate `Vercel Scheduled Build` workflow fires every Monday at 03:30 UTC to force a Vercel redeploy and refresh ISR content.
+A separate `Vercel Scheduled Build` workflow fires every Monday at 03:30 UTC to force a Vercel redeploy and refresh ISR content. A `Carbon Drift Check` workflow runs on the 1st of every month and opens a reminder issue when the homepage weight drifts from the stored baseline.
 
 ## Quality Standards
 
@@ -217,7 +237,7 @@ Latest audit — **12 July 2026**, production ([agostiniandrea.dev](https://agos
 | Best Practices | 100     | 100    |
 | SEO            | 100     | 100    |
 
-Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 173 unit tests and 37 E2E tests.
+Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 48 Jest suites and 78 E2E tests.
 
 **Carbon** — official [Website Carbon result](https://www.websitecarbon.com/website/agostiniandrea-dev/): **0.05 g CO₂ per page view, rating A**, cleaner than 93% of pages tested (12 July 2026). Treated as an estimate, not an exact emissions measurement; re-tested after substantial design, asset, hosting or performance changes. The footer badge renders this stored value statically — no third-party script per visit.
 
@@ -225,18 +245,20 @@ Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mob
 
 ## Environment Variables
 
-| Variable                              | Required            | Purpose                                                                        |
-| ------------------------------------- | ------------------- | ------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_CONTENTFUL_SPACE_ID`     | Yes                 | Contentful space ID                                                            |
-| `NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN` | Yes                 | Contentful Delivery API token                                                  |
-| `SUPABASE_URL`                        | Yes                 | Supabase project URL — server-side only                                        |
-| `SUPABASE_SERVICE_ROLE_KEY`           | Yes — **Sensitive** | Supabase service role key — never expose client-side; mark Sensitive on Vercel |
-| `NEXT_PUBLIC_SITE_URL`                | Yes                 | Canonical site URL (default: `https://agostiniandrea.dev`)                     |
-| `NEXT_PUBLIC_GA_ID`                   | Optional            | Google Analytics 4 measurement ID                                              |
-| `NEXT_PUBLIC_CLARITY_PROJECT_ID`      | Optional            | Microsoft Clarity project ID                                                   |
-| `CONTENTFUL_MANAGEMENT_TOKEN`         | Local only          | Contentful Management API — only for one-off content scripts                   |
-| `CONTENTFUL_ENVIRONMENT_ID`           | Local only          | Contentful environment (default: `master`)                                     |
-| `CHROMATIC_PROJECT_TOKEN`             | Local only          | Chromatic visual regression token                                              |
+| Variable                              | Required            | Purpose                                                                           |
+| ------------------------------------- | ------------------- | --------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CONTENTFUL_SPACE_ID`     | Yes                 | Contentful space ID                                                               |
+| `NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN` | Yes                 | Contentful Delivery API token                                                     |
+| `SUPABASE_URL`                        | Yes                 | Supabase project URL — server-side only                                           |
+| `SUPABASE_SERVICE_ROLE_KEY`           | Yes — **Sensitive** | Supabase service role key — never expose client-side; mark Sensitive on Vercel    |
+| `NEXT_PUBLIC_SITE_URL`                | Yes                 | Canonical site URL (default: `https://agostiniandrea.dev`)                        |
+| `NEXT_PUBLIC_GA_ID`                   | Optional            | Google Analytics 4 measurement ID                                                 |
+| `NEXT_PUBLIC_CLARITY_PROJECT_ID`      | Optional            | Microsoft Clarity project ID                                                      |
+| `TREE_NATION_API_TOKEN`               | Optional            | Tree-Nation API token — sent with the forest counter requests when set            |
+| `NEXT_PUBLIC_PROLIFIC_COMPLETION_URL` | Optional            | https Prolific completion link; without it the study return button does not exist |
+| `CONTENTFUL_MANAGEMENT_TOKEN`         | Local only          | Contentful Management API — only for one-off content scripts                      |
+| `CONTENTFUL_ENVIRONMENT_ID`           | Local only          | Contentful environment (default: `master`)                                        |
+| `CHROMATIC_PROJECT_TOKEN`             | Local only          | Chromatic visual regression token                                                 |
 
 ## Path Aliases
 
