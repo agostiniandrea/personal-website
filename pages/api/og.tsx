@@ -48,13 +48,13 @@ export default function handler() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 0 72px 88px",
-          width: "700px",
+          width: "780px",
         }}
       >
         <div
           style={{
             display: "flex",
-            fontSize: "22px",
+            fontSize: "26px",
             letterSpacing: "0.16em",
             textTransform: "uppercase",
             color: "#6ff0dc",
@@ -69,7 +69,7 @@ export default function handler() {
               display: "flex",
               flexDirection: "column",
               fontFamily: "Space Grotesk",
-              fontSize: "92px",
+              fontSize: "104px",
               fontWeight: 700,
               lineHeight: 1.02,
               letterSpacing: "-0.03em",
@@ -84,8 +84,8 @@ export default function handler() {
             style={{
               display: "flex",
               flexDirection: "column",
-              fontSize: "34px",
-              lineHeight: 1.35,
+              fontSize: "40px",
+              lineHeight: 1.3,
               color: "#a7c4c0",
             }}
           >
@@ -97,9 +97,9 @@ export default function handler() {
         <div
           style={{
             display: "flex",
-            fontSize: "22px",
+            fontSize: "26px",
             letterSpacing: "0.04em",
-            color: "#6f8f8b",
+            color: "#86a8a3",
           }}
         >
           Bangkok, Thailand
@@ -139,6 +139,17 @@ export default function handler() {
         }}
       />
     </div>,
-    { width: WIDTH, height: HEIGHT, fonts: getOgFonts() },
+    {
+      width: WIDTH,
+      height: HEIGHT,
+      fonts: getOgFonts(),
+      // One image for the whole site: let browsers and the CDN keep it, and
+      // keep a stale copy around while a fresh one renders (each render runs
+      // a WASM rasteriser, which is the expensive part on Workers).
+      headers: {
+        "Cache-Control":
+          "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+      },
+    },
   );
 }
