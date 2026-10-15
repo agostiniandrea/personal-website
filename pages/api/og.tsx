@@ -1,105 +1,155 @@
 import { ImageResponse } from "next/og";
-import { NextRequest } from "next/server";
+
+import { getOgFonts } from "@lib/utils/ogFonts";
+import { LOGO_SYMBOL_ASPECT, LOGO_SYMBOL_DATA_URI } from "@lib/utils/ogLogo";
 
 export const config = {
   runtime: "edge",
 };
 
-export default async function handler(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const title = searchParams.get("title") ?? "Andrea Agostini";
-  const subtitle =
-    searchParams.get("subtitle") ?? "Senior Frontend Developer & Tech Lead";
+const WIDTH = 1200;
+const HEIGHT = 630;
 
+const LOGO_WIDTH = 380;
+const LOGO_HEIGHT = Math.round(LOGO_WIDTH / LOGO_SYMBOL_ASPECT);
+
+/* One card for the whole site. It takes no query parameters on purpose:
+   a `?title=` would let anyone render arbitrary text on this domain. */
+export default function handler() {
   return new ImageResponse(
     <div
       style={{
-        width: "1200px",
-        height: "630px",
-        background: "#0a0a0f",
+        width: `${WIDTH}px`,
+        height: `${HEIGHT}px`,
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "80px 96px",
-        fontFamily: "sans-serif",
         position: "relative",
+        background: "#07100f",
+        fontFamily: "Inter",
       }}
     >
-      {/* top accent line */}
+      {/* soft teal glow behind the mark */}
       <div
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "5px",
-          background: "#3b82f6",
+          top: "-120px",
+          right: "-140px",
+          width: "820px",
+          height: "820px",
           display: "flex",
+          backgroundImage:
+            "radial-gradient(circle, rgba(47,138,130,0.55) 0%, rgba(47,138,130,0) 68%)",
         }}
       />
 
-      {/* label */}
+      {/* text column */}
       <div
         style={{
-          fontSize: "15px",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "#3b82f6",
-          marginBottom: "32px",
           display: "flex",
-          fontWeight: 400,
+          flexDirection: "column",
+          justifyContent: "space-between",
+          padding: "72px 0 72px 88px",
+          width: "700px",
         }}
       >
-        agostiniandrea.dev
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            fontSize: "22px",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "#6ff0dc",
+          }}
+        >
+          <div
+            style={{
+              width: "12px",
+              height: "12px",
+              borderRadius: "6px",
+              background: "#6ff0dc",
+              marginRight: "16px",
+              display: "flex",
+            }}
+          />
+          agostiniandrea.dev
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              fontFamily: "Space Grotesk",
+              fontSize: "92px",
+              fontWeight: 700,
+              lineHeight: 1.02,
+              letterSpacing: "-0.03em",
+              color: "#ffffff",
+              marginBottom: "28px",
+            }}
+          >
+            <div style={{ display: "flex" }}>Andrea</div>
+            <div style={{ display: "flex" }}>Agostini</div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              fontSize: "34px",
+              lineHeight: 1.35,
+              color: "#a7c4c0",
+            }}
+          >
+            <div style={{ display: "flex" }}>Senior Frontend Developer</div>
+            <div style={{ display: "flex" }}>& Tech Lead</div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            fontSize: "22px",
+            letterSpacing: "0.04em",
+            color: "#6f8f8b",
+          }}
+        >
+          Bangkok, Thailand
+        </div>
       </div>
 
-      {/* name */}
-      <div
-        style={{
-          fontSize: "80px",
-          fontWeight: 700,
-          color: "#ffffff",
-          lineHeight: 1.05,
-          marginBottom: "28px",
-          display: "flex",
-          letterSpacing: "-0.02em",
-        }}
-      >
-        {title}
-      </div>
-
-      {/* role */}
-      <div
-        style={{
-          fontSize: "30px",
-          color: "#a0a0b0",
-          lineHeight: 1.4,
-          display: "flex",
-          fontWeight: 400,
-        }}
-      >
-        {subtitle}
-      </div>
-
-      {/* location */}
+      {/* brand mark */}
       <div
         style={{
           position: "absolute",
-          bottom: "64px",
-          left: "96px",
-          fontSize: "18px",
-          color: "#6a6a80",
-          letterSpacing: "0.04em",
+          top: `${(HEIGHT - LOGO_HEIGHT) / 2}px`,
+          right: "84px",
+          width: `${LOGO_WIDTH}px`,
+          height: `${LOGO_HEIGHT}px`,
           display: "flex",
-          fontWeight: 400,
         }}
       >
-        Bangkok, Thailand
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={LOGO_SYMBOL_DATA_URI}
+          width={LOGO_WIDTH}
+          height={LOGO_HEIGHT}
+          alt=""
+        />
       </div>
+
+      {/* bottom accent line */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: "6px",
+          display: "flex",
+          backgroundImage: "linear-gradient(90deg, #2f8a82, #6ff0dc)",
+        }}
+      />
     </div>,
-    {
-      width: 1200,
-      height: 630,
-    },
+    { width: WIDTH, height: HEIGHT, fonts: getOgFonts() },
   );
 }
