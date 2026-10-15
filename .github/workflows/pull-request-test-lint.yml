@@ -121,7 +121,17 @@ jobs:
     if: ${{ success() && !startsWith(github.actor, 'dependabot') }}
 
     steps:
+      # `dev` is a long-lived branch: the release PR (dev -> main) must never
+      # delete its own source branch when it merges.
       - name: Auto-merge PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge --squash --delete-branch --auto "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}"
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ "$HEAD_REF" = "dev" ]; then
+            gh pr merge --squash --auto "$PR_NUMBER" --repo "$REPO"
+          else
+            gh pr merge --squash --delete-branch --auto "$PR_NUMBER" --repo "$REPO"
+          fi
