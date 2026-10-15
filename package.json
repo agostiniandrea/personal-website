@@ -29,7 +29,6 @@
     "deploy:vinext": "vinext-cloudflare deploy"
   },
   "dependencies": {
-    "@cloudflare/workers-response-store": "^1.1.0",
     "@opentelemetry/api": "1.9.1",
     "@opentelemetry/context-async-hooks": "2.11.0",
     "@opentelemetry/core": "2.11.0",

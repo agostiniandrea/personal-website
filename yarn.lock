@@ -2107,7 +2107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-response-store@npm:1.1.0, @cloudflare/workers-response-store@npm:^1.1.0":
+"@cloudflare/workers-response-store@npm:1.1.0":
   version: 1.1.0
   resolution: "@cloudflare/workers-response-store@npm:1.1.0"
   checksum: 10c0/88325adb976c1d30c9a6684136398c89164b8afc433d090054cc45f9da2c5933ebdc88249d04aae5ef9179322cc30569fd5db4da531d7e8ccbb31aafa15668df
@@ -6493,7 +6493,6 @@ __metadata:
   dependencies:
     "@chromatic-com/storybook": "npm:5.4.0"
     "@cloudflare/vite-plugin": "npm:2.0.0-beta.sha-91c870c02"
-    "@cloudflare/workers-response-store": "npm:^1.1.0"
     "@eslint/js": "npm:10.0.1"
     "@jest/globals": "npm:^30.5.2"
     "@jest/types": "npm:^30.5.1"
