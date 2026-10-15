@@ -54,23 +54,12 @@ export default function handler() {
         <div
           style={{
             display: "flex",
-            alignItems: "center",
             fontSize: "22px",
             letterSpacing: "0.16em",
             textTransform: "uppercase",
             color: "#6ff0dc",
           }}
         >
-          <div
-            style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "6px",
-              background: "#6ff0dc",
-              marginRight: "16px",
-              display: "flex",
-            }}
-          />
           agostiniandrea.dev
         </div>
 
