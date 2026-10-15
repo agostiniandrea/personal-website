@@ -7,6 +7,8 @@ export default defineConfig({
     compatibilityDate: "2026-10-13",
     compatibilityFlags: ["nodejs_compat"],
     assets: { notFoundHandling: "none" },
+    // Trial hostname. The apex stays on Vercel until the cutover.
+    domains: ["test.agostiniandrea.dev"],
     env: {
       ASSETS: bindings.assets(),
       IMAGES: bindings.images(),
