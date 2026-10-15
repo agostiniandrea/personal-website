@@ -1,25 +1,36 @@
 import { bindings, defineConfig, defineWorker } from "cf/config";
 
-export default defineConfig({
-  worker: defineWorker({
-    name: "andrea-agostini-website",
-    entrypoint: "vinext/server/fetch-handler",
-    compatibilityDate: "2026-10-13",
-    compatibilityFlags: ["nodejs_compat"],
-    assets: { notFoundHandling: "none" },
-    // Production apex plus the trial hostname. Attaching the apex needs its DNS
-    // record to be free: delete the CNAME that points to Vercel right before the
-    // deploy that ships this line.
-    domains: ["agostiniandrea.dev", "test.agostiniandrea.dev"],
-    env: {
-      ASSETS: bindings.assets(),
-      IMAGES: bindings.images(),
-      VINEXT_KV_CACHE: bindings.kv(),
-      // Runtime secrets (server-only). Locally resolved from .dev.vars / .env.local;
-      // in production they are set with `cf workers secrets bulk` and never committed.
-      SUPABASE_URL: bindings.secret(),
-      SUPABASE_SERVICE_ROLE_KEY: bindings.secret(),
-      TREE_NATION_API_TOKEN: bindings.secret(),
-    },
-  }),
+/**
+ * One config, two Workers. `mode` comes from `vinext-cloudflare deploy --env`:
+ * no flag means production, `--env staging` builds and deploys the staging
+ * Worker. Each Worker has its own name, domain, KV namespace and secrets, so
+ * nothing on staging can touch production data stored in Cloudflare.
+ */
+export default defineConfig(({ mode }) => {
+  const isStaging = mode === "staging";
+
+  return {
+    worker: defineWorker({
+      name: isStaging
+        ? "andrea-agostini-website-staging"
+        : "andrea-agostini-website",
+      entrypoint: "vinext/server/fetch-handler",
+      compatibilityDate: "2026-10-13",
+      compatibilityFlags: ["nodejs_compat"],
+      assets: { notFoundHandling: "none" },
+      // Attaching a custom domain needs its DNS record to be free. `www` is not
+      // listed here: it is a proxied record plus a Redirect Rule to the apex.
+      domains: isStaging ? ["dev.agostiniandrea.dev"] : ["agostiniandrea.dev"],
+      env: {
+        ASSETS: bindings.assets(),
+        IMAGES: bindings.images(),
+        VINEXT_KV_CACHE: bindings.kv(),
+        // Runtime secrets (server-only). Locally resolved from .dev.vars / .env.local;
+        // in production they are set with `cf workers secrets bulk` and never committed.
+        SUPABASE_URL: bindings.secret(),
+        SUPABASE_SERVICE_ROLE_KEY: bindings.secret(),
+        TREE_NATION_API_TOKEN: bindings.secret(),
+      },
+    }),
+  };
 });

@@ -23,7 +23,7 @@ Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 | E2E tests          | Playwright — 78 tests (homepage, i18n, navigation, projects, analytics, Forest modal, Prolific study) |
 | Component explorer | Storybook with dark-mode addon + Chromatic visual regression                                          |
 | CI                 | GitHub Actions — type-check → lint → Jest → Lighthouse → Playwright → auto-merge                      |
-| Deployment         | Vercel — preview on every PR, production on `main`                                                    |
+| Deployment         | Cloudflare Workers — production on `main`, staging on `dev`; Vercel previews on PRs for now           |
 | Analytics          | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent                              |
 | Observability      | Vercel Analytics + Speed Insights                                                                     |
 | Open Graph         | Edge runtime at `/api/og` — the shared OG card, rendered with `ImageResponse`                         |
@@ -221,6 +221,8 @@ Every PR triggers the `Test & Lint` GitHub Actions job:
 5. Lighthouse CI — desktop and mobile
 6. Playwright E2E — 78 tests against the running production build
 7. Auto-squash-merge on success
+
+Production is deployed from `main` by the `Cloudflare Deploy` workflow: a manual run, a Contentful publish (`repository_dispatch`) or the weekly schedule on Monday at 03:30 UTC. Every push to `dev` deploys the staging Worker at `dev.agostiniandrea.dev` through `Cloudflare Staging Deploy`. Both Workers come from `cloudflare.config.ts`: `vinext-cloudflare deploy --env staging` selects the staging name, domain, KV namespace and secrets. Staging is `noindex` and sends nothing to GA4 or Clarity.
 
 A separate `Vercel Scheduled Build` workflow fires every Monday at 03:30 UTC to force a Vercel redeploy and refresh ISR content. A `Carbon Drift Check` workflow runs on the 1st of every month and opens a reminder issue when the homepage weight drifts from the stored baseline.
 
