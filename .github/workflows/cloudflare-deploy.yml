@@ -33,6 +33,12 @@ jobs:
       NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       NEXT_PUBLIC_SITE_URL: https://agostiniandrea.dev
       SITE_URL: https://agostiniandrea.dev
+      # Public build-time values (inlined into the client bundle). Repository
+      # variables, not secrets: without them analytics and the Prolific return
+      # link would silently be off in the deployed build.
+      NEXT_PUBLIC_GA_ID: ${{ vars.NEXT_PUBLIC_GA_ID }}
+      NEXT_PUBLIC_CLARITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_CLARITY_PROJECT_ID }}
+      NEXT_PUBLIC_PROLIFIC_COMPLETION_URL: ${{ vars.NEXT_PUBLIC_PROLIFIC_COMPLETION_URL }}
 
     steps:
       - name: Checkout
