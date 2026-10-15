@@ -239,10 +239,10 @@ really used:
    not mistake it for what the site displays — it almost never is.
 
 **Publishing any entry triggers a production deploy.** A Contentful webhook on
-`Entry.publish` / `Entry.unpublish` calls a Vercel deploy hook. That rules out
-having the site write verified figures back into the CMS on every sync: it
-would turn each tree bought into a rebuild. The self-healing store already
-exists, and it is `forest_sync`.
+`Entry.publish` / `Entry.unpublish` dispatches the `Cloudflare Deploy` workflow
+(`repository_dispatch`). That rules out having the site write verified figures
+back into the CMS on every sync: it would turn each tree bought into a rebuild.
+The self-healing store already exists, and it is `forest_sync`.
 
 ### Observability
 
