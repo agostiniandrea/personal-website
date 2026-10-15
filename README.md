@@ -131,7 +131,7 @@ supabase/
 
 ## CMS Architecture
 
-Content is fetched from Contentful at build time via `getStaticProps`. Pages revalidate via ISR — 1 hour for the home page, 1 minute for detail pages. Successful Forest feedback submissions also request on-demand revalidation for both homepage locales. A scheduled GitHub Actions workflow triggers a full Vercel redeploy every Monday at 03:30 UTC to pick up Contentful content changes.
+Content is fetched from Contentful at build time via `getStaticProps`. Pages revalidate via ISR — 1 hour for the home page, 1 minute for detail pages. Successful Forest feedback submissions also request on-demand revalidation for both homepage locales. The `Cloudflare Deploy` workflow rebuilds the site on every Contentful publish and every Monday at 03:30 UTC to pick up content changes.
 
 ### Page types
 
@@ -224,7 +224,7 @@ Every PR triggers the `Test & Lint` GitHub Actions job:
 
 Production is deployed from `main` by the `Cloudflare Deploy` workflow: a manual run, a Contentful publish (`repository_dispatch`) or the weekly schedule on Monday at 03:30 UTC. Every push to `dev` deploys the staging Worker at `dev.agostiniandrea.dev` through `Cloudflare Staging Deploy`. Both Workers come from `cloudflare.config.ts`: `vinext-cloudflare deploy --env staging` selects the staging name, domain, KV namespace and secrets. Staging is `noindex` and sends nothing to GA4 or Clarity.
 
-A separate `Vercel Scheduled Build` workflow fires every Monday at 03:30 UTC to force a Vercel redeploy and refresh ISR content. A `Carbon Drift Check` workflow runs on the 1st of every month and opens a reminder issue when the homepage weight drifts from the stored baseline.
+A `Carbon Drift Check` workflow runs on the 1st of every month and opens a reminder issue when the homepage weight drifts from the stored baseline.
 
 ## Quality Standards
 
