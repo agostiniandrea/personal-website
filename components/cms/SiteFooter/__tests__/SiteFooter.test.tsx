@@ -78,11 +78,11 @@ describe("SiteFooter", () => {
   });
 
   it("shows the symbol on the right, above the copyright name, hidden from assistive tech", () => {
-    const { container } = renderWithTheme(
-      <SiteFooter {...defaultSiteFooter} />,
-    );
-    const logo = container.querySelector("svg");
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
     const copyright = screen.getByText(/©/);
+    /* The footer has other SVGs now (the leaf in the sustainability intro), so
+       the logo is the one that sits next to the copyright line. */
+    const logo = copyright.parentElement?.querySelector("svg") ?? null;
     const tagline = screen.getByText(/one component at a time/i);
 
     expect(logo).not.toBeNull();
