@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 import BrandLogo from "@components/atoms/BrandLogo";
 import { Container, Flex, Link, Text } from "@components/ions";
-import { CarbonBadge, TreeNationLabel } from "@components/molecules";
+import {
+  GreenWebBadge,
+  LeafIcon,
+  TreeNationLabel,
+} from "@components/molecules";
 import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
@@ -26,7 +30,7 @@ const FooterWrapper = styled.footer`
   padding-top: ${toSpacing("3xl")};
 
   /* Hidden on mobile: the app-style tab bar makes a per-page footer redundant,
-     so its contact/social/carbon/copyright content moves into the More sheet. */
+     so its contact/social/badges/copyright content moves into the More sheet. */
   @media (max-width: ${BREAKPOINTS_BELOW.xTablet}) {
     display: none;
   }
@@ -77,96 +81,119 @@ const SocialLink = styled(Link)`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
-/* ── Secondary subfooter layer ── */
+/* One hairline for the separators of the sections below the contact links. */
+const SEPARATOR = "1px solid rgba(128, 128, 128, 0.12)";
 
-const Subfooter = styled.div`
+/* ── Sustainability ── */
+
+const SustainabilityRow = styled.div`
   align-items: center;
+  border-bottom: ${SEPARATOR};
+  border-top: ${SEPARATOR};
   display: flex;
   flex-direction: column;
   gap: ${toSpacing("lg")};
+  margin-bottom: ${toSpacing("lg")};
+  padding-bottom: ${toSpacing("lg")};
+  padding-top: ${toSpacing("lg")};
   text-align: center;
 
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: flex-end;
-    display: grid;
-    gap: ${toSpacing("xl")};
-    grid-template-columns: 1fr 1fr 1fr;
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    flex-direction: row;
+    justify-content: space-between;
     text-align: left;
   }
 `;
 
-/* The left side of the footer is the site's environmental footprint: the
-   Climate Action Website label (what the site gives back) with Website Carbon
-   (how light the site is) under it. */
-const BadgeCol = styled.div`
+const SustainabilityIntro = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: ${toSpacing("lg")};
-  justify-content: center;
+  gap: ${toSpacing("sm")};
 
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
+  @media (min-width: ${BREAKPOINTS.tablet}) {
     align-items: flex-start;
+    flex: 1 1 0;
   }
 `;
 
-/* The Climate Action label is a credential, shown at full strength like the
-   carbon badge: dimmed, both read as switched off next to the teal logo. Only
-   the wrapper is styled; the widget itself is untouched. Same 0.9 scale the
-   carbon badge gets, as `zoom` rather than a transform, so the box shrinks with
-   the label and leaves no empty strip under it. */
-const ClimateActionCredential = styled(TreeNationLabel)`
-  display: flex;
-  zoom: 0.9;
+const SustainabilityLabel = styled.p`
+  align-items: center;
+  color: ${({ theme }) => theme.colors.highlight};
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  gap: ${toSpacing("xs")};
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
 `;
 
-const TaglineCol = styled.div`
+/* The credentials sit in one row and wrap, never overflow. Each keeps its own
+   natural size and aspect ratio (the Tree-Nation label is drawn by their
+   script, Green Web is a fixed 200 × 95 image), so nothing is stretched or
+   cropped; they are only centred in the row. */
+const BadgesRow = styled.div`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${toSpacing("lg")} ${toSpacing("xl")};
+  justify-content: center;
+
+  @media (min-width: ${BREAKPOINTS.tablet}) {
+    flex: 0 1 auto;
+    justify-content: flex-end;
+  }
+`;
+
+/* The Climate Action label is a credential, shown at full strength: dimmed, it
+   reads as switched off next to the teal. Only the wrapper is styled; the
+   widget itself is untouched. */
+const ClimateActionCredential = styled(TreeNationLabel)`
+  align-items: center;
+  display: flex;
+`;
+
+/* ── Bottom row ── */
+
+const BottomRow = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: ${toSpacing("md")};
+  text-align: center;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: center;
-    text-align: center;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
-`;
-
-/* Decorative here: the copyright line already names the owner. */
-const FooterLogo = styled(BrandLogo)`
-  display: block;
-  height: 2.5rem;
-  width: auto;
 `;
 
 const Tagline = styled(Text)`
   color: ${({ theme }) => theme.colors.paragraph};
-  max-width: 36ch;
 `;
 
-/* Each CMS line is its own block, so `balance` can even out its wrap instead of
-   dropping a single word onto a line of its own. */
+/* The CMS lines run on as one sentence, with no width cap: they take the room
+   the row has and only wrap when it runs out. */
 const TaglineLine = styled.span`
-  display: block;
-  text-wrap: balance;
-`;
-
-/* Smaller than the Climate Action label. `zoom` rather than a transform, so the
-   box shrinks with the badge and the footer really takes less room. */
-const CarbonWrapper = styled.div`
-  zoom: 0.75;
+  &:not(:last-child)::after {
+    content: " ";
+  }
 `;
 
 const MetaCol = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
   flex-shrink: 0;
   gap: ${toSpacing("sm")};
+`;
 
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    align-items: flex-end;
-  }
+/* Decorative here: the copyright line already names the owner. */
+const FooterLogo = styled(BrandLogo)`
+  display: block;
+  height: 2rem;
+  width: auto;
 `;
 
 const SiteFooter: React.FC<SiteFooterProps> = ({
@@ -195,24 +222,34 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
         </Flex>
       </CtaArea>
 
-      {/* Subfooter */}
-      <Subfooter>
-        <BadgeCol>
-          <ClimateActionCredential type="offset-website" />
-          <CarbonWrapper>
-            <CarbonBadge />
-          </CarbonWrapper>
-        </BadgeCol>
+      {/* Sustainability */}
+      <SustainabilityRow>
+        <SustainabilityIntro>
+          <SustainabilityLabel>
+            <LeafIcon size={16} />
+            Sustainable by design
+          </SustainabilityLabel>
+          <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
+            This website runs on renewable energy and supports global
+            reforestation.
+          </Text>
+        </SustainabilityIntro>
 
-        <TaglineCol>
-          {tagline && (
-            <Tagline variant="small">
-              {tagline.split("\n").map((line, i) => (
-                <TaglineLine key={i}>{line}</TaglineLine>
-              ))}
-            </Tagline>
-          )}
-        </TaglineCol>
+        <BadgesRow>
+          <ClimateActionCredential type="offset-website" />
+          <GreenWebBadge />
+        </BadgesRow>
+      </SustainabilityRow>
+
+      {/* Bottom row */}
+      <BottomRow>
+        {tagline && (
+          <Tagline variant="small">
+            {tagline.split("\n").map((line, i) => (
+              <TaglineLine key={i}>{line}</TaglineLine>
+            ))}
+          </Tagline>
+        )}
 
         <MetaCol>
           <span aria-hidden="true">
@@ -222,7 +259,7 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
             © {new Date().getFullYear()} {copyrightName}
           </Text>
         </MetaCol>
-      </Subfooter>
+      </BottomRow>
     </Container>
   </FooterWrapper>
 );
