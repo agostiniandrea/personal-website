@@ -17,6 +17,7 @@ export {
   TreeIcon,
 } from "./ForestIcons";
 export { default as ForestTeaser } from "./ForestTeaser";
+export { default as GreenWebBadge } from "./GreenWebBadge";
 export { default as HeadingBox } from "./HeadingBox";
 export { default as InfoTooltip } from "./InfoTooltip";
 export { default as MobileFeedbackNudge } from "./MobileFeedbackNudge";
