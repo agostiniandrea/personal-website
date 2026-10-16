@@ -222,7 +222,7 @@ Every PR triggers the `Test & Lint` GitHub Actions job:
 6. Playwright E2E — 78 tests against the running production build
 7. Auto-squash-merge on success
 
-Production is deployed from `main` by the `Cloudflare Deploy` workflow: a manual run, a Contentful publish (`repository_dispatch`) or the weekly schedule on Monday at 03:30 UTC. Every push to `dev` deploys the staging Worker at `dev.agostiniandrea.dev` through `Cloudflare Staging Deploy`. Both Workers come from `cloudflare.config.ts`: `vinext-cloudflare deploy --env staging` selects the staging name, domain, KV namespace and secrets. Staging is `noindex` and sends nothing to GA4 or Clarity.
+Production is deployed from `main` by the `Cloudflare Deploy` workflow: on every merge into `main`, on a Contentful publish (`repository_dispatch`), on the weekly schedule (Monday at 03:30 UTC) or by a manual run. Every merge into `dev` deploys the staging Worker at `dev.agostiniandrea.dev` through `Cloudflare Staging Deploy`. A merge made by the `Auto-merge` job (GITHUB_TOKEN) does not fire `push` workflows, so that job starts the matching deploy itself with `workflow_dispatch`. Both Workers come from `cloudflare.config.ts`: `vinext-cloudflare deploy --env staging` selects the staging name, domain, KV namespace and secrets. Staging is `noindex` and sends nothing to GA4 or Clarity.
 
 A `Carbon Drift Check` workflow runs on the 1st of every month and opens a reminder issue when the homepage weight drifts from the stored baseline.
 
