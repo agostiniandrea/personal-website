@@ -7,7 +7,7 @@ export const defaultSiteFooter: SiteFooterProps = {
     { label: "Email", url: "mailto:a.agostini92@gmail.com" },
   ],
   copyrightName: "Andrea Agostini",
-  tagline: "Building for the web, one component at a time. Based in Bangkok.",
+  tagline: "I build for the web, one component at a time.\nBangkok-based.",
 };
 
 export const minimalSiteFooter: SiteFooterProps = {

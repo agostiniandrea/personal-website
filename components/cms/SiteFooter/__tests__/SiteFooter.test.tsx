@@ -57,24 +57,23 @@ describe("SiteFooter", () => {
 
   it("renders no social links when socialLinks is empty", () => {
     renderWithTheme(<SiteFooter {...minimalSiteFooter} />);
-    // The static Website Carbon badge is the only remaining link
+    // The static Green Web badge is the only remaining link.
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(1);
-    expect(links[0]).toHaveAccessibleName(/Website Carbon result/i);
+    expect(links[0]).toHaveAccessibleName(/green hosting/i);
   });
 
-  it("stacks the Climate Action Website label on the left, above Website Carbon", () => {
+  it("shows the Climate Action label, then Green Web, in the badge row", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
     const climate = screen.getByTestId("tree-nation-offset-website");
-    const carbon = screen.getByRole("link", { name: /Website Carbon result/i });
+    const green = screen.getByRole("link", { name: /green hosting/i });
     const tagline = screen.getByText(/one component at a time/i);
 
-    expect(climate.parentElement).toContainElement(carbon);
+    expect(climate.parentElement).toContainElement(green);
     expect(
-      climate.compareDocumentPosition(carbon) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
+      climate.compareDocumentPosition(green) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
-    // The tagline column is left alone.
+    // The tagline sits in the bottom row, not with the badges.
     expect(climate.parentElement).not.toContainElement(tagline);
   });
 
@@ -106,16 +105,13 @@ describe("SiteFooter", () => {
     expect(screen.queryByTestId("tree-nation-tree-counter")).toBeNull();
   });
 
-  it("shows both environmental badges in colour", () => {
+  it("shows the Climate Action label in its default light/dark theme", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
-    const carbon = screen.getByRole("link", { name: /Website Carbon result/i });
     const climate = screen
       .getByTestId("tree-nation-offset-website")
       .querySelector("[data-theme]")!;
 
-    // Website Carbon keeps its own indigo and mint.
-    expect(carbon).toHaveStyleRule("background", "#00ffbc");
-    // Climate Action uses the default light/dark theme, never a monochrome one.
+    // Never a monochrome theme.
     expect(climate.getAttribute("data-theme")).toMatch(/^(light|dark)$/);
   });
 
@@ -142,5 +138,14 @@ describe("SiteFooter", () => {
       },
     );
     delete window.gtag;
+  });
+
+  it("introduces the three sustainability badges", () => {
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+
+    expect(screen.getByText(/sustainable by design/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/runs on renewable energy and supports global/i),
+    ).toBeInTheDocument();
   });
 });
