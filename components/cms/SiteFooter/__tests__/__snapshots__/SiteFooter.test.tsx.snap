@@ -21,7 +21,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
-.c18 {
+.c8 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -29,45 +29,21 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   padding: 0;
 }
 
-.c11 {
-  display: inline-flex;
-  align-items: stretch;
-  font-family: -apple-system,BlinkMacSystemFont,sans-serif;
-  font-size: 15px;
-  line-height: 1.15;
-}
-
-.c12 {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0.3em 0.5em;
-  border: 0.13em solid #00ffbc;
-}
-
 .c13 {
-  background: #fff;
-  color: #0e11a8;
-  border-right: 0;
-  border-radius: 0.3em 0 0 0.3em;
-  min-width: 8.2em;
+  display: inline-flex;
+  line-height: 0;
 }
 
 .c14 {
-  background: #00ffbc;
-  color: #0e11a8;
-  font-weight: 700;
-  text-decoration: none;
-  border-left: 0;
-  border-radius: 0 0.3em 0.3em 0;
+  height: auto;
+  width: 120px;
 }
 
-.c7 {
+.c10 {
   min-height: 3.5rem;
 }
 
-.c9 {
+.c12 {
   align-items: center;
   display: flex;
 }
@@ -97,9 +73,14 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c5 {
   align-items: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   text-align: center;
 }
 
@@ -107,13 +88,32 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+.c7 {
+  align-items: center;
+  color: var(--color-highlight);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 0.25rem;
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.c9 {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
   justify-content: center;
 }
 
-.c8 {
+.c11 {
+  align-items: center;
   display: flex;
-  zoom: 0.9;
 }
 
 .c15 {
@@ -121,24 +121,20 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-}
-
-.c17 {
-  display: block;
-  height: 2.5rem;
-  width: auto;
-}
-
-.c10 {
-  zoom: 0.75;
+  text-align: center;
 }
 
 .c16 {
   align-items: center;
   display: flex;
-  flex-direction: column;
   flex-shrink: 0;
   gap: 0.5rem;
+}
+
+.c17 {
+  display: block;
+  height: 2rem;
+  width: auto;
 }
 
 @media (min-width: 600px) {
@@ -221,32 +217,33 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .c5 {
-    align-items: flex-end;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    justify-content: space-between;
     text-align: left;
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .c6 {
     align-items: flex-start;
+    flex: 1 1 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c9 {
+    flex: 0 1 auto;
+    justify-content: flex-end;
   }
 }
 
 @media (min-width: 900px) {
   .c15 {
-    align-items: center;
-    text-align: center;
-  }
-}
-
-@media (min-width: 900px) {
-  .c16 {
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
 
@@ -276,12 +273,47 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
         <div
           class="c6"
         >
+          <p
+            class="c7"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-leaf"
+              fill="none"
+              height="16"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.625"
+              viewBox="0 0 24 24"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 20a10 10 0 0010-10 25.9 25.9 0 00-1.04-7.281 1 1 0 00-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0011 20"
+              />
+              <path
+                d="M2 21a5 5 0 012.911-4.544C7.613 15.212 8.351 15.24 11 13"
+              />
+            </svg>
+            Sustainable by design
+          </p>
+          <p
+            class="c8"
+            style="color: var(--color-paragraph);"
+          >
+            This website runs on renewable energy and supports global reforestation.
+          </p>
+        </div>
+        <div
+          class="c9"
+        >
           <div
-            class="c7 c8"
+            class="c10 c11"
             data-testid="tree-nation-offset-website"
           >
             <div
-              class="c9"
+              class="c12"
             >
               <div
                 data-lang="en"
@@ -291,33 +323,27 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
               />
             </div>
           </div>
-          <div
-            class="c10"
+          <a
+            class="c13"
+            href="https://www.thegreenwebfoundation.org/green-web-check/?url=agostiniandrea.dev"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            <span
-              class="c11"
-            >
-              <span
-                class="c12 c13"
-              >
-                0.05
-                g of CO₂/view
-              </span>
-              <a
-                aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
-                class="c12 c14"
-                href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Website Carbon
-              </a>
-            </span>
-          </div>
+            <img
+              alt="This website runs on green hosting – verified by thegreenwebfoundation.org"
+              class="c14"
+              decoding="async"
+              height="95"
+              loading="lazy"
+              src="/assets/green-hosting-badge.png"
+              width="200"
+            />
+          </a>
         </div>
-        <div
-          class="c15"
-        />
+      </div>
+      <div
+        class="c15"
+      >
         <div
           class="c16"
         >
@@ -374,7 +400,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
             </svg>
           </span>
           <p
-            class="c18"
+            class="c8"
             style="color: var(--color-paragraph);"
           >
             © 
@@ -423,7 +449,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   outline-offset: 2px;
 }
 
-.c18 {
+.c10 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -431,45 +457,21 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   padding: 0;
 }
 
-.c13 {
-  display: inline-flex;
-  align-items: stretch;
-  font-family: -apple-system,BlinkMacSystemFont,sans-serif;
-  font-size: 15px;
-  line-height: 1.15;
-}
-
-.c14 {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0.3em 0.5em;
-  border: 0.13em solid #00ffbc;
-}
-
 .c15 {
-  background: #fff;
-  color: #0e11a8;
-  border-right: 0;
-  border-radius: 0.3em 0 0 0.3em;
-  min-width: 8.2em;
+  display: inline-flex;
+  line-height: 0;
 }
 
 .c16 {
-  background: #00ffbc;
-  color: #0e11a8;
-  font-weight: 700;
-  text-decoration: none;
-  border-left: 0;
-  border-radius: 0 0.3em 0.3em 0;
+  height: auto;
+  width: 120px;
 }
 
-.c9 {
+.c12 {
   min-height: 3.5rem;
 }
 
-.c11 {
+.c14 {
   align-items: center;
   display: flex;
 }
@@ -504,9 +506,14 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c7 {
   align-items: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   text-align: center;
 }
 
@@ -514,13 +521,32 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+.c9 {
+  align-items: center;
+  color: var(--color-highlight);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 0.25rem;
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.c11 {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
   justify-content: center;
 }
 
-.c10 {
+.c13 {
+  align-items: center;
   display: flex;
-  zoom: 0.9;
 }
 
 .c17 {
@@ -528,34 +554,28 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  text-align: center;
 }
 
-.c22 {
-  display: block;
-  height: 2.5rem;
-  width: auto;
-}
-
-.c19 {
+.c18 {
   color: var(--color-paragraph);
-  max-width: 36ch;
+}
+
+.c19:not(:last-child)::after {
+  content: " ";
 }
 
 .c20 {
-  display: block;
-  text-wrap: balance;
-}
-
-.c12 {
-  zoom: 0.75;
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
 }
 
 .c21 {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  gap: 0.5rem;
+  display: block;
+  height: 2rem;
+  width: auto;
 }
 
 @media (min-width: 600px) {
@@ -644,32 +664,33 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .c7 {
-    align-items: flex-end;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    justify-content: space-between;
     text-align: left;
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .c8 {
     align-items: flex-start;
+    flex: 1 1 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .c11 {
+    flex: 0 1 auto;
+    justify-content: flex-end;
   }
 }
 
 @media (min-width: 900px) {
   .c17 {
-    align-items: center;
-    text-align: center;
-  }
-}
-
-@media (min-width: 900px) {
-  .c21 {
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
 
@@ -725,12 +746,47 @@ exports[`SiteFooter renders correctly with social links 1`] = `
         <div
           class="c8"
         >
+          <p
+            class="c9"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-leaf"
+              fill="none"
+              height="16"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.625"
+              viewBox="0 0 24 24"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 20a10 10 0 0010-10 25.9 25.9 0 00-1.04-7.281 1 1 0 00-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0011 20"
+              />
+              <path
+                d="M2 21a5 5 0 012.911-4.544C7.613 15.212 8.351 15.24 11 13"
+              />
+            </svg>
+            Sustainable by design
+          </p>
+          <p
+            class="c10"
+            style="color: var(--color-paragraph);"
+          >
+            This website runs on renewable energy and supports global reforestation.
+          </p>
+        </div>
+        <div
+          class="c11"
+        >
           <div
-            class="c9 c10"
+            class="c12 c13"
             data-testid="tree-nation-offset-website"
           >
             <div
-              class="c11"
+              class="c14"
             >
               <div
                 data-lang="en"
@@ -740,52 +796,50 @@ exports[`SiteFooter renders correctly with social links 1`] = `
               />
             </div>
           </div>
-          <div
-            class="c12"
+          <a
+            class="c15"
+            href="https://www.thegreenwebfoundation.org/green-web-check/?url=agostiniandrea.dev"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            <span
-              class="c13"
-            >
-              <span
-                class="c14 c15"
-              >
-                0.05
-                g of CO₂/view
-              </span>
-              <a
-                aria-label="Website Carbon result: 0.05 grams of CO₂ per page view, tested 2026-07-12"
-                class="c14 c16"
-                href="https://www.websitecarbon.com/website/agostiniandrea-dev/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Website Carbon
-              </a>
-            </span>
-          </div>
+            <img
+              alt="This website runs on green hosting – verified by thegreenwebfoundation.org"
+              class="c16"
+              decoding="async"
+              height="95"
+              loading="lazy"
+              src="/assets/green-hosting-badge.png"
+              width="200"
+            />
+          </a>
         </div>
-        <div
-          class="c17"
+      </div>
+      <div
+        class="c17"
+      >
+        <p
+          class="c10 c18"
         >
-          <p
-            class="c18 c19"
+          <span
+            class="c19"
           >
-            <span
-              class="c20"
-            >
-              Building for the web, one component at a time. Based in Bangkok.
-            </span>
-          </p>
-        </div>
+            I build for the web, one component at a time.
+          </span>
+          <span
+            class="c19"
+          >
+            Bangkok-based.
+          </span>
+        </p>
         <div
-          class="c21"
+          class="c20"
         >
           <span
             aria-hidden="true"
           >
             <svg
               aria-label="Andrea Agostini"
-              class="c22"
+              class="c21"
               focusable="false"
               role="img"
               viewBox="166.5 259.8 707 495.5"
@@ -833,7 +887,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
             </svg>
           </span>
           <p
-            class="c18"
+            class="c10"
             style="color: var(--color-paragraph);"
           >
             © 
