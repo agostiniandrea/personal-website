@@ -1,12 +1,18 @@
 name: Cloudflare Deploy
 
-# Rebuilds the site and deploys the Worker. Replaces the Vercel deploy hook for
-# content changes: Contentful calls the `repository_dispatch` endpoint on
-# Entry.publish / Entry.unpublish, and a weekly run keeps everything fresh.
+# Rebuilds the site and deploys the production Worker. It runs on every push to
+# `main` (a merged release), when Contentful calls the `repository_dispatch`
+# endpoint on Entry.publish / Entry.unpublish, and weekly to keep everything
+# fresh. Replaces the Vercel deploy hook.
 # repository_dispatch and schedule always run on the default branch; a manual
 # run from another branch is allowed for testing the workflow itself.
+#
+# A merge made by the `Auto-merge` job (GITHUB_TOKEN) does not fire `push`
+# workflows, so that job starts this workflow with `workflow_dispatch` instead.
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
   repository_dispatch:
     types: [contentful-publish]

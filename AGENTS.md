@@ -5,7 +5,7 @@ Project guide for anyone — human or AI agent — working in this repository. T
 ## Git rules (non-negotiable)
 
 - **Never commit directly to `main` or `dev`.** Everything goes through a PR.
-- Feature/fix/chore branches start from `dev`; their PRs target `dev` — staging deploys automatically to Vercel preview.
+- Feature/fix/chore branches start from `dev`; their PRs target `dev` — every merge into `dev` deploys the staging Worker (`dev.agostiniandrea.dev`), and every merge into `main` deploys production, both through GitHub Actions on Cloudflare.
 - Only `release/vX.Y.Z` branches target `main` (production: `agostiniandrea.dev`).
 - Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `test:`). Never `git add -A`, never `--no-verify`.
 
@@ -20,12 +20,16 @@ Project guide for anyone — human or AI agent — working in this repository. T
 4. Validate locally: `yarn test` and `yarn build` must pass.
 5. Open the PR to `main` with title **exactly** `release: vX.Y.Z` (no `chore:` prefix, `v` included).
 6. **After the merge, ALWAYS rebase `dev` onto `main`:**
+
    ```bash
    git checkout dev
    git fetch origin
    git rebase origin/main
    git push origin dev --force-with-lease
    ```
+
+   If the ruleset on `dev` blocks the force-push, disable it for the length of this one push and re-enable it right after.
+
    This is the step that resets `dev`'s history after the squash. If you skip it, `dev` keeps showing already-released commits as "ahead of main" and the next release branch will drag them along. Do not substitute it with a merge or "sync" commit.
 
 ## Versioning

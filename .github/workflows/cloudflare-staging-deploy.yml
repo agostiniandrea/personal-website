@@ -3,6 +3,8 @@ name: Cloudflare Staging Deploy
 # Deploys the `dev` branch to the staging Worker (dev.agostiniandrea.dev) on
 # every push, so what is merged into `dev` can be checked on the real Workers
 # runtime before a release. Production is deployed by `Cloudflare Deploy`.
+# A merge made by the `Auto-merge` job (GITHUB_TOKEN) does not fire `push`
+# workflows, so that job starts this workflow with `workflow_dispatch` instead.
 
 on:
   push:

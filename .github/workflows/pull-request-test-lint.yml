@@ -12,6 +12,8 @@ permissions:
   contents: write
   pull-requests: write
   issues: read
+  # To start the deploy workflows after the auto-merge (see the last step).
+  actions: write
 
 jobs:
   test-and-lint:
@@ -135,3 +137,38 @@ jobs:
           else
             gh pr merge --squash --delete-branch --auto "$PR_NUMBER" --repo "$REPO"
           fi
+
+      # A merge made with GITHUB_TOKEN does not fire `push` workflows (GitHub
+      # blocks it to avoid loops), so the deploy that normally follows a merge
+      # into `dev` or `main` would never start. `workflow_dispatch` is the one
+      # event GITHUB_TOKEN is allowed to trigger, so start the deploy here.
+      - name: Deploy after the merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          state=""
+          for _ in $(seq 1 36); do
+            state=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json state --jq .state)
+            [ "$state" = "MERGED" ] && break
+            sleep 10
+          done
+
+          if [ "$state" != "MERGED" ]; then
+            echo "PR #$PR_NUMBER is not merged yet: no deploy started. Run it by hand if needed."
+            exit 0
+          fi
+
+          case "$BASE_REF" in
+            dev)
+              gh workflow run cloudflare-staging-deploy.yml --ref dev --repo "$REPO"
+              ;;
+            main)
+              gh workflow run cloudflare-deploy.yml --ref main --repo "$REPO"
+              ;;
+            *)
+              echo "Base branch $BASE_REF has no deploy."
+              ;;
+          esac
