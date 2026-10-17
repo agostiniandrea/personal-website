@@ -241,9 +241,9 @@ Latest audit — **12 July 2026**, production ([agostiniandrea.dev](https://agos
 
 Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mobile config), alongside 48 Jest suites and 78 E2E tests.
 
-**Carbon** — official [Website Carbon result](https://www.websitecarbon.com/website/agostiniandrea-dev/): **0.05 g CO₂ per page view, rating A**, cleaner than 93% of pages tested (12 July 2026). Treated as an estimate, not an exact emissions measurement; re-tested after substantial design, asset, hosting or performance changes. The footer badge renders this stored value statically — no third-party script per visit.
+**Carbon** — official [Website Carbon result](https://www.websitecarbon.com/website/agostiniandrea-dev/): **0.05 g CO₂ per page view, rating A**, cleaner than 93% of pages tested (12 July 2026). Treated as an estimate, not an exact emissions measurement; re-tested after substantial design, asset, hosting or performance changes. The `CarbonBadge` component can render this stored value statically (no third-party script per visit), but it is not shown on the site at the moment; the monthly Carbon Drift Check keeps the baseline current.
 
-**Known gap** — hosting is not yet verified as green by [The Green Web Foundation](https://www.thegreenwebfoundation.org/); Website Carbon estimates green hosting would cut emissions by ~9% (checked 12 July 2026).
+**Hosting** — verified as green hosting by [The Green Web Foundation](https://www.thegreenwebfoundation.org/green-web-check/?url=agostiniandrea.dev) (live check). The footer shows their official badge, saved as a static image in `public/assets/` so no third-party request is made on page view; re-save it if the hosting provider ever changes.
 
 ## Environment Variables
 
