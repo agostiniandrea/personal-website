@@ -8,10 +8,11 @@ export function proxy(request: NextRequest) {
 
   // Explicitly allow indexing on the production hosts only (this also overrides
   // a noindex that Next.js or Vercel may set there). Every other host serving
-  // the site (trial domains, workers.dev, previews) is noindex.
+  // the site (trial domains, workers.dev, previews) is noindex, and so is the
+  // private /admin area on every host.
   response.headers.set(
     "x-robots-tag",
-    getRobotsHeader(request.headers.get("host")),
+    getRobotsHeader(request.headers.get("host"), request.nextUrl.pathname),
   );
 
   return response;

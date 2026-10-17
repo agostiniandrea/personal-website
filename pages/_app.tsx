@@ -57,6 +57,8 @@ const SkipLink = styled.a`
 export default function App({ Component, pageProps, router }: AppProps) {
   const [gaConsent, setGaConsent] = useState(false);
   const t = useI18n(router.locale);
+  /* The admin area is private and mine: no analytics, no cookie banner. */
+  const isAdmin = router.pathname.startsWith("/admin");
 
   /* Reads the Prolific study parameters once, if they are there. Renders
      nothing and leaves the page identical for everyone else. */
@@ -86,14 +88,18 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <Head />
         <Component {...pageProps} />
         <ScrollToTop />
-        <CookieBanner />
-        {process.env.NEXT_PUBLIC_VERCEL === "1" && <SpeedInsights />}
-        {process.env.NEXT_PUBLIC_VERCEL === "1" && <Analytics />}
-        <AnalyticsScripts
-          gaId={GA_ID}
-          clarityId={CLARITY_ID}
-          hasConsent={gaConsent}
-        />
+        {!isAdmin && <CookieBanner />}
+        {!isAdmin && process.env.NEXT_PUBLIC_VERCEL === "1" && (
+          <SpeedInsights />
+        )}
+        {!isAdmin && process.env.NEXT_PUBLIC_VERCEL === "1" && <Analytics />}
+        {!isAdmin && (
+          <AnalyticsScripts
+            gaId={GA_ID}
+            clarityId={CLARITY_ID}
+            hasConsent={gaConsent}
+          />
+        )}
       </ThemeProvider>
     </div>
   );

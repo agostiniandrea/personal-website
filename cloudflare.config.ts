@@ -30,6 +30,10 @@ export default defineConfig(({ mode }) => {
         SUPABASE_URL: bindings.secret(),
         SUPABASE_SERVICE_ROLE_KEY: bindings.secret(),
         TREE_NATION_API_TOKEN: bindings.secret(),
+        // Admin area: the Cloudflare Access team domain and application
+        // audience, used to verify the login token (lib/admin/access.ts).
+        CF_ACCESS_TEAM_DOMAIN: bindings.secret(),
+        CF_ACCESS_AUD: bindings.secret(),
       },
     }),
   };
