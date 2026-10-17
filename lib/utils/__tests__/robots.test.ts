@@ -26,3 +26,21 @@ describe("getRobotsHeader", () => {
     expect(getRobotsHeader(undefined)).toBe(ROBOTS_NOINDEX);
   });
 });
+
+describe("getRobotsHeader for the admin area", () => {
+  it.each(["/admin", "/admin/", "/it/admin", "/en/admin/feedback"])(
+    "keeps %s out of the index, even on the production host",
+    (pathname) => {
+      expect(getRobotsHeader("agostiniandrea.dev", pathname)).toBe(
+        ROBOTS_NOINDEX,
+      );
+    },
+  );
+
+  it("does not catch pages that merely start with the letters", () => {
+    expect(getRobotsHeader("agostiniandrea.dev", "/administrator")).toBe(
+      ROBOTS_INDEX,
+    );
+    expect(getRobotsHeader("agostiniandrea.dev", "/")).toBe(ROBOTS_INDEX);
+  });
+});
