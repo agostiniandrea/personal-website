@@ -258,9 +258,20 @@ Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mob
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID`      | Optional            | Microsoft Clarity project ID                                                      |
 | `TREE_NATION_API_TOKEN`               | Optional            | Tree-Nation API token — sent with the forest counter requests when set            |
 | `NEXT_PUBLIC_PROLIFIC_COMPLETION_URL` | Optional            | https Prolific completion link; without it the study return button does not exist |
+| `CF_ACCESS_TEAM_DOMAIN`               | Production, staging | Cloudflare Access team domain (`xxx.cloudflareaccess.com`) — Worker secret        |
+| `CF_ACCESS_AUD`                       | Production, staging | Cloudflare Access application AUD tag — Worker secret                             |
+| `ADMIN_DEV_BYPASS`                    | Local only          | `1` opens `/admin` under `yarn dev`; any other build ignores it                   |
 | `CONTENTFUL_MANAGEMENT_TOKEN`         | Local only          | Contentful Management API — only for one-off content scripts                      |
 | `CONTENTFUL_ENVIRONMENT_ID`           | Local only          | Contentful environment (default: `master`)                                        |
 | `CHROMATIC_PROJECT_TOKEN`             | Local only          | Chromatic visual regression token                                                 |
+
+## Admin Area
+
+`/admin` is a private area for managing the site's data without opening the database: an overview, and the feedback list with filters and status changes (pending, accepted, rejected, implemented). New sections are one entry in `ADMIN_SECTIONS` (`lib/admin/feedbackAdmin.ts`) plus a page under `pages/admin/`.
+
+Access is two locks. **Cloudflare Access** is the login: an application covering `/admin*` and `/api/admin*` on the production and staging hostnames, with an Allow policy for the owner's email only. **The API checks again**: every `/api/admin/*` route verifies the signed Access token itself (`lib/admin/access.ts`) and answers 401 otherwise, because those routes use the Supabase service key. The pages hold no data, are `noindex`, are left out of the sitemap, and load no analytics.
+
+Setup: create the Access application, then set `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` as secrets on both Workers (same procedure as the other runtime secrets). Without them every admin API call answers 401. Locally, add `ADMIN_DEV_BYPASS=1` to `.env.local`.
 
 ## Path Aliases
 
