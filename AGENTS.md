@@ -6,36 +6,26 @@ Project guide for anyone — human or AI agent — working in this repository. T
 
 - **Never commit directly to `main` or `dev`.** Everything goes through a PR.
 - Feature/fix/chore branches start from `dev`; their PRs target `dev` — every merge into `dev` deploys the staging Worker (`dev.agostiniandrea.dev`), and every merge into `main` deploys production, both through GitHub Actions on Cloudflare.
-- Only `release/vX.Y.Z` branches target `main` (production: `agostiniandrea.dev`).
+- Only `dev` targets `main` (production: `agostiniandrea.dev`). Nothing else is ever opened against `main`.
 - Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `test:`). Never `git add -A`, never `--no-verify`.
 
 ## Release flow (`dev` → `main`)
 
-`main` uses **squash-merge**, so released commits never appear in `main` with their original SHAs. This makes the following steps mandatory — skipping any of them corrupts the next release:
+A release is one PR from `dev` to `main`, merged with a **merge commit** (the auto-merge job does it, never a squash). `main` then contains `dev`'s commits as they are, so the two branches never diverge: there is no release branch, no cherry-pick, no rebase of `dev` and no force-push.
 
-1. Create the release branch **from `main`**, never from `dev`:
-   `git checkout -b release/vX.Y.Z origin/main`
-2. **Cherry-pick only the new commits** from `dev` (verify by content, not by SHA — `git cherry` lies after squash-merges).
-3. Bump `version` in `package.json` (semver: `feat` in the batch → minor). Commit as `chore: bump version to vX.Y.Z`.
-4. Validate locally: `yarn test` and `yarn build` must pass.
-5. Open the PR to `main` with title **exactly** `release: vX.Y.Z` (no `chore:` prefix, `v` included).
-6. **After the merge, ALWAYS rebase `dev` onto `main`:**
+1. Bump `version` in `package.json` with a normal PR into `dev` (`chore: bump version to vX.Y.Z`; semver: a `feat` in the batch → minor, only fixes → patch). Merge it and wait for the staging deploy to be green.
+2. Check the release on `dev.agostiniandrea.dev`.
+3. Open the PR `dev` → `main` with title **exactly** `release: vX.Y.Z` (no `chore:` prefix, `v` included).
+4. The auto-merge job merges it once the checks pass, and the production deploy starts.
 
-   ```bash
-   git checkout dev
-   git fetch origin
-   git rebase origin/main
-   git push origin dev --force-with-lease
-   ```
+That is all: nothing to do on `dev` after the merge. `main` ends up one merge commit ahead of `dev`; that commit has no content of its own and does not matter, because the next release PR is still `dev` → `main`.
 
-   If the ruleset on `dev` blocks the force-push, disable it for the length of this one push and re-enable it right after.
-
-   This is the step that resets `dev`'s history after the squash. If you skip it, `dev` keeps showing already-released commits as "ahead of main" and the next release branch will drag them along. Do not substitute it with a merge or "sync" commit.
+Repository settings this relies on: **Allow merge commits** is on, and no ruleset on `main` restricts the allowed merge methods to squash. Never squash a `dev` → `main` PR by hand; if it happens, `dev` has to be rebased onto `main` and force-pushed (`git rebase origin/main`, `git push origin dev --force-with-lease`, with the ruleset on `dev` disabled for that one push).
 
 ## Versioning
 
 - Version lives in `package.json` only.
-- Bump happens on the release branch, never on `dev`.
+- The bump is a normal PR into `dev`, merged before the release PR is opened (see Release flow).
 
 ## Commands
 
