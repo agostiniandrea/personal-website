@@ -7,6 +7,14 @@ export default {
   priority: 0.7,
   sitemapSize: 7000,
   // The 404 page is served at /404 (status 200) so next-sitemap picks it up —
-  // keep the error page out of the sitemap in every locale.
-  exclude: ["/404", "/it/404"],
+  // keep the error page out of the sitemap in every locale. The private admin
+  // area is excluded too.
+  exclude: [
+    "/404",
+    "/it/404",
+    "/admin",
+    "/admin/*",
+    "/it/admin",
+    "/it/admin/*",
+  ],
 };

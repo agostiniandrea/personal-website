@@ -24,12 +24,23 @@ export default defineConfig(({ mode }) => {
       env: {
         ASSETS: bindings.assets(),
         IMAGES: bindings.images(),
-        VINEXT_KV_CACHE: bindings.kv(),
+        // The namespace ID is pinned because saving a secret from the dashboard
+        // stores the KV binding with its ID, and the CI deploy (`--strict`)
+        // refuses to run when the config has no ID and the remote one does.
+        VINEXT_KV_CACHE: bindings.kv({
+          id: isStaging
+            ? "c7a88536e88e42ecadb493f5eee4b817"
+            : "68d5359c9d244994b0ddcdba18131741",
+        }),
         // Runtime secrets (server-only). Locally resolved from .dev.vars / .env.local;
         // in production they are set with `cf workers secrets bulk` and never committed.
         SUPABASE_URL: bindings.secret(),
         SUPABASE_SERVICE_ROLE_KEY: bindings.secret(),
         TREE_NATION_API_TOKEN: bindings.secret(),
+        // Admin area: the Cloudflare Access team domain and application
+        // audience, used to verify the login token (lib/admin/access.ts).
+        CF_ACCESS_TEAM_DOMAIN: bindings.secret(),
+        CF_ACCESS_AUD: bindings.secret(),
       },
     }),
   };
