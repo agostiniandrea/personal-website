@@ -1,0 +1,28 @@
+-- Let the admin write to the feedback table
+-- ---------------------------------------------------------------------------
+-- The admin API (pages/api/admin/feedback.ts) runs with the service role and
+-- changes exactly two columns: `status` (moving feedback between pending,
+-- accepted, rejected and implemented) and `trees_planted` (awarding the pair
+-- of trees to accepted / implemented feedback).
+--
+-- The service role had INSERT and SELECT on public.feedback but no UPDATE at
+-- all, so both writes failed with "permission denied for table feedback"
+-- while the list, which only reads, kept working.
+--
+-- The grant is per column on purpose: even if the admin code had a bug, the
+-- service key still could not rewrite a message, a contact detail or a source.
+-- Row level security is unchanged (the service role bypasses it).
+--
+-- Idempotent: granting what is already granted is a no-op. Run it ONCE in the
+-- Supabase SQL editor (DDL cannot be issued through the REST service key)
+-- BEFORE using the admin to change a status or assign trees.
+--
+-- To check it afterwards:
+--   select column_name from information_schema.column_privileges
+--   where table_schema = 'public' and table_name = 'feedback'
+--     and grantee = 'service_role' and privilege_type = 'UPDATE'
+--   order by column_name;
+-- Expected: status, trees_planted.
+-- ---------------------------------------------------------------------------
+
+grant update (status, trees_planted) on public.feedback to service_role;

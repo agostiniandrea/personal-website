@@ -6,10 +6,12 @@ import { TreeIcon } from "@components/molecules/ForestIcons";
 import {
   AdminFeedbackList,
   AdminFeedbackRow,
+  canEarnTrees,
   FEEDBACK_CATEGORIES,
   FEEDBACK_SOURCES,
   FEEDBACK_STATUSES,
   FeedbackStatus,
+  TREES_PER_AWARD,
 } from "@lib/admin/feedbackAdmin";
 
 /* The admin's view of the feedback table: what came in, and what to do with
@@ -285,6 +287,132 @@ const ActionButton = styled.button<{ $current: boolean }>`
   }
 `;
 
+/* Before the award: two grey trees, the pair a rewarded feedback earns (one
+   for the author, one matched by the site owner). They are always drawn, but
+   only clickable once the feedback is accepted or implemented. After the
+   award they turn green (see Trees) and the control is gone: it is not
+   undone from here. */
+const AwardRow = styled.div`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.space.sm} ${({ theme }) => theme.space.md};
+`;
+
+const AwardButton = styled.button`
+  align-items: center;
+  background: transparent;
+  border: 1px dashed rgba(128, 128, 128, 0.5);
+  border-radius: ${({ theme }) => theme.radii.xs};
+  color: ${({ theme }) => theme.colors.paragraph};
+  cursor: pointer;
+  display: inline-flex;
+  font-family: ${({ theme }) => theme.fontFamilies.heading};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  gap: ${({ theme }) => theme.space.sm};
+  min-height: 36px;
+  padding: 0 ${({ theme }) => theme.space.md};
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.highlight};
+    outline-offset: 2px;
+  }
+
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      border-color: ${({ theme }) => theme.colors.highlight};
+      color: ${({ theme }) => theme.colors.highlight};
+    }
+  }
+`;
+
+const GreyTrees = styled.span`
+  display: inline-flex;
+  gap: 0.125rem;
+`;
+
+const AwardHint = styled.span`
+  color: ${({ theme }) => theme.colors.paragraph};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+`;
+
+interface TreeAwardProps {
+  row: AdminFeedbackRow;
+  busy: boolean;
+  confirming: boolean;
+  onAsk: () => void;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+const TreeAward: React.FC<TreeAwardProps> = ({
+  row,
+  busy,
+  confirming,
+  onAsk,
+  onCancel,
+  onConfirm,
+}) => {
+  if (row.trees_planted > 0) return <Trees count={row.trees_planted} />;
+
+  if (confirming) {
+    return (
+      <AwardRow role="group" aria-label="Confirm trees">
+        <AwardHint>
+          Assign {TREES_PER_AWARD} trees to this feedback? It can&apos;t be
+          undone from here.
+        </AwardHint>
+        <ActionButton
+          type="button"
+          $current={false}
+          disabled={busy}
+          onClick={onConfirm}
+        >
+          {busy ? "Assigning…" : "Confirm"}
+        </ActionButton>
+        <ActionButton
+          type="button"
+          $current={false}
+          disabled={busy}
+          onClick={onCancel}
+        >
+          Cancel
+        </ActionButton>
+      </AwardRow>
+    );
+  }
+
+  const eligible = canEarnTrees(row.status);
+  return (
+    <AwardRow>
+      <AwardButton
+        type="button"
+        disabled={!eligible || busy}
+        onClick={onAsk}
+        aria-label={`Assign ${TREES_PER_AWARD} trees`}
+      >
+        <GreyTrees aria-hidden="true">
+          {Array.from({ length: TREES_PER_AWARD }, (_, index) => (
+            <TreeIcon key={index} size={18} />
+          ))}
+        </GreyTrees>
+        Assign trees
+      </AwardButton>
+      <AwardHint>
+        {eligible
+          ? "One for the author, one matched by you."
+          : "Available once the feedback is accepted or implemented."}
+      </AwardHint>
+    </AwardRow>
+  );
+};
+
 const Pager = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.colors.paragraph};
@@ -322,6 +450,8 @@ const AdminFeedbackBoard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState<string | null>(null);
+  /* The feedback whose tree award is waiting for a second click. */
+  const [confirmId, setConfirmId] = useState<string | null>(null);
   /* Bumped after a save so the tabs' counts and the filtered list reload. */
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -373,6 +503,11 @@ const AdminFeedbackBoard: React.FC = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: row.id, status: next }),
         });
+        if (response.status === 409) {
+          throw new Error(
+            "This feedback already earned trees, so it has to stay accepted or implemented.",
+          );
+        }
         if (!response.ok) throw new Error("The change was not saved.");
         setReloadKey((key) => key + 1);
       } catch (reason) {
@@ -387,6 +522,34 @@ const AdminFeedbackBoard: React.FC = () => {
     },
     [],
   );
+
+  const assignTrees = useCallback(async (row: AdminFeedbackRow) => {
+    setSavingId(row.id);
+    setError(null);
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: row.id, assignTrees: true }),
+      });
+      if (response.status === 409) {
+        throw new Error(
+          "These trees can't be assigned: the feedback is not accepted or implemented, or already has them.",
+        );
+      }
+      if (!response.ok) throw new Error("The trees were not assigned.");
+      setConfirmId(null);
+      setReloadKey((key) => key + 1);
+    } catch (reason) {
+      setError(
+        reason instanceof Error
+          ? reason.message
+          : "The trees were not assigned.",
+      );
+    } finally {
+      setSavingId(null);
+    }
+  }, []);
 
   const pageCount = data
     ? Math.max(1, Math.ceil(data.total / data.pageSize))
@@ -497,7 +660,14 @@ const AdminFeedbackBoard: React.FC = () => {
                 )}
               </Meta>
               <Message>{row.message}</Message>
-              {row.trees_planted > 0 && <Trees count={row.trees_planted} />}
+              <TreeAward
+                row={row}
+                busy={savingId === row.id}
+                confirming={confirmId === row.id}
+                onAsk={() => setConfirmId(row.id)}
+                onCancel={() => setConfirmId(null)}
+                onConfirm={() => assignTrees(row)}
+              />
               {(row.name ||
                 row.email ||
                 row.linkedin ||
@@ -544,7 +714,15 @@ const AdminFeedbackBoard: React.FC = () => {
                     type="button"
                     $current={row.status === value}
                     aria-pressed={row.status === value}
-                    disabled={savingId === row.id}
+                    disabled={
+                      savingId === row.id ||
+                      (row.trees_planted > 0 && !canEarnTrees(value))
+                    }
+                    title={
+                      row.trees_planted > 0 && !canEarnTrees(value)
+                        ? "Trees were assigned, so this feedback has to stay accepted or implemented"
+                        : undefined
+                    }
                     onClick={() => changeStatus(row, value)}
                   >
                     {STATUS_LABEL[value]}

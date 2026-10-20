@@ -202,6 +202,15 @@ before the study existed.** No banner, no notice, no changed copy.
   suggestion ships (`status`). Six study rows carry trees today alongside the
   three community ones. `treesDedicatedCount` and `contributionsCount` must
   always filter on the same condition, or the ratio in "Feedback impact" lies.
+- **Awarding trees happens in the admin** (Feedback page), as a pair:
+  `TREES_PER_AWARD = 2` in `lib/admin/feedbackAdmin.ts`, one dedicated to the
+  author and one matched by the owner. Only `accepted` / `implemented`
+  feedback can earn it, once, and it cannot be undone from the admin. The rule
+  is enforced by the API in a single guarded `update` (never trust the
+  button), and a row that has trees cannot go back to `pending` / `rejected`.
+  Assigning refreshes both homepage locales so the public figures update. The
+  admin only records the award: the trees themselves are still planted on
+  Tree-Nation by hand.
 - The claim that survives is narrower than it looks: the published count says
   how many insights arrived and how many earned trees, not that any of them
   were unpaid. Do not add copy that says otherwise.
