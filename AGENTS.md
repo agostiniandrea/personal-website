@@ -11,16 +11,22 @@ Project guide for anyone — human or AI agent — working in this repository. T
 
 ## Release flow (`dev` → `main`)
 
-A release is one PR from `dev` to `main`, merged with a **merge commit** (the auto-merge job does it, never a squash). `main` then contains `dev`'s commits as they are, so the two branches never diverge: there is no release branch, no cherry-pick, no rebase of `dev` and no force-push.
+`main` uses **squash-merge**, so a released batch becomes one new commit on `main` and `dev`'s own commits are never in `main` with their SHAs. That is why the last step below is mandatory: skipping it makes the next release PR conflict.
 
 1. Bump `version` in `package.json` with a normal PR into `dev` (`chore: bump version to vX.Y.Z`; semver: a `feat` in the batch → minor, only fixes → patch). Merge it and wait for the staging deploy to be green.
 2. Check the release on `dev.agostiniandrea.dev`.
-3. Open the PR `dev` → `main` with title **exactly** `release: vX.Y.Z` (no `chore:` prefix, `v` included).
-4. The auto-merge job merges it once the checks pass, and the production deploy starts.
+3. Open the PR `dev` → `main` with title **exactly** `release: vX.Y.Z` (no `chore:` prefix, `v` included). There is no release branch and no cherry-pick: after every release `dev` is realigned to `main`, so it only holds what has not been released yet.
+4. The auto-merge job squash-merges it once the checks pass, and the production deploy starts.
+5. **After the merge, ALWAYS realign `dev` to `main`** (nothing may sit on `dev` that is not in the release; if something does, use `git rebase origin/main` instead of the reset):
 
-That is all: nothing to do on `dev` after the merge. `main` ends up one merge commit ahead of `dev`; that commit has no content of its own and does not matter, because the next release PR is still `dev` → `main`.
+   ```bash
+   git switch dev
+   git fetch origin
+   git reset --hard origin/main
+   git push --force-with-lease origin dev
+   ```
 
-Repository settings this relies on: **Allow merge commits** is on, and no ruleset on `main` restricts the allowed merge methods to squash. Never squash a `dev` → `main` PR by hand; if it happens, `dev` has to be rebased onto `main` and force-pushed (`git rebase origin/main`, `git push origin dev --force-with-lease`, with the ruleset on `dev` disabled for that one push).
+   The ruleset `protect-dev` blocks force-pushes: set its Enforcement status to _Disabled_ (Settings → Rules → Rulesets) for this one push and put it back to _Active_ right after.
 
 ## Versioning
 

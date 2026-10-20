@@ -8,6 +8,9 @@ interface LinkProps {
   href: string;
   children: React.ReactNode;
   isExternal?: boolean;
+  /* Pass `false` to stop Next from adding the locale prefix, when the href
+     already carries the right one. */
+  locale?: string | false;
   ariaLabel?: string;
   style?: React.CSSProperties;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
@@ -40,6 +43,7 @@ const Link: React.FC<LinkProps> = ({
   children,
   style,
   isExternal = false,
+  locale,
   ariaLabel,
   onClick,
   onMouseEnter,
@@ -48,6 +52,7 @@ const Link: React.FC<LinkProps> = ({
 }) => (
   <StyledLink
     href={href}
+    locale={locale}
     target={isExternal ? "_blank" : undefined}
     rel={isExternal ? "noopener noreferrer" : undefined}
     aria-label={ariaLabel}
