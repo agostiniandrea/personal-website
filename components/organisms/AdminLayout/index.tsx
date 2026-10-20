@@ -22,11 +22,11 @@ const Main = styled.main`
     ${({ theme }) => theme.space["3xl"]};
 `;
 
-/* A reading column, not the full page width: long messages and the action
-   buttons stay easy to scan on a wide screen. */
+/* The same width as the public site (the Container caps it at 1440px), so the
+   admin uses a desktop screen instead of sitting in a narrow strip. A definite
+   width, so every admin page has the same frame when you switch tabs. */
 const Column = styled.div`
-  margin: 0 auto;
-  max-width: 52rem;
+  width: 100%;
 `;
 
 const Bar = styled.header`

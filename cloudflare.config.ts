@@ -41,6 +41,10 @@ export default defineConfig(({ mode }) => {
         // audience, used to verify the login token (lib/admin/access.ts).
         CF_ACCESS_TEAM_DOMAIN: bindings.secret(),
         CF_ACCESS_AUD: bindings.secret(),
+        // Admin overview: Google Analytics numbers read with a service account
+        // (lib/admin/googleAnalytics.ts). The JSON key is the secret part.
+        GA4_PROPERTY_ID: bindings.secret(),
+        GA4_SERVICE_ACCOUNT_JSON: bindings.secret(),
       },
     }),
   };
