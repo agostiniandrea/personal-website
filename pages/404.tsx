@@ -191,12 +191,12 @@ const copy = {
     back: "← Back home",
     backLabel: "Back to homepage",
     destinations: [
-      { label: "Projects", href: "/#projects" },
-      { label: "Skills", href: "/#skills" },
-      { label: "Experience", href: "/#experience" },
-      { label: "Journey", href: "/#journey" },
-      { label: "Forest", href: "/#forest" },
-      { label: "Contact", href: "/#contact" },
+      { label: "Projects", id: "projects" },
+      { label: "Skills", id: "skills" },
+      { label: "Experience", id: "experience" },
+      { label: "Journey", id: "journey" },
+      { label: "Forest", id: "forest" },
+      { label: "Contact", id: "contact" },
     ],
   },
   it: {
@@ -206,12 +206,12 @@ const copy = {
     back: "← Torna alla home",
     backLabel: "Torna alla homepage",
     destinations: [
-      { label: "Progetti", href: "/#projects" },
-      { label: "Competenze", href: "/#skills" },
-      { label: "Esperienza", href: "/#experience" },
-      { label: "Percorso", href: "/#journey" },
-      { label: "Foresta", href: "/#forest" },
-      { label: "Contatti", href: "/#contact" },
+      { label: "Progetti", id: "projects" },
+      { label: "Competenze", id: "skills" },
+      { label: "Esperienza", id: "experience" },
+      { label: "Percorso", id: "journey" },
+      { label: "Foresta", id: "forest" },
+      { label: "Contatti", id: "contact" },
     ],
   },
 };
@@ -235,6 +235,10 @@ export async function getStaticProps({
 export default function NotFound({ header, footer }: T404) {
   const { locale } = useRouter();
   const t = locale === "it" ? copy.it : copy.en;
+  /* English is the default locale and lives at `/`, never `/en`. Next's own
+     locale handling adds `/en` on this page, so the prefix is spelled out here
+     and Next is told to leave the links alone (`locale={false}`). */
+  const home = locale === "it" ? "/it" : "/";
 
   return (
     <PageLayout>
@@ -250,25 +254,29 @@ export default function NotFound({ header, footer }: T404) {
               <Label>404</Label>
               <PageHeading>{t.title}</PageHeading>
               <Body variant="large">{t.body}</Body>
-              <Link href="/" ariaLabel={t.backLabel}>
+              <Link href={home} locale={false} ariaLabel={t.backLabel}>
                 {t.back}
               </Link>
             </div>
             <nav aria-label={t.prompt}>
               <Signpost>
-                {t.destinations.map(({ label, href }, index) => {
+                {t.destinations.map(({ label, id }, index) => {
                   const direction = index % 2 === 0 ? "left" : "right";
                   const { shift, tilt } =
                     SIGN_LAYOUT[index % SIGN_LAYOUT.length];
 
                   return (
                     <SignSlot
-                      key={href}
+                      key={id}
                       $direction={direction}
                       $shift={shift}
                       $tilt={tilt}
                     >
-                      <Sign href={href} $direction={direction}>
+                      <Sign
+                        href={`${home}#${id}`}
+                        locale={false}
+                        $direction={direction}
+                      >
                         {label}
                       </Sign>
                     </SignSlot>
