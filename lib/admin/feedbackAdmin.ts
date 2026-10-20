@@ -30,6 +30,19 @@ export const FEEDBACK_CATEGORIES = [
 ] as const;
 export type FeedbackCategory = (typeof FEEDBACK_CATEGORIES)[number];
 
+/* A piece of feedback that is rewarded earns a pair of trees: one dedicated to
+   the person who wrote it and one matched by the site owner. The pair is
+   recorded in `trees_planted`, which the public Forest figures read. Only
+   feedback that was taken on (accepted, or already implemented) can earn it,
+   and once awarded it is not changed from the admin. */
+export const TREES_PER_AWARD = 2;
+export const TREE_ELIGIBLE_STATUSES: readonly FeedbackStatus[] = [
+  "accepted",
+  "implemented",
+];
+export const canEarnTrees = (status: FeedbackStatus): boolean =>
+  TREE_ELIGIBLE_STATUSES.includes(status);
+
 export const ADMIN_PAGE_SIZE = 20;
 
 /* Columns the admin list reads. Deliberately not `*`: the visitor's IP and the

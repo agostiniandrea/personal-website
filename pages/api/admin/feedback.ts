@@ -8,11 +8,14 @@ import {
   ADMIN_PAGE_SIZE,
   AdminFeedbackList,
   AdminFeedbackRow,
+  canEarnTrees,
   FEEDBACK_STATUSES,
   FeedbackStatus,
   isFeedbackCategory,
   isFeedbackSource,
   isFeedbackStatus,
+  TREE_ELIGIBLE_STATUSES,
+  TREES_PER_AWARD,
   UUID_PATTERN,
 } from "@lib/admin/feedbackAdmin";
 
@@ -92,6 +95,52 @@ async function listFeedback(
   };
 }
 
+/* The update matched no row: either the feedback does not exist (404) or the
+   rule refused it (409). Asked separately so the answer stays accurate, and
+   worded generically so it says nothing about the table. */
+async function refuse(
+  supabase: SupabaseClient,
+  id: string,
+  res: NextApiResponse<ApiResponse>,
+) {
+  const { data, error } = await supabase
+    .from("feedback")
+    .select("id")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!data) return res.status(404).json({ error: "Not found" });
+  return res.status(409).json({ error: "Not allowed for this feedback" });
+}
+
+/* The Forest figures on the homepage come from trees_planted and are cached
+   (ISR). Refreshing both locales makes a new award show up now rather than at
+   the next hourly revalidation. A failure here must not undo the award, and a
+   slow one (a cold page build) must not leave the admin staring at a button:
+   after REFRESH_WAIT_MS the answer goes out and the refresh carries on. */
+const REFRESH_WAIT_MS = 8000;
+
+async function refreshForestFigures(res: NextApiResponse<ApiResponse>) {
+  const refresh = Promise.allSettled(
+    ["/", "/it"].map((path) =>
+      Promise.resolve().then(() => res.revalidate(path)),
+    ),
+  ).then((results) => {
+    results.forEach((result) => {
+      if (result.status === "rejected") {
+        console.error("Forest statistics revalidation failed:", result.reason);
+      }
+    });
+  });
+
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const patience = new Promise<void>((resolve) => {
+    timer = setTimeout(resolve, REFRESH_WAIT_MS);
+  });
+  await Promise.race([refresh, patience]);
+  clearTimeout(timer);
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse>,
@@ -127,26 +176,55 @@ export default async function handler(
       return res.status(415).json({ error: "Expected JSON" });
     }
 
-    const { id, status } = (req.body ?? {}) as {
+    const { id, status, assignTrees } = (req.body ?? {}) as {
       id?: unknown;
       status?: unknown;
+      assignTrees?: unknown;
     };
     if (typeof id !== "string" || !UUID_PATTERN.test(id)) {
       return res.status(400).json({ error: "Invalid id" });
     }
+
+    /* Awarding the pair of trees. One statement does the whole check: the row
+       must be accepted or implemented AND have no trees yet, so two clicks (or
+       two tabs) can never award twice and a pending or rejected row can never
+       get one, whatever the page showed. */
+    if (assignTrees !== undefined) {
+      if (assignTrees !== true || status !== undefined) {
+        return res.status(400).json({ error: "Invalid request" });
+      }
+      const { data, error } = await supabase
+        .from("feedback")
+        .update({ trees_planted: TREES_PER_AWARD })
+        .eq("id", id)
+        .eq("trees_planted", 0)
+        .in("status", [...TREE_ELIGIBLE_STATUSES])
+        .select(ADMIN_FEEDBACK_COLUMNS)
+        .maybeSingle();
+      if (error) throw new Error(error.message);
+      if (!data) return refuse(supabase, id, res);
+
+      await refreshForestFigures(res);
+      console.info(
+        `Admin ${admin.email} assigned ${TREES_PER_AWARD} trees to feedback ${id}`,
+      );
+      return res.status(200).json({ row: data as unknown as AdminFeedbackRow });
+    }
+
     if (!isFeedbackStatus(status)) {
       return res.status(400).json({ error: "Invalid status" });
     }
 
-    /* Status only: no other column can be written through this route. */
-    const { data, error } = await supabase
-      .from("feedback")
-      .update({ status })
-      .eq("id", id)
+    /* Status only: no other column can be written through this route. A row
+       that already earned trees cannot leave accepted/implemented, or the
+       public figures would count trees for feedback that was turned down. */
+    let update = supabase.from("feedback").update({ status }).eq("id", id);
+    if (!canEarnTrees(status)) update = update.eq("trees_planted", 0);
+    const { data, error } = await update
       .select(ADMIN_FEEDBACK_COLUMNS)
       .maybeSingle();
     if (error) throw new Error(error.message);
-    if (!data) return res.status(404).json({ error: "Not found" });
+    if (!data) return refuse(supabase, id, res);
 
     console.info(`Admin ${admin.email} set feedback ${id} to ${status}`);
     return res.status(200).json({ row: data as unknown as AdminFeedbackRow });

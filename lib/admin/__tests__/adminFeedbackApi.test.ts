@@ -23,8 +23,13 @@ const ID = "5f2a1b9c-4d3e-4f1a-8b9c-8d7e60d5f8a2";
 const ROW: Row = { id: ID, status: "pending", category: "UX", message: "Hi" };
 
 let listCalls: { method: string; args: unknown[] }[] = [];
-let updates: { values: Row; id?: unknown }[] = [];
+let updates: {
+  values: Row;
+  id?: unknown;
+  filters: [string, unknown][];
+}[] = [];
 let updateResult: { data: Row | null; error: { message: string } | null };
+let existsResult: { data: Row | null; error: { message: string } | null };
 let listError: { message: string } | null;
 
 const listBuilder = () => {
@@ -42,34 +47,54 @@ const listBuilder = () => {
 
 const fakeClient = () => ({
   from: () => ({
-    select: (_columns: string, options?: { head?: boolean }) =>
-      options?.head
-        ? {
-            eq: () => Promise.resolve({ count: 3, error: null }),
-          }
-        : listBuilder(),
+    select: (columns: string, options?: { head?: boolean }) => {
+      if (options?.head) {
+        return { eq: () => Promise.resolve({ count: 3, error: null }) };
+      }
+      /* The lookup that tells "no such row" from "not allowed". */
+      if (columns === "id") {
+        return {
+          eq: () => ({ maybeSingle: () => Promise.resolve(existsResult) }),
+        };
+      }
+      return listBuilder();
+    },
     update: (values: Row) => {
-      const entry: { values: Row; id?: unknown } = { values };
+      const entry: (typeof updates)[number] = { values, filters: [] };
       updates.push(entry);
-      return {
-        eq: (_column: string, id: unknown) => {
-          entry.id = id;
-          return {
-            select: () => ({
-              maybeSingle: () => Promise.resolve(updateResult),
-            }),
-          };
-        },
+      const builder: Record<string, unknown> = {};
+      builder.eq = (column: string, value: unknown) => {
+        entry.filters.push([column, value]);
+        if (column === "id") entry.id = value;
+        return builder;
       };
+      builder.in = (column: string, value: unknown) => {
+        entry.filters.push([column, value]);
+        return builder;
+      };
+      builder.select = () => ({
+        maybeSingle: () => Promise.resolve(updateResult),
+      });
+      return builder;
     },
   }),
 });
+
+let revalidated: string[] = [];
+let revalidateFails = false;
+let revalidateHangs = false;
 
 const makeRes = () => {
   const res = {
     statusCode: 0,
     body: undefined as unknown,
     headers: {} as Record<string, string>,
+    revalidate(path: string) {
+      if (revalidateHangs) return new Promise<void>(() => undefined);
+      if (revalidateFails) return Promise.reject(new Error("revalidate down"));
+      revalidated.push(path);
+      return Promise.resolve();
+    },
     status(code: number) {
       res.statusCode = code;
       return res;
@@ -117,6 +142,10 @@ beforeEach(() => {
   listCalls = [];
   updates = [];
   listError = null;
+  revalidated = [];
+  revalidateFails = false;
+  revalidateHangs = false;
+  existsResult = { data: { id: ID }, error: null };
   updateResult = { data: { ...ROW, status: "accepted" }, error: null };
   mockAuthenticate.mockReset();
   mockAuthenticate.mockResolvedValue({ email: "andrea@example.com" });
@@ -196,7 +225,9 @@ describe("admin feedback API", () => {
         trees_planted: 99,
       });
       expect(res.statusCode).toBe(200);
-      expect(updates).toEqual([{ values: { status: "accepted" }, id: ID }]);
+      expect(updates).toHaveLength(1);
+      expect(updates[0].values).toEqual({ status: "accepted" });
+      expect(updates[0].id).toBe(ID);
     });
 
     it("rejects an unknown status or a malformed id", async () => {
@@ -233,9 +264,125 @@ describe("admin feedback API", () => {
 
     it("answers 404 when the row does not exist", async () => {
       updateResult = { data: null, error: null };
+      existsResult = { data: null, error: null };
       expect((await patch({ id: ID, status: "accepted" })).statusCode).toBe(
         404,
       );
+    });
+
+    describe("assigning trees", () => {
+      const rewarded = { ...ROW, status: "accepted", trees_planted: 2 };
+
+      it("awards the pair in one guarded statement and refreshes the Forest figures", async () => {
+        updateResult = { data: rewarded, error: null };
+        const res = await patch({
+          id: ID,
+          assignTrees: true,
+          trees_planted: 50,
+        });
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({ row: rewarded });
+        expect(updates).toHaveLength(1);
+        /* The number is the site's rule, never the request's. */
+        expect(updates[0].values).toEqual({ trees_planted: 2 });
+        expect(updates[0].filters).toEqual([
+          ["id", ID],
+          ["trees_planted", 0],
+          ["status", ["accepted", "implemented"]],
+        ]);
+        expect(revalidated).toEqual(["/", "/it"]);
+      });
+
+      it("answers 409 when the guard matches nothing but the feedback exists", async () => {
+        updateResult = { data: null, error: null };
+        const res = await patch({ id: ID, assignTrees: true });
+
+        expect(res.statusCode).toBe(409);
+        expect(revalidated).toEqual([]);
+      });
+
+      it("answers 404 when the feedback does not exist", async () => {
+        updateResult = { data: null, error: null };
+        existsResult = { data: null, error: null };
+
+        expect((await patch({ id: ID, assignTrees: true })).statusCode).toBe(
+          404,
+        );
+      });
+
+      it("rejects anything but a plain assignTrees: true", async () => {
+        for (const body of [
+          { id: ID, assignTrees: "yes" },
+          { id: ID, assignTrees: 1 },
+          { id: ID, assignTrees: true, status: "accepted" },
+          { id: "1 or 1=1", assignTrees: true },
+        ]) {
+          expect((await patch(body)).statusCode).toBe(400);
+        }
+        expect(updates).toHaveLength(0);
+      });
+
+      it("keeps the award when the homepage refresh fails", async () => {
+        updateResult = { data: rewarded, error: null };
+        revalidateFails = true;
+
+        expect((await patch({ id: ID, assignTrees: true })).statusCode).toBe(
+          200,
+        );
+      });
+
+      it("does not keep the admin waiting when the homepage refresh hangs", async () => {
+        jest.useFakeTimers();
+        try {
+          updateResult = { data: rewarded, error: null };
+          revalidateHangs = true;
+
+          const pending = patch({ id: ID, assignTrees: true });
+          await jest.advanceTimersByTimeAsync(8000);
+          const res = await pending;
+
+          expect(res.statusCode).toBe(200);
+          expect(res.body).toEqual({ row: rewarded });
+        } finally {
+          jest.useRealTimers();
+        }
+      });
+
+      it("gives no database detail when the update errors", async () => {
+        updateResult = {
+          data: null,
+          error: { message: "constraint secret_check" },
+        };
+        const res = await patch({ id: ID, assignTrees: true });
+
+        expect(res.statusCode).toBe(500);
+        expect(JSON.stringify(res.body)).not.toContain("secret_check");
+      });
+    });
+
+    describe("rows that already earned trees", () => {
+      it("cannot go back to pending or rejected", async () => {
+        for (const status of ["pending", "rejected"]) {
+          updates = [];
+          updateResult = { data: null, error: null };
+          const res = await patch({ id: ID, status });
+
+          expect(res.statusCode).toBe(409);
+          expect(updates[0].filters).toContainEqual(["trees_planted", 0]);
+        }
+      });
+
+      it("can still move between accepted and implemented", async () => {
+        for (const status of ["accepted", "implemented"]) {
+          updates = [];
+          updateResult = { data: { ...ROW, status }, error: null };
+          const res = await patch({ id: ID, status });
+
+          expect(res.statusCode).toBe(200);
+          expect(updates[0].filters).toEqual([["id", ID]]);
+        }
+      });
     });
   });
 });
