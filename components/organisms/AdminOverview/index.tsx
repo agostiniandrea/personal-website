@@ -5,16 +5,32 @@ import Link from "next/link";
 import styled from "styled-components";
 
 import { TreeIcon } from "@components/molecules/ForestIcons";
+import AdminVisits from "@components/organisms/AdminVisits";
 import { AdminForestSummary, AdminSummary } from "@lib/admin/feedbackAdmin";
 import { milestoneProgress } from "@lib/utils/forestMilestones";
 
 /* The admin home: one card per section, with the number worth glancing at.
    Loads from /api/admin/summary, which checks the caller on every request. */
 
+/* One column on a phone; two from 40rem (the forest across the top, then
+   feedback and visits side by side); and on a desktop all three cards sit in
+   one row, so the overview fits on one screen without scrolling. */
 const Grid = styled.div`
+  align-items: start;
   display: grid;
   gap: ${({ theme }) => theme.space.md};
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (min-width: 40rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 64rem) {
+    align-items: stretch;
+    grid-template-columns:
+      minmax(0, 1.2fr) minmax(0, 0.8fr)
+      minmax(0, 1.4fr);
+  }
 `;
 
 const Card = styled(Link)`
@@ -72,6 +88,10 @@ const ForestCard = styled.section`
   gap: ${({ theme }) => theme.space.md};
   grid-column: 1 / -1;
   padding: ${({ theme }) => theme.space.lg};
+
+  @media (min-width: 64rem) {
+    grid-column: auto;
+  }
 `;
 
 const ForestLabel = styled.p`
@@ -248,6 +268,7 @@ const AdminOverview: React.FC = () => {
             pending · {total} in total · {counts.implemented} implemented
           </Note>
         </Card>
+        <AdminVisits />
       </Grid>
     </>
   );
