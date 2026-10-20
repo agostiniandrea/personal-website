@@ -124,11 +124,9 @@ jobs:
 
     steps:
       # `dev` is a long-lived branch: the release PR (dev -> main) must never
-      # delete its own source branch when it merges. It is also merged with a
-      # merge commit, not a squash: a squash would rewrite `dev`'s commits into
-      # a new one on `main`, and `dev` would then have to be rebased and
-      # force-pushed after every release. With a merge commit `main` contains
-      # `dev`'s commits as they are, so the two branches never diverge.
+      # delete its own source branch when it merges. It is squash-merged like
+      # every other PR; after the release, `dev` is realigned to `main` by hand
+      # (see "Release flow" in AGENTS.md).
       - name: Auto-merge PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -137,7 +135,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           if [ "$HEAD_REF" = "dev" ]; then
-            gh pr merge --merge --auto "$PR_NUMBER" --repo "$REPO"
+            gh pr merge --squash --auto "$PR_NUMBER" --repo "$REPO"
           else
             gh pr merge --squash --delete-branch --auto "$PR_NUMBER" --repo "$REPO"
           fi
