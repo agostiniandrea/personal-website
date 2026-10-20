@@ -43,8 +43,15 @@ export default defineConfig(({ mode }) => {
         CF_ACCESS_AUD: bindings.secret(),
         // Admin overview: Google Analytics numbers read with a service account
         // (lib/admin/googleAnalytics.ts). The JSON key is the secret part.
-        GA4_PROPERTY_ID: bindings.secret(),
-        GA4_SERVICE_ACCOUNT_JSON: bindings.secret(),
+        // Production only: staging has no analytics on purpose, and a declared
+        // secret that is not set makes the deploy fail. Without them the Visits
+        // card shows "not configured" (see the status in googleAnalytics.ts).
+        ...(isStaging
+          ? {}
+          : {
+              GA4_PROPERTY_ID: bindings.secret(),
+              GA4_SERVICE_ACCOUNT_JSON: bindings.secret(),
+            }),
       },
     }),
   };
