@@ -109,7 +109,11 @@ const Signpost = styled.ul`
   }
 `;
 
-const SignSlot = styled.li<{ $tilt: number; $shift: number }>`
+const SignSlot = styled.li<{
+  $direction: "left" | "right";
+  $tilt: number;
+  $shift: number;
+}>`
   display: flex;
   justify-content: center;
   position: relative;
@@ -120,7 +124,14 @@ const SignSlot = styled.li<{ $tilt: number; $shift: number }>`
   @media (hover: hover) {
     &:hover,
     &:focus-within {
-      transform: translateX(0) rotate(0deg);
+      transform: translateX(
+          calc(
+            ${({ $shift }) => $shift}% +
+              ${({ $direction }) =>
+                $direction === "right" ? "0.75rem" : "-0.75rem"}
+          )
+        )
+        rotate(${({ $tilt }) => $tilt}deg);
     }
   }
 
@@ -245,20 +256,24 @@ export default function NotFound({ header, footer }: T404) {
             </div>
             <nav aria-label={t.prompt}>
               <Signpost>
-                {t.destinations.map(({ label, href }, index) => (
-                  <SignSlot
-                    key={href}
-                    $shift={SIGN_LAYOUT[index % SIGN_LAYOUT.length].shift}
-                    $tilt={SIGN_LAYOUT[index % SIGN_LAYOUT.length].tilt}
-                  >
-                    <Sign
-                      href={href}
-                      $direction={index % 2 === 0 ? "left" : "right"}
+                {t.destinations.map(({ label, href }, index) => {
+                  const direction = index % 2 === 0 ? "left" : "right";
+                  const { shift, tilt } =
+                    SIGN_LAYOUT[index % SIGN_LAYOUT.length];
+
+                  return (
+                    <SignSlot
+                      key={href}
+                      $direction={direction}
+                      $shift={shift}
+                      $tilt={tilt}
                     >
-                      {label}
-                    </Sign>
-                  </SignSlot>
-                ))}
+                      <Sign href={href} $direction={direction}>
+                        {label}
+                      </Sign>
+                    </SignSlot>
+                  );
+                })}
               </Signpost>
             </nav>
           </Layout>
