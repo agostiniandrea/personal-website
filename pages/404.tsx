@@ -1,4 +1,5 @@
 import { GetStaticPropsResult } from "next";
+import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
@@ -55,6 +56,166 @@ const Body = styled(Text)`
   max-width: 480px;
 `;
 
+const Layout = styled.div`
+  align-items: center;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (min-width: ${BREAKPOINTS.xTablet}) {
+    gap: 4rem;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+`;
+
+/* A signpost for someone who took a wrong turn: a pole with one arrow per
+   section, each a little crooked like hand-nailed boards. Pure CSS, so it adds
+   no image or script to the page. */
+const Signpost = styled.ul`
+  --pole: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 24rem;
+  padding: 1.5rem 0 2.5rem;
+  position: relative;
+  width: 100%;
+
+  /* the pole */
+  &::before {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: ${({ theme }) => theme.radii.full};
+    bottom: 0;
+    content: "";
+    left: calc(50% - var(--pole) / 2);
+    position: absolute;
+    top: 0;
+    width: var(--pole);
+  }
+
+  /* the ground */
+  &::after {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: ${({ theme }) => theme.radii.full};
+    bottom: 0;
+    content: "";
+    height: 0.25rem;
+    left: 12%;
+    position: absolute;
+    right: 12%;
+  }
+`;
+
+const SignSlot = styled.li<{
+  $direction: "left" | "right";
+  $tilt: number;
+  $shift: number;
+}>`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transform: translateX(${({ $shift }) => $shift}%)
+    rotate(${({ $tilt }) => $tilt}deg);
+  transition: transform 0.25s ease;
+
+  @media (hover: hover) {
+    &:hover,
+    &:focus-within {
+      transform: translateX(
+          calc(
+            ${({ $shift }) => $shift}% +
+              ${({ $direction }) =>
+                $direction === "right" ? "0.75rem" : "-0.75rem"}
+          )
+        )
+        rotate(${({ $tilt }) => $tilt}deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+const Sign = styled(Link)<{ $direction: "left" | "right" }>`
+  background: ${({ theme }) => theme.colors.highlight};
+  color: ${({ theme }) => theme.colors.background};
+  display: block;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  min-width: 70%;
+  text-align: ${({ $direction }) => ($direction === "right" ? "right" : "left")};
+  transition: background 0.2s ease;
+  ${({ $direction }) =>
+    $direction === "right"
+      ? `
+        clip-path: polygon(0 0, calc(100% - 1.25rem) 0, 100% 50%, calc(100% - 1.25rem) 100%, 0 100%);
+        padding: 0.75rem 2.25rem 0.75rem 1.25rem;`
+      : `
+        clip-path: polygon(1.25rem 0, 100% 0, 100% 100%, 1.25rem 100%, 0 50%);
+        padding: 0.75rem 1.25rem 0.75rem 2.25rem;`}
+
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) => theme.colors.tertiary};
+      color: ${({ theme }) => theme.colors.background};
+    }
+  }
+
+  &:focus-visible {
+    outline-offset: -4px;
+  }
+`;
+
+/* Per-board nudge and tilt, so the signs look nailed up by hand. */
+const SIGN_LAYOUT = [
+  { shift: -6, tilt: -2.5 },
+  { shift: 8, tilt: 2 },
+  { shift: -3, tilt: -1.5 },
+  { shift: 6, tilt: 3 },
+  { shift: -8, tilt: -3 },
+  { shift: 4, tilt: 1.5 },
+];
+
+/* Same sections as the header, so someone who mistyped a URL can jump straight
+   to the right part of the one-page site. */
+const copy = {
+  en: {
+    title: "Wrong turn.",
+    body: "This page doesn't exist — but that's fine. I've made wrong turns before. They usually lead somewhere interesting.",
+    prompt: "Looking for something? Try one of these:",
+    back: "← Back home",
+    backLabel: "Back to homepage",
+    destinations: [
+      { label: "Projects", href: "/#projects" },
+      { label: "Skills", href: "/#skills" },
+      { label: "Experience", href: "/#experience" },
+      { label: "Journey", href: "/#journey" },
+      { label: "Forest", href: "/#forest" },
+      { label: "Contact", href: "/#contact" },
+    ],
+  },
+  it: {
+    title: "Strada sbagliata.",
+    body: "Questa pagina non esiste, ma va bene così. Anch'io ho sbagliato strada, e di solito porta da qualche parte di interessante.",
+    prompt: "Cerchi qualcosa? Prova da qui:",
+    back: "← Torna alla home",
+    backLabel: "Torna alla homepage",
+    destinations: [
+      { label: "Progetti", href: "/#projects" },
+      { label: "Competenze", href: "/#skills" },
+      { label: "Esperienza", href: "/#experience" },
+      { label: "Percorso", href: "/#journey" },
+      { label: "Foresta", href: "/#forest" },
+      { label: "Contatti", href: "/#contact" },
+    ],
+  },
+};
+
 export async function getStaticProps({
   locale = "en",
 }: {
@@ -72,6 +233,9 @@ export async function getStaticProps({
 }
 
 export default function NotFound({ header, footer }: T404) {
+  const { locale } = useRouter();
+  const t = locale === "it" ? copy.it : copy.en;
+
   return (
     <PageLayout>
       <Seo
@@ -81,15 +245,38 @@ export default function NotFound({ header, footer }: T404) {
       {header && <SiteHeader {...header} />}
       <Wrapper id="main-content">
         <Container>
-          <Label>404</Label>
-          <PageHeading>Wrong turn.</PageHeading>
-          <Body variant="large">
-            This page doesn&apos;t exist — but that&apos;s fine. I&apos;ve made
-            wrong turns before. They usually lead somewhere interesting.
-          </Body>
-          <Link href="/" ariaLabel="Back to homepage">
-            ← Back home
-          </Link>
+          <Layout>
+            <div>
+              <Label>404</Label>
+              <PageHeading>{t.title}</PageHeading>
+              <Body variant="large">{t.body}</Body>
+              <Link href="/" ariaLabel={t.backLabel}>
+                {t.back}
+              </Link>
+            </div>
+            <nav aria-label={t.prompt}>
+              <Signpost>
+                {t.destinations.map(({ label, href }, index) => {
+                  const direction = index % 2 === 0 ? "left" : "right";
+                  const { shift, tilt } =
+                    SIGN_LAYOUT[index % SIGN_LAYOUT.length];
+
+                  return (
+                    <SignSlot
+                      key={href}
+                      $direction={direction}
+                      $shift={shift}
+                      $tilt={tilt}
+                    >
+                      <Sign href={href} $direction={direction}>
+                        {label}
+                      </Sign>
+                    </SignSlot>
+                  );
+                })}
+              </Signpost>
+            </nav>
+          </Layout>
         </Container>
       </Wrapper>
       <SiteFooter

@@ -27,6 +27,15 @@ const respond = (status: number, body: unknown = {}) =>
     json: () => Promise.resolve(body),
   });
 
+/* The visits card loads from its own endpoint; these tests are about the
+   summary, so Google Analytics simply is not connected. */
+const serve = (summary: () => Promise<unknown>) =>
+  mockFetch.mockImplementation((url: string) =>
+    url === "/api/admin/analytics"
+      ? respond(200, { status: "not_configured" })
+      : summary(),
+  );
+
 beforeEach(() => {
   mockFetch.mockReset();
   global.fetch = mockFetch as unknown as typeof fetch;
@@ -34,7 +43,7 @@ beforeEach(() => {
 
 describe("AdminOverview", () => {
   it("shows who is signed in and links the feedback section with its numbers", async () => {
-    mockFetch.mockImplementation(() => respond(200, SUMMARY));
+    serve(() => respond(200, SUMMARY));
     renderWithTheme(<AdminOverview />);
 
     expect(
@@ -52,7 +61,7 @@ describe("AdminOverview", () => {
   });
 
   it("shows the forest total, the way to the next milestone and the numbers behind it", async () => {
-    mockFetch.mockImplementation(() => respond(200, SUMMARY));
+    serve(() => respond(200, SUMMARY));
     renderWithTheme(<AdminOverview />);
 
     const forest = await screen.findByLabelText("Forest");
@@ -67,7 +76,7 @@ describe("AdminOverview", () => {
   });
 
   it("celebrates a milestone that has just been reached", async () => {
-    mockFetch.mockImplementation(() =>
+    serve(() =>
       respond(200, {
         ...SUMMARY,
         forest: { ...SUMMARY.forest, treeCount: 200 },
@@ -81,13 +90,22 @@ describe("AdminOverview", () => {
   });
 
   it("still shows the feedback when the forest is unavailable", async () => {
-    mockFetch.mockImplementation(() =>
-      respond(200, { ...SUMMARY, forest: null }),
-    );
+    serve(() => respond(200, { ...SUMMARY, forest: null }));
     renderWithTheme(<AdminOverview />);
 
     expect(await screen.findByRole("link", { name: /Feedback/ })).toBeVisible();
     expect(screen.queryByLabelText("Forest")).not.toBeInTheDocument();
+  });
+
+  it("includes the visits card, loaded from its own endpoint", async () => {
+    serve(() => respond(200, SUMMARY));
+    renderWithTheme(<AdminOverview />);
+
+    expect(await screen.findByLabelText("Visits")).toBeVisible();
+    expect(mockFetch).toHaveBeenCalledWith(
+      "/api/admin/analytics",
+      expect.anything(),
+    );
   });
 
   it("says so when the caller is not an admin", async () => {

@@ -260,6 +260,8 @@ Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mob
 | `NEXT_PUBLIC_PROLIFIC_COMPLETION_URL` | Optional            | https Prolific completion link; without it the study return button does not exist |
 | `CF_ACCESS_TEAM_DOMAIN`               | Production, staging | Cloudflare Access team domain (`xxx.cloudflareaccess.com`) — Worker secret        |
 | `CF_ACCESS_AUD`                       | Production, staging | Cloudflare Access application AUD tag — Worker secret                             |
+| `GA4_PROPERTY_ID`                     | Production, staging | GA4 property ID (digits only) for the admin Visits card — Worker secret           |
+| `GA4_SERVICE_ACCOUNT_JSON`            | Production, staging | Google service account key (JSON, Viewer on the property) — Worker secret         |
 | `ADMIN_DEV_BYPASS`                    | Local only          | `1` opens `/admin` under `yarn dev`; any other build ignores it                   |
 | `CONTENTFUL_MANAGEMENT_TOKEN`         | Local only          | Contentful Management API — only for one-off content scripts                      |
 | `CONTENTFUL_ENVIRONMENT_ID`           | Local only          | Contentful environment (default: `master`)                                        |
@@ -272,6 +274,8 @@ Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mob
 Access is two locks. **Cloudflare Access** is the login: an application covering `/admin*` and `/api/admin*` on the production and staging hostnames, with an Allow policy for the owner's email only. **The API checks again**: every `/api/admin/*` route verifies the signed Access token itself (`lib/admin/access.ts`) and answers 401 otherwise, because those routes use the Supabase service key. The pages hold no data, are `noindex`, are left out of the sitemap, and load no analytics.
 
 Setup: create the Access application, then set `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` as secrets on both Workers (same procedure as the other runtime secrets). Without them every admin API call answers 401. Locally, add `ADMIN_DEV_BYPASS=1` to `.env.local`.
+
+The overview also has a **Visits** card: users, sessions and page views per month from the GA4 Data API (`lib/admin/googleAnalytics.ts`, route `/api/admin/analytics`), plus buttons to Google Analytics and Clarity. It reads GA4 with a Google **service account** that has only the Viewer role on the property: create it in Google Cloud (enable the Google Analytics Data API), add its email as a Viewer in GA4 (Admin → Property access management), and set `GA4_PROPERTY_ID` and `GA4_SERVICE_ACCOUNT_JSON` (the whole key file) as secrets on both Workers. Without them the card says GA4 is not connected. Numbers cover only visitors who accepted analytics cookies. Clarity's export API only returns the last 1–3 days, so Clarity is a link.
 
 ## Path Aliases
 

@@ -1,0 +1,12 @@
+version = "0.6"
+last_updated = "2026-10-20"
+
+[org]
+disclosures = [
+  { doc_type = "sustainability-page", url = "https://tree-nation.com/profile/andrea-agostini" }
+]
+
+[upstream]
+services = [
+  { domain = "cloudflare.com", service_type = "cdn" }
+]
