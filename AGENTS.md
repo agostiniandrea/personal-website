@@ -26,7 +26,7 @@ Project guide for anyone — human or AI agent — working in this repository. T
    git push --force-with-lease origin dev
    ```
 
-   The ruleset `protect-dev` blocks force-pushes: set its Enforcement status to _Disabled_ (Settings → Rules → Rulesets) for this one push and put it back to _Active_ right after.
+   The ruleset `protect-dev` only restricts deleting `dev`; force-pushes are allowed on purpose, so this step needs no settings change. Always use `--force-with-lease`, never a plain `--force`.
 
 ## Versioning
 
