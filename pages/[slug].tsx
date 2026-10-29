@@ -68,9 +68,14 @@ export const getStaticPaths = async () => {
     }),
   );
 
+  /* `fallback: false`: a slug that is not in Contentful answers 404 straight
+     away. With "blocking" every unknown URL (bots probing /wp-login.php,
+     /.env...) rendered and wrote a "not found" entry into the Workers KV ISR
+     cache, which burned the free daily write quota. A page published in
+     Contentful still appears: the publish triggers a production deploy. */
   return {
     paths: allPaths.flat(),
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
