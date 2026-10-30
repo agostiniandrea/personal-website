@@ -617,13 +617,18 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                   href={cvDownloadFile}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={cvDownloadLabel}
                   onClick={() =>
                     trackEvent("cv_downloaded", { locale: locale ?? "en" })
                   }
                 >
                   <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
-                  <span>{cvDownloadLabel}</span>
+                  {/* The file type is announced to screen readers only: the
+                      link opens a PDF, which sighted users see from the
+                      browser, and "PDF" reads the same in every locale. */}
+                  <span>
+                    {cvDownloadLabel}
+                    <span className="sr-only"> (PDF)</span>
+                  </span>
                 </CvLink>
               )}
             </Actions>

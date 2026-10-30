@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { Inter, Space_Grotesk } from "next/font/google";
 
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 
@@ -89,10 +87,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <Component {...pageProps} />
         <ScrollToTop />
         {!isAdmin && <CookieBanner />}
-        {!isAdmin && process.env.NEXT_PUBLIC_VERCEL === "1" && (
-          <SpeedInsights />
-        )}
-        {!isAdmin && process.env.NEXT_PUBLIC_VERCEL === "1" && <Analytics />}
         {!isAdmin && (
           <AnalyticsScripts
             gaId={GA_ID}

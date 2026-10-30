@@ -43,8 +43,6 @@ const Seo: React.FC<SeoProps> = ({
   nofollow,
   noindex,
 }) => {
-  // Only Vercel preview deploys are kept out of the index (see Head.tsx).
-  const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
   const resolvedOgAlt = ogImageAlt ?? seoTitle;
   const ogImage = seoImage
     ? {
@@ -75,8 +73,8 @@ const Seo: React.FC<SeoProps> = ({
       <NextSeo
         canonical={canonical}
         description={seoDescription}
-        noindex={noindex ?? isPreview}
-        nofollow={nofollow ?? isPreview}
+        noindex={noindex}
+        nofollow={nofollow}
         title={seoTitle}
         languageAlternates={languageAlternates}
         openGraph={{

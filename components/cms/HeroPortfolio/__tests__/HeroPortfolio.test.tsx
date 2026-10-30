@@ -104,7 +104,7 @@ describe("HeroPortfolio", () => {
     renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
 
     const cvLink = screen.getByRole("link", {
-      name: defaultHeroPortfolio.cvDownloadLabel,
+      name: `${defaultHeroPortfolio.cvDownloadLabel} (PDF)`,
     });
     cvLink.addEventListener("click", (event) => event.preventDefault());
     await user.click(cvLink);
@@ -121,7 +121,7 @@ describe("HeroPortfolio", () => {
       renderWithTheme(
         <HeroPortfolio {...defaultHeroPortfolio} cvDownloadLabel={label} />,
       );
-      const cvLink = screen.getByRole("link", { name: label });
+      const cvLink = screen.getByRole("link", { name: `${label} (PDF)` });
       expect(cvLink).toHaveStyleRule("display", "inline-flex");
       expect(cvLink).toHaveStyleRule("min-height", "44px");
       expect(cvLink).toHaveStyleRule("width", "fit-content");
