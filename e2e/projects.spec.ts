@@ -25,7 +25,9 @@ test.describe("mobile hero CV tertiary CTA", () => {
   ]) {
     test(`${label} underline fits its centred content`, async ({ page }) => {
       await page.goto(path);
-      const link = page.getByRole("link", { name: label, exact: true });
+      // The accessible name appends the file type ("Download CV (PDF)"), so
+      // match on the start of the name rather than the whole string.
+      const link = page.getByRole("link", { name: new RegExp(`^${label}`) });
       await expect(link).toBeVisible();
       const measurements = await link.evaluate((element) => {
         const styles = getComputedStyle(element);

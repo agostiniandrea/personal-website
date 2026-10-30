@@ -8,12 +8,6 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,
-  env: {
-    NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV ?? "development",
-    // "1" only on a real Vercel deploy; gates the Vercel analytics scripts so
-    // they aren't requested off-platform (they 404 on localhost/CI).
-    NEXT_PUBLIC_VERCEL: process.env.VERCEL ?? "",
-  },
   i18n: {
     locales: ["en", "it"],
     defaultLocale: "en",
@@ -49,11 +43,7 @@ const nextConfig = {
   compress: true,
   // Reduce bundle size by excluding unnecessary polyfills
   experimental: {
-    optimizePackageImports: [
-      "@vercel/analytics",
-      "@vercel/speed-insights",
-      "next-seo",
-    ],
+    optimizePackageImports: ["next-seo"],
   },
   turbopack: {},
   async redirects() {
