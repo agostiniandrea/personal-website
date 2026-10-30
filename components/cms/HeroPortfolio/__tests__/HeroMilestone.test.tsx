@@ -124,6 +124,9 @@ describe("HeroPortfolio milestone badge", () => {
 describe("HeroPortfolio milestone row", () => {
   beforeEach(() => {
     mockUseRouter.mockReturnValue({ locale: "en" });
+    // The anniversary ships switched off; these tests keep covering it so it
+    // can be turned back on.
+    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", true);
   });
 
   afterEach(() => {
