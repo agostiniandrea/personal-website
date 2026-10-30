@@ -53,7 +53,7 @@ yarn chromatic          # Visual regression via Chromatic (requires CHROMATIC_PR
 ## Pull request screenshots
 
 Every PR with a user-visible change must include screenshots captured from the
-Vercel preview after deployment succeeds. Add them to the PR's `Screenshots`
+local dev server (`yarn dev`) once the change works. Add them to the PR's `Screenshots`
 section at these standard viewport widths:
 
 - Desktop: 1440px (above the `tablet` breakpoint — full desktop layout)
@@ -256,7 +256,6 @@ The self-healing store already exists, and it is `forest_sync`.
 ### Observability
 
 - **Sentry**: server + edge config in `sentry.server.config.ts` / `sentry.edge.config.ts`, wired via `instrumentation.ts`
-- **Vercel Analytics + Speed Insights**: injected in `_app.tsx`
 
 ### Testing
 

@@ -1,5 +1,0 @@
-{
-  "buildCommand": "yarn build",
-  "framework": "nextjs",
-  "ignoreCommand": "node ./scripts/ignore-vercel.js"
-}

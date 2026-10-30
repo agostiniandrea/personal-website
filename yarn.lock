@@ -5964,39 +5964,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/analytics@npm:2.0.1":
-  version: 2.0.1
-  resolution: "@vercel/analytics@npm:2.0.1"
-  peerDependencies:
-    "@remix-run/react": ^2
-    "@sveltejs/kit": ^1 || ^2
-    next: ">= 13"
-    nuxt: ">= 3"
-    react: ^18 || ^19 || ^19.0.0-rc
-    svelte: ">= 4"
-    vue: ^3
-    vue-router: ^4
-  peerDependenciesMeta:
-    "@remix-run/react":
-      optional: true
-    "@sveltejs/kit":
-      optional: true
-    next:
-      optional: true
-    nuxt:
-      optional: true
-    react:
-      optional: true
-    svelte:
-      optional: true
-    vue:
-      optional: true
-    vue-router:
-      optional: true
-  checksum: 10c0/c788c03d0f072f6f2be52d3f6f4f0680d2343f0d8765a759a044204223b14a6e14b285d0c5d5d05c0b66d4419746c5b245656ebdc48398328d85d96f1ede982b
-  languageName: node
-  linkType: hard
-
 "@vercel/og@npm:1.0.3":
   version: 1.0.3
   resolution: "@vercel/og@npm:1.0.3"
@@ -6008,36 +5975,6 @@ __metadata:
     sharp:
       optional: true
   checksum: 10c0/8c75caf12a9d78d26d2e58b2495e738a5a9642d2f1332c79adb6fb367e86a1adb14e8c5bbf83e73faac42622adfd4f88fe15c6368121a85cf682b984367f54c2
-  languageName: node
-  linkType: hard
-
-"@vercel/speed-insights@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@vercel/speed-insights@npm:2.0.0"
-  peerDependencies:
-    "@sveltejs/kit": ^1 || ^2
-    next: ">= 13"
-    nuxt: ">= 3"
-    react: ^18 || ^19 || ^19.0.0-rc
-    svelte: ">= 4"
-    vue: ^3
-    vue-router: ^4
-  peerDependenciesMeta:
-    "@sveltejs/kit":
-      optional: true
-    next:
-      optional: true
-    nuxt:
-      optional: true
-    react:
-      optional: true
-    svelte:
-      optional: true
-    vue:
-      optional: true
-    vue-router:
-      optional: true
-  checksum: 10c0/a8703abcf72f6317183be13a5e991883589c48a8107fedb47d075af08e2d5a71d93e22c1927c8d0c28a69bb0e4712e90386d50947851883b6169c715cd43b4eb
   languageName: node
   linkType: hard
 
@@ -6521,8 +6458,6 @@ __metadata:
     "@types/styled-components": "npm:5.1.36"
     "@typescript-eslint/eslint-plugin": "npm:8.71.0"
     "@typescript-eslint/parser": "npm:8.71.0"
-    "@vercel/analytics": "npm:2.0.1"
-    "@vercel/speed-insights": "npm:2.0.0"
     "@vinext/cloudflare": "npm:^1.1.0"
     "@vitejs/plugin-react": "npm:^6.1.2"
     cf: "npm:^1.0.0-beta.14"

@@ -23,9 +23,9 @@ Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 | E2E tests          | Playwright — 78 tests (homepage, i18n, navigation, projects, analytics, Forest modal, Prolific study) |
 | Component explorer | Storybook with dark-mode addon + Chromatic visual regression                                          |
 | CI                 | GitHub Actions — type-check → lint → Jest → Lighthouse → Playwright → auto-merge                      |
-| Deployment         | Cloudflare Workers — production on `main`, staging on `dev`; Vercel previews on PRs for now           |
+| Deployment         | Cloudflare Workers — production on `main`, staging on `dev`                                           |
 | Analytics          | Google Analytics 4 + Microsoft Clarity, both gated behind cookie consent                              |
-| Observability      | Vercel Analytics + Speed Insights                                                                     |
+| Observability      | Sentry (server + edge)                                                                                |
 | Open Graph         | Edge runtime at `/api/og` — the shared OG card, rendered with `ImageResponse`                         |
 
 ## Getting Started
@@ -197,7 +197,7 @@ Edge runtime handler that renders the site's single Open Graph card (name, role,
 
 ## Analytics and Privacy
 
-GA4 and Microsoft Clarity scripts are only injected after the user accepts cookie consent and only on `agostiniandrea.dev` or `www.agostiniandrea.dev`. Consent state is stored in `localStorage` (`cookie-consent: accepted`) and communicated via a `cookie-consent-accepted` custom DOM event. The hostname allowlist prevents both scripts from loading on localhost and Vercel preview environments, even when analytics IDs are present in the build.
+GA4 and Microsoft Clarity scripts are only injected after the user accepts cookie consent and only on `agostiniandrea.dev` or `www.agostiniandrea.dev`. Consent state is stored in `localStorage` (`cookie-consent: accepted`) and communicated via a `cookie-consent-accepted` custom DOM event. The hostname allowlist prevents both scripts from loading on localhost and preview environments, even when analytics IDs are present in the build.
 
 Custom GA4 events cover the portfolio's meaningful interactions:
 
@@ -252,7 +252,7 @@ Lighthouse thresholds are enforced in CI on every PR (`.lighthouserc.json` + mob
 | `NEXT_PUBLIC_CONTENTFUL_SPACE_ID`     | Yes                 | Contentful space ID                                                               |
 | `NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN` | Yes                 | Contentful Delivery API token                                                     |
 | `SUPABASE_URL`                        | Yes                 | Supabase project URL — server-side only                                           |
-| `SUPABASE_SERVICE_ROLE_KEY`           | Yes — **Sensitive** | Supabase service role key — never expose client-side; mark Sensitive on Vercel    |
+| `SUPABASE_SERVICE_ROLE_KEY`           | Yes — **Sensitive** | Supabase service role key — never expose client-side; keep it secret              |
 | `NEXT_PUBLIC_SITE_URL`                | Yes                 | Canonical site URL (default: `https://agostiniandrea.dev`)                        |
 | `NEXT_PUBLIC_GA_ID`                   | Optional            | Google Analytics 4 measurement ID                                                 |
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID`      | Optional            | Microsoft Clarity project ID                                                      |

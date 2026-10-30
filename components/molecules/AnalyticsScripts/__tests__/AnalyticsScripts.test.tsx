@@ -28,11 +28,11 @@ describe("AnalyticsScripts", () => {
     expect(container.querySelectorAll("script")).toHaveLength(0);
   });
 
-  it("does not render analytics on a Vercel preview", () => {
+  it("does not render analytics on a preview host", () => {
     const { container } = render(
       <AnalyticsScripts
         {...analyticsProps}
-        hostname="personal-website-git-feature.vercel.app"
+        hostname="personal-website.workers.dev"
       />,
     );
 

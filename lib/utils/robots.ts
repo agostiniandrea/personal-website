@@ -1,6 +1,6 @@
 /**
  * Hostnames that may be indexed by search engines. Every other host that can
- * serve the site (Cloudflare trial domain, `*.workers.dev`, Vercel previews,
+ * serve the site (Cloudflare trial domain, `*.workers.dev`, staging,
  * localhost) must be `noindex` so it never competes with the real site.
  */
 const INDEXABLE_HOSTS = new Set([
