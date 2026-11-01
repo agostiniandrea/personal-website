@@ -981,6 +981,9 @@ describe("Forest — 200-tree campaign", () => {
   beforeEach(() => {
     mockUseRouter.mockReturnValue({ locale: "en" });
     jest.replaceProperty(FOREST_CAMPAIGN, "enabled", true);
+    // The anniversary ships switched off; these tests keep covering it so it
+    // can be turned back on.
+    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", true);
   });
 
   afterEach(() => {

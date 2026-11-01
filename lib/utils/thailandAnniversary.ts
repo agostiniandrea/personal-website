@@ -1,6 +1,10 @@
 /* ---------------------------------------------------------------------------
  * TEMPORARY — the one-year-in-Thailand anniversary (Oct 10, 2025 → Oct 10, 2026).
  *
+ * SWITCHED OFF on October 30, 2026: the celebration is over, so the hero and the
+ * Forest are back to their regular layout. The code stays in place, disabled, to
+ * be deleted later (see the last paragraph below).
+ *
  * An editorial celebration for the week of October 10–17, 2026. It is shown in
  * the homepage hero and beside the tree counter in the Forest section, and it
  * is deliberately not driven by the date: nothing flips on its own, so nothing
@@ -29,7 +33,7 @@ export interface AnniversaryCopy {
 }
 
 export const THAILAND_ANNIVERSARY = {
-  enabled: true,
+  enabled: false,
   copy: {
     en: {
       label: "One year in Thailand",
