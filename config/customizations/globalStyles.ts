@@ -26,10 +26,76 @@ const storySubRules = `
   html[data-mobile-view="story"][data-story-sub="experience"] main #journey { display: none; }
 `;
 
+/* Colour tokens, one list per theme, so the three places that apply them
+   (the default, the OS preference and the explicit data-theme choice) can
+   never drift apart.
+
+   Palette (brief): Forest #174F49, Ivory #F3EFE5, Sage #86A99A, Ochre #DDA04D,
+   Clay #C96F53, Paper #FAF8F3, Sand #E6E1D6, Charcoal #292C29, Muted #77776F.
+
+   Contrast, measured: Muted on Paper is only 4.25:1, so body text uses the
+   darker #5A5B54 (5.3:1 even on Sand) and Muted stays decorative. Ochre and
+   Clay are accents for fills, rules and large display type: as small text on
+   a light ground they need the darker --color-milestone / --color-clay-text. */
+const LIGHT_TOKENS = `
+    --artwork-opacity: 0.35;
+    --color-background: #faf8f3;
+    --color-headline: #292c29;
+    --color-paragraph: #5a5b54;
+    --color-button: #174f49;
+    --color-button-text: #ffffff;
+    --color-stroke: #d9e2da;
+    --color-main: #5a5b54;
+    /* Section dividers: quiet on purpose, never used for text. */
+    --color-border: #d3ccbc;
+    --color-highlight: #174f49;
+    --logo-shine-from: #174f49;
+    --logo-shine-to: #2f7a6d;
+    --color-secondary: #292c29;
+    --color-tertiary: #174f49;
+    --color-surface: #f3efe5;
+    --color-surface-raised: #e6e1d6;
+    --color-badge-bg: rgba(23, 79, 73, 0.08);
+    --color-ring-start: #174f49;
+    --color-ring-end: #2f7a6d;
+    --color-milestone: #8a5b14;
+    --color-thai-navy: #2d2a4a;
+    --color-clay-text: #a5472b;
+    --color-header-bg: rgba(243, 239, 229, 0.92);
+`;
+
+const DARK_TOKENS = `
+    --artwork-opacity: 0.22;
+    --color-background: #0f1b19;
+    --color-headline: #f3efe5;
+    --color-paragraph: #b9bdb3;
+    /* Sage fill with dark label: 6.9:1. A forest fill would vanish on this
+       ground. */
+    --color-button: #86a99a;
+    --color-button-text: #0f1b19;
+    --color-stroke: #1d332e;
+    --color-main: #b9bdb3;
+    --color-border: #34493f;
+    --color-highlight: #86a99a;
+    --logo-shine-from: #86a99a;
+    --logo-shine-to: #c4dccf;
+    --color-secondary: #f3efe5;
+    --color-tertiary: #86a99a;
+    --color-surface: #162623;
+    --color-surface-raised: #1d332e;
+    --color-badge-bg: rgba(134, 169, 154, 0.12);
+    --color-ring-start: #86a99a;
+    --color-ring-end: #c4dccf;
+    --color-milestone: #dda04d;
+    --color-thai-navy: var(--color-headline);
+    --color-clay-text: #e08a6e;
+    --color-header-bg: rgba(15, 27, 25, 0.92);
+`;
+
 const GlobalStyle = createGlobalStyle`
   :root {
-    --font-inter: "Inter", sans-serif;
-    --font-space-grotesk: "Space Grotesk", sans-serif;
+    --font-manrope: "Manrope", sans-serif;
+    --font-newsreader: "Newsreader", Georgia, serif;
 
     /* Height of the fixed site header — single source of truth. SiteHeader
        sizes itself from it, and every fixed-header offset reads it back, so
@@ -45,64 +111,30 @@ const GlobalStyle = createGlobalStyle`
       --site-header-height: 4.3125rem;
     }
 
+    /* The brand palette itself, theme-independent. Components read the
+       semantic --color-* tokens below; these exist for the few places that
+       need the exact brand value (photo overlays, accents on images). */
+    --palette-forest: #174f49;
+    --palette-ivory: #f3efe5;
+    --palette-sage: #86a99a;
+    --palette-ochre: #dda04d;
+    --palette-clay: #c96f53;
+    --palette-paper: #faf8f3;
+    --palette-sand: #e6e1d6;
+    --palette-charcoal: #292c29;
+    --palette-muted: #77776f;
+
+    /* Text that sits on photography or the forest panel is always ivory. */
+    --color-on-image: #f3efe5;
+    --color-on-image-muted: rgba(243, 239, 229, 0.82);
+
     /* color tokens — dark (default) */
-    --artwork-opacity: 0.22;
-    --color-background: #0a0a0f;
-    --color-headline: #ffffff;
-    --color-paragraph: #a0a0b0;
-    /* Darkened from #0d9488: white on that only reached 3.74:1, and button
-       labels are 16px bold — not large text, so AA asks for 4.5. */
-    --color-button: #0b7f74;
-    --color-button-text: #ffffff;
-    --color-stroke: #0f2a28;
-    --color-main: #a0a0b0;
-    /* Section dividers. Their own token because --color-main is the body text
-       colour, and one value cannot serve both: text needs contrast, a divider
-       needs to stay quiet. */
-    --color-border: #a0a0b0;
-    --color-highlight: #2dd4bf;
-    /* Logo ink: a gradient from the brand teal up to a brighter one, so it
-       catches the eye on the dark ground. */
-    --logo-shine-from: #2f8a82;
-    --logo-shine-to: #6ff0dc;
-    --color-secondary: #ffffff;
-    --color-tertiary: #2dd4bf;
-    --color-surface: rgba(45, 212, 191, 0.04);
-    --color-surface-raised: #203c34;
-    --color-badge-bg: rgba(45, 212, 191, 0.08);
-    --color-ring-start: #2dd4bf;
-    --color-ring-end: #34d399;
-    /* The milestone gold: one colour, a value per theme (the bright gold on
-       dark, a deeper one on light where it still has to read as small text). */
-    --color-milestone: #e9b957;
-    --color-thai-navy: var(--color-headline);
+    ${DARK_TOKENS}
   }
 
   @media (prefers-color-scheme: light) {
     :root {
-      --artwork-opacity: 0.35;
-      --color-background: #f5f5fa;
-      --color-headline: #0a0a0f;
-      --color-paragraph: #5e5e72;
-      --color-button: #0f766e;
-      --color-button-text: #ffffff;
-      --color-stroke: #c8e6e4;
-      /* Was #c0c0d4, which is the body text colour at 1.65:1 on this ground —
-         unreadable for anything that does not set its own colour. */
-      --color-main: #5e5e72;
-      --color-border: #9a9ab0;
-      --color-highlight: #0f766e;
-      --logo-shine-from: #1f6b65;
-      --logo-shine-to: #379a90;
-      --color-secondary: #0a0a0f;
-      --color-tertiary: #0f766e;
-      --color-surface: rgba(15, 118, 110, 0.04);
-      --color-surface-raised: #eaf1e6;
-      --color-badge-bg: rgba(15, 118, 110, 0.07);
-      --color-ring-start: #0f766e;
-      --color-ring-end: #059669;
-      --color-milestone: #8a6000;
-      --color-thai-navy: #2d2a4a;
+      ${LIGHT_TOKENS}
     }
   }
 
@@ -111,56 +143,11 @@ const GlobalStyle = createGlobalStyle`
      both the bare :root and the media-query :root, so it wins in either
      direction: light on a dark system and dark on a light one. */
   :root[data-theme="light"] {
-    /* Was missing while these blocks only served Storybook, where nobody ever
-       forced light on a dark OS. Without it that visitor keeps the dark 0.22
-       and the artwork reads washed out on a light ground. */
-    --artwork-opacity: 0.35;
-    --color-background: #f5f5fa;
-    --color-headline: #0a0a0f;
-    --color-paragraph: #5e5e72;
-    --color-button: #0f766e;
-    --color-button-text: #ffffff;
-    --color-stroke: #c8e6e4;
-    --color-main: #5e5e72;
-    --color-border: #9a9ab0;
-    --color-highlight: #0f766e;
-    --logo-shine-from: #1f6b65;
-    --logo-shine-to: #379a90;
-    --color-secondary: #0a0a0f;
-    --color-tertiary: #0f766e;
-    --color-surface: rgba(15, 118, 110, 0.04);
-    --color-surface-raised: #eaf1e6;
-    --color-badge-bg: rgba(15, 118, 110, 0.07);
-    --color-ring-start: #0f766e;
-    --color-ring-end: #059669;
-    --color-milestone: #8a6000;
-    --color-thai-navy: #2d2a4a;
+    ${LIGHT_TOKENS}
   }
 
   :root[data-theme="dark"] {
-    --artwork-opacity: 0.22;
-    --color-background: #0a0a0f;
-    --color-headline: #ffffff;
-    --color-paragraph: #a0a0b0;
-    --color-button: #0b7f74;
-    --color-button-text: #ffffff;
-    --color-stroke: #0f2a28;
-    --color-main: #a0a0b0;
-    --color-border: #a0a0b0;
-    --color-highlight: #2dd4bf;
-    /* Logo ink: a gradient from the brand teal up to a brighter one, so it
-       catches the eye on the dark ground. */
-    --logo-shine-from: #2f8a82;
-    --logo-shine-to: #6ff0dc;
-    --color-secondary: #ffffff;
-    --color-tertiary: #2dd4bf;
-    --color-surface: rgba(45, 212, 191, 0.04);
-    --color-surface-raised: #203c34;
-    --color-badge-bg: rgba(45, 212, 191, 0.08);
-    --color-ring-start: #2dd4bf;
-    --color-ring-end: #34d399;
-    --color-milestone: #e9b957;
-    --color-thai-navy: var(--color-headline);
+    ${DARK_TOKENS}
   }
 
   ${({ theme }) => css`
@@ -178,7 +165,7 @@ const GlobalStyle = createGlobalStyle`
       -moz-osx-font-smoothing: grayscale;
       background: ${theme.colors.background};
       color: ${theme.colors.main};
-      font-family: var(--font-inter), sans-serif;
+      font-family: var(--font-manrope), sans-serif;
       font-size: 18px;
       margin: 0;
       overflow-x: hidden;

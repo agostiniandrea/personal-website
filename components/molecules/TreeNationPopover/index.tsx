@@ -43,30 +43,30 @@ export interface TreeNationPopoverProps {
   className?: string;
 }
 
-/* Light: a white card. Dark: a raised dark surface (the page itself is almost
-   black, so the card needs its own edge) with the site's own dark-theme teal. */
+/* Light: a paper card. Dark: a raised dark surface (the page itself is almost
+   dark, so the card needs its own edge) with the site's own sage. */
 const PALETTE = {
   dark: {
     border: "rgba(255, 255, 255, 0.14)",
     divider: "rgba(255, 255, 255, 0.1)",
-    linkColor: "#2dd4bf",
-    linkHover: "#5eead4",
-    linkUnderline: "rgba(45, 212, 191, 0.4)",
-    muted: "#a0a0b0",
+    linkColor: "#86a99a",
+    linkHover: "#c4dccf",
+    linkUnderline: "rgba(134, 169, 154, 0.4)",
+    muted: "#b9bdb3",
     shadow: "0 8px 28px rgba(0, 0, 0, 0.55)",
-    surface: "#15151d",
-    text: "#ffffff",
+    surface: "#162623",
+    text: "#f3efe5",
   },
   light: {
     border: "rgba(0, 0, 0, 0.12)",
     divider: "rgba(0, 0, 0, 0.08)",
-    linkColor: "#0f766e",
-    linkHover: "#0b5f58",
-    linkUnderline: "rgba(15, 118, 110, 0.35)",
-    muted: "#5b6470",
+    linkColor: "#174f49",
+    linkHover: "#0f3a35",
+    linkUnderline: "rgba(23, 79, 73, 0.35)",
+    muted: "#5a5b54",
     shadow: "0 8px 28px rgba(0, 0, 0, 0.18)",
-    surface: "#ffffff",
-    text: "#1a1a1a",
+    surface: "#fffdf8",
+    text: "#292c29",
   },
 } as const;
 

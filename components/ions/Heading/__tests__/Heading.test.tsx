@@ -19,14 +19,21 @@ describe("Heading", () => {
 
     const heading = screen.getByRole("heading");
     expect(heading).toBeInTheDocument();
-    expect(heading).toHaveStyle({ fontSize: "3.25rem", lineHeight: "1" });
+    /* Fluid editorial size: clamp(min, preferred, max), see fonts.ts */
+    expect(heading).toHaveStyle({
+      fontSize: "clamp(2.5rem, 1.75rem + 3.2vw, 4.75rem)",
+      lineHeight: "1.05",
+    });
   });
 
   it("renders section size heading", () => {
     renderWithTheme(<Heading size="section">Section Heading</Heading>);
 
     const heading = screen.getByRole("heading");
-    expect(heading).toHaveStyle({ fontSize: "2rem", lineHeight: "1.1" });
+    expect(heading).toHaveStyle({
+      fontSize: "clamp(2rem, 1.5rem + 2.2vw, 3.25rem)",
+      lineHeight: "1.1",
+    });
   });
 
   it("renders card size heading", () => {

@@ -65,8 +65,8 @@ const preview: Preview = {
       },
     },
     darkMode: {
-      dark: { appBg: "#0a0a0f", appContentBg: "#0a0a0f", barBg: "#111118" },
-      light: { appBg: "#f5f5fa", appContentBg: "#f5f5fa", barBg: "#ffffff" },
+      dark: { appBg: "#0f1b19", appContentBg: "#0f1b19", barBg: "#162623" },
+      light: { appBg: "#faf8f3", appContentBg: "#faf8f3", barBg: "#ffffff" },
       stylePreview: true,
     },
   },

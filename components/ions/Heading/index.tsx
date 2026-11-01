@@ -2,8 +2,6 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { BREAKPOINTS } from "@constants";
-
 interface HeadingProps {
   children: React.ReactNode;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -19,17 +17,15 @@ interface StyledHeadingProps {
 const StyledHeading = styled.h2<StyledHeadingProps>`
   color: ${({ theme }) => theme.colors.headline};
   font-family: ${({ theme }) => theme.fontFamilies.heading};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-weight: ${({ theme }) => theme.fontWeights.heading};
+  letter-spacing: -0.015em;
 
   ${({ $size, theme }) => {
     switch ($size) {
       case "display":
         return `
-          font-size: ${theme.fontSizes["4xl"]};
-          line-height: ${theme.lineHeights.tight};
-          @media (min-width: ${BREAKPOINTS.tablet}) {
-            font-size: ${theme.fontSizes["6xl"]};
-          }
+          font-size: ${theme.fontSizes.display};
+          line-height: 1.05;
         `;
       case "card":
         return `
@@ -39,14 +35,8 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
       case "section":
       default:
         return `
-          font-size: ${theme.fontSizes["2xl"]};
+          font-size: ${theme.fontSizes.headline};
           line-height: ${theme.lineHeights.snug};
-          @media (min-width: ${BREAKPOINTS.xTablet}) {
-            font-size: ${theme.fontSizes["3xl"]};
-          }
-          @media (min-width: ${BREAKPOINTS.tablet}) {
-            font-size: ${theme.fontSizes["5xl"]};
-          }
         `;
     }
   }}

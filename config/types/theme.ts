@@ -21,6 +21,10 @@ declare module "styled-components" {
       ringEnd: string;
       milestone: string;
       thaiNavy: string;
+      clayText: string;
+      headerBg: string;
+      onImage: string;
+      onImageMuted: string;
     };
     fontFamilies: {
       default: string;
@@ -37,12 +41,15 @@ declare module "styled-components" {
       "4xl": string;
       "5xl": string;
       "6xl": string;
+      display: string;
+      headline: string;
     };
     fontWeights: {
       regular: number;
       medium: number;
       semiBold: number;
       bold: number;
+      heading: number;
     };
     lineHeights: {
       tight: number;

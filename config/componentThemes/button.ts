@@ -146,7 +146,7 @@ export const button = {
   defaultValues: {
     borderRadius: "100px",
     boxSizing: "border-box",
-    fontFamily: "heading",
+    fontFamily: "default",
   },
   light,
   dark,

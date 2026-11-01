@@ -167,7 +167,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c7 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
@@ -238,7 +238,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c18 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
@@ -281,7 +281,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c28 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 5rem;
   font-weight: 700;
   line-height: 1;
@@ -297,7 +297,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c23 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 0.625rem;
@@ -319,7 +319,7 @@ exports[`Forest renders correctly with all props 1`] = `
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-inter),sans-serif;
+  font-family: var(--font-manrope),system-ui,sans-serif;
   font-size: 1rem;
   font-weight: 700;
   gap: 0.5rem;
@@ -348,7 +348,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c37 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -414,7 +414,7 @@ exports[`Forest renders correctly with all props 1`] = `
 .c46 {
   color: var(--color-headline);
   grid-area: ctitle;
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1;
@@ -458,7 +458,7 @@ exports[`Forest renders correctly with all props 1`] = `
 
 .c51 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.2;
@@ -1471,7 +1471,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 .c7 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
@@ -1557,7 +1557,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 .c23 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 5rem;
   font-weight: 700;
   line-height: 1;
@@ -1573,7 +1573,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 .c18 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 0.625rem;
@@ -1595,7 +1595,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-inter),sans-serif;
+  font-family: var(--font-manrope),system-ui,sans-serif;
   font-size: 1rem;
   font-weight: 700;
   gap: 0.5rem;
@@ -1624,7 +1624,7 @@ exports[`Forest renders correctly with minimal props 1`] = `
 
 .c32 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1rem;
   font-weight: 700;
 }

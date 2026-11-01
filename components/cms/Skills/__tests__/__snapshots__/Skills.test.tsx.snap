@@ -16,9 +16,10 @@ exports[`Skills renders correctly with a single category 1`] = `
 
 .c7 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
+  font-family: var(--font-newsreader),Georgia,serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
   line-height: 1.1;
 }
 
@@ -59,7 +60,7 @@ exports[`Skills renders correctly with a single category 1`] = `
   color: var(--color-highlight);
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-inter),sans-serif;
+  font-family: var(--font-manrope),system-ui,sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   gap: 0.375rem;
@@ -99,7 +100,7 @@ exports[`Skills renders correctly with a single category 1`] = `
 
 .c11 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -159,18 +160,6 @@ exports[`Skills renders correctly with a single category 1`] = `
 @media (min-width: 1536px) {
   .c1 >* {
     grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 900px) {
-  .c7 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c7 {
-    font-size: 3.5rem;
   }
 }
 
@@ -337,9 +326,10 @@ exports[`Skills renders correctly with all categories 1`] = `
 
 .c7 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
+  font-family: var(--font-newsreader),Georgia,serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
   line-height: 1.1;
 }
 
@@ -380,7 +370,7 @@ exports[`Skills renders correctly with all categories 1`] = `
   color: var(--color-highlight);
   cursor: pointer;
   display: inline-flex;
-  font-family: var(--font-inter),sans-serif;
+  font-family: var(--font-manrope),system-ui,sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   gap: 0.375rem;
@@ -420,7 +410,7 @@ exports[`Skills renders correctly with all categories 1`] = `
 
 .c11 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -480,18 +470,6 @@ exports[`Skills renders correctly with all categories 1`] = `
 @media (min-width: 1536px) {
   .c1 >* {
     grid-column: 2/auto;
-  }
-}
-
-@media (min-width: 900px) {
-  .c7 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c7 {
-    font-size: 3.5rem;
   }
 }
 

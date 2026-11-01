@@ -64,7 +64,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 }
 
 .c7 {
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: clamp(36px, 10vw, 44px);
   font-weight: 700;
   line-height: 1.05;
@@ -75,7 +75,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 .c8 {
   color: var(--color-highlight);
   display: block;
-  font-family: var(--font-inter),sans-serif;
+  font-family: var(--font-manrope),system-ui,sans-serif;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -86,7 +86,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
 
 .c9 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: clamp(18px, 4.8vw, 22px);
   font-weight: 500;
   line-height: 1.25;
@@ -683,7 +683,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 }
 
 .c7 {
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: clamp(36px, 10vw, 44px);
   font-weight: 700;
   line-height: 1.05;
@@ -694,7 +694,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 .c8 {
   color: var(--color-highlight);
   display: block;
-  font-family: var(--font-inter),sans-serif;
+  font-family: var(--font-manrope),system-ui,sans-serif;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -705,7 +705,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
 
 .c9 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: clamp(18px, 4.8vw, 22px);
   font-weight: 500;
   line-height: 1.25;

@@ -34,4 +34,17 @@ export const colors = {
   /* The deep navy of the Thai flag, for the anniversary title only. On the dark
      ground it falls back to the headline colour, since navy would vanish. */
   thaiNavy: "var(--color-thai-navy)",
+
+  /* Clay as small text: the brand Clay (#C96F53) is only 3.4:1 on Paper, so
+     text takes this darker value on light and a lighter one on dark. */
+  clayText: "var(--color-clay-text)",
+
+  /* Sticky header once the page has scrolled: Ivory with a little
+     translucency, deep forest on dark. */
+  headerBg: "var(--color-header-bg)",
+
+  /* Text over photography and over the forest panel: always Ivory, in both
+     themes, because the image underneath does not change with the theme. */
+  onImage: "var(--color-on-image)",
+  onImageMuted: "var(--color-on-image-muted)",
 };

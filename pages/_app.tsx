@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import type { AppProps } from "next/app";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Manrope, Newsreader } from "next/font/google";
 
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
@@ -22,17 +22,21 @@ import { useProlificCapture } from "@lib/utils/prolific";
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 
-const inter = Inter({
+/* Two families, both variable, so the page asks for exactly two roman/italic
+   files and one UI file whatever weights the components use:
+   Newsreader for editorial headings (italic carries the accent words),
+   Manrope for body, navigation and UI. */
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-manrope",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
   display: "swap",
-  preload: false,
 });
 
 const SkipLink = styled.a`
@@ -77,7 +81,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   return (
     <div
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${manrope.variable} ${newsreader.variable}`}
       style={{ display: "contents" }}
     >
       <ThemeProvider theme={theme}>

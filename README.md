@@ -16,7 +16,7 @@ Live at **[agostiniandrea.dev](https://agostiniandrea.dev)**
 | Moderation         | In-repo English + Italian content rules for the feedback form — no third-party service                |
 | Styling            | styled-components + ThemeProvider                                                                     |
 | Theming            | Dark (default) + light via `prefers-color-scheme` — CSS custom properties, zero JS                    |
-| Fonts              | Inter + Space Grotesk via `next/font`                                                                 |
+| Fonts              | Manrope + Newsreader via `next/font`                                                                  |
 | Images             | `next/image` with avif/webp, 30-day CDN TTL, Contentful remote pattern                                |
 | Language           | TypeScript                                                                                            |
 | Unit tests         | Jest + Testing Library                                                                                |

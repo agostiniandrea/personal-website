@@ -10,7 +10,7 @@ export const link = {
       letterSpacing: "0.04em",
     },
     md: {
-      fontFamily: "heading",
+      fontFamily: "default",
       fSize: "21px",
       icon: {
         mt: "6px",

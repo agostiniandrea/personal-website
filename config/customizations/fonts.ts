@@ -1,6 +1,6 @@
 export const fontFamilies: Record<"default" | "heading", string> = {
-  default: "var(--font-inter), sans-serif",
-  heading: "var(--font-space-grotesk), sans-serif",
+  default: "var(--font-manrope), system-ui, sans-serif",
+  heading: "var(--font-newsreader), Georgia, serif",
 };
 
 export const fontSizes = {
@@ -14,6 +14,11 @@ export const fontSizes = {
   "4xl": "3.25rem", // 52px — hero h1 mobile (Heading display)
   "5xl": "3.5rem", // 56px — section h2 desktop
   "6xl": "5rem", // 80px — hero h1 desktop
+  /* Fluid display sizes for the editorial serif. clamp(min, preferred, max):
+     the preferred value grows with the viewport between ~360px and ~1440px,
+     so there is no jump between breakpoints and no tiny headline on a phone. */
+  display: "clamp(2.5rem, 1.75rem + 3.2vw, 4.75rem)", // hero h1: 40px -> 76px
+  headline: "clamp(2rem, 1.5rem + 2.2vw, 3.25rem)", // section h2: 32px -> 52px
 };
 
 export const fontWeights = {
@@ -21,6 +26,9 @@ export const fontWeights = {
   medium: 500,
   semiBold: 600,
   bold: 700,
+  /* Newsreader is a variable font, so any weight is a real weight; 500 is the
+     editorial headline weight. */
+  heading: 500,
 };
 
 export const lineHeights = {

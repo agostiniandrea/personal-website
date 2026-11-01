@@ -64,7 +64,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 .c3 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
@@ -492,7 +492,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 .c3 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;

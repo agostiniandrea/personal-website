@@ -178,7 +178,7 @@ describe("TreeNationPopover", () => {
 
     // A block box, so the white background and border wrap the whole panel.
     expect(dialog).toHaveStyleRule("display", "block");
-    expect(dialog).toHaveStyleRule("background", "#ffffff");
+    expect(dialog).toHaveStyleRule("background", "#fffdf8");
     expect(dialog.firstElementChild as HTMLElement).toContainElement(
       widget as HTMLElement,
     );
@@ -260,8 +260,8 @@ describe("TreeNationPopover", () => {
       "data-theme",
       "dark",
     );
-    expect(dialog).toHaveStyleRule("background", "#15151d");
-    expect(screen.getByRole("link")).toHaveStyleRule("color", "#2dd4bf");
+    expect(dialog).toHaveStyleRule("background", "#162623");
+    expect(screen.getByRole("link")).toHaveStyleRule("color", "#86a99a");
     document.documentElement.removeAttribute("data-theme");
   });
 });

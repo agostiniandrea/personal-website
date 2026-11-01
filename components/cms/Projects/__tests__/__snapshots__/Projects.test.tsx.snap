@@ -29,9 +29,10 @@ exports[`Projects renders correctly with a single item 1`] = `
 
 .c4 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
+  font-family: var(--font-newsreader),Georgia,serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
   line-height: 1.1;
 }
 
@@ -140,7 +141,7 @@ exports[`Projects renders correctly with a single item 1`] = `
 
 .c10 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1.25rem;
   font-weight: 700;
   opacity: 0.6;
@@ -261,18 +262,6 @@ exports[`Projects renders correctly with a single item 1`] = `
 @media (min-width: 1536px) {
   .c6 {
     grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .c4 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c4 {
-    font-size: 3.5rem;
   }
 }
 
@@ -535,9 +524,10 @@ exports[`Projects renders correctly with full project list 1`] = `
 
 .c4 {
   color: var(--color-headline);
-  font-family: var(--font-space-grotesk),sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
+  font-family: var(--font-newsreader),Georgia,serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
   line-height: 1.1;
 }
 
@@ -646,7 +636,7 @@ exports[`Projects renders correctly with full project list 1`] = `
 
 .c10 {
   color: var(--color-highlight);
-  font-family: var(--font-space-grotesk),sans-serif;
+  font-family: var(--font-newsreader),Georgia,serif;
   font-size: 1.25rem;
   font-weight: 700;
   opacity: 0.6;
@@ -767,18 +757,6 @@ exports[`Projects renders correctly with full project list 1`] = `
 @media (min-width: 1536px) {
   .c6 {
     grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .c4 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .c4 {
-    font-size: 3.5rem;
   }
 }
 
