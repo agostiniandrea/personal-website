@@ -293,14 +293,15 @@ test.describe("mobile app navigation accessibility", () => {
           return bounds.y + bounds.height;
         })
         .toBeGreaterThanOrEqual(567);
-      /* On short viewports the sheet scrolls internally; once its bottom is
-         reached, the padding keeps every control clear of the tab bar. The last
-         control is the email in the business details, under the social links. */
-      const lastControl = dialog.getByRole("link", {
-        name: "a.agostini92@gmail.com",
+      /* On short viewports the sheet scrolls internally. Scrolled to the very
+         bottom, its padding keeps the last content clear of the tab bar. The
+         last content is the business details block, under the social links
+         (scrollIntoViewIfNeeded is not enough: a control already inside the
+         viewport but behind the tab bar counts as visible). */
+      await dialog.evaluate((element) => {
+        element.scrollTop = element.scrollHeight;
       });
-      await lastControl.scrollIntoViewIfNeeded();
-      const lastBounds = await lastControl.boundingBox();
+      const lastBounds = await dialog.locator("address").boundingBox();
       expect(lastBounds).not.toBeNull();
       expect(lastBounds!.y + lastBounds!.height).toBeLessThanOrEqual(
         navTop + 1,
