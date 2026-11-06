@@ -257,8 +257,11 @@ test.describe("mobile app navigation accessibility", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "More" }).click();
     const dialog = page.getByRole("dialog", { name: "Explore" });
-    // The last focusable is the final social link in the footer-info block
-    const lastFocusable = dialog.getByRole("link", { name: "Email" });
+    // The last focusable is the email in the business details, under the
+    // social links in the footer-info block
+    const lastFocusable = dialog.getByRole("link", {
+      name: "a.agostini92@gmail.com",
+    });
 
     await expect(
       dialog.getByRole("button", { name: "Close menu" }),
@@ -290,16 +293,24 @@ test.describe("mobile app navigation accessibility", () => {
           return bounds.y + bounds.height;
         })
         .toBeGreaterThanOrEqual(567);
-      /* On short viewports the sheet scrolls internally; once its bottom is
-         reached, the padding keeps every control clear of the tab bar. The last
-         control is the final social link in the footer-info block. */
-      const lastControl = dialog.getByRole("link", { name: "Email" });
-      await lastControl.scrollIntoViewIfNeeded();
-      const lastBounds = await lastControl.boundingBox();
-      expect(lastBounds).not.toBeNull();
-      expect(lastBounds!.y + lastBounds!.height).toBeLessThanOrEqual(
-        navTop + 1,
-      );
+      /* On short viewports the sheet scrolls internally. Scrolled to the very
+         bottom, its padding keeps the last content clear of the tab bar. The
+         last content is the business details block, under the social links.
+         Polled: the box keeps moving while the entrance animation runs, and a
+         control inside the viewport but behind the tab bar counts as visible,
+         so scrollIntoViewIfNeeded would not scroll to the end. */
+      const legal = dialog.locator("address");
+      await expect
+        .poll(async () => {
+          await dialog.evaluate((element) => {
+            element.scrollTop = element.scrollHeight;
+          });
+          const legalBounds = await legal.boundingBox();
+          return legalBounds
+            ? legalBounds.y + legalBounds.height
+            : Number.POSITIVE_INFINITY;
+        })
+        .toBeLessThanOrEqual(navTop + 1);
       const bounds = await dialog.boundingBox();
       expect(bounds).not.toBeNull();
       expect(bounds!.x).toBeGreaterThanOrEqual(0);

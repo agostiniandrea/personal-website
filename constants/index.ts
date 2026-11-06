@@ -2,6 +2,7 @@ export {
   default as BREAKPOINTS,
   breakpointsBelow as BREAKPOINTS_BELOW,
 } from "./breakpoints";
+export { default as BUSINESS_DETAILS } from "./businessDetails";
 export {
   FEEDBACK_CONTENT_REJECTED_CODE,
   FEEDBACK_EMAIL_MAX_LENGTH,
