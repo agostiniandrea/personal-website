@@ -295,17 +295,22 @@ test.describe("mobile app navigation accessibility", () => {
         .toBeGreaterThanOrEqual(567);
       /* On short viewports the sheet scrolls internally. Scrolled to the very
          bottom, its padding keeps the last content clear of the tab bar. The
-         last content is the business details block, under the social links
-         (scrollIntoViewIfNeeded is not enough: a control already inside the
-         viewport but behind the tab bar counts as visible). */
-      await dialog.evaluate((element) => {
-        element.scrollTop = element.scrollHeight;
-      });
-      const lastBounds = await dialog.locator("address").boundingBox();
-      expect(lastBounds).not.toBeNull();
-      expect(lastBounds!.y + lastBounds!.height).toBeLessThanOrEqual(
-        navTop + 1,
-      );
+         last content is the business details block, under the social links.
+         Polled: the box keeps moving while the entrance animation runs, and a
+         control inside the viewport but behind the tab bar counts as visible,
+         so scrollIntoViewIfNeeded would not scroll to the end. */
+      const legal = dialog.locator("address");
+      await expect
+        .poll(async () => {
+          await dialog.evaluate((element) => {
+            element.scrollTop = element.scrollHeight;
+          });
+          const legalBounds = await legal.boundingBox();
+          return legalBounds
+            ? legalBounds.y + legalBounds.height
+            : Number.POSITIVE_INFINITY;
+        })
+        .toBeLessThanOrEqual(navTop + 1);
       const bounds = await dialog.boundingBox();
       expect(bounds).not.toBeNull();
       expect(bounds!.x).toBeGreaterThanOrEqual(0);
