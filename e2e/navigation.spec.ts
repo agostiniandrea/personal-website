@@ -257,8 +257,11 @@ test.describe("mobile app navigation accessibility", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "More" }).click();
     const dialog = page.getByRole("dialog", { name: "Explore" });
-    // The last focusable is the final social link in the footer-info block
-    const lastFocusable = dialog.getByRole("link", { name: "Email" });
+    // The last focusable is the email in the business details, under the
+    // social links in the footer-info block
+    const lastFocusable = dialog.getByRole("link", {
+      name: "a.agostini92@gmail.com",
+    });
 
     await expect(
       dialog.getByRole("button", { name: "Close menu" }),
@@ -292,8 +295,10 @@ test.describe("mobile app navigation accessibility", () => {
         .toBeGreaterThanOrEqual(567);
       /* On short viewports the sheet scrolls internally; once its bottom is
          reached, the padding keeps every control clear of the tab bar. The last
-         control is the final social link in the footer-info block. */
-      const lastControl = dialog.getByRole("link", { name: "Email" });
+         control is the email in the business details, under the social links. */
+      const lastControl = dialog.getByRole("link", {
+        name: "a.agostini92@gmail.com",
+      });
       await lastControl.scrollIntoViewIfNeeded();
       const lastBounds = await lastControl.boundingBox();
       expect(lastBounds).not.toBeNull();
