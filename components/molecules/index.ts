@@ -1,5 +1,6 @@
 export { default as AnalyticsScripts } from "./AnalyticsScripts";
 export { default as Badge } from "./Badge";
+export { default as BusinessDetails } from "./BusinessDetails";
 export { default as CarbonBadge } from "./CarbonBadge";
 export { default as CookieBanner } from "./CookieBanner";
 export { Drawer, DrawerTopBar, Overlay } from "./Drawer";

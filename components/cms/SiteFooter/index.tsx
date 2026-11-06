@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BrandLogo from "@components/atoms/BrandLogo";
 import { Container, Flex, Link, Text } from "@components/ions";
 import {
+  BusinessDetails,
   GreenWebBadge,
   LeafIcon,
   TreeNationLabel,
@@ -182,6 +183,14 @@ const TaglineLine = styled.span`
   }
 `;
 
+/* Legal identity line: its own hairline so it reads as small print under the
+   tagline and copyright row. */
+const LegalRow = styled.div`
+  border-top: ${SEPARATOR};
+  margin-top: ${toSpacing("lg")};
+  padding-top: ${toSpacing("lg")};
+`;
+
 const MetaCol = styled.div`
   align-items: center;
   display: flex;
@@ -260,6 +269,11 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
           </Text>
         </MetaCol>
       </BottomRow>
+
+      {/* Business details */}
+      <LegalRow>
+        <BusinessDetails />
+      </LegalRow>
     </Container>
   </FooterWrapper>
 );

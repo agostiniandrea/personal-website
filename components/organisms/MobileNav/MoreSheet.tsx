@@ -15,6 +15,7 @@ import {
 import styled, { keyframes } from "styled-components";
 
 import { Link } from "@components/ions";
+import { BusinessDetails } from "@components/molecules";
 import { BREAKPOINTS } from "@constants";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
@@ -339,6 +340,12 @@ const FooterInfo = styled.div`
   text-align: center;
 `;
 
+/* Legal signature: no extra padding of its own, the gap of FooterInfo is the
+   only space between it and the social buttons. */
+const LegalInfo = styled.div`
+  margin: 0;
+`;
+
 const SocialRow = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.space.sm};
@@ -531,8 +538,8 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
             {t.moreDownloadCv}
           </CvLink>
         )}
-        {socialLinks && socialLinks.length > 0 && (
-          <FooterInfo>
+        <FooterInfo>
+          {socialLinks && socialLinks.length > 0 && (
             <SocialRow>
               {socialLinks.map((link) => (
                 <SocialLink
@@ -546,8 +553,11 @@ export const MoreSheet: React.FC<MoreSheetProps> = ({
                 </SocialLink>
               ))}
             </SocialRow>
-          </FooterInfo>
-        )}
+          )}
+          <LegalInfo>
+            <BusinessDetails layout="rows" />
+          </LegalInfo>
+        </FooterInfo>
       </Sheet>
     </>,
     document.body,
