@@ -2,6 +2,8 @@ type Locale = "en" | "it";
 
 const strings = {
   en: {
+    businessKvkLabel: "KVK:",
+    businessVatLabel: "VAT ID:",
     closeMenu: "Close menu",
     co2LifetimeSuffix: "lifetime estimate",
     co2TooltipBody:
@@ -104,6 +106,8 @@ const strings = {
     viewProject: (title: string) => `View project: ${title}`,
   },
   it: {
+    businessKvkLabel: "KVK:",
+    businessVatLabel: "Partita IVA:",
     closeMenu: "Chiudi menu",
     co2LifetimeSuffix: "stima sul ciclo di vita",
     co2TooltipBody:

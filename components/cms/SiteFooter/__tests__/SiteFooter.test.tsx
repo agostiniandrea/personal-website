@@ -50,17 +50,20 @@ describe("SiteFooter", () => {
 
   it("renders the copyright text with copyrightName", () => {
     renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
-    expect(
-      screen.getByText(new RegExp(defaultSiteFooter.copyrightName)),
-    ).toBeInTheDocument();
+    /* The name also appears in the business details line, so the copyright is
+       the line that starts with the © sign. */
+    expect(screen.getByText(/©/)).toHaveTextContent(
+      defaultSiteFooter.copyrightName,
+    );
   });
 
   it("renders no social links when socialLinks is empty", () => {
     renderWithTheme(<SiteFooter {...minimalSiteFooter} />);
-    // The static Green Web badge is the only remaining link.
+    // Only the static Green Web badge and the business email remain.
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(1);
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAccessibleName(/green hosting/i);
+    expect(links[1]).toHaveAttribute("href", "mailto:a.agostini92@gmail.com");
   });
 
   it("shows the Climate Action label, then Green Web, in the badge row", () => {

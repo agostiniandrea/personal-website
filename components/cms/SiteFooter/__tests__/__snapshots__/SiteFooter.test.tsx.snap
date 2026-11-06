@@ -29,6 +29,60 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   padding: 0;
 }
 
+.c19 {
+  align-items: center;
+  color: var(--color-paragraph);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: center;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 100%;
+  row-gap: 0.25rem;
+  text-align: center;
+}
+
+.c20 {
+  align-items: center;
+  display: contents;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.c20:not(:last-child)>:last-child::after {
+  content: "·";
+  content: "·"/"";
+  margin: 0 0.75em;
+  opacity: 0.6;
+}
+
+.c21:not(:last-child)::after {
+  content: "·";
+  content: "·"/"";
+  margin: 0 0.75em;
+  opacity: 0.6;
+}
+
+.c22 {
+  white-space: nowrap;
+}
+
+.c23 {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.c23:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
 .c13 {
   display: inline-flex;
   line-height: 0;
@@ -124,6 +178,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   text-align: center;
 }
 
+.c18 {
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
 .c16 {
   align-items: center;
   display: flex;
@@ -180,6 +240,18 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 @media (min-width: 1536px) {
   .c1 >* {
     grid-column: 2/auto;
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c19 {
+    font-size: 0.75rem;
+  }
+}
+
+@media (hover: hover) {
+  .c23:hover {
+    color: var(--color-highlight);
   }
 }
 
@@ -410,6 +482,66 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
           </p>
         </div>
       </div>
+      <div
+        class="c18"
+      >
+        <address
+          class="c19"
+        >
+          <span
+            class="c20"
+          >
+            <span
+              class="c21 c22"
+            >
+              Andrea Agostini
+            </span>
+            <span
+              class="c21"
+            >
+              Piet Heinstraat 12
+              , 
+              7511 JE
+               
+              Enschede
+              , 
+              Netherlands
+            </span>
+          </span>
+          <span
+            class="c20"
+          >
+            <span
+              class="c21 c22"
+            >
+              <a
+                class="c23"
+                href="mailto:a.agostini92@gmail.com"
+              >
+                a.agostini92@gmail.com
+              </a>
+            </span>
+          </span>
+          <span
+            class="c20"
+          >
+            <span
+              class="c21 c22"
+            >
+              KVK:
+               
+              86233858
+            </span>
+            <span
+              class="c21 c22"
+            >
+              VAT ID:
+               
+              NL004214781B58
+            </span>
+          </span>
+        </address>
+      </div>
     </section>
   </footer>
 </div>
@@ -455,6 +587,60 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+.c23 {
+  align-items: center;
+  color: var(--color-paragraph);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: center;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 100%;
+  row-gap: 0.25rem;
+  text-align: center;
+}
+
+.c24 {
+  align-items: center;
+  display: contents;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.c24:not(:last-child)>:last-child::after {
+  content: "·";
+  content: "·"/"";
+  margin: 0 0.75em;
+  opacity: 0.6;
+}
+
+.c25:not(:last-child)::after {
+  content: "·";
+  content: "·"/"";
+  margin: 0 0.75em;
+  opacity: 0.6;
+}
+
+.c26 {
+  white-space: nowrap;
+}
+
+.c27 {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.c27:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 2px;
 }
 
 .c15 {
@@ -565,6 +751,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
   content: " ";
 }
 
+.c22 {
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
 .c20 {
   align-items: center;
   display: flex;
@@ -627,6 +819,18 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 @media (hover: hover) {
   .c5:hover {
     color: var(--color-tertiary);
+  }
+}
+
+@media (max-width: 899.99px) {
+  .c23 {
+    font-size: 0.75rem;
+  }
+}
+
+@media (hover: hover) {
+  .c27:hover {
+    color: var(--color-highlight);
   }
 }
 
@@ -896,6 +1100,66 @@ exports[`SiteFooter renders correctly with social links 1`] = `
             Andrea Agostini
           </p>
         </div>
+      </div>
+      <div
+        class="c22"
+      >
+        <address
+          class="c23"
+        >
+          <span
+            class="c24"
+          >
+            <span
+              class="c25 c26"
+            >
+              Andrea Agostini
+            </span>
+            <span
+              class="c25"
+            >
+              Piet Heinstraat 12
+              , 
+              7511 JE
+               
+              Enschede
+              , 
+              Netherlands
+            </span>
+          </span>
+          <span
+            class="c24"
+          >
+            <span
+              class="c25 c26"
+            >
+              <a
+                class="c27"
+                href="mailto:a.agostini92@gmail.com"
+              >
+                a.agostini92@gmail.com
+              </a>
+            </span>
+          </span>
+          <span
+            class="c24"
+          >
+            <span
+              class="c25 c26"
+            >
+              KVK:
+               
+              86233858
+            </span>
+            <span
+              class="c25 c26"
+            >
+              VAT ID:
+               
+              NL004214781B58
+            </span>
+          </span>
+        </address>
       </div>
     </section>
   </footer>
