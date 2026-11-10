@@ -62,6 +62,9 @@ const strings = {
     forestTreeCountLabel: "Trees planted since May 2026",
     forestTreesUnit: "trees",
     forestVerifiedLabel: "View the forest on Tree-Nation",
+    footerSustainabilityBody:
+      "This website runs on renewable energy and supports global reforestation.",
+    footerSustainabilityLabel: "Sustainable by design",
     goTo: (label: string) => `Go to ${label}`,
     journeyNow: "Now",
     mainNavigation: "Main navigation",
@@ -173,6 +176,9 @@ const strings = {
     forestTreeCountLabel: "Alberi piantati da maggio 2026",
     forestTreesUnit: "alberi",
     forestVerifiedLabel: "Vedi la foresta su Tree-Nation",
+    footerSustainabilityBody:
+      "Questo sito funziona con energia rinnovabile e sostiene la riforestazione globale.",
+    footerSustainabilityLabel: "Sostenibile per scelta",
     goTo: (label: string) => `Vai a ${label}`,
     journeyNow: "Oggi",
     mainNavigation: "Navigazione principale",
