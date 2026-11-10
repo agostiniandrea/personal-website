@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -7,7 +9,17 @@ import { renderWithTheme } from "@test-utils/renderWithTheme";
 import SiteFooter from "../index";
 import { defaultSiteFooter, minimalSiteFooter } from "../model";
 
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
+
+const mockUseRouter = useRouter as jest.Mock;
+
 describe("SiteFooter", () => {
+  beforeEach(() => {
+    mockUseRouter.mockReturnValue({ locale: "en" });
+  });
+
   it("renders correctly with social links", () => {
     const { container } = renderWithTheme(
       <SiteFooter {...defaultSiteFooter} />,
@@ -150,5 +162,27 @@ describe("SiteFooter", () => {
     expect(
       screen.getByText(/runs on renewable energy and supports global/i),
     ).toBeInTheDocument();
+  });
+
+  it("says the sustainability copy in English", () => {
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    expect(screen.getByText("Sustainable by design")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "This website runs on renewable energy and supports global reforestation.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("says the sustainability copy in Italian", () => {
+    mockUseRouter.mockReturnValue({ locale: "it" });
+    renderWithTheme(<SiteFooter {...defaultSiteFooter} />);
+    expect(screen.getByText("Sostenibile per scelta")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Questo sito funziona con energia rinnovabile e sostiene la riforestazione globale.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Sustainable by design")).not.toBeInTheDocument();
   });
 });
