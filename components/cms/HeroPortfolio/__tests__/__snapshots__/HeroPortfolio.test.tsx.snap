@@ -82,6 +82,8 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
   line-height: 20px;
   margin-bottom: 14px;
   text-transform: uppercase;
+  text-wrap: balance;
+  white-space: normal;
 }
 
 .c9 {
@@ -525,7 +527,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
             <span
               class="c8"
             >
-              Hi, I'm
+              Based in Bangkok, working worldwide
             </span>
             Andrea Agostini
           </h1>
@@ -537,7 +539,7 @@ exports[`HeroPortfolio renders correctly with all props 1`] = `
           <p
             class="c10 c11"
           >
-            Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
+            I build ecommerce experiences and design systems that are fast, accessible and made to last. Working remotely with teams across Europe and North America, from Bangkok.
           </p>
         </div>
         <div
@@ -701,6 +703,8 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
   line-height: 20px;
   margin-bottom: 14px;
   text-transform: uppercase;
+  text-wrap: balance;
+  white-space: normal;
 }
 
 .c9 {
@@ -1098,7 +1102,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
             <span
               class="c8"
             >
-              Hi, I'm
+              Based in Bangkok, working worldwide
             </span>
             Andrea Agostini
           </h1>
@@ -1110,7 +1114,7 @@ exports[`HeroPortfolio renders correctly without secondary CTA 1`] = `
           <p
             class="c10 c11"
           >
-            Building headless ecommerce and design systems with Next.js, React, TypeScript and Shopify. Based in Bangkok, fully remote.
+            I build ecommerce experiences and design systems that are fast, accessible and made to last. Working remotely with teams across Europe and North America, from Bangkok.
           </p>
         </div>
         <div
