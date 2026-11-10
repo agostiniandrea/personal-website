@@ -127,6 +127,10 @@ const GreetingSpan = styled.span`
   line-height: 20px;
   margin-bottom: 14px;
   text-transform: uppercase;
+  /* Name is nowrap on phones and this label sits inside it. A long eyebrow
+     must wrap onto a second line (balanced) instead of being cut off. */
+  text-wrap: balance;
+  white-space: normal;
 
   @media (min-width: ${BREAKPOINTS.xTablet}) {
     font-size: ${({ theme }) => theme.fontSizes.xs};
