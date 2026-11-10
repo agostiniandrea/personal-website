@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import styled from "styled-components";
 
 import BrandLogo from "@components/atoms/BrandLogo";
@@ -11,6 +13,7 @@ import {
 import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction } from "@lib/utils/analytics";
+import { useI18n } from "@lib/utils/i18n";
 
 export interface SiteFooterLink {
   label: string;
@@ -210,72 +213,76 @@ const SiteFooter: React.FC<SiteFooterProps> = ({
   copyrightName,
   tagline,
   ctaHeading = "Let's work together.",
-}) => (
-  <FooterWrapper role="contentinfo">
-    <Container>
-      {/* Primary CTA */}
-      <CtaArea>
-        {ctaHeading && <CtaHeading>{ctaHeading}</CtaHeading>}
-        <Flex gap="xl" justifyContent="center" wrap="wrap">
-          {socialLinks.map((link) => (
-            <SocialLink
-              key={link.url}
-              href={link.url}
-              isExternal={!link.url.startsWith("mailto:")}
-              ariaLabel={link.label}
-              onClick={() => trackContactInteraction(link.url, "footer")}
-            >
-              {link.label}
-            </SocialLink>
-          ))}
-        </Flex>
-      </CtaArea>
+}) => {
+  const router = useRouter();
+  const t = useI18n(router.locale);
 
-      {/* Sustainability */}
-      <SustainabilityRow>
-        <SustainabilityIntro>
-          <SustainabilityLabel>
-            <LeafIcon size={16} />
-            Sustainable by design
-          </SustainabilityLabel>
-          <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
-            This website runs on renewable energy and supports global
-            reforestation.
-          </Text>
-        </SustainabilityIntro>
-
-        <BadgesRow>
-          <ClimateActionCredential type="offset-website" />
-          <GreenWebBadge />
-        </BadgesRow>
-      </SustainabilityRow>
-
-      {/* Bottom row */}
-      <BottomRow>
-        {tagline && (
-          <Tagline variant="small">
-            {tagline.split("\n").map((line, i) => (
-              <TaglineLine key={i}>{line}</TaglineLine>
+  return (
+    <FooterWrapper role="contentinfo">
+      <Container>
+        {/* Primary CTA */}
+        <CtaArea>
+          {ctaHeading && <CtaHeading>{ctaHeading}</CtaHeading>}
+          <Flex gap="xl" justifyContent="center" wrap="wrap">
+            {socialLinks.map((link) => (
+              <SocialLink
+                key={link.url}
+                href={link.url}
+                isExternal={!link.url.startsWith("mailto:")}
+                ariaLabel={link.label}
+                onClick={() => trackContactInteraction(link.url, "footer")}
+              >
+                {link.label}
+              </SocialLink>
             ))}
-          </Tagline>
-        )}
+          </Flex>
+        </CtaArea>
 
-        <MetaCol>
-          <span aria-hidden="true">
-            <FooterLogo label={copyrightName} variant="symbol" />
-          </span>
-          <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
-            © {new Date().getFullYear()} {copyrightName}
-          </Text>
-        </MetaCol>
-      </BottomRow>
+        {/* Sustainability */}
+        <SustainabilityRow>
+          <SustainabilityIntro>
+            <SustainabilityLabel>
+              <LeafIcon size={16} />
+              {t.footerSustainabilityLabel}
+            </SustainabilityLabel>
+            <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
+              {t.footerSustainabilityBody}
+            </Text>
+          </SustainabilityIntro>
 
-      {/* Business details */}
-      <LegalRow>
-        <BusinessDetails />
-      </LegalRow>
-    </Container>
-  </FooterWrapper>
-);
+          <BadgesRow>
+            <ClimateActionCredential type="offset-website" />
+            <GreenWebBadge />
+          </BadgesRow>
+        </SustainabilityRow>
+
+        {/* Bottom row */}
+        <BottomRow>
+          {tagline && (
+            <Tagline variant="small">
+              {tagline.split("\n").map((line, i) => (
+                <TaglineLine key={i}>{line}</TaglineLine>
+              ))}
+            </Tagline>
+          )}
+
+          <MetaCol>
+            <span aria-hidden="true">
+              <FooterLogo label={copyrightName} variant="symbol" />
+            </span>
+            <Text variant="small" style={{ color: "var(--color-paragraph)" }}>
+              © {new Date().getFullYear()} {copyrightName}
+            </Text>
+          </MetaCol>
+        </BottomRow>
+
+        {/* Business details */}
+        <LegalRow>
+          <BusinessDetails />
+        </LegalRow>
+      </Container>
+    </FooterWrapper>
+  );
+};
 
 export default SiteFooter;
