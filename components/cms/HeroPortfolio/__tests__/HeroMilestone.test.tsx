@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { THAILAND_ANNIVERSARY } from "@lib/utils/thailandAnniversary";
 import { renderWithTheme } from "@test-utils/renderWithTheme";
 
 import HeroPortfolio from "../index";
@@ -124,29 +123,19 @@ describe("HeroPortfolio milestone badge", () => {
 describe("HeroPortfolio milestone row", () => {
   beforeEach(() => {
     mockUseRouter.mockReturnValue({ locale: "en" });
-    // The anniversary ships switched off; these tests keep covering it so it
-    // can be turned back on.
-    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", true);
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  it("shows both milestones, the trees first and the anniversary beside it", () => {
+  it("shows the tree milestone", () => {
     renderWithTheme(
       <HeroPortfolio {...defaultHeroPortfolio} treesPlanted={200} />,
     );
-    const trees = screen.getByTestId("hero-milestone");
-    const anniversary = screen.getByTestId("thailand-anniversary");
-    expect(trees).toHaveTextContent("200 trees planted");
-    expect(anniversary).toHaveTextContent("One year in Thailand");
-    expect(anniversary).toHaveTextContent("Oct 2025 — Oct 2026");
-    expect(screen.queryByText(/new beginnings/)).not.toBeInTheDocument();
-    expect(
-      trees.compareDocumentPosition(anniversary) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
+    expect(screen.getByTestId("hero-milestone")).toHaveTextContent(
+      "200 trees planted",
+    );
   });
 
   it("sits after the calls to action, so the name, role and buttons lead", () => {
@@ -162,36 +151,11 @@ describe("HeroPortfolio milestone row", () => {
     ).toBeTruthy();
   });
 
-  it("keeps the anniversary when the forest has no milestone yet", () => {
+  it("renders nothing extra when there is no milestone yet", () => {
     renderWithTheme(
       <HeroPortfolio {...defaultHeroPortfolio} treesPlanted={10} />,
     );
     expect(screen.queryByTestId("hero-milestone")).not.toBeInTheDocument();
-    expect(screen.getByTestId("thailand-anniversary")).toBeInTheDocument();
-  });
-
-  /* The anniversary is an editorial week with its own switch; the tree
-     milestone is generic and must outlive it. */
-  it("drops only the anniversary when it is switched off", () => {
-    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", false);
-    renderWithTheme(
-      <HeroPortfolio {...defaultHeroPortfolio} treesPlanted={200} />,
-    );
-    expect(
-      screen.queryByTestId("thailand-anniversary"),
-    ).not.toBeInTheDocument();
-    expect(screen.getByTestId("hero-milestone")).toHaveTextContent(
-      "200 trees planted",
-    );
-  });
-
-  it("renders nothing extra when neither milestone applies", () => {
-    jest.replaceProperty(THAILAND_ANNIVERSARY, "enabled", false);
-    renderWithTheme(<HeroPortfolio {...defaultHeroPortfolio} />);
-    expect(screen.queryByTestId("hero-milestone")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("thailand-anniversary"),
-    ).not.toBeInTheDocument();
   });
 
   /* No background image, illustration or photo overlay: the only images in the

@@ -19,7 +19,6 @@ import {
   MilestoneLeafIcon,
   Section,
   SectionLabel,
-  ThailandAnniversary,
   TreeIcon,
   TreeNationPopover,
 } from "@components/molecules";
@@ -27,17 +26,11 @@ import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
 import {
-  FOREST_CAMPAIGN,
-  getCampaignCopy,
-  getCampaignProgress,
-} from "@lib/utils/forestCampaign";
-import {
   lastMilestoneReached,
   milestoneProgress,
 } from "@lib/utils/forestMilestones";
 import { formatCo2Tonnes } from "@lib/utils/formatCo2";
 import { useI18n } from "@lib/utils/i18n";
-import { THAILAND_ANNIVERSARY } from "@lib/utils/thailandAnniversary";
 import type { ForestProject, ForestSpecies } from "@lib/utils/treeNation";
 
 import { ForestModal } from "./ForestModal";
@@ -477,14 +470,6 @@ const SparkleMark = styled(Sparkle).attrs({ "aria-hidden": "true" })<{
   }
 `;
 
-/* The anniversary sits under the counter. */
-/* The flag stripe doubles as the divider between the count and the
-   anniversary, so there is no extra rule. */
-const CtaAnniversary = styled.div`
-  margin-top: ${({ theme }) => theme.space.md};
-  width: 100%;
-`;
-
 const CtaDecorLabel = styled.span`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -507,15 +492,11 @@ const CtaHeading = styled.h3`
 
 /* The milestone words in the headline take the milestone gold (4.7:1 on the
    light ground, 10:1 on the dark one). */
-const CtaAccent = styled.span`
-  color: ${({ theme }) => theme.colors.milestone};
-`;
-
-const CtaBody = styled.p<{ $tight?: boolean }>`
+const CtaBody = styled.p`
   color: ${({ theme }) => theme.colors.paragraph};
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
-  margin: 0 0 ${({ $tight }) => ($tight ? "0.75rem" : "1.75rem")};
+  margin: 0 0 1.75rem;
   max-width: 420px;
 `;
 
@@ -1156,23 +1137,6 @@ const EARLIER_CAMPAIGN_FEEDBACK_TREES = 18;
    API does not return project URLs): the project URL is its slug. */
 const EARLIER_CAMPAIGN_PROJECT_URL = `https://tree-nation.com/projects/${EARLIER_CAMPAIGN_PROJECT_SLUG}`;
 
-/* Sets `accent` (a phrase inside `text`) in the milestone gold. If the phrase is
-   not there, the heading is simply shown plain. */
-const AccentedHeading: React.FC<{ text: string; accent: string }> = ({
-  text,
-  accent,
-}) => {
-  const at = text.indexOf(accent);
-  if (at === -1) return <>{text}</>;
-  return (
-    <>
-      {text.slice(0, at)}
-      <CtaAccent>{accent}</CtaAccent>
-      {text.slice(at + accent.length)}
-    </>
-  );
-};
-
 /* ── Component ── */
 
 const Forest: React.FC<ForestProps> = ({
@@ -1229,16 +1193,6 @@ const Forest: React.FC<ForestProps> = ({
   const resolvedHeading = heading ?? t.forestHeading;
   const resolvedSubheading = subheading ?? t.forestSubheading;
   const resolvedCtaBody = ctaBody ?? t.forestCtaBody;
-  /* TEMPORARY CAMPAIGN (Oct 7–10, 2026) — see lib/utils/forestCampaign.ts.
-     While active, its copy wins over the Contentful ctaHeading / ctaBody /
-     ctaButtonLabel. The
-     tree total itself is never altered; the countdown against the campaign goal
-     only runs while FOREST_CAMPAIGN.goalProgress is on. */
-  const campaign = FOREST_CAMPAIGN.enabled ? getCampaignCopy(locale) : null;
-  const campaignProgress =
-    campaign && FOREST_CAMPAIGN.goalProgress
-      ? getCampaignProgress(treeCount)
-      : null;
   const resolvedTreesLabel = treesLabel ?? t.forestTreesUnit;
   /* The card names the project feedback trees currently go to; it carries no
      season number, so nothing here has to change when that project does. */
@@ -1366,28 +1320,8 @@ const Forest: React.FC<ForestProps> = ({
 
         <CtaCard>
           <CtaContent>
-            <CtaHeading>
-              {campaign ? (
-                <AccentedHeading
-                  accent={campaign.headingAccent}
-                  text={campaign.heading}
-                />
-              ) : (
-                ctaHeading
-              )}
-            </CtaHeading>
-            {campaign ? (
-              campaign.body.map((paragraph, index) => (
-                <CtaBody
-                  key={paragraph}
-                  $tight={index < campaign.body.length - 1}
-                >
-                  {paragraph}
-                </CtaBody>
-              ))
-            ) : (
-              <CtaBody>{resolvedCtaBody}</CtaBody>
-            )}
+            <CtaHeading>{ctaHeading}</CtaHeading>
+            <CtaBody>{resolvedCtaBody}</CtaBody>
             {/* The label is CMS copy and changes freely, so the tests hook
                   onto this id rather than onto the words. */}
             <PlantButton
@@ -1396,9 +1330,7 @@ const Forest: React.FC<ForestProps> = ({
               data-testid="plant-feedback"
             >
               <LeafIcon size={17} />
-              {withoutLeadingEmoji(
-                campaign ? campaign.ctaLabel : ctaButtonLabel,
-              )}
+              {withoutLeadingEmoji(ctaButtonLabel)}
             </PlantButton>
           </CtaContent>
           <CtaDecor>
@@ -1435,11 +1367,6 @@ const Forest: React.FC<ForestProps> = ({
               )}
             </CtaDecorNumberWrap>
             <CtaDecorLabel>{resolvedTreeCountLabel}</CtaDecorLabel>
-            {THAILAND_ANNIVERSARY.enabled && (
-              <CtaAnniversary>
-                <ThailandAnniversary variant="stacked" />
-              </CtaAnniversary>
-            )}
           </CtaDecor>
         </CtaCard>
 
@@ -1449,59 +1376,21 @@ const Forest: React.FC<ForestProps> = ({
               <SeasonHeader>
                 <SeasonLabel>{t.forestProgressTitle}</SeasonLabel>
                 <SeasonCount>
-                  {campaignProgress ? (
-                    <>
-                      {campaignProgress.shown} / {campaignProgress.goal}{" "}
-                      {resolvedTreesLabel}
-                    </>
-                  ) : (
-                    <>
-                      {treeCount} / {milestoneGoal} {resolvedTreesLabel}
-                    </>
-                  )}
+                  {treeCount} / {milestoneGoal} {resolvedTreesLabel}
                 </SeasonCount>
               </SeasonHeader>
               <ProgressBar data-testid="progress-bar">
-                <ProgressTrack
-                  {...(campaignProgress && {
-                    role: "progressbar",
-                    "aria-label": t.forestProgressTitle,
-                    "aria-valuemin": 0,
-                    "aria-valuemax": campaignProgress.goal,
-                    "aria-valuenow": campaignProgress.shown,
-                  })}
-                >
-                  <ProgressFill
-                    $pct={campaignProgress ? campaignProgress.pct : pct}
-                    $animate={inView}
-                  />
+                <ProgressTrack>
+                  <ProgressFill $pct={pct} $animate={inView} />
                 </ProgressTrack>
-                {!campaignProgress && lastMilestone !== null && <BarLeaf />}
+                {lastMilestone !== null && <BarLeaf />}
               </ProgressBar>
               <SeasonMeta>
                 {/* The badge and the percentage both belong here, and both are
                     true at once past the first rung: one says where the forest
                     got to, the other how far to the next. The badge wins the
                     slot because a milestone is the thing worth reading. */}
-                {campaign && campaignProgress ? (
-                  /* TEMPORARY CAMPAIGN — the countdown (or the calm "reached"
-                     line) replaces the regular milestone badge, which would
-                     read "100 trees reached" next to a goal of 200. */
-                  campaignProgress.reached ? (
-                    <SeasonReached data-testid="campaign-reached">
-                      <CircleCheck
-                        size={14}
-                        strokeWidth={2.25}
-                        aria-hidden="true"
-                      />
-                      {campaign.goalReached(campaignProgress.goal)}
-                    </SeasonReached>
-                  ) : (
-                    <SeasonSublabel data-testid="campaign-to-go">
-                      {campaign.treesToGo(campaignProgress.remaining)}
-                    </SeasonSublabel>
-                  )
-                ) : lastMilestone !== null ? (
+                {lastMilestone !== null ? (
                   <SeasonReached
                     data-testid="milestone-reached"
                     data-complete={milestoneComplete || undefined}
