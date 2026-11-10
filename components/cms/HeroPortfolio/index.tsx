@@ -6,13 +6,12 @@ import { ArrowDown, ArrowRight, ChevronDown } from "lucide-react";
 import styled, { keyframes } from "styled-components";
 
 import { Box, Container, Heading, Image, Link, Text } from "@components/ions";
-import { MilestoneLeafIcon, ThailandAnniversary } from "@components/molecules";
+import { MilestoneLeafIcon } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { trackContactInteraction, trackEvent } from "@lib/utils/analytics";
 import { alpha } from "@lib/utils/color";
 import { lastMilestoneReached } from "@lib/utils/forestMilestones";
 import { useI18n } from "@lib/utils/i18n";
-import { THAILAND_ANNIVERSARY } from "@lib/utils/thailandAnniversary";
 import { contentfulImageUrl } from "@utils/contentfulImage";
 
 export interface HeroPortfolioProps {
@@ -223,9 +222,9 @@ const MilestoneBadge = styled.a`
   }
 `;
 
-/* The two milestones share one quiet row under the calls to action, so they
-   never compete with the name, role, portrait or buttons above. Stacked and
-   centred on phones; a single line with a hairline between them from tablet. */
+/* The milestone sits in one quiet row under the calls to action, so it never
+   competes with the name, role, portrait or buttons above. Centred on phones,
+   left-aligned from tablet. */
 const MilestoneRow = styled.div`
   align-items: center;
   display: flex;
@@ -246,17 +245,6 @@ const MilestoneRow = styled.div`
       ${({ theme }) => theme.space.lg} - ${({ theme }) => theme.space["2xl"]}
     );
     text-align: left;
-  }
-`;
-
-const MilestoneDivider = styled.span.attrs({ "aria-hidden": "true" })`
-  background: ${({ theme }) => alpha(theme.colors.paragraph, 28)};
-  display: none;
-  height: 1.75rem;
-  width: 1px;
-
-  @media (min-width: ${BREAKPOINTS.xTablet}) {
-    display: block;
   }
 `;
 
@@ -632,28 +620,22 @@ const HeroPortfolio: React.FC<HeroPortfolioProps> = ({
                 </CvLink>
               )}
             </Actions>
-            {(milestone !== null || THAILAND_ANNIVERSARY.enabled) && (
+            {milestone !== null && (
               <MilestoneRow>
-                {milestone !== null && (
-                  <MilestoneBadge
-                    href="#forest"
-                    aria-label={t.heroMilestoneAria(milestone)}
-                    data-testid="hero-milestone"
-                    onClick={openForest}
-                  >
-                    <MilestoneLeaf size={20} />
-                    <span>{t.heroMilestone(milestone)}</span>
-                    <MilestoneArrow
-                      size={14}
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    />
-                  </MilestoneBadge>
-                )}
-                {milestone !== null && THAILAND_ANNIVERSARY.enabled && (
-                  <MilestoneDivider />
-                )}
-                {THAILAND_ANNIVERSARY.enabled && <ThailandAnniversary />}
+                <MilestoneBadge
+                  href="#forest"
+                  aria-label={t.heroMilestoneAria(milestone)}
+                  data-testid="hero-milestone"
+                  onClick={openForest}
+                >
+                  <MilestoneLeaf size={20} />
+                  <span>{t.heroMilestone(milestone)}</span>
+                  <MilestoneArrow
+                    size={14}
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                </MilestoneBadge>
               </MilestoneRow>
             )}
           </HeroGrid>
