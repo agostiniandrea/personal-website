@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { SECTION_LABELS, useI18n } from "@lib/utils/i18n";
-import { StorySub } from "@lib/utils/mobileNav";
+import { historyEntryState, StorySub } from "@lib/utils/mobileNav";
 
 /* Rendered at the top of both Journey and Experience; only one instance is
    ever visible because the sections are mutually exclusive in the story tab */
@@ -91,10 +91,11 @@ const StorySegmentedControl: React.FC = () => {
     if (sub === active) return;
     setActive(sub);
     document.documentElement.setAttribute("data-story-sub", sub);
+    const url = `${window.location.pathname}${window.location.search}#${sub}`;
     window.history.pushState(
-      { ...window.history.state, mobileView: "story", storySub: sub },
+      historyEntryState({ mobileView: "story", storySub: sub }, url),
       "",
-      `${window.location.pathname}${window.location.search}#${sub}`,
+      url,
     );
     window.scrollTo({ top: 0, behavior: "auto" });
     trackEvent(
