@@ -21,6 +21,19 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   flex-wrap: wrap;
 }
 
+.c24 {
+  color: var(--color-highlight);
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.c24:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
 .c8 {
   color: var(--color-paragraph);
   font-size: 0.875rem;
@@ -81,6 +94,15 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 .c23:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c25 {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .c13 {
@@ -243,6 +265,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
   }
 }
 
+@media (hover: hover) {
+  .c24:hover {
+    color: var(--color-tertiary);
+  }
+}
+
 @media (max-width: 899.99px) {
   .c19 {
     font-size: 0.75rem;
@@ -251,6 +279,12 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
 
 @media (hover: hover) {
   .c23:hover {
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c25:hover {
     color: var(--color-highlight);
   }
 }
@@ -539,6 +573,16 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
                
               NL004214781B58
             </span>
+            <span
+              class="c21 c22"
+            >
+              <a
+                class="c24 c25"
+                href="/privacy"
+              >
+                Privacy policy
+              </a>
+            </span>
           </span>
         </address>
       </div>
@@ -641,6 +685,15 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 .c27:focus-visible {
   outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
+}
+
+.c28 {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .c15 {
@@ -830,6 +883,12 @@ exports[`SiteFooter renders correctly with social links 1`] = `
 
 @media (hover: hover) {
   .c27:hover {
+    color: var(--color-highlight);
+  }
+}
+
+@media (hover: hover) {
+  .c28:hover {
     color: var(--color-highlight);
   }
 }
@@ -1157,6 +1216,16 @@ exports[`SiteFooter renders correctly with social links 1`] = `
               VAT ID:
                
               NL004214781B58
+            </span>
+            <span
+              class="c25 c26"
+            >
+              <a
+                class="c5 c28"
+                href="/privacy"
+              >
+                Privacy policy
+              </a>
             </span>
           </span>
         </address>

@@ -1,4 +1,9 @@
-import { CONSENT_KEY, readConsent, writeConsent } from "../consent";
+import {
+  clearConsent,
+  CONSENT_KEY,
+  readConsent,
+  writeConsent,
+} from "../consent";
 
 const blockStorage = () => {
   const denied = () => {
@@ -37,5 +42,20 @@ describe("consent storage", () => {
     });
     expect(readConsent()).toBeNull();
     expect(writeConsent("custom")).toBe(false);
+  });
+
+  it("forgets a stored choice", () => {
+    writeConsent("accepted");
+    expect(clearConsent()).toBe(true);
+    expect(localStorage.getItem(CONSENT_KEY)).toBeNull();
+    expect(readConsent()).toBeNull();
+  });
+
+  it("reports blocked storage on clear instead of throwing", () => {
+    jest.spyOn(Storage.prototype, "removeItem").mockImplementation(() => {
+      throw new DOMException("The operation is insecure.", "SecurityError");
+    });
+    expect(() => clearConsent()).not.toThrow();
+    expect(clearConsent()).toBe(false);
   });
 });

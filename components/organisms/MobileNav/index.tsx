@@ -26,6 +26,12 @@ import { NAV_ICONS } from "./navIcons";
 export interface MobileNavProps {
   cvDownloadUrl?: string;
   socialLinks?: { label: string; url: string }[];
+  /**
+   * For pages other than the homepage (e.g. the privacy policy): the bar and
+   * the More sheet appear, but every destination is a link back to the matching
+   * view of the homepage instead of a view swap on the current page.
+   */
+  standalone?: boolean;
 }
 
 const Nav = styled.nav`
@@ -88,6 +94,11 @@ const TabButton = styled.button<{ $active: boolean }>`
 `;
 
 const isHomepagePath = (pathname: string) => pathname === "/";
+
+/* Value of html[data-mobile-view] on standalone pages. No homepage section
+   matches it, so nothing is hidden; it only turns on the mobile layout that
+   clears the fixed tab bar (and lifts the cookie banner above it). */
+const STANDALONE_VIEW = "page";
 const isMobileViewport = () =>
   window.matchMedia?.(`(max-width: ${BREAKPOINTS.xTablet})`).matches ??
   window.innerWidth < 900;
@@ -116,8 +127,10 @@ const TAB_EVENTS = {
 const MobileNav: React.FC<MobileNavProps> = ({
   cvDownloadUrl,
   socialLinks,
+  standalone = false,
 }) => {
   const router = useRouter();
+  const isHome = isHomepagePath(router.pathname);
   const t = useI18n(router.locale);
   const [view, setView] = useState<MobileView>("home");
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -157,9 +170,14 @@ const MobileNav: React.FC<MobileNavProps> = ({
   }, []);
 
   useEffect(() => {
+    const root = document.documentElement;
     if (!isHomepagePath(router.pathname)) {
-      document.documentElement.removeAttribute("data-mobile-view");
-      document.documentElement.removeAttribute("data-story-sub");
+      root.removeAttribute("data-story-sub");
+      if (standalone) {
+        root.setAttribute("data-mobile-view", STANDALONE_VIEW);
+        return () => root.removeAttribute("data-mobile-view");
+      }
+      root.removeAttribute("data-mobile-view");
       return;
     }
     syncFromLocation();
@@ -169,7 +187,19 @@ const MobileNav: React.FC<MobileNavProps> = ({
       window.removeEventListener("popstate", syncFromLocation);
       window.removeEventListener("hashchange", syncFromLocation);
     };
-  }, [router.pathname, syncFromLocation]);
+  }, [router.pathname, standalone, syncFromLocation]);
+
+  /* Standalone pages leave the page: the homepage opens on the right view
+     because it reads the hash on arrival. Next keeps the current locale. */
+  const goToHomepageView = useCallback(
+    (next: MobileView, storySub: StorySub = "journey") => {
+      const nextHash = hashForView(next, storySub);
+      const tab = tabForView(next);
+      if (tab !== "more") trackEvent(TAB_EVENTS[tab], {});
+      router.push(nextHash ? `/#${nextHash}` : "/");
+    },
+    [router],
+  );
 
   const navigateTo = useCallback(
     (next: MobileView, storySub: StorySub = "journey") => {
@@ -246,6 +276,8 @@ const MobileNav: React.FC<MobileNavProps> = ({
   const openSheet = () => {
     trackEvent("mobile_more_open", {});
     setSheetOpen(true);
+    /* No history entry off the homepage: nothing there listens for it. */
+    if (!isHome) return;
     window.history.pushState(
       {
         ...window.history.state,
@@ -264,6 +296,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
 
   const closeSheet = () => {
     setSheetOpen(false);
+    if (!isHome) return;
     if (window.history.state?.mobileMoreEntry) {
       window.history.back();
       return;
@@ -306,16 +339,18 @@ const MobileNav: React.FC<MobileNavProps> = ({
   const onSheetNavigate = (destination: MoreDestination) => {
     trackEvent("mobile_more_destination", { destination });
     setSheetOpen(false);
+    const go = isHome ? navigateTo : goToHomepageView;
     if (destination === "experience") {
-      navigateTo("story", "experience");
+      go("story", "experience");
     } else {
-      navigateTo(destination);
+      go(destination);
     }
   };
 
-  if (!isHomepagePath(router.pathname)) return null;
+  if (!isHome && !standalone) return null;
 
-  const activeTab = sheetOpen ? "more" : tabForView(view);
+  /* Off the homepage no tab is "current": the page belongs to none of them. */
+  const activeTab = sheetOpen ? "more" : isHome ? tabForView(view) : undefined;
 
   const tabs: { id: MobileTab | "more"; label: string }[] = [
     { id: "home", label: t.tabHome },
@@ -327,11 +362,13 @@ const MobileNav: React.FC<MobileNavProps> = ({
 
   return (
     <>
-      <MobileFeedbackNudge
-        blocked={sheetOpen}
-        currentView={view}
-        onNavigateToForest={() => navigateTo("forest")}
-      />
+      {isHome && (
+        <MobileFeedbackNudge
+          blocked={sheetOpen}
+          currentView={view}
+          onNavigateToForest={() => navigateTo("forest")}
+        />
+      )}
       <Nav aria-label={t.mobileNavigation} data-testid="mobile-nav">
         <TabList>
           {tabs.map(({ id, label }) => (
@@ -341,9 +378,11 @@ const MobileNav: React.FC<MobileNavProps> = ({
                 aria-current={activeTab === id ? "page" : undefined}
                 aria-expanded={id === "more" ? sheetOpen : undefined}
                 aria-haspopup={id === "more" ? "dialog" : undefined}
-                onClick={() =>
-                  id === "more" ? toggleSheet() : navigateTo(id as MobileTab)
-                }
+                onClick={() => {
+                  if (id === "more") toggleSheet();
+                  else if (isHome) navigateTo(id);
+                  else goToHomepageView(id);
+                }}
               >
                 {NAV_ICONS[id]}
                 {label}
