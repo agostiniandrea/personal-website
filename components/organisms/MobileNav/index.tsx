@@ -9,6 +9,7 @@ import { BREAKPOINTS } from "@constants";
 import { trackEvent } from "@lib/utils/analytics";
 import { useI18n } from "@lib/utils/i18n";
 import {
+  historyEntryState,
   MobileTab,
   MobileView,
   MoreDestination,
@@ -146,23 +147,19 @@ const MobileNav: React.FC<MobileNavProps> = ({
 
     if (isMobileViewport() && resolved.isUnknownHash) {
       window.history.replaceState(
-        {
-          ...window.history.state,
-          mobileMoreEntry: false,
-          mobileView: "home",
-          storySub: "journey",
-        },
+        historyEntryState(
+          { mobileMoreEntry: false, mobileView: "home", storySub: "journey" },
+          routeWithHash(),
+        ),
         "",
         routeWithHash(),
       );
     } else if (isMobileViewport() && window.location.hash === "#projects") {
       window.history.replaceState(
-        {
-          ...window.history.state,
-          mobileMoreEntry: false,
-          mobileView: "work",
-          storySub: "journey",
-        },
+        historyEntryState(
+          { mobileMoreEntry: false, mobileView: "work", storySub: "journey" },
+          routeWithHash("work"),
+        ),
         "",
         routeWithHash("work"),
       );
@@ -213,12 +210,10 @@ const MobileNav: React.FC<MobileNavProps> = ({
       applyView(next, storySub);
       if (!isAlreadyCanonical) {
         window.history.pushState(
-          {
-            ...window.history.state,
-            mobileMoreEntry: false,
-            mobileView: next,
-            storySub,
-          },
+          historyEntryState(
+            { mobileMoreEntry: false, mobileView: next, storySub },
+            routeWithHash(nextHash),
+          ),
           "",
           routeWithHash(nextHash),
         );
@@ -279,16 +274,18 @@ const MobileNav: React.FC<MobileNavProps> = ({
     /* No history entry off the homepage: nothing there listens for it. */
     if (!isHome) return;
     window.history.pushState(
-      {
-        ...window.history.state,
-        mobileMoreEntry: true,
-        mobileView: view,
-        storySub:
-          document.documentElement.getAttribute("data-story-sub") ===
-          "experience"
-            ? "experience"
-            : "journey",
-      },
+      historyEntryState(
+        {
+          mobileMoreEntry: true,
+          mobileView: view,
+          storySub:
+            document.documentElement.getAttribute("data-story-sub") ===
+            "experience"
+              ? "experience"
+              : "journey",
+        },
+        routeWithHash("more"),
+      ),
       "",
       routeWithHash("more"),
     );
@@ -305,15 +302,14 @@ const MobileNav: React.FC<MobileNavProps> = ({
       document.documentElement.getAttribute("data-story-sub") === "experience"
         ? "experience"
         : "journey";
+    const url = routeWithHash(hashForView(view, storySub));
     window.history.replaceState(
-      {
-        ...window.history.state,
-        mobileMoreEntry: false,
-        mobileView: view,
-        storySub,
-      },
+      historyEntryState(
+        { mobileMoreEntry: false, mobileView: view, storySub },
+        url,
+      ),
       "",
-      routeWithHash(hashForView(view, storySub)),
+      url,
     );
   };
 

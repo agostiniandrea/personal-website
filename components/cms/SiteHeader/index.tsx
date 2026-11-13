@@ -9,6 +9,7 @@ import { Container, Flex, Link } from "@components/ions";
 import { ThemeMenu } from "@components/molecules";
 import { BREAKPOINTS, BREAKPOINTS_BELOW } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
+import { historyEntryState } from "@lib/utils/mobileNav";
 import { sectionRankFromUrl } from "@lib/utils/sectionOrder";
 
 export interface SiteHeaderLink {
@@ -220,10 +221,11 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     if (href.endsWith(LEGACY_HOME_ANCHOR) || href === "/") {
       if (router.pathname !== "/") return;
       e.preventDefault();
+      const url = `${window.location.pathname}${window.location.search}`;
       window.history.pushState(
-        { ...window.history.state, mobileView: "home", storySub: "journey" },
+        historyEntryState({ mobileView: "home", storySub: "journey" }, url),
         "",
-        `${window.location.pathname}${window.location.search}`,
+        url,
       );
       window.dispatchEvent(
         new PopStateEvent("popstate", { state: window.history.state }),
