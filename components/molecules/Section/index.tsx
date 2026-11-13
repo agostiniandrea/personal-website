@@ -20,6 +20,9 @@ interface SectionProps {
   heading?: string;
   body?: string;
   headingSize?: "display" | "section" | "card";
+  /* Heading level, h2 by default. A page that is one single section (the
+     privacy policy) passes "h1" so it still has its page title. */
+  headingAs?: "h1" | "h2";
   children: React.ReactNode;
   styles?: Interpolation<React.CSSProperties>;
 }
@@ -92,6 +95,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       heading,
       body,
       headingSize = "section",
+      headingAs,
       children,
       styles,
     },
@@ -107,7 +111,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       <Container>
         {eyebrow && <SectionLabel>{eyebrow}</SectionLabel>}
         {heading && (
-          <Title size={headingSize} $compensateLeading={!body}>
+          <Title size={headingSize} as={headingAs} $compensateLeading={!body}>
             {heading}
           </Title>
         )}

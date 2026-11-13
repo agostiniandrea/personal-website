@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
+import { Link } from "@components/ions";
 import { BREAKPOINTS_BELOW } from "@constants";
 import { ConsentValue, readConsent, writeConsent } from "@lib/utils/consent";
 
@@ -11,7 +12,8 @@ const copy = {
   en: {
     eyebrow: "Privacy",
     title: "This site uses cookies",
-    body: "Essential cookies keep the site working. Optional analytics help me understand how the portfolio is used and improve the experience.",
+    body: "Essential cookies keep the site working. Optional analytics, from Google Analytics and Microsoft Clarity, help me understand how the portfolio is used and improve the experience.",
+    policyLink: "Read the privacy policy",
     acceptAll: "Accept all",
     rejectNonEssential: "Reject non-essential",
     managePreferences: "Manage preferences",
@@ -21,14 +23,16 @@ const copy = {
     essentialDesc: "Required for the site to work",
     essentialAriaLabel: "Essential cookies, always on",
     analytics: "Analytics",
-    analyticsDesc: "Anonymous usage data via Google Analytics",
+    analyticsDesc:
+      "Usage statistics and session recordings via Google Analytics and Microsoft Clarity",
     analyticsAriaOn: "Analytics cookies on",
     analyticsAriaOff: "Analytics cookies off",
   },
   it: {
     eyebrow: "Privacy",
     title: "Questo sito usa i cookie",
-    body: "I cookie essenziali mantengono il sito funzionante. I cookie analitici facoltativi mi aiutano a capire come viene usato il portfolio e a migliorarlo.",
+    body: "I cookie essenziali mantengono il sito funzionante. I cookie analitici facoltativi, di Google Analytics e Microsoft Clarity, mi aiutano a capire come viene usato il portfolio e a migliorarlo.",
+    policyLink: "Leggi l'informativa sulla privacy",
     acceptAll: "Accetta tutti",
     rejectNonEssential: "Rifiuta non essenziali",
     managePreferences: "Gestisci preferenze",
@@ -38,7 +42,8 @@ const copy = {
     essentialDesc: "Necessari per il funzionamento del sito",
     essentialAriaLabel: "Cookie essenziali, sempre attivi",
     analytics: "Analitici",
-    analyticsDesc: "Dati anonimi sull'utilizzo tramite Google Analytics",
+    analyticsDesc:
+      "Statistiche d'uso e registrazioni delle sessioni tramite Google Analytics e Microsoft Clarity",
     analyticsAriaOn: "Cookie analitici attivi",
     analyticsAriaOff: "Cookie analitici disattivi",
   },
@@ -99,6 +104,15 @@ const Body = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: ${({ theme }) => theme.lineHeights.relaxed};
   margin: 0;
+`;
+
+/* An inline link at the end of the body text: it keeps the accent colour of
+   the other banner links but sits at the body size. */
+const PolicyLink = styled(Link)`
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  white-space: nowrap;
 `;
 
 const Actions = styled.div`
@@ -293,7 +307,9 @@ const CookieBanner: React.FC = () => {
     >
       <Eyebrow>{t.eyebrow}</Eyebrow>
       <Title id="cookie-title">{t.title}</Title>
-      <Body id="cookie-desc">{t.body}</Body>
+      <Body id="cookie-desc">
+        {t.body} <PolicyLink href="/privacy">{t.policyLink}</PolicyLink>
+      </Body>
 
       <Actions>
         {showPreferences ? (
