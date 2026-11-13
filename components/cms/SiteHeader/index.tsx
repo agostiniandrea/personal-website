@@ -207,11 +207,14 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ logoText, navLinks }) => {
     [navLinks],
   );
 
+  /* The mobile views write their #hash to the URL themselves, so Next never
+     sees it and `asPath` is still the address the page was loaded with.
+     Carrying the live hash over keeps the visitor on the same view in the new
+     language; without it the URL loses `#journey` and going back from the More
+     sheet lands on Home. */
   const switchLocale = () => {
-    router.push(router.asPath, router.asPath, {
-      locale: nextLocale,
-      scroll: false,
-    });
+    const target = `${router.asPath.split("#")[0]}${window.location.hash}`;
+    router.push(target, target, { locale: nextLocale, scroll: false });
   };
 
   const handleAnchorClick = (
