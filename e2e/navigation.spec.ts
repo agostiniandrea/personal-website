@@ -257,10 +257,10 @@ test.describe("mobile app navigation accessibility", () => {
     await page.goto("/");
     await page.getByRole("button", { name: "More" }).click();
     const dialog = page.getByRole("dialog", { name: "Explore" });
-    // The last focusable is the email in the business details, under the
-    // social links in the footer-info block
+    // The last focusable is the privacy policy link at the end of the
+    // business details, under the social links in the footer-info block
     const lastFocusable = dialog.getByRole("link", {
-      name: "a.agostini92@gmail.com",
+      name: "Privacy policy",
     });
 
     await expect(
