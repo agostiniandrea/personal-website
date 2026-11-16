@@ -13,4 +13,5 @@ export {
 } from "./feedback";
 export { default as MODULES } from "./modules";
 export { default as PAGE_TYPES } from "./pageTypes";
+export { getPrivacyPolicy } from "./privacyPolicy";
 export { default as WEBSITE_CARBON } from "./websiteCarbon";

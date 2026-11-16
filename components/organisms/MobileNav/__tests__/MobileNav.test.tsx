@@ -365,4 +365,56 @@ describe("MobileNav", () => {
       });
     });
   });
+
+  /* Next's router replays the `as` stored on a history entry when the visitor
+     goes back. Entries written here must carry their own URL there, not the
+     one the page was loaded with, or closing the More sheet on a page opened
+     at /#forest would put #forest back and jump to Forest. */
+  describe("history entries under Next's router", () => {
+    const loadAtForest = () =>
+      window.history.replaceState(
+        { __N: true, as: "/#forest", url: "/" },
+        "",
+        "/#forest",
+      );
+
+    it("stamps a tab change with its own URL", async () => {
+      const user = userEvent.setup();
+      loadAtForest();
+      renderWithTheme(<MobileNav />);
+
+      await user.click(screen.getByRole("button", { name: "Work" }));
+
+      expect(window.history.state).toEqual(
+        expect.objectContaining({
+          __N: true,
+          as: "/#work",
+          mobileView: "work",
+          url: "/",
+        }),
+      );
+    });
+
+    it("stamps the More entry with its own URL", async () => {
+      const user = userEvent.setup();
+      loadAtForest();
+      renderWithTheme(<MobileNav />);
+      await user.click(screen.getByRole("button", { name: "Work" }));
+
+      await user.click(screen.getByRole("button", { name: "More" }));
+
+      expect(window.history.state).toEqual(
+        expect.objectContaining({ as: "/#more", mobileMoreEntry: true }),
+      );
+    });
+
+    it("leaves states without Next's fields alone", async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<MobileNav />);
+
+      await user.click(screen.getByRole("button", { name: "Work" }));
+
+      expect(window.history.state).not.toHaveProperty("as");
+    });
+  });
 });

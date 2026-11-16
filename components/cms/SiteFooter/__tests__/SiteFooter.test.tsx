@@ -71,11 +71,12 @@ describe("SiteFooter", () => {
 
   it("renders no social links when socialLinks is empty", () => {
     renderWithTheme(<SiteFooter {...minimalSiteFooter} />);
-    // Only the static Green Web badge and the business email remain.
+    // Only the Green Web badge, the business email and the privacy link remain.
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(3);
     expect(links[0]).toHaveAccessibleName(/green hosting/i);
     expect(links[1]).toHaveAttribute("href", "mailto:a.agostini92@gmail.com");
+    expect(links[2]).toHaveAttribute("href", "/privacy");
   });
 
   it("shows the Climate Action label, then Green Web, in the badge row", () => {

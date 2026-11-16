@@ -41,4 +41,17 @@ describe("BusinessDetails", () => {
       screen.getByRole("link", { name: BUSINESS_DETAILS.email }),
     ).toHaveAttribute("href", `mailto:${BUSINESS_DETAILS.email}`);
   });
+
+  it("links to the privacy policy in both layouts", () => {
+    const { unmount } = renderWithTheme(<BusinessDetails />);
+    expect(
+      screen.getByRole("link", { name: "Privacy policy" }),
+    ).toHaveAttribute("href", "/privacy");
+    unmount();
+
+    renderWithTheme(<BusinessDetails layout="rows" />);
+    expect(
+      screen.getByRole("link", { name: "Privacy policy" }),
+    ).toHaveAttribute("href", "/privacy");
+  });
 });

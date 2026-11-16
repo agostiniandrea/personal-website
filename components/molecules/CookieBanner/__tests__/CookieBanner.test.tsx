@@ -60,6 +60,29 @@ describe("CookieBanner", () => {
     window.removeEventListener("cookie-consent-accepted", onAccepted);
   });
 
+  describe("privacy information", () => {
+    it("names both analytics tools and links to the privacy policy", async () => {
+      const user = userEvent.setup();
+      renderWithTheme(<CookieBanner />);
+
+      expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
+        /Google Analytics and Microsoft Clarity/,
+      );
+      expect(
+        screen.getByRole("link", { name: "Read the privacy policy" }),
+      ).toHaveAttribute("href", "/privacy");
+
+      await user.click(
+        screen.getByRole("button", { name: "Manage preferences" }),
+      );
+      expect(
+        screen.getByText(
+          "Usage statistics and session recordings via Google Analytics and Microsoft Clarity",
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
   describe("when localStorage is unavailable", () => {
     it("still renders the banner instead of crashing on the read", () => {
       blockStorage();

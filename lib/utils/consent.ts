@@ -33,3 +33,14 @@ export function writeConsent(value: ConsentValue): boolean {
     return false;
   }
 }
+
+/** Forgets the stored choice, so the banner asks again on the next load.
+    Returns whether the key was actually removed. */
+export function clearConsent(): boolean {
+  try {
+    window.localStorage.removeItem(CONSENT_KEY);
+    return true;
+  } catch {
+    return false;
+  }
+}

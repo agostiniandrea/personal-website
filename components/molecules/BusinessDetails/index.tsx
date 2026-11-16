@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 import styled, { css } from "styled-components";
 
+import { Link } from "@components/ions";
 import { toSpacing } from "@config/tokens";
 import { BREAKPOINTS_BELOW, BUSINESS_DETAILS } from "@constants";
 import { useI18n } from "@lib/utils/i18n";
@@ -106,6 +107,22 @@ const EmailLink = styled.a`
   }
 `;
 
+/* Same treatment as the email link: small print that keeps the text colour. */
+const PolicyLink = styled(Link)`
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+
+  @media (hover: hover) {
+    &:hover {
+      color: ${({ theme }) => theme.colors.highlight};
+    }
+  }
+`;
+
 const BusinessDetails: React.FC<BusinessDetailsProps> = ({
   layout = "inline",
   className,
@@ -136,6 +153,9 @@ const BusinessDetails: React.FC<BusinessDetailsProps> = ({
         </NoWrapItem>
         <NoWrapItem>
           {t.businessVatLabel} {vatId}
+        </NoWrapItem>
+        <NoWrapItem>
+          <PolicyLink href="/privacy">{t.privacyPolicyLink}</PolicyLink>
         </NoWrapItem>
       </Row>
     </Address>

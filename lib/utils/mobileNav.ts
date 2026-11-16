@@ -118,6 +118,22 @@ export function tabForView(view: MobileView): MobileTab | "more" {
     : "more";
 }
 
+/* State for a history entry that the mobile views write themselves.
+
+   Next's router keeps the URL it believes an entry has in `as`, and replays it
+   on popstate. Copying the current state verbatim, as these writes used to,
+   leaves the `as` of the page load on every entry, so going back (closing the
+   More sheet, for example) made Next put that old URL back, and a page opened
+   at /it#forest jumped to Forest. Keep `as` in step with the URL actually
+   written. Without Next's state (`as` absent) it is left alone. */
+export function historyEntryState(
+  extra: Record<string, unknown>,
+  url: string,
+): Record<string, unknown> {
+  const current = (window.history.state ?? {}) as Record<string, unknown>;
+  return { ...current, ...extra, ...("as" in current ? { as: url } : {}) };
+}
+
 /* Mirrors resolveViewFromHash before hydration so deep links never flash
    Home. Kept as a string: it is inlined in _document and must not rely on
    imports at runtime. Applies only on the homepage (tabs exist only there). */
