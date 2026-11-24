@@ -11,7 +11,7 @@ describe("BusinessDetails", () => {
 
     expect(screen.getByText(BUSINESS_DETAILS.name)).toBeInTheDocument();
     expect(
-      screen.getByText(/Piet Heinstraat 12, 7511 JE Enschede, Netherlands/),
+      screen.getByText(/Piet Heinstraat 12, 7511 JE Enschede, The Netherlands/),
     ).toBeInTheDocument();
     expect(screen.getByText(/KVK: 86233858/)).toBeInTheDocument();
     expect(screen.getByText(/VAT ID: NL004214781B58/)).toBeInTheDocument();
