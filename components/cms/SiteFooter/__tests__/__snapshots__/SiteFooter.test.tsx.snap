@@ -539,7 +539,7 @@ exports[`SiteFooter renders correctly with no social links 1`] = `
                
               Enschede
               , 
-              Netherlands
+              The Netherlands
             </span>
           </span>
           <span
@@ -1183,7 +1183,7 @@ exports[`SiteFooter renders correctly with social links 1`] = `
                
               Enschede
               , 
-              Netherlands
+              The Netherlands
             </span>
           </span>
           <span
